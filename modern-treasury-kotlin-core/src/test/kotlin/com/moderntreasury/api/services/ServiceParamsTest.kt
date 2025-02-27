@@ -2,7 +2,6 @@
 
 package com.moderntreasury.api.services
 
-import com.fasterxml.jackson.databind.json.JsonMapper
 import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
 import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.matchingJsonPath
@@ -16,13 +15,9 @@ import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.moderntreasury.api.client.ModernTreasuryClient
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.jsonMapper
-import com.moderntreasury.api.models.AccountDetail
 import com.moderntreasury.api.models.BankSettings
-import com.moderntreasury.api.models.Counterparty
 import com.moderntreasury.api.models.CounterpartyCreateParams
 import com.moderntreasury.api.models.ExternalAccountType
-import com.moderntreasury.api.models.RoutingDetail
 import com.moderntreasury.api.models.TransactionDirection
 import com.moderntreasury.api.models.WealthAndEmploymentDetails
 import java.time.LocalDate
@@ -31,9 +26,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 @WireMockTest
-class ServiceParamsTest {
-
-    private val JSON_MAPPER: JsonMapper = jsonMapper()
+internal class ServiceParamsTest {
 
     private lateinit var client: ModernTreasuryClient
 
@@ -41,28 +34,18 @@ class ServiceParamsTest {
     fun beforeEach(wmRuntimeInfo: WireMockRuntimeInfo) {
         client =
             ModernTreasuryOkHttpClient.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .apiKey("My API Key")
                 .organizationId("my-organization-ID")
-                .webhookKey("My Webhook Key")
-                .baseUrl(wmRuntimeInfo.getHttpBaseUrl())
                 .build()
     }
 
     @Test
-    fun counterpartiesCreateWithAdditionalParams() {
-        val additionalHeaders = mutableMapOf<String, List<String>>()
+    fun create() {
+        val counterpartyService = client.counterparties()
+        stubFor(post(anyUrl()).willReturn(ok("{}")))
 
-        additionalHeaders.put("x-test-header", listOf("abc1234"))
-
-        val additionalQueryParams = mutableMapOf<String, List<String>>()
-
-        additionalQueryParams.put("test_query_param", listOf("def567"))
-
-        val additionalBodyProperties = mutableMapOf<String, JsonValue>()
-
-        additionalBodyProperties.put("testBodyProperty", JsonValue.from("ghi890"))
-
-        val params =
+        counterpartyService.create(
             CounterpartyCreateParams.builder()
                 .name("name")
                 .accounting(
@@ -468,140 +451,17 @@ class ServiceParamsTest {
                 .sendRemittanceAdvice(true)
                 .taxpayerIdentifier("taxpayer_identifier")
                 .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
-                .additionalHeaders(additionalHeaders)
-                .additionalBodyProperties(additionalBodyProperties)
-                .additionalQueryParams(additionalQueryParams)
+                .putAdditionalHeader("Secret-Header", "42")
+                .putAdditionalQueryParam("secret_query_param", "42")
+                .putAdditionalBodyProperty("secretProperty", JsonValue.from("42"))
                 .build()
-
-        val apiResponse =
-            Counterparty.builder()
-                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .addAccount(
-                    Counterparty.Account.builder()
-                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .addAccountDetail(
-                            AccountDetail.builder()
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .accountNumberSafe("account_number_safe")
-                                .accountNumberType(AccountDetail.AccountNumberType.AU_NUMBER)
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .liveMode(true)
-                                .object_("object")
-                                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .accountNumber("account_number")
-                                .build()
-                        )
-                        .accountType(ExternalAccountType.CASH)
-                        .addContactDetail(
-                            Counterparty.Account.ContactDetail.builder()
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .contactIdentifier("contact_identifier")
-                                .contactIdentifierType(
-                                    Counterparty.Account.ContactDetail.ContactIdentifierType.EMAIL
-                                )
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .liveMode(true)
-                                .object_("object")
-                                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .build()
-                        )
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .liveMode(true)
-                        .metadata(
-                            Counterparty.Account.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                .build()
-                        )
-                        .name("name")
-                        .object_("object")
-                        .partyAddress(
-                            Counterparty.Account.Address.builder()
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .country("country")
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .line1("line1")
-                                .line2("line2")
-                                .liveMode(true)
-                                .locality("locality")
-                                .object_("object")
-                                .postalCode("postal_code")
-                                .region("region")
-                                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .build()
-                        )
-                        .partyName("party_name")
-                        .partyType(Counterparty.Account.PartyType.BUSINESS)
-                        .addRoutingDetail(
-                            RoutingDetail.builder()
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .bankAddress(
-                                    RoutingDetail.Address.builder()
-                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                        .country("country")
-                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .line1("line1")
-                                        .line2("line2")
-                                        .liveMode(true)
-                                        .locality("locality")
-                                        .object_("object")
-                                        .postalCode("postal_code")
-                                        .region("region")
-                                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .build()
-                                )
-                                .bankName("bank_name")
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .liveMode(true)
-                                .object_("object")
-                                .paymentType(RoutingDetail.PaymentType.ACH)
-                                .routingNumber("routing_number")
-                                .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
-                                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .build()
-                        )
-                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .verificationSource(Counterparty.Account.VerificationSource.ACH_PRENOTE)
-                        .verificationStatus(
-                            Counterparty.Account.VerificationStatus.PENDING_VERIFICATION
-                        )
-                        .build()
-                )
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .email("dev@stainlessapi.com")
-                .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .liveMode(true)
-                .metadata(
-                    Counterparty.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                        .build()
-                )
-                .name("name")
-                .object_("object")
-                .sendRemittanceAdvice(true)
-                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .verificationStatus(Counterparty.VerificationStatus.DENIED)
-                .build()
-
-        stubFor(
-            post(anyUrl())
-                .withHeader("x-test-header", equalTo("abc1234"))
-                .withQueryParam("test_query_param", equalTo("def567"))
-                .withRequestBody(matchingJsonPath("$.testBodyProperty", equalTo("ghi890")))
-                .willReturn(ok(JSON_MAPPER.writeValueAsString(apiResponse)))
         )
 
-        client.counterparties().create(params)
-
-        verify(postRequestedFor(anyUrl()))
+        verify(
+            postRequestedFor(anyUrl())
+                .withHeader("Secret-Header", equalTo("42"))
+                .withQueryParam("secret_query_param", equalTo("42"))
+                .withRequestBody(matchingJsonPath("$.secretProperty", equalTo("42")))
+        )
     }
 }
