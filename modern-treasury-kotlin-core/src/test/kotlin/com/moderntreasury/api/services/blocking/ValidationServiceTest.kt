@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class ValidationServiceTest {
 
     @Test
-    fun callValidateRoutingNumber() {
+    fun validateRoutingNumber() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -20,6 +20,7 @@ class ValidationServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val validationService = client.validations()
+
         val routingNumberLookupRequest =
             validationService.validateRoutingNumber(
                 ValidationValidateRoutingNumberParams.builder()
@@ -27,7 +28,7 @@ class ValidationServiceTest {
                     .routingNumberType(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA)
                     .build()
             )
-        println(routingNumberLookupRequest)
+
         routingNumberLookupRequest.validate()
     }
 }

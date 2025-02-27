@@ -17,7 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class LineItemServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -25,6 +25,7 @@ class LineItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val lineItemService = client.invoices().lineItems()
+
         val invoiceLineItem =
             lineItemService.create(
                 InvoiceLineItemCreateParams.builder()
@@ -44,12 +45,12 @@ class LineItemServiceTest {
                     .unitAmountDecimal("unit_amount_decimal")
                     .build()
             )
-        println(invoiceLineItem)
+
         invoiceLineItem.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -57,16 +58,17 @@ class LineItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val lineItemService = client.invoices().lineItems()
+
         val invoiceLineItem =
             lineItemService.retrieve(
                 InvoiceLineItemRetrieveParams.builder().invoiceId("invoice_id").id("id").build()
             )
-        println(invoiceLineItem)
+
         invoiceLineItem.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -74,6 +76,7 @@ class LineItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val lineItemService = client.invoices().lineItems()
+
         val invoiceLineItem =
             lineItemService.update(
                 InvoiceLineItemUpdateParams.builder()
@@ -94,12 +97,12 @@ class LineItemServiceTest {
                     .unitAmountDecimal("unit_amount_decimal")
                     .build()
             )
-        println(invoiceLineItem)
+
         invoiceLineItem.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -107,16 +110,17 @@ class LineItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val lineItemService = client.invoices().lineItems()
-        val response =
+
+        val page =
             lineItemService.list(
                 InvoiceLineItemListParams.builder().invoiceId("invoice_id").build()
             )
-        println(response)
-        response.items().forEach { it.validate() }
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -124,11 +128,12 @@ class LineItemServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val lineItemService = client.invoices().lineItems()
+
         val invoiceLineItem =
             lineItemService.delete(
                 InvoiceLineItemDeleteParams.builder().invoiceId("invoice_id").id("id").build()
             )
-        println(invoiceLineItem)
+
         invoiceLineItem.validate()
     }
 }

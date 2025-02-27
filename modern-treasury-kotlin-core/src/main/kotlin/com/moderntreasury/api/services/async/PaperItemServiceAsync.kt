@@ -18,7 +18,11 @@ interface PaperItemServiceAsync {
 
     /** Get a list of all paper items. */
     suspend fun list(
-        params: PaperItemListParams,
+        params: PaperItemListParams = PaperItemListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaperItemListPageAsync
+
+    /** Get a list of all paper items. */
+    suspend fun list(requestOptions: RequestOptions): PaperItemListPageAsync =
+        list(PaperItemListParams.none(), requestOptions)
 }

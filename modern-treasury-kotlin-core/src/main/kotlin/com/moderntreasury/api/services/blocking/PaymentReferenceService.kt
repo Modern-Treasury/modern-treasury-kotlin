@@ -19,9 +19,13 @@ interface PaymentReferenceService {
 
     /** list payment_references */
     fun list(
-        params: PaymentReferenceListParams,
+        params: PaymentReferenceListParams = PaymentReferenceListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentReferenceListPage
+
+    /** list payment_references */
+    fun list(requestOptions: RequestOptions): PaymentReferenceListPage =
+        list(PaymentReferenceListParams.none(), requestOptions)
 
     /** get payment_reference */
     @Deprecated("use `retrieve` instead")

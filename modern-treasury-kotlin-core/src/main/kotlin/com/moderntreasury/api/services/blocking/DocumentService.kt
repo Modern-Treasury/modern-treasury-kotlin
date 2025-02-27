@@ -25,7 +25,11 @@ interface DocumentService {
 
     /** Get a list of documents. */
     fun list(
-        params: DocumentListParams,
+        params: DocumentListParams = DocumentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentListPage
+
+    /** Get a list of documents. */
+    fun list(requestOptions: RequestOptions): DocumentListPage =
+        list(DocumentListParams.none(), requestOptions)
 }

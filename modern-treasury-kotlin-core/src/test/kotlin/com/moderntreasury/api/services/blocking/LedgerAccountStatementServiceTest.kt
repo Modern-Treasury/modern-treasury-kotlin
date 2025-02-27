@@ -17,7 +17,7 @@ class LedgerAccountStatementServiceTest {
 
     @Disabled("Prism is broken in this case")
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -25,7 +25,8 @@ class LedgerAccountStatementServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountStatementService = client.ledgerAccountStatements()
-        val ledgerAccountStatementCreateResponse =
+
+        val ledgerAccountStatement =
             ledgerAccountStatementService.create(
                 LedgerAccountStatementCreateParams.builder()
                     .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -41,12 +42,12 @@ class LedgerAccountStatementServiceTest {
                     )
                     .build()
             )
-        println(ledgerAccountStatementCreateResponse)
-        ledgerAccountStatementCreateResponse.validate()
+
+        ledgerAccountStatement.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -54,11 +55,12 @@ class LedgerAccountStatementServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountStatementService = client.ledgerAccountStatements()
-        val ledgerAccountStatementRetrieveResponse =
+
+        val ledgerAccountStatement =
             ledgerAccountStatementService.retrieve(
                 LedgerAccountStatementRetrieveParams.builder().id("id").build()
             )
-        println(ledgerAccountStatementRetrieveResponse)
-        ledgerAccountStatementRetrieveResponse.validate()
+
+        ledgerAccountStatement.validate()
     }
 }

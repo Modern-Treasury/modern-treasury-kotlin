@@ -69,6 +69,8 @@ private constructor(
 
     companion object {
 
+        fun none(): LedgerListParams = builder().build()
+
         fun builder() = Builder()
     }
 

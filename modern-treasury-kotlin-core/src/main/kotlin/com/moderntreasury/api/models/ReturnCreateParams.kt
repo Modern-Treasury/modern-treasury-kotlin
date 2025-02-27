@@ -25,7 +25,7 @@ import java.util.Objects
 /** Create a return. */
 class ReturnCreateParams
 private constructor(
-    private val body: ReturnCreateBody,
+    private val body: ReturnCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -88,16 +88,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): ReturnCreateBody = body
+    internal fun _body(): ReturnCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class ReturnCreateBody
+    class ReturnCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("returnable_id")
         @ExcludeMissing
         private val returnableId: JsonField<String> = JsonMissing.of(),
@@ -191,7 +191,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): ReturnCreateBody = apply {
+        fun validate(): ReturnCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -212,7 +212,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [ReturnCreateBody]. */
+        /** A builder for [ReturnCreateRequest]. */
         class Builder internal constructor() {
 
             private var returnableId: JsonField<String>? = null
@@ -223,14 +223,14 @@ private constructor(
             private var reason: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(returnCreateBody: ReturnCreateBody) = apply {
-                returnableId = returnCreateBody.returnableId
-                returnableType = returnCreateBody.returnableType
-                additionalInformation = returnCreateBody.additionalInformation
-                code = returnCreateBody.code
-                dateOfDeath = returnCreateBody.dateOfDeath
-                reason = returnCreateBody.reason
-                additionalProperties = returnCreateBody.additionalProperties.toMutableMap()
+            internal fun from(returnCreateRequest: ReturnCreateRequest) = apply {
+                returnableId = returnCreateRequest.returnableId
+                returnableType = returnCreateRequest.returnableType
+                additionalInformation = returnCreateRequest.additionalInformation
+                code = returnCreateRequest.code
+                dateOfDeath = returnCreateRequest.dateOfDeath
+                reason = returnCreateRequest.reason
+                additionalProperties = returnCreateRequest.additionalProperties.toMutableMap()
             }
 
             /** The ID of the object being returned or `null`. */
@@ -324,8 +324,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): ReturnCreateBody =
-                ReturnCreateBody(
+            fun build(): ReturnCreateRequest =
+                ReturnCreateRequest(
                     checkRequired("returnableId", returnableId),
                     checkRequired("returnableType", returnableType),
                     additionalInformation,
@@ -341,7 +341,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ReturnCreateBody && returnableId == other.returnableId && returnableType == other.returnableType && additionalInformation == other.additionalInformation && code == other.code && dateOfDeath == other.dateOfDeath && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ReturnCreateRequest && returnableId == other.returnableId && returnableType == other.returnableType && additionalInformation == other.additionalInformation && code == other.code && dateOfDeath == other.dateOfDeath && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -351,7 +351,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ReturnCreateBody{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, dateOfDeath=$dateOfDeath, reason=$reason, additionalProperties=$additionalProperties}"
+            "ReturnCreateRequest{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, dateOfDeath=$dateOfDeath, reason=$reason, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -365,7 +365,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: ReturnCreateBody.Builder = ReturnCreateBody.builder()
+        private var body: ReturnCreateRequest.Builder = ReturnCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

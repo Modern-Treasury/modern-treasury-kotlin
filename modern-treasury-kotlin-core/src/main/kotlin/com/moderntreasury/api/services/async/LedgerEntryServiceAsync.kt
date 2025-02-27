@@ -25,7 +25,11 @@ interface LedgerEntryServiceAsync {
 
     /** Get a list of all ledger entries. */
     suspend fun list(
-        params: LedgerEntryListParams,
+        params: LedgerEntryListParams = LedgerEntryListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEntryListPageAsync
+
+    /** Get a list of all ledger entries. */
+    suspend fun list(requestOptions: RequestOptions): LedgerEntryListPageAsync =
+        list(LedgerEntryListParams.none(), requestOptions)
 }

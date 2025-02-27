@@ -32,7 +32,11 @@ interface AccountCollectionFlowServiceAsync {
 
     /** list account_collection_flows */
     suspend fun list(
-        params: AccountCollectionFlowListParams,
+        params: AccountCollectionFlowListParams = AccountCollectionFlowListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountCollectionFlowListPageAsync
+
+    /** list account_collection_flows */
+    suspend fun list(requestOptions: RequestOptions): AccountCollectionFlowListPageAsync =
+        list(AccountCollectionFlowListParams.none(), requestOptions)
 }

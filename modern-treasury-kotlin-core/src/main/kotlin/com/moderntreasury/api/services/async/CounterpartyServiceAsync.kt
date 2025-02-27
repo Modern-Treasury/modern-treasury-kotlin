@@ -35,9 +35,13 @@ interface CounterpartyServiceAsync {
 
     /** Get a paginated list of all counterparties. */
     suspend fun list(
-        params: CounterpartyListParams,
+        params: CounterpartyListParams = CounterpartyListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CounterpartyListPageAsync
+
+    /** Get a paginated list of all counterparties. */
+    suspend fun list(requestOptions: RequestOptions): CounterpartyListPageAsync =
+        list(CounterpartyListParams.none(), requestOptions)
 
     /** Deletes a given counterparty. */
     suspend fun delete(

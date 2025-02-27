@@ -49,6 +49,8 @@ private constructor(
 
     companion object {
 
+        fun none(): ConnectionListParams = builder().build()
+
         fun builder() = Builder()
     }
 

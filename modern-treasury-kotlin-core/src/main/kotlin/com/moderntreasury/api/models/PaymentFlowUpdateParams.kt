@@ -25,7 +25,7 @@ import java.util.Objects
 class PaymentFlowUpdateParams
 private constructor(
     private val id: String,
-    private val body: PaymentFlowUpdateBody,
+    private val body: PaymentFlowUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -50,7 +50,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): PaymentFlowUpdateBody = body
+    internal fun _body(): PaymentFlowUpdateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -64,9 +64,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class PaymentFlowUpdateBody
+    class PaymentFlowUpdateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("status")
         @ExcludeMissing
         private val status: JsonField<Status> = JsonMissing.of(),
@@ -92,7 +92,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): PaymentFlowUpdateBody = apply {
+        fun validate(): PaymentFlowUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -108,15 +108,15 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [PaymentFlowUpdateBody]. */
+        /** A builder for [PaymentFlowUpdateRequest]. */
         class Builder internal constructor() {
 
             private var status: JsonField<Status>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(paymentFlowUpdateBody: PaymentFlowUpdateBody) = apply {
-                status = paymentFlowUpdateBody.status
-                additionalProperties = paymentFlowUpdateBody.additionalProperties.toMutableMap()
+            internal fun from(paymentFlowUpdateRequest: PaymentFlowUpdateRequest) = apply {
+                status = paymentFlowUpdateRequest.status
+                additionalProperties = paymentFlowUpdateRequest.additionalProperties.toMutableMap()
             }
 
             /**
@@ -150,8 +150,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): PaymentFlowUpdateBody =
-                PaymentFlowUpdateBody(
+            fun build(): PaymentFlowUpdateRequest =
+                PaymentFlowUpdateRequest(
                     checkRequired("status", status),
                     additionalProperties.toImmutable(),
                 )
@@ -162,7 +162,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentFlowUpdateBody && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PaymentFlowUpdateRequest && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -172,7 +172,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PaymentFlowUpdateBody{status=$status, additionalProperties=$additionalProperties}"
+            "PaymentFlowUpdateRequest{status=$status, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -187,7 +187,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: PaymentFlowUpdateBody.Builder = PaymentFlowUpdateBody.builder()
+        private var body: PaymentFlowUpdateRequest.Builder = PaymentFlowUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

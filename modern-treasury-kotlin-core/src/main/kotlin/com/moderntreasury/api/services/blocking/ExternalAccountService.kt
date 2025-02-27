@@ -36,9 +36,13 @@ interface ExternalAccountService {
 
     /** list external accounts */
     fun list(
-        params: ExternalAccountListParams,
+        params: ExternalAccountListParams = ExternalAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccountListPage
+
+    /** list external accounts */
+    fun list(requestOptions: RequestOptions): ExternalAccountListPage =
+        list(ExternalAccountListParams.none(), requestOptions)
 
     /** delete external account */
     fun delete(

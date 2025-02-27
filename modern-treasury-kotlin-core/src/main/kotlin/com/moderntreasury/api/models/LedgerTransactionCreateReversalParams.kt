@@ -26,7 +26,7 @@ import java.util.Objects
 class LedgerTransactionCreateReversalParams
 private constructor(
     private val id: String,
-    private val body: LedgerTransactionCreateReversalBody,
+    private val body: LedgerTransactionReversalCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -113,7 +113,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerTransactionCreateReversalBody = body
+    internal fun _body(): LedgerTransactionReversalCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -127,9 +127,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class LedgerTransactionCreateReversalBody
+    class LedgerTransactionReversalCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("description")
         @ExcludeMissing
         private val description: JsonField<String> = JsonMissing.of(),
@@ -245,7 +245,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LedgerTransactionCreateReversalBody = apply {
+        fun validate(): LedgerTransactionReversalCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -267,7 +267,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LedgerTransactionCreateReversalBody]. */
+        /** A builder for [LedgerTransactionReversalCreateRequest]. */
         class Builder internal constructor() {
 
             private var description: JsonField<String> = JsonMissing.of()
@@ -280,17 +280,17 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
-                ledgerTransactionCreateReversalBody: LedgerTransactionCreateReversalBody
+                ledgerTransactionReversalCreateRequest: LedgerTransactionReversalCreateRequest
             ) = apply {
-                description = ledgerTransactionCreateReversalBody.description
-                effectiveAt = ledgerTransactionCreateReversalBody.effectiveAt
-                externalId = ledgerTransactionCreateReversalBody.externalId
-                ledgerableId = ledgerTransactionCreateReversalBody.ledgerableId
-                ledgerableType = ledgerTransactionCreateReversalBody.ledgerableType
-                metadata = ledgerTransactionCreateReversalBody.metadata
-                status = ledgerTransactionCreateReversalBody.status
+                description = ledgerTransactionReversalCreateRequest.description
+                effectiveAt = ledgerTransactionReversalCreateRequest.effectiveAt
+                externalId = ledgerTransactionReversalCreateRequest.externalId
+                ledgerableId = ledgerTransactionReversalCreateRequest.ledgerableId
+                ledgerableType = ledgerTransactionReversalCreateRequest.ledgerableType
+                metadata = ledgerTransactionReversalCreateRequest.metadata
+                status = ledgerTransactionReversalCreateRequest.status
                 additionalProperties =
-                    ledgerTransactionCreateReversalBody.additionalProperties.toMutableMap()
+                    ledgerTransactionReversalCreateRequest.additionalProperties.toMutableMap()
             }
 
             /**
@@ -400,8 +400,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LedgerTransactionCreateReversalBody =
-                LedgerTransactionCreateReversalBody(
+            fun build(): LedgerTransactionReversalCreateRequest =
+                LedgerTransactionReversalCreateRequest(
                     description,
                     effectiveAt,
                     externalId,
@@ -418,7 +418,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerTransactionCreateReversalBody && description == other.description && effectiveAt == other.effectiveAt && externalId == other.externalId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerTransactionReversalCreateRequest && description == other.description && effectiveAt == other.effectiveAt && externalId == other.externalId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -428,7 +428,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerTransactionCreateReversalBody{description=$description, effectiveAt=$effectiveAt, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
+            "LedgerTransactionReversalCreateRequest{description=$description, effectiveAt=$effectiveAt, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -443,8 +443,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: LedgerTransactionCreateReversalBody.Builder =
-            LedgerTransactionCreateReversalBody.builder()
+        private var body: LedgerTransactionReversalCreateRequest.Builder =
+            LedgerTransactionReversalCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

@@ -86,6 +86,8 @@ private constructor(
 
     companion object {
 
+        fun none(): ForeignExchangeQuoteListParams = builder().build()
+
         fun builder() = Builder()
     }
 

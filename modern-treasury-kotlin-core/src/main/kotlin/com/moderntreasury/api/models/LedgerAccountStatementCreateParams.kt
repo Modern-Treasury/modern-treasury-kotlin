@@ -23,7 +23,7 @@ import java.util.Objects
 /** Create a ledger account statement. */
 class LedgerAccountStatementCreateParams
 private constructor(
-    private val body: LedgerAccountStatementCreateBody,
+    private val body: LedgerAccountStatementCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -82,16 +82,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerAccountStatementCreateBody = body
+    internal fun _body(): LedgerAccountStatementCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class LedgerAccountStatementCreateBody
+    class LedgerAccountStatementCreateRequest
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("effective_at_lower_bound")
         @ExcludeMissing
         private val effectiveAtLowerBound: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -179,7 +179,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LedgerAccountStatementCreateBody = apply {
+        fun validate(): LedgerAccountStatementCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -199,7 +199,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LedgerAccountStatementCreateBody]. */
+        /** A builder for [LedgerAccountStatementCreateRequest]. */
         class Builder internal constructor() {
 
             private var effectiveAtLowerBound: JsonField<OffsetDateTime>? = null
@@ -209,16 +209,17 @@ private constructor(
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(ledgerAccountStatementCreateBody: LedgerAccountStatementCreateBody) =
-                apply {
-                    effectiveAtLowerBound = ledgerAccountStatementCreateBody.effectiveAtLowerBound
-                    effectiveAtUpperBound = ledgerAccountStatementCreateBody.effectiveAtUpperBound
-                    ledgerAccountId = ledgerAccountStatementCreateBody.ledgerAccountId
-                    description = ledgerAccountStatementCreateBody.description
-                    metadata = ledgerAccountStatementCreateBody.metadata
-                    additionalProperties =
-                        ledgerAccountStatementCreateBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(
+                ledgerAccountStatementCreateRequest: LedgerAccountStatementCreateRequest
+            ) = apply {
+                effectiveAtLowerBound = ledgerAccountStatementCreateRequest.effectiveAtLowerBound
+                effectiveAtUpperBound = ledgerAccountStatementCreateRequest.effectiveAtUpperBound
+                ledgerAccountId = ledgerAccountStatementCreateRequest.ledgerAccountId
+                description = ledgerAccountStatementCreateRequest.description
+                metadata = ledgerAccountStatementCreateRequest.metadata
+                additionalProperties =
+                    ledgerAccountStatementCreateRequest.additionalProperties.toMutableMap()
+            }
 
             /**
              * The inclusive lower bound of the effective_at timestamp of the ledger entries to be
@@ -304,8 +305,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LedgerAccountStatementCreateBody =
-                LedgerAccountStatementCreateBody(
+            fun build(): LedgerAccountStatementCreateRequest =
+                LedgerAccountStatementCreateRequest(
                     checkRequired("effectiveAtLowerBound", effectiveAtLowerBound),
                     checkRequired("effectiveAtUpperBound", effectiveAtUpperBound),
                     checkRequired("ledgerAccountId", ledgerAccountId),
@@ -320,7 +321,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountStatementCreateBody && effectiveAtLowerBound == other.effectiveAtLowerBound && effectiveAtUpperBound == other.effectiveAtUpperBound && ledgerAccountId == other.ledgerAccountId && description == other.description && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LedgerAccountStatementCreateRequest && effectiveAtLowerBound == other.effectiveAtLowerBound && effectiveAtUpperBound == other.effectiveAtUpperBound && ledgerAccountId == other.ledgerAccountId && description == other.description && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -330,7 +331,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerAccountStatementCreateBody{effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, ledgerAccountId=$ledgerAccountId, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
+            "LedgerAccountStatementCreateRequest{effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, ledgerAccountId=$ledgerAccountId, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -344,8 +345,8 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: LedgerAccountStatementCreateBody.Builder =
-            LedgerAccountStatementCreateBody.builder()
+        private var body: LedgerAccountStatementCreateRequest.Builder =
+            LedgerAccountStatementCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

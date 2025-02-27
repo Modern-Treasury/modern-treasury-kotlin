@@ -113,7 +113,7 @@ class CounterpartyTest {
                 )
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .email("dev@stainlessapi.com")
+                .email("dev@stainless.com")
                 .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
                 .metadata(
@@ -233,7 +233,7 @@ class CounterpartyTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(counterparty.discardedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(counterparty.email()).isEqualTo("dev@stainlessapi.com")
+        assertThat(counterparty.email()).isEqualTo("dev@stainless.com")
         assertThat(counterparty.legalEntityId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(counterparty.liveMode()).isEqualTo(true)
         assertThat(counterparty.metadata())

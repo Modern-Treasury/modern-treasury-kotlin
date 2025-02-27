@@ -55,6 +55,8 @@ private constructor(
 
     companion object {
 
+        fun none(): TransactionLineItemListParams = builder().build()
+
         fun builder() = Builder()
     }
 

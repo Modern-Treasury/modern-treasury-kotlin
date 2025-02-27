@@ -5,6 +5,7 @@ package com.moderntreasury.api.models
 import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -323,8 +324,10 @@ class PaymentOrderUpdateParamsTest {
                 .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                 .ultimateReceivingPartyName("ultimate_receiving_party_name")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
         assertThat(body.accounting())
             .isEqualTo(
                 PaymentOrderUpdateParams.Accounting.builder()
@@ -485,8 +488,10 @@ class PaymentOrderUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = PaymentOrderUpdateParams.builder().id("id").build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
     }
 
     @Test

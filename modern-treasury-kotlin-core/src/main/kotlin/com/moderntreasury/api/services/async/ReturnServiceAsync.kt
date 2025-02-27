@@ -25,7 +25,11 @@ interface ReturnServiceAsync {
 
     /** Get a list of returns. */
     suspend fun list(
-        params: ReturnListParams,
+        params: ReturnListParams = ReturnListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ReturnListPageAsync
+
+    /** Get a list of returns. */
+    suspend fun list(requestOptions: RequestOptions): ReturnListPageAsync =
+        list(ReturnListParams.none(), requestOptions)
 }

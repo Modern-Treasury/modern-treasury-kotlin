@@ -86,6 +86,8 @@ private constructor(
 
     companion object {
 
+        fun none(): CounterpartyListParams = builder().build()
+
         fun builder() = Builder()
     }
 

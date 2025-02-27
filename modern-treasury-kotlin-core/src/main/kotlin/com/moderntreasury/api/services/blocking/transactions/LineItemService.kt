@@ -26,9 +26,13 @@ interface LineItemService {
 
     /** list transaction_line_items */
     fun list(
-        params: TransactionLineItemListParams,
+        params: TransactionLineItemListParams = TransactionLineItemListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionLineItemListPage
+
+    /** list transaction_line_items */
+    fun list(requestOptions: RequestOptions): TransactionLineItemListPage =
+        list(TransactionLineItemListParams.none(), requestOptions)
 
     /** delete transaction line item */
     fun delete(

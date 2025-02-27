@@ -139,6 +139,8 @@ private constructor(
 
     companion object {
 
+        fun none(): PaymentOrderListParams = builder().build()
+
         fun builder() = Builder()
     }
 

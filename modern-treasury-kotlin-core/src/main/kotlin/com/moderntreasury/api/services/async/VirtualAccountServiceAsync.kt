@@ -33,9 +33,13 @@ interface VirtualAccountServiceAsync {
 
     /** Get a list of virtual accounts. */
     suspend fun list(
-        params: VirtualAccountListParams,
+        params: VirtualAccountListParams = VirtualAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccountListPageAsync
+
+    /** Get a list of virtual accounts. */
+    suspend fun list(requestOptions: RequestOptions): VirtualAccountListPageAsync =
+        list(VirtualAccountListParams.none(), requestOptions)
 
     /** delete virtual_account */
     suspend fun delete(

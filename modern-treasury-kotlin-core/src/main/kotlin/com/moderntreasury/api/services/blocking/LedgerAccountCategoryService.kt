@@ -37,9 +37,13 @@ interface LedgerAccountCategoryService {
 
     /** Get a list of ledger account categories. */
     fun list(
-        params: LedgerAccountCategoryListParams,
+        params: LedgerAccountCategoryListParams = LedgerAccountCategoryListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountCategoryListPage
+
+    /** Get a list of ledger account categories. */
+    fun list(requestOptions: RequestOptions): LedgerAccountCategoryListPage =
+        list(LedgerAccountCategoryListParams.none(), requestOptions)
 
     /** Delete a ledger account category. */
     fun delete(

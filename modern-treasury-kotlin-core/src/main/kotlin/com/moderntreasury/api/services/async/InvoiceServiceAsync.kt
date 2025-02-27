@@ -36,9 +36,13 @@ interface InvoiceServiceAsync {
 
     /** list invoices */
     suspend fun list(
-        params: InvoiceListParams,
+        params: InvoiceListParams = InvoiceListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceListPageAsync
+
+    /** list invoices */
+    suspend fun list(requestOptions: RequestOptions): InvoiceListPageAsync =
+        list(InvoiceListParams.none(), requestOptions)
 
     /** Add a payment order to an invoice. */
     suspend fun addPaymentOrder(

@@ -27,13 +27,22 @@ interface IncomingPaymentDetailServiceAsync {
 
     /** Get a list of Incoming Payment Details. */
     suspend fun list(
-        params: IncomingPaymentDetailListParams,
+        params: IncomingPaymentDetailListParams = IncomingPaymentDetailListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IncomingPaymentDetailListPageAsync
 
+    /** Get a list of Incoming Payment Details. */
+    suspend fun list(requestOptions: RequestOptions): IncomingPaymentDetailListPageAsync =
+        list(IncomingPaymentDetailListParams.none(), requestOptions)
+
     /** Simulate Incoming Payment Detail */
     suspend fun createAsync(
-        params: IncomingPaymentDetailCreateAsyncParams,
+        params: IncomingPaymentDetailCreateAsyncParams =
+            IncomingPaymentDetailCreateAsyncParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AsyncResponse
+
+    /** Simulate Incoming Payment Detail */
+    suspend fun createAsync(requestOptions: RequestOptions): AsyncResponse =
+        createAsync(IncomingPaymentDetailCreateAsyncParams.none(), requestOptions)
 }

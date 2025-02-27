@@ -19,23 +19,20 @@ import org.apache.hc.core5.http.ContentType
 /** Create a document. */
 class DocumentCreateParams
 private constructor(
-    private val documentableId: MultipartFormValue<String>,
-    private val documentableType: MultipartFormValue<DocumentableType>,
-    private val file: MultipartFormValue<ByteArray>,
-    private val documentType: MultipartFormValue<String>?,
+    private val body: DocumentCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The unique identifier for the associated object. */
-    fun documentableId(): MultipartFormValue<String> = documentableId
+    fun documentableId(): MultipartFormValue<String> = body.documentableId()
 
-    fun documentableType(): MultipartFormValue<DocumentableType> = documentableType
+    fun documentableType(): MultipartFormValue<DocumentableType> = body.documentableType()
 
-    fun file(): MultipartFormValue<ByteArray> = file
+    fun file(): MultipartFormValue<ByteArray> = body.file()
 
     /** A category given to the document, can be `null`. */
-    fun documentType(): MultipartFormValue<String>? = documentType
+    fun documentType(): MultipartFormValue<String>? = body.documentType()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -48,6 +45,123 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
+    @NoAutoDetect
+    class DocumentCreateRequest
+    @JsonCreator
+    private constructor(
+        private val documentableId: MultipartFormValue<String>,
+        private val documentableType: MultipartFormValue<DocumentableType>,
+        private val file: MultipartFormValue<ByteArray>,
+        private val documentType: MultipartFormValue<String>?,
+    ) {
+
+        /** The unique identifier for the associated object. */
+        fun documentableId(): MultipartFormValue<String> = documentableId
+
+        fun documentableType(): MultipartFormValue<DocumentableType> = documentableType
+
+        fun file(): MultipartFormValue<ByteArray> = file
+
+        /** A category given to the document, can be `null`. */
+        fun documentType(): MultipartFormValue<String>? = documentType
+
+        private var validated: Boolean = false
+
+        fun validate(): DocumentCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            documentableId()
+            documentableType()
+            file()
+            documentType()
+            validated = true
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        /** A builder for [DocumentCreateRequest]. */
+        class Builder internal constructor() {
+
+            private var documentableId: MultipartFormValue<String>? = null
+            private var documentableType: MultipartFormValue<DocumentableType>? = null
+            private var file: MultipartFormValue<ByteArray>? = null
+            private var documentType: MultipartFormValue<String>? = null
+
+            internal fun from(documentCreateRequest: DocumentCreateRequest) = apply {
+                documentableId = documentCreateRequest.documentableId
+                documentableType = documentCreateRequest.documentableType
+                file = documentCreateRequest.file
+                documentType = documentCreateRequest.documentType
+            }
+
+            /** The unique identifier for the associated object. */
+            fun documentableId(
+                documentableId: String,
+                contentType: ContentType = ContentTypes.DefaultText,
+            ) = apply {
+                this.documentableId =
+                    MultipartFormValue.fromString("documentableId", documentableId, contentType)
+            }
+
+            fun documentableType(
+                documentableType: DocumentableType,
+                contentType: ContentType = ContentTypes.DefaultText,
+            ) = apply {
+                this.documentableType =
+                    MultipartFormValue.fromEnum("documentableType", documentableType, contentType)
+            }
+
+            fun file(
+                content: ByteArray,
+                filename: String? = null,
+                contentType: ContentType = ContentTypes.DefaultBinary,
+            ) = apply {
+                this.file = MultipartFormValue.fromByteArray("file", content, contentType, filename)
+            }
+
+            /** A category given to the document, can be `null`. */
+            fun documentType(
+                documentType: String,
+                contentType: ContentType = ContentTypes.DefaultText,
+            ) = apply {
+                this.documentType =
+                    MultipartFormValue.fromString("documentType", documentType, contentType)
+            }
+
+            fun build(): DocumentCreateRequest =
+                DocumentCreateRequest(
+                    checkRequired("documentableId", documentableId),
+                    checkRequired("documentableType", documentableType),
+                    checkRequired("file", file),
+                    documentType,
+                )
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is DocumentCreateRequest && documentableId == other.documentableId && documentableType == other.documentableType && file == other.file && documentType == other.documentType /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(documentableId, documentableType, file, documentType) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "DocumentCreateRequest{documentableId=$documentableId, documentableType=$documentableType, file=$file, documentType=$documentType}"
+    }
+
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -59,18 +173,12 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var documentableId: MultipartFormValue<String>? = null
-        private var documentableType: MultipartFormValue<DocumentableType>? = null
-        private var file: MultipartFormValue<ByteArray>? = null
-        private var documentType: MultipartFormValue<String>? = null
+        private var body: DocumentCreateRequest.Builder = DocumentCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(documentCreateParams: DocumentCreateParams) = apply {
-            documentableId = documentCreateParams.documentableId
-            documentableType = documentCreateParams.documentableType
-            file = documentCreateParams.file
-            documentType = documentCreateParams.documentType
+            body = documentCreateParams.body.toBuilder()
             additionalHeaders = documentCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = documentCreateParams.additionalQueryParams.toBuilder()
         }
@@ -79,35 +187,24 @@ private constructor(
         fun documentableId(
             documentableId: String,
             contentType: ContentType = ContentTypes.DefaultText,
-        ) = apply {
-            this.documentableId =
-                MultipartFormValue.fromString("documentableId", documentableId, contentType)
-        }
+        ) = apply { body.documentableId(documentableId, contentType) }
 
         fun documentableType(
             documentableType: DocumentableType,
             contentType: ContentType = ContentTypes.DefaultText,
-        ) = apply {
-            this.documentableType =
-                MultipartFormValue.fromEnum("documentableType", documentableType, contentType)
-        }
+        ) = apply { body.documentableType(documentableType, contentType) }
 
         fun file(
             content: ByteArray,
             filename: String? = null,
             contentType: ContentType = ContentTypes.DefaultBinary,
-        ) = apply {
-            this.file = MultipartFormValue.fromByteArray("file", content, contentType, filename)
-        }
+        ) = apply { body.file(content, filename, contentType) }
 
         /** A category given to the document, can be `null`. */
         fun documentType(
             documentType: String,
             contentType: ContentType = ContentTypes.DefaultText,
-        ) = apply {
-            this.documentType =
-                MultipartFormValue.fromString("documentType", documentType, contentType)
-        }
+        ) = apply { body.documentType(documentType, contentType) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -209,10 +306,7 @@ private constructor(
 
         fun build(): DocumentCreateParams =
             DocumentCreateParams(
-                checkRequired("documentableId", documentableId),
-                checkRequired("documentableType", documentableType),
-                checkRequired("file", file),
-                documentType,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -385,11 +479,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is DocumentCreateParams && documentableId == other.documentableId && documentableType == other.documentableType && file == other.file && documentType == other.documentType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is DocumentCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(documentableId, documentableType, file, documentType, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "DocumentCreateParams{documentableId=$documentableId, documentableType=$documentableType, file=$file, documentType=$documentType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "DocumentCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

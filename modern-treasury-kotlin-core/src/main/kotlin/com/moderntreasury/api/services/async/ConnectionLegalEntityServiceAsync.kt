@@ -32,7 +32,11 @@ interface ConnectionLegalEntityServiceAsync {
 
     /** Get a list of all connection legal entities. */
     suspend fun list(
-        params: ConnectionLegalEntityListParams,
+        params: ConnectionLegalEntityListParams = ConnectionLegalEntityListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionLegalEntityListPageAsync
+
+    /** Get a list of all connection legal entities. */
+    suspend fun list(requestOptions: RequestOptions): ConnectionLegalEntityListPageAsync =
+        list(ConnectionLegalEntityListParams.none(), requestOptions)
 }

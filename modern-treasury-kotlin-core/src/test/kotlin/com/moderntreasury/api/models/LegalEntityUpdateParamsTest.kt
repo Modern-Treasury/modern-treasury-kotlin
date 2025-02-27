@@ -5,6 +5,7 @@ package com.moderntreasury.api.models
 import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -190,8 +191,10 @@ class LegalEntityUpdateParamsTest {
                 )
                 .website("website")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
         assertThat(body.addresses())
             .isEqualTo(
                 listOf(
@@ -295,8 +298,10 @@ class LegalEntityUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = LegalEntityUpdateParams.builder().id("id").build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
     }
 
     @Test

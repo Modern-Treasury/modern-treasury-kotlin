@@ -67,6 +67,8 @@ private constructor(
 
     companion object {
 
+        fun none(): PaymentFlowListParams = builder().build()
+
         fun builder() = Builder()
     }
 

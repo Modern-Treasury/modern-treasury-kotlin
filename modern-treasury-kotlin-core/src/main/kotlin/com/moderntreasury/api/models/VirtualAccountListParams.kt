@@ -59,6 +59,8 @@ private constructor(
 
     companion object {
 
+        fun none(): VirtualAccountListParams = builder().build()
+
         fun builder() = Builder()
     }
 

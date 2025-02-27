@@ -10,7 +10,11 @@ interface VersionServiceAsync {
 
     /** Get a list of ledger transaction versions. */
     suspend fun list(
-        params: LedgerTransactionVersionListParams,
+        params: LedgerTransactionVersionListParams = LedgerTransactionVersionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransactionVersionListPageAsync
+
+    /** Get a list of ledger transaction versions. */
+    suspend fun list(requestOptions: RequestOptions): LedgerTransactionVersionListPageAsync =
+        list(LedgerTransactionVersionListParams.none(), requestOptions)
 }

@@ -5,6 +5,7 @@ package com.moderntreasury.api.models
 import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -101,7 +102,7 @@ class CounterpartyCreateParamsTest {
                     )
                     .build()
             )
-            .email("dev@stainlessapi.com")
+            .email("dev@stainless.com")
             .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
             .legalEntity(
                 CounterpartyCreateParams.LegalEntityCreateRequest.builder()
@@ -498,7 +499,7 @@ class CounterpartyCreateParamsTest {
                         )
                         .build()
                 )
-                .email("dev@stainlessapi.com")
+                .email("dev@stainless.com")
                 .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
                 .legalEntity(
                     CounterpartyCreateParams.LegalEntityCreateRequest.builder()
@@ -813,8 +814,10 @@ class CounterpartyCreateParamsTest {
                 .taxpayerIdentifier("taxpayer_identifier")
                 .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.accounting())
             .isEqualTo(
@@ -909,7 +912,7 @@ class CounterpartyCreateParamsTest {
                         .build()
                 )
             )
-        assertThat(body.email()).isEqualTo("dev@stainlessapi.com")
+        assertThat(body.email()).isEqualTo("dev@stainless.com")
         assertThat(body.ledgerType()).isEqualTo(CounterpartyCreateParams.LedgerType.CUSTOMER)
         assertThat(body.legalEntity())
             .isEqualTo(
@@ -1217,8 +1220,10 @@ class CounterpartyCreateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = CounterpartyCreateParams.builder().name("name").build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
         assertThat(body.name()).isEqualTo("name")
     }
 }

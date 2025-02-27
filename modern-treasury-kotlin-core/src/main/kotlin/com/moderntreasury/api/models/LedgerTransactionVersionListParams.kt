@@ -72,6 +72,8 @@ private constructor(
 
     companion object {
 
+        fun none(): LedgerTransactionVersionListParams = builder().build()
+
         fun builder() = Builder()
     }
 

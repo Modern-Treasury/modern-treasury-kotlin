@@ -5,6 +5,7 @@ package com.moderntreasury.api.models
 import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -122,8 +123,10 @@ class LedgerTransactionCreateParamsTest {
                 )
                 .status(LedgerTransactionCreateParams.Status.ARCHIVED)
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
         assertThat(body.ledgerEntries())
             .isEqualTo(
                 listOf(
@@ -195,8 +198,10 @@ class LedgerTransactionCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
+        assertNotNull(body)
         assertThat(body.ledgerEntries())
             .isEqualTo(
                 listOf(

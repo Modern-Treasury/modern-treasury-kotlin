@@ -35,7 +35,11 @@ interface InternalAccountServiceAsync {
 
     /** list internal accounts */
     suspend fun list(
-        params: InternalAccountListParams,
+        params: InternalAccountListParams = InternalAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccountListPageAsync
+
+    /** list internal accounts */
+    suspend fun list(requestOptions: RequestOptions): InternalAccountListPageAsync =
+        list(InternalAccountListParams.none(), requestOptions)
 }

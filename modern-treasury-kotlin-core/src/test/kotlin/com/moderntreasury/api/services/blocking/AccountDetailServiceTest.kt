@@ -16,7 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class AccountDetailServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -24,6 +24,7 @@ class AccountDetailServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val accountDetailService = client.accountDetails()
+
         val accountDetail =
             accountDetailService.create(
                 AccountDetailCreateParams.builder()
@@ -33,12 +34,12 @@ class AccountDetailServiceTest {
                     .accountNumberType(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
                     .build()
             )
-        println(accountDetail)
+
         accountDetail.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -46,6 +47,7 @@ class AccountDetailServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val accountDetailService = client.accountDetails()
+
         val accountDetail =
             accountDetailService.retrieve(
                 AccountDetailRetrieveParams.builder()
@@ -54,12 +56,12 @@ class AccountDetailServiceTest {
                     .id("id")
                     .build()
             )
-        println(accountDetail)
+
         accountDetail.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -67,19 +69,20 @@ class AccountDetailServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val accountDetailService = client.accountDetails()
-        val response =
+
+        val page =
             accountDetailService.list(
                 AccountDetailListParams.builder()
                     .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
                     .accountId("account_id")
                     .build()
             )
-        println(response)
-        response.items().forEach { it.validate() }
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -87,6 +90,7 @@ class AccountDetailServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val accountDetailService = client.accountDetails()
+
         accountDetailService.delete(
             AccountDetailDeleteParams.builder()
                 .accountsType(AccountDetailDeleteParams.AccountsType.EXTERNAL_ACCOUNTS)

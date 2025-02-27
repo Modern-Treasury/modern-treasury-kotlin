@@ -32,7 +32,11 @@ interface PaymentFlowServiceAsync {
 
     /** list payment_flows */
     suspend fun list(
-        params: PaymentFlowListParams,
+        params: PaymentFlowListParams = PaymentFlowListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentFlowListPageAsync
+
+    /** list payment_flows */
+    suspend fun list(requestOptions: RequestOptions): PaymentFlowListPageAsync =
+        list(PaymentFlowListParams.none(), requestOptions)
 }

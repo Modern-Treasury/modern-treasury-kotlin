@@ -162,6 +162,8 @@ private constructor(
 
     companion object {
 
+        fun none(): LedgerTransactionListParams = builder().build()
+
         fun builder() = Builder()
     }
 

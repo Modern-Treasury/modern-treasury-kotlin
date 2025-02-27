@@ -25,7 +25,11 @@ interface BulkRequestServiceAsync {
 
     /** list bulk_requests */
     suspend fun list(
-        params: BulkRequestListParams,
+        params: BulkRequestListParams = BulkRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequestListPageAsync
+
+    /** list bulk_requests */
+    suspend fun list(requestOptions: RequestOptions): BulkRequestListPageAsync =
+        list(BulkRequestListParams.none(), requestOptions)
 }

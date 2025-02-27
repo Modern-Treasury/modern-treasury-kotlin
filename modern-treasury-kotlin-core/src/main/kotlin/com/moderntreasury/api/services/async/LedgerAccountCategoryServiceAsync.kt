@@ -37,9 +37,13 @@ interface LedgerAccountCategoryServiceAsync {
 
     /** Get a list of ledger account categories. */
     suspend fun list(
-        params: LedgerAccountCategoryListParams,
+        params: LedgerAccountCategoryListParams = LedgerAccountCategoryListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountCategoryListPageAsync
+
+    /** Get a list of ledger account categories. */
+    suspend fun list(requestOptions: RequestOptions): LedgerAccountCategoryListPageAsync =
+        list(LedgerAccountCategoryListParams.none(), requestOptions)
 
     /** Delete a ledger account category. */
     suspend fun delete(
