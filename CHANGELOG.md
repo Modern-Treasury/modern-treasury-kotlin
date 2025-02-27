@@ -1,5 +1,41 @@
 # Changelog
 
+## 5.1.0 (2025-02-27)
+
+Full Changelog: [v5.0.0...v5.1.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v5.0.0...v5.1.0)
+
+### Features
+
+* **client:** allow omitting params object when none required ([#343](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/343)) ([9ed5c6f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9ed5c6feb9c48ce830fed665b4c0d31d94cc3762))
+
+
+### Bug Fixes
+
+* **client:** mark some request bodies as optional ([#339](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/339)) ([422ed99](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/422ed9964f19bb88f3bbb7ee9bfb132ba970c68d))
+
+
+### Chores
+
+* **ci:** update gradle actions to v4 ([#336](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/336)) ([58674f4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/58674f42d44fb9bc61426de99949235cb1425d1d))
+* **client:** remove checked exception related code ([#337](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/337)) ([ae99b89](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ae99b89386d95b477b6eb6ea8bbdfa99079d7fd9))
+* **client:** use deep identity methods for primitive array types ([#345](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/345)) ([e6c133e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e6c133e49e1b343da7af564c1b4287d945fd3bb2))
+* **docs:** add faq to readme ([#338](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/338)) ([5c5fb0f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5c5fb0f645ea7158e698bfbb0dd9b16abf1ee50f))
+* **internal:** add async service tests ([#344](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/344)) ([30ef263](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/30ef2632ffd823cfe1cb4860dc107d1cca808771))
+* **internal:** get rid of configuration cache ([#334](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/334)) ([5120b99](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5120b994f77fa88e26c5d91e3faf0caaca3dfdf5))
+* **internal:** improve sync service tests ([30ef263](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/30ef2632ffd823cfe1cb4860dc107d1cca808771))
+* **internal:** refactor `ServiceParamsTest` ([#347](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/347)) ([a334993](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a334993354a82e475c08b081b47431e2ad2df3f6))
+* **internal:** remove unnecessary non-null asserts in tests ([422ed99](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/422ed9964f19bb88f3bbb7ee9bfb132ba970c68d))
+* **internal:** rename internal body classes ([7825cc9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7825cc9628a94ffc1e152ea5e6386ff839744e44))
+* **internal:** use `assertNotNull` in tests for type narrowing ([422ed99](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/422ed9964f19bb88f3bbb7ee9bfb132ba970c68d))
+
+
+### Documentation
+
+* add immutability explanation to readme ([#341](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/341)) ([4c81dc9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4c81dc9bece117ee7c51ad2ddc1752481e89b0bd))
+* add source file links to readme ([#342](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/342)) ([69b1fa5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/69b1fa532ac46227a9ff51b61ace8a5e6f5d6f8b))
+* readme parameter tweaks ([30ef263](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/30ef2632ffd823cfe1cb4860dc107d1cca808771))
+* update URLs from stainlessapi.com to stainless.com ([#348](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/348)) ([ff2c077](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ff2c07754e95b8dfe9d3361c8d9937421744ef4d))
+
 ## 5.0.0 (2025-02-19)
 
 Full Changelog: [v4.0.1...v5.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v4.0.1...v5.0.0)
