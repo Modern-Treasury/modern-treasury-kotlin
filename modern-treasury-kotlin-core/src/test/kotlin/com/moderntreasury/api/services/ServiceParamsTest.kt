@@ -137,7 +137,7 @@ internal class ServiceParamsTest {
                         )
                         .build()
                 )
-                .email("dev@stainlessapi.com")
+                .email("dev@stainless.com")
                 .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
                 .legalEntity(
                     CounterpartyCreateParams.LegalEntityCreateRequest.builder()
