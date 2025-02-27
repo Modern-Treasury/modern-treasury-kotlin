@@ -102,7 +102,7 @@ class CounterpartyCreateParamsTest {
                     )
                     .build()
             )
-            .email("dev@stainlessapi.com")
+            .email("dev@stainless.com")
             .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
             .legalEntity(
                 CounterpartyCreateParams.LegalEntityCreateRequest.builder()
@@ -499,7 +499,7 @@ class CounterpartyCreateParamsTest {
                         )
                         .build()
                 )
-                .email("dev@stainlessapi.com")
+                .email("dev@stainless.com")
                 .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
                 .legalEntity(
                     CounterpartyCreateParams.LegalEntityCreateRequest.builder()
@@ -912,7 +912,7 @@ class CounterpartyCreateParamsTest {
                         .build()
                 )
             )
-        assertThat(body.email()).isEqualTo("dev@stainlessapi.com")
+        assertThat(body.email()).isEqualTo("dev@stainless.com")
         assertThat(body.ledgerType()).isEqualTo(CounterpartyCreateParams.LedgerType.CUSTOMER)
         assertThat(body.legalEntity())
             .isEqualTo(

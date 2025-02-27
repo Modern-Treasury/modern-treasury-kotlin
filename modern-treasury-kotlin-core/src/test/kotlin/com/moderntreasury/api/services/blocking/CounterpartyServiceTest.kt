@@ -135,7 +135,7 @@ class CounterpartyServiceTest {
                             )
                             .build()
                     )
-                    .email("dev@stainlessapi.com")
+                    .email("dev@stainless.com")
                     .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
                     .legalEntity(
                         CounterpartyCreateParams.LegalEntityCreateRequest.builder()
@@ -506,7 +506,7 @@ class CounterpartyServiceTest {
             counterpartyService.update(
                 CounterpartyUpdateParams.builder()
                     .id("id")
-                    .email("dev@stainlessapi.com")
+                    .email("dev@stainless.com")
                     .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(
                         CounterpartyUpdateParams.Metadata.builder()
