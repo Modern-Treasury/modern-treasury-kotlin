@@ -13,7 +13,7 @@ class CounterpartyUpdateParamsTest {
     fun create() {
         CounterpartyUpdateParams.builder()
             .id("id")
-            .email("dev@stainlessapi.com")
+            .email("dev@stainless.com")
             .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .metadata(
                 CounterpartyUpdateParams.Metadata.builder()
@@ -31,7 +31,7 @@ class CounterpartyUpdateParamsTest {
         val params =
             CounterpartyUpdateParams.builder()
                 .id("id")
-                .email("dev@stainlessapi.com")
+                .email("dev@stainless.com")
                 .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .metadata(
                     CounterpartyUpdateParams.Metadata.builder()
@@ -46,7 +46,7 @@ class CounterpartyUpdateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-        assertThat(body.email()).isEqualTo("dev@stainlessapi.com")
+        assertThat(body.email()).isEqualTo("dev@stainless.com")
         assertThat(body.legalEntityId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata())
             .isEqualTo(
