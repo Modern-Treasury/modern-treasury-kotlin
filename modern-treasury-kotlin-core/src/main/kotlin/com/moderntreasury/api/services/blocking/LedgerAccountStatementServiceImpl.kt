@@ -10,6 +10,8 @@ import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse.Handler
+import com.moderntreasury.api.core.http.HttpResponseFor
+import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.json
 import com.moderntreasury.api.core.prepare
 import com.moderntreasury.api.errors.ModernTreasuryError
@@ -21,56 +23,85 @@ import com.moderntreasury.api.models.LedgerAccountStatementRetrieveResponse
 class LedgerAccountStatementServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : LedgerAccountStatementService {
 
-    private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: LedgerAccountStatementService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val createHandler: Handler<LedgerAccountStatementCreateResponse> =
-        jsonHandler<LedgerAccountStatementCreateResponse>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
+    override fun withRawResponse(): LedgerAccountStatementService.WithRawResponse = withRawResponse
 
-    /** Create a ledger account statement. */
     override fun create(
         params: LedgerAccountStatementCreateParams,
         requestOptions: RequestOptions,
-    ): LedgerAccountStatementCreateResponse {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("api", "ledger_account_statements")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepare(clientOptions, params)
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { createHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.validate()
-                }
-            }
-    }
+    ): LedgerAccountStatementCreateResponse =
+        // post /api/ledger_account_statements
+        withRawResponse().create(params, requestOptions).parse()
 
-    private val retrieveHandler: Handler<LedgerAccountStatementRetrieveResponse> =
-        jsonHandler<LedgerAccountStatementRetrieveResponse>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
-
-    /** Get details on a single ledger account statement. */
     override fun retrieve(
         params: LedgerAccountStatementRetrieveParams,
         requestOptions: RequestOptions,
-    ): LedgerAccountStatementRetrieveResponse {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("api", "ledger_account_statements", params.getPathParam(0))
-                .build()
-                .prepare(clientOptions, params)
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { retrieveHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.validate()
-                }
+    ): LedgerAccountStatementRetrieveResponse =
+        // get /api/ledger_account_statements/{id}
+        withRawResponse().retrieve(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        LedgerAccountStatementService.WithRawResponse {
+
+        private val errorHandler: Handler<ModernTreasuryError> =
+            errorHandler(clientOptions.jsonMapper)
+
+        private val createHandler: Handler<LedgerAccountStatementCreateResponse> =
+            jsonHandler<LedgerAccountStatementCreateResponse>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun create(
+            params: LedgerAccountStatementCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LedgerAccountStatementCreateResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("api", "ledger_account_statements")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
+        }
+
+        private val retrieveHandler: Handler<LedgerAccountStatementRetrieveResponse> =
+            jsonHandler<LedgerAccountStatementRetrieveResponse>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun retrieve(
+            params: LedgerAccountStatementRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("api", "ledger_account_statements", params.getPathParam(0))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
     }
 }
