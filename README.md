@@ -156,6 +156,35 @@ val counterparty: Counterparty = client.counterparties().create(params)
 
 The asynchronous client supports the same options as the synchronous one, except most methods are [suspending](https://kotlinlang.org/docs/coroutines-guide.html).
 
+## Raw responses
+
+The SDK defines methods that deserialize responses into instances of Kotlin classes. However, these methods don't provide access to the response headers, status code, or the raw response body.
+
+To access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:
+
+```kotlin
+import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.core.http.HttpResponseFor
+import com.moderntreasury.api.models.Counterparty
+import com.moderntreasury.api.models.CounterpartyCreateParams
+
+val params: CounterpartyCreateParams = CounterpartyCreateParams.builder()
+    .name("my first counterparty")
+    .build()
+val counterparty: HttpResponseFor<Counterparty> = client.counterparties().withRawResponse().create(params)
+
+val statusCode: Int = counterparty.statusCode()
+val headers: Headers = counterparty.headers()
+```
+
+You can still deserialize the response into an instance of a Kotlin class if needed:
+
+```kotlin
+import com.moderntreasury.api.models.Counterparty
+
+val parsedCounterparty: Counterparty = counterparty.parse()
+```
+
 ## Error handling
 
 The SDK throws custom unchecked exception types:
