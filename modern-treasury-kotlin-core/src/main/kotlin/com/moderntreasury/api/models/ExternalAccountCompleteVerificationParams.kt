@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
+import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -114,12 +115,8 @@ private constructor(
 
             fun addAmount(amount: Long) = apply {
                 amounts =
-                    (amounts ?: JsonField.of(mutableListOf())).apply {
-                        (asKnown()
-                                ?: throw IllegalStateException(
-                                    "Field was set to non-list type: ${javaClass.simpleName}"
-                                ))
-                            .add(amount)
+                    (amounts ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("amounts", it).add(amount)
                     }
             }
 
