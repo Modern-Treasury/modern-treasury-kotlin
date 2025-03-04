@@ -10,6 +10,8 @@ import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse.Handler
+import com.moderntreasury.api.core.http.HttpResponseFor
+import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.json
 import com.moderntreasury.api.core.prepareAsync
 import com.moderntreasury.api.errors.ModernTreasuryError
@@ -27,143 +29,207 @@ import com.moderntreasury.api.services.async.paymentOrders.ReversalServiceAsyncI
 class PaymentOrderServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     PaymentOrderServiceAsync {
 
-    private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: PaymentOrderServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
     private val reversals: ReversalServiceAsync by lazy { ReversalServiceAsyncImpl(clientOptions) }
 
+    override fun withRawResponse(): PaymentOrderServiceAsync.WithRawResponse = withRawResponse
+
     override fun reversals(): ReversalServiceAsync = reversals
 
-    private val createHandler: Handler<PaymentOrder> =
-        jsonHandler<PaymentOrder>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Create a new Payment Order */
     override suspend fun create(
         params: PaymentOrderCreateParams,
         requestOptions: RequestOptions,
-    ): PaymentOrder {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("api", "payment_orders")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { createHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.validate()
-                }
-            }
-    }
+    ): PaymentOrder =
+        // post /api/payment_orders
+        withRawResponse().create(params, requestOptions).parse()
 
-    private val retrieveHandler: Handler<PaymentOrder> =
-        jsonHandler<PaymentOrder>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Get details on a single payment order */
     override suspend fun retrieve(
         params: PaymentOrderRetrieveParams,
         requestOptions: RequestOptions,
-    ): PaymentOrder {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("api", "payment_orders", params.getPathParam(0))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { retrieveHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.validate()
-                }
-            }
-    }
+    ): PaymentOrder =
+        // get /api/payment_orders/{id}
+        withRawResponse().retrieve(params, requestOptions).parse()
 
-    private val updateHandler: Handler<PaymentOrder> =
-        jsonHandler<PaymentOrder>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Update a payment order */
     override suspend fun update(
         params: PaymentOrderUpdateParams,
         requestOptions: RequestOptions,
-    ): PaymentOrder {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.PATCH)
-                .addPathSegments("api", "payment_orders", params.getPathParam(0))
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { updateHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.validate()
-                }
-            }
-    }
+    ): PaymentOrder =
+        // patch /api/payment_orders/{id}
+        withRawResponse().update(params, requestOptions).parse()
 
-    private val listHandler: Handler<List<PaymentOrder>> =
-        jsonHandler<List<PaymentOrder>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Get a list of all payment orders */
     override suspend fun list(
         params: PaymentOrderListParams,
         requestOptions: RequestOptions,
-    ): PaymentOrderListPageAsync {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("api", "payment_orders")
-                .build()
-                .prepareAsync(clientOptions, params)
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { listHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.forEach { it.validate() }
-                }
-            }
-            .let {
-                PaymentOrderListPageAsync.of(
-                    this,
-                    params,
-                    PaymentOrderListPageAsync.Response.builder()
-                        .items(it)
-                        .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                        .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build(),
-                )
-            }
-    }
+    ): PaymentOrderListPageAsync =
+        // get /api/payment_orders
+        withRawResponse().list(params, requestOptions).parse()
 
-    private val createAsyncHandler: Handler<AsyncResponse> =
-        jsonHandler<AsyncResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Create a new payment order asynchronously */
     override suspend fun createAsync(
         params: PaymentOrderCreateAsyncParams,
         requestOptions: RequestOptions,
-    ): AsyncResponse {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("api", "payment_orders", "create_async")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { createAsyncHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.validate()
-                }
+    ): AsyncResponse =
+        // post /api/payment_orders/create_async
+        withRawResponse().createAsync(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        PaymentOrderServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<ModernTreasuryError> =
+            errorHandler(clientOptions.jsonMapper)
+
+        private val reversals: ReversalServiceAsync.WithRawResponse by lazy {
+            ReversalServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        override fun reversals(): ReversalServiceAsync.WithRawResponse = reversals
+
+        private val createHandler: Handler<PaymentOrder> =
+            jsonHandler<PaymentOrder>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun create(
+            params: PaymentOrderCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PaymentOrder> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("api", "payment_orders")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
+        }
+
+        private val retrieveHandler: Handler<PaymentOrder> =
+            jsonHandler<PaymentOrder>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun retrieve(
+            params: PaymentOrderRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PaymentOrder> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("api", "payment_orders", params.getPathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val updateHandler: Handler<PaymentOrder> =
+            jsonHandler<PaymentOrder>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun update(
+            params: PaymentOrderUpdateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PaymentOrder> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .addPathSegments("api", "payment_orders", params.getPathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { updateHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler: Handler<List<PaymentOrder>> =
+            jsonHandler<List<PaymentOrder>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun list(
+            params: PaymentOrderListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PaymentOrderListPageAsync> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("api", "payment_orders")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.forEach { it.validate() }
+                        }
+                    }
+                    .let {
+                        PaymentOrderListPageAsync.of(
+                            PaymentOrderServiceAsyncImpl(clientOptions),
+                            params,
+                            PaymentOrderListPageAsync.Response.builder()
+                                .items(it)
+                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
+                                .afterCursor(
+                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
+                                )
+                                .build(),
+                        )
+                    }
+            }
+        }
+
+        private val createAsyncHandler: Handler<AsyncResponse> =
+            jsonHandler<AsyncResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun createAsync(
+            params: PaymentOrderCreateAsyncParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AsyncResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("api", "payment_orders", "create_async")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createAsyncHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
     }
 }
