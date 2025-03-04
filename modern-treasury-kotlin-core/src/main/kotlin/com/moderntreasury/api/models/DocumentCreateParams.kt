@@ -3,18 +3,17 @@
 package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.moderntreasury.api.core.ContentTypes
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.MultipartFormValue
+import com.moderntreasury.api.core.MultipartField
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
-import org.apache.hc.core5.http.ContentType
 
 /** Create a document. */
 class DocumentCreateParams
@@ -25,21 +24,37 @@ private constructor(
 ) : Params {
 
     /** The unique identifier for the associated object. */
-    fun documentableId(): MultipartFormValue<String> = body.documentableId()
+    fun documentableId(): String = body.documentableId()
 
-    fun documentableType(): MultipartFormValue<DocumentableType> = body.documentableType()
+    fun documentableType(): DocumentableType = body.documentableType()
 
-    fun file(): MultipartFormValue<ByteArray> = body.file()
+    fun file(): ByteArray = body.file()
 
     /** A category given to the document, can be `null`. */
-    fun documentType(): MultipartFormValue<String>? = body.documentType()
+    fun documentType(): String? = body.documentType()
+
+    /** The unique identifier for the associated object. */
+    fun _documentableId(): MultipartField<String> = body._documentableId()
+
+    fun _documentableType(): MultipartField<DocumentableType> = body._documentableType()
+
+    fun _file(): MultipartField<ByteArray> = body._file()
+
+    /** A category given to the document, can be `null`. */
+    fun _documentType(): MultipartField<String> = body._documentType()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): Array<MultipartFormValue<*>?> =
-        arrayOf(documentableId(), documentableType(), file(), documentType())
+    internal fun _body(): Map<String, MultipartField<*>> =
+        mapOf(
+                "documentable_id" to _documentableId(),
+                "documentable_type" to _documentableType(),
+                "file" to _file(),
+                "document_type" to _documentType(),
+            )
+            .toImmutable()
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -49,21 +64,32 @@ private constructor(
     class DocumentCreateRequest
     @JsonCreator
     private constructor(
-        private val documentableId: MultipartFormValue<String>,
-        private val documentableType: MultipartFormValue<DocumentableType>,
-        private val file: MultipartFormValue<ByteArray>,
-        private val documentType: MultipartFormValue<String>?,
+        private val documentableId: MultipartField<String>,
+        private val documentableType: MultipartField<DocumentableType>,
+        private val file: MultipartField<ByteArray>,
+        private val documentType: MultipartField<String>,
     ) {
 
         /** The unique identifier for the associated object. */
-        fun documentableId(): MultipartFormValue<String> = documentableId
+        fun documentableId(): String = documentableId.value.getRequired("documentable_id")
 
-        fun documentableType(): MultipartFormValue<DocumentableType> = documentableType
+        fun documentableType(): DocumentableType =
+            documentableType.value.getRequired("documentable_type")
 
-        fun file(): MultipartFormValue<ByteArray> = file
+        fun file(): ByteArray = file.value.getRequired("file")
 
         /** A category given to the document, can be `null`. */
-        fun documentType(): MultipartFormValue<String>? = documentType
+        fun documentType(): String? = documentType.value.getNullable("document_type")
+
+        /** The unique identifier for the associated object. */
+        fun _documentableId(): MultipartField<String> = documentableId
+
+        fun _documentableType(): MultipartField<DocumentableType> = documentableType
+
+        fun _file(): MultipartField<ByteArray> = file
+
+        /** A category given to the document, can be `null`. */
+        fun _documentType(): MultipartField<String> = documentType
 
         private var validated: Boolean = false
 
@@ -89,10 +115,10 @@ private constructor(
         /** A builder for [DocumentCreateRequest]. */
         class Builder internal constructor() {
 
-            private var documentableId: MultipartFormValue<String>? = null
-            private var documentableType: MultipartFormValue<DocumentableType>? = null
-            private var file: MultipartFormValue<ByteArray>? = null
-            private var documentType: MultipartFormValue<String>? = null
+            private var documentableId: MultipartField<String>? = null
+            private var documentableType: MultipartField<DocumentableType>? = null
+            private var file: MultipartField<ByteArray>? = null
+            private var documentType: MultipartField<String> = MultipartField.of(null)
 
             internal fun from(documentCreateRequest: DocumentCreateRequest) = apply {
                 documentableId = documentCreateRequest.documentableId
@@ -102,37 +128,31 @@ private constructor(
             }
 
             /** The unique identifier for the associated object. */
-            fun documentableId(
-                documentableId: String,
-                contentType: ContentType = ContentTypes.DefaultText,
-            ) = apply {
-                this.documentableId =
-                    MultipartFormValue.fromString("documentableId", documentableId, contentType)
+            fun documentableId(documentableId: String) =
+                documentableId(MultipartField.of(documentableId))
+
+            /** The unique identifier for the associated object. */
+            fun documentableId(documentableId: MultipartField<String>) = apply {
+                this.documentableId = documentableId
             }
 
-            fun documentableType(
-                documentableType: DocumentableType,
-                contentType: ContentType = ContentTypes.DefaultText,
-            ) = apply {
-                this.documentableType =
-                    MultipartFormValue.fromEnum("documentableType", documentableType, contentType)
+            fun documentableType(documentableType: DocumentableType) =
+                documentableType(MultipartField.of(documentableType))
+
+            fun documentableType(documentableType: MultipartField<DocumentableType>) = apply {
+                this.documentableType = documentableType
             }
 
-            fun file(
-                content: ByteArray,
-                filename: String? = null,
-                contentType: ContentType = ContentTypes.DefaultBinary,
-            ) = apply {
-                this.file = MultipartFormValue.fromByteArray("file", content, contentType, filename)
-            }
+            fun file(file: ByteArray) = file(MultipartField.of(file))
+
+            fun file(file: MultipartField<ByteArray>) = apply { this.file = file }
 
             /** A category given to the document, can be `null`. */
-            fun documentType(
-                documentType: String,
-                contentType: ContentType = ContentTypes.DefaultText,
-            ) = apply {
-                this.documentType =
-                    MultipartFormValue.fromString("documentType", documentType, contentType)
+            fun documentType(documentType: String) = documentType(MultipartField.of(documentType))
+
+            /** A category given to the document, can be `null`. */
+            fun documentType(documentType: MultipartField<String>) = apply {
+                this.documentType = documentType
             }
 
             fun build(): DocumentCreateRequest =
@@ -184,27 +204,32 @@ private constructor(
         }
 
         /** The unique identifier for the associated object. */
-        fun documentableId(
-            documentableId: String,
-            contentType: ContentType = ContentTypes.DefaultText,
-        ) = apply { body.documentableId(documentableId, contentType) }
+        fun documentableId(documentableId: String) = apply { body.documentableId(documentableId) }
 
-        fun documentableType(
-            documentableType: DocumentableType,
-            contentType: ContentType = ContentTypes.DefaultText,
-        ) = apply { body.documentableType(documentableType, contentType) }
+        /** The unique identifier for the associated object. */
+        fun documentableId(documentableId: MultipartField<String>) = apply {
+            body.documentableId(documentableId)
+        }
 
-        fun file(
-            content: ByteArray,
-            filename: String? = null,
-            contentType: ContentType = ContentTypes.DefaultBinary,
-        ) = apply { body.file(content, filename, contentType) }
+        fun documentableType(documentableType: DocumentableType) = apply {
+            body.documentableType(documentableType)
+        }
+
+        fun documentableType(documentableType: MultipartField<DocumentableType>) = apply {
+            body.documentableType(documentableType)
+        }
+
+        fun file(file: ByteArray) = apply { body.file(file) }
+
+        fun file(file: MultipartField<ByteArray>) = apply { body.file(file) }
 
         /** A category given to the document, can be `null`. */
-        fun documentType(
-            documentType: String,
-            contentType: ContentType = ContentTypes.DefaultText,
-        ) = apply { body.documentType(documentType, contentType) }
+        fun documentType(documentType: String) = apply { body.documentType(documentType) }
+
+        /** A category given to the document, can be `null`. */
+        fun documentType(documentType: MultipartField<String>) = apply {
+            body.documentType(documentType)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
