@@ -142,6 +142,23 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [Event].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .createdAt()
+         * .data()
+         * .entityId()
+         * .eventName()
+         * .eventTime()
+         * .liveMode()
+         * .object_()
+         * .resource()
+         * .updatedAt()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -294,6 +311,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Data]. */
             fun builder() = Builder()
         }
 

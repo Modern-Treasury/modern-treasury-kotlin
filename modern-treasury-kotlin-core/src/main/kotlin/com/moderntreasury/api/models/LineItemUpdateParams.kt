@@ -105,6 +105,9 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [LineItemUpdateRequest].
+             */
             fun builder() = Builder()
         }
 
@@ -176,6 +179,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [LineItemUpdateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .itemizableType()
+         * .itemizableId()
+         * .id()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -372,6 +385,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

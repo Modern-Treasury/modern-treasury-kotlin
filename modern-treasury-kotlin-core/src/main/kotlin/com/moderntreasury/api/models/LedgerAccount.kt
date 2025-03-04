@@ -222,6 +222,28 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [LedgerAccount].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .balances()
+         * .createdAt()
+         * .description()
+         * .discardedAt()
+         * .ledgerId()
+         * .ledgerableId()
+         * .ledgerableType()
+         * .liveMode()
+         * .lockVersion()
+         * .metadata()
+         * .name()
+         * .normalBalance()
+         * .object_()
+         * .updatedAt()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -531,6 +553,19 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerBalancesWithEffectiveAt].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .availableBalance()
+             * .effectiveAtLowerBound()
+             * .effectiveAtUpperBound()
+             * .pendingBalance()
+             * .postedBalance()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -723,6 +758,18 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [LedgerBalance].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .credits()
+                 * .currency()
+                 * .currencyExponent()
+                 * .debits()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -986,6 +1033,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

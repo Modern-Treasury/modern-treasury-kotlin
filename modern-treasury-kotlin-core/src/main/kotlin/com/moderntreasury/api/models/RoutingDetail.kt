@@ -173,6 +173,24 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [RoutingDetail].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .bankAddress()
+         * .bankName()
+         * .createdAt()
+         * .discardedAt()
+         * .liveMode()
+         * .object_()
+         * .paymentType()
+         * .routingNumber()
+         * .routingNumberType()
+         * .updatedAt()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -461,6 +479,24 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Address].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .country()
+             * .createdAt()
+             * .line1()
+             * .line2()
+             * .liveMode()
+             * .locality()
+             * .object_()
+             * .postalCode()
+             * .region()
+             * .updatedAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 

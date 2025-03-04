@@ -137,6 +137,9 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [RoutingNumberLookupRequest].
+         */
         fun builder() = Builder()
     }
 
@@ -360,6 +363,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [AddressRequest]. */
             fun builder() = Builder()
         }
 
@@ -641,6 +645,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Sanctions]. */
             fun builder() = Builder()
         }
 

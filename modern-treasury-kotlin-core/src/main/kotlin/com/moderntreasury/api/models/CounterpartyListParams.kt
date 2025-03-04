@@ -88,6 +88,7 @@ private constructor(
 
         fun none(): CounterpartyListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [CounterpartyListParams]. */
         fun builder() = Builder()
     }
 
@@ -279,6 +280,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

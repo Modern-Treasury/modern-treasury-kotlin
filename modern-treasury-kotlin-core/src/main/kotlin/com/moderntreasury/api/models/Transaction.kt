@@ -370,6 +370,36 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [Transaction].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .amount()
+         * .asOfDate()
+         * .asOfTime()
+         * .asOfTimezone()
+         * .createdAt()
+         * .currency()
+         * .customIdentifiers()
+         * .direction()
+         * .discardedAt()
+         * .foreignExchangeRate()
+         * .internalAccountId()
+         * .liveMode()
+         * .metadata()
+         * .object_()
+         * .posted()
+         * .reconciled()
+         * .type()
+         * .updatedAt()
+         * .vendorCode()
+         * .vendorCodeType()
+         * .vendorCustomerId()
+         * .vendorId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -751,6 +781,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CustomIdentifiers]. */
             fun builder() = Builder()
         }
 
@@ -931,6 +962,20 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [ForeignExchangeRate].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .baseAmount()
+             * .baseCurrency()
+             * .exponent()
+             * .rateString()
+             * .targetAmount()
+             * .targetCurrency()
+             * .value()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1107,6 +1152,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -1701,6 +1747,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Details]. */
             fun builder() = Builder()
         }
 

@@ -246,6 +246,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerTransactionUpdateRequest].
+             */
             fun builder() = Builder()
         }
 
@@ -417,6 +421,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerTransactionUpdateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -841,6 +854,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [LedgerEntryCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .direction()
+             * .ledgerAccountId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1091,6 +1114,10 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [AvailableBalanceAmount].
+                 */
                 fun builder() = Builder()
             }
 
@@ -1177,6 +1204,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Metadata]. */
                 fun builder() = Builder()
             }
 
@@ -1262,6 +1290,9 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [PendingBalanceAmount].
+                 */
                 fun builder() = Builder()
             }
 
@@ -1349,6 +1380,9 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [PostedBalanceAmount].
+                 */
                 fun builder() = Builder()
             }
 
@@ -1581,6 +1615,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

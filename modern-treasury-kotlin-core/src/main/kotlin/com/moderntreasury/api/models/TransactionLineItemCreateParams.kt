@@ -129,6 +129,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [TransactionLineItemCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .expectedPaymentId()
+             * .transactionId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -228,6 +239,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [TransactionLineItemCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amount()
+         * .expectedPaymentId()
+         * .transactionId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

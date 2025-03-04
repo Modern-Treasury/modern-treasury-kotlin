@@ -59,6 +59,7 @@ private constructor(
 
         fun none(): DocumentListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [DocumentListParams]. */
         fun builder() = Builder()
     }
 

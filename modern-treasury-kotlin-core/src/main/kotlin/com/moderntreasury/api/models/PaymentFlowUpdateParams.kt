@@ -105,6 +105,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [PaymentFlowUpdateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .status()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -179,6 +187,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [PaymentFlowUpdateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .status()
+         * ```
+         */
         fun builder() = Builder()
     }
 

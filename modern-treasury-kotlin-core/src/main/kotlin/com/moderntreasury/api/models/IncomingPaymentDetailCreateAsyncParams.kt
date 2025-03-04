@@ -201,6 +201,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [IncomingPaymentDetailCreateRequest].
+             */
             fun builder() = Builder()
         }
 
@@ -353,6 +357,10 @@ private constructor(
 
         fun none(): IncomingPaymentDetailCreateAsyncParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [IncomingPaymentDetailCreateAsyncParams].
+         */
         fun builder() = Builder()
     }
 

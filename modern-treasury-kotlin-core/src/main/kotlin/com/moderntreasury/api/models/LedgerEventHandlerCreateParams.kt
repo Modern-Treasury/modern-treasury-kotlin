@@ -194,6 +194,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEventHandlerCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .ledgerTransactionTemplate()
+             * .name()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -339,6 +349,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerEventHandlerCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .ledgerTransactionTemplate()
+         * .name()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -619,6 +639,18 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEventHandlerLedgerTransactionTemplate].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .description()
+             * .effectiveAt()
+             * .ledgerEntries()
+             * .status()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -783,6 +815,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [LedgerEventHandlerLedgerEntries].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .direction()
+                 * .ledgerAccountId()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -949,6 +992,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEventHandlerConditions].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .field()
+             * .operator()
+             * .value()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1059,6 +1113,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -1137,6 +1192,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEventHandlerVariables].
+             */
             fun builder() = Builder()
         }
 
