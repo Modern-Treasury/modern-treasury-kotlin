@@ -168,6 +168,23 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [BankSettings].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .backupWithholdingPercentage()
+         * .createdAt()
+         * .discardedAt()
+         * .enableBackupWithholding()
+         * .liveMode()
+         * .object_()
+         * .privacyOptOut()
+         * .regulationO()
+         * .updatedAt()
+         * ```
+         */
         fun builder() = Builder()
     }
 

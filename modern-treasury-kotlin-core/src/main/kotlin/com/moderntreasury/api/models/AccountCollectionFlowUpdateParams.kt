@@ -105,6 +105,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [AccountCollectionFlowUpdateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .status()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -182,6 +191,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [AccountCollectionFlowUpdateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .status()
+         * ```
+         */
         fun builder() = Builder()
     }
 

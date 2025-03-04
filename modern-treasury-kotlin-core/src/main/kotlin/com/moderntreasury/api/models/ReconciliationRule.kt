@@ -181,6 +181,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ReconciliationRule].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amountLowerBound()
+         * .amountUpperBound()
+         * .direction()
+         * .internalAccountId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -484,6 +495,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CustomIdentifiers]. */
             fun builder() = Builder()
         }
 

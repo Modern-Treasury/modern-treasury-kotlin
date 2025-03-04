@@ -46,6 +46,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [RoutingDetailRetrieveParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountsType()
+         * .accountId()
+         * .id()
+         * ```
+         */
         fun builder() = Builder()
     }
 

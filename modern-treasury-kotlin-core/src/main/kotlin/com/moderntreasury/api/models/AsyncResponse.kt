@@ -55,6 +55,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AsyncResponse].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .object_()
+         * ```
+         */
         fun builder() = Builder()
     }
 

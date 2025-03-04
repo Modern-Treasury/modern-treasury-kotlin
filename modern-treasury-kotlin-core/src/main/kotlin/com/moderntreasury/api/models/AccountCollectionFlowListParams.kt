@@ -59,6 +59,10 @@ private constructor(
 
         fun none(): AccountCollectionFlowListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [AccountCollectionFlowListParams].
+         */
         fun builder() = Builder()
     }
 

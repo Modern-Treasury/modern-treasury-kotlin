@@ -164,6 +164,9 @@ private constructor(
 
         fun none(): LedgerTransactionListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [LedgerTransactionListParams].
+         */
         fun builder() = Builder()
     }
 
@@ -451,6 +454,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [EffectiveAt]. */
             fun builder() = Builder()
         }
 
@@ -548,6 +552,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [EffectiveDate]. */
             fun builder() = Builder()
         }
 
@@ -771,6 +776,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -880,6 +886,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [OrderBy]. */
             fun builder() = Builder()
         }
 
@@ -1193,6 +1200,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [PostedAt]. */
             fun builder() = Builder()
         }
 
@@ -1395,6 +1403,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [UpdatedAt]. */
             fun builder() = Builder()
         }
 

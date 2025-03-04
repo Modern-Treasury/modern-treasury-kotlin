@@ -160,6 +160,18 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [BalanceReportCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .asOfDate()
+             * .asOfTime()
+             * .balanceReportType()
+             * .balances()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -275,6 +287,18 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [BalanceReportCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .internalAccountId()
+         * .asOfDate()
+         * .asOfTime()
+         * .balanceReportType()
+         * .balances()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -670,6 +694,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [BalanceCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .balanceType()
+             * .vendorCode()
+             * .vendorCodeType()
+             * ```
+             */
             fun builder() = Builder()
         }
 

@@ -236,6 +236,18 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [InternalAccountCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .connectionId()
+             * .currency()
+             * .name()
+             * .partyName()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -398,6 +410,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [InternalAccountCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .connectionId()
+         * .currency()
+         * .name()
+         * .partyName()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -801,6 +824,18 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [PartyAddress].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -936,6 +971,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [VendorAttributes]. */
             fun builder() = Builder()
         }
 

@@ -180,6 +180,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountCollectionFlow].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .counterpartyId()
+         * .paymentTypes()
+         * ```
+         */
         fun builder() = Builder()
     }
 

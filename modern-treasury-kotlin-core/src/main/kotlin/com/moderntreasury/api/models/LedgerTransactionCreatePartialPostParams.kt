@@ -196,6 +196,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerTransactionPartialPostCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .postedLedgerEntries()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -348,6 +357,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerTransactionCreatePartialPostParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .postedLedgerEntries()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -654,6 +673,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEntryPartialPostCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .direction()
+             * .ledgerAccountId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -893,6 +923,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Metadata]. */
                 fun builder() = Builder()
             }
 
@@ -992,6 +1023,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

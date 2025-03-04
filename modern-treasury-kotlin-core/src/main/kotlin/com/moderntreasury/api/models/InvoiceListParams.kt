@@ -95,6 +95,7 @@ private constructor(
 
         fun none(): InvoiceListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [InvoiceListParams]. */
         fun builder() = Builder()
     }
 
@@ -299,6 +300,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

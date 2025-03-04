@@ -149,6 +149,7 @@ private constructor(
 
         fun none(): LedgerAccountListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [LedgerAccountListParams]. */
         fun builder() = Builder()
     }
 
@@ -446,6 +447,9 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [AvailableBalanceAmount].
+             */
             fun builder() = Builder()
         }
 
@@ -614,6 +618,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Balances]. */
             fun builder() = Builder()
         }
 
@@ -740,6 +745,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             fun builder() = Builder()
         }
 
@@ -837,6 +843,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -961,6 +968,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [PendingBalanceAmount]. */
             fun builder() = Builder()
         }
 
@@ -1123,6 +1131,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [PostedBalanceAmount]. */
             fun builder() = Builder()
         }
 
@@ -1259,6 +1268,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [UpdatedAt]. */
             fun builder() = Builder()
         }
 

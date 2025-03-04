@@ -141,6 +141,7 @@ private constructor(
 
         fun none(): PaymentOrderListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [PaymentOrderListParams]. */
         fun builder() = Builder()
     }
 
@@ -395,6 +396,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

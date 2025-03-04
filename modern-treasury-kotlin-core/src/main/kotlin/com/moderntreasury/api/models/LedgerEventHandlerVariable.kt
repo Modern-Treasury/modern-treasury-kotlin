@@ -61,6 +61,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [LedgerEventHandlerVariable].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .query()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -173,6 +182,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEventHandlerConditions].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .field()
+             * .operator()
+             * .value()
+             * ```
+             */
             fun builder() = Builder()
         }
 

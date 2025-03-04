@@ -245,6 +245,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [InvoiceLineItemCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .name()
+             * .unitAmount()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -405,6 +415,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [InvoiceLineItemCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .invoiceId()
+         * .name()
+         * .unitAmount()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -656,6 +676,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

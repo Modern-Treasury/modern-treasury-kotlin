@@ -300,6 +300,33 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [LedgerTransactionVersion].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .createdAt()
+         * .description()
+         * .effectiveAt()
+         * .effectiveDate()
+         * .externalId()
+         * .ledgerEntries()
+         * .ledgerId()
+         * .ledgerTransactionId()
+         * .ledgerableId()
+         * .ledgerableType()
+         * .liveMode()
+         * .metadata()
+         * .object_()
+         * .partiallyPostsLedgerTransactionId()
+         * .postedAt()
+         * .reversedByLedgerTransactionId()
+         * .reversesLedgerTransactionId()
+         * .status()
+         * .version()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -829,6 +856,28 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEntryOfTransactionVersion].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .amount()
+             * .createdAt()
+             * .direction()
+             * .ledgerAccountCurrency()
+             * .ledgerAccountCurrencyExponent()
+             * .ledgerAccountId()
+             * .ledgerAccountLockVersion()
+             * .ledgerTransactionId()
+             * .liveMode()
+             * .metadata()
+             * .object_()
+             * .resultingLedgerAccountBalances()
+             * .status()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1112,6 +1161,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Metadata]. */
                 fun builder() = Builder()
             }
 
@@ -1245,6 +1295,16 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [LedgerBalances].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .availableBalance()
+                 * .pendingBalance()
+                 * .postedBalance()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1410,6 +1470,18 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [LedgerBalance].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .amount()
+                     * .credits()
+                     * .currency()
+                     * .currencyExponent()
+                     * .debits()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -1815,6 +1887,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

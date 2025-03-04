@@ -512,6 +512,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [ExpectedPaymentCreateRequest].
+             */
             fun builder() = Builder()
         }
 
@@ -885,6 +889,9 @@ private constructor(
 
         fun none(): ExpectedPaymentCreateParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ExpectedPaymentCreateParams].
+         */
         fun builder() = Builder()
     }
 
@@ -1537,6 +1544,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerTransactionCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .ledgerEntries()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1921,6 +1937,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [LedgerEntryCreateRequest].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .direction()
+                 * .ledgerAccountId()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -2185,6 +2212,10 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [AvailableBalanceAmount].
+                     */
                     fun builder() = Builder()
                 }
 
@@ -2272,6 +2303,7 @@ private constructor(
 
                 companion object {
 
+                    /** Returns a mutable builder for constructing an instance of [Metadata]. */
                     fun builder() = Builder()
                 }
 
@@ -2357,6 +2389,10 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [PendingBalanceAmount].
+                     */
                     fun builder() = Builder()
                 }
 
@@ -2445,6 +2481,10 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [PostedBalanceAmount].
+                     */
                     fun builder() = Builder()
                 }
 
@@ -2683,6 +2723,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Metadata]. */
                 fun builder() = Builder()
             }
 
@@ -2944,6 +2985,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [LineItemRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -3067,6 +3116,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Metadata]. */
                 fun builder() = Builder()
             }
 
@@ -3166,6 +3216,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

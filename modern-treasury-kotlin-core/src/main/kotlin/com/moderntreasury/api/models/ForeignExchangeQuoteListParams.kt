@@ -88,6 +88,10 @@ private constructor(
 
         fun none(): ForeignExchangeQuoteListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [ForeignExchangeQuoteListParams].
+         */
         fun builder() = Builder()
     }
 
@@ -287,6 +291,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

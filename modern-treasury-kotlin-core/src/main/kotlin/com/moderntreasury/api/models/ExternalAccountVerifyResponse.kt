@@ -316,6 +316,24 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [ExternalAccountVerificationAttempt].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .createdAt()
+             * .externalAccountId()
+             * .liveMode()
+             * .object_()
+             * .originatingAccountId()
+             * .paymentType()
+             * .priority()
+             * .status()
+             * .updatedAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 
