@@ -2,7 +2,9 @@
 
 package com.moderntreasury.api.client
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.ClientPingParams
 import com.moderntreasury.api.models.PingResponse
 import com.moderntreasury.api.services.async.AccountCollectionFlowServiceAsync
@@ -67,6 +69,11 @@ interface ModernTreasuryClientAsync {
      * this client.
      */
     fun sync(): ModernTreasuryClient
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     fun connections(): ConnectionServiceAsync
 
@@ -170,4 +177,103 @@ interface ModernTreasuryClientAsync {
      * method.
      */
     fun close()
+
+    /**
+     * A view of [ModernTreasuryClientAsync] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        fun connections(): ConnectionServiceAsync.WithRawResponse
+
+        fun counterparties(): CounterpartyServiceAsync.WithRawResponse
+
+        fun events(): EventServiceAsync.WithRawResponse
+
+        fun expectedPayments(): ExpectedPaymentServiceAsync.WithRawResponse
+
+        fun externalAccounts(): ExternalAccountServiceAsync.WithRawResponse
+
+        fun incomingPaymentDetails(): IncomingPaymentDetailServiceAsync.WithRawResponse
+
+        fun invoices(): InvoiceServiceAsync.WithRawResponse
+
+        fun documents(): DocumentServiceAsync.WithRawResponse
+
+        fun accountCollectionFlows(): AccountCollectionFlowServiceAsync.WithRawResponse
+
+        fun accountDetails(): AccountDetailServiceAsync.WithRawResponse
+
+        fun routingDetails(): RoutingDetailServiceAsync.WithRawResponse
+
+        fun internalAccounts(): InternalAccountServiceAsync.WithRawResponse
+
+        fun ledgers(): LedgerServiceAsync.WithRawResponse
+
+        fun ledgerableEvents(): LedgerableEventServiceAsync.WithRawResponse
+
+        fun ledgerAccountCategories(): LedgerAccountCategoryServiceAsync.WithRawResponse
+
+        fun ledgerAccounts(): LedgerAccountServiceAsync.WithRawResponse
+
+        fun ledgerAccountBalanceMonitors(): LedgerAccountBalanceMonitorServiceAsync.WithRawResponse
+
+        fun ledgerAccountStatements(): LedgerAccountStatementServiceAsync.WithRawResponse
+
+        fun ledgerEntries(): LedgerEntryServiceAsync.WithRawResponse
+
+        fun ledgerEventHandlers(): LedgerEventHandlerServiceAsync.WithRawResponse
+
+        fun ledgerTransactions(): LedgerTransactionServiceAsync.WithRawResponse
+
+        fun lineItems(): LineItemServiceAsync.WithRawResponse
+
+        fun paymentFlows(): PaymentFlowServiceAsync.WithRawResponse
+
+        fun paymentOrders(): PaymentOrderServiceAsync.WithRawResponse
+
+        fun paymentReferences(): PaymentReferenceServiceAsync.WithRawResponse
+
+        fun returns(): ReturnServiceAsync.WithRawResponse
+
+        fun transactions(): TransactionServiceAsync.WithRawResponse
+
+        fun validations(): ValidationServiceAsync.WithRawResponse
+
+        fun paperItems(): PaperItemServiceAsync.WithRawResponse
+
+        fun virtualAccounts(): VirtualAccountServiceAsync.WithRawResponse
+
+        fun bulkRequests(): BulkRequestServiceAsync.WithRawResponse
+
+        fun bulkResults(): BulkResultServiceAsync.WithRawResponse
+
+        fun ledgerAccountSettlements(): LedgerAccountSettlementServiceAsync.WithRawResponse
+
+        fun foreignExchangeQuotes(): ForeignExchangeQuoteServiceAsync.WithRawResponse
+
+        fun connectionLegalEntities(): ConnectionLegalEntityServiceAsync.WithRawResponse
+
+        fun legalEntities(): LegalEntityServiceAsync.WithRawResponse
+
+        fun legalEntityAssociations(): LegalEntityAssociationServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `get /api/ping`, but is otherwise the same as
+         * [ModernTreasuryClientAsync.ping].
+         */
+        @MustBeClosed
+        suspend fun ping(
+            params: ClientPingParams = ClientPingParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PingResponse>
+
+        /**
+         * Returns a raw HTTP response for `get /api/ping`, but is otherwise the same as
+         * [ModernTreasuryClientAsync.ping].
+         */
+        @MustBeClosed
+        suspend fun ping(requestOptions: RequestOptions): HttpResponseFor<PingResponse> =
+            ping(ClientPingParams.none(), requestOptions)
+    }
 }

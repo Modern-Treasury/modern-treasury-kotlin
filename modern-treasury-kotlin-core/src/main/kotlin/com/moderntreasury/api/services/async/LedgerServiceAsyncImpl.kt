@@ -10,6 +10,8 @@ import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse.Handler
+import com.moderntreasury.api.core.http.HttpResponseFor
+import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.json
 import com.moderntreasury.api.core.prepareAsync
 import com.moderntreasury.api.errors.ModernTreasuryError
@@ -24,139 +26,197 @@ import com.moderntreasury.api.models.LedgerUpdateParams
 class LedgerServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     LedgerServiceAsync {
 
-    private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: LedgerServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val createHandler: Handler<Ledger> =
-        jsonHandler<Ledger>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    override fun withRawResponse(): LedgerServiceAsync.WithRawResponse = withRawResponse
 
-    /** Create a ledger. */
     override suspend fun create(
         params: LedgerCreateParams,
         requestOptions: RequestOptions,
-    ): Ledger {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("api", "ledgers")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { createHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.validate()
-                }
-            }
-    }
+    ): Ledger =
+        // post /api/ledgers
+        withRawResponse().create(params, requestOptions).parse()
 
-    private val retrieveHandler: Handler<Ledger> =
-        jsonHandler<Ledger>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Get details on a single ledger. */
     override suspend fun retrieve(
         params: LedgerRetrieveParams,
         requestOptions: RequestOptions,
-    ): Ledger {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("api", "ledgers", params.getPathParam(0))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { retrieveHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.validate()
-                }
-            }
-    }
+    ): Ledger =
+        // get /api/ledgers/{id}
+        withRawResponse().retrieve(params, requestOptions).parse()
 
-    private val updateHandler: Handler<Ledger> =
-        jsonHandler<Ledger>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Update the details of a ledger. */
     override suspend fun update(
         params: LedgerUpdateParams,
         requestOptions: RequestOptions,
-    ): Ledger {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.PATCH)
-                .addPathSegments("api", "ledgers", params.getPathParam(0))
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { updateHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.validate()
-                }
-            }
-    }
+    ): Ledger =
+        // patch /api/ledgers/{id}
+        withRawResponse().update(params, requestOptions).parse()
 
-    private val listHandler: Handler<List<Ledger>> =
-        jsonHandler<List<Ledger>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Get a list of ledgers. */
     override suspend fun list(
         params: LedgerListParams,
         requestOptions: RequestOptions,
-    ): LedgerListPageAsync {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("api", "ledgers")
-                .build()
-                .prepareAsync(clientOptions, params)
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { listHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.forEach { it.validate() }
-                }
-            }
-            .let {
-                LedgerListPageAsync.of(
-                    this,
-                    params,
-                    LedgerListPageAsync.Response.builder()
-                        .items(it)
-                        .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                        .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build(),
-                )
-            }
-    }
+    ): LedgerListPageAsync =
+        // get /api/ledgers
+        withRawResponse().list(params, requestOptions).parse()
 
-    private val deleteHandler: Handler<Ledger> =
-        jsonHandler<Ledger>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Delete a ledger. */
     override suspend fun delete(
         params: LedgerDeleteParams,
         requestOptions: RequestOptions,
-    ): Ledger {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.DELETE)
-                .addPathSegments("api", "ledgers", params.getPathParam(0))
-                .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                .build()
-                .prepareAsync(clientOptions, params)
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { deleteHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.validate()
-                }
+    ): Ledger =
+        // delete /api/ledgers/{id}
+        withRawResponse().delete(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        LedgerServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<ModernTreasuryError> =
+            errorHandler(clientOptions.jsonMapper)
+
+        private val createHandler: Handler<Ledger> =
+            jsonHandler<Ledger>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun create(
+            params: LedgerCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Ledger> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("api", "ledgers")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
+        }
+
+        private val retrieveHandler: Handler<Ledger> =
+            jsonHandler<Ledger>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun retrieve(
+            params: LedgerRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Ledger> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("api", "ledgers", params.getPathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val updateHandler: Handler<Ledger> =
+            jsonHandler<Ledger>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun update(
+            params: LedgerUpdateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Ledger> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .addPathSegments("api", "ledgers", params.getPathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { updateHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler: Handler<List<Ledger>> =
+            jsonHandler<List<Ledger>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun list(
+            params: LedgerListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LedgerListPageAsync> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("api", "ledgers")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.forEach { it.validate() }
+                        }
+                    }
+                    .let {
+                        LedgerListPageAsync.of(
+                            LedgerServiceAsyncImpl(clientOptions),
+                            params,
+                            LedgerListPageAsync.Response.builder()
+                                .items(it)
+                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
+                                .afterCursor(
+                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
+                                )
+                                .build(),
+                        )
+                    }
+            }
+        }
+
+        private val deleteHandler: Handler<Ledger> =
+            jsonHandler<Ledger>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun delete(
+            params: LedgerDeleteParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Ledger> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .addPathSegments("api", "ledgers", params.getPathParam(0))
+                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { deleteHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
     }
 }
