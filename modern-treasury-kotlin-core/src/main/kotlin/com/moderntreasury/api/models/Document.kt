@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
@@ -234,12 +235,8 @@ private constructor(
 
         fun addDocumentDetail(documentDetail: DocumentDetail) = apply {
             documentDetails =
-                (documentDetails ?: JsonField.of(mutableListOf())).apply {
-                    (asKnown()
-                            ?: throw IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            ))
-                        .add(documentDetail)
+                (documentDetails ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("documentDetails", it).add(documentDetail)
                 }
         }
 

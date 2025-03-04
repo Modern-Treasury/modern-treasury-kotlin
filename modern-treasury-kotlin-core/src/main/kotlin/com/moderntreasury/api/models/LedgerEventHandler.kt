@@ -11,6 +11,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
@@ -633,12 +634,8 @@ private constructor(
             /** An array of ledger entry objects. */
             fun addLedgerEntry(ledgerEntry: LedgerEventHandlerLedgerEntries) = apply {
                 ledgerEntries =
-                    (ledgerEntries ?: JsonField.of(mutableListOf())).apply {
-                        (asKnown()
-                                ?: throw IllegalStateException(
-                                    "Field was set to non-list type: ${javaClass.simpleName}"
-                                ))
-                            .add(ledgerEntry)
+                    (ledgerEntries ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("ledgerEntries", it).add(ledgerEntry)
                     }
             }
 
