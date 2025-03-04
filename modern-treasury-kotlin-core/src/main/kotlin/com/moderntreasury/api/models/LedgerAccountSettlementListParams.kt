@@ -104,6 +104,10 @@ private constructor(
 
         fun none(): LedgerAccountSettlementListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerAccountSettlementListParams].
+         */
         fun builder() = Builder()
     }
 
@@ -326,6 +330,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             fun builder() = Builder()
         }
 
@@ -423,6 +428,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -521,6 +527,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [UpdatedAt]. */
             fun builder() = Builder()
         }
 

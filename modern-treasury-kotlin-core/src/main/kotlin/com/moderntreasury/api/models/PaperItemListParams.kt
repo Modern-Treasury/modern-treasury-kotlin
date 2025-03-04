@@ -60,6 +60,7 @@ private constructor(
 
         fun none(): PaperItemListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [PaperItemListParams]. */
         fun builder() = Builder()
     }
 

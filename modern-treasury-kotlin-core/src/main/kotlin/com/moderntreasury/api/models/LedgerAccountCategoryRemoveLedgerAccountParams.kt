@@ -49,6 +49,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerAccountCategoryRemoveLedgerAccountParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .ledgerAccountId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

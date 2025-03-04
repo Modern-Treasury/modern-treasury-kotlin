@@ -196,6 +196,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerAccountStatementCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .effectiveAtLowerBound()
+             * .effectiveAtUpperBound()
+             * .ledgerAccountId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -338,6 +349,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerAccountStatementCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .effectiveAtLowerBound()
+         * .effectiveAtUpperBound()
+         * .ledgerAccountId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -574,6 +596,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

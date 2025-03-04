@@ -140,6 +140,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerAccountBalanceMonitorCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .alertCondition()
+             * .ledgerAccountId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -252,6 +262,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerAccountBalanceMonitorCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .alertCondition()
+         * .ledgerAccountId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -510,6 +530,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [AlertConditionCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .field()
+             * .operator()
+             * .value()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -638,6 +669,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

@@ -119,6 +119,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [LedgerCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .name()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -213,6 +221,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [LedgerCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .name()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -404,6 +420,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

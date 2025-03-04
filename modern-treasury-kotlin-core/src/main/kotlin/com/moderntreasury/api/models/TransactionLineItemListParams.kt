@@ -57,6 +57,10 @@ private constructor(
 
         fun none(): TransactionLineItemListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [TransactionLineItemListParams].
+         */
         fun builder() = Builder()
     }
 
@@ -216,6 +220,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Id]. */
             fun builder() = Builder()
         }
 

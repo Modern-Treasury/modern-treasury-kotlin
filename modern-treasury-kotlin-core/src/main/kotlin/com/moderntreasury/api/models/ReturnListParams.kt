@@ -73,6 +73,7 @@ private constructor(
 
         fun none(): ReturnListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [ReturnListParams]. */
         fun builder() = Builder()
     }
 

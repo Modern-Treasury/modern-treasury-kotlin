@@ -106,6 +106,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerAccountSettlementEntriesDeleteRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .ledgerEntryIds()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -201,6 +210,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerAccountSettlementAccountEntryDeleteParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .ledgerEntryIds()
+         * ```
+         */
         fun builder() = Builder()
     }
 

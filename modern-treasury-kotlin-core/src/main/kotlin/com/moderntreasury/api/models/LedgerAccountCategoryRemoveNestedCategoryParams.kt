@@ -49,6 +49,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerAccountCategoryRemoveNestedCategoryParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .subCategoryId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

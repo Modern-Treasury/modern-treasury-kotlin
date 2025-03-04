@@ -115,6 +115,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [AccountCollectionFlowCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .counterpartyId()
+             * .paymentTypes()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -224,6 +234,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [AccountCollectionFlowCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .counterpartyId()
+         * .paymentTypes()
+         * ```
+         */
         fun builder() = Builder()
     }
 

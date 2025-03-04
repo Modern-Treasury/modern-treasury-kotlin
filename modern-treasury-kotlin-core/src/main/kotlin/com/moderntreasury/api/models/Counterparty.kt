@@ -182,6 +182,26 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [Counterparty].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accounts()
+         * .createdAt()
+         * .discardedAt()
+         * .email()
+         * .legalEntityId()
+         * .liveMode()
+         * .metadata()
+         * .name()
+         * .object_()
+         * .sendRemittanceAdvice()
+         * .updatedAt()
+         * .verificationStatus()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -596,6 +616,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Account]. */
             fun builder() = Builder()
         }
 
@@ -962,6 +983,21 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [ContactDetail].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .contactIdentifier()
+                 * .contactIdentifierType()
+                 * .createdAt()
+                 * .discardedAt()
+                 * .liveMode()
+                 * .object_()
+                 * .updatedAt()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1242,6 +1278,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Metadata]. */
                 fun builder() = Builder()
             }
 
@@ -1435,6 +1472,24 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .country()
+                 * .createdAt()
+                 * .line1()
+                 * .line2()
+                 * .liveMode()
+                 * .locality()
+                 * .object_()
+                 * .postalCode()
+                 * .region()
+                 * .updatedAt()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1971,6 +2026,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

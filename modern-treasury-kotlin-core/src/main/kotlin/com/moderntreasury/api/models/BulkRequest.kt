@@ -180,6 +180,25 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [BulkRequest].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .actionType()
+         * .createdAt()
+         * .failedResultCount()
+         * .liveMode()
+         * .metadata()
+         * .object_()
+         * .resourceType()
+         * .status()
+         * .successResultCount()
+         * .totalResourceCount()
+         * .updatedAt()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -478,6 +497,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

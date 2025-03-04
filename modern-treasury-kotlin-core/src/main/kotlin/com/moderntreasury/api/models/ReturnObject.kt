@@ -327,6 +327,35 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ReturnObject].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .amount()
+         * .code()
+         * .createdAt()
+         * .currency()
+         * .currentReturn()
+         * .dateOfDeath()
+         * .failureReason()
+         * .internalAccountId()
+         * .ledgerTransactionId()
+         * .liveMode()
+         * .object_()
+         * .reason()
+         * .referenceNumbers()
+         * .returnableId()
+         * .returnableType()
+         * .role()
+         * .status()
+         * .transactionId()
+         * .transactionLineItemId()
+         * .type()
+         * .updatedAt()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -1150,6 +1179,20 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [PaymentReference].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .createdAt()
+             * .liveMode()
+             * .object_()
+             * .referenceNumber()
+             * .referenceNumberType()
+             * .updatedAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 

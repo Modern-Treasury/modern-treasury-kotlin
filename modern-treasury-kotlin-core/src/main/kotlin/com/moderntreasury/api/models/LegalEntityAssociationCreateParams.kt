@@ -174,6 +174,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LegalEntityAssociationCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .parentLegalEntityId()
+             * .relationshipTypes()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -315,6 +325,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LegalEntityAssociationCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .parentLegalEntityId()
+         * .relationshipTypes()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -917,6 +937,9 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [ChildLegalEntityCreate].
+             */
             fun builder() = Builder()
         }
 
@@ -1336,6 +1359,19 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [LegalEntityAddressCreateRequest].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .country()
+                 * .line1()
+                 * .locality()
+                 * .postalCode()
+                 * .region()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1651,6 +1687,16 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [IdentificationCreateRequest].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .idNumber()
+                 * .idType()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -2228,6 +2274,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Metadata]. */
                 fun builder() = Builder()
             }
 
@@ -2319,6 +2366,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [PhoneNumber]. */
                 fun builder() = Builder()
             }
 

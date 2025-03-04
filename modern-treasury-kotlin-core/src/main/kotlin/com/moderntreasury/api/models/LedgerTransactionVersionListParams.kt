@@ -74,6 +74,10 @@ private constructor(
 
         fun none(): LedgerTransactionVersionListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerTransactionVersionListParams].
+         */
         fun builder() = Builder()
     }
 
@@ -265,6 +269,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             fun builder() = Builder()
         }
 
@@ -362,6 +367,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Version]. */
             fun builder() = Builder()
         }
 

@@ -162,6 +162,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [RoutingDetailCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .routingNumber()
+             * .routingNumberType()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -271,6 +281,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [RoutingDetailCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountsType()
+         * .accountId()
+         * .routingNumber()
+         * .routingNumberType()
+         * ```
+         */
         fun builder() = Builder()
     }
 

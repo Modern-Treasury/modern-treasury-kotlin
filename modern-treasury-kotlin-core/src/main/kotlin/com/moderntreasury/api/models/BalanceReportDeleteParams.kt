@@ -49,6 +49,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [BalanceReportDeleteParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .internalAccountId()
+         * .id()
+         * ```
+         */
         fun builder() = Builder()
     }
 

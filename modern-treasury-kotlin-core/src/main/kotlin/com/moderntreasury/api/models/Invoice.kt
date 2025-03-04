@@ -543,6 +543,50 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [Invoice].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .amountPaid()
+         * .amountRemaining()
+         * .contactDetails()
+         * .counterpartyBillingAddress()
+         * .counterpartyId()
+         * .counterpartyShippingAddress()
+         * .createdAt()
+         * .currency()
+         * .description()
+         * .dueDate()
+         * .expectedPayments()
+         * .fallbackPaymentMethod()
+         * .hostedUrl()
+         * .invoicerAddress()
+         * .ledgerAccountSettlementId()
+         * .liveMode()
+         * .metadata()
+         * .notificationEmailAddresses()
+         * .notificationsEnabled()
+         * .number()
+         * .object_()
+         * .originatingAccountId()
+         * .paymentEffectiveDate()
+         * .paymentMethod()
+         * .paymentOrders()
+         * .paymentType()
+         * .pdfUrl()
+         * .receivingAccountId()
+         * .recipientEmail()
+         * .recipientName()
+         * .remindAfterOverdueDays()
+         * .status()
+         * .totalAmount()
+         * .transactionLineItemIds()
+         * .updatedAt()
+         * .virtualAccountId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -1219,6 +1263,21 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [ContactDetail].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .contactIdentifier()
+             * .contactIdentifierType()
+             * .createdAt()
+             * .discardedAt()
+             * .liveMode()
+             * .object_()
+             * .updatedAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1552,6 +1611,19 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [CounterpartyBillingAddress].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1743,6 +1815,19 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [CounterpartyShippingAddress].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1934,6 +2019,18 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [InvoicerAddress].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -2066,6 +2163,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
