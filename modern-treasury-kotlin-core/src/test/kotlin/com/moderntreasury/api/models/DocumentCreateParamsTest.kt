@@ -2,8 +2,7 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.core.ContentTypes
-import com.moderntreasury.api.core.MultipartFormValue
+import com.moderntreasury.api.core.MultipartField
 import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -33,28 +32,15 @@ class DocumentCreateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-        assertThat(body.filterNotNull())
-            .containsExactlyInAnyOrder(
-                MultipartFormValue.fromString(
-                    "documentableId",
-                    "documentable_id",
-                    ContentTypes.DefaultText,
-                ),
-                MultipartFormValue.fromEnum(
-                    "documentableType",
-                    DocumentCreateParams.DocumentableType.CASES,
-                    ContentTypes.DefaultText,
-                ),
-                MultipartFormValue.fromByteArray(
-                    "file",
-                    "some content".toByteArray(),
-                    ContentTypes.DefaultBinary,
-                ),
-                MultipartFormValue.fromString(
-                    "documentType",
-                    "document_type",
-                    ContentTypes.DefaultText,
-                ),
+        assertThat(body.filterValues { !it.value.isNull() })
+            .isEqualTo(
+                mapOf(
+                    "documentable_id" to MultipartField.of("documentable_id"),
+                    "documentable_type" to
+                        MultipartField.of(DocumentCreateParams.DocumentableType.CASES),
+                    "file" to MultipartField.of("some content".toByteArray()),
+                    "document_type" to MultipartField.of("document_type"),
+                )
             )
     }
 
@@ -70,23 +56,14 @@ class DocumentCreateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-        assertThat(body.filterNotNull())
-            .containsExactlyInAnyOrder(
-                MultipartFormValue.fromString(
-                    "documentableId",
-                    "documentable_id",
-                    ContentTypes.DefaultText,
-                ),
-                MultipartFormValue.fromEnum(
-                    "documentableType",
-                    DocumentCreateParams.DocumentableType.CASES,
-                    ContentTypes.DefaultText,
-                ),
-                MultipartFormValue.fromByteArray(
-                    "file",
-                    "some content".toByteArray(),
-                    ContentTypes.DefaultBinary,
-                ),
+        assertThat(body.filterValues { !it.value.isNull() })
+            .isEqualTo(
+                mapOf(
+                    "documentable_id" to MultipartField.of("documentable_id"),
+                    "documentable_type" to
+                        MultipartField.of(DocumentCreateParams.DocumentableType.CASES),
+                    "file" to MultipartField.of("some content".toByteArray()),
+                )
             )
     }
 }

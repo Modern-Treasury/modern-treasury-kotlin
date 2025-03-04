@@ -13,6 +13,7 @@ import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
+import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -249,12 +250,8 @@ private constructor(
             fun addPostedLedgerEntry(postedLedgerEntry: LedgerEntryPartialPostCreateRequest) =
                 apply {
                     postedLedgerEntries =
-                        (postedLedgerEntries ?: JsonField.of(mutableListOf())).apply {
-                            (asKnown()
-                                    ?: throw IllegalStateException(
-                                        "Field was set to non-list type: ${javaClass.simpleName}"
-                                    ))
-                                .add(postedLedgerEntry)
+                        (postedLedgerEntries ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("postedLedgerEntries", it).add(postedLedgerEntry)
                         }
                 }
 
