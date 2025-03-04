@@ -51,6 +51,7 @@ private constructor(
 
         fun none(): ConnectionListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [ConnectionListParams]. */
         fun builder() = Builder()
     }
 

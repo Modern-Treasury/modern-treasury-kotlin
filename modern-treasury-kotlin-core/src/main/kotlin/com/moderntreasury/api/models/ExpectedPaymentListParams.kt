@@ -107,6 +107,9 @@ private constructor(
 
         fun none(): ExpectedPaymentListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ExpectedPaymentListParams].
+         */
         fun builder() = Builder()
     }
 
@@ -315,6 +318,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

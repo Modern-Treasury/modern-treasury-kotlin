@@ -204,6 +204,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [ExternalAccountVerifyRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .originatingAccountId()
+             * .paymentType()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -336,6 +346,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ExternalAccountVerifyParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .originatingAccountId()
+         * .paymentType()
+         * ```
+         */
         fun builder() = Builder()
     }
 

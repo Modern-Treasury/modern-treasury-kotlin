@@ -69,6 +69,7 @@ private constructor(
 
         fun none(): PaymentFlowListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [PaymentFlowListParams]. */
         fun builder() = Builder()
     }
 

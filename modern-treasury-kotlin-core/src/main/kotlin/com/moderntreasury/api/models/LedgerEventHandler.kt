@@ -181,6 +181,26 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [LedgerEventHandler].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .conditions()
+         * .createdAt()
+         * .description()
+         * .discardedAt()
+         * .ledgerId()
+         * .ledgerTransactionTemplate()
+         * .liveMode()
+         * .metadata()
+         * .name()
+         * .object_()
+         * .updatedAt()
+         * .variables()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -407,6 +427,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEventHandlerConditions].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .field()
+             * .operator()
+             * .value()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -571,6 +602,18 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEventHandlerLedgerTransactionTemplate].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .description()
+             * .effectiveAt()
+             * .ledgerEntries()
+             * .status()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -735,6 +778,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [LedgerEventHandlerLedgerEntries].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .direction()
+                 * .ledgerAccountId()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -871,6 +925,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -949,6 +1004,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEventHandlerVariables].
+             */
             fun builder() = Builder()
         }
 

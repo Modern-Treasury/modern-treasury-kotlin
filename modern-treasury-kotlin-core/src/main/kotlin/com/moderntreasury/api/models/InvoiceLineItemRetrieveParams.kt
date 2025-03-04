@@ -42,6 +42,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [InvoiceLineItemRetrieveParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .invoiceId()
+         * .id()
+         * ```
+         */
         fun builder() = Builder()
     }
 

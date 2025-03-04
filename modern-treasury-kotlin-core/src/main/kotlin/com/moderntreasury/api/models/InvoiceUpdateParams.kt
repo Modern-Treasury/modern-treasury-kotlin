@@ -727,6 +727,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [InvoiceUpdateRequest]. */
             fun builder() = Builder()
         }
 
@@ -1231,6 +1232,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [InvoiceUpdateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -1843,6 +1852,21 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [ContactDetail].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .contactIdentifier()
+             * .contactIdentifierType()
+             * .createdAt()
+             * .discardedAt()
+             * .liveMode()
+             * .object_()
+             * .updatedAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -2176,6 +2200,19 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [CounterpartyBillingAddress].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -2367,6 +2404,19 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [CounterpartyShippingAddress].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -2603,6 +2653,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [InvoiceLineItemCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .name()
+             * .unitAmount()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -2770,6 +2830,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Metadata]. */
                 fun builder() = Builder()
             }
 
@@ -2927,6 +2988,18 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [InvoicerAddress].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -3059,6 +3132,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

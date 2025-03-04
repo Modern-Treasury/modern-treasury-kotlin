@@ -242,6 +242,31 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [PaperItem].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountNumber()
+         * .accountNumberSafe()
+         * .amount()
+         * .checkNumber()
+         * .createdAt()
+         * .currency()
+         * .depositDate()
+         * .liveMode()
+         * .lockboxNumber()
+         * .memoField()
+         * .object_()
+         * .remitterName()
+         * .routingNumber()
+         * .status()
+         * .transactionId()
+         * .transactionLineItemId()
+         * .updatedAt()
+         * ```
+         */
         fun builder() = Builder()
     }
 

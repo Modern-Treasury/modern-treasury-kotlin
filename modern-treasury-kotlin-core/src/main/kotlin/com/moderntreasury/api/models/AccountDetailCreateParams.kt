@@ -130,6 +130,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [AccountDetailCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountNumber()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -219,6 +228,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountDetailCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountsType()
+         * .accountId()
+         * .accountNumber()
+         * ```
+         */
         fun builder() = Builder()
     }
 

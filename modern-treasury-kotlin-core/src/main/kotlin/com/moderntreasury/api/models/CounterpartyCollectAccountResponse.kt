@@ -85,6 +85,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [CounterpartyCollectAccountResponse].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .formLink()
+         * .isResend()
+         * ```
+         */
         fun builder() = Builder()
     }
 

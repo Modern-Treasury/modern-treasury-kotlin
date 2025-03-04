@@ -93,6 +93,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [ConnectionLegalEntityUpdateRequest].
+             */
             fun builder() = Builder()
         }
 
@@ -161,6 +165,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [ConnectionLegalEntityUpdateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * ```
+         */
         fun builder() = Builder()
     }
 

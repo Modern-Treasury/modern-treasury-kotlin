@@ -29,6 +29,7 @@ private constructor(
 
         fun none(): ClientPingParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [ClientPingParams]. */
         fun builder() = Builder()
     }
 

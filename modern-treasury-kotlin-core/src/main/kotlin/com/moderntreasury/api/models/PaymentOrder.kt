@@ -815,6 +815,63 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [PaymentOrder].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accounting()
+         * .accountingCategoryId()
+         * .accountingLedgerClassId()
+         * .amount()
+         * .chargeBearer()
+         * .complianceRuleMetadata()
+         * .counterpartyId()
+         * .createdAt()
+         * .currency()
+         * .currentReturn()
+         * .decisionId()
+         * .description()
+         * .direction()
+         * .effectiveDate()
+         * .expiresAt()
+         * .foreignExchangeContract()
+         * .foreignExchangeIndicator()
+         * .foreignExchangeRate()
+         * .ledgerTransactionId()
+         * .liveMode()
+         * .metadata()
+         * .nsfProtected()
+         * .object_()
+         * .originatingAccountId()
+         * .originatingPartyName()
+         * .priority()
+         * .processAfter()
+         * .purpose()
+         * .receivingAccountId()
+         * .receivingAccountType()
+         * .referenceNumbers()
+         * .remittanceInformation()
+         * .sendRemittanceAdvice()
+         * .statementDescriptor()
+         * .status()
+         * .subtype()
+         * .transactionIds()
+         * .transactionMonitoringEnabled()
+         * .type()
+         * .ultimateOriginatingAccount()
+         * .ultimateOriginatingAccountId()
+         * .ultimateOriginatingAccountType()
+         * .ultimateOriginatingPartyIdentifier()
+         * .ultimateOriginatingPartyName()
+         * .ultimateReceivingPartyIdentifier()
+         * .ultimateReceivingPartyName()
+         * .updatedAt()
+         * .vendorAttributes()
+         * .vendorFailureReason()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -1692,6 +1749,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Accounting]. */
             fun builder() = Builder()
         }
 
@@ -1917,6 +1975,9 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [ComplianceRuleMetadata].
+             */
             fun builder() = Builder()
         }
 
@@ -2317,6 +2378,20 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [ForeignExchangeRate].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .baseAmount()
+             * .baseCurrency()
+             * .exponent()
+             * .rateString()
+             * .targetAmount()
+             * .targetCurrency()
+             * .value()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -2493,6 +2568,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -2853,6 +2929,20 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [PaymentReference].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .createdAt()
+             * .liveMode()
+             * .object_()
+             * .referenceNumber()
+             * .referenceNumberType()
+             * .updatedAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 

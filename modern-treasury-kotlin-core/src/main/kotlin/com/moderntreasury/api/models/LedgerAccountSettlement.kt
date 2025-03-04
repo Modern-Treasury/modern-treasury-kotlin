@@ -254,6 +254,30 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [LedgerAccountSettlement].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .amount()
+         * .contraLedgerAccountId()
+         * .createdAt()
+         * .currency()
+         * .currencyExponent()
+         * .description()
+         * .effectiveAtUpperBound()
+         * .ledgerId()
+         * .ledgerTransactionId()
+         * .liveMode()
+         * .metadata()
+         * .object_()
+         * .settledLedgerAccountId()
+         * .settlementEntryDirection()
+         * .status()
+         * .updatedAt()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -523,6 +547,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

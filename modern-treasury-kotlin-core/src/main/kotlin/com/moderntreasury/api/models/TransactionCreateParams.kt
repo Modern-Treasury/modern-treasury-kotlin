@@ -292,6 +292,19 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [TransactionCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .asOfDate()
+             * .direction()
+             * .internalAccountId()
+             * .vendorCode()
+             * .vendorCodeType()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -488,6 +501,19 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [TransactionCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amount()
+         * .asOfDate()
+         * .direction()
+         * .internalAccountId()
+         * .vendorCode()
+         * .vendorCodeType()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -759,6 +785,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

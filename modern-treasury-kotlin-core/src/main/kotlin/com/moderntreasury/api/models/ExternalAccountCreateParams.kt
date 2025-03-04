@@ -329,6 +329,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [ExternalAccountCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .counterpartyId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -578,6 +587,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ExternalAccountCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .counterpartyId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -906,6 +923,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [AccountDetail].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountNumber()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1183,6 +1208,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [ContactDetailCreateRequest].
+             */
             fun builder() = Builder()
         }
 
@@ -1540,6 +1569,18 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerAccountCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .currency()
+             * .ledgerId()
+             * .name()
+             * .normalBalance()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1878,6 +1919,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Metadata]. */
                 fun builder() = Builder()
             }
 
@@ -1977,6 +2019,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -2113,6 +2156,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [AddressRequest]. */
             fun builder() = Builder()
         }
 
@@ -2376,6 +2420,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [RoutingDetail].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .routingNumber()
+             * .routingNumberType()
+             * ```
+             */
             fun builder() = Builder()
         }
 

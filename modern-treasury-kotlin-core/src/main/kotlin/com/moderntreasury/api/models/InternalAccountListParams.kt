@@ -80,6 +80,9 @@ private constructor(
 
         fun none(): InternalAccountListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [InternalAccountListParams].
+         */
         fun builder() = Builder()
     }
 
@@ -269,6 +272,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 

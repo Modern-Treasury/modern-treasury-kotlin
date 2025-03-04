@@ -161,6 +161,24 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [LegalEntityAssociation].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .childLegalEntity()
+         * .createdAt()
+         * .discardedAt()
+         * .liveMode()
+         * .object_()
+         * .ownershipPercentage()
+         * .parentLegalEntityId()
+         * .relationshipTypes()
+         * .title()
+         * .updatedAt()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -667,6 +685,42 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [ChildLegalEntity].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .addresses()
+             * .bankSettings()
+             * .businessName()
+             * .citizenshipCountry()
+             * .createdAt()
+             * .dateFormed()
+             * .dateOfBirth()
+             * .discardedAt()
+             * .doingBusinessAsNames()
+             * .email()
+             * .firstName()
+             * .identifications()
+             * .lastName()
+             * .legalEntityType()
+             * .legalStructure()
+             * .liveMode()
+             * .metadata()
+             * .middleName()
+             * .object_()
+             * .phoneNumbers()
+             * .politicallyExposedPerson()
+             * .preferredName()
+             * .prefix()
+             * .riskRating()
+             * .suffix()
+             * .updatedAt()
+             * .wealthAndEmploymentDetails()
+             * .website()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1206,6 +1260,26 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [LegalEntityAddress].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .addressTypes()
+                 * .country()
+                 * .createdAt()
+                 * .discardedAt()
+                 * .line1()
+                 * .line2()
+                 * .liveMode()
+                 * .locality()
+                 * .object_()
+                 * .postalCode()
+                 * .region()
+                 * .updatedAt()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1628,6 +1702,21 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Identification].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .createdAt()
+                 * .discardedAt()
+                 * .idType()
+                 * .issuingCountry()
+                 * .liveMode()
+                 * .object_()
+                 * .updatedAt()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -2257,6 +2346,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Metadata]. */
                 fun builder() = Builder()
             }
 
@@ -2348,6 +2438,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [PhoneNumber]. */
                 fun builder() = Builder()
             }
 

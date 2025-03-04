@@ -65,6 +65,10 @@ private constructor(
 
         fun none(): LedgerAccountBalanceMonitorListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerAccountBalanceMonitorListParams].
+         */
         fun builder() = Builder()
     }
 
@@ -248,6 +252,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
