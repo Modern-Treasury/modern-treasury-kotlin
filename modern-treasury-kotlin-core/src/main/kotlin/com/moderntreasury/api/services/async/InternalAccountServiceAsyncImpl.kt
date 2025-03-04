@@ -10,6 +10,8 @@ import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse.Handler
+import com.moderntreasury.api.core.http.HttpResponseFor
+import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.json
 import com.moderntreasury.api.core.prepareAsync
 import com.moderntreasury.api.errors.ModernTreasuryError
@@ -25,120 +27,176 @@ import com.moderntreasury.api.services.async.internalAccounts.BalanceReportServi
 class InternalAccountServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : InternalAccountServiceAsync {
 
-    private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: InternalAccountServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
     private val balanceReports: BalanceReportServiceAsync by lazy {
         BalanceReportServiceAsyncImpl(clientOptions)
     }
 
+    override fun withRawResponse(): InternalAccountServiceAsync.WithRawResponse = withRawResponse
+
     override fun balanceReports(): BalanceReportServiceAsync = balanceReports
 
-    private val createHandler: Handler<InternalAccount> =
-        jsonHandler<InternalAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** create internal account */
     override suspend fun create(
         params: InternalAccountCreateParams,
         requestOptions: RequestOptions,
-    ): InternalAccount {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("api", "internal_accounts")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { createHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.validate()
-                }
-            }
-    }
+    ): InternalAccount =
+        // post /api/internal_accounts
+        withRawResponse().create(params, requestOptions).parse()
 
-    private val retrieveHandler: Handler<InternalAccount> =
-        jsonHandler<InternalAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** get internal account */
     override suspend fun retrieve(
         params: InternalAccountRetrieveParams,
         requestOptions: RequestOptions,
-    ): InternalAccount {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("api", "internal_accounts", params.getPathParam(0))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { retrieveHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.validate()
-                }
-            }
-    }
+    ): InternalAccount =
+        // get /api/internal_accounts/{id}
+        withRawResponse().retrieve(params, requestOptions).parse()
 
-    private val updateHandler: Handler<InternalAccount> =
-        jsonHandler<InternalAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** update internal account */
     override suspend fun update(
         params: InternalAccountUpdateParams,
         requestOptions: RequestOptions,
-    ): InternalAccount {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.PATCH)
-                .addPathSegments("api", "internal_accounts", params.getPathParam(0))
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { updateHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.validate()
-                }
-            }
-    }
+    ): InternalAccount =
+        // patch /api/internal_accounts/{id}
+        withRawResponse().update(params, requestOptions).parse()
 
-    private val listHandler: Handler<List<InternalAccount>> =
-        jsonHandler<List<InternalAccount>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** list internal accounts */
     override suspend fun list(
         params: InternalAccountListParams,
         requestOptions: RequestOptions,
-    ): InternalAccountListPageAsync {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("api", "internal_accounts")
-                .build()
-                .prepareAsync(clientOptions, params)
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { listHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.forEach { it.validate() }
-                }
+    ): InternalAccountListPageAsync =
+        // get /api/internal_accounts
+        withRawResponse().list(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        InternalAccountServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<ModernTreasuryError> =
+            errorHandler(clientOptions.jsonMapper)
+
+        private val balanceReports: BalanceReportServiceAsync.WithRawResponse by lazy {
+            BalanceReportServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        override fun balanceReports(): BalanceReportServiceAsync.WithRawResponse = balanceReports
+
+        private val createHandler: Handler<InternalAccount> =
+            jsonHandler<InternalAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun create(
+            params: InternalAccountCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InternalAccount> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("api", "internal_accounts")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
-            .let {
-                InternalAccountListPageAsync.of(
-                    this,
-                    params,
-                    InternalAccountListPageAsync.Response.builder()
-                        .items(it)
-                        .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                        .afterCursor(response.headers().values("X-After-Cursor").getOrNull(0) ?: "")
-                        .build(),
-                )
+        }
+
+        private val retrieveHandler: Handler<InternalAccount> =
+            jsonHandler<InternalAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun retrieve(
+            params: InternalAccountRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InternalAccount> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("api", "internal_accounts", params.getPathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
+        }
+
+        private val updateHandler: Handler<InternalAccount> =
+            jsonHandler<InternalAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun update(
+            params: InternalAccountUpdateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InternalAccount> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .addPathSegments("api", "internal_accounts", params.getPathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { updateHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler: Handler<List<InternalAccount>> =
+            jsonHandler<List<InternalAccount>>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override suspend fun list(
+            params: InternalAccountListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InternalAccountListPageAsync> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("api", "internal_accounts")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.forEach { it.validate() }
+                        }
+                    }
+                    .let {
+                        InternalAccountListPageAsync.of(
+                            InternalAccountServiceAsyncImpl(clientOptions),
+                            params,
+                            InternalAccountListPageAsync.Response.builder()
+                                .items(it)
+                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
+                                .afterCursor(
+                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
+                                )
+                                .build(),
+                        )
+                    }
+            }
+        }
     }
 }

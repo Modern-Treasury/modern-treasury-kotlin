@@ -2,7 +2,9 @@
 
 package com.moderntreasury.api.services.async
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.LedgerAccount
 import com.moderntreasury.api.models.LedgerAccountCreateParams
 import com.moderntreasury.api.models.LedgerAccountDeleteParams
@@ -12,6 +14,11 @@ import com.moderntreasury.api.models.LedgerAccountRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountUpdateParams
 
 interface LedgerAccountServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /** Create a ledger account. */
     suspend fun create(
@@ -46,4 +53,71 @@ interface LedgerAccountServiceAsync {
         params: LedgerAccountDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccount
+
+    /**
+     * A view of [LedgerAccountServiceAsync] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post /api/ledger_accounts`, but is otherwise the same as
+         * [LedgerAccountServiceAsync.create].
+         */
+        @MustBeClosed
+        suspend fun create(
+            params: LedgerAccountCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerAccount>
+
+        /**
+         * Returns a raw HTTP response for `get /api/ledger_accounts/{id}`, but is otherwise the
+         * same as [LedgerAccountServiceAsync.retrieve].
+         */
+        @MustBeClosed
+        suspend fun retrieve(
+            params: LedgerAccountRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerAccount>
+
+        /**
+         * Returns a raw HTTP response for `patch /api/ledger_accounts/{id}`, but is otherwise the
+         * same as [LedgerAccountServiceAsync.update].
+         */
+        @MustBeClosed
+        suspend fun update(
+            params: LedgerAccountUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerAccount>
+
+        /**
+         * Returns a raw HTTP response for `get /api/ledger_accounts`, but is otherwise the same as
+         * [LedgerAccountServiceAsync.list].
+         */
+        @MustBeClosed
+        suspend fun list(
+            params: LedgerAccountListParams = LedgerAccountListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerAccountListPageAsync>
+
+        /**
+         * Returns a raw HTTP response for `get /api/ledger_accounts`, but is otherwise the same as
+         * [LedgerAccountServiceAsync.list].
+         */
+        @MustBeClosed
+        suspend fun list(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<LedgerAccountListPageAsync> =
+            list(LedgerAccountListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `delete /api/ledger_accounts/{id}`, but is otherwise the
+         * same as [LedgerAccountServiceAsync.delete].
+         */
+        @MustBeClosed
+        suspend fun delete(
+            params: LedgerAccountDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerAccount>
+    }
 }

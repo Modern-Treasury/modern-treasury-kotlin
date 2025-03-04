@@ -3,9 +3,11 @@
 package com.moderntreasury.api.services.blocking
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.models.LineItem
 import com.moderntreasury.api.models.LineItemListPage
@@ -14,6 +16,11 @@ import com.moderntreasury.api.models.LineItemRetrieveParams
 import com.moderntreasury.api.models.LineItemUpdateParams
 
 interface LineItemService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /** Get a single line item */
     fun retrieve(
@@ -133,5 +140,41 @@ interface LineItemService {
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    /** A view of [LineItemService] that provides access to raw HTTP responses for each method. */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /api/{itemizable_type}/{itemizable_id}/line_items/{id}`, but is otherwise the same as
+         * [LineItemService.retrieve].
+         */
+        @MustBeClosed
+        fun retrieve(
+            params: LineItemRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LineItem>
+
+        /**
+         * Returns a raw HTTP response for `patch
+         * /api/{itemizable_type}/{itemizable_id}/line_items/{id}`, but is otherwise the same as
+         * [LineItemService.update].
+         */
+        @MustBeClosed
+        fun update(
+            params: LineItemUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LineItem>
+
+        /**
+         * Returns a raw HTTP response for `get /api/{itemizable_type}/{itemizable_id}/line_items`,
+         * but is otherwise the same as [LineItemService.list].
+         */
+        @MustBeClosed
+        fun list(
+            params: LineItemListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LineItemListPage>
     }
 }

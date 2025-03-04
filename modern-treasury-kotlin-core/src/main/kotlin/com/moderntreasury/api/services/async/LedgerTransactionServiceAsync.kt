@@ -2,7 +2,9 @@
 
 package com.moderntreasury.api.services.async
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.LedgerTransaction
 import com.moderntreasury.api.models.LedgerTransactionCreateParams
 import com.moderntreasury.api.models.LedgerTransactionCreatePartialPostParams
@@ -14,6 +16,11 @@ import com.moderntreasury.api.models.LedgerTransactionUpdateParams
 import com.moderntreasury.api.services.async.ledgerTransactions.VersionServiceAsync
 
 interface LedgerTransactionServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     fun versions(): VersionServiceAsync
 
@@ -56,4 +63,83 @@ interface LedgerTransactionServiceAsync {
         params: LedgerTransactionCreateReversalParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransaction
+
+    /**
+     * A view of [LedgerTransactionServiceAsync] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        fun versions(): VersionServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /api/ledger_transactions`, but is otherwise the
+         * same as [LedgerTransactionServiceAsync.create].
+         */
+        @MustBeClosed
+        suspend fun create(
+            params: LedgerTransactionCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerTransaction>
+
+        /**
+         * Returns a raw HTTP response for `get /api/ledger_transactions/{id}`, but is otherwise the
+         * same as [LedgerTransactionServiceAsync.retrieve].
+         */
+        @MustBeClosed
+        suspend fun retrieve(
+            params: LedgerTransactionRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerTransaction>
+
+        /**
+         * Returns a raw HTTP response for `patch /api/ledger_transactions/{id}`, but is otherwise
+         * the same as [LedgerTransactionServiceAsync.update].
+         */
+        @MustBeClosed
+        suspend fun update(
+            params: LedgerTransactionUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerTransaction>
+
+        /**
+         * Returns a raw HTTP response for `get /api/ledger_transactions`, but is otherwise the same
+         * as [LedgerTransactionServiceAsync.list].
+         */
+        @MustBeClosed
+        suspend fun list(
+            params: LedgerTransactionListParams = LedgerTransactionListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerTransactionListPageAsync>
+
+        /**
+         * Returns a raw HTTP response for `get /api/ledger_transactions`, but is otherwise the same
+         * as [LedgerTransactionServiceAsync.list].
+         */
+        @MustBeClosed
+        suspend fun list(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<LedgerTransactionListPageAsync> =
+            list(LedgerTransactionListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /api/ledger_transactions/{id}/partial_post`, but is
+         * otherwise the same as [LedgerTransactionServiceAsync.createPartialPost].
+         */
+        @MustBeClosed
+        suspend fun createPartialPost(
+            params: LedgerTransactionCreatePartialPostParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerTransaction>
+
+        /**
+         * Returns a raw HTTP response for `post /api/ledger_transactions/{id}/reversal`, but is
+         * otherwise the same as [LedgerTransactionServiceAsync.createReversal].
+         */
+        @MustBeClosed
+        suspend fun createReversal(
+            params: LedgerTransactionCreateReversalParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerTransaction>
+    }
 }

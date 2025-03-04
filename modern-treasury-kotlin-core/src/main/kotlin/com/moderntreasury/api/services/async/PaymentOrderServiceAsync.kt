@@ -2,7 +2,9 @@
 
 package com.moderntreasury.api.services.async
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.AsyncResponse
 import com.moderntreasury.api.models.PaymentOrder
 import com.moderntreasury.api.models.PaymentOrderCreateAsyncParams
@@ -14,6 +16,11 @@ import com.moderntreasury.api.models.PaymentOrderUpdateParams
 import com.moderntreasury.api.services.async.paymentOrders.ReversalServiceAsync
 
 interface PaymentOrderServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     fun reversals(): ReversalServiceAsync
 
@@ -50,4 +57,73 @@ interface PaymentOrderServiceAsync {
         params: PaymentOrderCreateAsyncParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AsyncResponse
+
+    /**
+     * A view of [PaymentOrderServiceAsync] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        fun reversals(): ReversalServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /api/payment_orders`, but is otherwise the same as
+         * [PaymentOrderServiceAsync.create].
+         */
+        @MustBeClosed
+        suspend fun create(
+            params: PaymentOrderCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PaymentOrder>
+
+        /**
+         * Returns a raw HTTP response for `get /api/payment_orders/{id}`, but is otherwise the same
+         * as [PaymentOrderServiceAsync.retrieve].
+         */
+        @MustBeClosed
+        suspend fun retrieve(
+            params: PaymentOrderRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PaymentOrder>
+
+        /**
+         * Returns a raw HTTP response for `patch /api/payment_orders/{id}`, but is otherwise the
+         * same as [PaymentOrderServiceAsync.update].
+         */
+        @MustBeClosed
+        suspend fun update(
+            params: PaymentOrderUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PaymentOrder>
+
+        /**
+         * Returns a raw HTTP response for `get /api/payment_orders`, but is otherwise the same as
+         * [PaymentOrderServiceAsync.list].
+         */
+        @MustBeClosed
+        suspend fun list(
+            params: PaymentOrderListParams = PaymentOrderListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PaymentOrderListPageAsync>
+
+        /**
+         * Returns a raw HTTP response for `get /api/payment_orders`, but is otherwise the same as
+         * [PaymentOrderServiceAsync.list].
+         */
+        @MustBeClosed
+        suspend fun list(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<PaymentOrderListPageAsync> =
+            list(PaymentOrderListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /api/payment_orders/create_async`, but is otherwise
+         * the same as [PaymentOrderServiceAsync.createAsync].
+         */
+        @MustBeClosed
+        suspend fun createAsync(
+            params: PaymentOrderCreateAsyncParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AsyncResponse>
+    }
 }
