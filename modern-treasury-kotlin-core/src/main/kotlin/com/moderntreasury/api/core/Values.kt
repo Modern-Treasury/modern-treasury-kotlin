@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeType.STRING
 import com.fasterxml.jackson.databind.ser.std.NullSerializer
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.io.InputStream
 import java.util.Objects
 import kotlin.reflect.KClass
 
@@ -491,7 +492,10 @@ private constructor(val value: JsonField<T>, val contentType: String, val filena
             return MultipartField(
                 value,
                 contentType
-                    ?: if (value is KnownValue && value.value is ByteArray)
+                    ?: if (
+                        value is KnownValue &&
+                            (value.value is InputStream || value.value is ByteArray)
+                    )
                         "application/octet-stream"
                     else "text/plain; charset=utf-8",
                 filename,
