@@ -13,7 +13,12 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.io.ByteArrayInputStream
+import java.io.InputStream
+import java.nio.file.Path
 import java.util.Objects
+import kotlin.io.path.inputStream
+import kotlin.io.path.name
 
 /** Create a document. */
 class DocumentCreateParams
@@ -28,7 +33,7 @@ private constructor(
 
     fun documentableType(): DocumentableType = body.documentableType()
 
-    fun file(): ByteArray = body.file()
+    fun file(): InputStream = body.file()
 
     /** A category given to the document, can be `null`. */
     fun documentType(): String? = body.documentType()
@@ -38,7 +43,7 @@ private constructor(
 
     fun _documentableType(): MultipartField<DocumentableType> = body._documentableType()
 
-    fun _file(): MultipartField<ByteArray> = body._file()
+    fun _file(): MultipartField<InputStream> = body._file()
 
     /** A category given to the document, can be `null`. */
     fun _documentType(): MultipartField<String> = body._documentType()
@@ -66,7 +71,7 @@ private constructor(
     private constructor(
         private val documentableId: MultipartField<String>,
         private val documentableType: MultipartField<DocumentableType>,
-        private val file: MultipartField<ByteArray>,
+        private val file: MultipartField<InputStream>,
         private val documentType: MultipartField<String>,
     ) {
 
@@ -76,7 +81,7 @@ private constructor(
         fun documentableType(): DocumentableType =
             documentableType.value.getRequired("documentable_type")
 
-        fun file(): ByteArray = file.value.getRequired("file")
+        fun file(): InputStream = file.value.getRequired("file")
 
         /** A category given to the document, can be `null`. */
         fun documentType(): String? = documentType.value.getNullable("document_type")
@@ -86,7 +91,7 @@ private constructor(
 
         fun _documentableType(): MultipartField<DocumentableType> = documentableType
 
-        fun _file(): MultipartField<ByteArray> = file
+        fun _file(): MultipartField<InputStream> = file
 
         /** A category given to the document, can be `null`. */
         fun _documentType(): MultipartField<String> = documentType
@@ -127,7 +132,7 @@ private constructor(
 
             private var documentableId: MultipartField<String>? = null
             private var documentableType: MultipartField<DocumentableType>? = null
-            private var file: MultipartField<ByteArray>? = null
+            private var file: MultipartField<InputStream>? = null
             private var documentType: MultipartField<String> = MultipartField.of(null)
 
             internal fun from(documentCreateRequest: DocumentCreateRequest) = apply {
@@ -153,9 +158,19 @@ private constructor(
                 this.documentableType = documentableType
             }
 
-            fun file(file: ByteArray) = file(MultipartField.of(file))
+            fun file(file: InputStream) = file(MultipartField.of(file))
 
-            fun file(file: MultipartField<ByteArray>) = apply { this.file = file }
+            fun file(file: MultipartField<InputStream>) = apply { this.file = file }
+
+            fun file(file: ByteArray) = file(ByteArrayInputStream(file))
+
+            fun file(file: Path) =
+                file(
+                    MultipartField.builder<InputStream>()
+                        .value(file.inputStream())
+                        .filename(file.name)
+                        .build()
+                )
 
             /** A category given to the document, can be `null`. */
             fun documentType(documentType: String) = documentType(MultipartField.of(documentType))
@@ -239,9 +254,13 @@ private constructor(
             body.documentableType(documentableType)
         }
 
+        fun file(file: InputStream) = apply { body.file(file) }
+
+        fun file(file: MultipartField<InputStream>) = apply { body.file(file) }
+
         fun file(file: ByteArray) = apply { body.file(file) }
 
-        fun file(file: MultipartField<ByteArray>) = apply { body.file(file) }
+        fun file(file: Path) = apply { body.file(file) }
 
         /** A category given to the document, can be `null`. */
         fun documentType(documentType: String) = apply { body.documentType(documentType) }

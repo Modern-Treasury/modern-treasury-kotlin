@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.MultipartField
+import java.io.InputStream
 import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -32,7 +33,13 @@ class DocumentCreateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-        assertThat(body.filterValues { !it.value.isNull() })
+        assertThat(
+                body
+                    .filterValues { !it.value.isNull() }
+                    .mapValues { (_, field) ->
+                        field.map { if (it is InputStream) it.readBytes() else it }
+                    }
+            )
             .isEqualTo(
                 mapOf(
                     "documentable_id" to MultipartField.of("documentable_id"),
@@ -56,7 +63,13 @@ class DocumentCreateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-        assertThat(body.filterValues { !it.value.isNull() })
+        assertThat(
+                body
+                    .filterValues { !it.value.isNull() }
+                    .mapValues { (_, field) ->
+                        field.map { if (it is InputStream) it.readBytes() else it }
+                    }
+            )
             .isEqualTo(
                 mapOf(
                     "documentable_id" to MultipartField.of("documentable_id"),
