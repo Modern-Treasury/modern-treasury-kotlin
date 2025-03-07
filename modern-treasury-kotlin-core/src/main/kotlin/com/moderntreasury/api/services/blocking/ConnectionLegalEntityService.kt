@@ -43,7 +43,7 @@ interface ConnectionLegalEntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionLegalEntityListPage
 
-    /** Get a list of all connection legal entities. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): ConnectionLegalEntityListPage =
         list(ConnectionLegalEntityListParams.none(), requestOptions)
 
@@ -93,10 +93,7 @@ interface ConnectionLegalEntityService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ConnectionLegalEntityListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/connection_legal_entities`, but is otherwise
-         * the same as [ConnectionLegalEntityService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ConnectionLegalEntityListPage> =
             list(ConnectionLegalEntityListParams.none(), requestOptions)

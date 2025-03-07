@@ -36,7 +36,7 @@ interface ReturnService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ReturnListPage
 
-    /** Get a list of returns. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): ReturnListPage =
         list(ReturnListParams.none(), requestOptions)
 
@@ -73,10 +73,7 @@ interface ReturnService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ReturnListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/returns`, but is otherwise the same as
-         * [ReturnService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ReturnListPage> =
             list(ReturnListParams.none(), requestOptions)

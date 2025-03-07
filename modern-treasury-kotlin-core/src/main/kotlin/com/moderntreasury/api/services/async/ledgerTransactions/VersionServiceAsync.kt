@@ -21,7 +21,7 @@ interface VersionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransactionVersionListPageAsync
 
-    /** Get a list of ledger transaction versions. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): LedgerTransactionVersionListPageAsync =
         list(LedgerTransactionVersionListParams.none(), requestOptions)
 
@@ -40,10 +40,7 @@ interface VersionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerTransactionVersionListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_transaction_versions`, but is otherwise
-         * the same as [VersionServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

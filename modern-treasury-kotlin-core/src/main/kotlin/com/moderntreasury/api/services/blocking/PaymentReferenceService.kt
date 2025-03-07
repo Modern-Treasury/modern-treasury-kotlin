@@ -30,7 +30,7 @@ interface PaymentReferenceService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentReferenceListPage
 
-    /** list payment_references */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): PaymentReferenceListPage =
         list(PaymentReferenceListParams.none(), requestOptions)
 
@@ -67,10 +67,7 @@ interface PaymentReferenceService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentReferenceListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/payment_references`, but is otherwise the same
-         * as [PaymentReferenceService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PaymentReferenceListPage> =
             list(PaymentReferenceListParams.none(), requestOptions)

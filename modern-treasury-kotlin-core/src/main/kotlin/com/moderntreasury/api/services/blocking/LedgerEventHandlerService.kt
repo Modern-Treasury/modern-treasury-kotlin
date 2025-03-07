@@ -37,7 +37,7 @@ interface LedgerEventHandlerService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEventHandlerListPage
 
-    /** Get a list of ledger event handlers. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): LedgerEventHandlerListPage =
         list(LedgerEventHandlerListParams.none(), requestOptions)
 
@@ -83,10 +83,7 @@ interface LedgerEventHandlerService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerEventHandlerListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_event_handlers`, but is otherwise the
-         * same as [LedgerEventHandlerService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<LedgerEventHandlerListPage> =
             list(LedgerEventHandlerListParams.none(), requestOptions)

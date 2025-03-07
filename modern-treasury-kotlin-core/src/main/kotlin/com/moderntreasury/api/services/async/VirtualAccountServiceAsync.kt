@@ -44,7 +44,7 @@ interface VirtualAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccountListPageAsync
 
-    /** Get a list of virtual accounts. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): VirtualAccountListPageAsync =
         list(VirtualAccountListParams.none(), requestOptions)
 
@@ -100,10 +100,7 @@ interface VirtualAccountServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<VirtualAccountListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/virtual_accounts`, but is otherwise the same as
-         * [VirtualAccountServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

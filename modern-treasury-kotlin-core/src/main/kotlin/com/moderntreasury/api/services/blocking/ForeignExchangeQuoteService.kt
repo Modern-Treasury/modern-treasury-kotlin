@@ -36,7 +36,7 @@ interface ForeignExchangeQuoteService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ForeignExchangeQuoteListPage
 
-    /** list foreign_exchange_quotes */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): ForeignExchangeQuoteListPage =
         list(ForeignExchangeQuoteListParams.none(), requestOptions)
 
@@ -76,10 +76,7 @@ interface ForeignExchangeQuoteService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ForeignExchangeQuoteListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/foreign_exchange_quotes`, but is otherwise the
-         * same as [ForeignExchangeQuoteService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ForeignExchangeQuoteListPage> =
             list(ForeignExchangeQuoteListParams.none(), requestOptions)

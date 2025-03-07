@@ -29,7 +29,7 @@ interface BulkResultServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkResultListPageAsync
 
-    /** list bulk_results */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): BulkResultListPageAsync =
         list(BulkResultListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface BulkResultServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkResultListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/bulk_results`, but is otherwise the same as
-         * [BulkResultServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<BulkResultListPageAsync> =
             list(BulkResultListParams.none(), requestOptions)

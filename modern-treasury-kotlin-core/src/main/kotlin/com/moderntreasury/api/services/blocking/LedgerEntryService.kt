@@ -36,7 +36,7 @@ interface LedgerEntryService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEntryListPage
 
-    /** Get a list of all ledger entries. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): LedgerEntryListPage =
         list(LedgerEntryListParams.none(), requestOptions)
 
@@ -75,10 +75,7 @@ interface LedgerEntryService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerEntryListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_entries`, but is otherwise the same as
-         * [LedgerEntryService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<LedgerEntryListPage> =
             list(LedgerEntryListParams.none(), requestOptions)

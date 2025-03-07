@@ -26,7 +26,7 @@ interface ExpectedPaymentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment
 
-    /** create expected payment */
+    /** @see [create] */
     suspend fun create(requestOptions: RequestOptions): ExpectedPayment =
         create(ExpectedPaymentCreateParams.none(), requestOptions)
 
@@ -48,7 +48,7 @@ interface ExpectedPaymentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPaymentListPageAsync
 
-    /** list expected_payments */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): ExpectedPaymentListPageAsync =
         list(ExpectedPaymentListParams.none(), requestOptions)
 
@@ -74,10 +74,7 @@ interface ExpectedPaymentServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExpectedPayment>
 
-        /**
-         * Returns a raw HTTP response for `post /api/expected_payments`, but is otherwise the same
-         * as [ExpectedPaymentServiceAsync.create].
-         */
+        /** @see [create] */
         @MustBeClosed
         suspend fun create(requestOptions: RequestOptions): HttpResponseFor<ExpectedPayment> =
             create(ExpectedPaymentCreateParams.none(), requestOptions)
@@ -112,10 +109,7 @@ interface ExpectedPaymentServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExpectedPaymentListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/expected_payments`, but is otherwise the same
-         * as [ExpectedPaymentServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

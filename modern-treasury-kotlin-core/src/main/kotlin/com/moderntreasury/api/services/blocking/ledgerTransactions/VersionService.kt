@@ -21,7 +21,7 @@ interface VersionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransactionVersionListPage
 
-    /** Get a list of ledger transaction versions. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): LedgerTransactionVersionListPage =
         list(LedgerTransactionVersionListParams.none(), requestOptions)
 
@@ -38,10 +38,7 @@ interface VersionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerTransactionVersionListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_transaction_versions`, but is otherwise
-         * the same as [VersionService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

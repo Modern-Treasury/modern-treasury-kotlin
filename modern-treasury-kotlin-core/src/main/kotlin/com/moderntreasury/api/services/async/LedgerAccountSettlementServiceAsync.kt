@@ -46,7 +46,7 @@ interface LedgerAccountSettlementServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountSettlementListPageAsync
 
-    /** Get a list of ledger account settlements. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): LedgerAccountSettlementListPageAsync =
         list(LedgerAccountSettlementListParams.none(), requestOptions)
 
@@ -98,10 +98,7 @@ interface LedgerAccountSettlementServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountSettlementListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_account_settlements`, but is otherwise
-         * the same as [LedgerAccountSettlementServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

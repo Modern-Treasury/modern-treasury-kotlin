@@ -46,7 +46,7 @@ interface InternalAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccountListPageAsync
 
-    /** list internal accounts */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): InternalAccountListPageAsync =
         list(InternalAccountListParams.none(), requestOptions)
 
@@ -98,10 +98,7 @@ interface InternalAccountServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InternalAccountListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/internal_accounts`, but is otherwise the same
-         * as [InternalAccountServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
