@@ -38,7 +38,7 @@ interface LineItemService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionLineItemListPage
 
-    /** list transaction_line_items */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): TransactionLineItemListPage =
         list(TransactionLineItemListParams.none(), requestOptions)
 
@@ -81,10 +81,7 @@ interface LineItemService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TransactionLineItemListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/transaction_line_items`, but is otherwise the
-         * same as [LineItemService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<TransactionLineItemListPage> =
             list(TransactionLineItemListParams.none(), requestOptions)

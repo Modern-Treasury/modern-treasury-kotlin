@@ -47,7 +47,7 @@ interface CounterpartyService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CounterpartyListPage
 
-    /** Get a paginated list of all counterparties. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CounterpartyListPage =
         list(CounterpartyListParams.none(), requestOptions)
 
@@ -108,10 +108,7 @@ interface CounterpartyService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CounterpartyListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/counterparties`, but is otherwise the same as
-         * [CounterpartyService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CounterpartyListPage> =
             list(CounterpartyListParams.none(), requestOptions)

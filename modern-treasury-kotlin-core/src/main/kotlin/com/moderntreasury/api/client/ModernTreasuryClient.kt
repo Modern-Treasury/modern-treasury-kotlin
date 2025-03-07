@@ -156,9 +156,7 @@ interface ModernTreasuryClient {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PingResponse
 
-    /**
-     * A test endpoint often used to confirm credentials and headers are being passed in correctly.
-     */
+    /** @see [ping] */
     fun ping(requestOptions: RequestOptions): PingResponse =
         ping(ClientPingParams.none(), requestOptions)
 
@@ -264,10 +262,7 @@ interface ModernTreasuryClient {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PingResponse>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ping`, but is otherwise the same as
-         * [ModernTreasuryClient.ping].
-         */
+        /** @see [ping] */
         @MustBeClosed
         fun ping(requestOptions: RequestOptions): HttpResponseFor<PingResponse> =
             ping(ClientPingParams.none(), requestOptions)

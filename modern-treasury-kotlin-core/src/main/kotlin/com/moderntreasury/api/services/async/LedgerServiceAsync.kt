@@ -44,7 +44,7 @@ interface LedgerServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerListPageAsync
 
-    /** Get a list of ledgers. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): LedgerListPageAsync =
         list(LedgerListParams.none(), requestOptions)
 
@@ -99,10 +99,7 @@ interface LedgerServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledgers`, but is otherwise the same as
-         * [LedgerServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<LedgerListPageAsync> =
             list(LedgerListParams.none(), requestOptions)

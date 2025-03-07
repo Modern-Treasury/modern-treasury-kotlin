@@ -21,7 +21,7 @@ interface ConnectionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionListPageAsync
 
-    /** Get a list of all connections. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): ConnectionListPageAsync =
         list(ConnectionListParams.none(), requestOptions)
 
@@ -41,10 +41,7 @@ interface ConnectionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ConnectionListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/connections`, but is otherwise the same as
-         * [ConnectionServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ConnectionListPageAsync> =
             list(ConnectionListParams.none(), requestOptions)

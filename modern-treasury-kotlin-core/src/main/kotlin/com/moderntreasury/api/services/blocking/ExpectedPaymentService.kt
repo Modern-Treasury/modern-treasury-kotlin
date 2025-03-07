@@ -26,7 +26,7 @@ interface ExpectedPaymentService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment
 
-    /** create expected payment */
+    /** @see [create] */
     fun create(requestOptions: RequestOptions): ExpectedPayment =
         create(ExpectedPaymentCreateParams.none(), requestOptions)
 
@@ -48,7 +48,7 @@ interface ExpectedPaymentService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPaymentListPage
 
-    /** list expected_payments */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): ExpectedPaymentListPage =
         list(ExpectedPaymentListParams.none(), requestOptions)
 
@@ -74,10 +74,7 @@ interface ExpectedPaymentService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExpectedPayment>
 
-        /**
-         * Returns a raw HTTP response for `post /api/expected_payments`, but is otherwise the same
-         * as [ExpectedPaymentService.create].
-         */
+        /** @see [create] */
         @MustBeClosed
         fun create(requestOptions: RequestOptions): HttpResponseFor<ExpectedPayment> =
             create(ExpectedPaymentCreateParams.none(), requestOptions)
@@ -112,10 +109,7 @@ interface ExpectedPaymentService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExpectedPaymentListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/expected_payments`, but is otherwise the same
-         * as [ExpectedPaymentService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ExpectedPaymentListPage> =
             list(ExpectedPaymentListParams.none(), requestOptions)

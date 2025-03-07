@@ -43,7 +43,7 @@ interface AccountCollectionFlowService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountCollectionFlowListPage
 
-    /** list account_collection_flows */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): AccountCollectionFlowListPage =
         list(AccountCollectionFlowListParams.none(), requestOptions)
 
@@ -93,10 +93,7 @@ interface AccountCollectionFlowService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountCollectionFlowListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/account_collection_flows`, but is otherwise the
-         * same as [AccountCollectionFlowService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<AccountCollectionFlowListPage> =
             list(AccountCollectionFlowListParams.none(), requestOptions)

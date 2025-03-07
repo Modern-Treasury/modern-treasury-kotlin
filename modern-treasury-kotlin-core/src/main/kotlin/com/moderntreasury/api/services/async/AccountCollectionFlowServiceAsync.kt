@@ -43,7 +43,7 @@ interface AccountCollectionFlowServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountCollectionFlowListPageAsync
 
-    /** list account_collection_flows */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): AccountCollectionFlowListPageAsync =
         list(AccountCollectionFlowListParams.none(), requestOptions)
 
@@ -93,10 +93,7 @@ interface AccountCollectionFlowServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountCollectionFlowListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/account_collection_flows`, but is otherwise the
-         * same as [AccountCollectionFlowServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

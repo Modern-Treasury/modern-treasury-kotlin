@@ -43,7 +43,7 @@ interface LegalEntityServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntityListPageAsync
 
-    /** Get a list of all legal entities. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): LegalEntityListPageAsync =
         list(LegalEntityListParams.none(), requestOptions)
 
@@ -93,10 +93,7 @@ interface LegalEntityServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LegalEntityListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/legal_entities`, but is otherwise the same as
-         * [LegalEntityServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

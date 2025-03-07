@@ -46,7 +46,7 @@ interface LedgerAccountSettlementService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountSettlementListPage
 
-    /** Get a list of ledger account settlements. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): LedgerAccountSettlementListPage =
         list(LedgerAccountSettlementListParams.none(), requestOptions)
 
@@ -98,10 +98,7 @@ interface LedgerAccountSettlementService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountSettlementListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_account_settlements`, but is otherwise
-         * the same as [LedgerAccountSettlementService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<LedgerAccountSettlementListPage> =
             list(LedgerAccountSettlementListParams.none(), requestOptions)

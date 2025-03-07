@@ -38,7 +38,7 @@ interface IncomingPaymentDetailServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IncomingPaymentDetailListPageAsync
 
-    /** Get a list of Incoming Payment Details. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): IncomingPaymentDetailListPageAsync =
         list(IncomingPaymentDetailListParams.none(), requestOptions)
 
@@ -49,7 +49,7 @@ interface IncomingPaymentDetailServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AsyncResponse
 
-    /** Simulate Incoming Payment Detail */
+    /** @see [createAsync] */
     suspend fun createAsync(requestOptions: RequestOptions): AsyncResponse =
         createAsync(IncomingPaymentDetailCreateAsyncParams.none(), requestOptions)
 
@@ -89,10 +89,7 @@ interface IncomingPaymentDetailServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IncomingPaymentDetailListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/incoming_payment_details`, but is otherwise the
-         * same as [IncomingPaymentDetailServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -111,11 +108,7 @@ interface IncomingPaymentDetailServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AsyncResponse>
 
-        /**
-         * Returns a raw HTTP response for `post
-         * /api/simulations/incoming_payment_details/create_async`, but is otherwise the same as
-         * [IncomingPaymentDetailServiceAsync.createAsync].
-         */
+        /** @see [createAsync] */
         @MustBeClosed
         suspend fun createAsync(requestOptions: RequestOptions): HttpResponseFor<AsyncResponse> =
             createAsync(IncomingPaymentDetailCreateAsyncParams.none(), requestOptions)

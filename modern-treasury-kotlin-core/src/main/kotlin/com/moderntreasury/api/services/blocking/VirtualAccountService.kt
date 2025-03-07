@@ -44,7 +44,7 @@ interface VirtualAccountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccountListPage
 
-    /** Get a list of virtual accounts. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): VirtualAccountListPage =
         list(VirtualAccountListParams.none(), requestOptions)
 
@@ -99,10 +99,7 @@ interface VirtualAccountService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<VirtualAccountListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/virtual_accounts`, but is otherwise the same as
-         * [VirtualAccountService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<VirtualAccountListPage> =
             list(VirtualAccountListParams.none(), requestOptions)

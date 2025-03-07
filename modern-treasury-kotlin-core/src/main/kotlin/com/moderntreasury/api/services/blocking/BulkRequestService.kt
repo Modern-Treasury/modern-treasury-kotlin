@@ -36,7 +36,7 @@ interface BulkRequestService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequestListPage
 
-    /** list bulk_requests */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): BulkRequestListPage =
         list(BulkRequestListParams.none(), requestOptions)
 
@@ -75,10 +75,7 @@ interface BulkRequestService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkRequestListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/bulk_requests`, but is otherwise the same as
-         * [BulkRequestService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<BulkRequestListPage> =
             list(BulkRequestListParams.none(), requestOptions)

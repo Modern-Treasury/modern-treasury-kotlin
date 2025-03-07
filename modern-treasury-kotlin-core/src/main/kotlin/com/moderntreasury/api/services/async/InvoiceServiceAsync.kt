@@ -48,7 +48,7 @@ interface InvoiceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceListPageAsync
 
-    /** list invoices */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): InvoiceListPageAsync =
         list(InvoiceListParams.none(), requestOptions)
 
@@ -105,10 +105,7 @@ interface InvoiceServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InvoiceListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/invoices`, but is otherwise the same as
-         * [InvoiceServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<InvoiceListPageAsync> =
             list(InvoiceListParams.none(), requestOptions)
