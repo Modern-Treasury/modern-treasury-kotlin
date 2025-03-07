@@ -21,7 +21,7 @@ interface ConnectionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionListPage
 
-    /** Get a list of all connections. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): ConnectionListPage =
         list(ConnectionListParams.none(), requestOptions)
 
@@ -38,10 +38,7 @@ interface ConnectionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ConnectionListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/connections`, but is otherwise the same as
-         * [ConnectionService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ConnectionListPage> =
             list(ConnectionListParams.none(), requestOptions)

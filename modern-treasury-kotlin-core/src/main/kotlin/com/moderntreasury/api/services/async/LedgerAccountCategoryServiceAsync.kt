@@ -49,7 +49,7 @@ interface LedgerAccountCategoryServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountCategoryListPageAsync
 
-    /** Get a list of ledger account categories. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): LedgerAccountCategoryListPageAsync =
         list(LedgerAccountCategoryListParams.none(), requestOptions)
 
@@ -129,10 +129,7 @@ interface LedgerAccountCategoryServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountCategoryListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_account_categories`, but is otherwise
-         * the same as [LedgerAccountCategoryServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

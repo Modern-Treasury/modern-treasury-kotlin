@@ -48,7 +48,7 @@ interface InvoiceService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceListPage
 
-    /** list invoices */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): InvoiceListPage =
         list(InvoiceListParams.none(), requestOptions)
 
@@ -103,10 +103,7 @@ interface InvoiceService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InvoiceListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/invoices`, but is otherwise the same as
-         * [InvoiceService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InvoiceListPage> =
             list(InvoiceListParams.none(), requestOptions)

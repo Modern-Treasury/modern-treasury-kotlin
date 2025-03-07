@@ -43,7 +43,7 @@ interface PaymentFlowService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentFlowListPage
 
-    /** list payment_flows */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): PaymentFlowListPage =
         list(PaymentFlowListParams.none(), requestOptions)
 
@@ -92,10 +92,7 @@ interface PaymentFlowService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentFlowListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/payment_flows`, but is otherwise the same as
-         * [PaymentFlowService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PaymentFlowListPage> =
             list(PaymentFlowListParams.none(), requestOptions)

@@ -45,7 +45,7 @@ interface LedgerAccountBalanceMonitorService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitorListPage
 
-    /** Get a list of ledger account balance monitors. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): LedgerAccountBalanceMonitorListPage =
         list(LedgerAccountBalanceMonitorListParams.none(), requestOptions)
 
@@ -102,10 +102,7 @@ interface LedgerAccountBalanceMonitorService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountBalanceMonitorListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_account_balance_monitors`, but is
-         * otherwise the same as [LedgerAccountBalanceMonitorService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

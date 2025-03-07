@@ -29,7 +29,7 @@ interface PaperItemService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaperItemListPage
 
-    /** Get a list of all paper items. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): PaperItemListPage =
         list(PaperItemListParams.none(), requestOptions)
 
@@ -56,10 +56,7 @@ interface PaperItemService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaperItemListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/paper_items`, but is otherwise the same as
-         * [PaperItemService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PaperItemListPage> =
             list(PaperItemListParams.none(), requestOptions)

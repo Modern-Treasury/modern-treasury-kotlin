@@ -47,7 +47,7 @@ interface CounterpartyServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CounterpartyListPageAsync
 
-    /** Get a paginated list of all counterparties. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): CounterpartyListPageAsync =
         list(CounterpartyListParams.none(), requestOptions)
 
@@ -109,10 +109,7 @@ interface CounterpartyServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CounterpartyListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/counterparties`, but is otherwise the same as
-         * [CounterpartyServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

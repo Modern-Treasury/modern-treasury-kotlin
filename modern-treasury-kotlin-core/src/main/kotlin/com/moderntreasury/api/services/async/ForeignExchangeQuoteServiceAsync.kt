@@ -36,7 +36,7 @@ interface ForeignExchangeQuoteServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ForeignExchangeQuoteListPageAsync
 
-    /** list foreign_exchange_quotes */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): ForeignExchangeQuoteListPageAsync =
         list(ForeignExchangeQuoteListParams.none(), requestOptions)
 
@@ -76,10 +76,7 @@ interface ForeignExchangeQuoteServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ForeignExchangeQuoteListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/foreign_exchange_quotes`, but is otherwise the
-         * same as [ForeignExchangeQuoteServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

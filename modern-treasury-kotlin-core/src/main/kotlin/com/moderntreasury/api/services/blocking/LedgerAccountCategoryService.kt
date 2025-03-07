@@ -49,7 +49,7 @@ interface LedgerAccountCategoryService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountCategoryListPage
 
-    /** Get a list of ledger account categories. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): LedgerAccountCategoryListPage =
         list(LedgerAccountCategoryListParams.none(), requestOptions)
 
@@ -129,10 +129,7 @@ interface LedgerAccountCategoryService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountCategoryListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_account_categories`, but is otherwise
-         * the same as [LedgerAccountCategoryService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<LedgerAccountCategoryListPage> =
             list(LedgerAccountCategoryListParams.none(), requestOptions)

@@ -38,7 +38,7 @@ interface LineItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionLineItemListPageAsync
 
-    /** list transaction_line_items */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): TransactionLineItemListPageAsync =
         list(TransactionLineItemListParams.none(), requestOptions)
 
@@ -83,10 +83,7 @@ interface LineItemServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TransactionLineItemListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/transaction_line_items`, but is otherwise the
-         * same as [LineItemServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

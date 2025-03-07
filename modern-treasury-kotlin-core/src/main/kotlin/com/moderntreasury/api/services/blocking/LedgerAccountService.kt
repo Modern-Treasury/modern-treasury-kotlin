@@ -44,7 +44,7 @@ interface LedgerAccountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountListPage
 
-    /** Get a list of ledger accounts. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): LedgerAccountListPage =
         list(LedgerAccountListParams.none(), requestOptions)
 
@@ -99,10 +99,7 @@ interface LedgerAccountService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_accounts`, but is otherwise the same as
-         * [LedgerAccountService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<LedgerAccountListPage> =
             list(LedgerAccountListParams.none(), requestOptions)
