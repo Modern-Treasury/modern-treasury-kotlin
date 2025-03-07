@@ -37,7 +37,7 @@ interface LedgerEventHandlerServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEventHandlerListPageAsync
 
-    /** Get a list of ledger event handlers. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): LedgerEventHandlerListPageAsync =
         list(LedgerEventHandlerListParams.none(), requestOptions)
 
@@ -83,10 +83,7 @@ interface LedgerEventHandlerServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerEventHandlerListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_event_handlers`, but is otherwise the
-         * same as [LedgerEventHandlerServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

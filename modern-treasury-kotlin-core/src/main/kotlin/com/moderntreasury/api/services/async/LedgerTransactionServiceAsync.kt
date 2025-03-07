@@ -48,7 +48,7 @@ interface LedgerTransactionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransactionListPageAsync
 
-    /** Get a list of ledger transactions. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): LedgerTransactionListPageAsync =
         list(LedgerTransactionListParams.none(), requestOptions)
 
@@ -112,10 +112,7 @@ interface LedgerTransactionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerTransactionListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_transactions`, but is otherwise the same
-         * as [LedgerTransactionServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

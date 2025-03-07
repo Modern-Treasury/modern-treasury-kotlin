@@ -48,7 +48,7 @@ interface PaymentOrderServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentOrderListPageAsync
 
-    /** Get a list of all payment orders */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): PaymentOrderListPageAsync =
         list(PaymentOrderListParams.none(), requestOptions)
 
@@ -106,10 +106,7 @@ interface PaymentOrderServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentOrderListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/payment_orders`, but is otherwise the same as
-         * [PaymentOrderServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

@@ -36,7 +36,7 @@ interface ReturnServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ReturnListPageAsync
 
-    /** Get a list of returns. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): ReturnListPageAsync =
         list(ReturnListParams.none(), requestOptions)
 
@@ -75,10 +75,7 @@ interface ReturnServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ReturnListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/returns`, but is otherwise the same as
-         * [ReturnServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ReturnListPageAsync> =
             list(ReturnListParams.none(), requestOptions)

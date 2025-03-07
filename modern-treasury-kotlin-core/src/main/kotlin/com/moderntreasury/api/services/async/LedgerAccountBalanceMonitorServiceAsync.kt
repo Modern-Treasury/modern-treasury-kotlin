@@ -45,7 +45,7 @@ interface LedgerAccountBalanceMonitorServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitorListPageAsync
 
-    /** Get a list of ledger account balance monitors. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): LedgerAccountBalanceMonitorListPageAsync =
         list(LedgerAccountBalanceMonitorListParams.none(), requestOptions)
 
@@ -102,10 +102,7 @@ interface LedgerAccountBalanceMonitorServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountBalanceMonitorListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_account_balance_monitors`, but is
-         * otherwise the same as [LedgerAccountBalanceMonitorServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

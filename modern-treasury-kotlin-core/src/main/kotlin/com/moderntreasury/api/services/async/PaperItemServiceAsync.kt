@@ -29,7 +29,7 @@ interface PaperItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaperItemListPageAsync
 
-    /** Get a list of all paper items. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): PaperItemListPageAsync =
         list(PaperItemListParams.none(), requestOptions)
 
@@ -58,10 +58,7 @@ interface PaperItemServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaperItemListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/paper_items`, but is otherwise the same as
-         * [PaperItemServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<PaperItemListPageAsync> =
             list(PaperItemListParams.none(), requestOptions)

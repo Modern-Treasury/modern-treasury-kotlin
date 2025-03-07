@@ -48,7 +48,7 @@ interface TransactionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionListPageAsync
 
-    /** Get a list of all transactions. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): TransactionListPageAsync =
         list(TransactionListParams.none(), requestOptions)
 
@@ -106,10 +106,7 @@ interface TransactionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TransactionListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/transactions`, but is otherwise the same as
-         * [TransactionServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

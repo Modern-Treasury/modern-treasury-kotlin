@@ -43,7 +43,7 @@ interface PaymentFlowServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentFlowListPageAsync
 
-    /** list payment_flows */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): PaymentFlowListPageAsync =
         list(PaymentFlowListParams.none(), requestOptions)
 
@@ -93,10 +93,7 @@ interface PaymentFlowServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentFlowListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/payment_flows`, but is otherwise the same as
-         * [PaymentFlowServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

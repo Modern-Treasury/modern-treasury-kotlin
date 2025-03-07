@@ -36,7 +36,7 @@ interface LedgerEntryServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEntryListPageAsync
 
-    /** Get a list of all ledger entries. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): LedgerEntryListPageAsync =
         list(LedgerEntryListParams.none(), requestOptions)
 
@@ -76,10 +76,7 @@ interface LedgerEntryServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerEntryListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_entries`, but is otherwise the same as
-         * [LedgerEntryServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

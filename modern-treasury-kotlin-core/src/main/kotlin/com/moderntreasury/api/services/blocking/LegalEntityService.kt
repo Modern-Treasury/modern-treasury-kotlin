@@ -43,7 +43,7 @@ interface LegalEntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntityListPage
 
-    /** Get a list of all legal entities. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): LegalEntityListPage =
         list(LegalEntityListParams.none(), requestOptions)
 
@@ -92,10 +92,7 @@ interface LegalEntityService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LegalEntityListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/legal_entities`, but is otherwise the same as
-         * [LegalEntityService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<LegalEntityListPage> =
             list(LegalEntityListParams.none(), requestOptions)

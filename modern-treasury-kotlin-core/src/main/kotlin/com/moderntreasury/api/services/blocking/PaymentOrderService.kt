@@ -48,7 +48,7 @@ interface PaymentOrderService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentOrderListPage
 
-    /** Get a list of all payment orders */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): PaymentOrderListPage =
         list(PaymentOrderListParams.none(), requestOptions)
 
@@ -105,10 +105,7 @@ interface PaymentOrderService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentOrderListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/payment_orders`, but is otherwise the same as
-         * [PaymentOrderService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PaymentOrderListPage> =
             list(PaymentOrderListParams.none(), requestOptions)

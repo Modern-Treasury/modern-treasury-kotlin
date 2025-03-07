@@ -48,7 +48,7 @@ interface LedgerTransactionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransactionListPage
 
-    /** Get a list of ledger transactions. */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): LedgerTransactionListPage =
         list(LedgerTransactionListParams.none(), requestOptions)
 
@@ -112,10 +112,7 @@ interface LedgerTransactionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerTransactionListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_transactions`, but is otherwise the same
-         * as [LedgerTransactionService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<LedgerTransactionListPage> =
             list(LedgerTransactionListParams.none(), requestOptions)

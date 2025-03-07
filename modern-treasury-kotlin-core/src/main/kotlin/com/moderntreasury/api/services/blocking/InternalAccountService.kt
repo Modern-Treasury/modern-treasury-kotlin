@@ -46,7 +46,7 @@ interface InternalAccountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccountListPage
 
-    /** list internal accounts */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): InternalAccountListPage =
         list(InternalAccountListParams.none(), requestOptions)
 
@@ -98,10 +98,7 @@ interface InternalAccountService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InternalAccountListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /api/internal_accounts`, but is otherwise the same
-         * as [InternalAccountService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InternalAccountListPage> =
             list(InternalAccountListParams.none(), requestOptions)

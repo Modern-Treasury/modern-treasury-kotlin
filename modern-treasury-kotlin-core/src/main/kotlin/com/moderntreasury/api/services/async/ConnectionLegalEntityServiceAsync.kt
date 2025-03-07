@@ -43,7 +43,7 @@ interface ConnectionLegalEntityServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionLegalEntityListPageAsync
 
-    /** Get a list of all connection legal entities. */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): ConnectionLegalEntityListPageAsync =
         list(ConnectionLegalEntityListParams.none(), requestOptions)
 
@@ -93,10 +93,7 @@ interface ConnectionLegalEntityServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ConnectionLegalEntityListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/connection_legal_entities`, but is otherwise
-         * the same as [ConnectionLegalEntityServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

@@ -30,7 +30,7 @@ interface PaymentReferenceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentReferenceListPageAsync
 
-    /** list payment_references */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): PaymentReferenceListPageAsync =
         list(PaymentReferenceListParams.none(), requestOptions)
 
@@ -67,10 +67,7 @@ interface PaymentReferenceServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentReferenceListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /api/payment_references`, but is otherwise the same
-         * as [PaymentReferenceServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
