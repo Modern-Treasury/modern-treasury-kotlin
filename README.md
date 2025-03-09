@@ -205,7 +205,7 @@ val params: DocumentCreateParams = DocumentCreateParams.builder()
 val document: Document = client.documents().create(params)
 ```
 
-Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a `MultipartField`:
+Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/core/Values.kt):
 
 ```kotlin
 import com.moderntreasury.api.core.MultipartField
@@ -437,7 +437,7 @@ val params: CounterpartyCreateParams = CounterpartyCreateParams.builder()
 
 These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.
 
-To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/core/JsonValue.kt) object to its setter:
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/core/Values.kt) object to its setter:
 
 ```kotlin
 import com.moderntreasury.api.core.JsonValue
@@ -446,6 +446,41 @@ import com.moderntreasury.api.models.CounterpartyCreateParams
 val params: CounterpartyCreateParams = CounterpartyCreateParams.builder()
     .name(JsonValue.from(42))
     .build()
+```
+
+The most straightforward way to create a [`JsonValue`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/core/Values.kt) is using its `from(...)` method:
+
+```kotlin
+import com.moderntreasury.api.core.JsonValue
+
+// Create primitive JSON values
+val nullValue: JsonValue = JsonValue.from(null)
+val booleanValue: JsonValue = JsonValue.from(true)
+val numberValue: JsonValue = JsonValue.from(42)
+val stringValue: JsonValue = JsonValue.from("Hello World!")
+
+// Create a JSON array value equivalent to `["Hello", "World"]`
+val arrayValue: JsonValue = JsonValue.from(listOf(
+  "Hello", "World"
+))
+
+// Create a JSON object value equivalent to `{ "a": 1, "b": 2 }`
+val objectValue: JsonValue = JsonValue.from(mapOf(
+  "a" to 1, "b" to 2
+))
+
+// Create an arbitrarily nested JSON equivalent to:
+// {
+//   "a": [1, 2],
+//   "b": [3, 4]
+// }
+val complexValue: JsonValue = JsonValue.from(mapOf(
+  "a" to listOf(
+    1, 2
+  ), "b" to listOf(
+    3, 4
+  )
+))
 ```
 
 ### Response properties
