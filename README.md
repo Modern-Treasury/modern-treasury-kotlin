@@ -3,6 +3,7 @@
 <!-- x-release-please-start-version -->
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.moderntreasury.api/modern-treasury-kotlin)](https://central.sonatype.com/artifact/com.moderntreasury.api/modern-treasury-kotlin/5.0.0)
+[![javadoc](https://javadoc.io/badge2/com.moderntreasury.api/modern-treasury-kotlin/5.0.0/javadoc.svg)](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/5.0.0)
 
 <!-- x-release-please-end -->
 
@@ -10,7 +11,7 @@ The Modern Treasury Kotlin SDK provides convenient access to the Modern Treasury
 
 The Modern Treasury Kotlin SDK is similar to the Modern Treasury Java SDK but with minor differences that make it more ergonomic for use in Kotlin, such as nullable values instead of `Optional`, `Sequence` instead of `Stream`, and suspend functions instead of `CompletableFuture`.
 
-The REST API documentation can be found on [docs.moderntreasury.com](https://docs.moderntreasury.com).
+The REST API documentation can be found on [docs.moderntreasury.com](https://docs.moderntreasury.com). KDocs are also available on [javadoc.io](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/5.0.0).
 
 ## Installation
 
