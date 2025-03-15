@@ -17,6 +17,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
 /** create invoice_line_item */
@@ -30,69 +31,113 @@ private constructor(
 
     fun invoiceId(): String = invoiceId
 
-    /** The name of the line item, typically a product or SKU name. */
+    /**
+     * The name of the line item, typically a product or SKU name.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun name(): String = body.name()
 
     /**
      * The cost per unit of the product or service that this line item is for, specified in the
      * invoice currency's smallest unit.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun unitAmount(): Long = body.unitAmount()
 
-    /** An optional free-form description of the line item. */
+    /**
+     * An optional free-form description of the line item.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun description(): String? = body.description()
 
     /**
      * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
      * increases the invoice's `total_amount` due. `credit` has the opposite intention and effect.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun direction(): String? = body.direction()
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Additional data represented as key-value pairs. Both the key and value must be strings.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun metadata(): Metadata? = body.metadata()
 
     /**
      * The number of units of a product or service that this line item is for. Must be a whole
      * number. Defaults to 1 if not provided.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun quantity(): Long? = body.quantity()
 
     /**
      * The cost per unit of the product or service that this line item is for, specified in the
      * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun unitAmountDecimal(): String? = body.unitAmountDecimal()
 
-    /** The name of the line item, typically a product or SKU name. */
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _name(): JsonField<String> = body._name()
 
     /**
-     * The cost per unit of the product or service that this line item is for, specified in the
-     * invoice currency's smallest unit.
+     * Returns the raw JSON value of [unitAmount].
+     *
+     * Unlike [unitAmount], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _unitAmount(): JsonField<Long> = body._unitAmount()
 
-    /** An optional free-form description of the line item. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
     /**
-     * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
-     * increases the invoice's `total_amount` due. `credit` has the opposite intention and effect.
+     * Returns the raw JSON value of [direction].
+     *
+     * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _direction(): JsonField<String> = body._direction()
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _metadata(): JsonField<Metadata> = body._metadata()
 
     /**
-     * The number of units of a product or service that this line item is for. Must be a whole
-     * number. Defaults to 1 if not provided.
+     * Returns the raw JSON value of [quantity].
+     *
+     * Unlike [quantity], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _quantity(): JsonField<Long> = body._quantity()
 
     /**
-     * The cost per unit of the product or service that this line item is for, specified in the
-     * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+     * Returns the raw JSON value of [unitAmountDecimal].
+     *
+     * Unlike [unitAmountDecimal], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _unitAmountDecimal(): JsonField<String> = body._unitAmountDecimal()
 
@@ -144,77 +189,116 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The name of the line item, typically a product or SKU name. */
+        /**
+         * The name of the line item, typically a product or SKU name.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun name(): String = name.getRequired("name")
 
         /**
          * The cost per unit of the product or service that this line item is for, specified in the
          * invoice currency's smallest unit.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun unitAmount(): Long = unitAmount.getRequired("unit_amount")
 
-        /** An optional free-form description of the line item. */
+        /**
+         * An optional free-form description of the line item.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun description(): String? = description.getNullable("description")
 
         /**
          * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
          * increases the invoice's `total_amount` due. `credit` has the opposite intention and
          * effect.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun direction(): String? = direction.getNullable("direction")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /**
          * The number of units of a product or service that this line item is for. Must be a whole
          * number. Defaults to 1 if not provided.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun quantity(): Long? = quantity.getNullable("quantity")
 
         /**
          * The cost per unit of the product or service that this line item is for, specified in the
          * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun unitAmountDecimal(): String? = unitAmountDecimal.getNullable("unit_amount_decimal")
 
-        /** The name of the line item, typically a product or SKU name. */
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         /**
-         * The cost per unit of the product or service that this line item is for, specified in the
-         * invoice currency's smallest unit.
+         * Returns the raw JSON value of [unitAmount].
+         *
+         * Unlike [unitAmount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("unit_amount") @ExcludeMissing fun _unitAmount(): JsonField<Long> = unitAmount
 
-        /** An optional free-form description of the line item. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
         /**
-         * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
-         * increases the invoice's `total_amount` due. `credit` has the opposite intention and
-         * effect.
+         * Returns the raw JSON value of [direction].
+         *
+         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("direction") @ExcludeMissing fun _direction(): JsonField<String> = direction
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
         /**
-         * The number of units of a product or service that this line item is for. Must be a whole
-         * number. Defaults to 1 if not provided.
+         * Returns the raw JSON value of [quantity].
+         *
+         * Unlike [quantity], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("quantity") @ExcludeMissing fun _quantity(): JsonField<Long> = quantity
 
         /**
-         * The cost per unit of the product or service that this line item is for, specified in the
-         * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+         * Returns the raw JSON value of [unitAmountDecimal].
+         *
+         * Unlike [unitAmountDecimal], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("unit_amount_decimal")
         @ExcludeMissing
@@ -285,7 +369,13 @@ private constructor(
             /** The name of the line item, typically a product or SKU name. */
             fun name(name: String) = name(JsonField.of(name))
 
-            /** The name of the line item, typically a product or SKU name. */
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /**
@@ -295,15 +385,24 @@ private constructor(
             fun unitAmount(unitAmount: Long) = unitAmount(JsonField.of(unitAmount))
 
             /**
-             * The cost per unit of the product or service that this line item is for, specified in
-             * the invoice currency's smallest unit.
+             * Sets [Builder.unitAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.unitAmount] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun unitAmount(unitAmount: JsonField<Long>) = apply { this.unitAmount = unitAmount }
 
             /** An optional free-form description of the line item. */
             fun description(description: String) = description(JsonField.of(description))
 
-            /** An optional free-form description of the line item. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -316,9 +415,11 @@ private constructor(
             fun direction(direction: String) = direction(JsonField.of(direction))
 
             /**
-             * Either `debit` or `credit`. `debit` indicates that a client owes the business money
-             * and increases the invoice's `total_amount` due. `credit` has the opposite intention
-             * and effect.
+             * Sets [Builder.direction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.direction] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun direction(direction: JsonField<String>) = apply { this.direction = direction }
 
@@ -329,8 +430,11 @@ private constructor(
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
@@ -341,8 +445,11 @@ private constructor(
             fun quantity(quantity: Long) = quantity(JsonField.of(quantity))
 
             /**
-             * The number of units of a product or service that this line item is for. Must be a
-             * whole number. Defaults to 1 if not provided.
+             * Sets [Builder.quantity] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.quantity] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun quantity(quantity: JsonField<Long>) = apply { this.quantity = quantity }
 
@@ -354,8 +461,11 @@ private constructor(
                 unitAmountDecimal(JsonField.of(unitAmountDecimal))
 
             /**
-             * The cost per unit of the product or service that this line item is for, specified in
-             * the invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+             * Sets [Builder.unitAmountDecimal] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.unitAmountDecimal] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun unitAmountDecimal(unitAmountDecimal: JsonField<String>) = apply {
                 this.unitAmountDecimal = unitAmountDecimal
@@ -450,7 +560,12 @@ private constructor(
         /** The name of the line item, typically a product or SKU name. */
         fun name(name: String) = apply { body.name(name) }
 
-        /** The name of the line item, typically a product or SKU name. */
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun name(name: JsonField<String>) = apply { body.name(name) }
 
         /**
@@ -460,15 +575,23 @@ private constructor(
         fun unitAmount(unitAmount: Long) = apply { body.unitAmount(unitAmount) }
 
         /**
-         * The cost per unit of the product or service that this line item is for, specified in the
-         * invoice currency's smallest unit.
+         * Sets [Builder.unitAmount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.unitAmount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun unitAmount(unitAmount: JsonField<Long>) = apply { body.unitAmount(unitAmount) }
 
         /** An optional free-form description of the line item. */
         fun description(description: String) = apply { body.description(description) }
 
-        /** An optional free-form description of the line item. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /**
@@ -479,9 +602,11 @@ private constructor(
         fun direction(direction: String) = apply { body.direction(direction) }
 
         /**
-         * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
-         * increases the invoice's `total_amount` due. `credit` has the opposite intention and
-         * effect.
+         * Sets [Builder.direction] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.direction] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun direction(direction: JsonField<String>) = apply { body.direction(direction) }
 
@@ -491,7 +616,11 @@ private constructor(
         fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
@@ -502,8 +631,10 @@ private constructor(
         fun quantity(quantity: Long) = apply { body.quantity(quantity) }
 
         /**
-         * The number of units of a product or service that this line item is for. Must be a whole
-         * number. Defaults to 1 if not provided.
+         * Sets [Builder.quantity] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.quantity] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun quantity(quantity: JsonField<Long>) = apply { body.quantity(quantity) }
 
@@ -516,8 +647,11 @@ private constructor(
         }
 
         /**
-         * The cost per unit of the product or service that this line item is for, specified in the
-         * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+         * Sets [Builder.unitAmountDecimal] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.unitAmountDecimal] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun unitAmountDecimal(unitAmountDecimal: JsonField<String>) = apply {
             body.unitAmountDecimal(unitAmountDecimal)

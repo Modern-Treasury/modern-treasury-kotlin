@@ -67,6 +67,10 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
     /**
@@ -74,117 +78,226 @@ private constructor(
      * the sum of all posted entries on the account. The pending balance is the sum of all pending
      * and posted entries on the account. The available balance is the posted incoming entries minus
      * the sum of the pending and posted outgoing amounts.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun balances(): LedgerBalancesWithEffectiveAt = balances.getRequired("balances")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The description of the ledger account. */
+    /**
+     * The description of the ledger account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun description(): String? = description.getNullable("description")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
-    /** The id of the ledger that this account belongs to. */
+    /**
+     * The id of the ledger that this account belongs to.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun ledgerId(): String = ledgerId.getRequired("ledger_id")
 
     /**
      * If the ledger account links to another object in Modern Treasury, the id will be populated
      * here, otherwise null.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun ledgerableId(): String? = ledgerableId.getNullable("ledgerable_id")
 
     /**
      * If the ledger account links to another object in Modern Treasury, the type will be populated
      * here, otherwise null. The value is one of internal_account or external_account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun ledgerableType(): LedgerableType? = ledgerableType.getNullable("ledgerable_type")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    /** Lock version of the ledger account. */
+    /**
+     * Lock version of the ledger account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun lockVersion(): Long = lockVersion.getRequired("lock_version")
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Additional data represented as key-value pairs. Both the key and value must be strings.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun metadata(): Metadata = metadata.getRequired("metadata")
 
-    /** The name of the ledger account. */
+    /**
+     * The name of the ledger account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun name(): String = name.getRequired("name")
 
-    /** The normal balance of the ledger account. */
+    /**
+     * The normal balance of the ledger account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun normalBalance(): TransactionDirection = normalBalance.getRequired("normal_balance")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun object_(): String = object_.getRequired("object")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * The pending, posted, and available balances for this ledger account. The posted balance is
-     * the sum of all posted entries on the account. The pending balance is the sum of all pending
-     * and posted entries on the account. The available balance is the posted incoming entries minus
-     * the sum of the pending and posted outgoing amounts.
+     * Returns the raw JSON value of [balances].
+     *
+     * Unlike [balances], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("balances")
     @ExcludeMissing
     fun _balances(): JsonField<LedgerBalancesWithEffectiveAt> = balances
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The description of the ledger account. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
+    /**
+     * Returns the raw JSON value of [discardedAt].
+     *
+     * Unlike [discardedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("discarded_at")
     @ExcludeMissing
     fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
-    /** The id of the ledger that this account belongs to. */
+    /**
+     * Returns the raw JSON value of [ledgerId].
+     *
+     * Unlike [ledgerId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId(): JsonField<String> = ledgerId
 
     /**
-     * If the ledger account links to another object in Modern Treasury, the id will be populated
-     * here, otherwise null.
+     * Returns the raw JSON value of [ledgerableId].
+     *
+     * Unlike [ledgerableId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("ledgerable_id")
     @ExcludeMissing
     fun _ledgerableId(): JsonField<String> = ledgerableId
 
     /**
-     * If the ledger account links to another object in Modern Treasury, the type will be populated
-     * here, otherwise null. The value is one of internal_account or external_account.
+     * Returns the raw JSON value of [ledgerableType].
+     *
+     * Unlike [ledgerableType], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("ledgerable_type")
     @ExcludeMissing
     fun _ledgerableType(): JsonField<LedgerableType> = ledgerableType
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    /** Lock version of the ledger account. */
+    /**
+     * Returns the raw JSON value of [lockVersion].
+     *
+     * Unlike [lockVersion], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("lock_version") @ExcludeMissing fun _lockVersion(): JsonField<Long> = lockVersion
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
-    /** The name of the ledger account. */
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-    /** The normal balance of the ledger account. */
+    /**
+     * Returns the raw JSON value of [normalBalance].
+     *
+     * Unlike [normalBalance], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("normal_balance")
     @ExcludeMissing
     fun _normalBalance(): JsonField<TransactionDirection> = normalBalance
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
@@ -288,6 +401,12 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
@@ -299,10 +418,11 @@ private constructor(
         fun balances(balances: LedgerBalancesWithEffectiveAt) = balances(JsonField.of(balances))
 
         /**
-         * The pending, posted, and available balances for this ledger account. The posted balance
-         * is the sum of all posted entries on the account. The pending balance is the sum of all
-         * pending and posted entries on the account. The available balance is the posted incoming
-         * entries minus the sum of the pending and posted outgoing amounts.
+         * Sets [Builder.balances] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.balances] with a well-typed
+         * [LedgerBalancesWithEffectiveAt] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
         fun balances(balances: JsonField<LedgerBalancesWithEffectiveAt>) = apply {
             this.balances = balances
@@ -310,17 +430,37 @@ private constructor(
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The description of the ledger account. */
         fun description(description: String?) = description(JsonField.ofNullable(description))
 
-        /** The description of the ledger account. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         fun discardedAt(discardedAt: OffsetDateTime?) =
             discardedAt(JsonField.ofNullable(discardedAt))
 
+        /**
+         * Sets [Builder.discardedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
         }
@@ -328,7 +468,12 @@ private constructor(
         /** The id of the ledger that this account belongs to. */
         fun ledgerId(ledgerId: String) = ledgerId(JsonField.of(ledgerId))
 
-        /** The id of the ledger that this account belongs to. */
+        /**
+         * Sets [Builder.ledgerId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
 
         /**
@@ -338,8 +483,11 @@ private constructor(
         fun ledgerableId(ledgerableId: String?) = ledgerableId(JsonField.ofNullable(ledgerableId))
 
         /**
-         * If the ledger account links to another object in Modern Treasury, the id will be
-         * populated here, otherwise null.
+         * Sets [Builder.ledgerableId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerableId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun ledgerableId(ledgerableId: JsonField<String>) = apply {
             this.ledgerableId = ledgerableId
@@ -353,8 +501,11 @@ private constructor(
             ledgerableType(JsonField.ofNullable(ledgerableType))
 
         /**
-         * If the ledger account links to another object in Modern Treasury, the type will be
-         * populated here, otherwise null. The value is one of internal_account or external_account.
+         * Sets [Builder.ledgerableType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerableType] with a well-typed [LedgerableType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun ledgerableType(ledgerableType: JsonField<LedgerableType>) = apply {
             this.ledgerableType = ledgerableType
@@ -367,15 +518,24 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         /** Lock version of the ledger account. */
         fun lockVersion(lockVersion: Long) = lockVersion(JsonField.of(lockVersion))
 
-        /** Lock version of the ledger account. */
+        /**
+         * Sets [Builder.lockVersion] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.lockVersion] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun lockVersion(lockVersion: JsonField<Long>) = apply { this.lockVersion = lockVersion }
 
         /**
@@ -384,31 +544,59 @@ private constructor(
         fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         /** The name of the ledger account. */
         fun name(name: String) = name(JsonField.of(name))
 
-        /** The name of the ledger account. */
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
         /** The normal balance of the ledger account. */
         fun normalBalance(normalBalance: TransactionDirection) =
             normalBalance(JsonField.of(normalBalance))
 
-        /** The normal balance of the ledger account. */
+        /**
+         * Sets [Builder.normalBalance] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.normalBalance] with a well-typed [TransactionDirection]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun normalBalance(normalBalance: JsonField<TransactionDirection>) = apply {
             this.normalBalance = normalBalance
         }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -484,48 +672,92 @@ private constructor(
          * The available_balance is the sum of all posted inbound entries and pending outbound
          * entries. For credit normal, available_amount = posted_credits - pending_debits; for debit
          * normal, available_amount = posted_debits - pending_credits.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun availableBalance(): LedgerBalance = availableBalance.getRequired("available_balance")
 
-        /** The inclusive lower bound of the effective_at timestamp for the returned balances. */
+        /**
+         * The inclusive lower bound of the effective_at timestamp for the returned balances.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun effectiveAtLowerBound(): OffsetDateTime? =
             effectiveAtLowerBound.getNullable("effective_at_lower_bound")
 
-        /** The exclusive upper bound of the effective_at timestamp for the returned balances. */
+        /**
+         * The exclusive upper bound of the effective_at timestamp for the returned balances.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun effectiveAtUpperBound(): OffsetDateTime? =
             effectiveAtUpperBound.getNullable("effective_at_upper_bound")
 
-        /** The pending_balance is the sum of all pending and posted entries. */
+        /**
+         * The pending_balance is the sum of all pending and posted entries.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun pendingBalance(): LedgerBalance = pendingBalance.getRequired("pending_balance")
 
-        /** The posted_balance is the sum of all posted entries. */
+        /**
+         * The posted_balance is the sum of all posted entries.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun postedBalance(): LedgerBalance = postedBalance.getRequired("posted_balance")
 
         /**
-         * The available_balance is the sum of all posted inbound entries and pending outbound
-         * entries. For credit normal, available_amount = posted_credits - pending_debits; for debit
-         * normal, available_amount = posted_debits - pending_credits.
+         * Returns the raw JSON value of [availableBalance].
+         *
+         * Unlike [availableBalance], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("available_balance")
         @ExcludeMissing
         fun _availableBalance(): JsonField<LedgerBalance> = availableBalance
 
-        /** The inclusive lower bound of the effective_at timestamp for the returned balances. */
+        /**
+         * Returns the raw JSON value of [effectiveAtLowerBound].
+         *
+         * Unlike [effectiveAtLowerBound], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("effective_at_lower_bound")
         @ExcludeMissing
         fun _effectiveAtLowerBound(): JsonField<OffsetDateTime> = effectiveAtLowerBound
 
-        /** The exclusive upper bound of the effective_at timestamp for the returned balances. */
+        /**
+         * Returns the raw JSON value of [effectiveAtUpperBound].
+         *
+         * Unlike [effectiveAtUpperBound], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("effective_at_upper_bound")
         @ExcludeMissing
         fun _effectiveAtUpperBound(): JsonField<OffsetDateTime> = effectiveAtUpperBound
 
-        /** The pending_balance is the sum of all pending and posted entries. */
+        /**
+         * Returns the raw JSON value of [pendingBalance].
+         *
+         * Unlike [pendingBalance], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("pending_balance")
         @ExcludeMissing
         fun _pendingBalance(): JsonField<LedgerBalance> = pendingBalance
 
-        /** The posted_balance is the sum of all posted entries. */
+        /**
+         * Returns the raw JSON value of [postedBalance].
+         *
+         * Unlike [postedBalance], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("posted_balance")
         @ExcludeMissing
         fun _postedBalance(): JsonField<LedgerBalance> = postedBalance
@@ -599,9 +831,11 @@ private constructor(
                 availableBalance(JsonField.of(availableBalance))
 
             /**
-             * The available_balance is the sum of all posted inbound entries and pending outbound
-             * entries. For credit normal, available_amount = posted_credits - pending_debits; for
-             * debit normal, available_amount = posted_debits - pending_credits.
+             * Sets [Builder.availableBalance] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.availableBalance] with a well-typed [LedgerBalance]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun availableBalance(availableBalance: JsonField<LedgerBalance>) = apply {
                 this.availableBalance = availableBalance
@@ -614,7 +848,11 @@ private constructor(
                 effectiveAtLowerBound(JsonField.ofNullable(effectiveAtLowerBound))
 
             /**
-             * The inclusive lower bound of the effective_at timestamp for the returned balances.
+             * Sets [Builder.effectiveAtLowerBound] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.effectiveAtLowerBound] with a well-typed
+             * [OffsetDateTime] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
              */
             fun effectiveAtLowerBound(effectiveAtLowerBound: JsonField<OffsetDateTime>) = apply {
                 this.effectiveAtLowerBound = effectiveAtLowerBound
@@ -627,7 +865,11 @@ private constructor(
                 effectiveAtUpperBound(JsonField.ofNullable(effectiveAtUpperBound))
 
             /**
-             * The exclusive upper bound of the effective_at timestamp for the returned balances.
+             * Sets [Builder.effectiveAtUpperBound] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.effectiveAtUpperBound] with a well-typed
+             * [OffsetDateTime] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
              */
             fun effectiveAtUpperBound(effectiveAtUpperBound: JsonField<OffsetDateTime>) = apply {
                 this.effectiveAtUpperBound = effectiveAtUpperBound
@@ -637,7 +879,13 @@ private constructor(
             fun pendingBalance(pendingBalance: LedgerBalance) =
                 pendingBalance(JsonField.of(pendingBalance))
 
-            /** The pending_balance is the sum of all pending and posted entries. */
+            /**
+             * Sets [Builder.pendingBalance] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.pendingBalance] with a well-typed [LedgerBalance]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun pendingBalance(pendingBalance: JsonField<LedgerBalance>) = apply {
                 this.pendingBalance = pendingBalance
             }
@@ -646,7 +894,13 @@ private constructor(
             fun postedBalance(postedBalance: LedgerBalance) =
                 postedBalance(JsonField.of(postedBalance))
 
-            /** The posted_balance is the sum of all posted entries. */
+            /**
+             * Sets [Builder.postedBalance] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.postedBalance] with a well-typed [LedgerBalance]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun postedBalance(postedBalance: JsonField<LedgerBalance>) = apply {
                 this.postedBalance = postedBalance
             }
@@ -709,30 +963,82 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun amount(): Long = amount.getRequired("amount")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun credits(): Long = credits.getRequired("credits")
 
-            /** The currency of the ledger account. */
+            /**
+             * The currency of the ledger account.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun currency(): String = currency.getRequired("currency")
 
-            /** The currency exponent of the ledger account. */
+            /**
+             * The currency exponent of the ledger account.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun currencyExponent(): Long = currencyExponent.getRequired("currency_exponent")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun debits(): Long = debits.getRequired("debits")
 
+            /**
+             * Returns the raw JSON value of [amount].
+             *
+             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
+            /**
+             * Returns the raw JSON value of [credits].
+             *
+             * Unlike [credits], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("credits") @ExcludeMissing fun _credits(): JsonField<Long> = credits
 
-            /** The currency of the ledger account. */
+            /**
+             * Returns the raw JSON value of [currency].
+             *
+             * Unlike [currency], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
 
-            /** The currency exponent of the ledger account. */
+            /**
+             * Returns the raw JSON value of [currencyExponent].
+             *
+             * Unlike [currencyExponent], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
             @JsonProperty("currency_exponent")
             @ExcludeMissing
             fun _currencyExponent(): JsonField<Long> = currencyExponent
 
+            /**
+             * Returns the raw JSON value of [debits].
+             *
+             * Unlike [debits], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("debits") @ExcludeMissing fun _debits(): JsonField<Long> = debits
 
             @JsonAnyGetter
@@ -794,29 +1100,62 @@ private constructor(
 
                 fun amount(amount: Long) = amount(JsonField.of(amount))
 
+                /**
+                 * Sets [Builder.amount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.amount] with a well-typed [Long] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
                 fun credits(credits: Long) = credits(JsonField.of(credits))
 
+                /**
+                 * Sets [Builder.credits] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.credits] with a well-typed [Long] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun credits(credits: JsonField<Long>) = apply { this.credits = credits }
 
                 /** The currency of the ledger account. */
                 fun currency(currency: String) = currency(JsonField.of(currency))
 
-                /** The currency of the ledger account. */
+                /**
+                 * Sets [Builder.currency] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.currency] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
                 /** The currency exponent of the ledger account. */
                 fun currencyExponent(currencyExponent: Long) =
                     currencyExponent(JsonField.of(currencyExponent))
 
-                /** The currency exponent of the ledger account. */
+                /**
+                 * Sets [Builder.currencyExponent] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.currencyExponent] with a well-typed [Long] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun currencyExponent(currencyExponent: JsonField<Long>) = apply {
                     this.currencyExponent = currencyExponent
                 }
 
                 fun debits(debits: Long) = debits(JsonField.of(debits))
 
+                /**
+                 * Sets [Builder.debits] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.debits] with a well-typed [Long] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun debits(debits: JsonField<Long>) = apply { this.debits = debits }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {

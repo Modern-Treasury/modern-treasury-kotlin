@@ -200,8 +200,9 @@ private constructor(
         fun id(id: List<String>?) = apply { this.id = id?.toMutableList() }
 
         /**
-         * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
-         * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
+         * Adds a single [String] to [Builder.id].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addId(id: String) = apply { this.id = (this.id ?: mutableListOf()).apply { add(id) } }
 
@@ -251,8 +252,9 @@ private constructor(
         fun name(name: List<String>?) = apply { this.name = name?.toMutableList() }
 
         /**
-         * If you have specific names to retrieve in bulk, you can pass them as query parameters
-         * delimited with `name[]=`, for example `?name[]=123&name[]=abc`.
+         * Adds a single [String] to [Builder.name].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addName(name: String) = apply {
             this.name = (this.name ?: mutableListOf()).apply { add(name) }
@@ -268,6 +270,11 @@ private constructor(
 
         fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
+        /**
+         * Alias for [Builder.perPage].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /**
@@ -476,26 +483,56 @@ private constructor(
 
             fun eq(eq: Long?) = apply { this.eq = eq }
 
+            /**
+             * Alias for [Builder.eq].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun eq(eq: Long) = eq(eq as Long?)
 
             fun gt(gt: Long?) = apply { this.gt = gt }
 
+            /**
+             * Alias for [Builder.gt].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun gt(gt: Long) = gt(gt as Long?)
 
             fun gte(gte: Long?) = apply { this.gte = gte }
 
+            /**
+             * Alias for [Builder.gte].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun gte(gte: Long) = gte(gte as Long?)
 
             fun lt(lt: Long?) = apply { this.lt = lt }
 
+            /**
+             * Alias for [Builder.lt].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun lt(lt: Long) = lt(lt as Long?)
 
             fun lte(lte: Long?) = apply { this.lte = lte }
 
+            /**
+             * Alias for [Builder.lte].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun lte(lte: Long) = lte(lte as Long?)
 
             fun notEq(notEq: Long?) = apply { this.notEq = notEq }
 
+            /**
+             * Alias for [Builder.notEq].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun notEq(notEq: Long) = notEq(notEq as Long?)
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
@@ -995,26 +1032,56 @@ private constructor(
 
             fun eq(eq: Long?) = apply { this.eq = eq }
 
+            /**
+             * Alias for [Builder.eq].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun eq(eq: Long) = eq(eq as Long?)
 
             fun gt(gt: Long?) = apply { this.gt = gt }
 
+            /**
+             * Alias for [Builder.gt].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun gt(gt: Long) = gt(gt as Long?)
 
             fun gte(gte: Long?) = apply { this.gte = gte }
 
+            /**
+             * Alias for [Builder.gte].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun gte(gte: Long) = gte(gte as Long?)
 
             fun lt(lt: Long?) = apply { this.lt = lt }
 
+            /**
+             * Alias for [Builder.lt].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun lt(lt: Long) = lt(lt as Long?)
 
             fun lte(lte: Long?) = apply { this.lte = lte }
 
+            /**
+             * Alias for [Builder.lte].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun lte(lte: Long) = lte(lte as Long?)
 
             fun notEq(notEq: Long?) = apply { this.notEq = notEq }
 
+            /**
+             * Alias for [Builder.notEq].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun notEq(notEq: Long) = notEq(notEq as Long?)
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
@@ -1158,26 +1225,56 @@ private constructor(
 
             fun eq(eq: Long?) = apply { this.eq = eq }
 
+            /**
+             * Alias for [Builder.eq].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun eq(eq: Long) = eq(eq as Long?)
 
             fun gt(gt: Long?) = apply { this.gt = gt }
 
+            /**
+             * Alias for [Builder.gt].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun gt(gt: Long) = gt(gt as Long?)
 
             fun gte(gte: Long?) = apply { this.gte = gte }
 
+            /**
+             * Alias for [Builder.gte].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun gte(gte: Long) = gte(gte as Long?)
 
             fun lt(lt: Long?) = apply { this.lt = lt }
 
+            /**
+             * Alias for [Builder.lt].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun lt(lt: Long) = lt(lt as Long?)
 
             fun lte(lte: Long?) = apply { this.lte = lte }
 
+            /**
+             * Alias for [Builder.lte].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun lte(lte: Long) = lte(lte as Long?)
 
             fun notEq(notEq: Long?) = apply { this.notEq = notEq }
 
+            /**
+             * Alias for [Builder.notEq].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun notEq(notEq: Long) = notEq(notEq as Long?)
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {

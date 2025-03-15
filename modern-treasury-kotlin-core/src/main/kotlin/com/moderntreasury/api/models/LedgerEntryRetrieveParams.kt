@@ -86,8 +86,9 @@ private constructor(
         fun showBalances(showBalances: Boolean?) = apply { this.showBalances = showBalances }
 
         /**
-         * If true, response will include the balances attached to the ledger entry. If there is no
-         * balance available, null will be returned instead.
+         * Alias for [Builder.showBalances].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun showBalances(showBalances: Boolean) = showBalances(showBalances as Boolean?)
 

@@ -14,6 +14,7 @@ import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
 @NoAutoDetect
@@ -24,8 +25,17 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun ping(): String = ping.getRequired("ping")
 
+    /**
+     * Returns the raw JSON value of [ping].
+     *
+     * Unlike [ping], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("ping") @ExcludeMissing fun _ping(): JsonField<String> = ping
 
     @JsonAnyGetter
@@ -71,6 +81,12 @@ private constructor(
 
         fun ping(ping: String) = ping(JsonField.of(ping))
 
+        /**
+         * Sets [Builder.ping] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ping] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun ping(ping: JsonField<String>) = apply { this.ping = ping }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {

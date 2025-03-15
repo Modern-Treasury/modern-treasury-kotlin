@@ -35,21 +35,35 @@ private constructor(
 
     fun accountId(): String = accountId
 
-    /** The account number for the bank account. */
+    /**
+     * The account number for the bank account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountNumber(): String = body.accountNumber()
 
     /**
      * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account number
      * is in a generic format.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun accountNumberType(): AccountNumberType? = body.accountNumberType()
 
-    /** The account number for the bank account. */
+    /**
+     * Returns the raw JSON value of [accountNumber].
+     *
+     * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountNumber(): JsonField<String> = body._accountNumber()
 
     /**
-     * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account number
-     * is in a generic format.
+     * Returns the raw JSON value of [accountNumberType].
+     *
+     * Unlike [accountNumberType], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _accountNumberType(): JsonField<AccountNumberType> = body._accountNumberType()
 
@@ -87,24 +101,39 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The account number for the bank account. */
+        /**
+         * The account number for the bank account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountNumber(): String = accountNumber.getRequired("account_number")
 
         /**
          * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
          * number is in a generic format.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun accountNumberType(): AccountNumberType? =
             accountNumberType.getNullable("account_number_type")
 
-        /** The account number for the bank account. */
+        /**
+         * Returns the raw JSON value of [accountNumber].
+         *
+         * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("account_number")
         @ExcludeMissing
         fun _accountNumber(): JsonField<String> = accountNumber
 
         /**
-         * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
-         * number is in a generic format.
+         * Returns the raw JSON value of [accountNumberType].
+         *
+         * Unlike [accountNumberType], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("account_number_type")
         @ExcludeMissing
@@ -159,7 +188,13 @@ private constructor(
             /** The account number for the bank account. */
             fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
-            /** The account number for the bank account. */
+            /**
+             * Sets [Builder.accountNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountNumber(accountNumber: JsonField<String>) = apply {
                 this.accountNumber = accountNumber
             }
@@ -172,8 +207,11 @@ private constructor(
                 accountNumberType(JsonField.of(accountNumberType))
 
             /**
-             * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
-             * number is in a generic format.
+             * Sets [Builder.accountNumberType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumberType] with a well-typed
+             * [AccountNumberType] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
              */
             fun accountNumberType(accountNumberType: JsonField<AccountNumberType>) = apply {
                 this.accountNumberType = accountNumberType
@@ -266,7 +304,13 @@ private constructor(
         /** The account number for the bank account. */
         fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
 
-        /** The account number for the bank account. */
+        /**
+         * Sets [Builder.accountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountNumber(accountNumber: JsonField<String>) = apply {
             body.accountNumber(accountNumber)
         }
@@ -280,8 +324,11 @@ private constructor(
         }
 
         /**
-         * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
-         * number is in a generic format.
+         * Sets [Builder.accountNumberType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumberType] with a well-typed [AccountNumberType]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun accountNumberType(accountNumberType: JsonField<AccountNumberType>) = apply {
             body.accountNumberType(accountNumberType)
