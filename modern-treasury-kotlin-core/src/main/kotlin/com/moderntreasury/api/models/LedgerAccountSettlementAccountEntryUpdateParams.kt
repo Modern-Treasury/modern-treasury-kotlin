@@ -18,6 +18,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
 /** Add ledger entries to a draft ledger account settlement. */
@@ -34,12 +35,16 @@ private constructor(
     /**
      * The ids of the ledger entries that are to be added or removed from the ledger account
      * settlement.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun ledgerEntryIds(): List<String>? = body.ledgerEntryIds()
 
     /**
-     * The ids of the ledger entries that are to be added or removed from the ledger account
-     * settlement.
+     * Returns the raw JSON value of [ledgerEntryIds].
+     *
+     * Unlike [ledgerEntryIds], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _ledgerEntryIds(): JsonField<List<String>> = body._ledgerEntryIds()
 
@@ -76,12 +81,17 @@ private constructor(
         /**
          * The ids of the ledger entries that are to be added or removed from the ledger account
          * settlement.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun ledgerEntryIds(): List<String>? = ledgerEntryIds.getNullable("ledger_entry_ids")
 
         /**
-         * The ids of the ledger entries that are to be added or removed from the ledger account
-         * settlement.
+         * Returns the raw JSON value of [ledgerEntryIds].
+         *
+         * Unlike [ledgerEntryIds], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("ledger_entry_ids")
         @ExcludeMissing
@@ -144,16 +154,20 @@ private constructor(
                 ledgerEntryIds(JsonField.ofNullable(ledgerEntryIds))
 
             /**
-             * The ids of the ledger entries that are to be added or removed from the ledger account
-             * settlement.
+             * Sets [Builder.ledgerEntryIds] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerEntryIds] with a well-typed `List<String>`
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun ledgerEntryIds(ledgerEntryIds: JsonField<List<String>>) = apply {
                 this.ledgerEntryIds = ledgerEntryIds.map { it.toMutableList() }
             }
 
             /**
-             * The ids of the ledger entries that are to be added or removed from the ledger account
-             * settlement.
+             * Adds a single [String] to [ledgerEntryIds].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
              */
             fun addLedgerEntryId(ledgerEntryId: String) = apply {
                 ledgerEntryIds =
@@ -256,16 +270,20 @@ private constructor(
         }
 
         /**
-         * The ids of the ledger entries that are to be added or removed from the ledger account
-         * settlement.
+         * Sets [Builder.ledgerEntryIds] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerEntryIds] with a well-typed `List<String>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun ledgerEntryIds(ledgerEntryIds: JsonField<List<String>>) = apply {
             body.ledgerEntryIds(ledgerEntryIds)
         }
 
         /**
-         * The ids of the ledger entries that are to be added or removed from the ledger account
-         * settlement.
+         * Adds a single [String] to [ledgerEntryIds].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addLedgerEntryId(ledgerEntryId: String) = apply { body.addLedgerEntryId(ledgerEntryId) }
 

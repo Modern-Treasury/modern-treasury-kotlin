@@ -30,18 +30,46 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** Required. */
+    /**
+     * Required.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun counterpartyId(): String = body.counterpartyId()
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun paymentTypes(): List<String> = body.paymentTypes()
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun receivingCountries(): List<ReceivingCountry>? = body.receivingCountries()
 
-    /** Required. */
+    /**
+     * Returns the raw JSON value of [counterpartyId].
+     *
+     * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _counterpartyId(): JsonField<String> = body._counterpartyId()
 
+    /**
+     * Returns the raw JSON value of [paymentTypes].
+     *
+     * Unlike [paymentTypes], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _paymentTypes(): JsonField<List<String>> = body._paymentTypes()
 
+    /**
+     * Returns the raw JSON value of [receivingCountries].
+     *
+     * Unlike [receivingCountries], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _receivingCountries(): JsonField<List<ReceivingCountry>> = body._receivingCountries()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -73,23 +101,53 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** Required. */
+        /**
+         * Required.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun counterpartyId(): String = counterpartyId.getRequired("counterparty_id")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun paymentTypes(): List<String> = paymentTypes.getRequired("payment_types")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun receivingCountries(): List<ReceivingCountry>? =
             receivingCountries.getNullable("receiving_countries")
 
-        /** Required. */
+        /**
+         * Returns the raw JSON value of [counterpartyId].
+         *
+         * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("counterparty_id")
         @ExcludeMissing
         fun _counterpartyId(): JsonField<String> = counterpartyId
 
+        /**
+         * Returns the raw JSON value of [paymentTypes].
+         *
+         * Unlike [paymentTypes], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("payment_types")
         @ExcludeMissing
         fun _paymentTypes(): JsonField<List<String>> = paymentTypes
 
+        /**
+         * Returns the raw JSON value of [receivingCountries].
+         *
+         * Unlike [receivingCountries], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("receiving_countries")
         @ExcludeMissing
         fun _receivingCountries(): JsonField<List<ReceivingCountry>> = receivingCountries
@@ -152,17 +210,35 @@ private constructor(
             fun counterpartyId(counterpartyId: String) =
                 counterpartyId(JsonField.of(counterpartyId))
 
-            /** Required. */
+            /**
+             * Sets [Builder.counterpartyId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.counterpartyId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun counterpartyId(counterpartyId: JsonField<String>) = apply {
                 this.counterpartyId = counterpartyId
             }
 
             fun paymentTypes(paymentTypes: List<String>) = paymentTypes(JsonField.of(paymentTypes))
 
+            /**
+             * Sets [Builder.paymentTypes] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.paymentTypes] with a well-typed `List<String>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun paymentTypes(paymentTypes: JsonField<List<String>>) = apply {
                 this.paymentTypes = paymentTypes.map { it.toMutableList() }
             }
 
+            /**
+             * Adds a single [String] to [paymentTypes].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addPaymentType(paymentType: String) = apply {
                 paymentTypes =
                     (paymentTypes ?: JsonField.of(mutableListOf())).also {
@@ -173,10 +249,22 @@ private constructor(
             fun receivingCountries(receivingCountries: List<ReceivingCountry>) =
                 receivingCountries(JsonField.of(receivingCountries))
 
+            /**
+             * Sets [Builder.receivingCountries] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.receivingCountries] with a well-typed
+             * `List<ReceivingCountry>` value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
             fun receivingCountries(receivingCountries: JsonField<List<ReceivingCountry>>) = apply {
                 this.receivingCountries = receivingCountries.map { it.toMutableList() }
             }
 
+            /**
+             * Adds a single [ReceivingCountry] to [receivingCountries].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addReceivingCountry(receivingCountry: ReceivingCountry) = apply {
                 receivingCountries =
                     (receivingCountries ?: JsonField.of(mutableListOf())).also {
@@ -267,27 +355,57 @@ private constructor(
         /** Required. */
         fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
-        /** Required. */
+        /**
+         * Sets [Builder.counterpartyId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.counterpartyId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
             body.counterpartyId(counterpartyId)
         }
 
         fun paymentTypes(paymentTypes: List<String>) = apply { body.paymentTypes(paymentTypes) }
 
+        /**
+         * Sets [Builder.paymentTypes] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.paymentTypes] with a well-typed `List<String>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun paymentTypes(paymentTypes: JsonField<List<String>>) = apply {
             body.paymentTypes(paymentTypes)
         }
 
+        /**
+         * Adds a single [String] to [paymentTypes].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addPaymentType(paymentType: String) = apply { body.addPaymentType(paymentType) }
 
         fun receivingCountries(receivingCountries: List<ReceivingCountry>) = apply {
             body.receivingCountries(receivingCountries)
         }
 
+        /**
+         * Sets [Builder.receivingCountries] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.receivingCountries] with a well-typed
+         * `List<ReceivingCountry>` value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
         fun receivingCountries(receivingCountries: JsonField<List<ReceivingCountry>>) = apply {
             body.receivingCountries(receivingCountries)
         }
 
+        /**
+         * Adds a single [ReceivingCountry] to [receivingCountries].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addReceivingCountry(receivingCountry: ReceivingCountry) = apply {
             body.addReceivingCountry(receivingCountry)
         }

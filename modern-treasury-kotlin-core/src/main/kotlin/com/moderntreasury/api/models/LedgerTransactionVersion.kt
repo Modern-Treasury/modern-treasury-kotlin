@@ -86,41 +86,83 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** An optional description for internal use. */
+    /**
+     * An optional description for internal use.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun description(): String? = description.getNullable("description")
 
     /**
      * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
      * purposes.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun effectiveAt(): OffsetDateTime = effectiveAt.getRequired("effective_at")
 
-    /** The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes. */
+    /**
+     * The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
 
     /**
      * A unique string to represent the ledger transaction. Only one pending or posted ledger
      * transaction may have this ID in the ledger.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun externalId(): String? = externalId.getNullable("external_id")
 
-    /** An array of ledger entry objects. */
+    /**
+     * An array of ledger entry objects.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun ledgerEntries(): List<LedgerEntryOfTransactionVersion> =
         ledgerEntries.getRequired("ledger_entries")
 
-    /** The ID of the ledger this ledger transaction belongs to. */
+    /**
+     * The ID of the ledger this ledger transaction belongs to.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun ledgerId(): String = ledgerId.getRequired("ledger_id")
 
-    /** The ID of the ledger transaction */
+    /**
+     * The ID of the ledger transaction
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun ledgerTransactionId(): String = ledgerTransactionId.getRequired("ledger_transaction_id")
 
     /**
      * If the ledger transaction can be reconciled to another object in Modern Treasury, the id will
      * be populated here, otherwise null.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun ledgerableId(): String? = ledgerableId.getNullable("ledgerable_id")
 
@@ -128,138 +170,249 @@ private constructor(
      * If the ledger transaction can be reconciled to another object in Modern Treasury, the type
      * will be populated here, otherwise null. This can be one of payment_order,
      * incoming_payment_detail, expected_payment, return, or reversal.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun ledgerableType(): LedgerableType? = ledgerableType.getNullable("ledgerable_type")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Additional data represented as key-value pairs. Both the key and value must be strings.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun metadata(): Metadata = metadata.getRequired("metadata")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun object_(): String = object_.getRequired("object")
 
-    /** The ID of the ledger transaction that this ledger transaction partially posts. */
+    /**
+     * The ID of the ledger transaction that this ledger transaction partially posts.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun partiallyPostsLedgerTransactionId(): String? =
         partiallyPostsLedgerTransactionId.getNullable("partially_posts_ledger_transaction_id")
 
     /**
      * The time on which the ledger transaction posted. This is null if the ledger transaction is
      * pending.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun postedAt(): OffsetDateTime? = postedAt.getNullable("posted_at")
 
-    /** The ID of the ledger transaction that reversed this ledger transaction. */
+    /**
+     * The ID of the ledger transaction that reversed this ledger transaction.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun reversedByLedgerTransactionId(): String? =
         reversedByLedgerTransactionId.getNullable("reversed_by_ledger_transaction_id")
 
-    /** The ID of the original ledger transaction. that this ledger transaction reverses. */
+    /**
+     * The ID of the original ledger transaction. that this ledger transaction reverses.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun reversesLedgerTransactionId(): String? =
         reversesLedgerTransactionId.getNullable("reverses_ledger_transaction_id")
 
-    /** One of `pending`, `posted`, or `archived`. */
+    /**
+     * One of `pending`, `posted`, or `archived`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
-    /** Version number of the ledger transaction. */
+    /**
+     * Version number of the ledger transaction.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun version(): Long = version.getRequired("version")
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** An optional description for internal use. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /**
-     * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
-     * purposes.
+     * Returns the raw JSON value of [effectiveAt].
+     *
+     * Unlike [effectiveAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("effective_at")
     @ExcludeMissing
     fun _effectiveAt(): JsonField<OffsetDateTime> = effectiveAt
 
-    /** The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes. */
+    /**
+     * Returns the raw JSON value of [effectiveDate].
+     *
+     * Unlike [effectiveDate], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("effective_date")
     @ExcludeMissing
     fun _effectiveDate(): JsonField<LocalDate> = effectiveDate
 
     /**
-     * A unique string to represent the ledger transaction. Only one pending or posted ledger
-     * transaction may have this ID in the ledger.
+     * Returns the raw JSON value of [externalId].
+     *
+     * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("external_id") @ExcludeMissing fun _externalId(): JsonField<String> = externalId
 
-    /** An array of ledger entry objects. */
+    /**
+     * Returns the raw JSON value of [ledgerEntries].
+     *
+     * Unlike [ledgerEntries], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("ledger_entries")
     @ExcludeMissing
     fun _ledgerEntries(): JsonField<List<LedgerEntryOfTransactionVersion>> = ledgerEntries
 
-    /** The ID of the ledger this ledger transaction belongs to. */
+    /**
+     * Returns the raw JSON value of [ledgerId].
+     *
+     * Unlike [ledgerId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId(): JsonField<String> = ledgerId
 
-    /** The ID of the ledger transaction */
+    /**
+     * Returns the raw JSON value of [ledgerTransactionId].
+     *
+     * Unlike [ledgerTransactionId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("ledger_transaction_id")
     @ExcludeMissing
     fun _ledgerTransactionId(): JsonField<String> = ledgerTransactionId
 
     /**
-     * If the ledger transaction can be reconciled to another object in Modern Treasury, the id will
-     * be populated here, otherwise null.
+     * Returns the raw JSON value of [ledgerableId].
+     *
+     * Unlike [ledgerableId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("ledgerable_id")
     @ExcludeMissing
     fun _ledgerableId(): JsonField<String> = ledgerableId
 
     /**
-     * If the ledger transaction can be reconciled to another object in Modern Treasury, the type
-     * will be populated here, otherwise null. This can be one of payment_order,
-     * incoming_payment_detail, expected_payment, return, or reversal.
+     * Returns the raw JSON value of [ledgerableType].
+     *
+     * Unlike [ledgerableType], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("ledgerable_type")
     @ExcludeMissing
     fun _ledgerableType(): JsonField<LedgerableType> = ledgerableType
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-    /** The ID of the ledger transaction that this ledger transaction partially posts. */
+    /**
+     * Returns the raw JSON value of [partiallyPostsLedgerTransactionId].
+     *
+     * Unlike [partiallyPostsLedgerTransactionId], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
     @JsonProperty("partially_posts_ledger_transaction_id")
     @ExcludeMissing
     fun _partiallyPostsLedgerTransactionId(): JsonField<String> = partiallyPostsLedgerTransactionId
 
     /**
-     * The time on which the ledger transaction posted. This is null if the ledger transaction is
-     * pending.
+     * Returns the raw JSON value of [postedAt].
+     *
+     * Unlike [postedAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("posted_at") @ExcludeMissing fun _postedAt(): JsonField<OffsetDateTime> = postedAt
 
-    /** The ID of the ledger transaction that reversed this ledger transaction. */
+    /**
+     * Returns the raw JSON value of [reversedByLedgerTransactionId].
+     *
+     * Unlike [reversedByLedgerTransactionId], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("reversed_by_ledger_transaction_id")
     @ExcludeMissing
     fun _reversedByLedgerTransactionId(): JsonField<String> = reversedByLedgerTransactionId
 
-    /** The ID of the original ledger transaction. that this ledger transaction reverses. */
+    /**
+     * Returns the raw JSON value of [reversesLedgerTransactionId].
+     *
+     * Unlike [reversesLedgerTransactionId], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("reverses_ledger_transaction_id")
     @ExcludeMissing
     fun _reversesLedgerTransactionId(): JsonField<String> = reversesLedgerTransactionId
 
-    /** One of `pending`, `posted`, or `archived`. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-    /** Version number of the ledger transaction. */
+    /**
+     * Returns the raw JSON value of [version].
+     *
+     * Unlike [version], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("version") @ExcludeMissing fun _version(): JsonField<Long> = version
 
     @JsonAnyGetter
@@ -382,16 +535,35 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** An optional description for internal use. */
         fun description(description: String?) = description(JsonField.ofNullable(description))
 
-        /** An optional description for internal use. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         /**
@@ -401,8 +573,11 @@ private constructor(
         fun effectiveAt(effectiveAt: OffsetDateTime) = effectiveAt(JsonField.of(effectiveAt))
 
         /**
-         * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
-         * purposes.
+         * Sets [Builder.effectiveAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.effectiveAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
             this.effectiveAt = effectiveAt
@@ -414,7 +589,11 @@ private constructor(
         fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
 
         /**
-         * The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes.
+         * Sets [Builder.effectiveDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.effectiveDate] with a well-typed [LocalDate] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
             this.effectiveDate = effectiveDate
@@ -427,8 +606,11 @@ private constructor(
         fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
 
         /**
-         * A unique string to represent the ledger transaction. Only one pending or posted ledger
-         * transaction may have this ID in the ledger.
+         * Sets [Builder.externalId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
@@ -436,12 +618,22 @@ private constructor(
         fun ledgerEntries(ledgerEntries: List<LedgerEntryOfTransactionVersion>) =
             ledgerEntries(JsonField.of(ledgerEntries))
 
-        /** An array of ledger entry objects. */
+        /**
+         * Sets [Builder.ledgerEntries] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerEntries] with a well-typed
+         * `List<LedgerEntryOfTransactionVersion>` value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
+         */
         fun ledgerEntries(ledgerEntries: JsonField<List<LedgerEntryOfTransactionVersion>>) = apply {
             this.ledgerEntries = ledgerEntries.map { it.toMutableList() }
         }
 
-        /** An array of ledger entry objects. */
+        /**
+         * Adds a single [LedgerEntryOfTransactionVersion] to [ledgerEntries].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addLedgerEntry(ledgerEntry: LedgerEntryOfTransactionVersion) = apply {
             ledgerEntries =
                 (ledgerEntries ?: JsonField.of(mutableListOf())).also {
@@ -452,14 +644,25 @@ private constructor(
         /** The ID of the ledger this ledger transaction belongs to. */
         fun ledgerId(ledgerId: String) = ledgerId(JsonField.of(ledgerId))
 
-        /** The ID of the ledger this ledger transaction belongs to. */
+        /**
+         * Sets [Builder.ledgerId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
 
         /** The ID of the ledger transaction */
         fun ledgerTransactionId(ledgerTransactionId: String) =
             ledgerTransactionId(JsonField.of(ledgerTransactionId))
 
-        /** The ID of the ledger transaction */
+        /**
+         * Sets [Builder.ledgerTransactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerTransactionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
             this.ledgerTransactionId = ledgerTransactionId
         }
@@ -471,8 +674,11 @@ private constructor(
         fun ledgerableId(ledgerableId: String?) = ledgerableId(JsonField.ofNullable(ledgerableId))
 
         /**
-         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
-         * will be populated here, otherwise null.
+         * Sets [Builder.ledgerableId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerableId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun ledgerableId(ledgerableId: JsonField<String>) = apply {
             this.ledgerableId = ledgerableId
@@ -487,9 +693,11 @@ private constructor(
             ledgerableType(JsonField.ofNullable(ledgerableType))
 
         /**
-         * If the ledger transaction can be reconciled to another object in Modern Treasury, the
-         * type will be populated here, otherwise null. This can be one of payment_order,
-         * incoming_payment_detail, expected_payment, return, or reversal.
+         * Sets [Builder.ledgerableType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerableType] with a well-typed [LedgerableType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun ledgerableType(ledgerableType: JsonField<LedgerableType>) = apply {
             this.ledgerableType = ledgerableType
@@ -502,8 +710,11 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
@@ -513,12 +724,22 @@ private constructor(
         fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /** The ID of the ledger transaction that this ledger transaction partially posts. */
@@ -527,7 +748,13 @@ private constructor(
                 JsonField.ofNullable(partiallyPostsLedgerTransactionId)
             )
 
-        /** The ID of the ledger transaction that this ledger transaction partially posts. */
+        /**
+         * Sets [Builder.partiallyPostsLedgerTransactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.partiallyPostsLedgerTransactionId] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
         fun partiallyPostsLedgerTransactionId(
             partiallyPostsLedgerTransactionId: JsonField<String>
         ) = apply { this.partiallyPostsLedgerTransactionId = partiallyPostsLedgerTransactionId }
@@ -539,8 +766,11 @@ private constructor(
         fun postedAt(postedAt: OffsetDateTime?) = postedAt(JsonField.ofNullable(postedAt))
 
         /**
-         * The time on which the ledger transaction posted. This is null if the ledger transaction
-         * is pending.
+         * Sets [Builder.postedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.postedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun postedAt(postedAt: JsonField<OffsetDateTime>) = apply { this.postedAt = postedAt }
 
@@ -548,7 +778,13 @@ private constructor(
         fun reversedByLedgerTransactionId(reversedByLedgerTransactionId: String?) =
             reversedByLedgerTransactionId(JsonField.ofNullable(reversedByLedgerTransactionId))
 
-        /** The ID of the ledger transaction that reversed this ledger transaction. */
+        /**
+         * Sets [Builder.reversedByLedgerTransactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reversedByLedgerTransactionId] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
         fun reversedByLedgerTransactionId(reversedByLedgerTransactionId: JsonField<String>) =
             apply {
                 this.reversedByLedgerTransactionId = reversedByLedgerTransactionId
@@ -558,7 +794,13 @@ private constructor(
         fun reversesLedgerTransactionId(reversesLedgerTransactionId: String?) =
             reversesLedgerTransactionId(JsonField.ofNullable(reversesLedgerTransactionId))
 
-        /** The ID of the original ledger transaction. that this ledger transaction reverses. */
+        /**
+         * Sets [Builder.reversesLedgerTransactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reversesLedgerTransactionId] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun reversesLedgerTransactionId(reversesLedgerTransactionId: JsonField<String>) = apply {
             this.reversesLedgerTransactionId = reversesLedgerTransactionId
         }
@@ -566,13 +808,23 @@ private constructor(
         /** One of `pending`, `posted`, or `archived`. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** One of `pending`, `posted`, or `archived`. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** Version number of the ledger transaction. */
         fun version(version: Long) = version(JsonField.of(version))
 
-        /** Version number of the ledger transaction. */
+        /**
+         * Sets [Builder.version] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.version] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun version(version: JsonField<Long>) = apply { this.version = version }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -671,14 +923,25 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun id(): String = id.getRequired("id")
 
         /**
          * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can
          * be any integer up to 36 digits.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun amount(): Long = amount.getRequired("amount")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
         /**
@@ -686,42 +949,78 @@ private constructor(
          * `credit` moves money from your account to someone else's. A `debit` pulls money from
          * someone else's account to your own. Note that wire, rtp, and check payments will always
          * be `credit`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun direction(): TransactionDirection = direction.getRequired("direction")
 
-        /** The currency of the ledger account. */
+        /**
+         * The currency of the ledger account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun ledgerAccountCurrency(): String =
             ledgerAccountCurrency.getRequired("ledger_account_currency")
 
-        /** The currency exponent of the ledger account. */
+        /**
+         * The currency exponent of the ledger account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun ledgerAccountCurrencyExponent(): Long =
             ledgerAccountCurrencyExponent.getRequired("ledger_account_currency_exponent")
 
-        /** The ledger account that this ledger entry is associated with. */
+        /**
+         * The ledger account that this ledger entry is associated with.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun ledgerAccountId(): String = ledgerAccountId.getRequired("ledger_account_id")
 
         /**
          * Lock version of the ledger account. This can be passed when creating a ledger transaction
          * to only succeed if no ledger transactions have posted since the given version. See our
          * post about Designing the Ledgers API with Optimistic Locking for more details.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun ledgerAccountLockVersion(): Long? =
             ledgerAccountLockVersion.getNullable("ledger_account_lock_version")
 
-        /** The ledger transaction that this ledger entry is associated with. */
+        /**
+         * The ledger transaction that this ledger entry is associated with.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun ledgerTransactionId(): String = ledgerTransactionId.getRequired("ledger_transaction_id")
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun metadata(): Metadata = metadata.getRequired("metadata")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun object_(): String = object_.getRequired("object")
 
         /**
@@ -731,6 +1030,9 @@ private constructor(
          * posted incoming entries minus the sum of the pending and posted outgoing amounts. Please
          * see https://docs.moderntreasury.com/docs/transaction-status-and-balances for more
          * details.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun resultingLedgerAccountBalances(): LedgerBalances? =
             resultingLedgerAccountBalances.getNullable("resulting_ledger_account_balances")
@@ -738,80 +1040,120 @@ private constructor(
         /**
          * Equal to the state of the ledger transaction when the ledger entry was created. One of
          * `pending`, `posted`, or `archived`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun status(): Status = status.getRequired("status")
 
+        /**
+         * Returns the raw JSON value of [id].
+         *
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /**
-         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can
-         * be any integer up to 36 digits.
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
+        /**
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
         /**
-         * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
-         * `credit` moves money from your account to someone else's. A `debit` pulls money from
-         * someone else's account to your own. Note that wire, rtp, and check payments will always
-         * be `credit`.
+         * Returns the raw JSON value of [direction].
+         *
+         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("direction")
         @ExcludeMissing
         fun _direction(): JsonField<TransactionDirection> = direction
 
-        /** The currency of the ledger account. */
+        /**
+         * Returns the raw JSON value of [ledgerAccountCurrency].
+         *
+         * Unlike [ledgerAccountCurrency], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("ledger_account_currency")
         @ExcludeMissing
         fun _ledgerAccountCurrency(): JsonField<String> = ledgerAccountCurrency
 
-        /** The currency exponent of the ledger account. */
+        /**
+         * Returns the raw JSON value of [ledgerAccountCurrencyExponent].
+         *
+         * Unlike [ledgerAccountCurrencyExponent], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
         @JsonProperty("ledger_account_currency_exponent")
         @ExcludeMissing
         fun _ledgerAccountCurrencyExponent(): JsonField<Long> = ledgerAccountCurrencyExponent
 
-        /** The ledger account that this ledger entry is associated with. */
+        /**
+         * Returns the raw JSON value of [ledgerAccountId].
+         *
+         * Unlike [ledgerAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("ledger_account_id")
         @ExcludeMissing
         fun _ledgerAccountId(): JsonField<String> = ledgerAccountId
 
         /**
-         * Lock version of the ledger account. This can be passed when creating a ledger transaction
-         * to only succeed if no ledger transactions have posted since the given version. See our
-         * post about Designing the Ledgers API with Optimistic Locking for more details.
+         * Returns the raw JSON value of [ledgerAccountLockVersion].
+         *
+         * Unlike [ledgerAccountLockVersion], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("ledger_account_lock_version")
         @ExcludeMissing
         fun _ledgerAccountLockVersion(): JsonField<Long> = ledgerAccountLockVersion
 
-        /** The ledger transaction that this ledger entry is associated with. */
+        /**
+         * Returns the raw JSON value of [ledgerTransactionId].
+         *
+         * Unlike [ledgerTransactionId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("ledger_transaction_id")
         @ExcludeMissing
         fun _ledgerTransactionId(): JsonField<String> = ledgerTransactionId
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Returns the raw JSON value of [liveMode].
+         *
+         * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
+        /**
+         * Returns the raw JSON value of [object_].
+         *
+         * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
         /**
-         * The pending, posted, and available balances for this ledger entry's ledger account. The
-         * posted balance is the sum of all posted entries on the account. The pending balance is
-         * the sum of all pending and posted entries on the account. The available balance is the
-         * posted incoming entries minus the sum of the pending and posted outgoing amounts. Please
-         * see https://docs.moderntreasury.com/docs/transaction-status-and-balances for more
-         * details.
+         * Returns the raw JSON value of [resultingLedgerAccountBalances].
+         *
+         * Unlike [resultingLedgerAccountBalances], this method doesn't throw if the JSON field has
+         * an unexpected type.
          */
         @JsonProperty("resulting_ledger_account_balances")
         @ExcludeMissing
@@ -819,8 +1161,9 @@ private constructor(
             resultingLedgerAccountBalances
 
         /**
-         * Equal to the state of the ledger transaction when the ledger entry was created. One of
-         * `pending`, `posted`, or `archived`.
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
@@ -925,6 +1268,13 @@ private constructor(
 
             fun id(id: String) = id(JsonField.of(id))
 
+            /**
+             * Sets [Builder.id] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             /**
@@ -934,13 +1284,23 @@ private constructor(
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
-             * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
-             * Can be any integer up to 36 digits.
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+            /**
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                 this.createdAt = createdAt
             }
@@ -954,10 +1314,11 @@ private constructor(
             fun direction(direction: TransactionDirection) = direction(JsonField.of(direction))
 
             /**
-             * One of `credit`, `debit`. Describes the direction money is flowing in the
-             * transaction. A `credit` moves money from your account to someone else's. A `debit`
-             * pulls money from someone else's account to your own. Note that wire, rtp, and check
-             * payments will always be `credit`.
+             * Sets [Builder.direction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.direction] with a well-typed [TransactionDirection]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun direction(direction: JsonField<TransactionDirection>) = apply {
                 this.direction = direction
@@ -967,7 +1328,13 @@ private constructor(
             fun ledgerAccountCurrency(ledgerAccountCurrency: String) =
                 ledgerAccountCurrency(JsonField.of(ledgerAccountCurrency))
 
-            /** The currency of the ledger account. */
+            /**
+             * Sets [Builder.ledgerAccountCurrency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerAccountCurrency] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun ledgerAccountCurrency(ledgerAccountCurrency: JsonField<String>) = apply {
                 this.ledgerAccountCurrency = ledgerAccountCurrency
             }
@@ -976,7 +1343,13 @@ private constructor(
             fun ledgerAccountCurrencyExponent(ledgerAccountCurrencyExponent: Long) =
                 ledgerAccountCurrencyExponent(JsonField.of(ledgerAccountCurrencyExponent))
 
-            /** The currency exponent of the ledger account. */
+            /**
+             * Sets [Builder.ledgerAccountCurrencyExponent] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerAccountCurrencyExponent] with a well-typed
+             * [Long] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
             fun ledgerAccountCurrencyExponent(ledgerAccountCurrencyExponent: JsonField<Long>) =
                 apply {
                     this.ledgerAccountCurrencyExponent = ledgerAccountCurrencyExponent
@@ -986,7 +1359,13 @@ private constructor(
             fun ledgerAccountId(ledgerAccountId: String) =
                 ledgerAccountId(JsonField.of(ledgerAccountId))
 
-            /** The ledger account that this ledger entry is associated with. */
+            /**
+             * Sets [Builder.ledgerAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
                 this.ledgerAccountId = ledgerAccountId
             }
@@ -1001,19 +1380,19 @@ private constructor(
                 ledgerAccountLockVersion(JsonField.ofNullable(ledgerAccountLockVersion))
 
             /**
-             * Lock version of the ledger account. This can be passed when creating a ledger
-             * transaction to only succeed if no ledger transactions have posted since the given
-             * version. See our post about Designing the Ledgers API with Optimistic Locking for
-             * more details.
+             * Alias for [Builder.ledgerAccountLockVersion].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
              */
             fun ledgerAccountLockVersion(ledgerAccountLockVersion: Long) =
                 ledgerAccountLockVersion(ledgerAccountLockVersion as Long?)
 
             /**
-             * Lock version of the ledger account. This can be passed when creating a ledger
-             * transaction to only succeed if no ledger transactions have posted since the given
-             * version. See our post about Designing the Ledgers API with Optimistic Locking for
-             * more details.
+             * Sets [Builder.ledgerAccountLockVersion] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerAccountLockVersion] with a well-typed [Long]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun ledgerAccountLockVersion(ledgerAccountLockVersion: JsonField<Long>) = apply {
                 this.ledgerAccountLockVersion = ledgerAccountLockVersion
@@ -1023,7 +1402,13 @@ private constructor(
             fun ledgerTransactionId(ledgerTransactionId: String) =
                 ledgerTransactionId(JsonField.of(ledgerTransactionId))
 
-            /** The ledger transaction that this ledger entry is associated with. */
+            /**
+             * Sets [Builder.ledgerTransactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerTransactionId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
                 this.ledgerTransactionId = ledgerTransactionId
             }
@@ -1035,8 +1420,11 @@ private constructor(
             fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
             /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
+             * Sets [Builder.liveMode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
@@ -1047,13 +1435,23 @@ private constructor(
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             fun object_(object_: String) = object_(JsonField.of(object_))
 
+            /**
+             * Sets [Builder.object_] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.object_] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             /**
@@ -1069,13 +1467,11 @@ private constructor(
                 resultingLedgerAccountBalances(JsonField.ofNullable(resultingLedgerAccountBalances))
 
             /**
-             * The pending, posted, and available balances for this ledger entry's ledger account.
-             * The posted balance is the sum of all posted entries on the account. The pending
-             * balance is the sum of all pending and posted entries on the account. The available
-             * balance is the posted incoming entries minus the sum of the pending and posted
-             * outgoing amounts. Please see
-             * https://docs.moderntreasury.com/docs/transaction-status-and-balances for more
-             * details.
+             * Sets [Builder.resultingLedgerAccountBalances] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.resultingLedgerAccountBalances] with a well-typed
+             * [LedgerBalances] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
              */
             fun resultingLedgerAccountBalances(
                 resultingLedgerAccountBalances: JsonField<LedgerBalances>
@@ -1088,8 +1484,11 @@ private constructor(
             fun status(status: Status) = status(JsonField.of(status))
 
             /**
-             * Equal to the state of the ledger transaction when the ledger entry was created. One
-             * of `pending`, `posted`, or `archived`.
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
@@ -1245,31 +1644,58 @@ private constructor(
              * The available_balance is the sum of all posted inbound entries and pending outbound
              * entries. For credit normal, available_amount = posted_credits - pending_debits; for
              * debit normal, available_amount = posted_debits - pending_credits.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
             fun availableBalance(): LedgerBalance =
                 availableBalance.getRequired("available_balance")
 
-            /** The pending_balance is the sum of all pending and posted entries. */
+            /**
+             * The pending_balance is the sum of all pending and posted entries.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun pendingBalance(): LedgerBalance = pendingBalance.getRequired("pending_balance")
 
-            /** The posted_balance is the sum of all posted entries. */
+            /**
+             * The posted_balance is the sum of all posted entries.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun postedBalance(): LedgerBalance = postedBalance.getRequired("posted_balance")
 
             /**
-             * The available_balance is the sum of all posted inbound entries and pending outbound
-             * entries. For credit normal, available_amount = posted_credits - pending_debits; for
-             * debit normal, available_amount = posted_debits - pending_credits.
+             * Returns the raw JSON value of [availableBalance].
+             *
+             * Unlike [availableBalance], this method doesn't throw if the JSON field has an
+             * unexpected type.
              */
             @JsonProperty("available_balance")
             @ExcludeMissing
             fun _availableBalance(): JsonField<LedgerBalance> = availableBalance
 
-            /** The pending_balance is the sum of all pending and posted entries. */
+            /**
+             * Returns the raw JSON value of [pendingBalance].
+             *
+             * Unlike [pendingBalance], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
             @JsonProperty("pending_balance")
             @ExcludeMissing
             fun _pendingBalance(): JsonField<LedgerBalance> = pendingBalance
 
-            /** The posted_balance is the sum of all posted entries. */
+            /**
+             * Returns the raw JSON value of [postedBalance].
+             *
+             * Unlike [postedBalance], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("posted_balance")
             @ExcludeMissing
             fun _postedBalance(): JsonField<LedgerBalance> = postedBalance
@@ -1333,10 +1759,11 @@ private constructor(
                     availableBalance(JsonField.of(availableBalance))
 
                 /**
-                 * The available_balance is the sum of all posted inbound entries and pending
-                 * outbound entries. For credit normal, available_amount = posted_credits -
-                 * pending_debits; for debit normal, available_amount = posted_debits -
-                 * pending_credits.
+                 * Sets [Builder.availableBalance] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.availableBalance] with a well-typed
+                 * [LedgerBalance] value instead. This method is primarily for setting the field to
+                 * an undocumented or not yet supported value.
                  */
                 fun availableBalance(availableBalance: JsonField<LedgerBalance>) = apply {
                     this.availableBalance = availableBalance
@@ -1346,7 +1773,13 @@ private constructor(
                 fun pendingBalance(pendingBalance: LedgerBalance) =
                     pendingBalance(JsonField.of(pendingBalance))
 
-                /** The pending_balance is the sum of all pending and posted entries. */
+                /**
+                 * Sets [Builder.pendingBalance] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.pendingBalance] with a well-typed
+                 * [LedgerBalance] value instead. This method is primarily for setting the field to
+                 * an undocumented or not yet supported value.
+                 */
                 fun pendingBalance(pendingBalance: JsonField<LedgerBalance>) = apply {
                     this.pendingBalance = pendingBalance
                 }
@@ -1355,7 +1788,13 @@ private constructor(
                 fun postedBalance(postedBalance: LedgerBalance) =
                     postedBalance(JsonField.of(postedBalance))
 
-                /** The posted_balance is the sum of all posted entries. */
+                /**
+                 * Sets [Builder.postedBalance] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.postedBalance] with a well-typed [LedgerBalance]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
                 fun postedBalance(postedBalance: JsonField<LedgerBalance>) = apply {
                     this.postedBalance = postedBalance
                 }
@@ -1419,32 +1858,87 @@ private constructor(
                 private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
+                /**
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type or is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun amount(): Long = amount.getRequired("amount")
 
+                /**
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type or is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun credits(): Long = credits.getRequired("credits")
 
-                /** The currency of the ledger account. */
+                /**
+                 * The currency of the ledger account.
+                 *
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type or is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun currency(): String = currency.getRequired("currency")
 
-                /** The currency exponent of the ledger account. */
+                /**
+                 * The currency exponent of the ledger account.
+                 *
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type or is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun currencyExponent(): Long = currencyExponent.getRequired("currency_exponent")
 
+                /**
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type or is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun debits(): Long = debits.getRequired("debits")
 
+                /**
+                 * Returns the raw JSON value of [amount].
+                 *
+                 * Unlike [amount], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
+                /**
+                 * Returns the raw JSON value of [credits].
+                 *
+                 * Unlike [credits], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("credits") @ExcludeMissing fun _credits(): JsonField<Long> = credits
 
-                /** The currency of the ledger account. */
+                /**
+                 * Returns the raw JSON value of [currency].
+                 *
+                 * Unlike [currency], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("currency")
                 @ExcludeMissing
                 fun _currency(): JsonField<String> = currency
 
-                /** The currency exponent of the ledger account. */
+                /**
+                 * Returns the raw JSON value of [currencyExponent].
+                 *
+                 * Unlike [currencyExponent], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
                 @JsonProperty("currency_exponent")
                 @ExcludeMissing
                 fun _currencyExponent(): JsonField<Long> = currencyExponent
 
+                /**
+                 * Returns the raw JSON value of [debits].
+                 *
+                 * Unlike [debits], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("debits") @ExcludeMissing fun _debits(): JsonField<Long> = debits
 
                 @JsonAnyGetter
@@ -1506,29 +2000,62 @@ private constructor(
 
                     fun amount(amount: Long) = amount(JsonField.of(amount))
 
+                    /**
+                     * Sets [Builder.amount] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.amount] with a well-typed [Long] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
                     fun credits(credits: Long) = credits(JsonField.of(credits))
 
+                    /**
+                     * Sets [Builder.credits] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.credits] with a well-typed [Long] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun credits(credits: JsonField<Long>) = apply { this.credits = credits }
 
                     /** The currency of the ledger account. */
                     fun currency(currency: String) = currency(JsonField.of(currency))
 
-                    /** The currency of the ledger account. */
+                    /**
+                     * Sets [Builder.currency] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.currency] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
                     /** The currency exponent of the ledger account. */
                     fun currencyExponent(currencyExponent: Long) =
                         currencyExponent(JsonField.of(currencyExponent))
 
-                    /** The currency exponent of the ledger account. */
+                    /**
+                     * Sets [Builder.currencyExponent] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.currencyExponent] with a well-typed [Long]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
                     fun currencyExponent(currencyExponent: JsonField<Long>) = apply {
                         this.currencyExponent = currencyExponent
                     }
 
                     fun debits(debits: Long) = debits(JsonField.of(debits))
 
+                    /**
+                     * Sets [Builder.debits] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.debits] with a well-typed [Long] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun debits(debits: JsonField<Long>) = apply { this.debits = debits }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {

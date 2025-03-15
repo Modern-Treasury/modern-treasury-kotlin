@@ -80,46 +80,77 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun id(): String? = id.getNullable("id")
 
     /**
      * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can be
      * any integer up to 36 digits.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun amount(): Long? = amount.getNullable("amount")
 
     /**
      * The client token of the payment flow. This token can be used to embed a payment workflow in
      * your client-side application.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun clientToken(): String? = clientToken.getNullable("client_token")
 
     /**
      * The ID of a counterparty associated with the payment. As part of the payment workflow an
      * external account will be associated with this counterparty.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime? = createdAt.getNullable("created_at")
 
-    /** The currency of the payment. */
+    /**
+     * The currency of the payment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun currency(): String? = currency.getNullable("currency")
 
     /**
      * Describes the direction money is flowing in the transaction. Can only be `debit`. A `debit`
      * pulls money from someone else's account to your own.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun direction(): Direction? = direction.getNullable("direction")
 
     /**
      * The due date for the flow. Can only be passed in when `effective_date_selection_enabled` is
      * `true`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun dueDate(): LocalDate? = dueDate.getNullable("due_date")
 
     /**
      * When `true`, your end-user can schedule the payment `effective_date` while completing the
      * pre-built UI.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun effectiveDateSelectionEnabled(): Boolean? =
         effectiveDateSelectionEnabled.getNullable("effective_date_selection_enabled")
@@ -127,6 +158,9 @@ private constructor(
     /**
      * When `verified` and `external_account_collection` is `enabled`, filters the list of external
      * accounts your end-user can select to those with a `verification_status` of `verified`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun existingExternalAccountsFilter(): ExistingExternalAccountsFilter? =
         existingExternalAccountsFilter.getNullable("existing_external_accounts_filter")
@@ -135,6 +169,9 @@ private constructor(
      * When `enabled`, your end-user can select from an existing external account when completing
      * the flow. When `disabled`, your end-user must add new payment details when completing the
      * flow.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun externalAccountCollection(): ExternalAccountCollection? =
         externalAccountCollection.getNullable("external_account_collection")
@@ -142,23 +179,48 @@ private constructor(
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun liveMode(): Boolean? = liveMode.getNullable("live_mode")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun object_(): String? = object_.getNullable("object")
 
-    /** The ID of one of your organization's internal accounts. */
+    /**
+     * The ID of one of your organization's internal accounts.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun originatingAccountId(): String? = originatingAccountId.getNullable("originating_account_id")
 
-    /** If present, the ID of the payment order created using this flow. */
+    /**
+     * If present, the ID of the payment order created using this flow.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun paymentOrderId(): String? = paymentOrderId.getNullable("payment_order_id")
 
-    /** If present, the ID of the external account created using this flow. */
+    /**
+     * If present, the ID of the external account created using this flow.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun receivingAccountId(): String? = receivingAccountId.getNullable("receiving_account_id")
 
     /**
      * This field is set after your end-user selects a payment date while completing the pre-built
      * UI. This field is always `null` unless `effective_date_selection_enabled` is `true`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun selectedEffectiveDate(): LocalDate? =
         selectedEffectiveDate.getNullable("selected_effective_date")
@@ -166,65 +228,95 @@ private constructor(
     /**
      * The current status of the payment flow. One of `pending`, `completed`, `expired`, or
      * `cancelled`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun status(): Status? = status.getNullable("status")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime? = updatedAt.getNullable("updated_at")
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can be
-     * any integer up to 36 digits.
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
-     * The client token of the payment flow. This token can be used to embed a payment workflow in
-     * your client-side application.
+     * Returns the raw JSON value of [clientToken].
+     *
+     * Unlike [clientToken], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("client_token")
     @ExcludeMissing
     fun _clientToken(): JsonField<String> = clientToken
 
     /**
-     * The ID of a counterparty associated with the payment. As part of the payment workflow an
-     * external account will be associated with this counterparty.
+     * Returns the raw JSON value of [counterpartyId].
+     *
+     * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("counterparty_id")
     @ExcludeMissing
     fun _counterpartyId(): JsonField<String> = counterpartyId
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The currency of the payment. */
+    /**
+     * Returns the raw JSON value of [currency].
+     *
+     * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
 
     /**
-     * Describes the direction money is flowing in the transaction. Can only be `debit`. A `debit`
-     * pulls money from someone else's account to your own.
+     * Returns the raw JSON value of [direction].
+     *
+     * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("direction") @ExcludeMissing fun _direction(): JsonField<Direction> = direction
 
     /**
-     * The due date for the flow. Can only be passed in when `effective_date_selection_enabled` is
-     * `true`.
+     * Returns the raw JSON value of [dueDate].
+     *
+     * Unlike [dueDate], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("due_date") @ExcludeMissing fun _dueDate(): JsonField<LocalDate> = dueDate
 
     /**
-     * When `true`, your end-user can schedule the payment `effective_date` while completing the
-     * pre-built UI.
+     * Returns the raw JSON value of [effectiveDateSelectionEnabled].
+     *
+     * Unlike [effectiveDateSelectionEnabled], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     @JsonProperty("effective_date_selection_enabled")
     @ExcludeMissing
     fun _effectiveDateSelectionEnabled(): JsonField<Boolean> = effectiveDateSelectionEnabled
 
     /**
-     * When `verified` and `external_account_collection` is `enabled`, filters the list of external
-     * accounts your end-user can select to those with a `verification_status` of `verified`.
+     * Returns the raw JSON value of [existingExternalAccountsFilter].
+     *
+     * Unlike [existingExternalAccountsFilter], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     @JsonProperty("existing_external_accounts_filter")
     @ExcludeMissing
@@ -232,9 +324,10 @@ private constructor(
         existingExternalAccountsFilter
 
     /**
-     * When `enabled`, your end-user can select from an existing external account when completing
-     * the flow. When `disabled`, your end-user must add new payment details when completing the
-     * flow.
+     * Returns the raw JSON value of [externalAccountCollection].
+     *
+     * Unlike [externalAccountCollection], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     @JsonProperty("external_account_collection")
     @ExcludeMissing
@@ -242,42 +335,70 @@ private constructor(
         externalAccountCollection
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-    /** The ID of one of your organization's internal accounts. */
+    /**
+     * Returns the raw JSON value of [originatingAccountId].
+     *
+     * Unlike [originatingAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("originating_account_id")
     @ExcludeMissing
     fun _originatingAccountId(): JsonField<String> = originatingAccountId
 
-    /** If present, the ID of the payment order created using this flow. */
+    /**
+     * Returns the raw JSON value of [paymentOrderId].
+     *
+     * Unlike [paymentOrderId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("payment_order_id")
     @ExcludeMissing
     fun _paymentOrderId(): JsonField<String> = paymentOrderId
 
-    /** If present, the ID of the external account created using this flow. */
+    /**
+     * Returns the raw JSON value of [receivingAccountId].
+     *
+     * Unlike [receivingAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("receiving_account_id")
     @ExcludeMissing
     fun _receivingAccountId(): JsonField<String> = receivingAccountId
 
     /**
-     * This field is set after your end-user selects a payment date while completing the pre-built
-     * UI. This field is always `null` unless `effective_date_selection_enabled` is `true`.
+     * Returns the raw JSON value of [selectedEffectiveDate].
+     *
+     * Unlike [selectedEffectiveDate], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("selected_effective_date")
     @ExcludeMissing
     fun _selectedEffectiveDate(): JsonField<LocalDate> = selectedEffectiveDate
 
     /**
-     * The current status of the payment flow. One of `pending`, `completed`, `expired`, or
-     * `cancelled`.
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
@@ -374,6 +495,12 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
@@ -383,8 +510,10 @@ private constructor(
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /**
-         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can
-         * be any integer up to 36 digits.
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
@@ -395,8 +524,11 @@ private constructor(
         fun clientToken(clientToken: String) = clientToken(JsonField.of(clientToken))
 
         /**
-         * The client token of the payment flow. This token can be used to embed a payment workflow
-         * in your client-side application.
+         * Sets [Builder.clientToken] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.clientToken] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun clientToken(clientToken: JsonField<String>) = apply { this.clientToken = clientToken }
 
@@ -408,8 +540,11 @@ private constructor(
             counterpartyId(JsonField.ofNullable(counterpartyId))
 
         /**
-         * The ID of a counterparty associated with the payment. As part of the payment workflow an
-         * external account will be associated with this counterparty.
+         * Sets [Builder.counterpartyId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.counterpartyId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
             this.counterpartyId = counterpartyId
@@ -417,12 +552,24 @@ private constructor(
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The currency of the payment. */
         fun currency(currency: String) = currency(JsonField.of(currency))
 
-        /** The currency of the payment. */
+        /**
+         * Sets [Builder.currency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currency] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
         /**
@@ -432,8 +579,11 @@ private constructor(
         fun direction(direction: Direction) = direction(JsonField.of(direction))
 
         /**
-         * Describes the direction money is flowing in the transaction. Can only be `debit`. A
-         * `debit` pulls money from someone else's account to your own.
+         * Sets [Builder.direction] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.direction] with a well-typed [Direction] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
@@ -444,8 +594,11 @@ private constructor(
         fun dueDate(dueDate: LocalDate?) = dueDate(JsonField.ofNullable(dueDate))
 
         /**
-         * The due date for the flow. Can only be passed in when `effective_date_selection_enabled`
-         * is `true`.
+         * Sets [Builder.dueDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dueDate] with a well-typed [LocalDate] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun dueDate(dueDate: JsonField<LocalDate>) = apply { this.dueDate = dueDate }
 
@@ -457,8 +610,11 @@ private constructor(
             effectiveDateSelectionEnabled(JsonField.of(effectiveDateSelectionEnabled))
 
         /**
-         * When `true`, your end-user can schedule the payment `effective_date` while completing the
-         * pre-built UI.
+         * Sets [Builder.effectiveDateSelectionEnabled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.effectiveDateSelectionEnabled] with a well-typed
+         * [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun effectiveDateSelectionEnabled(effectiveDateSelectionEnabled: JsonField<Boolean>) =
             apply {
@@ -475,9 +631,11 @@ private constructor(
         ) = existingExternalAccountsFilter(JsonField.ofNullable(existingExternalAccountsFilter))
 
         /**
-         * When `verified` and `external_account_collection` is `enabled`, filters the list of
-         * external accounts your end-user can select to those with a `verification_status` of
-         * `verified`.
+         * Sets [Builder.existingExternalAccountsFilter] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.existingExternalAccountsFilter] with a well-typed
+         * [ExistingExternalAccountsFilter] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
         fun existingExternalAccountsFilter(
             existingExternalAccountsFilter: JsonField<ExistingExternalAccountsFilter>
@@ -492,9 +650,11 @@ private constructor(
             externalAccountCollection(JsonField.of(externalAccountCollection))
 
         /**
-         * When `enabled`, your end-user can select from an existing external account when
-         * completing the flow. When `disabled`, your end-user must add new payment details when
-         * completing the flow.
+         * Sets [Builder.externalAccountCollection] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalAccountCollection] with a well-typed
+         * [ExternalAccountCollection] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
          */
         fun externalAccountCollection(
             externalAccountCollection: JsonField<ExternalAccountCollection>
@@ -507,20 +667,35 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /** The ID of one of your organization's internal accounts. */
         fun originatingAccountId(originatingAccountId: String?) =
             originatingAccountId(JsonField.ofNullable(originatingAccountId))
 
-        /** The ID of one of your organization's internal accounts. */
+        /**
+         * Sets [Builder.originatingAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatingAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
             this.originatingAccountId = originatingAccountId
         }
@@ -529,7 +704,13 @@ private constructor(
         fun paymentOrderId(paymentOrderId: String?) =
             paymentOrderId(JsonField.ofNullable(paymentOrderId))
 
-        /** If present, the ID of the payment order created using this flow. */
+        /**
+         * Sets [Builder.paymentOrderId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.paymentOrderId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun paymentOrderId(paymentOrderId: JsonField<String>) = apply {
             this.paymentOrderId = paymentOrderId
         }
@@ -538,7 +719,13 @@ private constructor(
         fun receivingAccountId(receivingAccountId: String?) =
             receivingAccountId(JsonField.ofNullable(receivingAccountId))
 
-        /** If present, the ID of the external account created using this flow. */
+        /**
+         * Sets [Builder.receivingAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.receivingAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun receivingAccountId(receivingAccountId: JsonField<String>) = apply {
             this.receivingAccountId = receivingAccountId
         }
@@ -552,9 +739,11 @@ private constructor(
             selectedEffectiveDate(JsonField.ofNullable(selectedEffectiveDate))
 
         /**
-         * This field is set after your end-user selects a payment date while completing the
-         * pre-built UI. This field is always `null` unless `effective_date_selection_enabled` is
-         * `true`.
+         * Sets [Builder.selectedEffectiveDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.selectedEffectiveDate] with a well-typed [LocalDate]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun selectedEffectiveDate(selectedEffectiveDate: JsonField<LocalDate>) = apply {
             this.selectedEffectiveDate = selectedEffectiveDate
@@ -567,13 +756,22 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /**
-         * The current status of the payment flow. One of `pending`, `completed`, `expired`, or
-         * `cancelled`.
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {

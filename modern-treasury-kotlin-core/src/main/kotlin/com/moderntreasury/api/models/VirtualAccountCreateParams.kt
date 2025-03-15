@@ -30,82 +30,160 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The ID of the internal account that this virtual account is associated with. */
+    /**
+     * The ID of the internal account that this virtual account is associated with.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun internalAccountId(): String = body.internalAccountId()
 
-    /** The name of the virtual account. */
+    /**
+     * The name of the virtual account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun name(): String = body.name()
 
-    /** An array of account detail objects. */
+    /**
+     * An array of account detail objects.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun accountDetails(): List<AccountDetailCreateRequest>? = body.accountDetails()
 
-    /** The ID of the counterparty that the virtual account belongs to. */
+    /**
+     * The ID of the counterparty that the virtual account belongs to.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun counterpartyId(): String? = body.counterpartyId()
 
     /**
      * The ID of a credit normal ledger account. When money leaves the virtual account, this ledger
      * account will be credited. Must be accompanied by a debit_ledger_account_id if present.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun creditLedgerAccountId(): String? = body.creditLedgerAccountId()
 
     /**
      * The ID of a debit normal ledger account. When money enters the virtual account, this ledger
      * account will be debited. Must be accompanied by a credit_ledger_account_id if present.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun debitLedgerAccountId(): String? = body.debitLedgerAccountId()
 
-    /** An optional description for internal use. */
+    /**
+     * An optional description for internal use.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun description(): String? = body.description()
 
     /**
      * Specifies a ledger account object that will be created with the virtual account. The
      * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun ledgerAccount(): LedgerAccountCreateRequest? = body.ledgerAccount()
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Additional data represented as key-value pairs. Both the key and value must be strings.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun metadata(): Metadata? = body.metadata()
 
-    /** An array of routing detail objects. */
+    /**
+     * An array of routing detail objects.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun routingDetails(): List<RoutingDetailCreateRequest>? = body.routingDetails()
 
-    /** The ID of the internal account that this virtual account is associated with. */
+    /**
+     * Returns the raw JSON value of [internalAccountId].
+     *
+     * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _internalAccountId(): JsonField<String> = body._internalAccountId()
 
-    /** The name of the virtual account. */
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _name(): JsonField<String> = body._name()
 
-    /** An array of account detail objects. */
+    /**
+     * Returns the raw JSON value of [accountDetails].
+     *
+     * Unlike [accountDetails], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountDetails(): JsonField<List<AccountDetailCreateRequest>> = body._accountDetails()
 
-    /** The ID of the counterparty that the virtual account belongs to. */
+    /**
+     * Returns the raw JSON value of [counterpartyId].
+     *
+     * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _counterpartyId(): JsonField<String> = body._counterpartyId()
 
     /**
-     * The ID of a credit normal ledger account. When money leaves the virtual account, this ledger
-     * account will be credited. Must be accompanied by a debit_ledger_account_id if present.
+     * Returns the raw JSON value of [creditLedgerAccountId].
+     *
+     * Unlike [creditLedgerAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _creditLedgerAccountId(): JsonField<String> = body._creditLedgerAccountId()
 
     /**
-     * The ID of a debit normal ledger account. When money enters the virtual account, this ledger
-     * account will be debited. Must be accompanied by a credit_ledger_account_id if present.
+     * Returns the raw JSON value of [debitLedgerAccountId].
+     *
+     * Unlike [debitLedgerAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _debitLedgerAccountId(): JsonField<String> = body._debitLedgerAccountId()
 
-    /** An optional description for internal use. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
     /**
-     * Specifies a ledger account object that will be created with the virtual account. The
-     * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+     * Returns the raw JSON value of [ledgerAccount].
+     *
+     * Unlike [ledgerAccount], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _ledgerAccount(): JsonField<LedgerAccountCreateRequest> = body._ledgerAccount()
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _metadata(): JsonField<Metadata> = body._metadata()
 
-    /** An array of routing detail objects. */
+    /**
+     * Returns the raw JSON value of [routingDetails].
+     *
+     * Unlike [routingDetails], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _routingDetails(): JsonField<List<RoutingDetailCreateRequest>> = body._routingDetails()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -158,23 +236,46 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The ID of the internal account that this virtual account is associated with. */
+        /**
+         * The ID of the internal account that this virtual account is associated with.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
 
-        /** The name of the virtual account. */
+        /**
+         * The name of the virtual account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun name(): String = name.getRequired("name")
 
-        /** An array of account detail objects. */
+        /**
+         * An array of account detail objects.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun accountDetails(): List<AccountDetailCreateRequest>? =
             accountDetails.getNullable("account_details")
 
-        /** The ID of the counterparty that the virtual account belongs to. */
+        /**
+         * The ID of the counterparty that the virtual account belongs to.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
 
         /**
          * The ID of a credit normal ledger account. When money leaves the virtual account, this
          * ledger account will be credited. Must be accompanied by a debit_ledger_account_id if
          * present.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun creditLedgerAccountId(): String? =
             creditLedgerAccountId.getNullable("credit_ledger_account_id")
@@ -183,84 +284,137 @@ private constructor(
          * The ID of a debit normal ledger account. When money enters the virtual account, this
          * ledger account will be debited. Must be accompanied by a credit_ledger_account_id if
          * present.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun debitLedgerAccountId(): String? =
             debitLedgerAccountId.getNullable("debit_ledger_account_id")
 
-        /** An optional description for internal use. */
+        /**
+         * An optional description for internal use.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun description(): String? = description.getNullable("description")
 
         /**
          * Specifies a ledger account object that will be created with the virtual account. The
          * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun ledgerAccount(): LedgerAccountCreateRequest? =
             ledgerAccount.getNullable("ledger_account")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
-        /** An array of routing detail objects. */
+        /**
+         * An array of routing detail objects.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun routingDetails(): List<RoutingDetailCreateRequest>? =
             routingDetails.getNullable("routing_details")
 
-        /** The ID of the internal account that this virtual account is associated with. */
+        /**
+         * Returns the raw JSON value of [internalAccountId].
+         *
+         * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("internal_account_id")
         @ExcludeMissing
         fun _internalAccountId(): JsonField<String> = internalAccountId
 
-        /** The name of the virtual account. */
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-        /** An array of account detail objects. */
+        /**
+         * Returns the raw JSON value of [accountDetails].
+         *
+         * Unlike [accountDetails], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("account_details")
         @ExcludeMissing
         fun _accountDetails(): JsonField<List<AccountDetailCreateRequest>> = accountDetails
 
-        /** The ID of the counterparty that the virtual account belongs to. */
+        /**
+         * Returns the raw JSON value of [counterpartyId].
+         *
+         * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("counterparty_id")
         @ExcludeMissing
         fun _counterpartyId(): JsonField<String> = counterpartyId
 
         /**
-         * The ID of a credit normal ledger account. When money leaves the virtual account, this
-         * ledger account will be credited. Must be accompanied by a debit_ledger_account_id if
-         * present.
+         * Returns the raw JSON value of [creditLedgerAccountId].
+         *
+         * Unlike [creditLedgerAccountId], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("credit_ledger_account_id")
         @ExcludeMissing
         fun _creditLedgerAccountId(): JsonField<String> = creditLedgerAccountId
 
         /**
-         * The ID of a debit normal ledger account. When money enters the virtual account, this
-         * ledger account will be debited. Must be accompanied by a credit_ledger_account_id if
-         * present.
+         * Returns the raw JSON value of [debitLedgerAccountId].
+         *
+         * Unlike [debitLedgerAccountId], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("debit_ledger_account_id")
         @ExcludeMissing
         fun _debitLedgerAccountId(): JsonField<String> = debitLedgerAccountId
 
-        /** An optional description for internal use. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
         /**
-         * Specifies a ledger account object that will be created with the virtual account. The
-         * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+         * Returns the raw JSON value of [ledgerAccount].
+         *
+         * Unlike [ledgerAccount], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("ledger_account")
         @ExcludeMissing
         fun _ledgerAccount(): JsonField<LedgerAccountCreateRequest> = ledgerAccount
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
-        /** An array of routing detail objects. */
+        /**
+         * Returns the raw JSON value of [routingDetails].
+         *
+         * Unlike [routingDetails], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("routing_details")
         @ExcludeMissing
         fun _routingDetails(): JsonField<List<RoutingDetailCreateRequest>> = routingDetails
@@ -342,7 +496,13 @@ private constructor(
             fun internalAccountId(internalAccountId: String) =
                 internalAccountId(JsonField.of(internalAccountId))
 
-            /** The ID of the internal account that this virtual account is associated with. */
+            /**
+             * Sets [Builder.internalAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.internalAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun internalAccountId(internalAccountId: JsonField<String>) = apply {
                 this.internalAccountId = internalAccountId
             }
@@ -350,20 +510,36 @@ private constructor(
             /** The name of the virtual account. */
             fun name(name: String) = name(JsonField.of(name))
 
-            /** The name of the virtual account. */
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** An array of account detail objects. */
             fun accountDetails(accountDetails: List<AccountDetailCreateRequest>) =
                 accountDetails(JsonField.of(accountDetails))
 
-            /** An array of account detail objects. */
+            /**
+             * Sets [Builder.accountDetails] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountDetails] with a well-typed
+             * `List<AccountDetailCreateRequest>` value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
             fun accountDetails(accountDetails: JsonField<List<AccountDetailCreateRequest>>) =
                 apply {
                     this.accountDetails = accountDetails.map { it.toMutableList() }
                 }
 
-            /** An array of account detail objects. */
+            /**
+             * Adds a single [AccountDetailCreateRequest] to [accountDetails].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addAccountDetail(accountDetail: AccountDetailCreateRequest) = apply {
                 accountDetails =
                     (accountDetails ?: JsonField.of(mutableListOf())).also {
@@ -375,7 +551,13 @@ private constructor(
             fun counterpartyId(counterpartyId: String) =
                 counterpartyId(JsonField.of(counterpartyId))
 
-            /** The ID of the counterparty that the virtual account belongs to. */
+            /**
+             * Sets [Builder.counterpartyId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.counterpartyId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun counterpartyId(counterpartyId: JsonField<String>) = apply {
                 this.counterpartyId = counterpartyId
             }
@@ -389,9 +571,11 @@ private constructor(
                 creditLedgerAccountId(JsonField.of(creditLedgerAccountId))
 
             /**
-             * The ID of a credit normal ledger account. When money leaves the virtual account, this
-             * ledger account will be credited. Must be accompanied by a debit_ledger_account_id if
-             * present.
+             * Sets [Builder.creditLedgerAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.creditLedgerAccountId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun creditLedgerAccountId(creditLedgerAccountId: JsonField<String>) = apply {
                 this.creditLedgerAccountId = creditLedgerAccountId
@@ -406,9 +590,11 @@ private constructor(
                 debitLedgerAccountId(JsonField.of(debitLedgerAccountId))
 
             /**
-             * The ID of a debit normal ledger account. When money enters the virtual account, this
-             * ledger account will be debited. Must be accompanied by a credit_ledger_account_id if
-             * present.
+             * Sets [Builder.debitLedgerAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.debitLedgerAccountId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun debitLedgerAccountId(debitLedgerAccountId: JsonField<String>) = apply {
                 this.debitLedgerAccountId = debitLedgerAccountId
@@ -417,7 +603,13 @@ private constructor(
             /** An optional description for internal use. */
             fun description(description: String) = description(JsonField.of(description))
 
-            /** An optional description for internal use. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -430,8 +622,11 @@ private constructor(
                 ledgerAccount(JsonField.of(ledgerAccount))
 
             /**
-             * Specifies a ledger account object that will be created with the virtual account. The
-             * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+             * Sets [Builder.ledgerAccount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerAccount] with a well-typed
+             * [LedgerAccountCreateRequest] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
              */
             fun ledgerAccount(ledgerAccount: JsonField<LedgerAccountCreateRequest>) = apply {
                 this.ledgerAccount = ledgerAccount
@@ -444,8 +639,11 @@ private constructor(
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
@@ -453,13 +651,23 @@ private constructor(
             fun routingDetails(routingDetails: List<RoutingDetailCreateRequest>) =
                 routingDetails(JsonField.of(routingDetails))
 
-            /** An array of routing detail objects. */
+            /**
+             * Sets [Builder.routingDetails] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.routingDetails] with a well-typed
+             * `List<RoutingDetailCreateRequest>` value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
             fun routingDetails(routingDetails: JsonField<List<RoutingDetailCreateRequest>>) =
                 apply {
                     this.routingDetails = routingDetails.map { it.toMutableList() }
                 }
 
-            /** An array of routing detail objects. */
+            /**
+             * Adds a single [RoutingDetailCreateRequest] to [routingDetails].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addRoutingDetail(routingDetail: RoutingDetailCreateRequest) = apply {
                 routingDetails =
                     (routingDetails ?: JsonField.of(mutableListOf())).also {
@@ -556,7 +764,13 @@ private constructor(
             body.internalAccountId(internalAccountId)
         }
 
-        /** The ID of the internal account that this virtual account is associated with. */
+        /**
+         * Sets [Builder.internalAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.internalAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun internalAccountId(internalAccountId: JsonField<String>) = apply {
             body.internalAccountId(internalAccountId)
         }
@@ -564,7 +778,12 @@ private constructor(
         /** The name of the virtual account. */
         fun name(name: String) = apply { body.name(name) }
 
-        /** The name of the virtual account. */
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun name(name: JsonField<String>) = apply { body.name(name) }
 
         /** An array of account detail objects. */
@@ -572,12 +791,22 @@ private constructor(
             body.accountDetails(accountDetails)
         }
 
-        /** An array of account detail objects. */
+        /**
+         * Sets [Builder.accountDetails] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountDetails] with a well-typed
+         * `List<AccountDetailCreateRequest>` value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
+         */
         fun accountDetails(accountDetails: JsonField<List<AccountDetailCreateRequest>>) = apply {
             body.accountDetails(accountDetails)
         }
 
-        /** An array of account detail objects. */
+        /**
+         * Adds a single [AccountDetailCreateRequest] to [accountDetails].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addAccountDetail(accountDetail: AccountDetailCreateRequest) = apply {
             body.addAccountDetail(accountDetail)
         }
@@ -585,7 +814,13 @@ private constructor(
         /** The ID of the counterparty that the virtual account belongs to. */
         fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
-        /** The ID of the counterparty that the virtual account belongs to. */
+        /**
+         * Sets [Builder.counterpartyId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.counterpartyId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
             body.counterpartyId(counterpartyId)
         }
@@ -600,9 +835,11 @@ private constructor(
         }
 
         /**
-         * The ID of a credit normal ledger account. When money leaves the virtual account, this
-         * ledger account will be credited. Must be accompanied by a debit_ledger_account_id if
-         * present.
+         * Sets [Builder.creditLedgerAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.creditLedgerAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun creditLedgerAccountId(creditLedgerAccountId: JsonField<String>) = apply {
             body.creditLedgerAccountId(creditLedgerAccountId)
@@ -618,9 +855,11 @@ private constructor(
         }
 
         /**
-         * The ID of a debit normal ledger account. When money enters the virtual account, this
-         * ledger account will be debited. Must be accompanied by a credit_ledger_account_id if
-         * present.
+         * Sets [Builder.debitLedgerAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.debitLedgerAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun debitLedgerAccountId(debitLedgerAccountId: JsonField<String>) = apply {
             body.debitLedgerAccountId(debitLedgerAccountId)
@@ -629,7 +868,13 @@ private constructor(
         /** An optional description for internal use. */
         fun description(description: String) = apply { body.description(description) }
 
-        /** An optional description for internal use. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /**
@@ -641,8 +886,11 @@ private constructor(
         }
 
         /**
-         * Specifies a ledger account object that will be created with the virtual account. The
-         * resulting ledger account is linked to the virtual account for auto-ledgering IPDs.
+         * Sets [Builder.ledgerAccount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerAccount] with a well-typed
+         * [LedgerAccountCreateRequest] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
         fun ledgerAccount(ledgerAccount: JsonField<LedgerAccountCreateRequest>) = apply {
             body.ledgerAccount(ledgerAccount)
@@ -654,7 +902,11 @@ private constructor(
         fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
@@ -663,12 +915,22 @@ private constructor(
             body.routingDetails(routingDetails)
         }
 
-        /** An array of routing detail objects. */
+        /**
+         * Sets [Builder.routingDetails] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.routingDetails] with a well-typed
+         * `List<RoutingDetailCreateRequest>` value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
+         */
         fun routingDetails(routingDetails: JsonField<List<RoutingDetailCreateRequest>>) = apply {
             body.routingDetails(routingDetails)
         }
 
-        /** An array of routing detail objects. */
+        /**
+         * Adds a single [RoutingDetailCreateRequest] to [routingDetails].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addRoutingDetail(routingDetail: RoutingDetailCreateRequest) = apply {
             body.addRoutingDetail(routingDetail)
         }
@@ -812,24 +1074,39 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The account number for the bank account. */
+        /**
+         * The account number for the bank account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountNumber(): String = accountNumber.getRequired("account_number")
 
         /**
          * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
          * number is in a generic format.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun accountNumberType(): AccountNumberType? =
             accountNumberType.getNullable("account_number_type")
 
-        /** The account number for the bank account. */
+        /**
+         * Returns the raw JSON value of [accountNumber].
+         *
+         * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("account_number")
         @ExcludeMissing
         fun _accountNumber(): JsonField<String> = accountNumber
 
         /**
-         * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
-         * number is in a generic format.
+         * Returns the raw JSON value of [accountNumberType].
+         *
+         * Unlike [accountNumberType], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("account_number_type")
         @ExcludeMissing
@@ -884,7 +1161,13 @@ private constructor(
             /** The account number for the bank account. */
             fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
-            /** The account number for the bank account. */
+            /**
+             * Sets [Builder.accountNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountNumber(accountNumber: JsonField<String>) = apply {
                 this.accountNumber = accountNumber
             }
@@ -897,8 +1180,11 @@ private constructor(
                 accountNumberType(JsonField.of(accountNumberType))
 
             /**
-             * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
-             * number is in a generic format.
+             * Sets [Builder.accountNumberType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumberType] with a well-typed
+             * [AccountNumberType] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
              */
             fun accountNumberType(accountNumberType: JsonField<AccountNumberType>) = apply {
                 this.accountNumberType = accountNumberType
@@ -1151,26 +1437,59 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The currency of the ledger account. */
+        /**
+         * The currency of the ledger account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun currency(): String = currency.getRequired("currency")
 
-        /** The id of the ledger that this account belongs to. */
+        /**
+         * The id of the ledger that this account belongs to.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun ledgerId(): String = ledgerId.getRequired("ledger_id")
 
-        /** The name of the ledger account. */
+        /**
+         * The name of the ledger account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun name(): String = name.getRequired("name")
 
-        /** The normal balance of the ledger account. */
+        /**
+         * The normal balance of the ledger account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun normalBalance(): TransactionDirection = normalBalance.getRequired("normal_balance")
 
-        /** The currency exponent of the ledger account. */
+        /**
+         * The currency exponent of the ledger account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun currencyExponent(): Long? = currencyExponent.getNullable("currency_exponent")
 
-        /** The description of the ledger account. */
+        /**
+         * The description of the ledger account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun description(): String? = description.getNullable("description")
 
         /**
          * The array of ledger account category ids that this ledger account should be a child of.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun ledgerAccountCategoryIds(): List<String>? =
             ledgerAccountCategoryIds.getNullable("ledger_account_category_ids")
@@ -1178,69 +1497,113 @@ private constructor(
         /**
          * If the ledger account links to another object in Modern Treasury, the id will be
          * populated here, otherwise null.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun ledgerableId(): String? = ledgerableId.getNullable("ledgerable_id")
 
         /**
          * If the ledger account links to another object in Modern Treasury, the type will be
          * populated here, otherwise null. The value is one of internal_account or external_account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun ledgerableType(): LedgerableType? = ledgerableType.getNullable("ledgerable_type")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
-        /** The currency of the ledger account. */
+        /**
+         * Returns the raw JSON value of [currency].
+         *
+         * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
 
-        /** The id of the ledger that this account belongs to. */
+        /**
+         * Returns the raw JSON value of [ledgerId].
+         *
+         * Unlike [ledgerId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId(): JsonField<String> = ledgerId
 
-        /** The name of the ledger account. */
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-        /** The normal balance of the ledger account. */
+        /**
+         * Returns the raw JSON value of [normalBalance].
+         *
+         * Unlike [normalBalance], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("normal_balance")
         @ExcludeMissing
         fun _normalBalance(): JsonField<TransactionDirection> = normalBalance
 
-        /** The currency exponent of the ledger account. */
+        /**
+         * Returns the raw JSON value of [currencyExponent].
+         *
+         * Unlike [currencyExponent], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("currency_exponent")
         @ExcludeMissing
         fun _currencyExponent(): JsonField<Long> = currencyExponent
 
-        /** The description of the ledger account. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
         /**
-         * The array of ledger account category ids that this ledger account should be a child of.
+         * Returns the raw JSON value of [ledgerAccountCategoryIds].
+         *
+         * Unlike [ledgerAccountCategoryIds], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("ledger_account_category_ids")
         @ExcludeMissing
         fun _ledgerAccountCategoryIds(): JsonField<List<String>> = ledgerAccountCategoryIds
 
         /**
-         * If the ledger account links to another object in Modern Treasury, the id will be
-         * populated here, otherwise null.
+         * Returns the raw JSON value of [ledgerableId].
+         *
+         * Unlike [ledgerableId], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("ledgerable_id")
         @ExcludeMissing
         fun _ledgerableId(): JsonField<String> = ledgerableId
 
         /**
-         * If the ledger account links to another object in Modern Treasury, the type will be
-         * populated here, otherwise null. The value is one of internal_account or external_account.
+         * Returns the raw JSON value of [ledgerableType].
+         *
+         * Unlike [ledgerableType], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("ledgerable_type")
         @ExcludeMissing
         fun _ledgerableType(): JsonField<LedgerableType> = ledgerableType
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
@@ -1321,26 +1684,50 @@ private constructor(
             /** The currency of the ledger account. */
             fun currency(currency: String) = currency(JsonField.of(currency))
 
-            /** The currency of the ledger account. */
+            /**
+             * Sets [Builder.currency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.currency] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
             /** The id of the ledger that this account belongs to. */
             fun ledgerId(ledgerId: String) = ledgerId(JsonField.of(ledgerId))
 
-            /** The id of the ledger that this account belongs to. */
+            /**
+             * Sets [Builder.ledgerId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
 
             /** The name of the ledger account. */
             fun name(name: String) = name(JsonField.of(name))
 
-            /** The name of the ledger account. */
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** The normal balance of the ledger account. */
             fun normalBalance(normalBalance: TransactionDirection) =
                 normalBalance(JsonField.of(normalBalance))
 
-            /** The normal balance of the ledger account. */
+            /**
+             * Sets [Builder.normalBalance] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.normalBalance] with a well-typed
+             * [TransactionDirection] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
             fun normalBalance(normalBalance: JsonField<TransactionDirection>) = apply {
                 this.normalBalance = normalBalance
             }
@@ -1349,11 +1736,21 @@ private constructor(
             fun currencyExponent(currencyExponent: Long?) =
                 currencyExponent(JsonField.ofNullable(currencyExponent))
 
-            /** The currency exponent of the ledger account. */
+            /**
+             * Alias for [Builder.currencyExponent].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun currencyExponent(currencyExponent: Long) =
                 currencyExponent(currencyExponent as Long?)
 
-            /** The currency exponent of the ledger account. */
+            /**
+             * Sets [Builder.currencyExponent] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.currencyExponent] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun currencyExponent(currencyExponent: JsonField<Long>) = apply {
                 this.currencyExponent = currencyExponent
             }
@@ -1361,7 +1758,13 @@ private constructor(
             /** The description of the ledger account. */
             fun description(description: String?) = description(JsonField.ofNullable(description))
 
-            /** The description of the ledger account. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -1374,8 +1777,11 @@ private constructor(
                 ledgerAccountCategoryIds(JsonField.of(ledgerAccountCategoryIds))
 
             /**
-             * The array of ledger account category ids that this ledger account should be a child
-             * of.
+             * Sets [Builder.ledgerAccountCategoryIds] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerAccountCategoryIds] with a well-typed
+             * `List<String>` value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
              */
             fun ledgerAccountCategoryIds(ledgerAccountCategoryIds: JsonField<List<String>>) =
                 apply {
@@ -1384,8 +1790,9 @@ private constructor(
                 }
 
             /**
-             * The array of ledger account category ids that this ledger account should be a child
-             * of.
+             * Adds a single [String] to [ledgerAccountCategoryIds].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
              */
             fun addLedgerAccountCategoryId(ledgerAccountCategoryId: String) = apply {
                 ledgerAccountCategoryIds =
@@ -1401,8 +1808,11 @@ private constructor(
             fun ledgerableId(ledgerableId: String) = ledgerableId(JsonField.of(ledgerableId))
 
             /**
-             * If the ledger account links to another object in Modern Treasury, the id will be
-             * populated here, otherwise null.
+             * Sets [Builder.ledgerableId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerableId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun ledgerableId(ledgerableId: JsonField<String>) = apply {
                 this.ledgerableId = ledgerableId
@@ -1417,9 +1827,11 @@ private constructor(
                 ledgerableType(JsonField.of(ledgerableType))
 
             /**
-             * If the ledger account links to another object in Modern Treasury, the type will be
-             * populated here, otherwise null. The value is one of internal_account or
-             * external_account.
+             * Sets [Builder.ledgerableType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerableType] with a well-typed [LedgerableType]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun ledgerableType(ledgerableType: JsonField<LedgerableType>) = apply {
                 this.ledgerableType = ledgerableType
@@ -1432,8 +1844,11 @@ private constructor(
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
@@ -1791,13 +2206,21 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The routing number of the bank. */
+        /**
+         * The routing number of the bank.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
         /**
          * The type of routing number. See
          * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
          * details.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun routingNumberType(): RoutingNumberType =
             routingNumberType.getRequired("routing_number_type")
@@ -1805,26 +2228,36 @@ private constructor(
         /**
          * If the routing detail is to be used for a specific payment type this field will be
          * populated, otherwise null.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun paymentType(): PaymentType? = paymentType.getNullable("payment_type")
 
-        /** The routing number of the bank. */
+        /**
+         * Returns the raw JSON value of [routingNumber].
+         *
+         * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("routing_number")
         @ExcludeMissing
         fun _routingNumber(): JsonField<String> = routingNumber
 
         /**
-         * The type of routing number. See
-         * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
-         * details.
+         * Returns the raw JSON value of [routingNumberType].
+         *
+         * Unlike [routingNumberType], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("routing_number_type")
         @ExcludeMissing
         fun _routingNumberType(): JsonField<RoutingNumberType> = routingNumberType
 
         /**
-         * If the routing detail is to be used for a specific payment type this field will be
-         * populated, otherwise null.
+         * Returns the raw JSON value of [paymentType].
+         *
+         * Unlike [paymentType], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("payment_type")
         @ExcludeMissing
@@ -1883,7 +2316,13 @@ private constructor(
             /** The routing number of the bank. */
             fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
-            /** The routing number of the bank. */
+            /**
+             * Sets [Builder.routingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.routingNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun routingNumber(routingNumber: JsonField<String>) = apply {
                 this.routingNumber = routingNumber
             }
@@ -1897,9 +2336,11 @@ private constructor(
                 routingNumberType(JsonField.of(routingNumberType))
 
             /**
-             * The type of routing number. See
-             * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
-             * details.
+             * Sets [Builder.routingNumberType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.routingNumberType] with a well-typed
+             * [RoutingNumberType] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
              */
             fun routingNumberType(routingNumberType: JsonField<RoutingNumberType>) = apply {
                 this.routingNumberType = routingNumberType
@@ -1913,8 +2354,11 @@ private constructor(
                 paymentType(JsonField.ofNullable(paymentType))
 
             /**
-             * If the routing detail is to be used for a specific payment type this field will be
-             * populated, otherwise null.
+             * Sets [Builder.paymentType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.paymentType] with a well-typed [PaymentType] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun paymentType(paymentType: JsonField<PaymentType>) = apply {
                 this.paymentType = paymentType

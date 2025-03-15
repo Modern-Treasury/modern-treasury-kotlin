@@ -37,12 +37,18 @@ private constructor(
      * One of `credit` or `debit`. Use `credit` when you want to pay a counterparty. Use `debit`
      * when you need to charge a counterparty. This field helps us send a more tailored email to
      * your counterparties."
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun direction(): TransactionDirection = body.direction()
 
     /**
      * The URL you want your customer to visit upon filling out the form. By default, they will be
      * sent to a Modern Treasury landing page. This must be a valid HTTPS URL if set.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun customRedirect(): String? = body.customRedirect()
 
@@ -52,6 +58,9 @@ private constructor(
      * [\"nameOnAccount\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\"]. The
      * full list of options is
      * [\"name\", \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun fields(): List<Field>? = body.fields()
 
@@ -60,36 +69,37 @@ private constructor(
      * the form they must fill out. However, if you would like to send the counterparty the link,
      * you can set this parameter to `false`. The JSON body will include the link to the secure
      * Modern Treasury form.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun sendEmail(): Boolean? = body.sendEmail()
 
     /**
-     * One of `credit` or `debit`. Use `credit` when you want to pay a counterparty. Use `debit`
-     * when you need to charge a counterparty. This field helps us send a more tailored email to
-     * your counterparties."
+     * Returns the raw JSON value of [direction].
+     *
+     * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _direction(): JsonField<TransactionDirection> = body._direction()
 
     /**
-     * The URL you want your customer to visit upon filling out the form. By default, they will be
-     * sent to a Modern Treasury landing page. This must be a valid HTTPS URL if set.
+     * Returns the raw JSON value of [customRedirect].
+     *
+     * Unlike [customRedirect], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _customRedirect(): JsonField<String> = body._customRedirect()
 
     /**
-     * The list of fields you want on the form. This field is optional and if it is not set, will
-     * default to
-     * [\"nameOnAccount\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\"]. The
-     * full list of options is
-     * [\"name\", \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
+     * Returns the raw JSON value of [fields].
+     *
+     * Unlike [fields], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _fields(): JsonField<List<Field>> = body._fields()
 
     /**
-     * By default, Modern Treasury will send an email to your counterparty that includes a link to
-     * the form they must fill out. However, if you would like to send the counterparty the link,
-     * you can set this parameter to `false`. The JSON body will include the link to the secure
-     * Modern Treasury form.
+     * Returns the raw JSON value of [sendEmail].
+     *
+     * Unlike [sendEmail], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _sendEmail(): JsonField<Boolean> = body._sendEmail()
 
@@ -136,12 +146,18 @@ private constructor(
          * One of `credit` or `debit`. Use `credit` when you want to pay a counterparty. Use `debit`
          * when you need to charge a counterparty. This field helps us send a more tailored email to
          * your counterparties."
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun direction(): TransactionDirection = direction.getRequired("direction")
 
         /**
          * The URL you want your customer to visit upon filling out the form. By default, they will
          * be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if set.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun customRedirect(): String? = customRedirect.getNullable("custom_redirect")
 
@@ -151,6 +167,9 @@ private constructor(
          * [\"nameOnAccount\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\"].
          * The full list of options is
          * [\"name\", \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun fields(): List<Field>? = fields.getNullable("fields")
 
@@ -159,40 +178,42 @@ private constructor(
          * to the form they must fill out. However, if you would like to send the counterparty the
          * link, you can set this parameter to `false`. The JSON body will include the link to the
          * secure Modern Treasury form.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun sendEmail(): Boolean? = sendEmail.getNullable("send_email")
 
         /**
-         * One of `credit` or `debit`. Use `credit` when you want to pay a counterparty. Use `debit`
-         * when you need to charge a counterparty. This field helps us send a more tailored email to
-         * your counterparties."
+         * Returns the raw JSON value of [direction].
+         *
+         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("direction")
         @ExcludeMissing
         fun _direction(): JsonField<TransactionDirection> = direction
 
         /**
-         * The URL you want your customer to visit upon filling out the form. By default, they will
-         * be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if set.
+         * Returns the raw JSON value of [customRedirect].
+         *
+         * Unlike [customRedirect], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("custom_redirect")
         @ExcludeMissing
         fun _customRedirect(): JsonField<String> = customRedirect
 
         /**
-         * The list of fields you want on the form. This field is optional and if it is not set,
-         * will default to
-         * [\"nameOnAccount\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\"].
-         * The full list of options is
-         * [\"name\", \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
+         * Returns the raw JSON value of [fields].
+         *
+         * Unlike [fields], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("fields") @ExcludeMissing fun _fields(): JsonField<List<Field>> = fields
 
         /**
-         * By default, Modern Treasury will send an email to your counterparty that includes a link
-         * to the form they must fill out. However, if you would like to send the counterparty the
-         * link, you can set this parameter to `false`. The JSON body will include the link to the
-         * secure Modern Treasury form.
+         * Returns the raw JSON value of [sendEmail].
+         *
+         * Unlike [sendEmail], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("send_email") @ExcludeMissing fun _sendEmail(): JsonField<Boolean> = sendEmail
 
@@ -258,9 +279,11 @@ private constructor(
             fun direction(direction: TransactionDirection) = direction(JsonField.of(direction))
 
             /**
-             * One of `credit` or `debit`. Use `credit` when you want to pay a counterparty. Use
-             * `debit` when you need to charge a counterparty. This field helps us send a more
-             * tailored email to your counterparties."
+             * Sets [Builder.direction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.direction] with a well-typed [TransactionDirection]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun direction(direction: JsonField<TransactionDirection>) = apply {
                 this.direction = direction
@@ -275,9 +298,11 @@ private constructor(
                 customRedirect(JsonField.of(customRedirect))
 
             /**
-             * The URL you want your customer to visit upon filling out the form. By default, they
-             * will be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if
-             * set.
+             * Sets [Builder.customRedirect] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.customRedirect] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun customRedirect(customRedirect: JsonField<String>) = apply {
                 this.customRedirect = customRedirect
@@ -293,22 +318,20 @@ private constructor(
             fun fields(fields: List<Field>) = fields(JsonField.of(fields))
 
             /**
-             * The list of fields you want on the form. This field is optional and if it is not set,
-             * will default to
-             * [\"nameOnAccount\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\"].
-             * The full list of options is
-             * [\"name\", \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
+             * Sets [Builder.fields] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fields] with a well-typed `List<Field>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun fields(fields: JsonField<List<Field>>) = apply {
                 this.fields = fields.map { it.toMutableList() }
             }
 
             /**
-             * The list of fields you want on the form. This field is optional and if it is not set,
-             * will default to
-             * [\"nameOnAccount\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\"].
-             * The full list of options is
-             * [\"name\", \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
+             * Adds a single [Field] to [fields].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
              */
             fun addField(field: Field) = apply {
                 fields =
@@ -326,10 +349,11 @@ private constructor(
             fun sendEmail(sendEmail: Boolean) = sendEmail(JsonField.of(sendEmail))
 
             /**
-             * By default, Modern Treasury will send an email to your counterparty that includes a
-             * link to the form they must fill out. However, if you would like to send the
-             * counterparty the link, you can set this parameter to `false`. The JSON body will
-             * include the link to the secure Modern Treasury form.
+             * Sets [Builder.sendEmail] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sendEmail] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun sendEmail(sendEmail: JsonField<Boolean>) = apply { this.sendEmail = sendEmail }
 
@@ -426,9 +450,11 @@ private constructor(
         fun direction(direction: TransactionDirection) = apply { body.direction(direction) }
 
         /**
-         * One of `credit` or `debit`. Use `credit` when you want to pay a counterparty. Use `debit`
-         * when you need to charge a counterparty. This field helps us send a more tailored email to
-         * your counterparties."
+         * Sets [Builder.direction] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.direction] with a well-typed [TransactionDirection]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun direction(direction: JsonField<TransactionDirection>) = apply {
             body.direction(direction)
@@ -441,8 +467,11 @@ private constructor(
         fun customRedirect(customRedirect: String) = apply { body.customRedirect(customRedirect) }
 
         /**
-         * The URL you want your customer to visit upon filling out the form. By default, they will
-         * be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if set.
+         * Sets [Builder.customRedirect] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.customRedirect] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun customRedirect(customRedirect: JsonField<String>) = apply {
             body.customRedirect(customRedirect)
@@ -458,20 +487,18 @@ private constructor(
         fun fields(fields: List<Field>) = apply { body.fields(fields) }
 
         /**
-         * The list of fields you want on the form. This field is optional and if it is not set,
-         * will default to
-         * [\"nameOnAccount\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\"].
-         * The full list of options is
-         * [\"name\", \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
+         * Sets [Builder.fields] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fields] with a well-typed `List<Field>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun fields(fields: JsonField<List<Field>>) = apply { body.fields(fields) }
 
         /**
-         * The list of fields you want on the form. This field is optional and if it is not set,
-         * will default to
-         * [\"nameOnAccount\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\"].
-         * The full list of options is
-         * [\"name\", \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
+         * Adds a single [Field] to [fields].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addField(field: Field) = apply { body.addField(field) }
 
@@ -484,10 +511,11 @@ private constructor(
         fun sendEmail(sendEmail: Boolean) = apply { body.sendEmail(sendEmail) }
 
         /**
-         * By default, Modern Treasury will send an email to your counterparty that includes a link
-         * to the form they must fill out. However, if you would like to send the counterparty the
-         * link, you can set this parameter to `false`. The JSON body will include the link to the
-         * secure Modern Treasury form.
+         * Sets [Builder.sendEmail] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sendEmail] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun sendEmail(sendEmail: JsonField<Boolean>) = apply { body.sendEmail(sendEmail) }
 

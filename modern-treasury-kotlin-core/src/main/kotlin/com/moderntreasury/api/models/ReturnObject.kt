@@ -87,200 +87,378 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+    /**
+     * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun amount(): Long = amount.getRequired("amount")
 
-    /** The return code. For ACH returns, this is the required ACH return code. */
+    /**
+     * The return code. For ACH returns, this is the required ACH return code.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun code(): Code? = code.getNullable("code")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** Currency that this transaction is denominated in. */
+    /**
+     * Currency that this transaction is denominated in.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun currency(): Currency = currency.getRequired("currency")
 
     /**
      * If the return's status is `returned`, this will include the return object's data that is
      * returning this return.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun currentReturn(): ReturnObject? = currentReturn.getNullable("current_return")
 
     /**
      * If the return code is `R14` or `R15` this is the date the deceased counterparty passed away.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun dateOfDeath(): LocalDate? = dateOfDeath.getNullable("date_of_death")
 
     /**
      * If an originating return failed to be processed by the bank, a description of the failure
      * reason will be available.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun failureReason(): String? = failureReason.getNullable("failure_reason")
 
-    /** The ID of the relevant Internal Account. */
+    /**
+     * The ID of the relevant Internal Account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun internalAccountId(): String? = internalAccountId.getNullable("internal_account_id")
 
-    /** The ID of the ledger transaction linked to the return. */
+    /**
+     * The ID of the ledger transaction linked to the return.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun ledgerTransactionId(): String? = ledgerTransactionId.getNullable("ledger_transaction_id")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun object_(): String = object_.getRequired("object")
 
     /**
      * Often the bank will provide an explanation for the return, which is a short human readable
      * string.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun reason(): String? = reason.getNullable("reason")
 
-    /** An array of Payment Reference objects. */
+    /**
+     * An array of Payment Reference objects.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun referenceNumbers(): List<PaymentReference> =
         referenceNumbers.getRequired("reference_numbers")
 
-    /** The ID of the object being returned or `null`. */
+    /**
+     * The ID of the object being returned or `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun returnableId(): String? = returnableId.getNullable("returnable_id")
 
-    /** The type of object being returned or `null`. */
+    /**
+     * The type of object being returned or `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun returnableType(): ReturnableType? = returnableType.getNullable("returnable_type")
 
-    /** The role of the return, can be `originating` or `receiving`. */
+    /**
+     * The role of the return, can be `originating` or `receiving`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun role(): Role = role.getRequired("role")
 
-    /** The current status of the return. */
+    /**
+     * The current status of the return.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
-    /** The ID of the relevant Transaction or `null`. */
+    /**
+     * The ID of the relevant Transaction or `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun transactionId(): String? = transactionId.getNullable("transaction_id")
 
-    /** The ID of the relevant Transaction Line Item or `null`. */
+    /**
+     * The ID of the relevant Transaction Line Item or `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun transactionLineItemId(): String? =
         transactionLineItemId.getNullable("transaction_line_item_id")
 
     /**
      * The type of return. Can be one of: `ach`, `ach_noc`, `au_becs`, `bacs`, `eft`, `interac`,
      * `manual`, `paper_item`, `wire`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /**
      * Some returns may include additional information from the bank. In these cases, this string
      * will be present.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun additionalInformation(): String? =
         additionalInformation.getNullable("additional_information")
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-    /** The return code. For ACH returns, this is the required ACH return code. */
+    /**
+     * Returns the raw JSON value of [code].
+     *
+     * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<Code> = code
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** Currency that this transaction is denominated in. */
+    /**
+     * Returns the raw JSON value of [currency].
+     *
+     * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /**
-     * If the return's status is `returned`, this will include the return object's data that is
-     * returning this return.
+     * Returns the raw JSON value of [currentReturn].
+     *
+     * Unlike [currentReturn], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("current_return")
     @ExcludeMissing
     fun _currentReturn(): JsonField<ReturnObject> = currentReturn
 
     /**
-     * If the return code is `R14` or `R15` this is the date the deceased counterparty passed away.
+     * Returns the raw JSON value of [dateOfDeath].
+     *
+     * Unlike [dateOfDeath], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("date_of_death")
     @ExcludeMissing
     fun _dateOfDeath(): JsonField<LocalDate> = dateOfDeath
 
     /**
-     * If an originating return failed to be processed by the bank, a description of the failure
-     * reason will be available.
+     * Returns the raw JSON value of [failureReason].
+     *
+     * Unlike [failureReason], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("failure_reason")
     @ExcludeMissing
     fun _failureReason(): JsonField<String> = failureReason
 
-    /** The ID of the relevant Internal Account. */
+    /**
+     * Returns the raw JSON value of [internalAccountId].
+     *
+     * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("internal_account_id")
     @ExcludeMissing
     fun _internalAccountId(): JsonField<String> = internalAccountId
 
-    /** The ID of the ledger transaction linked to the return. */
+    /**
+     * Returns the raw JSON value of [ledgerTransactionId].
+     *
+     * Unlike [ledgerTransactionId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("ledger_transaction_id")
     @ExcludeMissing
     fun _ledgerTransactionId(): JsonField<String> = ledgerTransactionId
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /**
-     * Often the bank will provide an explanation for the return, which is a short human readable
-     * string.
+     * Returns the raw JSON value of [reason].
+     *
+     * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<String> = reason
 
-    /** An array of Payment Reference objects. */
+    /**
+     * Returns the raw JSON value of [referenceNumbers].
+     *
+     * Unlike [referenceNumbers], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("reference_numbers")
     @ExcludeMissing
     fun _referenceNumbers(): JsonField<List<PaymentReference>> = referenceNumbers
 
-    /** The ID of the object being returned or `null`. */
+    /**
+     * Returns the raw JSON value of [returnableId].
+     *
+     * Unlike [returnableId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("returnable_id")
     @ExcludeMissing
     fun _returnableId(): JsonField<String> = returnableId
 
-    /** The type of object being returned or `null`. */
+    /**
+     * Returns the raw JSON value of [returnableType].
+     *
+     * Unlike [returnableType], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("returnable_type")
     @ExcludeMissing
     fun _returnableType(): JsonField<ReturnableType> = returnableType
 
-    /** The role of the return, can be `originating` or `receiving`. */
+    /**
+     * Returns the raw JSON value of [role].
+     *
+     * Unlike [role], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("role") @ExcludeMissing fun _role(): JsonField<Role> = role
 
-    /** The current status of the return. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-    /** The ID of the relevant Transaction or `null`. */
+    /**
+     * Returns the raw JSON value of [transactionId].
+     *
+     * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("transaction_id")
     @ExcludeMissing
     fun _transactionId(): JsonField<String> = transactionId
 
-    /** The ID of the relevant Transaction Line Item or `null`. */
+    /**
+     * Returns the raw JSON value of [transactionLineItemId].
+     *
+     * Unlike [transactionLineItemId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("transaction_line_item_id")
     @ExcludeMissing
     fun _transactionLineItemId(): JsonField<String> = transactionLineItemId
 
     /**
-     * The type of return. Can be one of: `ach`, `ach_noc`, `au_becs`, `bacs`, `eft`, `interac`,
-     * `manual`, `paper_item`, `wire`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     /**
-     * Some returns may include additional information from the bank. In these cases, this string
-     * will be present.
+     * Returns the raw JSON value of [additionalInformation].
+     *
+     * Unlike [additionalInformation], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("additional_information")
     @ExcludeMissing
@@ -416,28 +594,57 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
-        /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** The return code. For ACH returns, this is the required ACH return code. */
         fun code(code: Code?) = code(JsonField.ofNullable(code))
 
-        /** The return code. For ACH returns, this is the required ACH return code. */
+        /**
+         * Sets [Builder.code] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.code] with a well-typed [Code] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun code(code: JsonField<Code>) = apply { this.code = code }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** Currency that this transaction is denominated in. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
-        /** Currency that this transaction is denominated in. */
+        /**
+         * Sets [Builder.currency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currency] with a well-typed [Currency] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /**
@@ -448,8 +655,11 @@ private constructor(
             currentReturn(JsonField.ofNullable(currentReturn))
 
         /**
-         * If the return's status is `returned`, this will include the return object's data that is
-         * returning this return.
+         * Sets [Builder.currentReturn] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currentReturn] with a well-typed [ReturnObject] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun currentReturn(currentReturn: JsonField<ReturnObject>) = apply {
             this.currentReturn = currentReturn
@@ -462,8 +672,11 @@ private constructor(
         fun dateOfDeath(dateOfDeath: LocalDate?) = dateOfDeath(JsonField.ofNullable(dateOfDeath))
 
         /**
-         * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
-         * away.
+         * Sets [Builder.dateOfDeath] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dateOfDeath] with a well-typed [LocalDate] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun dateOfDeath(dateOfDeath: JsonField<LocalDate>) = apply {
             this.dateOfDeath = dateOfDeath
@@ -477,8 +690,11 @@ private constructor(
             failureReason(JsonField.ofNullable(failureReason))
 
         /**
-         * If an originating return failed to be processed by the bank, a description of the failure
-         * reason will be available.
+         * Sets [Builder.failureReason] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.failureReason] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun failureReason(failureReason: JsonField<String>) = apply {
             this.failureReason = failureReason
@@ -488,7 +704,13 @@ private constructor(
         fun internalAccountId(internalAccountId: String?) =
             internalAccountId(JsonField.ofNullable(internalAccountId))
 
-        /** The ID of the relevant Internal Account. */
+        /**
+         * Sets [Builder.internalAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.internalAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun internalAccountId(internalAccountId: JsonField<String>) = apply {
             this.internalAccountId = internalAccountId
         }
@@ -497,7 +719,13 @@ private constructor(
         fun ledgerTransactionId(ledgerTransactionId: String?) =
             ledgerTransactionId(JsonField.ofNullable(ledgerTransactionId))
 
-        /** The ID of the ledger transaction linked to the return. */
+        /**
+         * Sets [Builder.ledgerTransactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerTransactionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
             this.ledgerTransactionId = ledgerTransactionId
         }
@@ -509,13 +737,22 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
@@ -525,8 +762,10 @@ private constructor(
         fun reason(reason: String?) = reason(JsonField.ofNullable(reason))
 
         /**
-         * Often the bank will provide an explanation for the return, which is a short human
-         * readable string.
+         * Sets [Builder.reason] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reason] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun reason(reason: JsonField<String>) = apply { this.reason = reason }
 
@@ -534,12 +773,22 @@ private constructor(
         fun referenceNumbers(referenceNumbers: List<PaymentReference>) =
             referenceNumbers(JsonField.of(referenceNumbers))
 
-        /** An array of Payment Reference objects. */
+        /**
+         * Sets [Builder.referenceNumbers] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.referenceNumbers] with a well-typed
+         * `List<PaymentReference>` value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
         fun referenceNumbers(referenceNumbers: JsonField<List<PaymentReference>>) = apply {
             this.referenceNumbers = referenceNumbers.map { it.toMutableList() }
         }
 
-        /** An array of Payment Reference objects. */
+        /**
+         * Adds a single [PaymentReference] to [referenceNumbers].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addReferenceNumber(referenceNumber: PaymentReference) = apply {
             referenceNumbers =
                 (referenceNumbers ?: JsonField.of(mutableListOf())).also {
@@ -550,7 +799,13 @@ private constructor(
         /** The ID of the object being returned or `null`. */
         fun returnableId(returnableId: String?) = returnableId(JsonField.ofNullable(returnableId))
 
-        /** The ID of the object being returned or `null`. */
+        /**
+         * Sets [Builder.returnableId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.returnableId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun returnableId(returnableId: JsonField<String>) = apply {
             this.returnableId = returnableId
         }
@@ -559,7 +814,13 @@ private constructor(
         fun returnableType(returnableType: ReturnableType?) =
             returnableType(JsonField.ofNullable(returnableType))
 
-        /** The type of object being returned or `null`. */
+        /**
+         * Sets [Builder.returnableType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.returnableType] with a well-typed [ReturnableType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun returnableType(returnableType: JsonField<ReturnableType>) = apply {
             this.returnableType = returnableType
         }
@@ -567,20 +828,36 @@ private constructor(
         /** The role of the return, can be `originating` or `receiving`. */
         fun role(role: Role) = role(JsonField.of(role))
 
-        /** The role of the return, can be `originating` or `receiving`. */
+        /**
+         * Sets [Builder.role] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.role] with a well-typed [Role] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun role(role: JsonField<Role>) = apply { this.role = role }
 
         /** The current status of the return. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** The current status of the return. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** The ID of the relevant Transaction or `null`. */
         fun transactionId(transactionId: String?) =
             transactionId(JsonField.ofNullable(transactionId))
 
-        /** The ID of the relevant Transaction or `null`. */
+        /**
+         * Sets [Builder.transactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.transactionId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun transactionId(transactionId: JsonField<String>) = apply {
             this.transactionId = transactionId
         }
@@ -589,7 +866,13 @@ private constructor(
         fun transactionLineItemId(transactionLineItemId: String?) =
             transactionLineItemId(JsonField.ofNullable(transactionLineItemId))
 
-        /** The ID of the relevant Transaction Line Item or `null`. */
+        /**
+         * Sets [Builder.transactionLineItemId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.transactionLineItemId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun transactionLineItemId(transactionLineItemId: JsonField<String>) = apply {
             this.transactionLineItemId = transactionLineItemId
         }
@@ -601,13 +884,22 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * The type of return. Can be one of: `ach`, `ach_noc`, `au_becs`, `bacs`, `eft`, `interac`,
-         * `manual`, `paper_item`, `wire`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /**
@@ -618,8 +910,11 @@ private constructor(
             additionalInformation(JsonField.ofNullable(additionalInformation))
 
         /**
-         * Some returns may include additional information from the bank. In these cases, this
-         * string will be present.
+         * Sets [Builder.additionalInformation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.additionalInformation] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun additionalInformation(additionalInformation: JsonField<String>) = apply {
             this.additionalInformation = additionalInformation
@@ -1105,51 +1400,111 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun id(): String = id.getRequired("id")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun object_(): String = object_.getRequired("object")
 
-        /** The vendor reference number. */
+        /**
+         * The vendor reference number.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun referenceNumber(): String = referenceNumber.getRequired("reference_number")
 
-        /** The type of the reference number. Referring to the vendor payment id. */
+        /**
+         * The type of the reference number. Referring to the vendor payment id.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun referenceNumberType(): ReferenceNumberType =
             referenceNumberType.getRequired("reference_number_type")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+        /**
+         * Returns the raw JSON value of [id].
+         *
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
+        /**
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Returns the raw JSON value of [liveMode].
+         *
+         * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
+        /**
+         * Returns the raw JSON value of [object_].
+         *
+         * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-        /** The vendor reference number. */
+        /**
+         * Returns the raw JSON value of [referenceNumber].
+         *
+         * Unlike [referenceNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("reference_number")
         @ExcludeMissing
         fun _referenceNumber(): JsonField<String> = referenceNumber
 
-        /** The type of the reference number. Referring to the vendor payment id. */
+        /**
+         * Returns the raw JSON value of [referenceNumberType].
+         *
+         * Unlike [referenceNumberType], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("reference_number_type")
         @ExcludeMissing
         fun _referenceNumberType(): JsonField<ReferenceNumberType> = referenceNumberType
 
+        /**
+         * Returns the raw JSON value of [updatedAt].
+         *
+         * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("updated_at")
         @ExcludeMissing
         fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
@@ -1221,10 +1576,24 @@ private constructor(
 
             fun id(id: String) = id(JsonField.of(id))
 
+            /**
+             * Sets [Builder.id] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+            /**
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                 this.createdAt = createdAt
             }
@@ -1236,20 +1605,36 @@ private constructor(
             fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
             /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
+             * Sets [Builder.liveMode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
             fun object_(object_: String) = object_(JsonField.of(object_))
 
+            /**
+             * Sets [Builder.object_] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.object_] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             /** The vendor reference number. */
             fun referenceNumber(referenceNumber: String) =
                 referenceNumber(JsonField.of(referenceNumber))
 
-            /** The vendor reference number. */
+            /**
+             * Sets [Builder.referenceNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.referenceNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun referenceNumber(referenceNumber: JsonField<String>) = apply {
                 this.referenceNumber = referenceNumber
             }
@@ -1258,13 +1643,26 @@ private constructor(
             fun referenceNumberType(referenceNumberType: ReferenceNumberType) =
                 referenceNumberType(JsonField.of(referenceNumberType))
 
-            /** The type of the reference number. Referring to the vendor payment id. */
+            /**
+             * Sets [Builder.referenceNumberType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.referenceNumberType] with a well-typed
+             * [ReferenceNumberType] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
             fun referenceNumberType(referenceNumberType: JsonField<ReferenceNumberType>) = apply {
                 this.referenceNumberType = referenceNumberType
             }
 
             fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+            /**
+             * Sets [Builder.updatedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
                 this.updatedAt = updatedAt
             }

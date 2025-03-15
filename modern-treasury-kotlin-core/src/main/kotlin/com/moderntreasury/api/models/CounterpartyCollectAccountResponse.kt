@@ -14,6 +14,7 @@ import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
 @NoAutoDetect
@@ -30,7 +31,12 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The id of the existing counterparty. */
+    /**
+     * The id of the existing counterparty.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
     /**
@@ -38,29 +44,39 @@ private constructor(
      * email to your counterparty that includes a link to this form. However, if `send_email` is
      * passed as `false` in the body then Modern Treasury will not send the email and you can send
      * it to the counterparty directly.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun formLink(): String = formLink.getRequired("form_link")
 
     /**
      * This field will be `true` if an email requesting account details has already been sent to
      * this counterparty.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isResend(): Boolean = isResend.getRequired("is_resend")
 
-    /** The id of the existing counterparty. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * This is the link to the secure Modern Treasury form. By default, Modern Treasury will send an
-     * email to your counterparty that includes a link to this form. However, if `send_email` is
-     * passed as `false` in the body then Modern Treasury will not send the email and you can send
-     * it to the counterparty directly.
+     * Returns the raw JSON value of [formLink].
+     *
+     * Unlike [formLink], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("form_link") @ExcludeMissing fun _formLink(): JsonField<String> = formLink
 
     /**
-     * This field will be `true` if an email requesting account details has already been sent to
-     * this counterparty.
+     * Returns the raw JSON value of [isResend].
+     *
+     * Unlike [isResend], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("is_resend") @ExcludeMissing fun _isResend(): JsonField<Boolean> = isResend
 
@@ -119,7 +135,12 @@ private constructor(
         /** The id of the existing counterparty. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The id of the existing counterparty. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
@@ -131,10 +152,10 @@ private constructor(
         fun formLink(formLink: String) = formLink(JsonField.of(formLink))
 
         /**
-         * This is the link to the secure Modern Treasury form. By default, Modern Treasury will
-         * send an email to your counterparty that includes a link to this form. However, if
-         * `send_email` is passed as `false` in the body then Modern Treasury will not send the
-         * email and you can send it to the counterparty directly.
+         * Sets [Builder.formLink] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.formLink] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun formLink(formLink: JsonField<String>) = apply { this.formLink = formLink }
 
@@ -145,8 +166,11 @@ private constructor(
         fun isResend(isResend: Boolean) = isResend(JsonField.of(isResend))
 
         /**
-         * This field will be `true` if an email requesting account details has already been sent to
-         * this counterparty.
+         * Sets [Builder.isResend] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.isResend] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun isResend(isResend: JsonField<Boolean>) = apply { this.isResend = isResend }
 

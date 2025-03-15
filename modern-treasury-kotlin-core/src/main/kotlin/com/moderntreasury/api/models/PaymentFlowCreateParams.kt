@@ -33,62 +33,96 @@ private constructor(
     /**
      * Required. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
      * Can be any integer up to 36 digits.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amount(): Long = body.amount()
 
     /**
      * Required. The ID of a counterparty associated with the payment. As part of the payment
      * workflow an external account will be associated with this model.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun counterpartyId(): String = body.counterpartyId()
 
-    /** Required. The currency of the payment. */
+    /**
+     * Required. The currency of the payment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun currency(): String = body.currency()
 
     /**
      * Required. Describes the direction money is flowing in the transaction. Can only be `debit`. A
      * `debit` pulls money from someone else's account to your own.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun direction(): Direction = body.direction()
 
-    /** Required. The ID of one of your organization's internal accounts. */
+    /**
+     * Required. The ID of one of your organization's internal accounts.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun originatingAccountId(): String = body.originatingAccountId()
 
     /**
      * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When set,
      * the due date is shown to your end-user in the pre-built UI as they are selecting a payment
      * `effective_date`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun dueDate(): LocalDate? = body.dueDate()
 
     /**
-     * Required. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
-     * Can be any integer up to 36 digits.
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _amount(): JsonField<Long> = body._amount()
 
     /**
-     * Required. The ID of a counterparty associated with the payment. As part of the payment
-     * workflow an external account will be associated with this model.
+     * Returns the raw JSON value of [counterpartyId].
+     *
+     * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _counterpartyId(): JsonField<String> = body._counterpartyId()
 
-    /** Required. The currency of the payment. */
+    /**
+     * Returns the raw JSON value of [currency].
+     *
+     * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _currency(): JsonField<String> = body._currency()
 
     /**
-     * Required. Describes the direction money is flowing in the transaction. Can only be `debit`. A
-     * `debit` pulls money from someone else's account to your own.
+     * Returns the raw JSON value of [direction].
+     *
+     * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _direction(): JsonField<Direction> = body._direction()
 
-    /** Required. The ID of one of your organization's internal accounts. */
+    /**
+     * Returns the raw JSON value of [originatingAccountId].
+     *
+     * Unlike [originatingAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _originatingAccountId(): JsonField<String> = body._originatingAccountId()
 
     /**
-     * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When set,
-     * the due date is shown to your end-user in the pre-built UI as they are selecting a payment
-     * `effective_date`.
+     * Returns the raw JSON value of [dueDate].
+     *
+     * Unlike [dueDate], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _dueDate(): JsonField<LocalDate> = body._dueDate()
 
@@ -133,25 +167,44 @@ private constructor(
         /**
          * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
          * as 1000. Can be any integer up to 36 digits.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun amount(): Long = amount.getRequired("amount")
 
         /**
          * Required. The ID of a counterparty associated with the payment. As part of the payment
          * workflow an external account will be associated with this model.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun counterpartyId(): String = counterpartyId.getRequired("counterparty_id")
 
-        /** Required. The currency of the payment. */
+        /**
+         * Required. The currency of the payment.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun currency(): String = currency.getRequired("currency")
 
         /**
          * Required. Describes the direction money is flowing in the transaction. Can only be
          * `debit`. A `debit` pulls money from someone else's account to your own.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun direction(): Direction = direction.getRequired("direction")
 
-        /** Required. The ID of one of your organization's internal accounts. */
+        /**
+         * Required. The ID of one of your organization's internal accounts.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun originatingAccountId(): String =
             originatingAccountId.getRequired("originating_account_id")
 
@@ -159,43 +212,59 @@ private constructor(
          * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When
          * set, the due date is shown to your end-user in the pre-built UI as they are selecting a
          * payment `effective_date`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun dueDate(): LocalDate? = dueDate.getNullable("due_date")
 
         /**
-         * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
-         * as 1000. Can be any integer up to 36 digits.
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
-         * Required. The ID of a counterparty associated with the payment. As part of the payment
-         * workflow an external account will be associated with this model.
+         * Returns the raw JSON value of [counterpartyId].
+         *
+         * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("counterparty_id")
         @ExcludeMissing
         fun _counterpartyId(): JsonField<String> = counterpartyId
 
-        /** Required. The currency of the payment. */
+        /**
+         * Returns the raw JSON value of [currency].
+         *
+         * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
 
         /**
-         * Required. Describes the direction money is flowing in the transaction. Can only be
-         * `debit`. A `debit` pulls money from someone else's account to your own.
+         * Returns the raw JSON value of [direction].
+         *
+         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("direction")
         @ExcludeMissing
         fun _direction(): JsonField<Direction> = direction
 
-        /** Required. The ID of one of your organization's internal accounts. */
+        /**
+         * Returns the raw JSON value of [originatingAccountId].
+         *
+         * Unlike [originatingAccountId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("originating_account_id")
         @ExcludeMissing
         fun _originatingAccountId(): JsonField<String> = originatingAccountId
 
         /**
-         * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When
-         * set, the due date is shown to your end-user in the pre-built UI as they are selecting a
-         * payment `effective_date`.
+         * Returns the raw JSON value of [dueDate].
+         *
+         * Unlike [dueDate], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("due_date") @ExcludeMissing fun _dueDate(): JsonField<LocalDate> = dueDate
 
@@ -266,8 +335,11 @@ private constructor(
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
-             * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
-             * as 1000. Can be any integer up to 36 digits.
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
@@ -279,8 +351,11 @@ private constructor(
                 counterpartyId(JsonField.of(counterpartyId))
 
             /**
-             * Required. The ID of a counterparty associated with the payment. As part of the
-             * payment workflow an external account will be associated with this model.
+             * Sets [Builder.counterpartyId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.counterpartyId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun counterpartyId(counterpartyId: JsonField<String>) = apply {
                 this.counterpartyId = counterpartyId
@@ -289,7 +364,13 @@ private constructor(
             /** Required. The currency of the payment. */
             fun currency(currency: String) = currency(JsonField.of(currency))
 
-            /** Required. The currency of the payment. */
+            /**
+             * Sets [Builder.currency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.currency] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
             /**
@@ -299,8 +380,11 @@ private constructor(
             fun direction(direction: Direction) = direction(JsonField.of(direction))
 
             /**
-             * Required. Describes the direction money is flowing in the transaction. Can only be
-             * `debit`. A `debit` pulls money from someone else's account to your own.
+             * Sets [Builder.direction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.direction] with a well-typed [Direction] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
@@ -308,7 +392,13 @@ private constructor(
             fun originatingAccountId(originatingAccountId: String) =
                 originatingAccountId(JsonField.of(originatingAccountId))
 
-            /** Required. The ID of one of your organization's internal accounts. */
+            /**
+             * Sets [Builder.originatingAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatingAccountId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
                 this.originatingAccountId = originatingAccountId
             }
@@ -321,9 +411,11 @@ private constructor(
             fun dueDate(dueDate: LocalDate) = dueDate(JsonField.of(dueDate))
 
             /**
-             * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`.
-             * When set, the due date is shown to your end-user in the pre-built UI as they are
-             * selecting a payment `effective_date`.
+             * Sets [Builder.dueDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dueDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun dueDate(dueDate: JsonField<LocalDate>) = apply { this.dueDate = dueDate }
 
@@ -416,8 +508,10 @@ private constructor(
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
-         * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
-         * as 1000. Can be any integer up to 36 digits.
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
@@ -428,8 +522,11 @@ private constructor(
         fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
         /**
-         * Required. The ID of a counterparty associated with the payment. As part of the payment
-         * workflow an external account will be associated with this model.
+         * Sets [Builder.counterpartyId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.counterpartyId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
             body.counterpartyId(counterpartyId)
@@ -438,7 +535,12 @@ private constructor(
         /** Required. The currency of the payment. */
         fun currency(currency: String) = apply { body.currency(currency) }
 
-        /** Required. The currency of the payment. */
+        /**
+         * Sets [Builder.currency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currency] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun currency(currency: JsonField<String>) = apply { body.currency(currency) }
 
         /**
@@ -448,8 +550,11 @@ private constructor(
         fun direction(direction: Direction) = apply { body.direction(direction) }
 
         /**
-         * Required. Describes the direction money is flowing in the transaction. Can only be
-         * `debit`. A `debit` pulls money from someone else's account to your own.
+         * Sets [Builder.direction] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.direction] with a well-typed [Direction] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun direction(direction: JsonField<Direction>) = apply { body.direction(direction) }
 
@@ -458,7 +563,13 @@ private constructor(
             body.originatingAccountId(originatingAccountId)
         }
 
-        /** Required. The ID of one of your organization's internal accounts. */
+        /**
+         * Sets [Builder.originatingAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatingAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
             body.originatingAccountId(originatingAccountId)
         }
@@ -471,9 +582,11 @@ private constructor(
         fun dueDate(dueDate: LocalDate) = apply { body.dueDate(dueDate) }
 
         /**
-         * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When
-         * set, the due date is shown to your end-user in the pre-built UI as they are selecting a
-         * payment `effective_date`.
+         * Sets [Builder.dueDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dueDate] with a well-typed [LocalDate] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun dueDate(dueDate: JsonField<LocalDate>) = apply { body.dueDate(dueDate) }
 

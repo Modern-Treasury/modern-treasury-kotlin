@@ -17,6 +17,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
 /** create transaction line items */
@@ -30,25 +31,48 @@ private constructor(
     /**
      * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
      * specified currency's smallest unit (taken from parent Transaction).
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amount(): Long = body.amount()
 
-    /** The ID of the reconciled Expected Payment, otherwise `null`. */
+    /**
+     * The ID of the reconciled Expected Payment, otherwise `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun expectedPaymentId(): String = body.expectedPaymentId()
 
-    /** The ID of the parent transaction. */
+    /**
+     * The ID of the parent transaction.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun transactionId(): String = body.transactionId()
 
     /**
-     * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
-     * specified currency's smallest unit (taken from parent Transaction).
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _amount(): JsonField<Long> = body._amount()
 
-    /** The ID of the reconciled Expected Payment, otherwise `null`. */
+    /**
+     * Returns the raw JSON value of [expectedPaymentId].
+     *
+     * Unlike [expectedPaymentId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _expectedPaymentId(): JsonField<String> = body._expectedPaymentId()
 
-    /** The ID of the parent transaction. */
+    /**
+     * Returns the raw JSON value of [transactionId].
+     *
+     * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _transactionId(): JsonField<String> = body._transactionId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -83,27 +107,51 @@ private constructor(
         /**
          * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
          * specified currency's smallest unit (taken from parent Transaction).
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** The ID of the reconciled Expected Payment, otherwise `null`. */
+        /**
+         * The ID of the reconciled Expected Payment, otherwise `null`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun expectedPaymentId(): String = expectedPaymentId.getRequired("expected_payment_id")
 
-        /** The ID of the parent transaction. */
+        /**
+         * The ID of the parent transaction.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /**
-         * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
-         * specified currency's smallest unit (taken from parent Transaction).
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-        /** The ID of the reconciled Expected Payment, otherwise `null`. */
+        /**
+         * Returns the raw JSON value of [expectedPaymentId].
+         *
+         * Unlike [expectedPaymentId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("expected_payment_id")
         @ExcludeMissing
         fun _expectedPaymentId(): JsonField<String> = expectedPaymentId
 
-        /** The ID of the parent transaction. */
+        /**
+         * Returns the raw JSON value of [transactionId].
+         *
+         * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("transaction_id")
         @ExcludeMissing
         fun _transactionId(): JsonField<String> = transactionId
@@ -167,8 +215,11 @@ private constructor(
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
-             * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
-             * specified currency's smallest unit (taken from parent Transaction).
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
@@ -176,7 +227,13 @@ private constructor(
             fun expectedPaymentId(expectedPaymentId: String) =
                 expectedPaymentId(JsonField.of(expectedPaymentId))
 
-            /** The ID of the reconciled Expected Payment, otherwise `null`. */
+            /**
+             * Sets [Builder.expectedPaymentId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.expectedPaymentId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun expectedPaymentId(expectedPaymentId: JsonField<String>) = apply {
                 this.expectedPaymentId = expectedPaymentId
             }
@@ -184,7 +241,13 @@ private constructor(
             /** The ID of the parent transaction. */
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
-            /** The ID of the parent transaction. */
+            /**
+             * Sets [Builder.transactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transactionId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun transactionId(transactionId: JsonField<String>) = apply {
                 this.transactionId = transactionId
             }
@@ -277,8 +340,10 @@ private constructor(
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
-         * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
-         * specified currency's smallest unit (taken from parent Transaction).
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
@@ -287,7 +352,13 @@ private constructor(
             body.expectedPaymentId(expectedPaymentId)
         }
 
-        /** The ID of the reconciled Expected Payment, otherwise `null`. */
+        /**
+         * Sets [Builder.expectedPaymentId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.expectedPaymentId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun expectedPaymentId(expectedPaymentId: JsonField<String>) = apply {
             body.expectedPaymentId(expectedPaymentId)
         }
@@ -295,7 +366,13 @@ private constructor(
         /** The ID of the parent transaction. */
         fun transactionId(transactionId: String) = apply { body.transactionId(transactionId) }
 
-        /** The ID of the parent transaction. */
+        /**
+         * Sets [Builder.transactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.transactionId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun transactionId(transactionId: JsonField<String>) = apply {
             body.transactionId(transactionId)
         }
