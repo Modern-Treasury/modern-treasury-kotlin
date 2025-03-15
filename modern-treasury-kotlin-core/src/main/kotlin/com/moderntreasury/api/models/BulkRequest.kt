@@ -60,92 +60,193 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** One of create, or update. */
+    /**
+     * One of create, or update.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun actionType(): ActionType = actionType.getRequired("action_type")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** Total number of failed bulk results so far for this request */
+    /**
+     * Total number of failed bulk results so far for this request
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun failedResultCount(): Long = failedResultCount.getRequired("failed_result_count")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Additional data represented as key-value pairs. Both the key and value must be strings.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun metadata(): Metadata = metadata.getRequired("metadata")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun object_(): String = object_.getRequired("object")
 
-    /** One of payment_order, expected_payment, or ledger_transaction. */
+    /**
+     * One of payment_order, expected_payment, or ledger_transaction.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun resourceType(): ResourceType = resourceType.getRequired("resource_type")
 
-    /** One of pending, processing, or completed. */
+    /**
+     * One of pending, processing, or completed.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
-    /** Total number of successful bulk results so far for this request */
+    /**
+     * Total number of successful bulk results so far for this request
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun successResultCount(): Long = successResultCount.getRequired("success_result_count")
 
     /**
      * Total number of items in the `resources` array. Once a bulk request is completed,
      * `success_result_count` + `failed_result_count` will be equal to `total_result_count`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun totalResourceCount(): Long = totalResourceCount.getRequired("total_resource_count")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** One of create, or update. */
+    /**
+     * Returns the raw JSON value of [actionType].
+     *
+     * Unlike [actionType], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("action_type")
     @ExcludeMissing
     fun _actionType(): JsonField<ActionType> = actionType
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** Total number of failed bulk results so far for this request */
+    /**
+     * Returns the raw JSON value of [failedResultCount].
+     *
+     * Unlike [failedResultCount], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("failed_result_count")
     @ExcludeMissing
     fun _failedResultCount(): JsonField<Long> = failedResultCount
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-    /** One of payment_order, expected_payment, or ledger_transaction. */
+    /**
+     * Returns the raw JSON value of [resourceType].
+     *
+     * Unlike [resourceType], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("resource_type")
     @ExcludeMissing
     fun _resourceType(): JsonField<ResourceType> = resourceType
 
-    /** One of pending, processing, or completed. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-    /** Total number of successful bulk results so far for this request */
+    /**
+     * Returns the raw JSON value of [successResultCount].
+     *
+     * Unlike [successResultCount], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("success_result_count")
     @ExcludeMissing
     fun _successResultCount(): JsonField<Long> = successResultCount
 
     /**
-     * Total number of items in the `resources` array. Once a bulk request is completed,
-     * `success_result_count` + `failed_result_count` will be equal to `total_result_count`.
+     * Returns the raw JSON value of [totalResourceCount].
+     *
+     * Unlike [totalResourceCount], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("total_resource_count")
     @ExcludeMissing
     fun _totalResourceCount(): JsonField<Long> = totalResourceCount
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
@@ -237,23 +338,48 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** One of create, or update. */
         fun actionType(actionType: ActionType) = actionType(JsonField.of(actionType))
 
-        /** One of create, or update. */
+        /**
+         * Sets [Builder.actionType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.actionType] with a well-typed [ActionType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun actionType(actionType: JsonField<ActionType>) = apply { this.actionType = actionType }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** Total number of failed bulk results so far for this request */
         fun failedResultCount(failedResultCount: Long) =
             failedResultCount(JsonField.of(failedResultCount))
 
-        /** Total number of failed bulk results so far for this request */
+        /**
+         * Sets [Builder.failedResultCount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.failedResultCount] with a well-typed [Long] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun failedResultCount(failedResultCount: JsonField<Long>) = apply {
             this.failedResultCount = failedResultCount
         }
@@ -265,8 +391,11 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
@@ -276,18 +405,34 @@ private constructor(
         fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /** One of payment_order, expected_payment, or ledger_transaction. */
         fun resourceType(resourceType: ResourceType) = resourceType(JsonField.of(resourceType))
 
-        /** One of payment_order, expected_payment, or ledger_transaction. */
+        /**
+         * Sets [Builder.resourceType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.resourceType] with a well-typed [ResourceType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun resourceType(resourceType: JsonField<ResourceType>) = apply {
             this.resourceType = resourceType
         }
@@ -295,14 +440,25 @@ private constructor(
         /** One of pending, processing, or completed. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** One of pending, processing, or completed. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** Total number of successful bulk results so far for this request */
         fun successResultCount(successResultCount: Long) =
             successResultCount(JsonField.of(successResultCount))
 
-        /** Total number of successful bulk results so far for this request */
+        /**
+         * Sets [Builder.successResultCount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.successResultCount] with a well-typed [Long] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun successResultCount(successResultCount: JsonField<Long>) = apply {
             this.successResultCount = successResultCount
         }
@@ -315,8 +471,11 @@ private constructor(
             totalResourceCount(JsonField.of(totalResourceCount))
 
         /**
-         * Total number of items in the `resources` array. Once a bulk request is completed,
-         * `success_result_count` + `failed_result_count` will be equal to `total_result_count`.
+         * Sets [Builder.totalResourceCount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.totalResourceCount] with a well-typed [Long] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun totalResourceCount(totalResourceCount: JsonField<Long>) = apply {
             this.totalResourceCount = totalResourceCount
@@ -324,6 +483,13 @@ private constructor(
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {

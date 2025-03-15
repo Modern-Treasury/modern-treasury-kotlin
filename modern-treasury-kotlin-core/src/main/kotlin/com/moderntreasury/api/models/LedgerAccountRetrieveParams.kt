@@ -286,6 +286,11 @@ private constructor(
                 this.asOfLockVersion = asOfLockVersion
             }
 
+            /**
+             * Alias for [Builder.asOfLockVersion].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun asOfLockVersion(asOfLockVersion: Long) = asOfLockVersion(asOfLockVersion as Long?)
 
             fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { this.effectiveAt = effectiveAt }

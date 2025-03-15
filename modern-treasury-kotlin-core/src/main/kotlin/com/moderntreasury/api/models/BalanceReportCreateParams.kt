@@ -34,34 +34,66 @@ private constructor(
 
     fun internalAccountId(): String = internalAccountId
 
-    /** The date of the balance report in local time. */
+    /**
+     * The date of the balance report in local time.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun asOfDate(): LocalDate = body.asOfDate()
 
-    /** The time (24-hour clock) of the balance report in local time. */
+    /**
+     * The time (24-hour clock) of the balance report in local time.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun asOfTime(): String = body.asOfTime()
 
     /**
      * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
      * `other`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun balanceReportType(): BalanceReportType = body.balanceReportType()
 
-    /** An array of `Balance` objects. */
+    /**
+     * An array of `Balance` objects.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun balances(): List<BalanceCreateRequest> = body.balances()
 
-    /** The date of the balance report in local time. */
+    /**
+     * Returns the raw JSON value of [asOfDate].
+     *
+     * Unlike [asOfDate], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _asOfDate(): JsonField<LocalDate> = body._asOfDate()
 
-    /** The time (24-hour clock) of the balance report in local time. */
+    /**
+     * Returns the raw JSON value of [asOfTime].
+     *
+     * Unlike [asOfTime], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _asOfTime(): JsonField<String> = body._asOfTime()
 
     /**
-     * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
-     * `other`.
+     * Returns the raw JSON value of [balanceReportType].
+     *
+     * Unlike [balanceReportType], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _balanceReportType(): JsonField<BalanceReportType> = body._balanceReportType()
 
-    /** An array of `Balance` objects. */
+    /**
+     * Returns the raw JSON value of [balances].
+     *
+     * Unlike [balances], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _balances(): JsonField<List<BalanceCreateRequest>> = body._balances()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -103,37 +135,69 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The date of the balance report in local time. */
+        /**
+         * The date of the balance report in local time.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun asOfDate(): LocalDate = asOfDate.getRequired("as_of_date")
 
-        /** The time (24-hour clock) of the balance report in local time. */
+        /**
+         * The time (24-hour clock) of the balance report in local time.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun asOfTime(): String = asOfTime.getRequired("as_of_time")
 
         /**
          * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
          * `other`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun balanceReportType(): BalanceReportType =
             balanceReportType.getRequired("balance_report_type")
 
-        /** An array of `Balance` objects. */
+        /**
+         * An array of `Balance` objects.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun balances(): List<BalanceCreateRequest> = balances.getRequired("balances")
 
-        /** The date of the balance report in local time. */
+        /**
+         * Returns the raw JSON value of [asOfDate].
+         *
+         * Unlike [asOfDate], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate(): JsonField<LocalDate> = asOfDate
 
-        /** The time (24-hour clock) of the balance report in local time. */
+        /**
+         * Returns the raw JSON value of [asOfTime].
+         *
+         * Unlike [asOfTime], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("as_of_time") @ExcludeMissing fun _asOfTime(): JsonField<String> = asOfTime
 
         /**
-         * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
-         * `other`.
+         * Returns the raw JSON value of [balanceReportType].
+         *
+         * Unlike [balanceReportType], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("balance_report_type")
         @ExcludeMissing
         fun _balanceReportType(): JsonField<BalanceReportType> = balanceReportType
 
-        /** An array of `Balance` objects. */
+        /**
+         * Returns the raw JSON value of [balances].
+         *
+         * Unlike [balances], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("balances")
         @ExcludeMissing
         fun _balances(): JsonField<List<BalanceCreateRequest>> = balances
@@ -196,13 +260,25 @@ private constructor(
             /** The date of the balance report in local time. */
             fun asOfDate(asOfDate: LocalDate) = asOfDate(JsonField.of(asOfDate))
 
-            /** The date of the balance report in local time. */
+            /**
+             * Sets [Builder.asOfDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.asOfDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
 
             /** The time (24-hour clock) of the balance report in local time. */
             fun asOfTime(asOfTime: String) = asOfTime(JsonField.of(asOfTime))
 
-            /** The time (24-hour clock) of the balance report in local time. */
+            /**
+             * Sets [Builder.asOfTime] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.asOfTime] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun asOfTime(asOfTime: JsonField<String>) = apply { this.asOfTime = asOfTime }
 
             /**
@@ -213,8 +289,11 @@ private constructor(
                 balanceReportType(JsonField.of(balanceReportType))
 
             /**
-             * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`,
-             * or `other`.
+             * Sets [Builder.balanceReportType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.balanceReportType] with a well-typed
+             * [BalanceReportType] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
              */
             fun balanceReportType(balanceReportType: JsonField<BalanceReportType>) = apply {
                 this.balanceReportType = balanceReportType
@@ -223,12 +302,22 @@ private constructor(
             /** An array of `Balance` objects. */
             fun balances(balances: List<BalanceCreateRequest>) = balances(JsonField.of(balances))
 
-            /** An array of `Balance` objects. */
+            /**
+             * Sets [Builder.balances] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.balances] with a well-typed
+             * `List<BalanceCreateRequest>` value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
             fun balances(balances: JsonField<List<BalanceCreateRequest>>) = apply {
                 this.balances = balances.map { it.toMutableList() }
             }
 
-            /** An array of `Balance` objects. */
+            /**
+             * Adds a single [BalanceCreateRequest] to [balances].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addBalance(balance: BalanceCreateRequest) = apply {
                 balances =
                     (balances ?: JsonField.of(mutableListOf())).also {
@@ -325,13 +414,24 @@ private constructor(
         /** The date of the balance report in local time. */
         fun asOfDate(asOfDate: LocalDate) = apply { body.asOfDate(asOfDate) }
 
-        /** The date of the balance report in local time. */
+        /**
+         * Sets [Builder.asOfDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.asOfDate] with a well-typed [LocalDate] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { body.asOfDate(asOfDate) }
 
         /** The time (24-hour clock) of the balance report in local time. */
         fun asOfTime(asOfTime: String) = apply { body.asOfTime(asOfTime) }
 
-        /** The time (24-hour clock) of the balance report in local time. */
+        /**
+         * Sets [Builder.asOfTime] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.asOfTime] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun asOfTime(asOfTime: JsonField<String>) = apply { body.asOfTime(asOfTime) }
 
         /**
@@ -343,8 +443,11 @@ private constructor(
         }
 
         /**
-         * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
-         * `other`.
+         * Sets [Builder.balanceReportType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.balanceReportType] with a well-typed [BalanceReportType]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun balanceReportType(balanceReportType: JsonField<BalanceReportType>) = apply {
             body.balanceReportType(balanceReportType)
@@ -353,12 +456,22 @@ private constructor(
         /** An array of `Balance` objects. */
         fun balances(balances: List<BalanceCreateRequest>) = apply { body.balances(balances) }
 
-        /** An array of `Balance` objects. */
+        /**
+         * Sets [Builder.balances] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.balances] with a well-typed `List<BalanceCreateRequest>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun balances(balances: JsonField<List<BalanceCreateRequest>>) = apply {
             body.balances(balances)
         }
 
-        /** An array of `Balance` objects. */
+        /**
+         * Adds a single [BalanceCreateRequest] to [balances].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addBalance(balance: BalanceCreateRequest) = apply { body.addBalance(balance) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -626,47 +739,72 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The balance amount. */
+        /**
+         * The balance amount.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun amount(): Long = amount.getRequired("amount")
 
         /**
          * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
          * `current_ledger`, `opening_available`, `opening_available_next_business_day`,
          * `closing_available`, `current_available`, 'previously_closed_book', or `other`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun balanceType(): BalanceType = balanceType.getRequired("balance_type")
 
-        /** The code used by the bank when reporting this specific balance. */
+        /**
+         * The code used by the bank when reporting this specific balance.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun vendorCode(): String = vendorCode.getRequired("vendor_code")
 
         /**
          * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
          * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
          * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, or `us_bank`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun vendorCodeType(): String? = vendorCodeType.getNullable("vendor_code_type")
 
-        /** The balance amount. */
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
-         * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
-         * `current_ledger`, `opening_available`, `opening_available_next_business_day`,
-         * `closing_available`, `current_available`, 'previously_closed_book', or `other`.
+         * Returns the raw JSON value of [balanceType].
+         *
+         * Unlike [balanceType], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("balance_type")
         @ExcludeMissing
         fun _balanceType(): JsonField<BalanceType> = balanceType
 
-        /** The code used by the bank when reporting this specific balance. */
+        /**
+         * Returns the raw JSON value of [vendorCode].
+         *
+         * Unlike [vendorCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("vendor_code")
         @ExcludeMissing
         fun _vendorCode(): JsonField<String> = vendorCode
 
         /**
-         * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
-         * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
-         * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, or `us_bank`.
+         * Returns the raw JSON value of [vendorCodeType].
+         *
+         * Unlike [vendorCodeType], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("vendor_code_type")
         @ExcludeMissing
@@ -728,7 +866,13 @@ private constructor(
             /** The balance amount. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
-            /** The balance amount. */
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
@@ -739,9 +883,11 @@ private constructor(
             fun balanceType(balanceType: BalanceType) = balanceType(JsonField.of(balanceType))
 
             /**
-             * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
-             * `current_ledger`, `opening_available`, `opening_available_next_business_day`,
-             * `closing_available`, `current_available`, 'previously_closed_book', or `other`.
+             * Sets [Builder.balanceType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.balanceType] with a well-typed [BalanceType] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun balanceType(balanceType: JsonField<BalanceType>) = apply {
                 this.balanceType = balanceType
@@ -750,7 +896,13 @@ private constructor(
             /** The code used by the bank when reporting this specific balance. */
             fun vendorCode(vendorCode: String) = vendorCode(JsonField.of(vendorCode))
 
-            /** The code used by the bank when reporting this specific balance. */
+            /**
+             * Sets [Builder.vendorCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.vendorCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun vendorCode(vendorCode: JsonField<String>) = apply { this.vendorCode = vendorCode }
 
             /**
@@ -763,10 +915,11 @@ private constructor(
                 vendorCodeType(JsonField.ofNullable(vendorCodeType))
 
             /**
-             * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`,
-             * `bnk_dev`, `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`,
-             * `evolve`, `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`,
-             * or `us_bank`.
+             * Sets [Builder.vendorCodeType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.vendorCodeType] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun vendorCodeType(vendorCodeType: JsonField<String>) = apply {
                 this.vendorCodeType = vendorCodeType

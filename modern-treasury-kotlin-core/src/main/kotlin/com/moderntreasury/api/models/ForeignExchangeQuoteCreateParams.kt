@@ -17,6 +17,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 
@@ -28,49 +29,95 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The ID for the `InternalAccount` this quote is associated with. */
+    /**
+     * The ID for the `InternalAccount` this quote is associated with.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun internalAccountId(): String = body.internalAccountId()
 
-    /** Currency to convert the `base_currency` to, often called the "buy" currency. */
+    /**
+     * Currency to convert the `base_currency` to, often called the "buy" currency.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun targetCurrency(): Currency = body.targetCurrency()
 
     /**
      * Amount in the lowest denomination of the `base_currency` to convert, often called the "sell"
      * amount.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun baseAmount(): Long? = body.baseAmount()
 
-    /** Currency to convert, often called the "sell" currency. */
+    /**
+     * Currency to convert, often called the "sell" currency.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun baseCurrency(): Currency? = body.baseCurrency()
 
-    /** The timestamp until when the quoted rate is valid. */
+    /**
+     * The timestamp until when the quoted rate is valid.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun effectiveAt(): OffsetDateTime? = body.effectiveAt()
 
     /**
      * Amount in the lowest denomination of the `target_currency`, often called the "buy" amount.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun targetAmount(): Long? = body.targetAmount()
 
-    /** The ID for the `InternalAccount` this quote is associated with. */
+    /**
+     * Returns the raw JSON value of [internalAccountId].
+     *
+     * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _internalAccountId(): JsonField<String> = body._internalAccountId()
 
-    /** Currency to convert the `base_currency` to, often called the "buy" currency. */
+    /**
+     * Returns the raw JSON value of [targetCurrency].
+     *
+     * Unlike [targetCurrency], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _targetCurrency(): JsonField<Currency> = body._targetCurrency()
 
     /**
-     * Amount in the lowest denomination of the `base_currency` to convert, often called the "sell"
-     * amount.
+     * Returns the raw JSON value of [baseAmount].
+     *
+     * Unlike [baseAmount], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _baseAmount(): JsonField<Long> = body._baseAmount()
 
-    /** Currency to convert, often called the "sell" currency. */
+    /**
+     * Returns the raw JSON value of [baseCurrency].
+     *
+     * Unlike [baseCurrency], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _baseCurrency(): JsonField<Currency> = body._baseCurrency()
 
-    /** The timestamp until when the quoted rate is valid. */
+    /**
+     * Returns the raw JSON value of [effectiveAt].
+     *
+     * Unlike [effectiveAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _effectiveAt(): JsonField<OffsetDateTime> = body._effectiveAt()
 
     /**
-     * Amount in the lowest denomination of the `target_currency`, often called the "buy" amount.
+     * Returns the raw JSON value of [targetAmount].
+     *
+     * Unlike [targetAmount], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _targetAmount(): JsonField<Long> = body._targetAmount()
 
@@ -112,59 +159,107 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The ID for the `InternalAccount` this quote is associated with. */
+        /**
+         * The ID for the `InternalAccount` this quote is associated with.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
 
-        /** Currency to convert the `base_currency` to, often called the "buy" currency. */
+        /**
+         * Currency to convert the `base_currency` to, often called the "buy" currency.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun targetCurrency(): Currency = targetCurrency.getRequired("target_currency")
 
         /**
          * Amount in the lowest denomination of the `base_currency` to convert, often called the
          * "sell" amount.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun baseAmount(): Long? = baseAmount.getNullable("base_amount")
 
-        /** Currency to convert, often called the "sell" currency. */
+        /**
+         * Currency to convert, often called the "sell" currency.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun baseCurrency(): Currency? = baseCurrency.getNullable("base_currency")
 
-        /** The timestamp until when the quoted rate is valid. */
+        /**
+         * The timestamp until when the quoted rate is valid.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun effectiveAt(): OffsetDateTime? = effectiveAt.getNullable("effective_at")
 
         /**
          * Amount in the lowest denomination of the `target_currency`, often called the "buy"
          * amount.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun targetAmount(): Long? = targetAmount.getNullable("target_amount")
 
-        /** The ID for the `InternalAccount` this quote is associated with. */
+        /**
+         * Returns the raw JSON value of [internalAccountId].
+         *
+         * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("internal_account_id")
         @ExcludeMissing
         fun _internalAccountId(): JsonField<String> = internalAccountId
 
-        /** Currency to convert the `base_currency` to, often called the "buy" currency. */
+        /**
+         * Returns the raw JSON value of [targetCurrency].
+         *
+         * Unlike [targetCurrency], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("target_currency")
         @ExcludeMissing
         fun _targetCurrency(): JsonField<Currency> = targetCurrency
 
         /**
-         * Amount in the lowest denomination of the `base_currency` to convert, often called the
-         * "sell" amount.
+         * Returns the raw JSON value of [baseAmount].
+         *
+         * Unlike [baseAmount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("base_amount") @ExcludeMissing fun _baseAmount(): JsonField<Long> = baseAmount
 
-        /** Currency to convert, often called the "sell" currency. */
+        /**
+         * Returns the raw JSON value of [baseCurrency].
+         *
+         * Unlike [baseCurrency], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("base_currency")
         @ExcludeMissing
         fun _baseCurrency(): JsonField<Currency> = baseCurrency
 
-        /** The timestamp until when the quoted rate is valid. */
+        /**
+         * Returns the raw JSON value of [effectiveAt].
+         *
+         * Unlike [effectiveAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("effective_at")
         @ExcludeMissing
         fun _effectiveAt(): JsonField<OffsetDateTime> = effectiveAt
 
         /**
-         * Amount in the lowest denomination of the `target_currency`, often called the "buy"
-         * amount.
+         * Returns the raw JSON value of [targetAmount].
+         *
+         * Unlike [targetAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("target_amount")
         @ExcludeMissing
@@ -235,7 +330,13 @@ private constructor(
             fun internalAccountId(internalAccountId: String) =
                 internalAccountId(JsonField.of(internalAccountId))
 
-            /** The ID for the `InternalAccount` this quote is associated with. */
+            /**
+             * Sets [Builder.internalAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.internalAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun internalAccountId(internalAccountId: JsonField<String>) = apply {
                 this.internalAccountId = internalAccountId
             }
@@ -244,7 +345,13 @@ private constructor(
             fun targetCurrency(targetCurrency: Currency) =
                 targetCurrency(JsonField.of(targetCurrency))
 
-            /** Currency to convert the `base_currency` to, often called the "buy" currency. */
+            /**
+             * Sets [Builder.targetCurrency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.targetCurrency] with a well-typed [Currency] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun targetCurrency(targetCurrency: JsonField<Currency>) = apply {
                 this.targetCurrency = targetCurrency
             }
@@ -256,15 +363,24 @@ private constructor(
             fun baseAmount(baseAmount: Long) = baseAmount(JsonField.of(baseAmount))
 
             /**
-             * Amount in the lowest denomination of the `base_currency` to convert, often called the
-             * "sell" amount.
+             * Sets [Builder.baseAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.baseAmount] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun baseAmount(baseAmount: JsonField<Long>) = apply { this.baseAmount = baseAmount }
 
             /** Currency to convert, often called the "sell" currency. */
             fun baseCurrency(baseCurrency: Currency) = baseCurrency(JsonField.of(baseCurrency))
 
-            /** Currency to convert, often called the "sell" currency. */
+            /**
+             * Sets [Builder.baseCurrency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.baseCurrency] with a well-typed [Currency] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun baseCurrency(baseCurrency: JsonField<Currency>) = apply {
                 this.baseCurrency = baseCurrency
             }
@@ -272,7 +388,13 @@ private constructor(
             /** The timestamp until when the quoted rate is valid. */
             fun effectiveAt(effectiveAt: OffsetDateTime) = effectiveAt(JsonField.of(effectiveAt))
 
-            /** The timestamp until when the quoted rate is valid. */
+            /**
+             * Sets [Builder.effectiveAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.effectiveAt] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
                 this.effectiveAt = effectiveAt
             }
@@ -284,8 +406,11 @@ private constructor(
             fun targetAmount(targetAmount: Long) = targetAmount(JsonField.of(targetAmount))
 
             /**
-             * Amount in the lowest denomination of the `target_currency`, often called the "buy"
-             * amount.
+             * Sets [Builder.targetAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.targetAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun targetAmount(targetAmount: JsonField<Long>) = apply {
                 this.targetAmount = targetAmount
@@ -379,7 +504,13 @@ private constructor(
             body.internalAccountId(internalAccountId)
         }
 
-        /** The ID for the `InternalAccount` this quote is associated with. */
+        /**
+         * Sets [Builder.internalAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.internalAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun internalAccountId(internalAccountId: JsonField<String>) = apply {
             body.internalAccountId(internalAccountId)
         }
@@ -387,7 +518,13 @@ private constructor(
         /** Currency to convert the `base_currency` to, often called the "buy" currency. */
         fun targetCurrency(targetCurrency: Currency) = apply { body.targetCurrency(targetCurrency) }
 
-        /** Currency to convert the `base_currency` to, often called the "buy" currency. */
+        /**
+         * Sets [Builder.targetCurrency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.targetCurrency] with a well-typed [Currency] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun targetCurrency(targetCurrency: JsonField<Currency>) = apply {
             body.targetCurrency(targetCurrency)
         }
@@ -399,15 +536,23 @@ private constructor(
         fun baseAmount(baseAmount: Long) = apply { body.baseAmount(baseAmount) }
 
         /**
-         * Amount in the lowest denomination of the `base_currency` to convert, often called the
-         * "sell" amount.
+         * Sets [Builder.baseAmount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.baseAmount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun baseAmount(baseAmount: JsonField<Long>) = apply { body.baseAmount(baseAmount) }
 
         /** Currency to convert, often called the "sell" currency. */
         fun baseCurrency(baseCurrency: Currency) = apply { body.baseCurrency(baseCurrency) }
 
-        /** Currency to convert, often called the "sell" currency. */
+        /**
+         * Sets [Builder.baseCurrency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.baseCurrency] with a well-typed [Currency] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun baseCurrency(baseCurrency: JsonField<Currency>) = apply {
             body.baseCurrency(baseCurrency)
         }
@@ -415,7 +560,13 @@ private constructor(
         /** The timestamp until when the quoted rate is valid. */
         fun effectiveAt(effectiveAt: OffsetDateTime) = apply { body.effectiveAt(effectiveAt) }
 
-        /** The timestamp until when the quoted rate is valid. */
+        /**
+         * Sets [Builder.effectiveAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.effectiveAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
             body.effectiveAt(effectiveAt)
         }
@@ -427,8 +578,11 @@ private constructor(
         fun targetAmount(targetAmount: Long) = apply { body.targetAmount(targetAmount) }
 
         /**
-         * Amount in the lowest denomination of the `target_currency`, often called the "buy"
-         * amount.
+         * Sets [Builder.targetAmount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.targetAmount] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun targetAmount(targetAmount: JsonField<Long>) = apply { body.targetAmount(targetAmount) }
 

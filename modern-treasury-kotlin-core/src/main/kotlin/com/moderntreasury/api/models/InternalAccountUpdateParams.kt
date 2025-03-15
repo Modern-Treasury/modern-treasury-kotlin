@@ -17,6 +17,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
 /** update internal account */
@@ -30,40 +31,80 @@ private constructor(
 
     fun id(): String = id
 
-    /** The Counterparty associated to this account. */
+    /**
+     * The Counterparty associated to this account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun counterpartyId(): String? = body.counterpartyId()
 
-    /** The Ledger Account associated to this account. */
+    /**
+     * The Ledger Account associated to this account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun ledgerAccountId(): String? = body.ledgerAccountId()
 
     /**
      * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
      * string or `null` as the value.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun metadata(): Metadata? = body.metadata()
 
-    /** The nickname for the internal account. */
+    /**
+     * The nickname for the internal account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun name(): String? = body.name()
 
-    /** The parent internal account for this account. */
+    /**
+     * The parent internal account for this account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun parentAccountId(): String? = body.parentAccountId()
 
-    /** The Counterparty associated to this account. */
+    /**
+     * Returns the raw JSON value of [counterpartyId].
+     *
+     * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _counterpartyId(): JsonField<String> = body._counterpartyId()
 
-    /** The Ledger Account associated to this account. */
+    /**
+     * Returns the raw JSON value of [ledgerAccountId].
+     *
+     * Unlike [ledgerAccountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _ledgerAccountId(): JsonField<String> = body._ledgerAccountId()
 
     /**
-     * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
-     * string or `null` as the value.
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _metadata(): JsonField<Metadata> = body._metadata()
 
-    /** The nickname for the internal account. */
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _name(): JsonField<String> = body._name()
 
-    /** The parent internal account for this account. */
+    /**
+     * Returns the raw JSON value of [parentAccountId].
+     *
+     * Unlike [parentAccountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _parentAccountId(): JsonField<String> = body._parentAccountId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -108,44 +149,87 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The Counterparty associated to this account. */
+        /**
+         * The Counterparty associated to this account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
 
-        /** The Ledger Account associated to this account. */
+        /**
+         * The Ledger Account associated to this account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun ledgerAccountId(): String? = ledgerAccountId.getNullable("ledger_account_id")
 
         /**
          * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
          * string or `null` as the value.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
-        /** The nickname for the internal account. */
+        /**
+         * The nickname for the internal account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun name(): String? = name.getNullable("name")
 
-        /** The parent internal account for this account. */
+        /**
+         * The parent internal account for this account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun parentAccountId(): String? = parentAccountId.getNullable("parent_account_id")
 
-        /** The Counterparty associated to this account. */
+        /**
+         * Returns the raw JSON value of [counterpartyId].
+         *
+         * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("counterparty_id")
         @ExcludeMissing
         fun _counterpartyId(): JsonField<String> = counterpartyId
 
-        /** The Ledger Account associated to this account. */
+        /**
+         * Returns the raw JSON value of [ledgerAccountId].
+         *
+         * Unlike [ledgerAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("ledger_account_id")
         @ExcludeMissing
         fun _ledgerAccountId(): JsonField<String> = ledgerAccountId
 
         /**
-         * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
-         * string or `null` as the value.
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
-        /** The nickname for the internal account. */
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-        /** The parent internal account for this account. */
+        /**
+         * Returns the raw JSON value of [parentAccountId].
+         *
+         * Unlike [parentAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("parent_account_id")
         @ExcludeMissing
         fun _parentAccountId(): JsonField<String> = parentAccountId
@@ -204,7 +288,13 @@ private constructor(
             fun counterpartyId(counterpartyId: String) =
                 counterpartyId(JsonField.of(counterpartyId))
 
-            /** The Counterparty associated to this account. */
+            /**
+             * Sets [Builder.counterpartyId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.counterpartyId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun counterpartyId(counterpartyId: JsonField<String>) = apply {
                 this.counterpartyId = counterpartyId
             }
@@ -213,7 +303,13 @@ private constructor(
             fun ledgerAccountId(ledgerAccountId: String) =
                 ledgerAccountId(JsonField.of(ledgerAccountId))
 
-            /** The Ledger Account associated to this account. */
+            /**
+             * Sets [Builder.ledgerAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
                 this.ledgerAccountId = ledgerAccountId
             }
@@ -225,22 +321,37 @@ private constructor(
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
-             * Additional data in the form of key-value pairs. Pairs can be removed by passing an
-             * empty string or `null` as the value.
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             /** The nickname for the internal account. */
             fun name(name: String) = name(JsonField.of(name))
 
-            /** The nickname for the internal account. */
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** The parent internal account for this account. */
             fun parentAccountId(parentAccountId: String) =
                 parentAccountId(JsonField.of(parentAccountId))
 
-            /** The parent internal account for this account. */
+            /**
+             * Sets [Builder.parentAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.parentAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun parentAccountId(parentAccountId: JsonField<String>) = apply {
                 this.parentAccountId = parentAccountId
             }
@@ -330,7 +441,13 @@ private constructor(
         /** The Counterparty associated to this account. */
         fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
-        /** The Counterparty associated to this account. */
+        /**
+         * Sets [Builder.counterpartyId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.counterpartyId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
             body.counterpartyId(counterpartyId)
         }
@@ -340,7 +457,13 @@ private constructor(
             body.ledgerAccountId(ledgerAccountId)
         }
 
-        /** The Ledger Account associated to this account. */
+        /**
+         * Sets [Builder.ledgerAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
             body.ledgerAccountId(ledgerAccountId)
         }
@@ -352,15 +475,23 @@ private constructor(
         fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
-         * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
-         * string or `null` as the value.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
         /** The nickname for the internal account. */
         fun name(name: String) = apply { body.name(name) }
 
-        /** The nickname for the internal account. */
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun name(name: JsonField<String>) = apply { body.name(name) }
 
         /** The parent internal account for this account. */
@@ -368,7 +499,13 @@ private constructor(
             body.parentAccountId(parentAccountId)
         }
 
-        /** The parent internal account for this account. */
+        /**
+         * Sets [Builder.parentAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.parentAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun parentAccountId(parentAccountId: JsonField<String>) = apply {
             body.parentAccountId(parentAccountId)
         }

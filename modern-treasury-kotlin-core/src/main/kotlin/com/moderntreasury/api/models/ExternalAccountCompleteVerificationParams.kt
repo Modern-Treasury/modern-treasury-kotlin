@@ -18,6 +18,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
 /** complete verification of external account */
@@ -31,8 +32,17 @@ private constructor(
 
     fun id(): String = id
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun amounts(): List<Long>? = body.amounts()
 
+    /**
+     * Returns the raw JSON value of [amounts].
+     *
+     * Unlike [amounts], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _amounts(): JsonField<List<Long>> = body._amounts()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -65,8 +75,17 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun amounts(): List<Long>? = amounts.getNullable("amounts")
 
+        /**
+         * Returns the raw JSON value of [amounts].
+         *
+         * Unlike [amounts], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("amounts") @ExcludeMissing fun _amounts(): JsonField<List<Long>> = amounts
 
         @JsonAnyGetter
@@ -113,10 +132,22 @@ private constructor(
 
             fun amounts(amounts: List<Long>) = amounts(JsonField.of(amounts))
 
+            /**
+             * Sets [Builder.amounts] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amounts] with a well-typed `List<Long>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun amounts(amounts: JsonField<List<Long>>) = apply {
                 this.amounts = amounts.map { it.toMutableList() }
             }
 
+            /**
+             * Adds a single [Long] to [amounts].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addAmount(amount: Long) = apply {
                 amounts =
                     (amounts ?: JsonField.of(mutableListOf())).also {
@@ -209,8 +240,20 @@ private constructor(
 
         fun amounts(amounts: List<Long>) = apply { body.amounts(amounts) }
 
+        /**
+         * Sets [Builder.amounts] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amounts] with a well-typed `List<Long>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun amounts(amounts: JsonField<List<Long>>) = apply { body.amounts(amounts) }
 
+        /**
+         * Adds a single [Long] to [amounts].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addAmount(amount: Long) = apply { body.addAmount(amount) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {

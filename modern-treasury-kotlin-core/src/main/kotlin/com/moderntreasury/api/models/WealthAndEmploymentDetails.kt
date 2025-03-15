@@ -78,134 +78,292 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The annual income of the individual. */
+    /**
+     * The annual income of the individual.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun annualIncome(): Long? = annualIncome.getNullable("annual_income")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
-    /** The country in which the employer is located. */
+    /**
+     * The country in which the employer is located.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun employerCountry(): String? = employerCountry.getNullable("employer_country")
 
-    /** The name of the employer. */
+    /**
+     * The name of the employer.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun employerName(): String? = employerName.getNullable("employer_name")
 
-    /** The state in which the employer is located. */
+    /**
+     * The state in which the employer is located.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun employerState(): String? = employerState.getNullable("employer_state")
 
-    /** The employment status of the individual. */
+    /**
+     * The employment status of the individual.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun employmentStatus(): EmploymentStatus? = employmentStatus.getNullable("employment_status")
 
-    /** The country in which the individual's income is earned. */
+    /**
+     * The country in which the individual's income is earned.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun incomeCountry(): String? = incomeCountry.getNullable("income_country")
 
-    /** The source of the individual's income. */
+    /**
+     * The source of the individual's income.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun incomeSource(): IncomeSource? = incomeSource.getNullable("income_source")
 
-    /** The state in which the individual's income is earned. */
+    /**
+     * The state in which the individual's income is earned.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun incomeState(): String? = incomeState.getNullable("income_state")
 
-    /** The industry of the individual. */
+    /**
+     * The industry of the individual.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun industry(): Industry? = industry.getNullable("industry")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun object_(): String = object_.getRequired("object")
 
-    /** The occupation of the individual. */
+    /**
+     * The occupation of the individual.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun occupation(): Occupation? = occupation.getNullable("occupation")
 
-    /** The source of the individual's funds. */
+    /**
+     * The source of the individual's funds.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun sourceOfFunds(): SourceOfFunds? = sourceOfFunds.getNullable("source_of_funds")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    /** The source of the individual's wealth. */
+    /**
+     * The source of the individual's wealth.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun wealthSource(): WealthSource? = wealthSource.getNullable("wealth_source")
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The annual income of the individual. */
+    /**
+     * Returns the raw JSON value of [annualIncome].
+     *
+     * Unlike [annualIncome], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("annual_income")
     @ExcludeMissing
     fun _annualIncome(): JsonField<Long> = annualIncome
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
+    /**
+     * Returns the raw JSON value of [discardedAt].
+     *
+     * Unlike [discardedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("discarded_at")
     @ExcludeMissing
     fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
-    /** The country in which the employer is located. */
+    /**
+     * Returns the raw JSON value of [employerCountry].
+     *
+     * Unlike [employerCountry], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("employer_country")
     @ExcludeMissing
     fun _employerCountry(): JsonField<String> = employerCountry
 
-    /** The name of the employer. */
+    /**
+     * Returns the raw JSON value of [employerName].
+     *
+     * Unlike [employerName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("employer_name")
     @ExcludeMissing
     fun _employerName(): JsonField<String> = employerName
 
-    /** The state in which the employer is located. */
+    /**
+     * Returns the raw JSON value of [employerState].
+     *
+     * Unlike [employerState], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("employer_state")
     @ExcludeMissing
     fun _employerState(): JsonField<String> = employerState
 
-    /** The employment status of the individual. */
+    /**
+     * Returns the raw JSON value of [employmentStatus].
+     *
+     * Unlike [employmentStatus], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("employment_status")
     @ExcludeMissing
     fun _employmentStatus(): JsonField<EmploymentStatus> = employmentStatus
 
-    /** The country in which the individual's income is earned. */
+    /**
+     * Returns the raw JSON value of [incomeCountry].
+     *
+     * Unlike [incomeCountry], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("income_country")
     @ExcludeMissing
     fun _incomeCountry(): JsonField<String> = incomeCountry
 
-    /** The source of the individual's income. */
+    /**
+     * Returns the raw JSON value of [incomeSource].
+     *
+     * Unlike [incomeSource], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("income_source")
     @ExcludeMissing
     fun _incomeSource(): JsonField<IncomeSource> = incomeSource
 
-    /** The state in which the individual's income is earned. */
+    /**
+     * Returns the raw JSON value of [incomeState].
+     *
+     * Unlike [incomeState], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("income_state")
     @ExcludeMissing
     fun _incomeState(): JsonField<String> = incomeState
 
-    /** The industry of the individual. */
+    /**
+     * Returns the raw JSON value of [industry].
+     *
+     * Unlike [industry], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("industry") @ExcludeMissing fun _industry(): JsonField<Industry> = industry
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-    /** The occupation of the individual. */
+    /**
+     * Returns the raw JSON value of [occupation].
+     *
+     * Unlike [occupation], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("occupation")
     @ExcludeMissing
     fun _occupation(): JsonField<Occupation> = occupation
 
-    /** The source of the individual's funds. */
+    /**
+     * Returns the raw JSON value of [sourceOfFunds].
+     *
+     * Unlike [sourceOfFunds], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("source_of_funds")
     @ExcludeMissing
     fun _sourceOfFunds(): JsonField<SourceOfFunds> = sourceOfFunds
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
-    /** The source of the individual's wealth. */
+    /**
+     * Returns the raw JSON value of [wealthSource].
+     *
+     * Unlike [wealthSource], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("wealth_source")
     @ExcludeMissing
     fun _wealthSource(): JsonField<WealthSource> = wealthSource
@@ -321,24 +479,54 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The annual income of the individual. */
         fun annualIncome(annualIncome: Long?) = annualIncome(JsonField.ofNullable(annualIncome))
 
-        /** The annual income of the individual. */
+        /**
+         * Alias for [Builder.annualIncome].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun annualIncome(annualIncome: Long) = annualIncome(annualIncome as Long?)
 
-        /** The annual income of the individual. */
+        /**
+         * Sets [Builder.annualIncome] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.annualIncome] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun annualIncome(annualIncome: JsonField<Long>) = apply { this.annualIncome = annualIncome }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         fun discardedAt(discardedAt: OffsetDateTime?) =
             discardedAt(JsonField.ofNullable(discardedAt))
 
+        /**
+         * Sets [Builder.discardedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
         }
@@ -347,7 +535,13 @@ private constructor(
         fun employerCountry(employerCountry: String?) =
             employerCountry(JsonField.ofNullable(employerCountry))
 
-        /** The country in which the employer is located. */
+        /**
+         * Sets [Builder.employerCountry] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.employerCountry] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun employerCountry(employerCountry: JsonField<String>) = apply {
             this.employerCountry = employerCountry
         }
@@ -355,7 +549,13 @@ private constructor(
         /** The name of the employer. */
         fun employerName(employerName: String?) = employerName(JsonField.ofNullable(employerName))
 
-        /** The name of the employer. */
+        /**
+         * Sets [Builder.employerName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.employerName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun employerName(employerName: JsonField<String>) = apply {
             this.employerName = employerName
         }
@@ -364,7 +564,13 @@ private constructor(
         fun employerState(employerState: String?) =
             employerState(JsonField.ofNullable(employerState))
 
-        /** The state in which the employer is located. */
+        /**
+         * Sets [Builder.employerState] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.employerState] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun employerState(employerState: JsonField<String>) = apply {
             this.employerState = employerState
         }
@@ -373,7 +579,13 @@ private constructor(
         fun employmentStatus(employmentStatus: EmploymentStatus?) =
             employmentStatus(JsonField.ofNullable(employmentStatus))
 
-        /** The employment status of the individual. */
+        /**
+         * Sets [Builder.employmentStatus] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.employmentStatus] with a well-typed [EmploymentStatus]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun employmentStatus(employmentStatus: JsonField<EmploymentStatus>) = apply {
             this.employmentStatus = employmentStatus
         }
@@ -382,7 +594,13 @@ private constructor(
         fun incomeCountry(incomeCountry: String?) =
             incomeCountry(JsonField.ofNullable(incomeCountry))
 
-        /** The country in which the individual's income is earned. */
+        /**
+         * Sets [Builder.incomeCountry] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.incomeCountry] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun incomeCountry(incomeCountry: JsonField<String>) = apply {
             this.incomeCountry = incomeCountry
         }
@@ -391,7 +609,13 @@ private constructor(
         fun incomeSource(incomeSource: IncomeSource?) =
             incomeSource(JsonField.ofNullable(incomeSource))
 
-        /** The source of the individual's income. */
+        /**
+         * Sets [Builder.incomeSource] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.incomeSource] with a well-typed [IncomeSource] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun incomeSource(incomeSource: JsonField<IncomeSource>) = apply {
             this.incomeSource = incomeSource
         }
@@ -399,13 +623,25 @@ private constructor(
         /** The state in which the individual's income is earned. */
         fun incomeState(incomeState: String?) = incomeState(JsonField.ofNullable(incomeState))
 
-        /** The state in which the individual's income is earned. */
+        /**
+         * Sets [Builder.incomeState] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.incomeState] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun incomeState(incomeState: JsonField<String>) = apply { this.incomeState = incomeState }
 
         /** The industry of the individual. */
         fun industry(industry: Industry?) = industry(JsonField.ofNullable(industry))
 
-        /** The industry of the individual. */
+        /**
+         * Sets [Builder.industry] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.industry] with a well-typed [Industry] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun industry(industry: JsonField<Industry>) = apply { this.industry = industry }
 
         /**
@@ -415,39 +651,73 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /** The occupation of the individual. */
         fun occupation(occupation: Occupation?) = occupation(JsonField.ofNullable(occupation))
 
-        /** The occupation of the individual. */
+        /**
+         * Sets [Builder.occupation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.occupation] with a well-typed [Occupation] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun occupation(occupation: JsonField<Occupation>) = apply { this.occupation = occupation }
 
         /** The source of the individual's funds. */
         fun sourceOfFunds(sourceOfFunds: SourceOfFunds?) =
             sourceOfFunds(JsonField.ofNullable(sourceOfFunds))
 
-        /** The source of the individual's funds. */
+        /**
+         * Sets [Builder.sourceOfFunds] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sourceOfFunds] with a well-typed [SourceOfFunds] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun sourceOfFunds(sourceOfFunds: JsonField<SourceOfFunds>) = apply {
             this.sourceOfFunds = sourceOfFunds
         }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /** The source of the individual's wealth. */
         fun wealthSource(wealthSource: WealthSource?) =
             wealthSource(JsonField.ofNullable(wealthSource))
 
-        /** The source of the individual's wealth. */
+        /**
+         * Sets [Builder.wealthSource] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.wealthSource] with a well-typed [WealthSource] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun wealthSource(wealthSource: JsonField<WealthSource>) = apply {
             this.wealthSource = wealthSource
         }

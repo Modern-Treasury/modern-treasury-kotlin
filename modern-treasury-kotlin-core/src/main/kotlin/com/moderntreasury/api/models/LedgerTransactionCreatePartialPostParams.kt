@@ -37,6 +37,9 @@ private constructor(
     /**
      * An array of ledger entry objects to be set on the posted ledger transaction. There must be
      * one entry for each of the existing entries with a lesser amount than the existing entry.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun postedLedgerEntries(): List<LedgerEntryPartialPostCreateRequest> =
         body.postedLedgerEntries()
@@ -44,38 +47,57 @@ private constructor(
     /**
      * An optional free-form description for the posted ledger transaction. Maximum of 1000
      * characters allowed.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun description(): String? = body.description()
 
     /**
      * The timestamp (IS08601 format) at which the posted ledger transaction happened for reporting
      * purposes.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun effectiveAt(): OffsetDateTime? = body.effectiveAt()
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Additional data represented as key-value pairs. Both the key and value must be strings.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun metadata(): Metadata? = body.metadata()
 
     /**
-     * An array of ledger entry objects to be set on the posted ledger transaction. There must be
-     * one entry for each of the existing entries with a lesser amount than the existing entry.
+     * Returns the raw JSON value of [postedLedgerEntries].
+     *
+     * Unlike [postedLedgerEntries], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _postedLedgerEntries(): JsonField<List<LedgerEntryPartialPostCreateRequest>> =
         body._postedLedgerEntries()
 
     /**
-     * An optional free-form description for the posted ledger transaction. Maximum of 1000
-     * characters allowed.
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _description(): JsonField<String> = body._description()
 
     /**
-     * The timestamp (IS08601 format) at which the posted ledger transaction happened for reporting
-     * purposes.
+     * Returns the raw JSON value of [effectiveAt].
+     *
+     * Unlike [effectiveAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _effectiveAt(): JsonField<OffsetDateTime> = body._effectiveAt()
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _metadata(): JsonField<Metadata> = body._metadata()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -122,6 +144,9 @@ private constructor(
          * An array of ledger entry objects to be set on the posted ledger transaction. There must
          * be one entry for each of the existing entries with a lesser amount than the existing
          * entry.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun postedLedgerEntries(): List<LedgerEntryPartialPostCreateRequest> =
             postedLedgerEntries.getRequired("posted_ledger_entries")
@@ -129,24 +154,34 @@ private constructor(
         /**
          * An optional free-form description for the posted ledger transaction. Maximum of 1000
          * characters allowed.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun description(): String? = description.getNullable("description")
 
         /**
          * The timestamp (IS08601 format) at which the posted ledger transaction happened for
          * reporting purposes.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun effectiveAt(): OffsetDateTime? = effectiveAt.getNullable("effective_at")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /**
-         * An array of ledger entry objects to be set on the posted ledger transaction. There must
-         * be one entry for each of the existing entries with a lesser amount than the existing
-         * entry.
+         * Returns the raw JSON value of [postedLedgerEntries].
+         *
+         * Unlike [postedLedgerEntries], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("posted_ledger_entries")
         @ExcludeMissing
@@ -154,23 +189,27 @@ private constructor(
             postedLedgerEntries
 
         /**
-         * An optional free-form description for the posted ledger transaction. Maximum of 1000
-         * characters allowed.
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
         /**
-         * The timestamp (IS08601 format) at which the posted ledger transaction happened for
-         * reporting purposes.
+         * Returns the raw JSON value of [effectiveAt].
+         *
+         * Unlike [effectiveAt], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("effective_at")
         @ExcludeMissing
         fun _effectiveAt(): JsonField<OffsetDateTime> = effectiveAt
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
@@ -243,18 +282,20 @@ private constructor(
             ) = postedLedgerEntries(JsonField.of(postedLedgerEntries))
 
             /**
-             * An array of ledger entry objects to be set on the posted ledger transaction. There
-             * must be one entry for each of the existing entries with a lesser amount than the
-             * existing entry.
+             * Sets [Builder.postedLedgerEntries] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.postedLedgerEntries] with a well-typed
+             * `List<LedgerEntryPartialPostCreateRequest>` value instead. This method is primarily
+             * for setting the field to an undocumented or not yet supported value.
              */
             fun postedLedgerEntries(
                 postedLedgerEntries: JsonField<List<LedgerEntryPartialPostCreateRequest>>
             ) = apply { this.postedLedgerEntries = postedLedgerEntries.map { it.toMutableList() } }
 
             /**
-             * An array of ledger entry objects to be set on the posted ledger transaction. There
-             * must be one entry for each of the existing entries with a lesser amount than the
-             * existing entry.
+             * Adds a single [LedgerEntryPartialPostCreateRequest] to [postedLedgerEntries].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
              */
             fun addPostedLedgerEntry(postedLedgerEntry: LedgerEntryPartialPostCreateRequest) =
                 apply {
@@ -271,8 +312,11 @@ private constructor(
             fun description(description: String) = description(JsonField.of(description))
 
             /**
-             * An optional free-form description for the posted ledger transaction. Maximum of 1000
-             * characters allowed.
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
@@ -285,8 +329,11 @@ private constructor(
             fun effectiveAt(effectiveAt: OffsetDateTime) = effectiveAt(JsonField.of(effectiveAt))
 
             /**
-             * The timestamp (IS08601 format) at which the posted ledger transaction happened for
-             * reporting purposes.
+             * Sets [Builder.effectiveAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.effectiveAt] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
                 this.effectiveAt = effectiveAt
@@ -299,8 +346,11 @@ private constructor(
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
@@ -404,18 +454,20 @@ private constructor(
             }
 
         /**
-         * An array of ledger entry objects to be set on the posted ledger transaction. There must
-         * be one entry for each of the existing entries with a lesser amount than the existing
-         * entry.
+         * Sets [Builder.postedLedgerEntries] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.postedLedgerEntries] with a well-typed
+         * `List<LedgerEntryPartialPostCreateRequest>` value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
         fun postedLedgerEntries(
             postedLedgerEntries: JsonField<List<LedgerEntryPartialPostCreateRequest>>
         ) = apply { body.postedLedgerEntries(postedLedgerEntries) }
 
         /**
-         * An array of ledger entry objects to be set on the posted ledger transaction. There must
-         * be one entry for each of the existing entries with a lesser amount than the existing
-         * entry.
+         * Adds a single [LedgerEntryPartialPostCreateRequest] to [postedLedgerEntries].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addPostedLedgerEntry(postedLedgerEntry: LedgerEntryPartialPostCreateRequest) = apply {
             body.addPostedLedgerEntry(postedLedgerEntry)
@@ -428,8 +480,11 @@ private constructor(
         fun description(description: String) = apply { body.description(description) }
 
         /**
-         * An optional free-form description for the posted ledger transaction. Maximum of 1000
-         * characters allowed.
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
@@ -440,8 +495,11 @@ private constructor(
         fun effectiveAt(effectiveAt: OffsetDateTime) = apply { body.effectiveAt(effectiveAt) }
 
         /**
-         * The timestamp (IS08601 format) at which the posted ledger transaction happened for
-         * reporting purposes.
+         * Sets [Builder.effectiveAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.effectiveAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
             body.effectiveAt(effectiveAt)
@@ -453,7 +511,11 @@ private constructor(
         fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
@@ -606,6 +668,9 @@ private constructor(
         /**
          * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can
          * be any integer up to 36 digits.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun amount(): Long = amount.getRequired("amount")
 
@@ -614,40 +679,58 @@ private constructor(
          * `credit` moves money from your account to someone else's. A `debit` pulls money from
          * someone else's account to your own. Note that wire, rtp, and check payments will always
          * be `credit`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun direction(): Direction = direction.getRequired("direction")
 
-        /** The ledger account that this ledger entry is associated with. */
+        /**
+         * The ledger account that this ledger entry is associated with.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun ledgerAccountId(): String = ledgerAccountId.getRequired("ledger_account_id")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /**
-         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can
-         * be any integer up to 36 digits.
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
-         * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
-         * `credit` moves money from your account to someone else's. A `debit` pulls money from
-         * someone else's account to your own. Note that wire, rtp, and check payments will always
-         * be `credit`.
+         * Returns the raw JSON value of [direction].
+         *
+         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("direction")
         @ExcludeMissing
         fun _direction(): JsonField<Direction> = direction
 
-        /** The ledger account that this ledger entry is associated with. */
+        /**
+         * Returns the raw JSON value of [ledgerAccountId].
+         *
+         * Unlike [ledgerAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("ledger_account_id")
         @ExcludeMissing
         fun _ledgerAccountId(): JsonField<String> = ledgerAccountId
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
@@ -714,8 +797,11 @@ private constructor(
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
-             * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
-             * Can be any integer up to 36 digits.
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
@@ -728,10 +814,11 @@ private constructor(
             fun direction(direction: Direction) = direction(JsonField.of(direction))
 
             /**
-             * One of `credit`, `debit`. Describes the direction money is flowing in the
-             * transaction. A `credit` moves money from your account to someone else's. A `debit`
-             * pulls money from someone else's account to your own. Note that wire, rtp, and check
-             * payments will always be `credit`.
+             * Sets [Builder.direction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.direction] with a well-typed [Direction] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
@@ -739,7 +826,13 @@ private constructor(
             fun ledgerAccountId(ledgerAccountId: String) =
                 ledgerAccountId(JsonField.of(ledgerAccountId))
 
-            /** The ledger account that this ledger entry is associated with. */
+            /**
+             * Sets [Builder.ledgerAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
                 this.ledgerAccountId = ledgerAccountId
             }
@@ -751,8 +844,11 @@ private constructor(
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
