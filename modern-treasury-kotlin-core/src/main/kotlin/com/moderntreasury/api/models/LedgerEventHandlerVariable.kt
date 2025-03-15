@@ -14,6 +14,7 @@ import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
 @Deprecated("deprecated")
@@ -28,17 +29,35 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     @Deprecated("deprecated") fun query(): LedgerEventHandlerConditions = query.getRequired("query")
 
-    /** The type of object this variable is. Currently, only "ledger_account" is supported. */
+    /**
+     * The type of object this variable is. Currently, only "ledger_account" is supported.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun type(): String = type.getRequired("type")
 
+    /**
+     * Returns the raw JSON value of [query].
+     *
+     * Unlike [query], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @Deprecated("deprecated")
     @JsonProperty("query")
     @ExcludeMissing
     fun _query(): JsonField<LedgerEventHandlerConditions> = query
 
-    /** The type of object this variable is. Currently, only "ledger_account" is supported. */
+    /**
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<String> = type
 
     @JsonAnyGetter
@@ -89,13 +108,25 @@ private constructor(
         @Deprecated("deprecated")
         fun query(query: LedgerEventHandlerConditions) = query(JsonField.of(query))
 
+        /**
+         * Sets [Builder.query] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.query] with a well-typed [LedgerEventHandlerConditions]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         @Deprecated("deprecated")
         fun query(query: JsonField<LedgerEventHandlerConditions>) = apply { this.query = query }
 
         /** The type of object this variable is. Currently, only "ledger_account" is supported. */
         fun type(type: String) = type(JsonField.of(type))
 
-        /** The type of object this variable is. Currently, only "ledger_account" is supported. */
+        /**
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun type(type: JsonField<String>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -143,22 +174,49 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The LHS of the conditional. */
+        /**
+         * The LHS of the conditional.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun field(): String = field.getRequired("field")
 
-        /** What the operator between the `field` and `value` is. */
+        /**
+         * What the operator between the `field` and `value` is.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun operator(): String = operator.getRequired("operator")
 
-        /** The RHS of the conditional. */
+        /**
+         * The RHS of the conditional.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun value(): String = value.getRequired("value")
 
-        /** The LHS of the conditional. */
+        /**
+         * Returns the raw JSON value of [field].
+         *
+         * Unlike [field], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("field") @ExcludeMissing fun _field(): JsonField<String> = field
 
-        /** What the operator between the `field` and `value` is. */
+        /**
+         * Returns the raw JSON value of [operator].
+         *
+         * Unlike [operator], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("operator") @ExcludeMissing fun _operator(): JsonField<String> = operator
 
-        /** The RHS of the conditional. */
+        /**
+         * Returns the raw JSON value of [value].
+         *
+         * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<String> = value
 
         @JsonAnyGetter
@@ -215,19 +273,37 @@ private constructor(
             /** The LHS of the conditional. */
             fun field(field: String) = field(JsonField.of(field))
 
-            /** The LHS of the conditional. */
+            /**
+             * Sets [Builder.field] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.field] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun field(field: JsonField<String>) = apply { this.field = field }
 
             /** What the operator between the `field` and `value` is. */
             fun operator(operator: String) = operator(JsonField.of(operator))
 
-            /** What the operator between the `field` and `value` is. */
+            /**
+             * Sets [Builder.operator] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.operator] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun operator(operator: JsonField<String>) = apply { this.operator = operator }
 
             /** The RHS of the conditional. */
             fun value(value: String) = value(JsonField.of(value))
 
-            /** The RHS of the conditional. */
+            /**
+             * Sets [Builder.value] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.value] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun value(value: JsonField<String>) = apply { this.value = value }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {

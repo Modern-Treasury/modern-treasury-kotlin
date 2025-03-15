@@ -15,6 +15,7 @@ import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 
@@ -62,21 +63,51 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     @Deprecated("deprecated")
     fun conditions(): LedgerEventHandlerConditions? = conditions.getNullable("conditions")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** An optional description. */
+    /**
+     * An optional description.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun description(): String? = description.getNullable("description")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
-    /** The id of the ledger that this event handler belongs to. */
+    /**
+     * The id of the ledger that this event handler belongs to.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun ledgerId(): String? = ledgerId.getNullable("ledger_id")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     @Deprecated("deprecated")
     fun ledgerTransactionTemplate(): LedgerEventHandlerLedgerTransactionTemplate =
         ledgerTransactionTemplate.getRequired("ledger_transaction_template")
@@ -84,43 +115,102 @@ private constructor(
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Additional data represented as key-value pairs. Both the key and value must be strings.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun metadata(): Metadata? = metadata.getNullable("metadata")
 
-    /** Name of the ledger event handler. */
+    /**
+     * Name of the ledger event handler.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun name(): String = name.getRequired("name")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun object_(): String = object_.getRequired("object")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     @Deprecated("deprecated")
     fun variables(): LedgerEventHandlerVariables? = variables.getNullable("variables")
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
+    /**
+     * Returns the raw JSON value of [conditions].
+     *
+     * Unlike [conditions], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @Deprecated("deprecated")
     @JsonProperty("conditions")
     @ExcludeMissing
     fun _conditions(): JsonField<LedgerEventHandlerConditions> = conditions
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** An optional description. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
+    /**
+     * Returns the raw JSON value of [discardedAt].
+     *
+     * Unlike [discardedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("discarded_at")
     @ExcludeMissing
     fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
-    /** The id of the ledger that this event handler belongs to. */
+    /**
+     * Returns the raw JSON value of [ledgerId].
+     *
+     * Unlike [ledgerId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId(): JsonField<String> = ledgerId
 
+    /**
+     * Returns the raw JSON value of [ledgerTransactionTemplate].
+     *
+     * Unlike [ledgerTransactionTemplate], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @Deprecated("deprecated")
     @JsonProperty("ledger_transaction_template")
     @ExcludeMissing
@@ -128,23 +218,47 @@ private constructor(
         ledgerTransactionTemplate
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
-    /** Name of the ledger event handler. */
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    /**
+     * Returns the raw JSON value of [variables].
+     *
+     * Unlike [variables], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @Deprecated("deprecated")
     @JsonProperty("variables")
     @ExcludeMissing
@@ -243,12 +357,25 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         @Deprecated("deprecated")
         fun conditions(conditions: LedgerEventHandlerConditions?) =
             conditions(JsonField.ofNullable(conditions))
 
+        /**
+         * Sets [Builder.conditions] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conditions] with a well-typed
+         * [LedgerEventHandlerConditions] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
         @Deprecated("deprecated")
         fun conditions(conditions: JsonField<LedgerEventHandlerConditions>) = apply {
             this.conditions = conditions
@@ -256,17 +383,37 @@ private constructor(
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** An optional description. */
         fun description(description: String?) = description(JsonField.ofNullable(description))
 
-        /** An optional description. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         fun discardedAt(discardedAt: OffsetDateTime?) =
             discardedAt(JsonField.ofNullable(discardedAt))
 
+        /**
+         * Sets [Builder.discardedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
         }
@@ -274,7 +421,12 @@ private constructor(
         /** The id of the ledger that this event handler belongs to. */
         fun ledgerId(ledgerId: String?) = ledgerId(JsonField.ofNullable(ledgerId))
 
-        /** The id of the ledger that this event handler belongs to. */
+        /**
+         * Sets [Builder.ledgerId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
 
         @Deprecated("deprecated")
@@ -282,6 +434,13 @@ private constructor(
             ledgerTransactionTemplate: LedgerEventHandlerLedgerTransactionTemplate
         ) = ledgerTransactionTemplate(JsonField.of(ledgerTransactionTemplate))
 
+        /**
+         * Sets [Builder.ledgerTransactionTemplate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerTransactionTemplate] with a well-typed
+         * [LedgerEventHandlerLedgerTransactionTemplate] value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
+         */
         @Deprecated("deprecated")
         fun ledgerTransactionTemplate(
             ledgerTransactionTemplate: JsonField<LedgerEventHandlerLedgerTransactionTemplate>
@@ -294,8 +453,11 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
@@ -305,28 +467,57 @@ private constructor(
         fun metadata(metadata: Metadata?) = metadata(JsonField.ofNullable(metadata))
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         /** Name of the ledger event handler. */
         fun name(name: String) = name(JsonField.of(name))
 
-        /** Name of the ledger event handler. */
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         @Deprecated("deprecated")
         fun variables(variables: LedgerEventHandlerVariables?) =
             variables(JsonField.ofNullable(variables))
 
+        /**
+         * Sets [Builder.variables] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.variables] with a well-typed
+         * [LedgerEventHandlerVariables] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
         @Deprecated("deprecated")
         fun variables(variables: JsonField<LedgerEventHandlerVariables>) = apply {
             this.variables = variables
@@ -388,22 +579,49 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The LHS of the conditional. */
+        /**
+         * The LHS of the conditional.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun field(): String = field.getRequired("field")
 
-        /** What the operator between the `field` and `value` is. */
+        /**
+         * What the operator between the `field` and `value` is.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun operator(): String = operator.getRequired("operator")
 
-        /** The RHS of the conditional. */
+        /**
+         * The RHS of the conditional.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun value(): String = value.getRequired("value")
 
-        /** The LHS of the conditional. */
+        /**
+         * Returns the raw JSON value of [field].
+         *
+         * Unlike [field], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("field") @ExcludeMissing fun _field(): JsonField<String> = field
 
-        /** What the operator between the `field` and `value` is. */
+        /**
+         * Returns the raw JSON value of [operator].
+         *
+         * Unlike [operator], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("operator") @ExcludeMissing fun _operator(): JsonField<String> = operator
 
-        /** The RHS of the conditional. */
+        /**
+         * Returns the raw JSON value of [value].
+         *
+         * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<String> = value
 
         @JsonAnyGetter
@@ -460,19 +678,37 @@ private constructor(
             /** The LHS of the conditional. */
             fun field(field: String) = field(JsonField.of(field))
 
-            /** The LHS of the conditional. */
+            /**
+             * Sets [Builder.field] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.field] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun field(field: JsonField<String>) = apply { this.field = field }
 
             /** What the operator between the `field` and `value` is. */
             fun operator(operator: String) = operator(JsonField.of(operator))
 
-            /** What the operator between the `field` and `value` is. */
+            /**
+             * Sets [Builder.operator] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.operator] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun operator(operator: JsonField<String>) = apply { this.operator = operator }
 
             /** The RHS of the conditional. */
             fun value(value: String) = value(JsonField.of(value))
 
-            /** The RHS of the conditional. */
+            /**
+             * Sets [Builder.value] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.value] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun value(value: JsonField<String>) = apply { this.value = value }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -543,41 +779,73 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** An optional description for internal use. */
+        /**
+         * An optional description for internal use.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun description(): String? = description.getNullable("description")
 
         /**
          * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
          * purposes.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun effectiveAt(): String? = effectiveAt.getNullable("effective_at")
 
-        /** An array of ledger entry objects. */
+        /**
+         * An array of ledger entry objects.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun ledgerEntries(): List<LedgerEventHandlerLedgerEntries> =
             ledgerEntries.getRequired("ledger_entries")
 
-        /** To post a ledger transaction at creation, use `posted`. */
+        /**
+         * To post a ledger transaction at creation, use `posted`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun status(): String? = status.getNullable("status")
 
-        /** An optional description for internal use. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
         /**
-         * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
-         * purposes.
+         * Returns the raw JSON value of [effectiveAt].
+         *
+         * Unlike [effectiveAt], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("effective_at")
         @ExcludeMissing
         fun _effectiveAt(): JsonField<String> = effectiveAt
 
-        /** An array of ledger entry objects. */
+        /**
+         * Returns the raw JSON value of [ledgerEntries].
+         *
+         * Unlike [ledgerEntries], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("ledger_entries")
         @ExcludeMissing
         fun _ledgerEntries(): JsonField<List<LedgerEventHandlerLedgerEntries>> = ledgerEntries
 
-        /** To post a ledger transaction at creation, use `posted`. */
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<String> = status
 
         @JsonAnyGetter
@@ -645,7 +913,13 @@ private constructor(
             /** An optional description for internal use. */
             fun description(description: String?) = description(JsonField.ofNullable(description))
 
-            /** An optional description for internal use. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -657,8 +931,11 @@ private constructor(
             fun effectiveAt(effectiveAt: String?) = effectiveAt(JsonField.ofNullable(effectiveAt))
 
             /**
-             * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
-             * purposes.
+             * Sets [Builder.effectiveAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.effectiveAt] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun effectiveAt(effectiveAt: JsonField<String>) = apply {
                 this.effectiveAt = effectiveAt
@@ -668,13 +945,23 @@ private constructor(
             fun ledgerEntries(ledgerEntries: List<LedgerEventHandlerLedgerEntries>) =
                 ledgerEntries(JsonField.of(ledgerEntries))
 
-            /** An array of ledger entry objects. */
+            /**
+             * Sets [Builder.ledgerEntries] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerEntries] with a well-typed
+             * `List<LedgerEventHandlerLedgerEntries>` value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
             fun ledgerEntries(ledgerEntries: JsonField<List<LedgerEventHandlerLedgerEntries>>) =
                 apply {
                     this.ledgerEntries = ledgerEntries.map { it.toMutableList() }
                 }
 
-            /** An array of ledger entry objects. */
+            /**
+             * Adds a single [LedgerEventHandlerLedgerEntries] to [ledgerEntries].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addLedgerEntry(ledgerEntry: LedgerEventHandlerLedgerEntries) = apply {
                 ledgerEntries =
                     (ledgerEntries ?: JsonField.of(mutableListOf())).also {
@@ -685,7 +972,13 @@ private constructor(
             /** To post a ledger transaction at creation, use `posted`. */
             fun status(status: String?) = status(JsonField.ofNullable(status))
 
-            /** To post a ledger transaction at creation, use `posted`. */
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun status(status: JsonField<String>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -735,24 +1028,56 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The LHS of the conditional. */
+            /**
+             * The LHS of the conditional.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun amount(): String = amount.getRequired("amount")
 
-            /** What the operator between the `field` and `value` is. */
+            /**
+             * What the operator between the `field` and `value` is.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun direction(): String = direction.getRequired("direction")
 
-            /** The RHS of the conditional. */
+            /**
+             * The RHS of the conditional.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun ledgerAccountId(): String = ledgerAccountId.getRequired("ledger_account_id")
 
-            /** The LHS of the conditional. */
+            /**
+             * Returns the raw JSON value of [amount].
+             *
+             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<String> = amount
 
-            /** What the operator between the `field` and `value` is. */
+            /**
+             * Returns the raw JSON value of [direction].
+             *
+             * Unlike [direction], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("direction")
             @ExcludeMissing
             fun _direction(): JsonField<String> = direction
 
-            /** The RHS of the conditional. */
+            /**
+             * Returns the raw JSON value of [ledgerAccountId].
+             *
+             * Unlike [ledgerAccountId], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
             @JsonProperty("ledger_account_id")
             @ExcludeMissing
             fun _ledgerAccountId(): JsonField<String> = ledgerAccountId
@@ -813,20 +1138,38 @@ private constructor(
                 /** The LHS of the conditional. */
                 fun amount(amount: String) = amount(JsonField.of(amount))
 
-                /** The LHS of the conditional. */
+                /**
+                 * Sets [Builder.amount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.amount] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun amount(amount: JsonField<String>) = apply { this.amount = amount }
 
                 /** What the operator between the `field` and `value` is. */
                 fun direction(direction: String) = direction(JsonField.of(direction))
 
-                /** What the operator between the `field` and `value` is. */
+                /**
+                 * Sets [Builder.direction] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.direction] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun direction(direction: JsonField<String>) = apply { this.direction = direction }
 
                 /** The RHS of the conditional. */
                 fun ledgerAccountId(ledgerAccountId: String) =
                     ledgerAccountId(JsonField.of(ledgerAccountId))
 
-                /** The RHS of the conditional. */
+                /**
+                 * Sets [Builder.ledgerAccountId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.ledgerAccountId] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
                 fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
                     this.ledgerAccountId = ledgerAccountId
                 }

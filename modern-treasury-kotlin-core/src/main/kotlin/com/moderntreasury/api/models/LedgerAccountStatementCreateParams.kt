@@ -17,6 +17,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 
@@ -31,49 +32,81 @@ private constructor(
     /**
      * The inclusive lower bound of the effective_at timestamp of the ledger entries to be included
      * in the ledger account statement.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun effectiveAtLowerBound(): OffsetDateTime = body.effectiveAtLowerBound()
 
     /**
      * The exclusive upper bound of the effective_at timestamp of the ledger entries to be included
      * in the ledger account statement.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun effectiveAtUpperBound(): OffsetDateTime = body.effectiveAtUpperBound()
 
     /**
      * The id of the ledger account whose ledger entries are queried against, and its balances are
      * computed as a result.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun ledgerAccountId(): String = body.ledgerAccountId()
 
-    /** The description of the ledger account statement. */
+    /**
+     * The description of the ledger account statement.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun description(): String? = body.description()
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Additional data represented as key-value pairs. Both the key and value must be strings.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun metadata(): Metadata? = body.metadata()
 
     /**
-     * The inclusive lower bound of the effective_at timestamp of the ledger entries to be included
-     * in the ledger account statement.
+     * Returns the raw JSON value of [effectiveAtLowerBound].
+     *
+     * Unlike [effectiveAtLowerBound], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _effectiveAtLowerBound(): JsonField<OffsetDateTime> = body._effectiveAtLowerBound()
 
     /**
-     * The exclusive upper bound of the effective_at timestamp of the ledger entries to be included
-     * in the ledger account statement.
+     * Returns the raw JSON value of [effectiveAtUpperBound].
+     *
+     * Unlike [effectiveAtUpperBound], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _effectiveAtUpperBound(): JsonField<OffsetDateTime> = body._effectiveAtUpperBound()
 
     /**
-     * The id of the ledger account whose ledger entries are queried against, and its balances are
-     * computed as a result.
+     * Returns the raw JSON value of [ledgerAccountId].
+     *
+     * Unlike [ledgerAccountId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _ledgerAccountId(): JsonField<String> = body._ledgerAccountId()
 
-    /** The description of the ledger account statement. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _metadata(): JsonField<Metadata> = body._metadata()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -114,6 +147,9 @@ private constructor(
         /**
          * The inclusive lower bound of the effective_at timestamp of the ledger entries to be
          * included in the ledger account statement.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun effectiveAtLowerBound(): OffsetDateTime =
             effectiveAtLowerBound.getRequired("effective_at_lower_bound")
@@ -121,6 +157,9 @@ private constructor(
         /**
          * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
          * included in the ledger account statement.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun effectiveAtUpperBound(): OffsetDateTime =
             effectiveAtUpperBound.getRequired("effective_at_upper_bound")
@@ -128,48 +167,71 @@ private constructor(
         /**
          * The id of the ledger account whose ledger entries are queried against, and its balances
          * are computed as a result.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun ledgerAccountId(): String = ledgerAccountId.getRequired("ledger_account_id")
 
-        /** The description of the ledger account statement. */
+        /**
+         * The description of the ledger account statement.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun description(): String? = description.getNullable("description")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /**
-         * The inclusive lower bound of the effective_at timestamp of the ledger entries to be
-         * included in the ledger account statement.
+         * Returns the raw JSON value of [effectiveAtLowerBound].
+         *
+         * Unlike [effectiveAtLowerBound], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("effective_at_lower_bound")
         @ExcludeMissing
         fun _effectiveAtLowerBound(): JsonField<OffsetDateTime> = effectiveAtLowerBound
 
         /**
-         * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
-         * included in the ledger account statement.
+         * Returns the raw JSON value of [effectiveAtUpperBound].
+         *
+         * Unlike [effectiveAtUpperBound], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("effective_at_upper_bound")
         @ExcludeMissing
         fun _effectiveAtUpperBound(): JsonField<OffsetDateTime> = effectiveAtUpperBound
 
         /**
-         * The id of the ledger account whose ledger entries are queried against, and its balances
-         * are computed as a result.
+         * Returns the raw JSON value of [ledgerAccountId].
+         *
+         * Unlike [ledgerAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("ledger_account_id")
         @ExcludeMissing
         fun _ledgerAccountId(): JsonField<String> = ledgerAccountId
 
-        /** The description of the ledger account statement. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
@@ -240,8 +302,11 @@ private constructor(
                 effectiveAtLowerBound(JsonField.of(effectiveAtLowerBound))
 
             /**
-             * The inclusive lower bound of the effective_at timestamp of the ledger entries to be
-             * included in the ledger account statement.
+             * Sets [Builder.effectiveAtLowerBound] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.effectiveAtLowerBound] with a well-typed
+             * [OffsetDateTime] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
              */
             fun effectiveAtLowerBound(effectiveAtLowerBound: JsonField<OffsetDateTime>) = apply {
                 this.effectiveAtLowerBound = effectiveAtLowerBound
@@ -255,8 +320,11 @@ private constructor(
                 effectiveAtUpperBound(JsonField.of(effectiveAtUpperBound))
 
             /**
-             * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
-             * included in the ledger account statement.
+             * Sets [Builder.effectiveAtUpperBound] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.effectiveAtUpperBound] with a well-typed
+             * [OffsetDateTime] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
              */
             fun effectiveAtUpperBound(effectiveAtUpperBound: JsonField<OffsetDateTime>) = apply {
                 this.effectiveAtUpperBound = effectiveAtUpperBound
@@ -270,8 +338,11 @@ private constructor(
                 ledgerAccountId(JsonField.of(ledgerAccountId))
 
             /**
-             * The id of the ledger account whose ledger entries are queried against, and its
-             * balances are computed as a result.
+             * Sets [Builder.ledgerAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
                 this.ledgerAccountId = ledgerAccountId
@@ -280,7 +351,13 @@ private constructor(
             /** The description of the ledger account statement. */
             fun description(description: String?) = description(JsonField.ofNullable(description))
 
-            /** The description of the ledger account statement. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -292,8 +369,11 @@ private constructor(
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
@@ -389,8 +469,11 @@ private constructor(
         }
 
         /**
-         * The inclusive lower bound of the effective_at timestamp of the ledger entries to be
-         * included in the ledger account statement.
+         * Sets [Builder.effectiveAtLowerBound] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.effectiveAtLowerBound] with a well-typed
+         * [OffsetDateTime] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun effectiveAtLowerBound(effectiveAtLowerBound: JsonField<OffsetDateTime>) = apply {
             body.effectiveAtLowerBound(effectiveAtLowerBound)
@@ -405,8 +488,11 @@ private constructor(
         }
 
         /**
-         * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
-         * included in the ledger account statement.
+         * Sets [Builder.effectiveAtUpperBound] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.effectiveAtUpperBound] with a well-typed
+         * [OffsetDateTime] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun effectiveAtUpperBound(effectiveAtUpperBound: JsonField<OffsetDateTime>) = apply {
             body.effectiveAtUpperBound(effectiveAtUpperBound)
@@ -421,8 +507,11 @@ private constructor(
         }
 
         /**
-         * The id of the ledger account whose ledger entries are queried against, and its balances
-         * are computed as a result.
+         * Sets [Builder.ledgerAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
             body.ledgerAccountId(ledgerAccountId)
@@ -431,7 +520,13 @@ private constructor(
         /** The description of the ledger account statement. */
         fun description(description: String?) = apply { body.description(description) }
 
-        /** The description of the ledger account statement. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /**
@@ -440,7 +535,11 @@ private constructor(
         fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 

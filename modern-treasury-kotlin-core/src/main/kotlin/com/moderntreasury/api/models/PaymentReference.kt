@@ -51,79 +51,147 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun object_(): String = object_.getRequired("object")
 
-    /** The actual reference number assigned by the bank. */
+    /**
+     * The actual reference number assigned by the bank.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun referenceNumber(): String = referenceNumber.getRequired("reference_number")
 
-    /** The type of reference number. */
+    /**
+     * The type of reference number.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun referenceNumberType(): ReferenceNumberType =
         referenceNumberType.getRequired("reference_number_type")
 
     /**
      * The id of the referenceable to search for. Must be accompanied by the referenceable_type or
      * will return an error.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun referenceableId(): String = referenceableId.getRequired("referenceable_id")
 
     /**
      * One of the referenceable types. This must be accompanied by the id of the referenceable or
      * will return an error.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun referenceableType(): ReferenceableType = referenceableType.getRequired("referenceable_type")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-    /** The actual reference number assigned by the bank. */
+    /**
+     * Returns the raw JSON value of [referenceNumber].
+     *
+     * Unlike [referenceNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("reference_number")
     @ExcludeMissing
     fun _referenceNumber(): JsonField<String> = referenceNumber
 
-    /** The type of reference number. */
+    /**
+     * Returns the raw JSON value of [referenceNumberType].
+     *
+     * Unlike [referenceNumberType], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("reference_number_type")
     @ExcludeMissing
     fun _referenceNumberType(): JsonField<ReferenceNumberType> = referenceNumberType
 
     /**
-     * The id of the referenceable to search for. Must be accompanied by the referenceable_type or
-     * will return an error.
+     * Returns the raw JSON value of [referenceableId].
+     *
+     * Unlike [referenceableId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("referenceable_id")
     @ExcludeMissing
     fun _referenceableId(): JsonField<String> = referenceableId
 
     /**
-     * One of the referenceable types. This must be accompanied by the id of the referenceable or
-     * will return an error.
+     * Returns the raw JSON value of [referenceableType].
+     *
+     * Unlike [referenceableType], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("referenceable_type")
     @ExcludeMissing
     fun _referenceableType(): JsonField<ReferenceableType> = referenceableType
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
@@ -203,10 +271,23 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
@@ -216,20 +297,35 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /** The actual reference number assigned by the bank. */
         fun referenceNumber(referenceNumber: String) =
             referenceNumber(JsonField.of(referenceNumber))
 
-        /** The actual reference number assigned by the bank. */
+        /**
+         * Sets [Builder.referenceNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.referenceNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun referenceNumber(referenceNumber: JsonField<String>) = apply {
             this.referenceNumber = referenceNumber
         }
@@ -238,7 +334,13 @@ private constructor(
         fun referenceNumberType(referenceNumberType: ReferenceNumberType) =
             referenceNumberType(JsonField.of(referenceNumberType))
 
-        /** The type of reference number. */
+        /**
+         * Sets [Builder.referenceNumberType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.referenceNumberType] with a well-typed
+         * [ReferenceNumberType] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
         fun referenceNumberType(referenceNumberType: JsonField<ReferenceNumberType>) = apply {
             this.referenceNumberType = referenceNumberType
         }
@@ -251,8 +353,11 @@ private constructor(
             referenceableId(JsonField.of(referenceableId))
 
         /**
-         * The id of the referenceable to search for. Must be accompanied by the referenceable_type
-         * or will return an error.
+         * Sets [Builder.referenceableId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.referenceableId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun referenceableId(referenceableId: JsonField<String>) = apply {
             this.referenceableId = referenceableId
@@ -266,8 +371,11 @@ private constructor(
             referenceableType(JsonField.of(referenceableType))
 
         /**
-         * One of the referenceable types. This must be accompanied by the id of the referenceable
-         * or will return an error.
+         * Sets [Builder.referenceableType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.referenceableType] with a well-typed [ReferenceableType]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun referenceableType(referenceableType: JsonField<ReferenceableType>) = apply {
             this.referenceableType = referenceableType
@@ -275,6 +383,13 @@ private constructor(
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {

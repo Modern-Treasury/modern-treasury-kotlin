@@ -59,88 +59,186 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun documentDetails(): List<DocumentDetail> = documentDetails.getRequired("document_details")
 
-    /** A category given to the document, can be `null`. */
+    /**
+     * A category given to the document, can be `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun documentType(): String? = documentType.getNullable("document_type")
 
-    /** The unique identifier for the associated object. */
+    /**
+     * The unique identifier for the associated object.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun documentableId(): String = documentableId.getRequired("documentable_id")
 
     /**
      * The type of the associated object. Currently can be one of `payment_order`, `transaction`,
      * `paper_item`, `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`,
      * `decision`, or `external_account`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun documentableType(): DocumentableType = documentableType.getRequired("documentable_type")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun file(): File = file.getRequired("file")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun object_(): String = object_.getRequired("object")
 
-    /** The source of the document. Can be `vendor`, `customer`, or `modern_treasury`. */
+    /**
+     * The source of the document. Can be `vendor`, `customer`, or `modern_treasury`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun source(): String = source.getRequired("source")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
+    /**
+     * Returns the raw JSON value of [discardedAt].
+     *
+     * Unlike [discardedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("discarded_at")
     @ExcludeMissing
     fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
+    /**
+     * Returns the raw JSON value of [documentDetails].
+     *
+     * Unlike [documentDetails], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("document_details")
     @ExcludeMissing
     fun _documentDetails(): JsonField<List<DocumentDetail>> = documentDetails
 
-    /** A category given to the document, can be `null`. */
+    /**
+     * Returns the raw JSON value of [documentType].
+     *
+     * Unlike [documentType], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("document_type")
     @ExcludeMissing
     fun _documentType(): JsonField<String> = documentType
 
-    /** The unique identifier for the associated object. */
+    /**
+     * Returns the raw JSON value of [documentableId].
+     *
+     * Unlike [documentableId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("documentable_id")
     @ExcludeMissing
     fun _documentableId(): JsonField<String> = documentableId
 
     /**
-     * The type of the associated object. Currently can be one of `payment_order`, `transaction`,
-     * `paper_item`, `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`,
-     * `decision`, or `external_account`.
+     * Returns the raw JSON value of [documentableType].
+     *
+     * Unlike [documentableType], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("documentable_type")
     @ExcludeMissing
     fun _documentableType(): JsonField<DocumentableType> = documentableType
 
+    /**
+     * Returns the raw JSON value of [file].
+     *
+     * Unlike [file], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("file") @ExcludeMissing fun _file(): JsonField<File> = file
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-    /** The source of the document. Can be `vendor`, `customer`, or `modern_treasury`. */
+    /**
+     * Returns the raw JSON value of [source].
+     *
+     * Unlike [source], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("source") @ExcludeMissing fun _source(): JsonField<String> = source
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
@@ -232,15 +330,35 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         fun discardedAt(discardedAt: OffsetDateTime?) =
             discardedAt(JsonField.ofNullable(discardedAt))
 
+        /**
+         * Sets [Builder.discardedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
         }
@@ -248,10 +366,22 @@ private constructor(
         fun documentDetails(documentDetails: List<DocumentDetail>) =
             documentDetails(JsonField.of(documentDetails))
 
+        /**
+         * Sets [Builder.documentDetails] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.documentDetails] with a well-typed
+         * `List<DocumentDetail>` value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
         fun documentDetails(documentDetails: JsonField<List<DocumentDetail>>) = apply {
             this.documentDetails = documentDetails.map { it.toMutableList() }
         }
 
+        /**
+         * Adds a single [DocumentDetail] to [documentDetails].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addDocumentDetail(documentDetail: DocumentDetail) = apply {
             documentDetails =
                 (documentDetails ?: JsonField.of(mutableListOf())).also {
@@ -262,7 +392,13 @@ private constructor(
         /** A category given to the document, can be `null`. */
         fun documentType(documentType: String?) = documentType(JsonField.ofNullable(documentType))
 
-        /** A category given to the document, can be `null`. */
+        /**
+         * Sets [Builder.documentType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.documentType] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun documentType(documentType: JsonField<String>) = apply {
             this.documentType = documentType
         }
@@ -270,7 +406,13 @@ private constructor(
         /** The unique identifier for the associated object. */
         fun documentableId(documentableId: String) = documentableId(JsonField.of(documentableId))
 
-        /** The unique identifier for the associated object. */
+        /**
+         * Sets [Builder.documentableId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.documentableId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun documentableId(documentableId: JsonField<String>) = apply {
             this.documentableId = documentableId
         }
@@ -284,9 +426,11 @@ private constructor(
             documentableType(JsonField.of(documentableType))
 
         /**
-         * The type of the associated object. Currently can be one of `payment_order`,
-         * `transaction`, `paper_item`, `expected_payment`, `counterparty`, `organization`, `case`,
-         * `internal_account`, `decision`, or `external_account`.
+         * Sets [Builder.documentableType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.documentableType] with a well-typed [DocumentableType]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun documentableType(documentableType: JsonField<DocumentableType>) = apply {
             this.documentableType = documentableType
@@ -294,6 +438,12 @@ private constructor(
 
         fun file(file: File) = file(JsonField.of(file))
 
+        /**
+         * Sets [Builder.file] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.file] with a well-typed [File] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun file(file: JsonField<File>) = apply { this.file = file }
 
         /**
@@ -303,23 +453,44 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /** The source of the document. Can be `vendor`, `customer`, or `modern_treasury`. */
         fun source(source: String) = source(JsonField.of(source))
 
-        /** The source of the document. Can be `vendor`, `customer`, or `modern_treasury`. */
+        /**
+         * Sets [Builder.source] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.source] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun source(source: JsonField<String>) = apply { this.source = source }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -389,53 +560,122 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun id(): String = id.getRequired("id")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun documentIdentifier(): String = documentIdentifier.getRequired("document_identifier")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun documentIdentifierType(): String =
             documentIdentifierType.getRequired("document_identifier_type")
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun object_(): String = object_.getRequired("object")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+        /**
+         * Returns the raw JSON value of [id].
+         *
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
+        /**
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
+        /**
+         * Returns the raw JSON value of [discardedAt].
+         *
+         * Unlike [discardedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("discarded_at")
         @ExcludeMissing
         fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
+        /**
+         * Returns the raw JSON value of [documentIdentifier].
+         *
+         * Unlike [documentIdentifier], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("document_identifier")
         @ExcludeMissing
         fun _documentIdentifier(): JsonField<String> = documentIdentifier
 
+        /**
+         * Returns the raw JSON value of [documentIdentifierType].
+         *
+         * Unlike [documentIdentifierType], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("document_identifier_type")
         @ExcludeMissing
         fun _documentIdentifierType(): JsonField<String> = documentIdentifierType
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Returns the raw JSON value of [liveMode].
+         *
+         * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
+        /**
+         * Returns the raw JSON value of [object_].
+         *
+         * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
+        /**
+         * Returns the raw JSON value of [updatedAt].
+         *
+         * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("updated_at")
         @ExcludeMissing
         fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
@@ -511,10 +751,24 @@ private constructor(
 
             fun id(id: String) = id(JsonField.of(id))
 
+            /**
+             * Sets [Builder.id] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+            /**
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                 this.createdAt = createdAt
             }
@@ -522,6 +776,13 @@ private constructor(
             fun discardedAt(discardedAt: OffsetDateTime?) =
                 discardedAt(JsonField.ofNullable(discardedAt))
 
+            /**
+             * Sets [Builder.discardedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
                 this.discardedAt = discardedAt
             }
@@ -529,6 +790,13 @@ private constructor(
             fun documentIdentifier(documentIdentifier: String) =
                 documentIdentifier(JsonField.of(documentIdentifier))
 
+            /**
+             * Sets [Builder.documentIdentifier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.documentIdentifier] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun documentIdentifier(documentIdentifier: JsonField<String>) = apply {
                 this.documentIdentifier = documentIdentifier
             }
@@ -536,6 +804,13 @@ private constructor(
             fun documentIdentifierType(documentIdentifierType: String) =
                 documentIdentifierType(JsonField.of(documentIdentifierType))
 
+            /**
+             * Sets [Builder.documentIdentifierType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.documentIdentifierType] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun documentIdentifierType(documentIdentifierType: JsonField<String>) = apply {
                 this.documentIdentifierType = documentIdentifierType
             }
@@ -547,17 +822,34 @@ private constructor(
             fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
             /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
+             * Sets [Builder.liveMode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
             fun object_(object_: String) = object_(JsonField.of(object_))
 
+            /**
+             * Sets [Builder.object_] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.object_] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+            /**
+             * Sets [Builder.updatedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
                 this.updatedAt = updatedAt
             }
@@ -795,24 +1087,51 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The MIME content type of the document. */
+        /**
+         * The MIME content type of the document.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun contentType(): String? = contentType.getNullable("content_type")
 
-        /** The original filename of the document. */
+        /**
+         * The original filename of the document.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun filename(): String? = filename.getNullable("filename")
 
-        /** The size of the document in bytes. */
+        /**
+         * The size of the document in bytes.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun size(): Long? = size.getNullable("size")
 
-        /** The MIME content type of the document. */
+        /**
+         * Returns the raw JSON value of [contentType].
+         *
+         * Unlike [contentType], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("content_type")
         @ExcludeMissing
         fun _contentType(): JsonField<String> = contentType
 
-        /** The original filename of the document. */
+        /**
+         * Returns the raw JSON value of [filename].
+         *
+         * Unlike [filename], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("filename") @ExcludeMissing fun _filename(): JsonField<String> = filename
 
-        /** The size of the document in bytes. */
+        /**
+         * Returns the raw JSON value of [size].
+         *
+         * Unlike [size], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("size") @ExcludeMissing fun _size(): JsonField<Long> = size
 
         @JsonAnyGetter
@@ -858,7 +1177,13 @@ private constructor(
             /** The MIME content type of the document. */
             fun contentType(contentType: String) = contentType(JsonField.of(contentType))
 
-            /** The MIME content type of the document. */
+            /**
+             * Sets [Builder.contentType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.contentType] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun contentType(contentType: JsonField<String>) = apply {
                 this.contentType = contentType
             }
@@ -866,13 +1191,25 @@ private constructor(
             /** The original filename of the document. */
             fun filename(filename: String) = filename(JsonField.of(filename))
 
-            /** The original filename of the document. */
+            /**
+             * Sets [Builder.filename] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.filename] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun filename(filename: JsonField<String>) = apply { this.filename = filename }
 
             /** The size of the document in bytes. */
             fun size(size: Long) = size(JsonField.of(size))
 
-            /** The size of the document in bytes. */
+            /**
+             * Sets [Builder.size] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.size] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun size(size: JsonField<Long>) = apply { this.size = size }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {

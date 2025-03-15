@@ -98,6 +98,11 @@ private constructor(
 
         fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
+        /**
+         * Alias for [Builder.perPage].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /** The actual reference number assigned by the bank. */

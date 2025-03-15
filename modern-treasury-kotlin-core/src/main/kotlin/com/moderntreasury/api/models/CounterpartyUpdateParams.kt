@@ -17,6 +17,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Objects
 
 /** Updates a given counterparty with new information. */
@@ -30,52 +31,98 @@ private constructor(
 
     fun id(): String = id
 
-    /** A new email for the counterparty. */
+    /**
+     * A new email for the counterparty.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun email(): String? = body.email()
 
-    /** The id of the legal entity. */
+    /**
+     * The id of the legal entity.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun legalEntityId(): String? = body.legalEntityId()
 
     /**
      * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
      * string or `null` as the value.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun metadata(): Metadata? = body.metadata()
 
-    /** A new name for the counterparty. Will only update if passed. */
+    /**
+     * A new name for the counterparty. Will only update if passed.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun name(): String? = body.name()
 
     /**
      * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
      * associated payment order is sent to the bank.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun sendRemittanceAdvice(): Boolean? = body.sendRemittanceAdvice()
 
-    /** Either a valid SSN or EIN. */
+    /**
+     * Either a valid SSN or EIN.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun taxpayerIdentifier(): String? = body.taxpayerIdentifier()
 
-    /** A new email for the counterparty. */
+    /**
+     * Returns the raw JSON value of [email].
+     *
+     * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _email(): JsonField<String> = body._email()
 
-    /** The id of the legal entity. */
+    /**
+     * Returns the raw JSON value of [legalEntityId].
+     *
+     * Unlike [legalEntityId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _legalEntityId(): JsonField<String> = body._legalEntityId()
 
     /**
-     * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
-     * string or `null` as the value.
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _metadata(): JsonField<Metadata> = body._metadata()
 
-    /** A new name for the counterparty. Will only update if passed. */
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _name(): JsonField<String> = body._name()
 
     /**
-     * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
-     * associated payment order is sent to the bank.
+     * Returns the raw JSON value of [sendRemittanceAdvice].
+     *
+     * Unlike [sendRemittanceAdvice], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _sendRemittanceAdvice(): JsonField<Boolean> = body._sendRemittanceAdvice()
 
-    /** Either a valid SSN or EIN. */
+    /**
+     * Returns the raw JSON value of [taxpayerIdentifier].
+     *
+     * Unlike [taxpayerIdentifier], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _taxpayerIdentifier(): JsonField<String> = body._taxpayerIdentifier()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -123,57 +170,104 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** A new email for the counterparty. */
+        /**
+         * A new email for the counterparty.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun email(): String? = email.getNullable("email")
 
-        /** The id of the legal entity. */
+        /**
+         * The id of the legal entity.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun legalEntityId(): String? = legalEntityId.getNullable("legal_entity_id")
 
         /**
          * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
          * string or `null` as the value.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
-        /** A new name for the counterparty. Will only update if passed. */
+        /**
+         * A new name for the counterparty. Will only update if passed.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun name(): String? = name.getNullable("name")
 
         /**
          * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
          * associated payment order is sent to the bank.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun sendRemittanceAdvice(): Boolean? =
             sendRemittanceAdvice.getNullable("send_remittance_advice")
 
-        /** Either a valid SSN or EIN. */
+        /**
+         * Either a valid SSN or EIN.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun taxpayerIdentifier(): String? = taxpayerIdentifier.getNullable("taxpayer_identifier")
 
-        /** A new email for the counterparty. */
+        /**
+         * Returns the raw JSON value of [email].
+         *
+         * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
-        /** The id of the legal entity. */
+        /**
+         * Returns the raw JSON value of [legalEntityId].
+         *
+         * Unlike [legalEntityId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("legal_entity_id")
         @ExcludeMissing
         fun _legalEntityId(): JsonField<String> = legalEntityId
 
         /**
-         * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
-         * string or `null` as the value.
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
-        /** A new name for the counterparty. Will only update if passed. */
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         /**
-         * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
-         * associated payment order is sent to the bank.
+         * Returns the raw JSON value of [sendRemittanceAdvice].
+         *
+         * Unlike [sendRemittanceAdvice], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("send_remittance_advice")
         @ExcludeMissing
         fun _sendRemittanceAdvice(): JsonField<Boolean> = sendRemittanceAdvice
 
-        /** Either a valid SSN or EIN. */
+        /**
+         * Returns the raw JSON value of [taxpayerIdentifier].
+         *
+         * Unlike [taxpayerIdentifier], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("taxpayer_identifier")
         @ExcludeMissing
         fun _taxpayerIdentifier(): JsonField<String> = taxpayerIdentifier
@@ -233,14 +327,26 @@ private constructor(
             /** A new email for the counterparty. */
             fun email(email: String) = email(JsonField.of(email))
 
-            /** A new email for the counterparty. */
+            /**
+             * Sets [Builder.email] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.email] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun email(email: JsonField<String>) = apply { this.email = email }
 
             /** The id of the legal entity. */
             fun legalEntityId(legalEntityId: String?) =
                 legalEntityId(JsonField.ofNullable(legalEntityId))
 
-            /** The id of the legal entity. */
+            /**
+             * Sets [Builder.legalEntityId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.legalEntityId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun legalEntityId(legalEntityId: JsonField<String>) = apply {
                 this.legalEntityId = legalEntityId
             }
@@ -252,15 +358,24 @@ private constructor(
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
-             * Additional data in the form of key-value pairs. Pairs can be removed by passing an
-             * empty string or `null` as the value.
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
             /** A new name for the counterparty. Will only update if passed. */
             fun name(name: String) = name(JsonField.of(name))
 
-            /** A new name for the counterparty. Will only update if passed. */
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /**
@@ -271,8 +386,11 @@ private constructor(
                 sendRemittanceAdvice(JsonField.of(sendRemittanceAdvice))
 
             /**
-             * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
-             * associated payment order is sent to the bank.
+             * Sets [Builder.sendRemittanceAdvice] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) = apply {
                 this.sendRemittanceAdvice = sendRemittanceAdvice
@@ -282,7 +400,13 @@ private constructor(
             fun taxpayerIdentifier(taxpayerIdentifier: String) =
                 taxpayerIdentifier(JsonField.of(taxpayerIdentifier))
 
-            /** Either a valid SSN or EIN. */
+            /**
+             * Sets [Builder.taxpayerIdentifier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.taxpayerIdentifier] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun taxpayerIdentifier(taxpayerIdentifier: JsonField<String>) = apply {
                 this.taxpayerIdentifier = taxpayerIdentifier
             }
@@ -372,13 +496,24 @@ private constructor(
         /** A new email for the counterparty. */
         fun email(email: String) = apply { body.email(email) }
 
-        /** A new email for the counterparty. */
+        /**
+         * Sets [Builder.email] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.email] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun email(email: JsonField<String>) = apply { body.email(email) }
 
         /** The id of the legal entity. */
         fun legalEntityId(legalEntityId: String?) = apply { body.legalEntityId(legalEntityId) }
 
-        /** The id of the legal entity. */
+        /**
+         * Sets [Builder.legalEntityId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.legalEntityId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun legalEntityId(legalEntityId: JsonField<String>) = apply {
             body.legalEntityId(legalEntityId)
         }
@@ -390,15 +525,23 @@ private constructor(
         fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
-         * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
-         * string or `null` as the value.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
         /** A new name for the counterparty. Will only update if passed. */
         fun name(name: String) = apply { body.name(name) }
 
-        /** A new name for the counterparty. Will only update if passed. */
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun name(name: JsonField<String>) = apply { body.name(name) }
 
         /**
@@ -410,8 +553,11 @@ private constructor(
         }
 
         /**
-         * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
-         * associated payment order is sent to the bank.
+         * Sets [Builder.sendRemittanceAdvice] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) = apply {
             body.sendRemittanceAdvice(sendRemittanceAdvice)
@@ -422,7 +568,13 @@ private constructor(
             body.taxpayerIdentifier(taxpayerIdentifier)
         }
 
-        /** Either a valid SSN or EIN. */
+        /**
+         * Sets [Builder.taxpayerIdentifier] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.taxpayerIdentifier] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun taxpayerIdentifier(taxpayerIdentifier: JsonField<String>) = apply {
             body.taxpayerIdentifier(taxpayerIdentifier)
         }

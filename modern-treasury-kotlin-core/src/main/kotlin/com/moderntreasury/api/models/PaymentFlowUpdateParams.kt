@@ -35,12 +35,16 @@ private constructor(
     /**
      * Required. The updated status of the payment flow. Can only be used to mark a flow as
      * `cancelled`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun status(): Status = body.status()
 
     /**
-     * Required. The updated status of the payment flow. Can only be used to mark a flow as
-     * `cancelled`.
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _status(): JsonField<Status> = body._status()
 
@@ -77,12 +81,16 @@ private constructor(
         /**
          * Required. The updated status of the payment flow. Can only be used to mark a flow as
          * `cancelled`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun status(): Status = status.getRequired("status")
 
         /**
-         * Required. The updated status of the payment flow. Can only be used to mark a flow as
-         * `cancelled`.
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
@@ -134,8 +142,11 @@ private constructor(
             fun status(status: Status) = status(JsonField.of(status))
 
             /**
-             * Required. The updated status of the payment flow. Can only be used to mark a flow as
-             * `cancelled`.
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
@@ -224,8 +235,10 @@ private constructor(
         fun status(status: Status) = apply { body.status(status) }
 
         /**
-         * Required. The updated status of the payment flow. Can only be used to mark a flow as
-         * `cancelled`.
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun status(status: JsonField<Status>) = apply { body.status(status) }
 

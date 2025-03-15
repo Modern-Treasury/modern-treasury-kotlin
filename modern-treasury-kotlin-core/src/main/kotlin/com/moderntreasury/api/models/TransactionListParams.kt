@@ -195,12 +195,21 @@ private constructor(
 
         fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
+        /**
+         * Alias for [Builder.perPage].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /** Either `true` or `false`. */
         fun posted(posted: Boolean?) = apply { this.posted = posted }
 
-        /** Either `true` or `false`. */
+        /**
+         * Alias for [Builder.posted].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun posted(posted: Boolean) = posted(posted as Boolean?)
 
         fun transactableType(transactableType: String?) = apply {

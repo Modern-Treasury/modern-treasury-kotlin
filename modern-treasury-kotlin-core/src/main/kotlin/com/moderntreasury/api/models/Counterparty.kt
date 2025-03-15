@@ -60,93 +60,203 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The accounts for this counterparty. */
+    /**
+     * The accounts for this counterparty.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accounts(): List<Account> = accounts.getRequired("accounts")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
-    /** The counterparty's email. */
+    /**
+     * The counterparty's email.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun email(): String? = email.getNullable("email")
 
-    /** The id of the legal entity. */
+    /**
+     * The id of the legal entity.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun legalEntityId(): String? = legalEntityId.getNullable("legal_entity_id")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Additional data represented as key-value pairs. Both the key and value must be strings.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun metadata(): Metadata = metadata.getRequired("metadata")
 
-    /** A human friendly name for this counterparty. */
+    /**
+     * A human friendly name for this counterparty.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun name(): String? = name.getNullable("name")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun object_(): String = object_.getRequired("object")
 
     /**
      * Send an email to the counterparty whenever an associated payment order is sent to the bank.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun sendRemittanceAdvice(): Boolean = sendRemittanceAdvice.getRequired("send_remittance_advice")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    /** The verification status of the counterparty. */
+    /**
+     * The verification status of the counterparty.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun verificationStatus(): VerificationStatus =
         verificationStatus.getRequired("verification_status")
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The accounts for this counterparty. */
+    /**
+     * Returns the raw JSON value of [accounts].
+     *
+     * Unlike [accounts], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("accounts") @ExcludeMissing fun _accounts(): JsonField<List<Account>> = accounts
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
+    /**
+     * Returns the raw JSON value of [discardedAt].
+     *
+     * Unlike [discardedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("discarded_at")
     @ExcludeMissing
     fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
-    /** The counterparty's email. */
+    /**
+     * Returns the raw JSON value of [email].
+     *
+     * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
-    /** The id of the legal entity. */
+    /**
+     * Returns the raw JSON value of [legalEntityId].
+     *
+     * Unlike [legalEntityId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("legal_entity_id")
     @ExcludeMissing
     fun _legalEntityId(): JsonField<String> = legalEntityId
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
-    /** A human friendly name for this counterparty. */
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /**
-     * Send an email to the counterparty whenever an associated payment order is sent to the bank.
+     * Returns the raw JSON value of [sendRemittanceAdvice].
+     *
+     * Unlike [sendRemittanceAdvice], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("send_remittance_advice")
     @ExcludeMissing
     fun _sendRemittanceAdvice(): JsonField<Boolean> = sendRemittanceAdvice
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
-    /** The verification status of the counterparty. */
+    /**
+     * Returns the raw JSON value of [verificationStatus].
+     *
+     * Unlike [verificationStatus], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("verification_status")
     @ExcludeMissing
     fun _verificationStatus(): JsonField<VerificationStatus> = verificationStatus
@@ -242,17 +352,33 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The accounts for this counterparty. */
         fun accounts(accounts: List<Account>) = accounts(JsonField.of(accounts))
 
-        /** The accounts for this counterparty. */
+        /**
+         * Sets [Builder.accounts] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accounts] with a well-typed `List<Account>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun accounts(accounts: JsonField<List<Account>>) = apply {
             this.accounts = accounts.map { it.toMutableList() }
         }
 
-        /** The accounts for this counterparty. */
+        /**
+         * Adds a single [Account] to [accounts].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addAccount(account: Account) = apply {
             accounts =
                 (accounts ?: JsonField.of(mutableListOf())).also {
@@ -262,11 +388,25 @@ private constructor(
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         fun discardedAt(discardedAt: OffsetDateTime?) =
             discardedAt(JsonField.ofNullable(discardedAt))
 
+        /**
+         * Sets [Builder.discardedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
         }
@@ -274,14 +414,25 @@ private constructor(
         /** The counterparty's email. */
         fun email(email: String?) = email(JsonField.ofNullable(email))
 
-        /** The counterparty's email. */
+        /**
+         * Sets [Builder.email] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.email] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun email(email: JsonField<String>) = apply { this.email = email }
 
         /** The id of the legal entity. */
         fun legalEntityId(legalEntityId: String?) =
             legalEntityId(JsonField.ofNullable(legalEntityId))
 
-        /** The id of the legal entity. */
+        /**
+         * Sets [Builder.legalEntityId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.legalEntityId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun legalEntityId(legalEntityId: JsonField<String>) = apply {
             this.legalEntityId = legalEntityId
         }
@@ -293,8 +444,11 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
@@ -304,18 +458,33 @@ private constructor(
         fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         /** A human friendly name for this counterparty. */
         fun name(name: String?) = name(JsonField.ofNullable(name))
 
-        /** A human friendly name for this counterparty. */
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
@@ -326,8 +495,11 @@ private constructor(
             sendRemittanceAdvice(JsonField.of(sendRemittanceAdvice))
 
         /**
-         * Send an email to the counterparty whenever an associated payment order is sent to the
-         * bank.
+         * Sets [Builder.sendRemittanceAdvice] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) = apply {
             this.sendRemittanceAdvice = sendRemittanceAdvice
@@ -335,13 +507,26 @@ private constructor(
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /** The verification status of the counterparty. */
         fun verificationStatus(verificationStatus: VerificationStatus) =
             verificationStatus(JsonField.of(verificationStatus))
 
-        /** The verification status of the counterparty. */
+        /**
+         * Sets [Builder.verificationStatus] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.verificationStatus] with a well-typed
+         * [VerificationStatus] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
         fun verificationStatus(verificationStatus: JsonField<VerificationStatus>) = apply {
             this.verificationStatus = verificationStatus
         }
@@ -444,138 +629,288 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun id(): String? = id.getNullable("id")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun accountDetails(): List<AccountDetail>? = accountDetails.getNullable("account_details")
 
-        /** Can be `checking`, `savings` or `other`. */
+        /**
+         * Can be `checking`, `savings` or `other`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun accountType(): ExternalAccountType? = accountType.getNullable("account_type")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun contactDetails(): List<ContactDetail>? = contactDetails.getNullable("contact_details")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun createdAt(): OffsetDateTime? = createdAt.getNullable("created_at")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
         /**
          * If the external account links to a ledger account in Modern Treasury, the id of the
          * ledger account will be populated here.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun ledgerAccountId(): String? = ledgerAccountId.getNullable("ledger_account_id")
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun liveMode(): Boolean? = liveMode.getNullable("live_mode")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /**
          * A nickname for the external account. This is only for internal usage and won't affect any
          * payments
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun name(): String? = name.getNullable("name")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun object_(): String? = object_.getNullable("object")
 
-        /** The address associated with the owner or `null`. */
+        /**
+         * The address associated with the owner or `null`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun partyAddress(): Address? = partyAddress.getNullable("party_address")
 
-        /** The legal name of the entity which owns the account. */
+        /**
+         * The legal name of the entity which owns the account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun partyName(): String? = partyName.getNullable("party_name")
 
-        /** Either `individual` or `business`. */
+        /**
+         * Either `individual` or `business`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun partyType(): PartyType? = partyType.getNullable("party_type")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun routingDetails(): List<RoutingDetail>? = routingDetails.getNullable("routing_details")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun updatedAt(): OffsetDateTime? = updatedAt.getNullable("updated_at")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun verificationSource(): VerificationSource? =
             verificationSource.getNullable("verification_source")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun verificationStatus(): VerificationStatus? =
             verificationStatus.getNullable("verification_status")
 
+        /**
+         * Returns the raw JSON value of [id].
+         *
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
+        /**
+         * Returns the raw JSON value of [accountDetails].
+         *
+         * Unlike [accountDetails], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("account_details")
         @ExcludeMissing
         fun _accountDetails(): JsonField<List<AccountDetail>> = accountDetails
 
-        /** Can be `checking`, `savings` or `other`. */
+        /**
+         * Returns the raw JSON value of [accountType].
+         *
+         * Unlike [accountType], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_type")
         @ExcludeMissing
         fun _accountType(): JsonField<ExternalAccountType> = accountType
 
+        /**
+         * Returns the raw JSON value of [contactDetails].
+         *
+         * Unlike [contactDetails], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("contact_details")
         @ExcludeMissing
         fun _contactDetails(): JsonField<List<ContactDetail>> = contactDetails
 
+        /**
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
+        /**
+         * Returns the raw JSON value of [discardedAt].
+         *
+         * Unlike [discardedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("discarded_at")
         @ExcludeMissing
         fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
         /**
-         * If the external account links to a ledger account in Modern Treasury, the id of the
-         * ledger account will be populated here.
+         * Returns the raw JSON value of [ledgerAccountId].
+         *
+         * Unlike [ledgerAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("ledger_account_id")
         @ExcludeMissing
         fun _ledgerAccountId(): JsonField<String> = ledgerAccountId
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Returns the raw JSON value of [liveMode].
+         *
+         * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
         /**
-         * A nickname for the external account. This is only for internal usage and won't affect any
-         * payments
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
+        /**
+         * Returns the raw JSON value of [object_].
+         *
+         * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-        /** The address associated with the owner or `null`. */
+        /**
+         * Returns the raw JSON value of [partyAddress].
+         *
+         * Unlike [partyAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("party_address")
         @ExcludeMissing
         fun _partyAddress(): JsonField<Address> = partyAddress
 
-        /** The legal name of the entity which owns the account. */
+        /**
+         * Returns the raw JSON value of [partyName].
+         *
+         * Unlike [partyName], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("party_name") @ExcludeMissing fun _partyName(): JsonField<String> = partyName
 
-        /** Either `individual` or `business`. */
+        /**
+         * Returns the raw JSON value of [partyType].
+         *
+         * Unlike [partyType], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("party_type")
         @ExcludeMissing
         fun _partyType(): JsonField<PartyType> = partyType
 
+        /**
+         * Returns the raw JSON value of [routingDetails].
+         *
+         * Unlike [routingDetails], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("routing_details")
         @ExcludeMissing
         fun _routingDetails(): JsonField<List<RoutingDetail>> = routingDetails
 
+        /**
+         * Returns the raw JSON value of [updatedAt].
+         *
+         * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("updated_at")
         @ExcludeMissing
         fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+        /**
+         * Returns the raw JSON value of [verificationSource].
+         *
+         * Unlike [verificationSource], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("verification_source")
         @ExcludeMissing
         fun _verificationSource(): JsonField<VerificationSource> = verificationSource
 
+        /**
+         * Returns the raw JSON value of [verificationStatus].
+         *
+         * Unlike [verificationStatus], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("verification_status")
         @ExcludeMissing
         fun _verificationStatus(): JsonField<VerificationStatus> = verificationStatus
@@ -667,15 +1002,34 @@ private constructor(
 
             fun id(id: String) = id(JsonField.of(id))
 
+            /**
+             * Sets [Builder.id] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             fun accountDetails(accountDetails: List<AccountDetail>) =
                 accountDetails(JsonField.of(accountDetails))
 
+            /**
+             * Sets [Builder.accountDetails] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountDetails] with a well-typed
+             * `List<AccountDetail>` value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
             fun accountDetails(accountDetails: JsonField<List<AccountDetail>>) = apply {
                 this.accountDetails = accountDetails.map { it.toMutableList() }
             }
 
+            /**
+             * Adds a single [AccountDetail] to [accountDetails].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addAccountDetail(accountDetail: AccountDetail) = apply {
                 accountDetails =
                     (accountDetails ?: JsonField.of(mutableListOf())).also {
@@ -687,7 +1041,13 @@ private constructor(
             fun accountType(accountType: ExternalAccountType) =
                 accountType(JsonField.of(accountType))
 
-            /** Can be `checking`, `savings` or `other`. */
+            /**
+             * Sets [Builder.accountType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountType] with a well-typed [ExternalAccountType]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun accountType(accountType: JsonField<ExternalAccountType>) = apply {
                 this.accountType = accountType
             }
@@ -695,10 +1055,22 @@ private constructor(
             fun contactDetails(contactDetails: List<ContactDetail>) =
                 contactDetails(JsonField.of(contactDetails))
 
+            /**
+             * Sets [Builder.contactDetails] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.contactDetails] with a well-typed
+             * `List<ContactDetail>` value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
             fun contactDetails(contactDetails: JsonField<List<ContactDetail>>) = apply {
                 this.contactDetails = contactDetails.map { it.toMutableList() }
             }
 
+            /**
+             * Adds a single [ContactDetail] to [contactDetails].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addContactDetail(contactDetail: ContactDetail) = apply {
                 contactDetails =
                     (contactDetails ?: JsonField.of(mutableListOf())).also {
@@ -708,6 +1080,13 @@ private constructor(
 
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+            /**
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                 this.createdAt = createdAt
             }
@@ -715,6 +1094,13 @@ private constructor(
             fun discardedAt(discardedAt: OffsetDateTime?) =
                 discardedAt(JsonField.ofNullable(discardedAt))
 
+            /**
+             * Sets [Builder.discardedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
                 this.discardedAt = discardedAt
             }
@@ -727,8 +1113,11 @@ private constructor(
                 ledgerAccountId(JsonField.ofNullable(ledgerAccountId))
 
             /**
-             * If the external account links to a ledger account in Modern Treasury, the id of the
-             * ledger account will be populated here.
+             * Sets [Builder.ledgerAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
                 this.ledgerAccountId = ledgerAccountId
@@ -741,8 +1130,11 @@ private constructor(
             fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
             /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
+             * Sets [Builder.liveMode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
@@ -753,8 +1145,11 @@ private constructor(
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
@@ -765,20 +1160,36 @@ private constructor(
             fun name(name: String?) = name(JsonField.ofNullable(name))
 
             /**
-             * A nickname for the external account. This is only for internal usage and won't affect
-             * any payments
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             fun object_(object_: String) = object_(JsonField.of(object_))
 
+            /**
+             * Sets [Builder.object_] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.object_] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             /** The address associated with the owner or `null`. */
             fun partyAddress(partyAddress: Address?) =
                 partyAddress(JsonField.ofNullable(partyAddress))
 
-            /** The address associated with the owner or `null`. */
+            /**
+             * Sets [Builder.partyAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.partyAddress] with a well-typed [Address] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun partyAddress(partyAddress: JsonField<Address>) = apply {
                 this.partyAddress = partyAddress
             }
@@ -786,22 +1197,46 @@ private constructor(
             /** The legal name of the entity which owns the account. */
             fun partyName(partyName: String) = partyName(JsonField.of(partyName))
 
-            /** The legal name of the entity which owns the account. */
+            /**
+             * Sets [Builder.partyName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.partyName] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun partyName(partyName: JsonField<String>) = apply { this.partyName = partyName }
 
             /** Either `individual` or `business`. */
             fun partyType(partyType: PartyType?) = partyType(JsonField.ofNullable(partyType))
 
-            /** Either `individual` or `business`. */
+            /**
+             * Sets [Builder.partyType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.partyType] with a well-typed [PartyType] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun partyType(partyType: JsonField<PartyType>) = apply { this.partyType = partyType }
 
             fun routingDetails(routingDetails: List<RoutingDetail>) =
                 routingDetails(JsonField.of(routingDetails))
 
+            /**
+             * Sets [Builder.routingDetails] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.routingDetails] with a well-typed
+             * `List<RoutingDetail>` value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
             fun routingDetails(routingDetails: JsonField<List<RoutingDetail>>) = apply {
                 this.routingDetails = routingDetails.map { it.toMutableList() }
             }
 
+            /**
+             * Adds a single [RoutingDetail] to [routingDetails].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addRoutingDetail(routingDetail: RoutingDetail) = apply {
                 routingDetails =
                     (routingDetails ?: JsonField.of(mutableListOf())).also {
@@ -811,6 +1246,13 @@ private constructor(
 
             fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+            /**
+             * Sets [Builder.updatedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
                 this.updatedAt = updatedAt
             }
@@ -818,6 +1260,13 @@ private constructor(
             fun verificationSource(verificationSource: VerificationSource?) =
                 verificationSource(JsonField.ofNullable(verificationSource))
 
+            /**
+             * Sets [Builder.verificationSource] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.verificationSource] with a well-typed
+             * [VerificationSource] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
             fun verificationSource(verificationSource: JsonField<VerificationSource>) = apply {
                 this.verificationSource = verificationSource
             }
@@ -825,6 +1274,13 @@ private constructor(
             fun verificationStatus(verificationStatus: VerificationStatus) =
                 verificationStatus(JsonField.of(verificationStatus))
 
+            /**
+             * Sets [Builder.verificationStatus] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.verificationStatus] with a well-typed
+             * [VerificationStatus] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
             fun verificationStatus(verificationStatus: JsonField<VerificationStatus>) = apply {
                 this.verificationStatus = verificationStatus
             }
@@ -904,55 +1360,135 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun id(): String = id.getRequired("id")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun contactIdentifier(): String = contactIdentifier.getRequired("contact_identifier")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun contactIdentifierType(): ContactIdentifierType =
                 contactIdentifierType.getRequired("contact_identifier_type")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
+             */
             fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
             /**
              * This field will be true if this object exists in the live environment or false if it
              * exists in the test environment.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
             fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun object_(): String = object_.getRequired("object")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+            /**
+             * Returns the raw JSON value of [id].
+             *
+             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
+            /**
+             * Returns the raw JSON value of [contactIdentifier].
+             *
+             * Unlike [contactIdentifier], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
             @JsonProperty("contact_identifier")
             @ExcludeMissing
             fun _contactIdentifier(): JsonField<String> = contactIdentifier
 
+            /**
+             * Returns the raw JSON value of [contactIdentifierType].
+             *
+             * Unlike [contactIdentifierType], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
             @JsonProperty("contact_identifier_type")
             @ExcludeMissing
             fun _contactIdentifierType(): JsonField<ContactIdentifierType> = contactIdentifierType
 
+            /**
+             * Returns the raw JSON value of [createdAt].
+             *
+             * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("created_at")
             @ExcludeMissing
             fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
+            /**
+             * Returns the raw JSON value of [discardedAt].
+             *
+             * Unlike [discardedAt], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("discarded_at")
             @ExcludeMissing
             fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
             /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
+             * Returns the raw JSON value of [liveMode].
+             *
+             * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
             @JsonProperty("live_mode")
             @ExcludeMissing
             fun _liveMode(): JsonField<Boolean> = liveMode
 
+            /**
+             * Returns the raw JSON value of [object_].
+             *
+             * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
+            /**
+             * Returns the raw JSON value of [updatedAt].
+             *
+             * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("updated_at")
             @ExcludeMissing
             fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
@@ -1028,11 +1564,25 @@ private constructor(
 
                 fun id(id: String) = id(JsonField.of(id))
 
+                /**
+                 * Sets [Builder.id] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.id] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun id(id: JsonField<String>) = apply { this.id = id }
 
                 fun contactIdentifier(contactIdentifier: String) =
                     contactIdentifier(JsonField.of(contactIdentifier))
 
+                /**
+                 * Sets [Builder.contactIdentifier] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.contactIdentifier] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
                 fun contactIdentifier(contactIdentifier: JsonField<String>) = apply {
                     this.contactIdentifier = contactIdentifier
                 }
@@ -1040,6 +1590,13 @@ private constructor(
                 fun contactIdentifierType(contactIdentifierType: ContactIdentifierType) =
                     contactIdentifierType(JsonField.of(contactIdentifierType))
 
+                /**
+                 * Sets [Builder.contactIdentifierType] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.contactIdentifierType] with a well-typed
+                 * [ContactIdentifierType] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
                 fun contactIdentifierType(contactIdentifierType: JsonField<ContactIdentifierType>) =
                     apply {
                         this.contactIdentifierType = contactIdentifierType
@@ -1047,6 +1604,13 @@ private constructor(
 
                 fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+                /**
+                 * Sets [Builder.createdAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
                 fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                     this.createdAt = createdAt
                 }
@@ -1054,6 +1618,13 @@ private constructor(
                 fun discardedAt(discardedAt: OffsetDateTime?) =
                     discardedAt(JsonField.ofNullable(discardedAt))
 
+                /**
+                 * Sets [Builder.discardedAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
                 fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
                     this.discardedAt = discardedAt
                 }
@@ -1065,17 +1636,34 @@ private constructor(
                 fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
                 /**
-                 * This field will be true if this object exists in the live environment or false if
-                 * it exists in the test environment.
+                 * Sets [Builder.liveMode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.liveMode] with a well-typed [Boolean] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
                 fun object_(object_: String) = object_(JsonField.of(object_))
 
+                /**
+                 * Sets [Builder.object_] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.object_] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
                 fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+                /**
+                 * Sets [Builder.updatedAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
                 fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
                     this.updatedAt = updatedAt
                 }
@@ -1375,70 +1963,174 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun id(): String = id.getRequired("id")
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            /**
+             * Country code conforms to [ISO 3166-1 alpha-2]
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
+             */
             fun country(): String? = country.getNullable("country")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
+             */
             fun line1(): String? = line1.getNullable("line1")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
+             */
             fun line2(): String? = line2.getNullable("line2")
 
             /**
              * This field will be true if this object exists in the live environment or false if it
              * exists in the test environment.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
             fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-            /** Locality or City. */
+            /**
+             * Locality or City.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
+             */
             fun locality(): String? = locality.getNullable("locality")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun object_(): String = object_.getRequired("object")
 
-            /** The postal code of the address. */
+            /**
+             * The postal code of the address.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
+             */
             fun postalCode(): String? = postalCode.getNullable("postal_code")
 
-            /** Region or State. */
+            /**
+             * Region or State.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
+             */
             fun region(): String? = region.getNullable("region")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+            /**
+             * Returns the raw JSON value of [id].
+             *
+             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            /**
+             * Returns the raw JSON value of [country].
+             *
+             * Unlike [country], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
+            /**
+             * Returns the raw JSON value of [createdAt].
+             *
+             * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("created_at")
             @ExcludeMissing
             fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
+            /**
+             * Returns the raw JSON value of [line1].
+             *
+             * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
+            /**
+             * Returns the raw JSON value of [line2].
+             *
+             * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
+             * Returns the raw JSON value of [liveMode].
+             *
+             * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
             @JsonProperty("live_mode")
             @ExcludeMissing
             fun _liveMode(): JsonField<Boolean> = liveMode
 
-            /** Locality or City. */
+            /**
+             * Returns the raw JSON value of [locality].
+             *
+             * Unlike [locality], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("locality") @ExcludeMissing fun _locality(): JsonField<String> = locality
 
+            /**
+             * Returns the raw JSON value of [object_].
+             *
+             * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-            /** The postal code of the address. */
+            /**
+             * Returns the raw JSON value of [postalCode].
+             *
+             * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("postal_code")
             @ExcludeMissing
             fun _postalCode(): JsonField<String> = postalCode
 
-            /** Region or State. */
+            /**
+             * Returns the raw JSON value of [region].
+             *
+             * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
 
+            /**
+             * Returns the raw JSON value of [updatedAt].
+             *
+             * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("updated_at")
             @ExcludeMissing
             fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
@@ -1526,26 +2218,60 @@ private constructor(
 
                 fun id(id: String) = id(JsonField.of(id))
 
+                /**
+                 * Sets [Builder.id] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.id] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /** Country code conforms to [ISO 3166-1 alpha-2] */
                 fun country(country: String?) = country(JsonField.ofNullable(country))
 
-                /** Country code conforms to [ISO 3166-1 alpha-2] */
+                /**
+                 * Sets [Builder.country] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.country] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun country(country: JsonField<String>) = apply { this.country = country }
 
                 fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+                /**
+                 * Sets [Builder.createdAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
                 fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                     this.createdAt = createdAt
                 }
 
                 fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
 
+                /**
+                 * Sets [Builder.line1] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line1] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
+                /**
+                 * Sets [Builder.line2] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line2] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 /**
@@ -1555,25 +2281,47 @@ private constructor(
                 fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
                 /**
-                 * This field will be true if this object exists in the live environment or false if
-                 * it exists in the test environment.
+                 * Sets [Builder.liveMode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.liveMode] with a well-typed [Boolean] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
                 /** Locality or City. */
                 fun locality(locality: String?) = locality(JsonField.ofNullable(locality))
 
-                /** Locality or City. */
+                /**
+                 * Sets [Builder.locality] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.locality] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun locality(locality: JsonField<String>) = apply { this.locality = locality }
 
                 fun object_(object_: String) = object_(JsonField.of(object_))
 
+                /**
+                 * Sets [Builder.object_] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.object_] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
                 /** The postal code of the address. */
                 fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
 
-                /** The postal code of the address. */
+                /**
+                 * Sets [Builder.postalCode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.postalCode] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
@@ -1581,11 +2329,24 @@ private constructor(
                 /** Region or State. */
                 fun region(region: String?) = region(JsonField.ofNullable(region))
 
-                /** Region or State. */
+                /**
+                 * Sets [Builder.region] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.region] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun region(region: JsonField<String>) = apply { this.region = region }
 
                 fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+                /**
+                 * Sets [Builder.updatedAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
                 fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
                     this.updatedAt = updatedAt
                 }

@@ -104,8 +104,9 @@ private constructor(
         fun id(id: List<String>?) = apply { this.id = id?.toMutableList() }
 
         /**
-         * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
-         * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
+         * Adds a single [String] to [Builder.id].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addId(id: String) = apply { this.id = (this.id ?: mutableListOf()).apply { add(id) } }
 
@@ -119,6 +120,11 @@ private constructor(
 
         fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
+        /**
+         * Alias for [Builder.perPage].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /**

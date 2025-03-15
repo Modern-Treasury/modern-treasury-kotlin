@@ -61,92 +61,173 @@ private constructor(
     /**
      * The ID of a counterparty. An external account created with this flow will be associated with
      * this counterparty.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun counterpartyId(): String = counterpartyId.getRequired("counterparty_id")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun paymentTypes(): List<PaymentType> = paymentTypes.getRequired("payment_types")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun id(): String? = id.getNullable("id")
 
     /**
      * The client token of the account collection flow. This token can be used to embed account
      * collection in your client-side application.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun clientToken(): String? = clientToken.getNullable("client_token")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime? = createdAt.getNullable("created_at")
 
-    /** If present, the ID of the external account created using this flow. */
+    /**
+     * If present, the ID of the external account created using this flow.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun externalAccountId(): String? = externalAccountId.getNullable("external_account_id")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun liveMode(): Boolean? = liveMode.getNullable("live_mode")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun object_(): String? = object_.getNullable("object")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun receivingCountries(): List<ReceivingCountry>? =
         receivingCountries.getNullable("receiving_countries")
 
     /**
      * The current status of the account collection flow. One of `pending`, `completed`, `expired`,
      * or `cancelled`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun status(): Status? = status.getNullable("status")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime? = updatedAt.getNullable("updated_at")
 
     /**
-     * The ID of a counterparty. An external account created with this flow will be associated with
-     * this counterparty.
+     * Returns the raw JSON value of [counterpartyId].
+     *
+     * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("counterparty_id")
     @ExcludeMissing
     fun _counterpartyId(): JsonField<String> = counterpartyId
 
+    /**
+     * Returns the raw JSON value of [paymentTypes].
+     *
+     * Unlike [paymentTypes], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("payment_types")
     @ExcludeMissing
     fun _paymentTypes(): JsonField<List<PaymentType>> = paymentTypes
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * The client token of the account collection flow. This token can be used to embed account
-     * collection in your client-side application.
+     * Returns the raw JSON value of [clientToken].
+     *
+     * Unlike [clientToken], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("client_token")
     @ExcludeMissing
     fun _clientToken(): JsonField<String> = clientToken
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** If present, the ID of the external account created using this flow. */
+    /**
+     * Returns the raw JSON value of [externalAccountId].
+     *
+     * Unlike [externalAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("external_account_id")
     @ExcludeMissing
     fun _externalAccountId(): JsonField<String> = externalAccountId
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
+    /**
+     * Returns the raw JSON value of [receivingCountries].
+     *
+     * Unlike [receivingCountries], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("receiving_countries")
     @ExcludeMissing
     fun _receivingCountries(): JsonField<List<ReceivingCountry>> = receivingCountries
 
     /**
-     * The current status of the account collection flow. One of `pending`, `completed`, `expired`,
-     * or `cancelled`.
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
@@ -230,8 +311,11 @@ private constructor(
         fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
 
         /**
-         * The ID of a counterparty. An external account created with this flow will be associated
-         * with this counterparty.
+         * Sets [Builder.counterpartyId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.counterpartyId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
             this.counterpartyId = counterpartyId
@@ -239,10 +323,22 @@ private constructor(
 
         fun paymentTypes(paymentTypes: List<PaymentType>) = paymentTypes(JsonField.of(paymentTypes))
 
+        /**
+         * Sets [Builder.paymentTypes] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.paymentTypes] with a well-typed `List<PaymentType>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun paymentTypes(paymentTypes: JsonField<List<PaymentType>>) = apply {
             this.paymentTypes = paymentTypes.map { it.toMutableList() }
         }
 
+        /**
+         * Adds a single [PaymentType] to [paymentTypes].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addPaymentType(paymentType: PaymentType) = apply {
             paymentTypes =
                 (paymentTypes ?: JsonField.of(mutableListOf())).also {
@@ -252,6 +348,12 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
@@ -261,20 +363,36 @@ private constructor(
         fun clientToken(clientToken: String) = clientToken(JsonField.of(clientToken))
 
         /**
-         * The client token of the account collection flow. This token can be used to embed account
-         * collection in your client-side application.
+         * Sets [Builder.clientToken] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.clientToken] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun clientToken(clientToken: JsonField<String>) = apply { this.clientToken = clientToken }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** If present, the ID of the external account created using this flow. */
         fun externalAccountId(externalAccountId: String?) =
             externalAccountId(JsonField.ofNullable(externalAccountId))
 
-        /** If present, the ID of the external account created using this flow. */
+        /**
+         * Sets [Builder.externalAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun externalAccountId(externalAccountId: JsonField<String>) = apply {
             this.externalAccountId = externalAccountId
         }
@@ -286,22 +404,43 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         fun receivingCountries(receivingCountries: List<ReceivingCountry>) =
             receivingCountries(JsonField.of(receivingCountries))
 
+        /**
+         * Sets [Builder.receivingCountries] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.receivingCountries] with a well-typed
+         * `List<ReceivingCountry>` value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
         fun receivingCountries(receivingCountries: JsonField<List<ReceivingCountry>>) = apply {
             this.receivingCountries = receivingCountries.map { it.toMutableList() }
         }
 
+        /**
+         * Adds a single [ReceivingCountry] to [receivingCountries].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addReceivingCountry(receivingCountry: ReceivingCountry) = apply {
             receivingCountries =
                 (receivingCountries ?: JsonField.of(mutableListOf())).also {
@@ -316,13 +455,22 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /**
-         * The current status of the account collection flow. One of `pending`, `completed`,
-         * `expired`, or `cancelled`.
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {

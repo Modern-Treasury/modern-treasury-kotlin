@@ -30,55 +30,96 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The ID of the object being returned or `null`. */
+    /**
+     * The ID of the object being returned or `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun returnableId(): String? = body.returnableId()
 
-    /** The type of object being returned. Currently, this may only be incoming_payment_detail. */
+    /**
+     * The type of object being returned. Currently, this may only be incoming_payment_detail.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun returnableType(): ReturnableType = body.returnableType()
 
     /**
      * Some returns may include additional information from the bank. In these cases, this string
      * will be present.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun additionalInformation(): String? = body.additionalInformation()
 
-    /** The return code. For ACH returns, this is the required ACH return code. */
+    /**
+     * The return code. For ACH returns, this is the required ACH return code.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun code(): Code? = body.code()
 
     /**
      * If the return code is `R14` or `R15` this is the date the deceased counterparty passed away.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun dateOfDeath(): LocalDate? = body.dateOfDeath()
 
     /**
      * An optional description of the reason for the return. This is for internal usage and will not
      * be transmitted to the bank.”
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun reason(): String? = body.reason()
 
-    /** The ID of the object being returned or `null`. */
+    /**
+     * Returns the raw JSON value of [returnableId].
+     *
+     * Unlike [returnableId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _returnableId(): JsonField<String> = body._returnableId()
 
-    /** The type of object being returned. Currently, this may only be incoming_payment_detail. */
+    /**
+     * Returns the raw JSON value of [returnableType].
+     *
+     * Unlike [returnableType], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _returnableType(): JsonField<ReturnableType> = body._returnableType()
 
     /**
-     * Some returns may include additional information from the bank. In these cases, this string
-     * will be present.
+     * Returns the raw JSON value of [additionalInformation].
+     *
+     * Unlike [additionalInformation], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _additionalInformation(): JsonField<String> = body._additionalInformation()
 
-    /** The return code. For ACH returns, this is the required ACH return code. */
+    /**
+     * Returns the raw JSON value of [code].
+     *
+     * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _code(): JsonField<Code> = body._code()
 
     /**
-     * If the return code is `R14` or `R15` this is the date the deceased counterparty passed away.
+     * Returns the raw JSON value of [dateOfDeath].
+     *
+     * Unlike [dateOfDeath], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _dateOfDeath(): JsonField<LocalDate> = body._dateOfDeath()
 
     /**
-     * An optional description of the reason for the return. This is for internal usage and will not
-     * be transmitted to the bank.”
+     * Returns the raw JSON value of [reason].
+     *
+     * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _reason(): JsonField<String> = body._reason()
 
@@ -118,70 +159,108 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The ID of the object being returned or `null`. */
+        /**
+         * The ID of the object being returned or `null`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun returnableId(): String? = returnableId.getNullable("returnable_id")
 
         /**
          * The type of object being returned. Currently, this may only be incoming_payment_detail.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun returnableType(): ReturnableType = returnableType.getRequired("returnable_type")
 
         /**
          * Some returns may include additional information from the bank. In these cases, this
          * string will be present.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun additionalInformation(): String? =
             additionalInformation.getNullable("additional_information")
 
-        /** The return code. For ACH returns, this is the required ACH return code. */
+        /**
+         * The return code. For ACH returns, this is the required ACH return code.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun code(): Code? = code.getNullable("code")
 
         /**
          * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
          * away.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun dateOfDeath(): LocalDate? = dateOfDeath.getNullable("date_of_death")
 
         /**
          * An optional description of the reason for the return. This is for internal usage and will
          * not be transmitted to the bank.”
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun reason(): String? = reason.getNullable("reason")
 
-        /** The ID of the object being returned or `null`. */
+        /**
+         * Returns the raw JSON value of [returnableId].
+         *
+         * Unlike [returnableId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("returnable_id")
         @ExcludeMissing
         fun _returnableId(): JsonField<String> = returnableId
 
         /**
-         * The type of object being returned. Currently, this may only be incoming_payment_detail.
+         * Returns the raw JSON value of [returnableType].
+         *
+         * Unlike [returnableType], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("returnable_type")
         @ExcludeMissing
         fun _returnableType(): JsonField<ReturnableType> = returnableType
 
         /**
-         * Some returns may include additional information from the bank. In these cases, this
-         * string will be present.
+         * Returns the raw JSON value of [additionalInformation].
+         *
+         * Unlike [additionalInformation], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("additional_information")
         @ExcludeMissing
         fun _additionalInformation(): JsonField<String> = additionalInformation
 
-        /** The return code. For ACH returns, this is the required ACH return code. */
+        /**
+         * Returns the raw JSON value of [code].
+         *
+         * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<Code> = code
 
         /**
-         * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
-         * away.
+         * Returns the raw JSON value of [dateOfDeath].
+         *
+         * Unlike [dateOfDeath], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("date_of_death")
         @ExcludeMissing
         fun _dateOfDeath(): JsonField<LocalDate> = dateOfDeath
 
         /**
-         * An optional description of the reason for the return. This is for internal usage and will
-         * not be transmitted to the bank.”
+         * Returns the raw JSON value of [reason].
+         *
+         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<String> = reason
 
@@ -246,7 +325,13 @@ private constructor(
             fun returnableId(returnableId: String?) =
                 returnableId(JsonField.ofNullable(returnableId))
 
-            /** The ID of the object being returned or `null`. */
+            /**
+             * Sets [Builder.returnableId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.returnableId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun returnableId(returnableId: JsonField<String>) = apply {
                 this.returnableId = returnableId
             }
@@ -259,8 +344,11 @@ private constructor(
                 returnableType(JsonField.of(returnableType))
 
             /**
-             * The type of object being returned. Currently, this may only be
-             * incoming_payment_detail.
+             * Sets [Builder.returnableType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.returnableType] with a well-typed [ReturnableType]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun returnableType(returnableType: JsonField<ReturnableType>) = apply {
                 this.returnableType = returnableType
@@ -274,8 +362,11 @@ private constructor(
                 additionalInformation(JsonField.ofNullable(additionalInformation))
 
             /**
-             * Some returns may include additional information from the bank. In these cases, this
-             * string will be present.
+             * Sets [Builder.additionalInformation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.additionalInformation] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun additionalInformation(additionalInformation: JsonField<String>) = apply {
                 this.additionalInformation = additionalInformation
@@ -284,7 +375,13 @@ private constructor(
             /** The return code. For ACH returns, this is the required ACH return code. */
             fun code(code: Code?) = code(JsonField.ofNullable(code))
 
-            /** The return code. For ACH returns, this is the required ACH return code. */
+            /**
+             * Sets [Builder.code] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.code] with a well-typed [Code] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun code(code: JsonField<Code>) = apply { this.code = code }
 
             /**
@@ -295,8 +392,11 @@ private constructor(
                 dateOfDeath(JsonField.ofNullable(dateOfDeath))
 
             /**
-             * If the return code is `R14` or `R15` this is the date the deceased counterparty
-             * passed away.
+             * Sets [Builder.dateOfDeath] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dateOfDeath] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun dateOfDeath(dateOfDeath: JsonField<LocalDate>) = apply {
                 this.dateOfDeath = dateOfDeath
@@ -309,8 +409,11 @@ private constructor(
             fun reason(reason: String?) = reason(JsonField.ofNullable(reason))
 
             /**
-             * An optional description of the reason for the return. This is for internal usage and
-             * will not be transmitted to the bank.”
+             * Sets [Builder.reason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reason] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun reason(reason: JsonField<String>) = apply { this.reason = reason }
 
@@ -396,7 +499,13 @@ private constructor(
         /** The ID of the object being returned or `null`. */
         fun returnableId(returnableId: String?) = apply { body.returnableId(returnableId) }
 
-        /** The ID of the object being returned or `null`. */
+        /**
+         * Sets [Builder.returnableId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.returnableId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun returnableId(returnableId: JsonField<String>) = apply {
             body.returnableId(returnableId)
         }
@@ -409,7 +518,11 @@ private constructor(
         }
 
         /**
-         * The type of object being returned. Currently, this may only be incoming_payment_detail.
+         * Sets [Builder.returnableType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.returnableType] with a well-typed [ReturnableType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun returnableType(returnableType: JsonField<ReturnableType>) = apply {
             body.returnableType(returnableType)
@@ -424,8 +537,11 @@ private constructor(
         }
 
         /**
-         * Some returns may include additional information from the bank. In these cases, this
-         * string will be present.
+         * Sets [Builder.additionalInformation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.additionalInformation] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun additionalInformation(additionalInformation: JsonField<String>) = apply {
             body.additionalInformation(additionalInformation)
@@ -434,7 +550,12 @@ private constructor(
         /** The return code. For ACH returns, this is the required ACH return code. */
         fun code(code: Code?) = apply { body.code(code) }
 
-        /** The return code. For ACH returns, this is the required ACH return code. */
+        /**
+         * Sets [Builder.code] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.code] with a well-typed [Code] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun code(code: JsonField<Code>) = apply { body.code(code) }
 
         /**
@@ -444,8 +565,11 @@ private constructor(
         fun dateOfDeath(dateOfDeath: LocalDate?) = apply { body.dateOfDeath(dateOfDeath) }
 
         /**
-         * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
-         * away.
+         * Sets [Builder.dateOfDeath] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dateOfDeath] with a well-typed [LocalDate] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun dateOfDeath(dateOfDeath: JsonField<LocalDate>) = apply { body.dateOfDeath(dateOfDeath) }
 
@@ -456,8 +580,10 @@ private constructor(
         fun reason(reason: String?) = apply { body.reason(reason) }
 
         /**
-         * An optional description of the reason for the return. This is for internal usage and will
-         * not be transmitted to the bank.”
+         * Sets [Builder.reason] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reason] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun reason(reason: JsonField<String>) = apply { body.reason(reason) }
 

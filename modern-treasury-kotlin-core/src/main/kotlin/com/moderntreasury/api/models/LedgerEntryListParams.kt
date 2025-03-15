@@ -254,8 +254,9 @@ private constructor(
         fun id(id: List<String>?) = apply { this.id = id?.toMutableList() }
 
         /**
-         * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
-         * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
+         * Adds a single [String] to [Builder.id].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addId(id: String) = apply { this.id = (this.id ?: mutableListOf()).apply { add(id) } }
 
@@ -270,8 +271,9 @@ private constructor(
         }
 
         /**
-         * Shows all ledger entries that were present on a ledger account at a particular
-         * `lock_version`. You must also specify `ledger_account_id`.
+         * Alias for [Builder.asOfLockVersion].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun asOfLockVersion(asOfLockVersion: Long) = asOfLockVersion(asOfLockVersion as Long?)
 
@@ -345,6 +347,11 @@ private constructor(
 
         fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
+        /**
+         * Alias for [Builder.perPage].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /**
@@ -354,8 +361,9 @@ private constructor(
         fun showBalances(showBalances: Boolean?) = apply { this.showBalances = showBalances }
 
         /**
-         * If true, response will include the balances attached to the ledger entry. If there is no
-         * balance available, null will be returned instead.
+         * Alias for [Builder.showBalances].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun showBalances(showBalances: Boolean) = showBalances(showBalances as Boolean?)
 
@@ -366,8 +374,9 @@ private constructor(
         fun showDeleted(showDeleted: Boolean?) = apply { this.showDeleted = showDeleted }
 
         /**
-         * If true, response will include ledger entries that were deleted. When you update a ledger
-         * transaction to specify a new set of entries, the previous entries are deleted.
+         * Alias for [Builder.showDeleted].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun showDeleted(showDeleted: Boolean) = showDeleted(showDeleted as Boolean?)
 
