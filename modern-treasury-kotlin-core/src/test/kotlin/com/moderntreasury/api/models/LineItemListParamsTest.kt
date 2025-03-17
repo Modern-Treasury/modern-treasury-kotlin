@@ -27,10 +27,16 @@ internal class LineItemListParamsTest {
                 .afterCursor("after_cursor")
                 .perPage(0L)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("per_page", "0")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("per_page", "0")
+                    .build()
+            )
     }
 
     @Test
@@ -40,8 +46,10 @@ internal class LineItemListParamsTest {
                 .itemizableType(LineItemListParams.ItemizableType.EXPECTED_PAYMENTS)
                 .itemizableId("itemizable_id")
                 .build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 
     @Test

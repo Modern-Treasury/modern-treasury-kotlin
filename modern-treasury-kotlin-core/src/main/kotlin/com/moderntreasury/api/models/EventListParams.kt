@@ -46,28 +46,23 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.entityId?.let { queryParams.put("entity_id", listOf(it.toString())) }
-        this.eventName?.let { queryParams.put("event_name", listOf(it.toString())) }
-        this.eventTimeEnd?.let {
-            queryParams.put(
-                "event_time_end",
-                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
-            )
-        }
-        this.eventTimeStart?.let {
-            queryParams.put(
-                "event_time_start",
-                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
-            )
-        }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.resource?.let { queryParams.put("resource", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                entityId?.let { put("entity_id", it) }
+                eventName?.let { put("event_name", it) }
+                eventTimeEnd?.let {
+                    put("event_time_end", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
+                eventTimeStart?.let {
+                    put("event_time_start", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
+                perPage?.let { put("per_page", it.toString()) }
+                resource?.let { put("resource", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 

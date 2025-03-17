@@ -40,16 +40,23 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.id?.forEachQueryParam { key, values -> queryParams.put("id[$key]", values) }
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.transactionId?.let { queryParams.put("transaction_id", listOf(it.toString())) }
-        this.type?.let { queryParams.put("type", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                id?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("id[$key]", value)
+                        }
+                    }
+                }
+                afterCursor?.let { put("after_cursor", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                transactionId?.let { put("transaction_id", it) }
+                type?.let { put("type", it.asString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 
@@ -221,10 +228,6 @@ private constructor(
     class Id private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
 
         fun toBuilder() = Builder().from(this)
 

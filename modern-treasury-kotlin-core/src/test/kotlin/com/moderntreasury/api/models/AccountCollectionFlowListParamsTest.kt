@@ -31,20 +31,28 @@ internal class AccountCollectionFlowListParamsTest {
                 .perPage(0L)
                 .status("status")
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("client_token", "client_token")
-        expected.put("counterparty_id", "counterparty_id")
-        expected.put("external_account_id", "external_account_id")
-        expected.put("per_page", "0")
-        expected.put("status", "status")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("client_token", "client_token")
+                    .put("counterparty_id", "counterparty_id")
+                    .put("external_account_id", "external_account_id")
+                    .put("per_page", "0")
+                    .put("status", "status")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = AccountCollectionFlowListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }
