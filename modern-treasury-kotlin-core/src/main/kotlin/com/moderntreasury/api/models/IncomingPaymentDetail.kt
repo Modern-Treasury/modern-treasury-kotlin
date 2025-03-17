@@ -1007,6 +1007,41 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [IncomingPaymentDetail].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .amount()
+         * .asOfDate()
+         * .createdAt()
+         * .currency()
+         * .data()
+         * .direction()
+         * .internalAccountId()
+         * .ledgerTransactionId()
+         * .liveMode()
+         * .metadata()
+         * .object_()
+         * .originatingAccountNumberSafe()
+         * .originatingAccountNumberType()
+         * .originatingRoutingNumber()
+         * .originatingRoutingNumberType()
+         * .status()
+         * .transactionId()
+         * .transactionLineItemId()
+         * .type()
+         * .updatedAt()
+         * .vendorId()
+         * .virtualAccount()
+         * .virtualAccountId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): IncomingPaymentDetail =
             IncomingPaymentDetail(
                 checkRequired("id", id),
@@ -1097,6 +1132,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Data].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Data = Data(additionalProperties.toImmutable())
         }
 
@@ -1176,6 +1216,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 

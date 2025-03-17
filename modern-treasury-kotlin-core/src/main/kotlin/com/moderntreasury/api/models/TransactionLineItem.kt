@@ -638,6 +638,32 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [TransactionLineItem].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .amount()
+         * .counterpartyId()
+         * .createdAt()
+         * .description()
+         * .discardedAt()
+         * .expectedPaymentId()
+         * .liveMode()
+         * .object_()
+         * .reconcilable()
+         * .transactableId()
+         * .transactableType()
+         * .transactionId()
+         * .type()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): TransactionLineItem =
             TransactionLineItem(
                 checkRequired("id", id),

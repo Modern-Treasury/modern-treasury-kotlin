@@ -217,6 +217,20 @@ private constructor(
             keys.forEach(::removeAdditionalBodyProperty)
         }
 
+        /**
+         * Returns an immutable instance of [RoutingDetailDeleteParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountsType()
+         * .accountId()
+         * .id()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): RoutingDetailDeleteParams =
             RoutingDetailDeleteParams(
                 checkRequired("accountsType", accountsType),

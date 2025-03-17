@@ -167,6 +167,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [IncomingPaymentDetailRetrieveParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): IncomingPaymentDetailRetrieveParams =
             IncomingPaymentDetailRetrieveParams(
                 checkRequired("id", id),

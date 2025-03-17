@@ -402,6 +402,25 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [AccountDetail].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountNumberSafe()
+         * .accountNumberType()
+         * .createdAt()
+         * .discardedAt()
+         * .liveMode()
+         * .object_()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): AccountDetail =
             AccountDetail(
                 checkRequired("id", id),

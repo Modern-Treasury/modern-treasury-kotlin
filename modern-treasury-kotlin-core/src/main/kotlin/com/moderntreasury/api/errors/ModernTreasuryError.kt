@@ -58,6 +58,11 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [ModernTreasuryError].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): ModernTreasuryError = ModernTreasuryError(additionalProperties.toImmutable())
     }
 

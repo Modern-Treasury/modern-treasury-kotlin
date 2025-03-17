@@ -344,6 +344,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [BalanceReportCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .asOfDate()
+             * .asOfTime()
+             * .balanceReportType()
+             * .balances()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): BalanceReportCreateRequest =
                 BalanceReportCreateRequest(
                     checkRequired("asOfDate", asOfDate),
@@ -591,6 +606,22 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [BalanceReportCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .internalAccountId()
+         * .asOfDate()
+         * .asOfTime()
+         * .balanceReportType()
+         * .balances()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): BalanceReportCreateParams =
             BalanceReportCreateParams(
                 checkRequired("internalAccountId", internalAccountId),
@@ -944,6 +975,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [BalanceCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .balanceType()
+             * .vendorCode()
+             * .vendorCodeType()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): BalanceCreateRequest =
                 BalanceCreateRequest(
                     checkRequired("amount", amount),

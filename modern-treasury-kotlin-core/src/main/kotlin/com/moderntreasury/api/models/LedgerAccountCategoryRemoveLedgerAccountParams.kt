@@ -213,6 +213,19 @@ private constructor(
             keys.forEach(::removeAdditionalBodyProperty)
         }
 
+        /**
+         * Returns an immutable instance of [LedgerAccountCategoryRemoveLedgerAccountParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .ledgerAccountId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): LedgerAccountCategoryRemoveLedgerAccountParams =
             LedgerAccountCategoryRemoveLedgerAccountParams(
                 checkRequired("id", id),

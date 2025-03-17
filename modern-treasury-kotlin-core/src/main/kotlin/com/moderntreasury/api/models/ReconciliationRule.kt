@@ -469,6 +469,21 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [ReconciliationRule].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amountLowerBound()
+         * .amountUpperBound()
+         * .direction()
+         * .internalAccountId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ReconciliationRule =
             ReconciliationRule(
                 checkRequired("amountLowerBound", amountLowerBound),
@@ -648,6 +663,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [CustomIdentifiers].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): CustomIdentifiers = CustomIdentifiers(additionalProperties.toImmutable())
         }
 

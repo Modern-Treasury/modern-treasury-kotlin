@@ -195,6 +195,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [LedgerAccountSettlementEntriesDeleteRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .ledgerEntryIds()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): LedgerAccountSettlementEntriesDeleteRequest =
                 LedgerAccountSettlementEntriesDeleteRequest(
                     checkRequired("ledgerEntryIds", ledgerEntryIds).map { it.toImmutable() },
@@ -406,6 +418,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [LedgerAccountSettlementAccountEntryDeleteParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .ledgerEntryIds()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): LedgerAccountSettlementAccountEntryDeleteParams =
             LedgerAccountSettlementAccountEntryDeleteParams(
                 checkRequired("id", id),

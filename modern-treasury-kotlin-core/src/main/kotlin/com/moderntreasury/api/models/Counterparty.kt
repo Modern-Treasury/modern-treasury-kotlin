@@ -550,6 +550,30 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [Counterparty].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accounts()
+         * .createdAt()
+         * .discardedAt()
+         * .email()
+         * .legalEntityId()
+         * .liveMode()
+         * .metadata()
+         * .name()
+         * .object_()
+         * .sendRemittanceAdvice()
+         * .updatedAt()
+         * .verificationStatus()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): Counterparty =
             Counterparty(
                 checkRequired("id", id),
@@ -1304,6 +1328,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Account].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Account =
                 Account(
                     id,
@@ -1690,6 +1719,25 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [ContactDetail].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .contactIdentifier()
+                 * .contactIdentifierType()
+                 * .createdAt()
+                 * .discardedAt()
+                 * .liveMode()
+                 * .object_()
+                 * .updatedAt()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): ContactDetail =
                     ContactDetail(
                         checkRequired("id", id),
@@ -1901,6 +1949,11 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Metadata].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
                 fun build(): Metadata = Metadata(additionalProperties.toImmutable())
             }
 
@@ -2373,6 +2426,28 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Address].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .country()
+                 * .createdAt()
+                 * .line1()
+                 * .line2()
+                 * .liveMode()
+                 * .locality()
+                 * .object_()
+                 * .postalCode()
+                 * .region()
+                 * .updatedAt()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Address =
                     Address(
                         checkRequired("id", id),
@@ -2819,6 +2894,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 

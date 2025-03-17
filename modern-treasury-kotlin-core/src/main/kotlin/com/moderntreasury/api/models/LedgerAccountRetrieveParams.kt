@@ -194,6 +194,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [LedgerAccountRetrieveParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): LedgerAccountRetrieveParams =
             LedgerAccountRetrieveParams(
                 checkRequired("id", id),
@@ -352,6 +364,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Balances].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Balances =
                 Balances(
                     asOfDate,
