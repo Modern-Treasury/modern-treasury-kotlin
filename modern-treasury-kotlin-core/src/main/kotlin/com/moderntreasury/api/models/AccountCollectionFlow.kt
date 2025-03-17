@@ -492,6 +492,19 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [AccountCollectionFlow].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .counterpartyId()
+         * .paymentTypes()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): AccountCollectionFlow =
             AccountCollectionFlow(
                 checkRequired("counterpartyId", counterpartyId),

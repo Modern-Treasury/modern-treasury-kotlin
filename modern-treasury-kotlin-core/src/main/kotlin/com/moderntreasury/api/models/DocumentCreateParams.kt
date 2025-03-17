@@ -180,6 +180,20 @@ private constructor(
                 this.documentType = documentType
             }
 
+            /**
+             * Returns an immutable instance of [DocumentCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .documentableId()
+             * .documentableType()
+             * .file()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): DocumentCreateRequest =
                 DocumentCreateRequest(
                     checkRequired("documentableId", documentableId),
@@ -368,6 +382,20 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [DocumentCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .documentableId()
+         * .documentableType()
+         * .file()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): DocumentCreateParams =
             DocumentCreateParams(
                 body.build(),

@@ -438,6 +438,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [PaymentFlowCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .counterpartyId()
+             * .currency()
+             * .direction()
+             * .originatingAccountId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): PaymentFlowCreateRequest =
                 PaymentFlowCreateRequest(
                     checkRequired("amount", amount),
@@ -707,6 +723,22 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [PaymentFlowCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amount()
+         * .counterpartyId()
+         * .currency()
+         * .direction()
+         * .originatingAccountId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): PaymentFlowCreateParams =
             PaymentFlowCreateParams(
                 body.build(),

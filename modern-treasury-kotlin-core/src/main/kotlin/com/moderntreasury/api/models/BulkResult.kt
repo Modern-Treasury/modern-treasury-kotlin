@@ -539,6 +539,29 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [BulkResult].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .createdAt()
+         * .entity()
+         * .entityId()
+         * .entityType()
+         * .liveMode()
+         * .object_()
+         * .requestId()
+         * .requestParams()
+         * .requestType()
+         * .status()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): BulkResult =
             BulkResult(
                 checkRequired("id", id),
@@ -1061,6 +1084,23 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [BulkError].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .createdAt()
+                 * .liveMode()
+                 * .object_()
+                 * .requestErrors()
+                 * .updatedAt()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): BulkError =
                     BulkError(
                         checkRequired("id", id),
@@ -1231,6 +1271,11 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [RequestError].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
                     fun build(): RequestError =
                         RequestError(code, message, parameter, additionalProperties.toImmutable())
                 }
@@ -1456,6 +1501,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [RequestParams].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): RequestParams = RequestParams(additionalProperties.toImmutable())
         }
 
