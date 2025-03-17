@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class LedgerServiceAsyncTest {
+internal class LedgerServiceAsyncTest {
 
     @Test
     suspend fun create() {

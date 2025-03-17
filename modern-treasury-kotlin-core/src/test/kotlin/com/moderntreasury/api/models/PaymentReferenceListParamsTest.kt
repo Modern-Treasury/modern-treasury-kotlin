@@ -6,7 +6,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class PaymentReferenceListParamsTest {
+internal class PaymentReferenceListParamsTest {
 
     @Test
     fun create() {
