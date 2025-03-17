@@ -206,6 +206,19 @@ private constructor(
             keys.forEach(::removeAdditionalBodyProperty)
         }
 
+        /**
+         * Returns an immutable instance of [BalanceReportDeleteParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .internalAccountId()
+         * .id()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): BalanceReportDeleteParams =
             BalanceReportDeleteParams(
                 checkRequired("internalAccountId", internalAccountId),

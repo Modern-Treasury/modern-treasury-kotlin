@@ -725,6 +725,35 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [PaperItem].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountNumber()
+         * .accountNumberSafe()
+         * .amount()
+         * .checkNumber()
+         * .createdAt()
+         * .currency()
+         * .depositDate()
+         * .liveMode()
+         * .lockboxNumber()
+         * .memoField()
+         * .object_()
+         * .remitterName()
+         * .routingNumber()
+         * .status()
+         * .transactionId()
+         * .transactionLineItemId()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): PaperItem =
             PaperItem(
                 checkRequired("id", id),

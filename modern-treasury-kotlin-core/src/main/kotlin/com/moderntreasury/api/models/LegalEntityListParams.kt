@@ -210,6 +210,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [LegalEntityListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): LegalEntityListParams =
             LegalEntityListParams(
                 afterCursor,
@@ -402,6 +407,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.build())
         }
 

@@ -606,6 +606,27 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [ExternalAccountVerificationAttempt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .createdAt()
+             * .externalAccountId()
+             * .liveMode()
+             * .object_()
+             * .originatingAccountId()
+             * .paymentType()
+             * .priority()
+             * .status()
+             * .updatedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): ExternalAccountVerificationAttempt =
                 ExternalAccountVerificationAttempt(
                     checkRequired("id", id),

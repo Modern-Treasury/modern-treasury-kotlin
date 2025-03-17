@@ -394,6 +394,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [ExternalAccountVerifyRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .originatingAccountId()
+             * .paymentType()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): ExternalAccountVerifyRequest =
                 ExternalAccountVerifyRequest(
                     checkRequired("originatingAccountId", originatingAccountId),
@@ -654,6 +667,20 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [ExternalAccountVerifyParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .originatingAccountId()
+         * .paymentType()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ExternalAccountVerifyParams =
             ExternalAccountVerifyParams(
                 checkRequired("id", id),

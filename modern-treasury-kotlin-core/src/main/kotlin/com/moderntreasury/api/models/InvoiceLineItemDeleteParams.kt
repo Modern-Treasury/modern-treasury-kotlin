@@ -204,6 +204,19 @@ private constructor(
             keys.forEach(::removeAdditionalBodyProperty)
         }
 
+        /**
+         * Returns an immutable instance of [InvoiceLineItemDeleteParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .invoiceId()
+         * .id()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InvoiceLineItemDeleteParams =
             InvoiceLineItemDeleteParams(
                 checkRequired("invoiceId", invoiceId),

@@ -396,6 +396,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [LedgerAccountStatementCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .effectiveAtLowerBound()
+             * .effectiveAtUpperBound()
+             * .ledgerAccountId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): LedgerAccountStatementCreateRequest =
                 LedgerAccountStatementCreateRequest(
                     checkRequired("effectiveAtLowerBound", effectiveAtLowerBound),
@@ -660,6 +674,20 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [LedgerAccountStatementCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .effectiveAtLowerBound()
+         * .effectiveAtUpperBound()
+         * .ledgerAccountId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): LedgerAccountStatementCreateParams =
             LedgerAccountStatementCreateParams(
                 body.build(),
@@ -727,6 +755,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 

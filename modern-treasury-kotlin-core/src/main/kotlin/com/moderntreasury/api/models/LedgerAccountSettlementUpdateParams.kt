@@ -271,6 +271,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [LedgerAccountSettlementUpdateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): LedgerAccountSettlementUpdateRequest =
                 LedgerAccountSettlementUpdateRequest(
                     description,
@@ -493,6 +498,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [LedgerAccountSettlementUpdateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): LedgerAccountSettlementUpdateParams =
             LedgerAccountSettlementUpdateParams(
                 checkRequired("id", id),
@@ -561,6 +578,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 

@@ -302,6 +302,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [LedgerAccountSettlementListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): LedgerAccountSettlementListParams =
             LedgerAccountSettlementListParams(
                 id?.toImmutable(),
@@ -398,6 +403,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [CreatedAt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): CreatedAt = CreatedAt(additionalProperties.build())
         }
 
@@ -496,6 +506,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.build())
         }
 
@@ -595,6 +610,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [UpdatedAt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): UpdatedAt = UpdatedAt(additionalProperties.build())
         }
 

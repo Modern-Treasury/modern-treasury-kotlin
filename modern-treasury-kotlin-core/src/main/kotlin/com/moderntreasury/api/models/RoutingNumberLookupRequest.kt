@@ -328,6 +328,11 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [RoutingNumberLookupRequest].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): RoutingNumberLookupRequest =
             RoutingNumberLookupRequest(
                 bankAddress,
@@ -593,6 +598,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [AddressRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): AddressRequest =
                 AddressRequest(
                     country,
@@ -831,6 +841,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Sanctions].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Sanctions = Sanctions(additionalProperties.toImmutable())
         }
 

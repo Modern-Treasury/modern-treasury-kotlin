@@ -203,6 +203,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [ConnectionLegalEntityListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): ConnectionLegalEntityListParams =
             ConnectionLegalEntityListParams(
                 afterCursor,

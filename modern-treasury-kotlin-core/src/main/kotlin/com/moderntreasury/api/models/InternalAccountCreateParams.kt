@@ -583,6 +583,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [InternalAccountCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .connectionId()
+             * .currency()
+             * .name()
+             * .partyName()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): InternalAccountCreateRequest =
                 InternalAccountCreateRequest(
                     checkRequired("connectionId", connectionId),
@@ -892,6 +907,21 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [InternalAccountCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .connectionId()
+         * .currency()
+         * .name()
+         * .partyName()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InternalAccountCreateParams =
             InternalAccountCreateParams(
                 body.build(),
@@ -1263,6 +1293,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [PartyAddress].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): PartyAddress =
                 PartyAddress(
                     checkRequired("country", country),
@@ -1355,6 +1401,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [VendorAttributes].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): VendorAttributes = VendorAttributes(additionalProperties.toImmutable())
         }
 

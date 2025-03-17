@@ -411,6 +411,26 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [PaymentReference].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .createdAt()
+         * .liveMode()
+         * .object_()
+         * .referenceNumber()
+         * .referenceNumberType()
+         * .referenceableId()
+         * .referenceableType()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): PaymentReference =
             PaymentReference(
                 checkRequired("id", id),

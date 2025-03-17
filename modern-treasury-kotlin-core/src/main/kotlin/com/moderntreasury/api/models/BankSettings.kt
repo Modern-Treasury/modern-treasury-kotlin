@@ -478,6 +478,27 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [BankSettings].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .backupWithholdingPercentage()
+         * .createdAt()
+         * .discardedAt()
+         * .enableBackupWithholding()
+         * .liveMode()
+         * .object_()
+         * .privacyOptOut()
+         * .regulationO()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): BankSettings =
             BankSettings(
                 checkRequired("id", id),

@@ -1067,6 +1067,43 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [ExpectedPayment].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .amountLowerBound()
+         * .amountUpperBound()
+         * .counterpartyId()
+         * .createdAt()
+         * .currency()
+         * .dateLowerBound()
+         * .dateUpperBound()
+         * .description()
+         * .direction()
+         * .internalAccountId()
+         * .ledgerTransactionId()
+         * .liveMode()
+         * .metadata()
+         * .object_()
+         * .reconciliationFilters()
+         * .reconciliationGroups()
+         * .reconciliationMethod()
+         * .reconciliationRuleVariables()
+         * .remittanceInformation()
+         * .statementDescriptor()
+         * .status()
+         * .transactionId()
+         * .transactionLineItemId()
+         * .type()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ExpectedPayment =
             ExpectedPayment(
                 checkRequired("id", id),
@@ -1264,6 +1301,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 
