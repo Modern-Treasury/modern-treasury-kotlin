@@ -107,58 +107,45 @@ internal class LedgerTransactionListParamsTest {
                         .build()
                 )
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("id[]", "string")
-        expected.put("after_cursor", "after_cursor")
-        LedgerTransactionListParams.EffectiveAt.builder()
-            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("effective_at[$key]", values) }
-        LedgerTransactionListParams.EffectiveDate.builder()
-            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("effective_date[$key]", values) }
-        expected.put("external_id", "external_id")
-        expected.put("ledger_account_category_id", "ledger_account_category_id")
-        expected.put("ledger_account_id", "ledger_account_id")
-        expected.put("ledger_account_settlement_id", "ledger_account_settlement_id")
-        expected.put("ledger_id", "ledger_id")
-        expected.put("ledgerable_id", "ledgerable_id")
-        expected.put(
-            "ledgerable_type",
-            LedgerTransactionListParams.LedgerableType.EXPECTED_PAYMENT.toString(),
-        )
-        LedgerTransactionListParams.Metadata.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
-        LedgerTransactionListParams.OrderBy.builder()
-            .createdAt(LedgerTransactionListParams.OrderBy.CreatedAt.ASC)
-            .effectiveAt(LedgerTransactionListParams.OrderBy.EffectiveAt.ASC)
-            .build()
-            .forEachQueryParam { key, values -> expected.put("order_by[$key]", values) }
-        expected.put(
-            "partially_posts_ledger_transaction_id",
-            "partially_posts_ledger_transaction_id",
-        )
-        expected.put("per_page", "0")
-        LedgerTransactionListParams.PostedAt.builder()
-            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("posted_at[$key]", values) }
-        expected.put("reverses_ledger_transaction_id", "reverses_ledger_transaction_id")
-        expected.put("status", LedgerTransactionListParams.Status.PENDING.toString())
-        LedgerTransactionListParams.UpdatedAt.builder()
-            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("updated_at[$key]", values) }
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("id[]", "string")
+                    .put("after_cursor", "after_cursor")
+                    .put("effective_at[foo]", "2019-12-27T18:11:19.117Z")
+                    .put("effective_date[foo]", "2019-12-27T18:11:19.117Z")
+                    .put("external_id", "external_id")
+                    .put("ledger_account_category_id", "ledger_account_category_id")
+                    .put("ledger_account_id", "ledger_account_id")
+                    .put("ledger_account_settlement_id", "ledger_account_settlement_id")
+                    .put("ledger_id", "ledger_id")
+                    .put("ledgerable_id", "ledgerable_id")
+                    .put("ledgerable_type", "expected_payment")
+                    .put("metadata[foo]", "string")
+                    .put("order_by[created_at]", "asc")
+                    .put("order_by[effective_at]", "asc")
+                    .put(
+                        "partially_posts_ledger_transaction_id",
+                        "partially_posts_ledger_transaction_id",
+                    )
+                    .put("per_page", "0")
+                    .put("posted_at[foo]", "2019-12-27T18:11:19.117Z")
+                    .put("reverses_ledger_transaction_id", "reverses_ledger_transaction_id")
+                    .put("status", "pending")
+                    .put("updated_at[foo]", "2019-12-27T18:11:19.117Z")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = LedgerTransactionListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

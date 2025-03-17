@@ -40,16 +40,17 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.connectionId?.let { queryParams.put("connection_id", listOf(it.toString())) }
-        this.legalEntityId?.let { queryParams.put("legal_entity_id", listOf(it.toString())) }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.status?.let { queryParams.put("status", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                connectionId?.let { put("connection_id", it) }
+                legalEntityId?.let { put("legal_entity_id", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                status?.let { put("status", it.asString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 

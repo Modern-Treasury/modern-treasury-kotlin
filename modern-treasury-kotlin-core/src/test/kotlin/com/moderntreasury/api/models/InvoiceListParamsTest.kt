@@ -48,28 +48,33 @@ internal class InvoiceListParamsTest {
                 .perPage(0L)
                 .status(InvoiceListParams.Status.DRAFT)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("counterparty_id", "counterparty_id")
-        expected.put("due_date_end", "2019-12-27")
-        expected.put("due_date_start", "2019-12-27")
-        expected.put("expected_payment_id", "expected_payment_id")
-        InvoiceListParams.Metadata.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
-        expected.put("number", "number")
-        expected.put("originating_account_id", "originating_account_id")
-        expected.put("payment_order_id", "payment_order_id")
-        expected.put("per_page", "0")
-        expected.put("status", InvoiceListParams.Status.DRAFT.toString())
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("counterparty_id", "counterparty_id")
+                    .put("due_date_end", "2019-12-27")
+                    .put("due_date_start", "2019-12-27")
+                    .put("expected_payment_id", "expected_payment_id")
+                    .put("metadata[foo]", "string")
+                    .put("number", "number")
+                    .put("originating_account_id", "originating_account_id")
+                    .put("payment_order_id", "payment_order_id")
+                    .put("per_page", "0")
+                    .put("status", "draft")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = InvoiceListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

@@ -43,25 +43,27 @@ internal class LedgerListParamsTest {
                         .build()
                 )
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("id[]", "string")
-        expected.put("after_cursor", "after_cursor")
-        LedgerListParams.Metadata.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
-        expected.put("per_page", "0")
-        LedgerListParams.UpdatedAt.builder()
-            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("updated_at[$key]", values) }
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("id[]", "string")
+                    .put("after_cursor", "after_cursor")
+                    .put("metadata[foo]", "string")
+                    .put("per_page", "0")
+                    .put("updated_at[foo]", "2019-12-27T18:11:19.117Z")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = LedgerListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

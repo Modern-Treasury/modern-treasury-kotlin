@@ -66,28 +66,29 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.counterpartyId?.let { queryParams.put("counterparty_id", listOf(it.toString())) }
-        this.dueDateEnd?.let { queryParams.put("due_date_end", listOf(it.toString())) }
-        this.dueDateStart?.let { queryParams.put("due_date_start", listOf(it.toString())) }
-        this.expectedPaymentId?.let {
-            queryParams.put("expected_payment_id", listOf(it.toString()))
-        }
-        this.metadata?.forEachQueryParam { key, values ->
-            queryParams.put("metadata[$key]", values)
-        }
-        this.number?.let { queryParams.put("number", listOf(it.toString())) }
-        this.originatingAccountId?.let {
-            queryParams.put("originating_account_id", listOf(it.toString()))
-        }
-        this.paymentOrderId?.let { queryParams.put("payment_order_id", listOf(it.toString())) }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.status?.let { queryParams.put("status", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                counterpartyId?.let { put("counterparty_id", it) }
+                dueDateEnd?.let { put("due_date_end", it.toString()) }
+                dueDateStart?.let { put("due_date_start", it.toString()) }
+                expectedPaymentId?.let { put("expected_payment_id", it) }
+                metadata?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("metadata[$key]", value)
+                        }
+                    }
+                }
+                number?.let { put("number", it) }
+                originatingAccountId?.let { put("originating_account_id", it) }
+                paymentOrderId?.let { put("payment_order_id", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                status?.let { put("status", it.asString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 
@@ -301,10 +302,6 @@ private constructor(
     class Metadata private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
 
         fun toBuilder() = Builder().from(this)
 

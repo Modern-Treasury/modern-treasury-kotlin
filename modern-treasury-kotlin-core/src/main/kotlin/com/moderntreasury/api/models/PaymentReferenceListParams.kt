@@ -49,16 +49,17 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.referenceNumber?.let { queryParams.put("reference_number", listOf(it.toString())) }
-        this.referenceableId?.let { queryParams.put("referenceable_id", listOf(it.toString())) }
-        this.referenceableType?.let { queryParams.put("referenceable_type", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                referenceNumber?.let { put("reference_number", it) }
+                referenceableId?.let { put("referenceable_id", it) }
+                referenceableType?.let { put("referenceable_type", it.asString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 

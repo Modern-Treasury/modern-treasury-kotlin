@@ -53,19 +53,18 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.counterpartyId?.let { queryParams.put("counterparty_id", listOf(it.toString())) }
-        this.internalAccountId?.let {
-            queryParams.put("internal_account_id", listOf(it.toString()))
-        }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.returnableId?.let { queryParams.put("returnable_id", listOf(it.toString())) }
-        this.returnableType?.let { queryParams.put("returnable_type", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                counterpartyId?.let { put("counterparty_id", it) }
+                internalAccountId?.let { put("internal_account_id", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                returnableId?.let { put("returnable_id", it) }
+                returnableType?.let { put("returnable_type", it.asString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 

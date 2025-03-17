@@ -16,16 +16,20 @@ internal class LedgerEntryRetrieveParamsTest {
     @Test
     fun queryParams() {
         val params = LedgerEntryRetrieveParams.builder().id("id").showBalances(true).build()
-        val expected = QueryParams.builder()
-        expected.put("show_balances", "true")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(QueryParams.builder().put("show_balances", "true").build())
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = LedgerEntryRetrieveParams.builder().id("id").build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 
     @Test

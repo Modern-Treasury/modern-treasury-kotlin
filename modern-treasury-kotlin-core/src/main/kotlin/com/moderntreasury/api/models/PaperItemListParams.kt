@@ -43,16 +43,17 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.depositDateEnd?.let { queryParams.put("deposit_date_end", listOf(it.toString())) }
-        this.depositDateStart?.let { queryParams.put("deposit_date_start", listOf(it.toString())) }
-        this.lockboxNumber?.let { queryParams.put("lockbox_number", listOf(it.toString())) }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                depositDateEnd?.let { put("deposit_date_end", it.toString()) }
+                depositDateStart?.let { put("deposit_date_start", it.toString()) }
+                lockboxNumber?.let { put("lockbox_number", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 

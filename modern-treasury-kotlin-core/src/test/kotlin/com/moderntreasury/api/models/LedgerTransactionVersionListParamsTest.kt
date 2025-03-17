@@ -47,26 +47,28 @@ internal class LedgerTransactionVersionListParamsTest {
                         .build()
                 )
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        LedgerTransactionVersionListParams.CreatedAt.builder()
-            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("created_at[$key]", values) }
-        expected.put("ledger_account_statement_id", "ledger_account_statement_id")
-        expected.put("ledger_transaction_id", "ledger_transaction_id")
-        expected.put("per_page", "0")
-        LedgerTransactionVersionListParams.Version.builder()
-            .putAdditionalProperty("foo", "0")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("version[$key]", values) }
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("created_at[foo]", "2019-12-27T18:11:19.117Z")
+                    .put("ledger_account_statement_id", "ledger_account_statement_id")
+                    .put("ledger_transaction_id", "ledger_transaction_id")
+                    .put("per_page", "0")
+                    .put("version[foo]", "0")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = LedgerTransactionVersionListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

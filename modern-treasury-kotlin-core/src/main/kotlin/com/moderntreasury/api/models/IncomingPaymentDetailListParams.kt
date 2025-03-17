@@ -72,22 +72,27 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.asOfDateEnd?.let { queryParams.put("as_of_date_end", listOf(it.toString())) }
-        this.asOfDateStart?.let { queryParams.put("as_of_date_start", listOf(it.toString())) }
-        this.direction?.let { queryParams.put("direction", listOf(it.toString())) }
-        this.metadata?.forEachQueryParam { key, values ->
-            queryParams.put("metadata[$key]", values)
-        }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.status?.let { queryParams.put("status", listOf(it.toString())) }
-        this.type?.let { queryParams.put("type", listOf(it.toString())) }
-        this.virtualAccountId?.let { queryParams.put("virtual_account_id", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                asOfDateEnd?.let { put("as_of_date_end", it.toString()) }
+                asOfDateStart?.let { put("as_of_date_start", it.toString()) }
+                direction?.let { put("direction", it.asString()) }
+                metadata?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("metadata[$key]", value)
+                        }
+                    }
+                }
+                perPage?.let { put("per_page", it.toString()) }
+                status?.let { put("status", it.asString()) }
+                type?.let { put("type", it.asString()) }
+                virtualAccountId?.let { put("virtual_account_id", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 
@@ -308,10 +313,6 @@ private constructor(
     class Metadata private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
 
         fun toBuilder() = Builder().from(this)
 

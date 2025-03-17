@@ -63,34 +63,39 @@ internal class PaymentOrderListParamsTest {
                 .transactionId("transaction_id")
                 .type(PaymentOrderListParams.Type.ACH)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("counterparty_id", "counterparty_id")
-        expected.put("created_at_end", "2019-12-27")
-        expected.put("created_at_start", "2019-12-27")
-        expected.put("direction", TransactionDirection.CREDIT.toString())
-        expected.put("effective_date_end", "2019-12-27")
-        expected.put("effective_date_start", "2019-12-27")
-        PaymentOrderListParams.Metadata.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
-        expected.put("originating_account_id", "originating_account_id")
-        expected.put("per_page", "0")
-        expected.put("priority", PaymentOrderListParams.Priority.HIGH.toString())
-        expected.put("process_after_end", "2019-12-27T18:11:19.117Z")
-        expected.put("process_after_start", "2019-12-27T18:11:19.117Z")
-        expected.put("reference_number", "reference_number")
-        expected.put("status", PaymentOrderListParams.Status.APPROVED.toString())
-        expected.put("transaction_id", "transaction_id")
-        expected.put("type", PaymentOrderListParams.Type.ACH.toString())
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("counterparty_id", "counterparty_id")
+                    .put("created_at_end", "2019-12-27")
+                    .put("created_at_start", "2019-12-27")
+                    .put("direction", "credit")
+                    .put("effective_date_end", "2019-12-27")
+                    .put("effective_date_start", "2019-12-27")
+                    .put("metadata[foo]", "string")
+                    .put("originating_account_id", "originating_account_id")
+                    .put("per_page", "0")
+                    .put("priority", "high")
+                    .put("process_after_end", "2019-12-27T18:11:19.117Z")
+                    .put("process_after_start", "2019-12-27T18:11:19.117Z")
+                    .put("reference_number", "reference_number")
+                    .put("status", "approved")
+                    .put("transaction_id", "transaction_id")
+                    .put("type", "ach")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = PaymentOrderListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }
