@@ -38,14 +38,39 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.balances?.forEachQueryParam { key, values ->
-            queryParams.put("balances[$key]", values)
-        }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                balances?.let {
+                    it.asOfDate()?.let { put("balances[as_of_date]", it.toString()) }
+                    it.asOfLockVersion()?.let { put("balances[as_of_lock_version]", it.toString()) }
+                    it.effectiveAt()?.let {
+                        put(
+                            "balances[effective_at]",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.effectiveAtLowerBound()?.let {
+                        put(
+                            "balances[effective_at_lower_bound]",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.effectiveAtUpperBound()?.let {
+                        put(
+                            "balances[effective_at_upper_bound]",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("balances[$key]", value)
+                        }
+                    }
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun getPathParam(index: Int): String {
         return when (index) {
@@ -243,27 +268,6 @@ private constructor(
         fun effectiveAtUpperBound(): OffsetDateTime? = effectiveAtUpperBound
 
         fun _additionalProperties(): QueryParams = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.asOfDate?.let { putParam("as_of_date", listOf(it.toString())) }
-            this.asOfLockVersion?.let { putParam("as_of_lock_version", listOf(it.toString())) }
-            this.effectiveAt?.let {
-                putParam("effective_at", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.effectiveAtLowerBound?.let {
-                putParam(
-                    "effective_at_lower_bound",
-                    listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
-                )
-            }
-            this.effectiveAtUpperBound?.let {
-                putParam(
-                    "effective_at_upper_bound",
-                    listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
-                )
-            }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
 
         fun toBuilder() = Builder().from(this)
 

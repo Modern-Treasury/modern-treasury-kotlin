@@ -35,22 +35,30 @@ internal class PaymentFlowListParamsTest {
                 .receivingAccountId("receiving_account_id")
                 .status("status")
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("client_token", "client_token")
-        expected.put("counterparty_id", "counterparty_id")
-        expected.put("originating_account_id", "originating_account_id")
-        expected.put("payment_order_id", "payment_order_id")
-        expected.put("per_page", "0")
-        expected.put("receiving_account_id", "receiving_account_id")
-        expected.put("status", "status")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("client_token", "client_token")
+                    .put("counterparty_id", "counterparty_id")
+                    .put("originating_account_id", "originating_account_id")
+                    .put("payment_order_id", "payment_order_id")
+                    .put("per_page", "0")
+                    .put("receiving_account_id", "receiving_account_id")
+                    .put("status", "status")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = PaymentFlowListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

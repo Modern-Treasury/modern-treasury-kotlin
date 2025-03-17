@@ -50,23 +50,30 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.createdAt?.forEachQueryParam { key, values ->
-            queryParams.put("created_at[$key]", values)
-        }
-        this.ledgerAccountStatementId?.let {
-            queryParams.put("ledger_account_statement_id", listOf(it.toString()))
-        }
-        this.ledgerTransactionId?.let {
-            queryParams.put("ledger_transaction_id", listOf(it.toString()))
-        }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.version?.forEachQueryParam { key, values -> queryParams.put("version[$key]", values) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                createdAt?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("created_at[$key]", value)
+                        }
+                    }
+                }
+                ledgerAccountStatementId?.let { put("ledger_account_statement_id", it) }
+                ledgerTransactionId?.let { put("ledger_transaction_id", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                version?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("version[$key]", value)
+                        }
+                    }
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 
@@ -271,10 +278,6 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
@@ -373,10 +376,6 @@ private constructor(
     class Version private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
 
         fun toBuilder() = Builder().from(this)
 

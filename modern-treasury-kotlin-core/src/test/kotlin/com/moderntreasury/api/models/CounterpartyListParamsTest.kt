@@ -44,25 +44,30 @@ internal class CounterpartyListParamsTest {
                 .name("name")
                 .perPage(0L)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("created_at_lower_bound", "2019-12-27T18:11:19.117Z")
-        expected.put("created_at_upper_bound", "2019-12-27T18:11:19.117Z")
-        expected.put("email", "dev@stainless.com")
-        expected.put("legal_entity_id", "legal_entity_id")
-        CounterpartyListParams.Metadata.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
-        expected.put("name", "name")
-        expected.put("per_page", "0")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("created_at_lower_bound", "2019-12-27T18:11:19.117Z")
+                    .put("created_at_upper_bound", "2019-12-27T18:11:19.117Z")
+                    .put("email", "dev@stainless.com")
+                    .put("legal_entity_id", "legal_entity_id")
+                    .put("metadata[foo]", "string")
+                    .put("name", "name")
+                    .put("per_page", "0")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = CounterpartyListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

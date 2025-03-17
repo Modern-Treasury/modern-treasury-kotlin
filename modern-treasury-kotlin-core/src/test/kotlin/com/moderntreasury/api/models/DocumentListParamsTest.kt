@@ -27,18 +27,26 @@ internal class DocumentListParamsTest {
                 .documentableType(DocumentListParams.DocumentableType.CASES)
                 .perPage(0L)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("documentable_id", "documentable_id")
-        expected.put("documentable_type", DocumentListParams.DocumentableType.CASES.toString())
-        expected.put("per_page", "0")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("documentable_id", "documentable_id")
+                    .put("documentable_type", "cases")
+                    .put("per_page", "0")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = DocumentListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

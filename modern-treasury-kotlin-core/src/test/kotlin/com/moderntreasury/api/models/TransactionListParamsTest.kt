@@ -56,31 +56,36 @@ internal class TransactionListParamsTest {
                 .vendorId("vendor_id")
                 .virtualAccountId("virtual_account_id")
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("as_of_date_end", "2019-12-27")
-        expected.put("as_of_date_start", "2019-12-27")
-        expected.put("counterparty_id", "counterparty_id")
-        expected.put("description", "description")
-        expected.put("direction", "direction")
-        expected.put("internal_account_id", "internal_account_id")
-        TransactionListParams.Metadata.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
-        expected.put("payment_type", "payment_type")
-        expected.put("per_page", "0")
-        expected.put("posted", "true")
-        expected.put("transactable_type", "transactable_type")
-        expected.put("vendor_id", "vendor_id")
-        expected.put("virtual_account_id", "virtual_account_id")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("as_of_date_end", "2019-12-27")
+                    .put("as_of_date_start", "2019-12-27")
+                    .put("counterparty_id", "counterparty_id")
+                    .put("description", "description")
+                    .put("direction", "direction")
+                    .put("internal_account_id", "internal_account_id")
+                    .put("metadata[foo]", "string")
+                    .put("payment_type", "payment_type")
+                    .put("per_page", "0")
+                    .put("posted", "true")
+                    .put("transactable_type", "transactable_type")
+                    .put("vendor_id", "vendor_id")
+                    .put("virtual_account_id", "virtual_account_id")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = TransactionListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

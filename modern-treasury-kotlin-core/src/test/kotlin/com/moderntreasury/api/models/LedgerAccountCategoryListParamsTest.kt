@@ -56,30 +56,32 @@ internal class LedgerAccountCategoryListParamsTest {
                 .parentLedgerAccountCategoryId("parent_ledger_account_category_id")
                 .perPage(0L)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("id[]", "string")
-        expected.put("after_cursor", "after_cursor")
-        LedgerAccountCategoryListParams.Balances.builder()
-            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .build()
-            .forEachQueryParam { key, values -> expected.put("balances[$key]", values) }
-        expected.put("currency", "currency")
-        expected.put("ledger_account_id", "ledger_account_id")
-        expected.put("ledger_id", "ledger_id")
-        LedgerAccountCategoryListParams.Metadata.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
-        expected.put("name", "name")
-        expected.put("parent_ledger_account_category_id", "parent_ledger_account_category_id")
-        expected.put("per_page", "0")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("id[]", "string")
+                    .put("after_cursor", "after_cursor")
+                    .put("balances[effective_at]", "2019-12-27T18:11:19.117Z")
+                    .put("currency", "currency")
+                    .put("ledger_account_id", "ledger_account_id")
+                    .put("ledger_id", "ledger_id")
+                    .put("metadata[foo]", "string")
+                    .put("name", "name")
+                    .put("parent_ledger_account_category_id", "parent_ledger_account_category_id")
+                    .put("per_page", "0")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = LedgerAccountCategoryListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

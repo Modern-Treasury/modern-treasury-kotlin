@@ -46,26 +46,31 @@ internal class IncomingPaymentDetailListParamsTest {
                 .type(IncomingPaymentDetailListParams.Type.ACH)
                 .virtualAccountId("virtual_account_id")
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("as_of_date_end", "2019-12-27")
-        expected.put("as_of_date_start", "2019-12-27")
-        expected.put("direction", TransactionDirection.CREDIT.toString())
-        IncomingPaymentDetailListParams.Metadata.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
-        expected.put("per_page", "0")
-        expected.put("status", IncomingPaymentDetailListParams.Status.COMPLETED.toString())
-        expected.put("type", IncomingPaymentDetailListParams.Type.ACH.toString())
-        expected.put("virtual_account_id", "virtual_account_id")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("as_of_date_end", "2019-12-27")
+                    .put("as_of_date_start", "2019-12-27")
+                    .put("direction", "credit")
+                    .put("metadata[foo]", "string")
+                    .put("per_page", "0")
+                    .put("status", "completed")
+                    .put("type", "ach")
+                    .put("virtual_account_id", "virtual_account_id")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = IncomingPaymentDetailListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

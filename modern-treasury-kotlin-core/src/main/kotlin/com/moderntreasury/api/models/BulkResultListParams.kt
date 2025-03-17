@@ -60,18 +60,19 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.entityId?.let { queryParams.put("entity_id", listOf(it.toString())) }
-        this.entityType?.let { queryParams.put("entity_type", listOf(it.toString())) }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.requestId?.let { queryParams.put("request_id", listOf(it.toString())) }
-        this.requestType?.let { queryParams.put("request_type", listOf(it.toString())) }
-        this.status?.let { queryParams.put("status", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                entityId?.let { put("entity_id", it) }
+                entityType?.let { put("entity_type", it.asString()) }
+                perPage?.let { put("per_page", it.toString()) }
+                requestId?.let { put("request_id", it) }
+                requestType?.let { put("request_type", it.asString()) }
+                status?.let { put("status", it.asString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 

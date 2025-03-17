@@ -30,23 +30,28 @@ internal class BalanceReportListParamsTest {
                 .balanceReportType(BalanceReportListParams.BalanceReportType.INTRADAY)
                 .perPage(0L)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("as_of_date", "2019-12-27")
-        expected.put(
-            "balance_report_type",
-            BalanceReportListParams.BalanceReportType.INTRADAY.toString(),
-        )
-        expected.put("per_page", "0")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("as_of_date", "2019-12-27")
+                    .put("balance_report_type", "intraday")
+                    .put("per_page", "0")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params =
             BalanceReportListParams.builder().internalAccountId("internal_account_id").build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 
     @Test

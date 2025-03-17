@@ -35,20 +35,25 @@ internal class LedgerAccountCategoryRetrieveParamsTest {
                         .build()
                 )
                 .build()
-        val expected = QueryParams.builder()
-        LedgerAccountCategoryRetrieveParams.Balances.builder()
-            .asOfDate(LocalDate.parse("2019-12-27"))
-            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .build()
-            .forEachQueryParam { key, values -> expected.put("balances[$key]", values) }
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("balances[as_of_date]", "2019-12-27")
+                    .put("balances[effective_at]", "2019-12-27T18:11:19.117Z")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = LedgerAccountCategoryRetrieveParams.builder().id("id").build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 
     @Test

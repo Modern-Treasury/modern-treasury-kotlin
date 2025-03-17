@@ -39,13 +39,14 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.routingNumber.let { queryParams.put("routing_number", listOf(it.toString())) }
-        this.routingNumberType.let { queryParams.put("routing_number_type", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                put("routing_number", routingNumber)
+                put("routing_number_type", routingNumberType.asString())
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 

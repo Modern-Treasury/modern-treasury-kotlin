@@ -43,25 +43,30 @@ internal class InternalAccountListParamsTest {
                 .paymentType(InternalAccountListParams.PaymentType.ACH)
                 .perPage(0L)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("counterparty_id", "counterparty_id")
-        expected.put("currency", Currency.AED.toString())
-        expected.put("legal_entity_id", "legal_entity_id")
-        InternalAccountListParams.Metadata.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
-        expected.put("payment_direction", TransactionDirection.CREDIT.toString())
-        expected.put("payment_type", InternalAccountListParams.PaymentType.ACH.toString())
-        expected.put("per_page", "0")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("counterparty_id", "counterparty_id")
+                    .put("currency", "AED")
+                    .put("legal_entity_id", "legal_entity_id")
+                    .put("metadata[foo]", "string")
+                    .put("payment_direction", "credit")
+                    .put("payment_type", "ach")
+                    .put("per_page", "0")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = InternalAccountListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }
