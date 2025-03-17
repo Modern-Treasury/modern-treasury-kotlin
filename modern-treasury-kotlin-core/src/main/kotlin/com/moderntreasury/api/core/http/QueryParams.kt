@@ -1,3 +1,5 @@
+// File generated from our OpenAPI spec by Stainless.
+
 package com.moderntreasury.api.core.http
 
 import com.moderntreasury.api.core.toImmutable
