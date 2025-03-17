@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class ConnectionLegalEntityServiceTest {
+internal class ConnectionLegalEntityServiceTest {
 
     @Test
     fun create() {

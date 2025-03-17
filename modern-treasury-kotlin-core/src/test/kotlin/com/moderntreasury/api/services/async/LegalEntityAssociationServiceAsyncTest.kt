@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class LegalEntityAssociationServiceAsyncTest {
+internal class LegalEntityAssociationServiceAsyncTest {
 
     @Test
     suspend fun create() {

@@ -9,7 +9,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class PaymentOrderUpdateParamsTest {
+internal class PaymentOrderUpdateParamsTest {
 
     @Test
     fun create() {

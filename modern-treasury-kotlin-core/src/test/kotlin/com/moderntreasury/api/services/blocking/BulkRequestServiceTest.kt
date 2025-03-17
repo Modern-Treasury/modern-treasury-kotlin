@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class BulkRequestServiceTest {
+internal class BulkRequestServiceTest {
 
     @Disabled("Multipart documents aren't constructed properly yet")
     @Test
