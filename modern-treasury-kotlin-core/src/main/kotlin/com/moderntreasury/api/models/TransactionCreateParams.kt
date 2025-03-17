@@ -642,6 +642,23 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [TransactionCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .asOfDate()
+             * .direction()
+             * .internalAccountId()
+             * .vendorCode()
+             * .vendorCodeType()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): TransactionCreateRequest =
                 TransactionCreateRequest(
                     checkRequired("amount", amount),
@@ -970,6 +987,23 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [TransactionCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amount()
+         * .asOfDate()
+         * .direction()
+         * .internalAccountId()
+         * .vendorCode()
+         * .vendorCodeType()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): TransactionCreateParams =
             TransactionCreateParams(
                 body.build(),
@@ -1037,6 +1071,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 

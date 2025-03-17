@@ -1588,6 +1588,54 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [Invoice].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .amountPaid()
+         * .amountRemaining()
+         * .contactDetails()
+         * .counterpartyBillingAddress()
+         * .counterpartyId()
+         * .counterpartyShippingAddress()
+         * .createdAt()
+         * .currency()
+         * .description()
+         * .dueDate()
+         * .expectedPayments()
+         * .fallbackPaymentMethod()
+         * .hostedUrl()
+         * .invoicerAddress()
+         * .ledgerAccountSettlementId()
+         * .liveMode()
+         * .metadata()
+         * .notificationEmailAddresses()
+         * .notificationsEnabled()
+         * .number()
+         * .object_()
+         * .originatingAccountId()
+         * .paymentEffectiveDate()
+         * .paymentMethod()
+         * .paymentOrders()
+         * .paymentType()
+         * .pdfUrl()
+         * .receivingAccountId()
+         * .recipientEmail()
+         * .recipientName()
+         * .remindAfterOverdueDays()
+         * .status()
+         * .totalAmount()
+         * .transactionLineItemIds()
+         * .updatedAt()
+         * .virtualAccountId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): Invoice =
             Invoice(
                 checkRequired("id", id),
@@ -1981,6 +2029,25 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [ContactDetail].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .contactIdentifier()
+             * .contactIdentifierType()
+             * .createdAt()
+             * .discardedAt()
+             * .liveMode()
+             * .object_()
+             * .updatedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): ContactDetail =
                 ContactDetail(
                     checkRequired("id", id),
@@ -2394,6 +2461,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [CounterpartyBillingAddress].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): CounterpartyBillingAddress =
                 CounterpartyBillingAddress(
                     checkRequired("country", country),
@@ -2690,6 +2773,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [CounterpartyShippingAddress].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): CounterpartyShippingAddress =
                 CounterpartyShippingAddress(
                     checkRequired("country", country),
@@ -2984,6 +3083,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [InvoicerAddress].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): InvoicerAddress =
                 InvoicerAddress(
                     checkRequired("country", country),
@@ -3073,6 +3188,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 

@@ -546,6 +546,30 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [LineItem].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accounting()
+         * .accountingCategoryId()
+         * .accountingLedgerClassId()
+         * .amount()
+         * .createdAt()
+         * .description()
+         * .itemizableId()
+         * .itemizableType()
+         * .liveMode()
+         * .metadata()
+         * .object_()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): LineItem =
             LineItem(
                 checkRequired("id", id),
@@ -699,6 +723,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Accounting].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Accounting =
                 Accounting(accountId, classId, additionalProperties.toImmutable())
         }
@@ -883,6 +912,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 

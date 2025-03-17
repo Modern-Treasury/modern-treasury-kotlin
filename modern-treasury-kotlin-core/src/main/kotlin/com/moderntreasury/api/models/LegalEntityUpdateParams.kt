@@ -1306,6 +1306,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [LegalEntityUpdateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): LegalEntityUpdateRequest =
                 LegalEntityUpdateRequest(
                     (addresses ?: JsonMissing.of()).map { it.toImmutable() },
@@ -1840,6 +1845,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [LegalEntityUpdateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): LegalEntityUpdateParams =
             LegalEntityUpdateParams(
                 checkRequired("id", id),
@@ -2167,6 +2184,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [LegalEntityAddressCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): LegalEntityAddressCreateRequest =
                 LegalEntityAddressCreateRequest(
                     checkRequired("country", country),
@@ -2492,6 +2525,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [IdentificationCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .idNumber()
+             * .idType()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): IdentificationCreateRequest =
                 IdentificationCreateRequest(
                     checkRequired("idNumber", idNumber),
@@ -2921,6 +2967,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 
@@ -3034,6 +3085,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [PhoneNumber].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): PhoneNumber = PhoneNumber(phoneNumber, additionalProperties.toImmutable())
         }
 

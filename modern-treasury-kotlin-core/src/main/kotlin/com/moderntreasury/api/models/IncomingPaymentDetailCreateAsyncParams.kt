@@ -511,6 +511,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [IncomingPaymentDetailCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): IncomingPaymentDetailCreateRequest =
                 IncomingPaymentDetailCreateRequest(
                     amount,
@@ -793,6 +798,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [IncomingPaymentDetailCreateAsyncParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): IncomingPaymentDetailCreateAsyncParams =
             IncomingPaymentDetailCreateAsyncParams(
                 body.build(),

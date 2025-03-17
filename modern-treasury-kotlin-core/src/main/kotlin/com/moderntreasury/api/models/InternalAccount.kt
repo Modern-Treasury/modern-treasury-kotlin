@@ -788,6 +788,36 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [InternalAccount].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountDetails()
+         * .accountType()
+         * .connection()
+         * .counterpartyId()
+         * .createdAt()
+         * .currency()
+         * .ledgerAccountId()
+         * .legalEntityId()
+         * .liveMode()
+         * .metadata()
+         * .name()
+         * .object_()
+         * .parentAccountId()
+         * .partyAddress()
+         * .partyName()
+         * .partyType()
+         * .routingDetails()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InternalAccount =
             InternalAccount(
                 checkRequired("id", id),
@@ -1010,6 +1040,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
         }
 
@@ -1463,6 +1498,28 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Address].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .country()
+             * .createdAt()
+             * .line1()
+             * .line2()
+             * .liveMode()
+             * .locality()
+             * .object_()
+             * .postalCode()
+             * .region()
+             * .updatedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Address =
                 Address(
                     checkRequired("id", id),

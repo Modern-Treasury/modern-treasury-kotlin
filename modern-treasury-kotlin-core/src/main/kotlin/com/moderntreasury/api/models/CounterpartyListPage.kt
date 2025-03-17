@@ -153,7 +153,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
+            /**
+             * Returns an immutable instance of [Response].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Response =
                 Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
         }
     }

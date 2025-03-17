@@ -386,6 +386,26 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [Connection].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .createdAt()
+         * .discardedAt()
+         * .liveMode()
+         * .object_()
+         * .updatedAt()
+         * .vendorCustomerId()
+         * .vendorId()
+         * .vendorName()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): Connection =
             Connection(
                 checkRequired("id", id),
