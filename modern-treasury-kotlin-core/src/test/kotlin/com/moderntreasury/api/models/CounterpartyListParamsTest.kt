@@ -7,7 +7,7 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class CounterpartyListParamsTest {
+internal class CounterpartyListParamsTest {
 
     @Test
     fun create() {

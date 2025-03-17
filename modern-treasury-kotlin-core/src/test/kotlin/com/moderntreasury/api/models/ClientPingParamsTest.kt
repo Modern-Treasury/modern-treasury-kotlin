@@ -4,7 +4,7 @@ package com.moderntreasury.api.models
 
 import org.junit.jupiter.api.Test
 
-class ClientPingParamsTest {
+internal class ClientPingParamsTest {
 
     @Test
     fun create() {

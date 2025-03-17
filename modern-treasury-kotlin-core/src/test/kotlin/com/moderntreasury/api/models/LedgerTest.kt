@@ -7,7 +7,7 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LedgerTest {
+internal class LedgerTest {
 
     @Test
     fun createLedger() {

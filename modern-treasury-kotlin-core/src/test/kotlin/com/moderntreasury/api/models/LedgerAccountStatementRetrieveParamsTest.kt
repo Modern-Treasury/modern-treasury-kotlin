@@ -5,7 +5,7 @@ package com.moderntreasury.api.models
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LedgerAccountStatementRetrieveParamsTest {
+internal class LedgerAccountStatementRetrieveParamsTest {
 
     @Test
     fun create() {
