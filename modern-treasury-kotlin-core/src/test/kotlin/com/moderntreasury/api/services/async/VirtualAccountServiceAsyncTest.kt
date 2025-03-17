@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class VirtualAccountServiceAsyncTest {
+internal class VirtualAccountServiceAsyncTest {
 
     @Test
     suspend fun create() {

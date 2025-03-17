@@ -8,7 +8,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LedgerTransactionUpdateParamsTest {
+internal class LedgerTransactionUpdateParamsTest {
 
     @Test
     fun create() {

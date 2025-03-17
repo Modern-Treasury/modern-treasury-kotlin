@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class LedgerAccountStatementServiceTest {
+internal class LedgerAccountStatementServiceTest {
 
     @Disabled("Prism is broken in this case")
     @Test

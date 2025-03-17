@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class DocumentServiceTest {
+internal class DocumentServiceTest {
 
     @Disabled("multipart/form-data not yet supported")
     @Test

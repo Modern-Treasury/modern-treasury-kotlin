@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class BalanceReportServiceAsyncTest {
+internal class BalanceReportServiceAsyncTest {
 
     @Test
     suspend fun create() {

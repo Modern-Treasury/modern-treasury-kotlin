@@ -9,7 +9,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LegalEntityUpdateParamsTest {
+internal class LegalEntityUpdateParamsTest {
 
     @Test
     fun create() {
