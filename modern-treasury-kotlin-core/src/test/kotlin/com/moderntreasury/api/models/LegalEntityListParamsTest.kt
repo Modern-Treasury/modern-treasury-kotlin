@@ -37,22 +37,27 @@ internal class LegalEntityListParamsTest {
                 .perPage(0L)
                 .showDeleted("show_deleted")
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("legal_entity_type", LegalEntityListParams.LegalEntityType.BUSINESS.toString())
-        LegalEntityListParams.Metadata.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
-        expected.put("per_page", "0")
-        expected.put("show_deleted", "show_deleted")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("legal_entity_type", "business")
+                    .put("metadata[foo]", "string")
+                    .put("per_page", "0")
+                    .put("show_deleted", "show_deleted")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = LegalEntityListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

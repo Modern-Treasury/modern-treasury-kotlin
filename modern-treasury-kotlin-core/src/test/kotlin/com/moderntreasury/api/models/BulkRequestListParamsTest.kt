@@ -39,23 +39,28 @@ internal class BulkRequestListParamsTest {
                 .resourceType(BulkRequestListParams.ResourceType.PAYMENT_ORDER)
                 .status(BulkRequestListParams.Status.PENDING)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("action_type", BulkRequestListParams.ActionType.CREATE.toString())
-        expected.put("after_cursor", "after_cursor")
-        BulkRequestListParams.Metadata.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
-        expected.put("per_page", "0")
-        expected.put("resource_type", BulkRequestListParams.ResourceType.PAYMENT_ORDER.toString())
-        expected.put("status", BulkRequestListParams.Status.PENDING.toString())
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("action_type", "create")
+                    .put("after_cursor", "after_cursor")
+                    .put("metadata[foo]", "string")
+                    .put("per_page", "0")
+                    .put("resource_type", "payment_order")
+                    .put("status", "pending")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = BulkRequestListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

@@ -96,44 +96,39 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.counterpartyId?.let { queryParams.put("counterparty_id", listOf(it.toString())) }
-        this.createdAtEnd?.let { queryParams.put("created_at_end", listOf(it.toString())) }
-        this.createdAtStart?.let { queryParams.put("created_at_start", listOf(it.toString())) }
-        this.direction?.let { queryParams.put("direction", listOf(it.toString())) }
-        this.effectiveDateEnd?.let { queryParams.put("effective_date_end", listOf(it.toString())) }
-        this.effectiveDateStart?.let {
-            queryParams.put("effective_date_start", listOf(it.toString()))
-        }
-        this.metadata?.forEachQueryParam { key, values ->
-            queryParams.put("metadata[$key]", values)
-        }
-        this.originatingAccountId?.let {
-            queryParams.put("originating_account_id", listOf(it.toString()))
-        }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.priority?.let { queryParams.put("priority", listOf(it.toString())) }
-        this.processAfterEnd?.let {
-            queryParams.put(
-                "process_after_end",
-                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
-            )
-        }
-        this.processAfterStart?.let {
-            queryParams.put(
-                "process_after_start",
-                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
-            )
-        }
-        this.referenceNumber?.let { queryParams.put("reference_number", listOf(it.toString())) }
-        this.status?.let { queryParams.put("status", listOf(it.toString())) }
-        this.transactionId?.let { queryParams.put("transaction_id", listOf(it.toString())) }
-        this.type?.let { queryParams.put("type", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                counterpartyId?.let { put("counterparty_id", it) }
+                createdAtEnd?.let { put("created_at_end", it.toString()) }
+                createdAtStart?.let { put("created_at_start", it.toString()) }
+                direction?.let { put("direction", it.asString()) }
+                effectiveDateEnd?.let { put("effective_date_end", it.toString()) }
+                effectiveDateStart?.let { put("effective_date_start", it.toString()) }
+                metadata?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("metadata[$key]", value)
+                        }
+                    }
+                }
+                originatingAccountId?.let { put("originating_account_id", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                priority?.let { put("priority", it.asString()) }
+                processAfterEnd?.let {
+                    put("process_after_end", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
+                processAfterStart?.let {
+                    put("process_after_start", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
+                referenceNumber?.let { put("reference_number", it) }
+                status?.let { put("status", it.asString()) }
+                transactionId?.let { put("transaction_id", it) }
+                type?.let { put("type", it.asString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 
@@ -397,10 +392,6 @@ private constructor(
     class Metadata private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
 
         fun toBuilder() = Builder().from(this)
 

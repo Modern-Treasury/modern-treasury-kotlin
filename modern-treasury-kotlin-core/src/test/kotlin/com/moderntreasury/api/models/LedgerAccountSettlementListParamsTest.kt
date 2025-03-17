@@ -63,33 +63,32 @@ internal class LedgerAccountSettlementListParamsTest {
                         .build()
                 )
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("id[]", "string")
-        expected.put("after_cursor", "after_cursor")
-        LedgerAccountSettlementListParams.CreatedAt.builder()
-            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("created_at[$key]", values) }
-        expected.put("ledger_id", "ledger_id")
-        expected.put("ledger_transaction_id", "ledger_transaction_id")
-        LedgerAccountSettlementListParams.Metadata.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
-        expected.put("per_page", "0")
-        expected.put("settled_ledger_account_id", "settled_ledger_account_id")
-        expected.put("settlement_entry_direction", "settlement_entry_direction")
-        LedgerAccountSettlementListParams.UpdatedAt.builder()
-            .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("updated_at[$key]", values) }
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("id[]", "string")
+                    .put("after_cursor", "after_cursor")
+                    .put("created_at[foo]", "2019-12-27T18:11:19.117Z")
+                    .put("ledger_id", "ledger_id")
+                    .put("ledger_transaction_id", "ledger_transaction_id")
+                    .put("metadata[foo]", "string")
+                    .put("per_page", "0")
+                    .put("settled_ledger_account_id", "settled_ledger_account_id")
+                    .put("settlement_entry_direction", "settlement_entry_direction")
+                    .put("updated_at[foo]", "2019-12-27T18:11:19.117Z")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = LedgerAccountSettlementListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

@@ -47,26 +47,31 @@ internal class ForeignExchangeQuoteListParamsTest {
                 .perPage(0L)
                 .targetCurrency("target_currency")
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("base_currency", "base_currency")
-        expected.put("effective_at_end", "2019-12-27")
-        expected.put("effective_at_start", "2019-12-27")
-        expected.put("expires_at", "2019-12-27T18:11:19.117Z")
-        expected.put("internal_account_id", "internal_account_id")
-        ForeignExchangeQuoteListParams.Metadata.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
-        expected.put("per_page", "0")
-        expected.put("target_currency", "target_currency")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("base_currency", "base_currency")
+                    .put("effective_at_end", "2019-12-27")
+                    .put("effective_at_start", "2019-12-27")
+                    .put("expires_at", "2019-12-27T18:11:19.117Z")
+                    .put("internal_account_id", "internal_account_id")
+                    .put("metadata[foo]", "string")
+                    .put("per_page", "0")
+                    .put("target_currency", "target_currency")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = ForeignExchangeQuoteListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

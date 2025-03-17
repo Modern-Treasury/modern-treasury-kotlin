@@ -23,13 +23,16 @@ internal class ValidationValidateRoutingNumberParamsTest {
                 .routingNumber("routing_number")
                 .routingNumberType(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("routing_number", "routing_number")
-        expected.put(
-            "routing_number_type",
-            ValidationValidateRoutingNumberParams.RoutingNumberType.ABA.toString(),
-        )
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("routing_number", "routing_number")
+                    .put("routing_number_type", "aba")
+                    .build()
+            )
     }
 
     @Test
@@ -39,12 +42,15 @@ internal class ValidationValidateRoutingNumberParamsTest {
                 .routingNumber("routing_number")
                 .routingNumberType(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("routing_number", "routing_number")
-        expected.put(
-            "routing_number_type",
-            ValidationValidateRoutingNumberParams.RoutingNumberType.ABA.toString(),
-        )
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("routing_number", "routing_number")
+                    .put("routing_number_type", "aba")
+                    .build()
+            )
     }
 }

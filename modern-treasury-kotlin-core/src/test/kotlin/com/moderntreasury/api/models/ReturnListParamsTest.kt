@@ -31,23 +31,28 @@ internal class ReturnListParamsTest {
                 .returnableId("returnable_id")
                 .returnableType(ReturnListParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("counterparty_id", "counterparty_id")
-        expected.put("internal_account_id", "internal_account_id")
-        expected.put("per_page", "0")
-        expected.put("returnable_id", "returnable_id")
-        expected.put(
-            "returnable_type",
-            ReturnListParams.ReturnableType.INCOMING_PAYMENT_DETAIL.toString(),
-        )
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("counterparty_id", "counterparty_id")
+                    .put("internal_account_id", "internal_account_id")
+                    .put("per_page", "0")
+                    .put("returnable_id", "returnable_id")
+                    .put("returnable_type", "incoming_payment_detail")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = ReturnListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

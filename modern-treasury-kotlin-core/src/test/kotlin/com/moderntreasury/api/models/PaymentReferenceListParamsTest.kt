@@ -29,22 +29,27 @@ internal class PaymentReferenceListParamsTest {
                 .referenceableId("referenceable_id")
                 .referenceableType(PaymentReferenceListParams.ReferenceableType.PAYMENT_ORDER)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("per_page", "0")
-        expected.put("reference_number", "reference_number")
-        expected.put("referenceable_id", "referenceable_id")
-        expected.put(
-            "referenceable_type",
-            PaymentReferenceListParams.ReferenceableType.PAYMENT_ORDER.toString(),
-        )
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("per_page", "0")
+                    .put("reference_number", "reference_number")
+                    .put("referenceable_id", "referenceable_id")
+                    .put("referenceable_type", "payment_order")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = PaymentReferenceListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

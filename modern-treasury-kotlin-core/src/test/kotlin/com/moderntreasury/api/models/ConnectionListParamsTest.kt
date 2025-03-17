@@ -27,18 +27,26 @@ internal class ConnectionListParamsTest {
                 .perPage(0L)
                 .vendorCustomerId("vendor_customer_id")
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("entity", "entity")
-        expected.put("per_page", "0")
-        expected.put("vendor_customer_id", "vendor_customer_id")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("entity", "entity")
+                    .put("per_page", "0")
+                    .put("vendor_customer_id", "vendor_customer_id")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = ConnectionListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }
