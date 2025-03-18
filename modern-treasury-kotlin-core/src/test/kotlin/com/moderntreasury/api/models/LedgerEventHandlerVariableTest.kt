@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 internal class LedgerEventHandlerVariableTest {
 
     @Test
-    fun createLedgerEventHandlerVariable() {
+    fun create() {
         val ledgerEventHandlerVariable =
             LedgerEventHandlerVariable.builder()
                 .query(
@@ -20,7 +20,7 @@ internal class LedgerEventHandlerVariableTest {
                 )
                 .type("ledger_account")
                 .build()
-        assertThat(ledgerEventHandlerVariable).isNotNull
+
         assertThat(ledgerEventHandlerVariable.query())
             .isEqualTo(
                 LedgerEventHandlerVariable.LedgerEventHandlerConditions.builder()

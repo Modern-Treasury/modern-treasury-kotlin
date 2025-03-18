@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 internal class InvoiceLineItemTest {
 
     @Test
-    fun createInvoiceLineItem() {
+    fun create() {
         val invoiceLineItem =
             InvoiceLineItem.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -33,7 +33,7 @@ internal class InvoiceLineItemTest {
                 .unitAmountDecimal("unit_amount_decimal")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        assertThat(invoiceLineItem).isNotNull
+
         assertThat(invoiceLineItem.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(invoiceLineItem.amount()).isEqualTo(0L)
         assertThat(invoiceLineItem.createdAt())

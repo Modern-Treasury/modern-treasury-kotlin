@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 internal class ReturnObjectTest {
 
     @Test
-    fun createReturnObject() {
+    fun create() {
         val returnObject =
             ReturnObject.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -50,7 +50,7 @@ internal class ReturnObjectTest {
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .additionalInformation("additional_information")
                 .build()
-        assertThat(returnObject).isNotNull
+
         assertThat(returnObject.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(returnObject.amount()).isEqualTo(0L)
         assertThat(returnObject.code()).isEqualTo(ReturnObject.Code._901)

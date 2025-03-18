@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class DocumentTest {
 
     @Test
-    fun createDocument() {
+    fun create() {
         val document =
             Document.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -42,7 +42,7 @@ internal class DocumentTest {
                 .source("source")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        assertThat(document).isNotNull
+
         assertThat(document.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(document.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(document.discardedAt())
