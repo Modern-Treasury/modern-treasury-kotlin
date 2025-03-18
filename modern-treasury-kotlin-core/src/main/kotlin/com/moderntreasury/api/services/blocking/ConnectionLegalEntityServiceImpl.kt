@@ -104,7 +104,7 @@ internal constructor(private val clientOptions: ClientOptions) : ConnectionLegal
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("api", "connection_legal_entities", params.getPathParam(0))
+                    .addPathSegments("api", "connection_legal_entities", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -131,7 +131,7 @@ internal constructor(private val clientOptions: ClientOptions) : ConnectionLegal
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
-                    .addPathSegments("api", "connection_legal_entities", params.getPathParam(0))
+                    .addPathSegments("api", "connection_legal_entities", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)

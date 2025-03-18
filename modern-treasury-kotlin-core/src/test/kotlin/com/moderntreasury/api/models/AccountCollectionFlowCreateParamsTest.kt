@@ -30,9 +30,9 @@ internal class AccountCollectionFlowCreateParamsTest {
 
         assertNotNull(body)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.paymentTypes()).isEqualTo(listOf("string"))
+        assertThat(body.paymentTypes()).containsExactly("string")
         assertThat(body.receivingCountries())
-            .isEqualTo(listOf(AccountCollectionFlowCreateParams.ReceivingCountry.USA))
+            .containsExactly(AccountCollectionFlowCreateParams.ReceivingCountry.USA)
     }
 
     @Test
@@ -47,6 +47,6 @@ internal class AccountCollectionFlowCreateParamsTest {
 
         assertNotNull(body)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.paymentTypes()).isEqualTo(listOf("string"))
+        assertThat(body.paymentTypes()).containsExactly("string")
     }
 }

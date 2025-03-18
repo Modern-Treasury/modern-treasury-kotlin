@@ -16,18 +16,16 @@ internal class LedgerAccountCategoryRemoveNestedCategoryParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             LedgerAccountCategoryRemoveNestedCategoryParams.builder()
                 .id("id")
                 .subCategoryId("sub_category_id")
                 .build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
-        // path param "subCategoryId"
-        assertThat(params.getPathParam(1)).isEqualTo("sub_category_id")
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        assertThat(params._pathParam(1)).isEqualTo("sub_category_id")
         // out-of-bound path param
-        assertThat(params.getPathParam(2)).isEqualTo("")
+        assertThat(params._pathParam(2)).isEqualTo("")
     }
 }

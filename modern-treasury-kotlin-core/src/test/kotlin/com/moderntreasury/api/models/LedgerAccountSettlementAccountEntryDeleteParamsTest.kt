@@ -18,6 +18,19 @@ internal class LedgerAccountSettlementAccountEntryDeleteParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            LedgerAccountSettlementAccountEntryDeleteParams.builder()
+                .id("id")
+                .addLedgerEntryId(JsonValue.from(mapOf<String, Any>()))
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             LedgerAccountSettlementAccountEntryDeleteParams.builder()
@@ -28,34 +41,6 @@ internal class LedgerAccountSettlementAccountEntryDeleteParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-        assertThat(body.ledgerEntryIds()).isEqualTo(listOf(JsonValue.from(mapOf<String, Any>())))
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            LedgerAccountSettlementAccountEntryDeleteParams.builder()
-                .id("id")
-                .addLedgerEntryId(JsonValue.from(mapOf<String, Any>()))
-                .build()
-
-        val body = params._body()
-
-        assertNotNull(body)
-        assertThat(body.ledgerEntryIds()).isEqualTo(listOf(JsonValue.from(mapOf<String, Any>())))
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            LedgerAccountSettlementAccountEntryDeleteParams.builder()
-                .id("id")
-                .addLedgerEntryId(JsonValue.from(mapOf<String, Any>()))
-                .build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(body.ledgerEntryIds()).containsExactly(JsonValue.from(mapOf<String, Any>()))
     }
 }

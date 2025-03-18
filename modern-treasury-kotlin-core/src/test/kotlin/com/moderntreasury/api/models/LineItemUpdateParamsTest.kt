@@ -26,6 +26,22 @@ internal class LineItemUpdateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            LineItemUpdateParams.builder()
+                .itemizableType(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS)
+                .itemizableId("itemizable_id")
+                .id("id")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("expected_payments")
+        assertThat(params._pathParam(1)).isEqualTo("itemizable_id")
+        assertThat(params._pathParam(2)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(3)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             LineItemUpdateParams.builder()
@@ -66,25 +82,5 @@ internal class LineItemUpdateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            LineItemUpdateParams.builder()
-                .itemizableType(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS)
-                .itemizableId("itemizable_id")
-                .id("id")
-                .build()
-        assertThat(params).isNotNull
-        // path param "itemizableType"
-        assertThat(params.getPathParam(0))
-            .isEqualTo(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS.toString())
-        // path param "itemizableId"
-        assertThat(params.getPathParam(1)).isEqualTo("itemizable_id")
-        // path param "id"
-        assertThat(params.getPathParam(2)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(3)).isEqualTo("")
     }
 }

@@ -150,7 +150,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("api", "ledger_account_categories", params.getPathParam(0))
+                    .addPathSegments("api", "ledger_account_categories", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -177,7 +177,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
-                    .addPathSegments("api", "ledger_account_categories", params.getPathParam(0))
+                    .addPathSegments("api", "ledger_account_categories", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -245,7 +245,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
-                    .addPathSegments("api", "ledger_account_categories", params.getPathParam(0))
+                    .addPathSegments("api", "ledger_account_categories", params._pathParam(0))
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
@@ -275,9 +275,9 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
                     .addPathSegments(
                         "api",
                         "ledger_account_categories",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "ledger_accounts",
-                        params.getPathParam(1),
+                        params._pathParam(1),
                     )
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
@@ -300,9 +300,9 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
                     .addPathSegments(
                         "api",
                         "ledger_account_categories",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "ledger_account_categories",
-                        params.getPathParam(1),
+                        params._pathParam(1),
                     )
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
@@ -325,9 +325,9 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
                     .addPathSegments(
                         "api",
                         "ledger_account_categories",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "ledger_accounts",
-                        params.getPathParam(1),
+                        params._pathParam(1),
                     )
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
@@ -350,9 +350,9 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
                     .addPathSegments(
                         "api",
                         "ledger_account_categories",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "ledger_account_categories",
-                        params.getPathParam(1),
+                        params._pathParam(1),
                     )
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()

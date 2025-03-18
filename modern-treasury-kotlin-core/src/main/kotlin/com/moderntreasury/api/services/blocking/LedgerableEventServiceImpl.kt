@@ -85,7 +85,7 @@ class LedgerableEventServiceImpl internal constructor(private val clientOptions:
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("api", "ledgerable_events", params.getPathParam(0))
+                    .addPathSegments("api", "ledgerable_events", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

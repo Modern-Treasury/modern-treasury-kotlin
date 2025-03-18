@@ -30,6 +30,20 @@ internal class InvoiceLineItemCreateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            InvoiceLineItemCreateParams.builder()
+                .invoiceId("invoice_id")
+                .name("name")
+                .unitAmount(0L)
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("invoice_id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             InvoiceLineItemCreateParams.builder()
@@ -82,20 +96,5 @@ internal class InvoiceLineItemCreateParamsTest {
         assertNotNull(body)
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.unitAmount()).isEqualTo(0L)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            InvoiceLineItemCreateParams.builder()
-                .invoiceId("invoice_id")
-                .name("name")
-                .unitAmount(0L)
-                .build()
-        assertThat(params).isNotNull
-        // path param "invoiceId"
-        assertThat(params.getPathParam(0)).isEqualTo("invoice_id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

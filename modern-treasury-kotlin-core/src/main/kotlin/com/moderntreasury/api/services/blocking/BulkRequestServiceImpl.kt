@@ -94,7 +94,7 @@ class BulkRequestServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("api", "bulk_requests", params.getPathParam(0))
+                    .addPathSegments("api", "bulk_requests", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
