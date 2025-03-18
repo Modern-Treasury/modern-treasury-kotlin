@@ -77,8 +77,8 @@ class AccountDetailServiceAsyncImpl internal constructor(private val clientOptio
                     .method(HttpMethod.POST)
                     .addPathSegments(
                         "api",
-                        params.getPathParam(0),
-                        params.getPathParam(1),
+                        params._pathParam(0),
+                        params._pathParam(1),
                         "account_details",
                     )
                     .body(json(clientOptions.jsonMapper, params._body()))
@@ -109,10 +109,10 @@ class AccountDetailServiceAsyncImpl internal constructor(private val clientOptio
                     .method(HttpMethod.GET)
                     .addPathSegments(
                         "api",
-                        params.getPathParam(0),
-                        params.getPathParam(1),
+                        params._pathParam(0),
+                        params._pathParam(1),
                         "account_details",
-                        params.getPathParam(2),
+                        params._pathParam(2),
                     )
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -142,8 +142,8 @@ class AccountDetailServiceAsyncImpl internal constructor(private val clientOptio
                     .method(HttpMethod.GET)
                     .addPathSegments(
                         "api",
-                        params.getPathParam(0),
-                        params.getPathParam(1),
+                        params._pathParam(0),
+                        params._pathParam(1),
                         "account_details",
                     )
                     .build()
@@ -185,10 +185,10 @@ class AccountDetailServiceAsyncImpl internal constructor(private val clientOptio
                     .method(HttpMethod.DELETE)
                     .addPathSegments(
                         "api",
-                        params.getPathParam(0),
-                        params.getPathParam(1),
+                        params._pathParam(0),
+                        params._pathParam(1),
                         "account_details",
-                        params.getPathParam(2),
+                        params._pathParam(2),
                     )
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()

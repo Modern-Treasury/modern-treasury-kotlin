@@ -21,6 +21,20 @@ internal class ExternalAccountVerifyParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            ExternalAccountVerifyParams.builder()
+                .id("id")
+                .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .paymentType(ExternalAccountVerifyParams.PaymentType.ACH)
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             ExternalAccountVerifyParams.builder()
@@ -56,20 +70,5 @@ internal class ExternalAccountVerifyParamsTest {
         assertNotNull(body)
         assertThat(body.originatingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.paymentType()).isEqualTo(ExternalAccountVerifyParams.PaymentType.ACH)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            ExternalAccountVerifyParams.builder()
-                .id("id")
-                .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .paymentType(ExternalAccountVerifyParams.PaymentType.ACH)
-                .build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

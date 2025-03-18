@@ -826,91 +826,87 @@ internal class CounterpartyCreateParamsTest {
                     .build()
             )
         assertThat(body.accounts())
-            .isEqualTo(
-                listOf(
-                    CounterpartyCreateParams.Account.builder()
-                        .addAccountDetail(
-                            CounterpartyCreateParams.Account.AccountDetail.builder()
-                                .accountNumber("account_number")
-                                .accountNumberType(
-                                    CounterpartyCreateParams.Account.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
-                                )
-                                .build()
-                        )
-                        .accountType(ExternalAccountType.CASH)
-                        .addContactDetail(
-                            CounterpartyCreateParams.Account.ContactDetailCreateRequest.builder()
-                                .contactIdentifier("contact_identifier")
-                                .contactIdentifierType(
-                                    CounterpartyCreateParams.Account.ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
-                                )
-                                .build()
-                        )
-                        .ledgerAccount(
-                            CounterpartyCreateParams.Account.LedgerAccountCreateRequest.builder()
-                                .currency("currency")
-                                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .name("name")
-                                .normalBalance(TransactionDirection.CREDIT)
-                                .currencyExponent(0L)
-                                .description("description")
-                                .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .ledgerableType(
-                                    CounterpartyCreateParams.Account.LedgerAccountCreateRequest
-                                        .LedgerableType
-                                        .COUNTERPARTY
-                                )
-                                .metadata(
-                                    CounterpartyCreateParams.Account.LedgerAccountCreateRequest
-                                        .Metadata
-                                        .builder()
-                                        .putAdditionalProperty("key", JsonValue.from("value"))
-                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .metadata(
-                            CounterpartyCreateParams.Account.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                .build()
-                        )
-                        .name("name")
-                        .partyAddress(
-                            CounterpartyCreateParams.Account.AddressRequest.builder()
-                                .country("country")
-                                .line1("line1")
-                                .line2("line2")
-                                .locality("locality")
-                                .postalCode("postal_code")
-                                .region("region")
-                                .build()
-                        )
-                        .partyIdentifier("party_identifier")
-                        .partyName("party_name")
-                        .partyType(CounterpartyCreateParams.Account.PartyType.BUSINESS)
-                        .plaidProcessorToken("plaid_processor_token")
-                        .addRoutingDetail(
-                            CounterpartyCreateParams.Account.RoutingDetail.builder()
-                                .routingNumber("routing_number")
-                                .routingNumberType(
-                                    CounterpartyCreateParams.Account.RoutingDetail.RoutingNumberType
-                                        .ABA
-                                )
-                                .paymentType(
-                                    CounterpartyCreateParams.Account.RoutingDetail.PaymentType.ACH
-                                )
-                                .build()
-                        )
-                        .build()
-                )
+            .containsExactly(
+                CounterpartyCreateParams.Account.builder()
+                    .addAccountDetail(
+                        CounterpartyCreateParams.Account.AccountDetail.builder()
+                            .accountNumber("account_number")
+                            .accountNumberType(
+                                CounterpartyCreateParams.Account.AccountDetail.AccountNumberType
+                                    .AU_NUMBER
+                            )
+                            .build()
+                    )
+                    .accountType(ExternalAccountType.CASH)
+                    .addContactDetail(
+                        CounterpartyCreateParams.Account.ContactDetailCreateRequest.builder()
+                            .contactIdentifier("contact_identifier")
+                            .contactIdentifierType(
+                                CounterpartyCreateParams.Account.ContactDetailCreateRequest
+                                    .ContactIdentifierType
+                                    .EMAIL
+                            )
+                            .build()
+                    )
+                    .ledgerAccount(
+                        CounterpartyCreateParams.Account.LedgerAccountCreateRequest.builder()
+                            .currency("currency")
+                            .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .name("name")
+                            .normalBalance(TransactionDirection.CREDIT)
+                            .currencyExponent(0L)
+                            .description("description")
+                            .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .ledgerableType(
+                                CounterpartyCreateParams.Account.LedgerAccountCreateRequest
+                                    .LedgerableType
+                                    .COUNTERPARTY
+                            )
+                            .metadata(
+                                CounterpartyCreateParams.Account.LedgerAccountCreateRequest.Metadata
+                                    .builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .metadata(
+                        CounterpartyCreateParams.Account.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .name("name")
+                    .partyAddress(
+                        CounterpartyCreateParams.Account.AddressRequest.builder()
+                            .country("country")
+                            .line1("line1")
+                            .line2("line2")
+                            .locality("locality")
+                            .postalCode("postal_code")
+                            .region("region")
+                            .build()
+                    )
+                    .partyIdentifier("party_identifier")
+                    .partyName("party_name")
+                    .partyType(CounterpartyCreateParams.Account.PartyType.BUSINESS)
+                    .plaidProcessorToken("plaid_processor_token")
+                    .addRoutingDetail(
+                        CounterpartyCreateParams.Account.RoutingDetail.builder()
+                            .routingNumber("routing_number")
+                            .routingNumberType(
+                                CounterpartyCreateParams.Account.RoutingDetail.RoutingNumberType.ABA
+                            )
+                            .paymentType(
+                                CounterpartyCreateParams.Account.RoutingDetail.PaymentType.ACH
+                            )
+                            .build()
+                    )
+                    .build()
             )
         assertThat(body.email()).isEqualTo("dev@stainless.com")
         assertThat(body.ledgerType()).isEqualTo(CounterpartyCreateParams.LedgerType.CUSTOMER)

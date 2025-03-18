@@ -63,7 +63,7 @@ internal class LedgerAccountCreateParamsTest {
         assertThat(body.currencyExponent()).isEqualTo(0L)
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.ledgerAccountCategoryIds())
-            .isEqualTo(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+            .containsExactly("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.ledgerableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.ledgerableType())
             .isEqualTo(LedgerAccountCreateParams.LedgerableType.COUNTERPARTY)

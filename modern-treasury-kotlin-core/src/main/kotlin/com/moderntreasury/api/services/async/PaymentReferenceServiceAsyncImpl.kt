@@ -67,7 +67,7 @@ internal constructor(private val clientOptions: ClientOptions) : PaymentReferenc
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("api", "payment_references", params.getPathParam(0))
+                    .addPathSegments("api", "payment_references", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -134,7 +134,7 @@ internal constructor(private val clientOptions: ClientOptions) : PaymentReferenc
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("api", "payment_references", params.getPathParam(0))
+                    .addPathSegments("api", "payment_references", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

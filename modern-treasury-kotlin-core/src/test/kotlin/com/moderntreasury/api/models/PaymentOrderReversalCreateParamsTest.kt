@@ -98,6 +98,19 @@ internal class PaymentOrderReversalCreateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            PaymentOrderReversalCreateParams.builder()
+                .paymentOrderId("payment_order_id")
+                .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("payment_order_id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             PaymentOrderReversalCreateParams.builder()
@@ -281,19 +294,5 @@ internal class PaymentOrderReversalCreateParamsTest {
 
         assertNotNull(body)
         assertThat(body.reason()).isEqualTo(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            PaymentOrderReversalCreateParams.builder()
-                .paymentOrderId("payment_order_id")
-                .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
-                .build()
-        assertThat(params).isNotNull
-        // path param "paymentOrderId"
-        assertThat(params.getPathParam(0)).isEqualTo("payment_order_id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

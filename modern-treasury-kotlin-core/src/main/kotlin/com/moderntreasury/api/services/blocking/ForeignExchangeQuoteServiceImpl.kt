@@ -96,7 +96,7 @@ internal constructor(private val clientOptions: ClientOptions) : ForeignExchange
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("api", "foreign_exchange_quotes", params.getPathParam(0))
+                    .addPathSegments("api", "foreign_exchange_quotes", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
