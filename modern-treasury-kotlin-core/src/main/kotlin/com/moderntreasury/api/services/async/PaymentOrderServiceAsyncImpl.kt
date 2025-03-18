@@ -123,7 +123,7 @@ class PaymentOrderServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("api", "payment_orders", params.getPathParam(0))
+                    .addPathSegments("api", "payment_orders", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -149,7 +149,7 @@ class PaymentOrderServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
-                    .addPathSegments("api", "payment_orders", params.getPathParam(0))
+                    .addPathSegments("api", "payment_orders", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)

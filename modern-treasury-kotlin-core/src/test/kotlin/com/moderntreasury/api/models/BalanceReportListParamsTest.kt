@@ -21,6 +21,16 @@ internal class BalanceReportListParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            BalanceReportListParams.builder().internalAccountId("internal_account_id").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("internal_account_id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun queryParams() {
         val params =
             BalanceReportListParams.builder()
@@ -52,16 +62,5 @@ internal class BalanceReportListParamsTest {
         val queryParams = params._queryParams()
 
         assertThat(queryParams).isEqualTo(QueryParams.builder().build())
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            BalanceReportListParams.builder().internalAccountId("internal_account_id").build()
-        assertThat(params).isNotNull
-        // path param "internalAccountId"
-        assertThat(params.getPathParam(0)).isEqualTo("internal_account_id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

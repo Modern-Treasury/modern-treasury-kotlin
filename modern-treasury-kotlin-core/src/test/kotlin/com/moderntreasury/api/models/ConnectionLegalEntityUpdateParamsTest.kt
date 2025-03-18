@@ -17,6 +17,15 @@ internal class ConnectionLegalEntityUpdateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params = ConnectionLegalEntityUpdateParams.builder().id("id").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             ConnectionLegalEntityUpdateParams.builder()
@@ -37,15 +46,5 @@ internal class ConnectionLegalEntityUpdateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params = ConnectionLegalEntityUpdateParams.builder().id("id").build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

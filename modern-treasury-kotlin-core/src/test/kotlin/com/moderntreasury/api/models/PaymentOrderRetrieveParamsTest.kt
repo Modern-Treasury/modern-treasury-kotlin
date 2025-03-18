@@ -13,12 +13,11 @@ internal class PaymentOrderRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params = PaymentOrderRetrieveParams.builder().id("id").build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

@@ -25,6 +25,15 @@ internal class LedgerAccountBalanceMonitorUpdateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params = LedgerAccountBalanceMonitorUpdateParams.builder().id("id").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             LedgerAccountBalanceMonitorUpdateParams.builder()
@@ -60,15 +69,5 @@ internal class LedgerAccountBalanceMonitorUpdateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params = LedgerAccountBalanceMonitorUpdateParams.builder().id("id").build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

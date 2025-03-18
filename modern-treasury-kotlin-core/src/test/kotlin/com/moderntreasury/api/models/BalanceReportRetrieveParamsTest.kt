@@ -16,18 +16,16 @@ internal class BalanceReportRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             BalanceReportRetrieveParams.builder()
                 .internalAccountId("internal_account_id")
                 .id("id")
                 .build()
-        assertThat(params).isNotNull
-        // path param "internalAccountId"
-        assertThat(params.getPathParam(0)).isEqualTo("internal_account_id")
-        // path param "id"
-        assertThat(params.getPathParam(1)).isEqualTo("id")
+
+        assertThat(params._pathParam(0)).isEqualTo("internal_account_id")
+        assertThat(params._pathParam(1)).isEqualTo("id")
         // out-of-bound path param
-        assertThat(params.getPathParam(2)).isEqualTo("")
+        assertThat(params._pathParam(2)).isEqualTo("")
     }
 }

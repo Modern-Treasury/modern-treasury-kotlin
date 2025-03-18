@@ -174,29 +174,24 @@ internal class ExternalAccountCreateParamsTest {
         assertNotNull(body)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.accountDetails())
-            .isEqualTo(
-                listOf(
-                    ExternalAccountCreateParams.AccountDetail.builder()
-                        .accountNumber("account_number")
-                        .accountNumberType(
-                            ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
-                        )
-                        .build()
-                )
+            .containsExactly(
+                ExternalAccountCreateParams.AccountDetail.builder()
+                    .accountNumber("account_number")
+                    .accountNumberType(
+                        ExternalAccountCreateParams.AccountDetail.AccountNumberType.AU_NUMBER
+                    )
+                    .build()
             )
         assertThat(body.accountType()).isEqualTo(ExternalAccountType.CASH)
         assertThat(body.contactDetails())
-            .isEqualTo(
-                listOf(
-                    ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
-                        .contactIdentifier("contact_identifier")
-                        .contactIdentifierType(
-                            ExternalAccountCreateParams.ContactDetailCreateRequest
-                                .ContactIdentifierType
-                                .EMAIL
-                        )
-                        .build()
-                )
+            .containsExactly(
+                ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                    .contactIdentifier("contact_identifier")
+                    .contactIdentifierType(
+                        ExternalAccountCreateParams.ContactDetailCreateRequest.ContactIdentifierType
+                            .EMAIL
+                    )
+                    .build()
             )
         assertThat(body.ledgerAccount())
             .isEqualTo(
@@ -247,16 +242,14 @@ internal class ExternalAccountCreateParamsTest {
         assertThat(body.partyType()).isEqualTo(ExternalAccountCreateParams.PartyType.BUSINESS)
         assertThat(body.plaidProcessorToken()).isEqualTo("plaid_processor_token")
         assertThat(body.routingDetails())
-            .isEqualTo(
-                listOf(
-                    ExternalAccountCreateParams.RoutingDetail.builder()
-                        .routingNumber("routing_number")
-                        .routingNumberType(
-                            ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
-                        )
-                        .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
-                        .build()
-                )
+            .containsExactly(
+                ExternalAccountCreateParams.RoutingDetail.builder()
+                    .routingNumber("routing_number")
+                    .routingNumberType(
+                        ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                    )
+                    .paymentType(ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH)
+                    .build()
             )
     }
 

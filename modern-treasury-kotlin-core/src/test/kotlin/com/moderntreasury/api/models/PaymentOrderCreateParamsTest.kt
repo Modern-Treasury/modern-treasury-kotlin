@@ -498,17 +498,15 @@ internal class PaymentOrderCreateParamsTest {
         assertThat(body.currency()).isEqualTo(Currency.AED)
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.documents())
-            .isEqualTo(
-                listOf(
-                    PaymentOrderCreateParams.DocumentCreateRequest.builder()
-                        .documentableId("documentable_id")
-                        .documentableType(
-                            PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
-                        )
-                        .file("some content")
-                        .documentType("document_type")
-                        .build()
-                )
+            .containsExactly(
+                PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                    .documentableId("documentable_id")
+                    .documentableType(
+                        PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
+                    )
+                    .file("some content")
+                    .documentType("document_type")
+                    .build()
             )
         assertThat(body.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.expiresAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -585,21 +583,19 @@ internal class PaymentOrderCreateParamsTest {
             )
         assertThat(body.ledgerTransactionId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.lineItems())
-            .isEqualTo(
-                listOf(
-                    PaymentOrderCreateParams.LineItemRequest.builder()
-                        .amount(0L)
-                        .accountingCategoryId("accounting_category_id")
-                        .description("description")
-                        .metadata(
-                            PaymentOrderCreateParams.LineItemRequest.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                .build()
-                        )
-                        .build()
-                )
+            .containsExactly(
+                PaymentOrderCreateParams.LineItemRequest.builder()
+                    .amount(0L)
+                    .accountingCategoryId("accounting_category_id")
+                    .description("description")
+                    .metadata(
+                        PaymentOrderCreateParams.LineItemRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .build()
             )
         assertThat(body.metadata())
             .isEqualTo(

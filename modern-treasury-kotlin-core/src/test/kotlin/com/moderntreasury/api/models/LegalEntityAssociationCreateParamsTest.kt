@@ -268,7 +268,7 @@ internal class LegalEntityAssociationCreateParamsTest {
         assertNotNull(body)
         assertThat(body.parentLegalEntityId()).isEqualTo("parent_legal_entity_id")
         assertThat(body.relationshipTypes())
-            .isEqualTo(listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER))
+            .containsExactly(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
         assertThat(body.childLegalEntity())
             .isEqualTo(
                 LegalEntityAssociationCreateParams.ChildLegalEntityCreate.builder()
@@ -400,6 +400,6 @@ internal class LegalEntityAssociationCreateParamsTest {
         assertNotNull(body)
         assertThat(body.parentLegalEntityId()).isEqualTo("parent_legal_entity_id")
         assertThat(body.relationshipTypes())
-            .isEqualTo(listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER))
+            .containsExactly(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
     }
 }

@@ -13,18 +13,16 @@ internal class InvoiceAddPaymentOrderParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             InvoiceAddPaymentOrderParams.builder()
                 .id("id")
                 .paymentOrderId("payment_order_id")
                 .build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
-        // path param "paymentOrderId"
-        assertThat(params.getPathParam(1)).isEqualTo("payment_order_id")
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        assertThat(params._pathParam(1)).isEqualTo("payment_order_id")
         // out-of-bound path param
-        assertThat(params.getPathParam(2)).isEqualTo("")
+        assertThat(params._pathParam(2)).isEqualTo("")
     }
 }

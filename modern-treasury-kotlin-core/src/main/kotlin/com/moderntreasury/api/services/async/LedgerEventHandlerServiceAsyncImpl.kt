@@ -102,7 +102,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerEventHand
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("api", "ledger_event_handlers", params.getPathParam(0))
+                    .addPathSegments("api", "ledger_event_handlers", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -168,7 +168,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerEventHand
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
-                    .addPathSegments("api", "ledger_event_handlers", params.getPathParam(0))
+                    .addPathSegments("api", "ledger_event_handlers", params._pathParam(0))
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
