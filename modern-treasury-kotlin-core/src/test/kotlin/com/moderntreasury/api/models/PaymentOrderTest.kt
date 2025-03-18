@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 internal class PaymentOrderTest {
 
     @Test
-    fun createPaymentOrder() {
+    fun create() {
         val paymentOrder =
             PaymentOrder.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -209,7 +209,7 @@ internal class PaymentOrderTest {
                 .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
                 .vendorFailureReason("vendor_failure_reason")
                 .build()
-        assertThat(paymentOrder).isNotNull
+
         assertThat(paymentOrder.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(paymentOrder.accounting())
             .isEqualTo(

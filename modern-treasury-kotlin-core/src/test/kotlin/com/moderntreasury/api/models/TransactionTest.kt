@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 internal class TransactionTest {
 
     @Test
-    fun createTransaction() {
+    fun create() {
         val transaction =
             Transaction.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -66,7 +66,7 @@ internal class TransactionTest {
                 )
                 .vendorDescription("vendor_description")
                 .build()
-        assertThat(transaction).isNotNull
+
         assertThat(transaction.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(transaction.amount()).isEqualTo(0L)
         assertThat(transaction.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))

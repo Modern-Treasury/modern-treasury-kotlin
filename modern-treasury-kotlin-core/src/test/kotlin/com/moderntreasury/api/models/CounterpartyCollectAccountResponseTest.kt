@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test
 internal class CounterpartyCollectAccountResponseTest {
 
     @Test
-    fun createCounterpartyCollectAccountResponse() {
+    fun create() {
         val counterpartyCollectAccountResponse =
             CounterpartyCollectAccountResponse.builder()
                 .id("id")
                 .formLink("https://example.com")
                 .isResend(true)
                 .build()
-        assertThat(counterpartyCollectAccountResponse).isNotNull
+
         assertThat(counterpartyCollectAccountResponse.id()).isEqualTo("id")
         assertThat(counterpartyCollectAccountResponse.formLink()).isEqualTo("https://example.com")
         assertThat(counterpartyCollectAccountResponse.isResend()).isEqualTo(true)

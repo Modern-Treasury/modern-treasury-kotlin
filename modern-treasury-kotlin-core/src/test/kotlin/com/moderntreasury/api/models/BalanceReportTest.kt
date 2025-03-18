@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 internal class BalanceReportTest {
 
     @Test
-    fun createBalanceReport() {
+    fun create() {
         val balanceReport =
             BalanceReport.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -40,7 +40,7 @@ internal class BalanceReportTest {
                 .object_("object")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        assertThat(balanceReport).isNotNull
+
         assertThat(balanceReport.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(balanceReport.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(balanceReport.asOfTime()).isEqualTo("as_of_time")

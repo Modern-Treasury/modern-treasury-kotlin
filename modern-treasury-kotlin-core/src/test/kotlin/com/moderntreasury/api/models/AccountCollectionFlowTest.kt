@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class AccountCollectionFlowTest {
 
     @Test
-    fun createAccountCollectionFlow() {
+    fun create() {
         val accountCollectionFlow =
             AccountCollectionFlow.builder()
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -24,7 +24,7 @@ internal class AccountCollectionFlowTest {
                 .status(AccountCollectionFlow.Status.CANCELLED)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        assertThat(accountCollectionFlow).isNotNull
+
         assertThat(accountCollectionFlow.counterpartyId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(accountCollectionFlow.paymentTypes())
