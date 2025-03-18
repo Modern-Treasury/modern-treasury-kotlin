@@ -136,16 +136,14 @@ internal class VirtualAccountCreateParamsTest {
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.accountDetails())
-            .isEqualTo(
-                listOf(
-                    VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
-                        .accountNumber("account_number")
-                        .accountNumberType(
-                            VirtualAccountCreateParams.AccountDetailCreateRequest.AccountNumberType
-                                .AU_NUMBER
-                        )
-                        .build()
-                )
+            .containsExactly(
+                VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
+                    .accountNumber("account_number")
+                    .accountNumberType(
+                        VirtualAccountCreateParams.AccountDetailCreateRequest.AccountNumberType
+                            .AU_NUMBER
+                    )
+                    .build()
             )
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.creditLedgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -182,19 +180,16 @@ internal class VirtualAccountCreateParamsTest {
                     .build()
             )
         assertThat(body.routingDetails())
-            .isEqualTo(
-                listOf(
-                    VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
-                        .routingNumber("routing_number")
-                        .routingNumberType(
-                            VirtualAccountCreateParams.RoutingDetailCreateRequest.RoutingNumberType
-                                .ABA
-                        )
-                        .paymentType(
-                            VirtualAccountCreateParams.RoutingDetailCreateRequest.PaymentType.ACH
-                        )
-                        .build()
-                )
+            .containsExactly(
+                VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
+                    .routingNumber("routing_number")
+                    .routingNumberType(
+                        VirtualAccountCreateParams.RoutingDetailCreateRequest.RoutingNumberType.ABA
+                    )
+                    .paymentType(
+                        VirtualAccountCreateParams.RoutingDetailCreateRequest.PaymentType.ACH
+                    )
+                    .build()
             )
     }
 

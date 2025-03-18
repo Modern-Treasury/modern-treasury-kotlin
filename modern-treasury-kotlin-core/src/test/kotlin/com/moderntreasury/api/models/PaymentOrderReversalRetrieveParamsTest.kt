@@ -16,18 +16,16 @@ internal class PaymentOrderReversalRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             PaymentOrderReversalRetrieveParams.builder()
                 .paymentOrderId("payment_order_id")
                 .reversalId("reversal_id")
                 .build()
-        assertThat(params).isNotNull
-        // path param "paymentOrderId"
-        assertThat(params.getPathParam(0)).isEqualTo("payment_order_id")
-        // path param "reversalId"
-        assertThat(params.getPathParam(1)).isEqualTo("reversal_id")
+
+        assertThat(params._pathParam(0)).isEqualTo("payment_order_id")
+        assertThat(params._pathParam(1)).isEqualTo("reversal_id")
         // out-of-bound path param
-        assertThat(params.getPathParam(2)).isEqualTo("")
+        assertThat(params._pathParam(2)).isEqualTo("")
     }
 }

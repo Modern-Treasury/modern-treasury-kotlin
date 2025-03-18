@@ -128,45 +128,40 @@ internal class LedgerTransactionCreateParamsTest {
 
         assertNotNull(body)
         assertThat(body.ledgerEntries())
-            .isEqualTo(
-                listOf(
-                    LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
-                        .amount(0L)
-                        .direction(TransactionDirection.CREDIT)
-                        .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .availableBalanceAmount(
-                            LedgerTransactionCreateParams.LedgerEntryCreateRequest
-                                .AvailableBalanceAmount
-                                .builder()
-                                .putAdditionalProperty("foo", JsonValue.from(0))
-                                .build()
-                        )
-                        .lockVersion(0L)
-                        .metadata(
-                            LedgerTransactionCreateParams.LedgerEntryCreateRequest.Metadata
-                                .builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                .build()
-                        )
-                        .pendingBalanceAmount(
-                            LedgerTransactionCreateParams.LedgerEntryCreateRequest
-                                .PendingBalanceAmount
-                                .builder()
-                                .putAdditionalProperty("foo", JsonValue.from(0))
-                                .build()
-                        )
-                        .postedBalanceAmount(
-                            LedgerTransactionCreateParams.LedgerEntryCreateRequest
-                                .PostedBalanceAmount
-                                .builder()
-                                .putAdditionalProperty("foo", JsonValue.from(0))
-                                .build()
-                        )
-                        .showResultingLedgerAccountBalances(true)
-                        .build()
-                )
+            .containsExactly(
+                LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
+                    .amount(0L)
+                    .direction(TransactionDirection.CREDIT)
+                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .availableBalanceAmount(
+                        LedgerTransactionCreateParams.LedgerEntryCreateRequest
+                            .AvailableBalanceAmount
+                            .builder()
+                            .putAdditionalProperty("foo", JsonValue.from(0))
+                            .build()
+                    )
+                    .lockVersion(0L)
+                    .metadata(
+                        LedgerTransactionCreateParams.LedgerEntryCreateRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .pendingBalanceAmount(
+                        LedgerTransactionCreateParams.LedgerEntryCreateRequest.PendingBalanceAmount
+                            .builder()
+                            .putAdditionalProperty("foo", JsonValue.from(0))
+                            .build()
+                    )
+                    .postedBalanceAmount(
+                        LedgerTransactionCreateParams.LedgerEntryCreateRequest.PostedBalanceAmount
+                            .builder()
+                            .putAdditionalProperty("foo", JsonValue.from(0))
+                            .build()
+                    )
+                    .showResultingLedgerAccountBalances(true)
+                    .build()
             )
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.effectiveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -203,14 +198,12 @@ internal class LedgerTransactionCreateParamsTest {
 
         assertNotNull(body)
         assertThat(body.ledgerEntries())
-            .isEqualTo(
-                listOf(
-                    LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
-                        .amount(0L)
-                        .direction(TransactionDirection.CREDIT)
-                        .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .build()
-                )
+            .containsExactly(
+                LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
+                    .amount(0L)
+                    .direction(TransactionDirection.CREDIT)
+                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .build()
             )
     }
 }

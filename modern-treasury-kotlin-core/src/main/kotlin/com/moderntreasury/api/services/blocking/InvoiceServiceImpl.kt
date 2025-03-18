@@ -113,7 +113,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("api", "invoices", params.getPathParam(0))
+                    .addPathSegments("api", "invoices", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -139,7 +139,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
-                    .addPathSegments("api", "invoices", params.getPathParam(0))
+                    .addPathSegments("api", "invoices", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -208,9 +208,9 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
                     .addPathSegments(
                         "api",
                         "invoices",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "payment_orders",
-                        params.getPathParam(1),
+                        params._pathParam(1),
                     )
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()

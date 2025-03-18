@@ -34,23 +34,4 @@ internal class ValidationValidateRoutingNumberParamsTest {
                     .build()
             )
     }
-
-    @Test
-    fun queryParamsWithoutOptionalFields() {
-        val params =
-            ValidationValidateRoutingNumberParams.builder()
-                .routingNumber("routing_number")
-                .routingNumberType(ValidationValidateRoutingNumberParams.RoutingNumberType.ABA)
-                .build()
-
-        val queryParams = params._queryParams()
-
-        assertThat(queryParams)
-            .isEqualTo(
-                QueryParams.builder()
-                    .put("routing_number", "routing_number")
-                    .put("routing_number_type", "aba")
-                    .build()
-            )
-    }
 }

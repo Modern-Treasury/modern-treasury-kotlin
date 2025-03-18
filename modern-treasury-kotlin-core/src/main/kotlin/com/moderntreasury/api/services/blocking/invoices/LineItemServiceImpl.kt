@@ -83,12 +83,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments(
-                        "api",
-                        "invoices",
-                        params.getPathParam(0),
-                        "invoice_line_items",
-                    )
+                    .addPathSegments("api", "invoices", params._pathParam(0), "invoice_line_items")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -118,9 +113,9 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
                     .addPathSegments(
                         "api",
                         "invoices",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "invoice_line_items",
-                        params.getPathParam(1),
+                        params._pathParam(1),
                     )
                     .build()
                     .prepare(clientOptions, params)
@@ -150,9 +145,9 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
                     .addPathSegments(
                         "api",
                         "invoices",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "invoice_line_items",
-                        params.getPathParam(1),
+                        params._pathParam(1),
                     )
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -181,12 +176,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments(
-                        "api",
-                        "invoices",
-                        params.getPathParam(0),
-                        "invoice_line_items",
-                    )
+                    .addPathSegments("api", "invoices", params._pathParam(0), "invoice_line_items")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -228,9 +218,9 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
                     .addPathSegments(
                         "api",
                         "invoices",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "invoice_line_items",
-                        params.getPathParam(1),
+                        params._pathParam(1),
                     )
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()

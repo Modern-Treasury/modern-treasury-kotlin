@@ -17,21 +17,18 @@ internal class RoutingDetailRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             RoutingDetailRetrieveParams.builder()
                 .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
                 .accountId("account_id")
                 .id("id")
                 .build()
-        assertThat(params).isNotNull
-        // path param "accountsType"
-        assertThat(params.getPathParam(0)).isEqualTo(AccountsType.EXTERNAL_ACCOUNTS.toString())
-        // path param "accountId"
-        assertThat(params.getPathParam(1)).isEqualTo("account_id")
-        // path param "id"
-        assertThat(params.getPathParam(2)).isEqualTo("id")
+
+        assertThat(params._pathParam(0)).isEqualTo("external_accounts")
+        assertThat(params._pathParam(1)).isEqualTo("account_id")
+        assertThat(params._pathParam(2)).isEqualTo("id")
         // out-of-bound path param
-        assertThat(params.getPathParam(3)).isEqualTo("")
+        assertThat(params._pathParam(3)).isEqualTo("")
     }
 }

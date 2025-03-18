@@ -20,6 +20,19 @@ internal class CounterpartyCollectAccountParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            CounterpartyCollectAccountParams.builder()
+                .id("id")
+                .direction(TransactionDirection.CREDIT)
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             CounterpartyCollectAccountParams.builder()
@@ -35,7 +48,7 @@ internal class CounterpartyCollectAccountParamsTest {
         assertNotNull(body)
         assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
         assertThat(body.customRedirect()).isEqualTo("https://example.com")
-        assertThat(body.fields()).isEqualTo(listOf(CounterpartyCollectAccountParams.Field.NAME))
+        assertThat(body.fields()).containsExactly(CounterpartyCollectAccountParams.Field.NAME)
         assertThat(body.sendEmail()).isEqualTo(true)
     }
 
@@ -51,19 +64,5 @@ internal class CounterpartyCollectAccountParamsTest {
 
         assertNotNull(body)
         assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            CounterpartyCollectAccountParams.builder()
-                .id("id")
-                .direction(TransactionDirection.CREDIT)
-                .build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

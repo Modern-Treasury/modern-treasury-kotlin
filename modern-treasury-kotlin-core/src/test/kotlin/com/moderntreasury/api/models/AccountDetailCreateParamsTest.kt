@@ -19,6 +19,21 @@ internal class AccountDetailCreateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            AccountDetailCreateParams.builder()
+                .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
+                .accountId("account_id")
+                .accountNumber("account_number")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("external_accounts")
+        assertThat(params._pathParam(1)).isEqualTo("account_id")
+        // out-of-bound path param
+        assertThat(params._pathParam(2)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             AccountDetailCreateParams.builder()
@@ -49,23 +64,5 @@ internal class AccountDetailCreateParamsTest {
 
         assertNotNull(body)
         assertThat(body.accountNumber()).isEqualTo("account_number")
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            AccountDetailCreateParams.builder()
-                .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("account_id")
-                .accountNumber("account_number")
-                .build()
-        assertThat(params).isNotNull
-        // path param "accountsType"
-        assertThat(params.getPathParam(0))
-            .isEqualTo(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS.toString())
-        // path param "accountId"
-        assertThat(params.getPathParam(1)).isEqualTo("account_id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(2)).isEqualTo("")
     }
 }

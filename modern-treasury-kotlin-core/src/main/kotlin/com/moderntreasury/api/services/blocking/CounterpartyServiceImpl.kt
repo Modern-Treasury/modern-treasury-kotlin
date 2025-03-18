@@ -119,7 +119,7 @@ class CounterpartyServiceImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("api", "counterparties", params.getPathParam(0))
+                    .addPathSegments("api", "counterparties", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -145,7 +145,7 @@ class CounterpartyServiceImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
-                    .addPathSegments("api", "counterparties", params.getPathParam(0))
+                    .addPathSegments("api", "counterparties", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -210,7 +210,7 @@ class CounterpartyServiceImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
-                    .addPathSegments("api", "counterparties", params.getPathParam(0))
+                    .addPathSegments("api", "counterparties", params._pathParam(0))
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
@@ -233,7 +233,7 @@ class CounterpartyServiceImpl internal constructor(private val clientOptions: Cl
                     .addPathSegments(
                         "api",
                         "counterparties",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "collect_account",
                     )
                     .body(json(clientOptions.jsonMapper, params._body()))
