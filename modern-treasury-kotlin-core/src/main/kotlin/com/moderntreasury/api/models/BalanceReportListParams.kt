@@ -58,7 +58,7 @@ private constructor(
             .apply {
                 afterCursor?.let { put("after_cursor", it) }
                 asOfDate?.let { put("as_of_date", it.toString()) }
-                balanceReportType?.let { put("balance_report_type", it.asString()) }
+                balanceReportType?.let { put("balance_report_type", it.toString()) }
                 perPage?.let { put("per_page", it.toString()) }
                 putAll(additionalQueryParams)
             }

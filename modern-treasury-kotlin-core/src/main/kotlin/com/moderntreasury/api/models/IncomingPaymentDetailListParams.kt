@@ -78,7 +78,7 @@ private constructor(
                 afterCursor?.let { put("after_cursor", it) }
                 asOfDateEnd?.let { put("as_of_date_end", it.toString()) }
                 asOfDateStart?.let { put("as_of_date_start", it.toString()) }
-                direction?.let { put("direction", it.asString()) }
+                direction?.let { put("direction", it.toString()) }
                 metadata?.let {
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
@@ -87,8 +87,8 @@ private constructor(
                     }
                 }
                 perPage?.let { put("per_page", it.toString()) }
-                status?.let { put("status", it.asString()) }
-                type?.let { put("type", it.asString()) }
+                status?.let { put("status", it.toString()) }
+                type?.let { put("type", it.toString()) }
                 virtualAccountId?.let { put("virtual_account_id", it) }
                 putAll(additionalQueryParams)
             }

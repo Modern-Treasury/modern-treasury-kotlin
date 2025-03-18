@@ -140,7 +140,7 @@ private constructor(
                 ledgerAccountSettlementId?.let { put("ledger_account_settlement_id", it) }
                 ledgerId?.let { put("ledger_id", it) }
                 ledgerableId?.let { put("ledgerable_id", it) }
-                ledgerableType?.let { put("ledgerable_type", it.asString()) }
+                ledgerableType?.let { put("ledgerable_type", it.toString()) }
                 metadata?.let {
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
@@ -149,8 +149,8 @@ private constructor(
                     }
                 }
                 orderBy?.let {
-                    it.createdAt()?.let { put("order_by[created_at]", it.asString()) }
-                    it.effectiveAt()?.let { put("order_by[effective_at]", it.asString()) }
+                    it.createdAt()?.let { put("order_by[created_at]", it.toString()) }
+                    it.effectiveAt()?.let { put("order_by[effective_at]", it.toString()) }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
                             put("order_by[$key]", value)
@@ -169,7 +169,7 @@ private constructor(
                     }
                 }
                 reversesLedgerTransactionId?.let { put("reverses_ledger_transaction_id", it) }
-                status?.let { put("status", it.asString()) }
+                status?.let { put("status", it.toString()) }
                 updatedAt?.let {
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->

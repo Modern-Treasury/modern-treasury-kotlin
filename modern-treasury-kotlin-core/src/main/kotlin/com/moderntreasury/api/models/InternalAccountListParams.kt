@@ -63,7 +63,7 @@ private constructor(
             .apply {
                 afterCursor?.let { put("after_cursor", it) }
                 counterpartyId?.let { put("counterparty_id", it) }
-                currency?.let { put("currency", it.asString()) }
+                currency?.let { put("currency", it.toString()) }
                 legalEntityId?.let { put("legal_entity_id", it) }
                 metadata?.let {
                     it._additionalProperties().keys().forEach { key ->
@@ -72,8 +72,8 @@ private constructor(
                         }
                     }
                 }
-                paymentDirection?.let { put("payment_direction", it.asString()) }
-                paymentType?.let { put("payment_type", it.asString()) }
+                paymentDirection?.let { put("payment_direction", it.toString()) }
+                paymentType?.let { put("payment_type", it.toString()) }
                 perPage?.let { put("per_page", it.toString()) }
                 putAll(additionalQueryParams)
             }

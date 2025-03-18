@@ -43,7 +43,7 @@ private constructor(
         QueryParams.builder()
             .apply {
                 put("routing_number", routingNumber)
-                put("routing_number_type", routingNumberType.asString())
+                put("routing_number_type", routingNumberType.toString())
                 putAll(additionalQueryParams)
             }
             .build()
