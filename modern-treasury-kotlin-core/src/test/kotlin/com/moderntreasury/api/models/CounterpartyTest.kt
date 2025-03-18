@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 internal class CounterpartyTest {
 
     @Test
-    fun createCounterparty() {
+    fun create() {
         val counterparty =
             Counterparty.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -129,7 +129,7 @@ internal class CounterpartyTest {
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .verificationStatus(Counterparty.VerificationStatus.DENIED)
                 .build()
-        assertThat(counterparty).isNotNull
+
         assertThat(counterparty.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(counterparty.accounts())
             .containsExactly(

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 internal class LedgerEventHandlerTest {
 
     @Test
-    fun createLedgerEventHandler() {
+    fun create() {
         val ledgerEventHandler =
             LedgerEventHandler.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -71,7 +71,7 @@ internal class LedgerEventHandlerTest {
                         .build()
                 )
                 .build()
-        assertThat(ledgerEventHandler).isNotNull
+
         assertThat(ledgerEventHandler.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(ledgerEventHandler.conditions())
             .isEqualTo(

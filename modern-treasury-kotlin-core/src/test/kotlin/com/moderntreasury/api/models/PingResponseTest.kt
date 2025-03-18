@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test
 internal class PingResponseTest {
 
     @Test
-    fun createPingResponse() {
+    fun create() {
         val pingResponse = PingResponse.builder().ping("pong").build()
-        assertThat(pingResponse).isNotNull
+
         assertThat(pingResponse.ping()).isEqualTo("pong")
     }
 }
