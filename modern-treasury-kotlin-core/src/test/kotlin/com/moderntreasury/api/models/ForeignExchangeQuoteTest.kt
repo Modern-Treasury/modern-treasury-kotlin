@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 internal class ForeignExchangeQuoteTest {
 
     @Test
-    fun createForeignExchangeQuote() {
+    fun create() {
         val foreignExchangeQuote =
             ForeignExchangeQuote.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -42,7 +42,7 @@ internal class ForeignExchangeQuoteTest {
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .vendorId("vendor_id")
                 .build()
-        assertThat(foreignExchangeQuote).isNotNull
+
         assertThat(foreignExchangeQuote.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(foreignExchangeQuote.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

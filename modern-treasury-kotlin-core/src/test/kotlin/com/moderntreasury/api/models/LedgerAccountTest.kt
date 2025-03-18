@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 internal class LedgerAccountTest {
 
     @Test
-    fun createLedgerAccount() {
+    fun create() {
         val ledgerAccount =
             LedgerAccount.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -67,7 +67,7 @@ internal class LedgerAccountTest {
                 .object_("object")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        assertThat(ledgerAccount).isNotNull
+
         assertThat(ledgerAccount.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(ledgerAccount.balances())
             .isEqualTo(
