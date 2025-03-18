@@ -82,7 +82,7 @@ private constructor(
                 createdAtUpperBound?.let {
                     put("created_at_upper_bound", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
                 }
-                direction?.let { put("direction", it.asString()) }
+                direction?.let { put("direction", it.toString()) }
                 internalAccountId?.let { put("internal_account_id", it) }
                 metadata?.let {
                     it._additionalProperties().keys().forEach { key ->
@@ -92,8 +92,8 @@ private constructor(
                     }
                 }
                 perPage?.let { put("per_page", it.toString()) }
-                status?.let { put("status", it.asString()) }
-                type?.let { put("type", it.asString()) }
+                status?.let { put("status", it.toString()) }
+                type?.let { put("type", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()

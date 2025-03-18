@@ -145,7 +145,7 @@ private constructor(
                 id?.forEach { put("id[]", it) }
                 afterCursor?.let { put("after_cursor", it) }
                 asOfLockVersion?.let { put("as_of_lock_version", it.toString()) }
-                direction?.let { put("direction", it.asString()) }
+                direction?.let { put("direction", it.toString()) }
                 effectiveAt?.let {
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
@@ -181,8 +181,8 @@ private constructor(
                     }
                 }
                 orderBy?.let {
-                    it.createdAt()?.let { put("order_by[created_at]", it.asString()) }
-                    it.effectiveAt()?.let { put("order_by[effective_at]", it.asString()) }
+                    it.createdAt()?.let { put("order_by[created_at]", it.toString()) }
+                    it.effectiveAt()?.let { put("order_by[effective_at]", it.toString()) }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
                             put("order_by[$key]", value)
@@ -192,7 +192,7 @@ private constructor(
                 perPage?.let { put("per_page", it.toString()) }
                 showBalances?.let { put("show_balances", it.toString()) }
                 showDeleted?.let { put("show_deleted", it.toString()) }
-                status?.let { put("status", it.asString()) }
+                status?.let { put("status", it.toString()) }
                 updatedAt?.let {
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->

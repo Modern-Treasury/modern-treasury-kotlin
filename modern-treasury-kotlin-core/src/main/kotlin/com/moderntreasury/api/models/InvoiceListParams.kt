@@ -85,7 +85,7 @@ private constructor(
                 originatingAccountId?.let { put("originating_account_id", it) }
                 paymentOrderId?.let { put("payment_order_id", it) }
                 perPage?.let { put("per_page", it.toString()) }
-                status?.let { put("status", it.asString()) }
+                status?.let { put("status", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()

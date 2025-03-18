@@ -53,7 +53,7 @@ private constructor(
                 afterCursor?.let { put("after_cursor", it) }
                 perPage?.let { put("per_page", it.toString()) }
                 transactionId?.let { put("transaction_id", it) }
-                type?.let { put("type", it.asString()) }
+                type?.let { put("type", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()

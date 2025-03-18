@@ -61,7 +61,7 @@ private constructor(
                 internalAccountId?.let { put("internal_account_id", it) }
                 perPage?.let { put("per_page", it.toString()) }
                 returnableId?.let { put("returnable_id", it) }
-                returnableType?.let { put("returnable_type", it.asString()) }
+                returnableType?.let { put("returnable_type", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()

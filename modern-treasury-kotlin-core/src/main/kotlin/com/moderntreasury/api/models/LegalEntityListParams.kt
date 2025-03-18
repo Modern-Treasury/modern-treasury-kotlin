@@ -48,7 +48,7 @@ private constructor(
         QueryParams.builder()
             .apply {
                 afterCursor?.let { put("after_cursor", it) }
-                legalEntityType?.let { put("legal_entity_type", it.asString()) }
+                legalEntityType?.let { put("legal_entity_type", it.toString()) }
                 metadata?.let {
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->

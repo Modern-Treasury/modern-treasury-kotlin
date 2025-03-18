@@ -65,11 +65,11 @@ private constructor(
             .apply {
                 afterCursor?.let { put("after_cursor", it) }
                 entityId?.let { put("entity_id", it) }
-                entityType?.let { put("entity_type", it.asString()) }
+                entityType?.let { put("entity_type", it.toString()) }
                 perPage?.let { put("per_page", it.toString()) }
                 requestId?.let { put("request_id", it) }
-                requestType?.let { put("request_type", it.asString()) }
-                status?.let { put("status", it.asString()) }
+                requestType?.let { put("request_type", it.toString()) }
+                status?.let { put("status", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()

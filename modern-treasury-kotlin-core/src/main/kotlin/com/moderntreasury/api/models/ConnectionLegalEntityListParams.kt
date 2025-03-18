@@ -47,7 +47,7 @@ private constructor(
                 connectionId?.let { put("connection_id", it) }
                 legalEntityId?.let { put("legal_entity_id", it) }
                 perPage?.let { put("per_page", it.toString()) }
-                status?.let { put("status", it.asString()) }
+                status?.let { put("status", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()

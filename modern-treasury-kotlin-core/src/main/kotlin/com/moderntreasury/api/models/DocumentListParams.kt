@@ -48,7 +48,7 @@ private constructor(
             .apply {
                 afterCursor?.let { put("after_cursor", it) }
                 documentableId?.let { put("documentable_id", it) }
-                documentableType?.let { put("documentable_type", it.asString()) }
+                documentableType?.let { put("documentable_type", it.toString()) }
                 perPage?.let { put("per_page", it.toString()) }
                 putAll(additionalQueryParams)
             }

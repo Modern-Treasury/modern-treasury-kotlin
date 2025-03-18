@@ -103,7 +103,7 @@ private constructor(
                 counterpartyId?.let { put("counterparty_id", it) }
                 createdAtEnd?.let { put("created_at_end", it.toString()) }
                 createdAtStart?.let { put("created_at_start", it.toString()) }
-                direction?.let { put("direction", it.asString()) }
+                direction?.let { put("direction", it.toString()) }
                 effectiveDateEnd?.let { put("effective_date_end", it.toString()) }
                 effectiveDateStart?.let { put("effective_date_start", it.toString()) }
                 metadata?.let {
@@ -115,7 +115,7 @@ private constructor(
                 }
                 originatingAccountId?.let { put("originating_account_id", it) }
                 perPage?.let { put("per_page", it.toString()) }
-                priority?.let { put("priority", it.asString()) }
+                priority?.let { put("priority", it.toString()) }
                 processAfterEnd?.let {
                     put("process_after_end", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
                 }
@@ -123,9 +123,9 @@ private constructor(
                     put("process_after_start", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
                 }
                 referenceNumber?.let { put("reference_number", it) }
-                status?.let { put("status", it.asString()) }
+                status?.let { put("status", it.toString()) }
                 transactionId?.let { put("transaction_id", it) }
-                type?.let { put("type", it.asString()) }
+                type?.let { put("type", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()

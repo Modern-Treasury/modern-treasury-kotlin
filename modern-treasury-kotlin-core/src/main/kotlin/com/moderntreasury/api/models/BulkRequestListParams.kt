@@ -53,7 +53,7 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
-                actionType?.let { put("action_type", it.asString()) }
+                actionType?.let { put("action_type", it.toString()) }
                 afterCursor?.let { put("after_cursor", it) }
                 metadata?.let {
                     it._additionalProperties().keys().forEach { key ->
@@ -63,8 +63,8 @@ private constructor(
                     }
                 }
                 perPage?.let { put("per_page", it.toString()) }
-                resourceType?.let { put("resource_type", it.asString()) }
-                status?.let { put("status", it.asString()) }
+                resourceType?.let { put("resource_type", it.toString()) }
+                status?.let { put("status", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
