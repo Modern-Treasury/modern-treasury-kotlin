@@ -3,6 +3,7 @@
 package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.core.ClientOptions
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
@@ -13,7 +14,6 @@ import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepare
-import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.RoutingNumberLookupRequest
 import com.moderntreasury.api.models.ValidationValidateRoutingNumberParams
 
@@ -36,8 +36,7 @@ class ValidationServiceImpl internal constructor(private val clientOptions: Clie
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ValidationService.WithRawResponse {
 
-        private val errorHandler: Handler<ModernTreasuryError> =
-            errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
         private val validateRoutingNumberHandler: Handler<RoutingNumberLookupRequest> =
             jsonHandler<RoutingNumberLookupRequest>(clientOptions.jsonMapper)
