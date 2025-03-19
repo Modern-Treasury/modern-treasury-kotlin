@@ -3,6 +3,7 @@
 package com.moderntreasury.api.services.async.internalAccounts
 
 import com.moderntreasury.api.core.ClientOptions
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.handlers.emptyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
@@ -16,7 +17,6 @@ import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.json
 import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepareAsync
-import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.BalanceReport
 import com.moderntreasury.api.models.BalanceReportCreateParams
 import com.moderntreasury.api.models.BalanceReportDeleteParams
@@ -62,8 +62,7 @@ class BalanceReportServiceAsyncImpl internal constructor(private val clientOptio
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BalanceReportServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<ModernTreasuryError> =
-            errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
         private val createHandler: Handler<BalanceReport> =
             jsonHandler<BalanceReport>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

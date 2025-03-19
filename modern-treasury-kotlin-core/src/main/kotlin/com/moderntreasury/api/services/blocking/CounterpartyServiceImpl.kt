@@ -3,6 +3,7 @@
 package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.core.ClientOptions
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.handlers.emptyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
@@ -16,7 +17,6 @@ import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.json
 import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepare
-import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.Counterparty
 import com.moderntreasury.api.models.CounterpartyCollectAccountParams
 import com.moderntreasury.api.models.CounterpartyCollectAccountResponse
@@ -79,8 +79,7 @@ class CounterpartyServiceImpl internal constructor(private val clientOptions: Cl
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CounterpartyService.WithRawResponse {
 
-        private val errorHandler: Handler<ModernTreasuryError> =
-            errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
         private val createHandler: Handler<Counterparty> =
             jsonHandler<Counterparty>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

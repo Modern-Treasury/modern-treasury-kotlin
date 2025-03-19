@@ -3,6 +3,7 @@
 package com.moderntreasury.api.client
 
 import com.moderntreasury.api.core.ClientOptions
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.getPackageVersion
 import com.moderntreasury.api.core.handlers.errorHandler
@@ -14,7 +15,6 @@ import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepareAsync
-import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.ClientPingParams
 import com.moderntreasury.api.models.PingResponse
 import com.moderntreasury.api.services.async.AccountCollectionFlowServiceAsync
@@ -362,8 +362,7 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ModernTreasuryClientAsync.WithRawResponse {
 
-        private val errorHandler: Handler<ModernTreasuryError> =
-            errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
         private val connections: ConnectionServiceAsync.WithRawResponse by lazy {
             ConnectionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
