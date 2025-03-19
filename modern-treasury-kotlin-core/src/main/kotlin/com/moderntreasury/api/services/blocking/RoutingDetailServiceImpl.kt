@@ -3,6 +3,7 @@
 package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.core.ClientOptions
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.handlers.emptyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
@@ -16,7 +17,6 @@ import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.json
 import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepare
-import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.RoutingDetail
 import com.moderntreasury.api.models.RoutingDetailCreateParams
 import com.moderntreasury.api.models.RoutingDetailDeleteParams
@@ -62,8 +62,7 @@ class RoutingDetailServiceImpl internal constructor(private val clientOptions: C
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         RoutingDetailService.WithRawResponse {
 
-        private val errorHandler: Handler<ModernTreasuryError> =
-            errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
         private val createHandler: Handler<RoutingDetail> =
             jsonHandler<RoutingDetail>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

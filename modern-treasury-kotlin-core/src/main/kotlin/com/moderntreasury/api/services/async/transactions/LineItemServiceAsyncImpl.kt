@@ -3,6 +3,7 @@
 package com.moderntreasury.api.services.async.transactions
 
 import com.moderntreasury.api.core.ClientOptions
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.handlers.emptyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
@@ -16,7 +17,6 @@ import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.json
 import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepareAsync
-import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.TransactionLineItem
 import com.moderntreasury.api.models.TransactionLineItemCreateParams
 import com.moderntreasury.api.models.TransactionLineItemDeleteParams
@@ -65,8 +65,7 @@ class LineItemServiceAsyncImpl internal constructor(private val clientOptions: C
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         LineItemServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<ModernTreasuryError> =
-            errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
         private val createHandler: Handler<TransactionLineItem> =
             jsonHandler<TransactionLineItem>(clientOptions.jsonMapper)

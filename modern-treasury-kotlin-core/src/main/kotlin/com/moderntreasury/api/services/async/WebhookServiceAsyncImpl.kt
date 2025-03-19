@@ -5,17 +5,11 @@ package com.moderntreasury.api.services.async
 import com.google.common.io.BaseEncoding
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.getRequiredHeader
-import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.http.Headers
-import com.moderntreasury.api.core.http.HttpResponse.Handler
-import com.moderntreasury.api.errors.ModernTreasuryError
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
-class WebhookServiceAsyncImpl constructor(private val clientOptions: ClientOptions) :
-    WebhookServiceAsync {
-
-    private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
+class WebhookServiceAsyncImpl(private val clientOptions: ClientOptions) : WebhookServiceAsync {
 
     override suspend fun getSignature(value: String, key: String): String {
         val mac: Mac = Mac.getInstance("HmacSHA256")
