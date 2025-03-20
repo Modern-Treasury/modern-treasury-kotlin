@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -265,7 +264,6 @@ internal class LegalEntityAssociationCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.parentLegalEntityId()).isEqualTo("parent_legal_entity_id")
         assertThat(body.relationshipTypes())
             .containsExactly(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
@@ -397,7 +395,6 @@ internal class LegalEntityAssociationCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.parentLegalEntityId()).isEqualTo("parent_legal_entity_id")
         assertThat(body.relationshipTypes())
             .containsExactly(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
