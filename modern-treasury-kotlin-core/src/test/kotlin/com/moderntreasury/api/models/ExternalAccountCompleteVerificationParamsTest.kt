@@ -2,7 +2,6 @@
 
 package com.moderntreasury.api.models
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -37,7 +36,6 @@ internal class ExternalAccountCompleteVerificationParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.amounts()).containsExactly(2L, 4L)
     }
 
@@ -46,7 +44,5 @@ internal class ExternalAccountCompleteVerificationParamsTest {
         val params = ExternalAccountCompleteVerificationParams.builder().id("id").build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

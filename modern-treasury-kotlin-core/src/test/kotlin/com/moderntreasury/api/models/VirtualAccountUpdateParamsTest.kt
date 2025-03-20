@@ -3,7 +3,6 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -50,7 +49,6 @@ internal class VirtualAccountUpdateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.ledgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata())
@@ -67,7 +65,5 @@ internal class VirtualAccountUpdateParamsTest {
         val params = VirtualAccountUpdateParams.builder().id("id").build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

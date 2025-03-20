@@ -2,7 +2,6 @@
 
 package com.moderntreasury.api.models
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -45,7 +44,6 @@ internal class CounterpartyCollectAccountParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
         assertThat(body.customRedirect()).isEqualTo("https://example.com")
         assertThat(body.fields()).containsExactly(CounterpartyCollectAccountParams.Field.NAME)
@@ -62,7 +60,6 @@ internal class CounterpartyCollectAccountParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
     }
 }

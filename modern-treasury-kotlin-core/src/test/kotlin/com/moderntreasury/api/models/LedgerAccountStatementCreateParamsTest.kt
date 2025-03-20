@@ -4,7 +4,6 @@ package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
 import java.time.OffsetDateTime
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -46,7 +45,6 @@ internal class LedgerAccountStatementCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.effectiveAtLowerBound())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.effectiveAtUpperBound())
@@ -74,7 +72,6 @@ internal class LedgerAccountStatementCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.effectiveAtLowerBound())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.effectiveAtUpperBound())

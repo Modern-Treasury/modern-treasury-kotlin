@@ -4,7 +4,6 @@ package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -56,7 +55,6 @@ internal class TransactionCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.direction()).isEqualTo("direction")
@@ -90,7 +88,6 @@ internal class TransactionCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.direction()).isEqualTo("direction")

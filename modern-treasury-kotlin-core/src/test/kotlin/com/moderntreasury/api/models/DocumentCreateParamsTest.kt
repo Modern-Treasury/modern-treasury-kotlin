@@ -4,7 +4,6 @@ package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.MultipartField
 import java.io.InputStream
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -32,22 +31,25 @@ internal class DocumentCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
-        assertThat(
-                body
-                    .filterValues { !it.value.isNull() }
-                    .mapValues { (_, field) ->
-                        field.map { if (it is InputStream) it.readBytes() else it }
-                    }
+        assertThat(body.filterValues { !it.value.isNull() })
+            .usingRecursiveComparison()
+            // TODO(AssertJ): Replace this and the `mapValues` below with:
+            // https://github.com/assertj/assertj/issues/3165
+            .withEqualsForType(
+                { a, b -> a.readBytes() contentEquals b.readBytes() },
+                InputStream::class.java,
             )
             .isEqualTo(
                 mapOf(
-                    "documentable_id" to MultipartField.of("documentable_id"),
-                    "documentable_type" to
-                        MultipartField.of(DocumentCreateParams.DocumentableType.CASES),
-                    "file" to MultipartField.of("some content".toByteArray()),
-                    "document_type" to MultipartField.of("document_type"),
-                )
+                        "documentable_id" to MultipartField.of("documentable_id"),
+                        "documentable_type" to
+                            MultipartField.of(DocumentCreateParams.DocumentableType.CASES),
+                        "file" to MultipartField.of("some content".toByteArray()),
+                        "document_type" to MultipartField.of("document_type"),
+                    )
+                    .mapValues { (_, field) ->
+                        field.map { (it as? ByteArray)?.inputStream() ?: it }
+                    }
             )
     }
 
@@ -62,21 +64,24 @@ internal class DocumentCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
-        assertThat(
-                body
-                    .filterValues { !it.value.isNull() }
-                    .mapValues { (_, field) ->
-                        field.map { if (it is InputStream) it.readBytes() else it }
-                    }
+        assertThat(body.filterValues { !it.value.isNull() })
+            .usingRecursiveComparison()
+            // TODO(AssertJ): Replace this and the `mapValues` below with:
+            // https://github.com/assertj/assertj/issues/3165
+            .withEqualsForType(
+                { a, b -> a.readBytes() contentEquals b.readBytes() },
+                InputStream::class.java,
             )
             .isEqualTo(
                 mapOf(
-                    "documentable_id" to MultipartField.of("documentable_id"),
-                    "documentable_type" to
-                        MultipartField.of(DocumentCreateParams.DocumentableType.CASES),
-                    "file" to MultipartField.of("some content".toByteArray()),
-                )
+                        "documentable_id" to MultipartField.of("documentable_id"),
+                        "documentable_type" to
+                            MultipartField.of(DocumentCreateParams.DocumentableType.CASES),
+                        "file" to MultipartField.of("some content".toByteArray()),
+                    )
+                    .mapValues { (_, field) ->
+                        field.map { (it as? ByteArray)?.inputStream() ?: it }
+                    }
             )
     }
 }

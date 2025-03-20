@@ -3,7 +3,6 @@
 package com.moderntreasury.api.models
 
 import java.time.OffsetDateTime
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -35,7 +34,6 @@ internal class ForeignExchangeQuoteCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.targetCurrency()).isEqualTo(Currency.AED)
         assertThat(body.baseAmount()).isEqualTo(0L)
@@ -54,7 +52,6 @@ internal class ForeignExchangeQuoteCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.targetCurrency()).isEqualTo(Currency.AED)
     }

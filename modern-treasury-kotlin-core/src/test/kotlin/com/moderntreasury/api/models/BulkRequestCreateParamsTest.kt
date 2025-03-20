@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -673,7 +672,6 @@ internal class BulkRequestCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.actionType()).isEqualTo(BulkRequestCreateParams.ActionType.CREATE)
         assertThat(body.resourceType())
             .isEqualTo(BulkRequestCreateParams.ResourceType.PAYMENT_ORDER)
@@ -1032,7 +1030,6 @@ internal class BulkRequestCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.actionType()).isEqualTo(BulkRequestCreateParams.ActionType.CREATE)
         assertThat(body.resourceType())
             .isEqualTo(BulkRequestCreateParams.ResourceType.PAYMENT_ORDER)

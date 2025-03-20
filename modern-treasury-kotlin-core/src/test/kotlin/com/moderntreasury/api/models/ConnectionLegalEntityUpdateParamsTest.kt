@@ -2,7 +2,6 @@
 
 package com.moderntreasury.api.models
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -35,7 +34,6 @@ internal class ConnectionLegalEntityUpdateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.status()).isEqualTo(ConnectionLegalEntityUpdateParams.Status.PROCESSING)
     }
 
@@ -44,7 +42,5 @@ internal class ConnectionLegalEntityUpdateParamsTest {
         val params = ConnectionLegalEntityUpdateParams.builder().id("id").build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }
