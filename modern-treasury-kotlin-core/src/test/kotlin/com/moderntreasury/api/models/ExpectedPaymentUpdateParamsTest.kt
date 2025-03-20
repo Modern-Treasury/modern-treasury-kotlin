@@ -4,7 +4,6 @@ package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -115,7 +114,6 @@ internal class ExpectedPaymentUpdateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.amountLowerBound()).isEqualTo(0L)
         assertThat(body.amountUpperBound()).isEqualTo(0L)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -165,7 +163,5 @@ internal class ExpectedPaymentUpdateParamsTest {
         val params = ExpectedPaymentUpdateParams.builder().id("id").build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }
