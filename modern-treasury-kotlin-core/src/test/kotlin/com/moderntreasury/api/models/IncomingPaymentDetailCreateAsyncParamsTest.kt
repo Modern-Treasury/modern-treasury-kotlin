@@ -3,7 +3,6 @@
 package com.moderntreasury.api.models
 
 import java.time.LocalDate
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -39,7 +38,6 @@ internal class IncomingPaymentDetailCreateAsyncParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.currency()).isEqualTo(Currency.AED)
@@ -56,7 +54,5 @@ internal class IncomingPaymentDetailCreateAsyncParamsTest {
         val params = IncomingPaymentDetailCreateAsyncParams.builder().build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

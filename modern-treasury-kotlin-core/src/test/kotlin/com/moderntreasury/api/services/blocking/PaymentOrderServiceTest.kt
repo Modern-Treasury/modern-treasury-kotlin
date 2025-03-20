@@ -57,7 +57,7 @@ internal class PaymentOrderServiceTest {
                                 PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
                                     .CASES
                             )
-                            .file("some content")
+                            .file("some content".toByteArray())
                             .documentType("document_type")
                             .build()
                     )

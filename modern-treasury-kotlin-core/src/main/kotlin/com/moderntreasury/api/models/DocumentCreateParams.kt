@@ -13,7 +13,6 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
-import java.io.ByteArrayInputStream
 import java.io.InputStream
 import java.nio.file.Path
 import java.util.Objects
@@ -28,24 +27,63 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The unique identifier for the associated object. */
+    /**
+     * The unique identifier for the associated object.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun documentableId(): String = body.documentableId()
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun documentableType(): DocumentableType = body.documentableType()
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun file(): InputStream = body.file()
 
-    /** A category given to the document, can be `null`. */
+    /**
+     * A category given to the document, can be `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun documentType(): String? = body.documentType()
 
-    /** The unique identifier for the associated object. */
+    /**
+     * Returns the raw multipart value of [documentableId].
+     *
+     * Unlike [documentableId], this method doesn't throw if the multipart field has an unexpected
+     * type.
+     */
     fun _documentableId(): MultipartField<String> = body._documentableId()
 
+    /**
+     * Returns the raw multipart value of [documentableType].
+     *
+     * Unlike [documentableType], this method doesn't throw if the multipart field has an unexpected
+     * type.
+     */
     fun _documentableType(): MultipartField<DocumentableType> = body._documentableType()
 
+    /**
+     * Returns the raw multipart value of [file].
+     *
+     * Unlike [file], this method doesn't throw if the multipart field has an unexpected type.
+     */
     fun _file(): MultipartField<InputStream> = body._file()
 
-    /** A category given to the document, can be `null`. */
+    /**
+     * Returns the raw multipart value of [documentType].
+     *
+     * Unlike [documentType], this method doesn't throw if the multipart field has an unexpected
+     * type.
+     */
     fun _documentType(): MultipartField<String> = body._documentType()
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -75,25 +113,64 @@ private constructor(
         private val documentType: MultipartField<String>,
     ) {
 
-        /** The unique identifier for the associated object. */
+        /**
+         * The unique identifier for the associated object.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun documentableId(): String = documentableId.value.getRequired("documentable_id")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun documentableType(): DocumentableType =
             documentableType.value.getRequired("documentable_type")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun file(): InputStream = file.value.getRequired("file")
 
-        /** A category given to the document, can be `null`. */
+        /**
+         * A category given to the document, can be `null`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun documentType(): String? = documentType.value.getNullable("document_type")
 
-        /** The unique identifier for the associated object. */
+        /**
+         * Returns the raw multipart value of [documentableId].
+         *
+         * Unlike [documentableId], this method doesn't throw if the multipart field has an
+         * unexpected type.
+         */
         fun _documentableId(): MultipartField<String> = documentableId
 
+        /**
+         * Returns the raw multipart value of [documentableType].
+         *
+         * Unlike [documentableType], this method doesn't throw if the multipart field has an
+         * unexpected type.
+         */
         fun _documentableType(): MultipartField<DocumentableType> = documentableType
 
+        /**
+         * Returns the raw multipart value of [file].
+         *
+         * Unlike [file], this method doesn't throw if the multipart field has an unexpected type.
+         */
         fun _file(): MultipartField<InputStream> = file
 
-        /** A category given to the document, can be `null`. */
+        /**
+         * Returns the raw multipart value of [documentType].
+         *
+         * Unlike [documentType], this method doesn't throw if the multipart field has an unexpected
+         * type.
+         */
         fun _documentType(): MultipartField<String> = documentType
 
         private var validated: Boolean = false
@@ -146,7 +223,13 @@ private constructor(
             fun documentableId(documentableId: String) =
                 documentableId(MultipartField.of(documentableId))
 
-            /** The unique identifier for the associated object. */
+            /**
+             * Sets [Builder.documentableId] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.documentableId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun documentableId(documentableId: MultipartField<String>) = apply {
                 this.documentableId = documentableId
             }
@@ -154,15 +237,29 @@ private constructor(
             fun documentableType(documentableType: DocumentableType) =
                 documentableType(MultipartField.of(documentableType))
 
+            /**
+             * Sets [Builder.documentableType] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.documentableType] with a well-typed
+             * [DocumentableType] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
             fun documentableType(documentableType: MultipartField<DocumentableType>) = apply {
                 this.documentableType = documentableType
             }
 
             fun file(file: InputStream) = file(MultipartField.of(file))
 
+            /**
+             * Sets [Builder.file] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.file] with a well-typed [InputStream] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun file(file: MultipartField<InputStream>) = apply { this.file = file }
 
-            fun file(file: ByteArray) = file(ByteArrayInputStream(file))
+            fun file(file: ByteArray) = file(file.inputStream())
 
             fun file(file: Path) =
                 file(
@@ -175,7 +272,13 @@ private constructor(
             /** A category given to the document, can be `null`. */
             fun documentType(documentType: String) = documentType(MultipartField.of(documentType))
 
-            /** A category given to the document, can be `null`. */
+            /**
+             * Sets [Builder.documentType] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.documentType] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun documentType(documentType: MultipartField<String>) = apply {
                 this.documentType = documentType
             }
@@ -255,7 +358,13 @@ private constructor(
         /** The unique identifier for the associated object. */
         fun documentableId(documentableId: String) = apply { body.documentableId(documentableId) }
 
-        /** The unique identifier for the associated object. */
+        /**
+         * Sets [Builder.documentableId] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.documentableId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun documentableId(documentableId: MultipartField<String>) = apply {
             body.documentableId(documentableId)
         }
@@ -264,12 +373,26 @@ private constructor(
             body.documentableType(documentableType)
         }
 
+        /**
+         * Sets [Builder.documentableType] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.documentableType] with a well-typed [DocumentableType]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun documentableType(documentableType: MultipartField<DocumentableType>) = apply {
             body.documentableType(documentableType)
         }
 
         fun file(file: InputStream) = apply { body.file(file) }
 
+        /**
+         * Sets [Builder.file] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.file] with a well-typed [InputStream] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun file(file: MultipartField<InputStream>) = apply { body.file(file) }
 
         fun file(file: ByteArray) = apply { body.file(file) }
@@ -279,7 +402,13 @@ private constructor(
         /** A category given to the document, can be `null`. */
         fun documentType(documentType: String) = apply { body.documentType(documentType) }
 
-        /** A category given to the document, can be `null`. */
+        /**
+         * Sets [Builder.documentType] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.documentType] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun documentType(documentType: MultipartField<String>) = apply {
             body.documentType(documentType)
         }

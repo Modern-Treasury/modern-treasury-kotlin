@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -210,7 +209,6 @@ internal class InvoiceUpdateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.contactDetails())
             .containsExactly(
                 InvoiceUpdateParams.ContactDetail.builder()
@@ -312,7 +310,5 @@ internal class InvoiceUpdateParamsTest {
         val params = InvoiceUpdateParams.builder().id("id").build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }
