@@ -264,16 +264,16 @@ The SDK throws custom unchecked exception types:
 
 - [`ModernTreasuryServiceException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/ModernTreasuryServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
-  | Status | Exception                       |
-  | ------ | ------------------------------- |
-  | 400    | `BadRequestException`           |
-  | 401    | `AuthenticationException`       |
-  | 403    | `PermissionDeniedException`     |
-  | 404    | `NotFoundException`             |
-  | 422    | `UnprocessableEntityException`  |
-  | 429    | `RateLimitException`            |
-  | 5xx    | `InternalServerException`       |
-  | others | `UnexpectedStatusCodeException` |
+  | Status | Exception                                                                                                                                     |
+  | ------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+  | 400    | [`BadRequestException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/BadRequestException.kt)                     |
+  | 401    | [`UnauthorizedException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/UnauthorizedException.kt)                 |
+  | 403    | [`PermissionDeniedException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/PermissionDeniedException.kt)         |
+  | 404    | [`NotFoundException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/NotFoundException.kt)                         |
+  | 422    | [`UnprocessableEntityException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/UnprocessableEntityException.kt)   |
+  | 429    | [`RateLimitException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/RateLimitException.kt)                       |
+  | 5xx    | [`InternalServerException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/InternalServerException.kt)             |
+  | others | [`UnexpectedStatusCodeException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/UnexpectedStatusCodeException.kt) |
 
 - [`ModernTreasuryIoException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/ModernTreasuryIoException.kt): I/O networking errors.
 
