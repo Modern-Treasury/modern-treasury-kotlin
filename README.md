@@ -7,7 +7,7 @@
 
 <!-- x-release-please-end -->
 
-The Modern Treasury Kotlin SDK provides convenient access to the Modern Treasury REST API from applications written in Kotlin.
+The Modern Treasury Kotlin SDK provides convenient access to the [Modern Treasury REST API](https://docs.moderntreasury.com) from applications written in Kotlin.
 
 The Modern Treasury Kotlin SDK is similar to the Modern Treasury Java SDK but with minor differences that make it more ergonomic for use in Kotlin, such as nullable values instead of `Optional`, `Sequence` instead of `Stream`, and suspend functions instead of `CompletableFuture`.
 
@@ -31,9 +31,9 @@ implementation("com.moderntreasury:modern-treasury-kotlin:5.0.0")
 
 ```xml
 <dependency>
-    <groupId>com.moderntreasury</groupId>
-    <artifactId>modern-treasury-kotlin</artifactId>
-    <version>5.0.0</version>
+  <groupId>com.moderntreasury</groupId>
+  <artifactId>modern-treasury-kotlin</artifactId>
+  <version>5.0.0</version>
 </dependency>
 ```
 
