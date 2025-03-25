@@ -11,15 +11,13 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
+import java.util.Collections
 import java.util.Objects
 
 /** Create a return. */
@@ -129,356 +127,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): ReturnCreateRequest = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class ReturnCreateRequest
-    @JsonCreator
-    private constructor(
-        @JsonProperty("returnable_id")
-        @ExcludeMissing
-        private val returnableId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("returnable_type")
-        @ExcludeMissing
-        private val returnableType: JsonField<ReturnableType> = JsonMissing.of(),
-        @JsonProperty("additional_information")
-        @ExcludeMissing
-        private val additionalInformation: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("code") @ExcludeMissing private val code: JsonField<Code> = JsonMissing.of(),
-        @JsonProperty("date_of_death")
-        @ExcludeMissing
-        private val dateOfDeath: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonProperty("reason")
-        @ExcludeMissing
-        private val reason: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The ID of the object being returned or `null`.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun returnableId(): String? = returnableId.getNullable("returnable_id")
-
-        /**
-         * The type of object being returned. Currently, this may only be incoming_payment_detail.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun returnableType(): ReturnableType = returnableType.getRequired("returnable_type")
-
-        /**
-         * Some returns may include additional information from the bank. In these cases, this
-         * string will be present.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun additionalInformation(): String? =
-            additionalInformation.getNullable("additional_information")
-
-        /**
-         * The return code. For ACH returns, this is the required ACH return code.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun code(): Code? = code.getNullable("code")
-
-        /**
-         * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
-         * away.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun dateOfDeath(): LocalDate? = dateOfDeath.getNullable("date_of_death")
-
-        /**
-         * An optional description of the reason for the return. This is for internal usage and will
-         * not be transmitted to the bank.”
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun reason(): String? = reason.getNullable("reason")
-
-        /**
-         * Returns the raw JSON value of [returnableId].
-         *
-         * Unlike [returnableId], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("returnable_id")
-        @ExcludeMissing
-        fun _returnableId(): JsonField<String> = returnableId
-
-        /**
-         * Returns the raw JSON value of [returnableType].
-         *
-         * Unlike [returnableType], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("returnable_type")
-        @ExcludeMissing
-        fun _returnableType(): JsonField<ReturnableType> = returnableType
-
-        /**
-         * Returns the raw JSON value of [additionalInformation].
-         *
-         * Unlike [additionalInformation], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("additional_information")
-        @ExcludeMissing
-        fun _additionalInformation(): JsonField<String> = additionalInformation
-
-        /**
-         * Returns the raw JSON value of [code].
-         *
-         * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<Code> = code
-
-        /**
-         * Returns the raw JSON value of [dateOfDeath].
-         *
-         * Unlike [dateOfDeath], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("date_of_death")
-        @ExcludeMissing
-        fun _dateOfDeath(): JsonField<LocalDate> = dateOfDeath
-
-        /**
-         * Returns the raw JSON value of [reason].
-         *
-         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<String> = reason
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): ReturnCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            returnableId()
-            returnableType()
-            additionalInformation()
-            code()
-            dateOfDeath()
-            reason()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [ReturnCreateRequest].
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .returnableId()
-             * .returnableType()
-             * ```
-             */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [ReturnCreateRequest]. */
-        class Builder internal constructor() {
-
-            private var returnableId: JsonField<String>? = null
-            private var returnableType: JsonField<ReturnableType>? = null
-            private var additionalInformation: JsonField<String> = JsonMissing.of()
-            private var code: JsonField<Code> = JsonMissing.of()
-            private var dateOfDeath: JsonField<LocalDate> = JsonMissing.of()
-            private var reason: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(returnCreateRequest: ReturnCreateRequest) = apply {
-                returnableId = returnCreateRequest.returnableId
-                returnableType = returnCreateRequest.returnableType
-                additionalInformation = returnCreateRequest.additionalInformation
-                code = returnCreateRequest.code
-                dateOfDeath = returnCreateRequest.dateOfDeath
-                reason = returnCreateRequest.reason
-                additionalProperties = returnCreateRequest.additionalProperties.toMutableMap()
-            }
-
-            /** The ID of the object being returned or `null`. */
-            fun returnableId(returnableId: String?) =
-                returnableId(JsonField.ofNullable(returnableId))
-
-            /**
-             * Sets [Builder.returnableId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.returnableId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun returnableId(returnableId: JsonField<String>) = apply {
-                this.returnableId = returnableId
-            }
-
-            /**
-             * The type of object being returned. Currently, this may only be
-             * incoming_payment_detail.
-             */
-            fun returnableType(returnableType: ReturnableType) =
-                returnableType(JsonField.of(returnableType))
-
-            /**
-             * Sets [Builder.returnableType] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.returnableType] with a well-typed [ReturnableType]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun returnableType(returnableType: JsonField<ReturnableType>) = apply {
-                this.returnableType = returnableType
-            }
-
-            /**
-             * Some returns may include additional information from the bank. In these cases, this
-             * string will be present.
-             */
-            fun additionalInformation(additionalInformation: String?) =
-                additionalInformation(JsonField.ofNullable(additionalInformation))
-
-            /**
-             * Sets [Builder.additionalInformation] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.additionalInformation] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun additionalInformation(additionalInformation: JsonField<String>) = apply {
-                this.additionalInformation = additionalInformation
-            }
-
-            /** The return code. For ACH returns, this is the required ACH return code. */
-            fun code(code: Code?) = code(JsonField.ofNullable(code))
-
-            /**
-             * Sets [Builder.code] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.code] with a well-typed [Code] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun code(code: JsonField<Code>) = apply { this.code = code }
-
-            /**
-             * If the return code is `R14` or `R15` this is the date the deceased counterparty
-             * passed away.
-             */
-            fun dateOfDeath(dateOfDeath: LocalDate?) =
-                dateOfDeath(JsonField.ofNullable(dateOfDeath))
-
-            /**
-             * Sets [Builder.dateOfDeath] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.dateOfDeath] with a well-typed [LocalDate] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun dateOfDeath(dateOfDeath: JsonField<LocalDate>) = apply {
-                this.dateOfDeath = dateOfDeath
-            }
-
-            /**
-             * An optional description of the reason for the return. This is for internal usage and
-             * will not be transmitted to the bank.”
-             */
-            fun reason(reason: String?) = reason(JsonField.ofNullable(reason))
-
-            /**
-             * Sets [Builder.reason] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.reason] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun reason(reason: JsonField<String>) = apply { this.reason = reason }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [ReturnCreateRequest].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .returnableId()
-             * .returnableType()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): ReturnCreateRequest =
-                ReturnCreateRequest(
-                    checkRequired("returnableId", returnableId),
-                    checkRequired("returnableType", returnableType),
-                    additionalInformation,
-                    code,
-                    dateOfDeath,
-                    reason,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is ReturnCreateRequest && returnableId == other.returnableId && returnableType == other.returnableType && additionalInformation == other.additionalInformation && code == other.code && dateOfDeath == other.dateOfDeath && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(returnableId, returnableType, additionalInformation, code, dateOfDeath, reason, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "ReturnCreateRequest{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, dateOfDeath=$dateOfDeath, reason=$reason, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -496,7 +144,6 @@ private constructor(
     }
 
     /** A builder for [ReturnCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: ReturnCreateRequest.Builder = ReturnCreateRequest.builder()
@@ -736,6 +383,375 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    internal fun _body(): ReturnCreateRequest = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class ReturnCreateRequest
+    private constructor(
+        private val returnableId: JsonField<String>,
+        private val returnableType: JsonField<ReturnableType>,
+        private val additionalInformation: JsonField<String>,
+        private val code: JsonField<Code>,
+        private val dateOfDeath: JsonField<LocalDate>,
+        private val reason: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("returnable_id")
+            @ExcludeMissing
+            returnableId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("returnable_type")
+            @ExcludeMissing
+            returnableType: JsonField<ReturnableType> = JsonMissing.of(),
+            @JsonProperty("additional_information")
+            @ExcludeMissing
+            additionalInformation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("code") @ExcludeMissing code: JsonField<Code> = JsonMissing.of(),
+            @JsonProperty("date_of_death")
+            @ExcludeMissing
+            dateOfDeath: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("reason") @ExcludeMissing reason: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            returnableId,
+            returnableType,
+            additionalInformation,
+            code,
+            dateOfDeath,
+            reason,
+            mutableMapOf(),
+        )
+
+        /**
+         * The ID of the object being returned or `null`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun returnableId(): String? = returnableId.getNullable("returnable_id")
+
+        /**
+         * The type of object being returned. Currently, this may only be incoming_payment_detail.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun returnableType(): ReturnableType = returnableType.getRequired("returnable_type")
+
+        /**
+         * Some returns may include additional information from the bank. In these cases, this
+         * string will be present.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun additionalInformation(): String? =
+            additionalInformation.getNullable("additional_information")
+
+        /**
+         * The return code. For ACH returns, this is the required ACH return code.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun code(): Code? = code.getNullable("code")
+
+        /**
+         * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
+         * away.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun dateOfDeath(): LocalDate? = dateOfDeath.getNullable("date_of_death")
+
+        /**
+         * An optional description of the reason for the return. This is for internal usage and will
+         * not be transmitted to the bank.”
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun reason(): String? = reason.getNullable("reason")
+
+        /**
+         * Returns the raw JSON value of [returnableId].
+         *
+         * Unlike [returnableId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("returnable_id")
+        @ExcludeMissing
+        fun _returnableId(): JsonField<String> = returnableId
+
+        /**
+         * Returns the raw JSON value of [returnableType].
+         *
+         * Unlike [returnableType], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("returnable_type")
+        @ExcludeMissing
+        fun _returnableType(): JsonField<ReturnableType> = returnableType
+
+        /**
+         * Returns the raw JSON value of [additionalInformation].
+         *
+         * Unlike [additionalInformation], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("additional_information")
+        @ExcludeMissing
+        fun _additionalInformation(): JsonField<String> = additionalInformation
+
+        /**
+         * Returns the raw JSON value of [code].
+         *
+         * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<Code> = code
+
+        /**
+         * Returns the raw JSON value of [dateOfDeath].
+         *
+         * Unlike [dateOfDeath], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("date_of_death")
+        @ExcludeMissing
+        fun _dateOfDeath(): JsonField<LocalDate> = dateOfDeath
+
+        /**
+         * Returns the raw JSON value of [reason].
+         *
+         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<String> = reason
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [ReturnCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .returnableId()
+             * .returnableType()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [ReturnCreateRequest]. */
+        class Builder internal constructor() {
+
+            private var returnableId: JsonField<String>? = null
+            private var returnableType: JsonField<ReturnableType>? = null
+            private var additionalInformation: JsonField<String> = JsonMissing.of()
+            private var code: JsonField<Code> = JsonMissing.of()
+            private var dateOfDeath: JsonField<LocalDate> = JsonMissing.of()
+            private var reason: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(returnCreateRequest: ReturnCreateRequest) = apply {
+                returnableId = returnCreateRequest.returnableId
+                returnableType = returnCreateRequest.returnableType
+                additionalInformation = returnCreateRequest.additionalInformation
+                code = returnCreateRequest.code
+                dateOfDeath = returnCreateRequest.dateOfDeath
+                reason = returnCreateRequest.reason
+                additionalProperties = returnCreateRequest.additionalProperties.toMutableMap()
+            }
+
+            /** The ID of the object being returned or `null`. */
+            fun returnableId(returnableId: String?) =
+                returnableId(JsonField.ofNullable(returnableId))
+
+            /**
+             * Sets [Builder.returnableId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.returnableId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun returnableId(returnableId: JsonField<String>) = apply {
+                this.returnableId = returnableId
+            }
+
+            /**
+             * The type of object being returned. Currently, this may only be
+             * incoming_payment_detail.
+             */
+            fun returnableType(returnableType: ReturnableType) =
+                returnableType(JsonField.of(returnableType))
+
+            /**
+             * Sets [Builder.returnableType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.returnableType] with a well-typed [ReturnableType]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun returnableType(returnableType: JsonField<ReturnableType>) = apply {
+                this.returnableType = returnableType
+            }
+
+            /**
+             * Some returns may include additional information from the bank. In these cases, this
+             * string will be present.
+             */
+            fun additionalInformation(additionalInformation: String?) =
+                additionalInformation(JsonField.ofNullable(additionalInformation))
+
+            /**
+             * Sets [Builder.additionalInformation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.additionalInformation] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun additionalInformation(additionalInformation: JsonField<String>) = apply {
+                this.additionalInformation = additionalInformation
+            }
+
+            /** The return code. For ACH returns, this is the required ACH return code. */
+            fun code(code: Code?) = code(JsonField.ofNullable(code))
+
+            /**
+             * Sets [Builder.code] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.code] with a well-typed [Code] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun code(code: JsonField<Code>) = apply { this.code = code }
+
+            /**
+             * If the return code is `R14` or `R15` this is the date the deceased counterparty
+             * passed away.
+             */
+            fun dateOfDeath(dateOfDeath: LocalDate?) =
+                dateOfDeath(JsonField.ofNullable(dateOfDeath))
+
+            /**
+             * Sets [Builder.dateOfDeath] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dateOfDeath] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun dateOfDeath(dateOfDeath: JsonField<LocalDate>) = apply {
+                this.dateOfDeath = dateOfDeath
+            }
+
+            /**
+             * An optional description of the reason for the return. This is for internal usage and
+             * will not be transmitted to the bank.”
+             */
+            fun reason(reason: String?) = reason(JsonField.ofNullable(reason))
+
+            /**
+             * Sets [Builder.reason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reason] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun reason(reason: JsonField<String>) = apply { this.reason = reason }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ReturnCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .returnableId()
+             * .returnableType()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): ReturnCreateRequest =
+                ReturnCreateRequest(
+                    checkRequired("returnableId", returnableId),
+                    checkRequired("returnableType", returnableType),
+                    additionalInformation,
+                    code,
+                    dateOfDeath,
+                    reason,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): ReturnCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            returnableId()
+            returnableType()
+            additionalInformation()
+            code()
+            dateOfDeath()
+            reason()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is ReturnCreateRequest && returnableId == other.returnableId && returnableType == other.returnableType && additionalInformation == other.additionalInformation && code == other.code && dateOfDeath == other.dateOfDeath && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(returnableId, returnableType, additionalInformation, code, dateOfDeath, reason, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ReturnCreateRequest{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, dateOfDeath=$dateOfDeath, reason=$reason, additionalProperties=$additionalProperties}"
     }
 
     /** The type of object being returned. Currently, this may only be incoming_payment_detail. */

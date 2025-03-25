@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -51,21 +50,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                afterCursor?.let { put("after_cursor", it) }
-                counterpartyId?.let { put("counterparty_id", it) }
-                internalAccountId?.let { put("internal_account_id", it) }
-                perPage?.let { put("per_page", it.toString()) }
-                returnableId?.let { put("returnable_id", it) }
-                returnableType?.let { put("returnable_type", it.asString()) }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -77,7 +61,6 @@ private constructor(
     }
 
     /** A builder for [ReturnListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var afterCursor: String? = null
@@ -248,6 +231,21 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                counterpartyId?.let { put("counterparty_id", it) }
+                internalAccountId?.let { put("internal_account_id", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                returnableId?.let { put("returnable_id", it) }
+                returnableType?.let { put("returnable_type", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     /**
      * One of `payment_order`, `paper_item`, `reversal`, or `incoming_payment_detail`. Must be

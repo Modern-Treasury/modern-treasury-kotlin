@@ -11,37 +11,50 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkKnown
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class RoutingNumberLookupRequest
-@JsonCreator
 private constructor(
-    @JsonProperty("bank_address")
-    @ExcludeMissing
-    private val bankAddress: JsonField<AddressRequest> = JsonMissing.of(),
-    @JsonProperty("bank_name")
-    @ExcludeMissing
-    private val bankName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("routing_number")
-    @ExcludeMissing
-    private val routingNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("routing_number_type")
-    @ExcludeMissing
-    private val routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
-    @JsonProperty("sanctions")
-    @ExcludeMissing
-    private val sanctions: JsonField<Sanctions> = JsonMissing.of(),
-    @JsonProperty("supported_payment_types")
-    @ExcludeMissing
-    private val supportedPaymentTypes: JsonField<List<SupportedPaymentType>> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val bankAddress: JsonField<AddressRequest>,
+    private val bankName: JsonField<String>,
+    private val routingNumber: JsonField<String>,
+    private val routingNumberType: JsonField<RoutingNumberType>,
+    private val sanctions: JsonField<Sanctions>,
+    private val supportedPaymentTypes: JsonField<List<SupportedPaymentType>>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("bank_address")
+        @ExcludeMissing
+        bankAddress: JsonField<AddressRequest> = JsonMissing.of(),
+        @JsonProperty("bank_name") @ExcludeMissing bankName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        routingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("routing_number_type")
+        @ExcludeMissing
+        routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
+        @JsonProperty("sanctions")
+        @ExcludeMissing
+        sanctions: JsonField<Sanctions> = JsonMissing.of(),
+        @JsonProperty("supported_payment_types")
+        @ExcludeMissing
+        supportedPaymentTypes: JsonField<List<SupportedPaymentType>> = JsonMissing.of(),
+    ) : this(
+        bankAddress,
+        bankName,
+        routingNumber,
+        routingNumberType,
+        sanctions,
+        supportedPaymentTypes,
+        mutableMapOf(),
+    )
 
     /**
      * The address of the bank.
@@ -151,25 +164,15 @@ private constructor(
     @ExcludeMissing
     fun _supportedPaymentTypes(): JsonField<List<SupportedPaymentType>> = supportedPaymentTypes
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): RoutingNumberLookupRequest = apply {
-        if (validated) {
-            return@apply
-        }
-
-        bankAddress()?.validate()
-        bankName()
-        routingNumber()
-        routingNumberType()
-        sanctions()?.validate()
-        supportedPaymentTypes()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -341,36 +344,51 @@ private constructor(
                 routingNumberType,
                 sanctions,
                 (supportedPaymentTypes ?: JsonMissing.of()).map { it.toImmutable() },
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
     }
 
+    private var validated: Boolean = false
+
+    fun validate(): RoutingNumberLookupRequest = apply {
+        if (validated) {
+            return@apply
+        }
+
+        bankAddress()?.validate()
+        bankName()
+        routingNumber()
+        routingNumberType()
+        sanctions()?.validate()
+        supportedPaymentTypes()
+        validated = true
+    }
+
     /** The address of the bank. */
-    @NoAutoDetect
     class AddressRequest
-    @JsonCreator
     private constructor(
-        @JsonProperty("country")
-        @ExcludeMissing
-        private val country: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line1")
-        @ExcludeMissing
-        private val line1: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line2")
-        @ExcludeMissing
-        private val line2: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("locality")
-        @ExcludeMissing
-        private val locality: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("postal_code")
-        @ExcludeMissing
-        private val postalCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("region")
-        @ExcludeMissing
-        private val region: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val country: JsonField<String>,
+        private val line1: JsonField<String>,
+        private val line2: JsonField<String>,
+        private val locality: JsonField<String>,
+        private val postalCode: JsonField<String>,
+        private val region: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("country") @ExcludeMissing country: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("locality")
+            @ExcludeMissing
+            locality: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("region") @ExcludeMissing region: JsonField<String> = JsonMissing.of(),
+        ) : this(country, line1, line2, locality, postalCode, region, mutableMapOf())
 
         /**
          * Country code conforms to [ISO 3166-1 alpha-2]
@@ -460,25 +478,15 @@ private constructor(
          */
         @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): AddressRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            country()
-            line1()
-            line2()
-            locality()
-            postalCode()
-            region()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -611,8 +619,24 @@ private constructor(
                     locality,
                     postalCode,
                     region,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): AddressRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            country()
+            line1()
+            line2()
+            locality()
+            postalCode()
+            region()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -783,27 +807,20 @@ private constructor(
      * value representing whether the bank is on that particular sanctions list. Currently, this
      * includes eu_con, uk_hmt, us_ofac, and un sanctions lists.
      */
-    @NoAutoDetect
     class Sanctions
-    @JsonCreator
-    private constructor(
+    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+        @JsonCreator private constructor() : this(mutableMapOf())
+
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-    ) {
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Sanctions = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -846,7 +863,17 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Sanctions = Sanctions(additionalProperties.toImmutable())
+            fun build(): Sanctions = Sanctions(additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Sanctions = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

@@ -5,24 +5,24 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.MultipartField
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.io.InputStream
 import java.nio.file.Path
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import kotlin.io.path.inputStream
 import kotlin.io.path.name
@@ -652,6 +652,807 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
+    fun toBuilder() = Builder().from(this)
+
+    companion object {
+
+        /**
+         * Returns a mutable builder for constructing an instance of [PaymentOrderCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amount()
+         * .direction()
+         * .originatingAccountId()
+         * .type()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [PaymentOrderCreateParams]. */
+    class Builder internal constructor() {
+
+        private var body: PaymentOrderCreateRequest.Builder = PaymentOrderCreateRequest.builder()
+        private var additionalHeaders: Headers.Builder = Headers.builder()
+        private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
+
+        internal fun from(paymentOrderCreateParams: PaymentOrderCreateParams) = apply {
+            body = paymentOrderCreateParams.body.toBuilder()
+            additionalHeaders = paymentOrderCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = paymentOrderCreateParams.additionalQueryParams.toBuilder()
+        }
+
+        /**
+         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
+         * (cents). For RTP, the maximum amount allowed by the network is $100,000.
+         */
+        fun amount(amount: Long) = apply { body.amount(amount) }
+
+        /**
+         * Sets [Builder.amount] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun amount(amount: MultipartField<Long>) = apply { body.amount(amount) }
+
+        /**
+         * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
+         * `credit` moves money from your account to someone else's. A `debit` pulls money from
+         * someone else's account to your own. Note that wire, rtp, and check payments will always
+         * be `credit`.
+         */
+        fun direction(direction: Direction) = apply { body.direction(direction) }
+
+        /**
+         * Sets [Builder.direction] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.direction] with a well-typed [Direction] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun direction(direction: MultipartField<Direction>) = apply { body.direction(direction) }
+
+        /** The ID of one of your organization's internal accounts. */
+        fun originatingAccountId(originatingAccountId: String) = apply {
+            body.originatingAccountId(originatingAccountId)
+        }
+
+        /**
+         * Sets [Builder.originatingAccountId] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.originatingAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun originatingAccountId(originatingAccountId: MultipartField<String>) = apply {
+            body.originatingAccountId(originatingAccountId)
+        }
+
+        /**
+         * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
+         * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
+         * `signet`, `provexchange`, `zengin`.
+         */
+        fun type(type: PaymentOrderType) = apply { body.type(type) }
+
+        /**
+         * Sets [Builder.type] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.type] with a well-typed [PaymentOrderType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun type(type: MultipartField<PaymentOrderType>) = apply { body.type(type) }
+
+        fun accounting(accounting: Accounting) = apply { body.accounting(accounting) }
+
+        /**
+         * Sets [Builder.accounting] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.accounting] with a well-typed [Accounting] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun accounting(accounting: MultipartField<Accounting>) = apply {
+            body.accounting(accounting)
+        }
+
+        /**
+         * The ID of one of your accounting categories. Note that these will only be accessible if
+         * your accounting system has been connected.
+         */
+        @Deprecated("deprecated")
+        fun accountingCategoryId(accountingCategoryId: String?) = apply {
+            body.accountingCategoryId(accountingCategoryId)
+        }
+
+        /**
+         * Sets [Builder.accountingCategoryId] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.accountingCategoryId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        @Deprecated("deprecated")
+        fun accountingCategoryId(accountingCategoryId: MultipartField<String>) = apply {
+            body.accountingCategoryId(accountingCategoryId)
+        }
+
+        /**
+         * The ID of one of your accounting ledger classes. Note that these will only be accessible
+         * if your accounting system has been connected.
+         */
+        @Deprecated("deprecated")
+        fun accountingLedgerClassId(accountingLedgerClassId: String?) = apply {
+            body.accountingLedgerClassId(accountingLedgerClassId)
+        }
+
+        /**
+         * Sets [Builder.accountingLedgerClassId] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.accountingLedgerClassId] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        @Deprecated("deprecated")
+        fun accountingLedgerClassId(accountingLedgerClassId: MultipartField<String>) = apply {
+            body.accountingLedgerClassId(accountingLedgerClassId)
+        }
+
+        /**
+         * The party that will pay the fees for the payment order. Only applies to wire payment
+         * orders. Can be one of shared, sender, or receiver, which correspond respectively with the
+         * SWIFT 71A values `SHA`, `OUR`, `BEN`.
+         */
+        fun chargeBearer(chargeBearer: ChargeBearer?) = apply { body.chargeBearer(chargeBearer) }
+
+        /**
+         * Sets [Builder.chargeBearer] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.chargeBearer] with a well-typed [ChargeBearer] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun chargeBearer(chargeBearer: MultipartField<ChargeBearer>) = apply {
+            body.chargeBearer(chargeBearer)
+        }
+
+        /** Defaults to the currency of the originating account. */
+        fun currency(currency: Currency) = apply { body.currency(currency) }
+
+        /**
+         * Sets [Builder.currency] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.currency] with a well-typed [Currency] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun currency(currency: MultipartField<Currency>) = apply { body.currency(currency) }
+
+        /** An optional description for internal use. */
+        fun description(description: String?) = apply { body.description(description) }
+
+        /**
+         * Sets [Builder.description] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun description(description: MultipartField<String>) = apply {
+            body.description(description)
+        }
+
+        /**
+         * An array of documents to be attached to the payment order. Note that if you attach
+         * documents, the request's content type must be `multipart/form-data`.
+         */
+        fun documents(documents: List<DocumentCreateRequest>) = apply { body.documents(documents) }
+
+        /**
+         * Sets [Builder.documents] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.documents] with a well-typed
+         * `List<DocumentCreateRequest>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun documents(documents: MultipartField<List<DocumentCreateRequest>>) = apply {
+            body.documents(documents)
+        }
+
+        /**
+         * Adds a single [DocumentCreateRequest] to [documents].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addDocument(document: DocumentCreateRequest) = apply { body.addDocument(document) }
+
+        /**
+         * Date transactions are to be posted to the participants' account. Defaults to the current
+         * business day or the next business day if the current day is a bank holiday or weekend.
+         * Format: yyyy-mm-dd.
+         */
+        fun effectiveDate(effectiveDate: LocalDate) = apply { body.effectiveDate(effectiveDate) }
+
+        /**
+         * Sets [Builder.effectiveDate] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.effectiveDate] with a well-typed [LocalDate] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun effectiveDate(effectiveDate: MultipartField<LocalDate>) = apply {
+            body.effectiveDate(effectiveDate)
+        }
+
+        /** RFP payments require an expires_at. This value must be past the effective_date. */
+        fun expiresAt(expiresAt: OffsetDateTime?) = apply { body.expiresAt(expiresAt) }
+
+        /**
+         * Sets [Builder.expiresAt] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.expiresAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun expiresAt(expiresAt: MultipartField<OffsetDateTime>) = apply {
+            body.expiresAt(expiresAt)
+        }
+
+        /**
+         * A payment type to fallback to if the original type is not valid for the receiving
+         * account. Currently, this only supports falling back from RTP to ACH (type=rtp and
+         * fallback_type=ach)
+         */
+        fun fallbackType(fallbackType: FallbackType) = apply { body.fallbackType(fallbackType) }
+
+        /**
+         * Sets [Builder.fallbackType] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.fallbackType] with a well-typed [FallbackType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun fallbackType(fallbackType: MultipartField<FallbackType>) = apply {
+            body.fallbackType(fallbackType)
+        }
+
+        /**
+         * If present, indicates a specific foreign exchange contract number that has been generated
+         * by your financial institution.
+         */
+        fun foreignExchangeContract(foreignExchangeContract: String?) = apply {
+            body.foreignExchangeContract(foreignExchangeContract)
+        }
+
+        /**
+         * Sets [Builder.foreignExchangeContract] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.foreignExchangeContract] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun foreignExchangeContract(foreignExchangeContract: MultipartField<String>) = apply {
+            body.foreignExchangeContract(foreignExchangeContract)
+        }
+
+        /**
+         * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
+         * `fixed_to_variable`, or `null` if the payment order currency matches the originating
+         * account currency.
+         */
+        fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator?) = apply {
+            body.foreignExchangeIndicator(foreignExchangeIndicator)
+        }
+
+        /**
+         * Sets [Builder.foreignExchangeIndicator] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.foreignExchangeIndicator] with a well-typed
+         * [ForeignExchangeIndicator] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun foreignExchangeIndicator(
+            foreignExchangeIndicator: MultipartField<ForeignExchangeIndicator>
+        ) = apply { body.foreignExchangeIndicator(foreignExchangeIndicator) }
+
+        /**
+         * Specifies a ledger transaction object that will be created with the payment order. If the
+         * ledger transaction cannot be created, then the payment order creation will fail. The
+         * resulting ledger transaction will mirror the status of the payment order.
+         */
+        fun ledgerTransaction(ledgerTransaction: LedgerTransactionCreateRequest) = apply {
+            body.ledgerTransaction(ledgerTransaction)
+        }
+
+        /**
+         * Sets [Builder.ledgerTransaction] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.ledgerTransaction] with a well-typed
+         * [LedgerTransactionCreateRequest] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun ledgerTransaction(ledgerTransaction: MultipartField<LedgerTransactionCreateRequest>) =
+            apply {
+                body.ledgerTransaction(ledgerTransaction)
+            }
+
+        /**
+         * Either ledger_transaction or ledger_transaction_id can be provided. Only a pending ledger
+         * transaction can be attached upon payment order creation. Once the payment order is
+         * created, the status of the ledger transaction tracks the payment order automatically.
+         */
+        fun ledgerTransactionId(ledgerTransactionId: String) = apply {
+            body.ledgerTransactionId(ledgerTransactionId)
+        }
+
+        /**
+         * Sets [Builder.ledgerTransactionId] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.ledgerTransactionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun ledgerTransactionId(ledgerTransactionId: MultipartField<String>) = apply {
+            body.ledgerTransactionId(ledgerTransactionId)
+        }
+
+        /** An array of line items that must sum up to the amount of the payment order. */
+        fun lineItems(lineItems: List<LineItemRequest>) = apply { body.lineItems(lineItems) }
+
+        /**
+         * Sets [Builder.lineItems] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.lineItems] with a well-typed `List<LineItemRequest>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun lineItems(lineItems: MultipartField<List<LineItemRequest>>) = apply {
+            body.lineItems(lineItems)
+        }
+
+        /**
+         * Adds a single [LineItemRequest] to [lineItems].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addLineItem(lineItem: LineItemRequest) = apply { body.addLineItem(lineItem) }
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+
+        /**
+         * Sets [Builder.metadata] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun metadata(metadata: MultipartField<Metadata>) = apply { body.metadata(metadata) }
+
+        /**
+         * A boolean to determine if NSF Protection is enabled for this payment order. Note that
+         * this setting must also be turned on in your organization settings page.
+         */
+        fun nsfProtected(nsfProtected: Boolean) = apply { body.nsfProtected(nsfProtected) }
+
+        /**
+         * Sets [Builder.nsfProtected] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.nsfProtected] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun nsfProtected(nsfProtected: MultipartField<Boolean>) = apply {
+            body.nsfProtected(nsfProtected)
+        }
+
+        /**
+         * If present, this will replace your default company name on receiver's bank statement.
+         * This field can only be used for ACH payments currently. For ACH, only the first 16
+         * characters of this string will be used. Any additional characters will be truncated.
+         */
+        fun originatingPartyName(originatingPartyName: String?) = apply {
+            body.originatingPartyName(originatingPartyName)
+        }
+
+        /**
+         * Sets [Builder.originatingPartyName] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.originatingPartyName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun originatingPartyName(originatingPartyName: MultipartField<String>) = apply {
+            body.originatingPartyName(originatingPartyName)
+        }
+
+        /**
+         * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or
+         * EFT transfer, respectively. For check payments, `high` can mean an overnight check rather
+         * than standard mail.
+         */
+        fun priority(priority: Priority) = apply { body.priority(priority) }
+
+        /**
+         * Sets [Builder.priority] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.priority] with a well-typed [Priority] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun priority(priority: MultipartField<Priority>) = apply { body.priority(priority) }
+
+        /**
+         * If present, Modern Treasury will not process the payment until after this time. If
+         * `process_after` is past the cutoff for `effective_date`, `process_after` will take
+         * precedence and `effective_date` will automatically update to reflect the earliest
+         * possible sending date after `process_after`. Format is ISO8601 timestamp.
+         */
+        fun processAfter(processAfter: OffsetDateTime?) = apply { body.processAfter(processAfter) }
+
+        /**
+         * Sets [Builder.processAfter] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.processAfter] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun processAfter(processAfter: MultipartField<OffsetDateTime>) = apply {
+            body.processAfter(processAfter)
+        }
+
+        /**
+         * For `wire`, this is usually the purpose which is transmitted via the "InstrForDbtrAgt"
+         * field in the ISO20022 file. For `eft`, this field is the 3 digit CPA Code that will be
+         * attached to the payment.
+         */
+        fun purpose(purpose: String?) = apply { body.purpose(purpose) }
+
+        /**
+         * Sets [Builder.purpose] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.purpose] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun purpose(purpose: MultipartField<String>) = apply { body.purpose(purpose) }
+
+        /**
+         * Either `receiving_account` or `receiving_account_id` must be present. When using
+         * `receiving_account_id`, you may pass the id of an external account or an internal
+         * account.
+         */
+        fun receivingAccount(receivingAccount: ReceivingAccount) = apply {
+            body.receivingAccount(receivingAccount)
+        }
+
+        /**
+         * Sets [Builder.receivingAccount] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.receivingAccount] with a well-typed [ReceivingAccount]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun receivingAccount(receivingAccount: MultipartField<ReceivingAccount>) = apply {
+            body.receivingAccount(receivingAccount)
+        }
+
+        /**
+         * Either `receiving_account` or `receiving_account_id` must be present. When using
+         * `receiving_account_id`, you may pass the id of an external account or an internal
+         * account.
+         */
+        fun receivingAccountId(receivingAccountId: String) = apply {
+            body.receivingAccountId(receivingAccountId)
+        }
+
+        /**
+         * Sets [Builder.receivingAccountId] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.receivingAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun receivingAccountId(receivingAccountId: MultipartField<String>) = apply {
+            body.receivingAccountId(receivingAccountId)
+        }
+
+        /**
+         * For `ach`, this field will be passed through on an addenda record. For `wire` payments
+         * the field will be passed through as the "Originator to Beneficiary Information", also
+         * known as OBI or Fedwire tag 6000.
+         */
+        fun remittanceInformation(remittanceInformation: String?) = apply {
+            body.remittanceInformation(remittanceInformation)
+        }
+
+        /**
+         * Sets [Builder.remittanceInformation] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.remittanceInformation] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun remittanceInformation(remittanceInformation: MultipartField<String>) = apply {
+            body.remittanceInformation(remittanceInformation)
+        }
+
+        /**
+         * Send an email to the counterparty when the payment order is sent to the bank. If `null`,
+         * `send_remittance_advice` on the Counterparty is used.
+         */
+        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean?) = apply {
+            body.sendRemittanceAdvice(sendRemittanceAdvice)
+        }
+
+        /**
+         * Alias for [Builder.sendRemittanceAdvice].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) =
+            sendRemittanceAdvice(sendRemittanceAdvice as Boolean?)
+
+        /**
+         * Sets [Builder.sendRemittanceAdvice] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun sendRemittanceAdvice(sendRemittanceAdvice: MultipartField<Boolean>) = apply {
+            body.sendRemittanceAdvice(sendRemittanceAdvice)
+        }
+
+        /**
+         * An optional descriptor which will appear in the receiver's statement. For `check`
+         * payments this field will be used as the memo line. For `ach` the maximum length is 10
+         * characters. Note that for ACH payments, the name on your bank account will be included
+         * automatically by the bank, so you can use the characters for other useful information.
+         * For `eft` the maximum length is 15 characters.
+         */
+        fun statementDescriptor(statementDescriptor: String?) = apply {
+            body.statementDescriptor(statementDescriptor)
+        }
+
+        /**
+         * Sets [Builder.statementDescriptor] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.statementDescriptor] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun statementDescriptor(statementDescriptor: MultipartField<String>) = apply {
+            body.statementDescriptor(statementDescriptor)
+        }
+
+        /**
+         * An additional layer of classification for the type of payment order you are doing. This
+         * field is only used for `ach` payment orders currently. For `ach` payment orders, the
+         * `subtype` represents the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`,
+         * `WEB`, `CIE`, and `TEL`.
+         */
+        fun subtype(subtype: PaymentOrderSubtype?) = apply { body.subtype(subtype) }
+
+        /**
+         * Sets [Builder.subtype] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.subtype] with a well-typed [PaymentOrderSubtype] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun subtype(subtype: MultipartField<PaymentOrderSubtype>) = apply { body.subtype(subtype) }
+
+        /**
+         * A flag that determines whether a payment order should go through transaction monitoring.
+         */
+        fun transactionMonitoringEnabled(transactionMonitoringEnabled: Boolean) = apply {
+            body.transactionMonitoringEnabled(transactionMonitoringEnabled)
+        }
+
+        /**
+         * Sets [Builder.transactionMonitoringEnabled] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.transactionMonitoringEnabled] with a well-typed
+         * [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun transactionMonitoringEnabled(transactionMonitoringEnabled: MultipartField<Boolean>) =
+            apply {
+                body.transactionMonitoringEnabled(transactionMonitoringEnabled)
+            }
+
+        /** Identifier of the ultimate originator of the payment order. */
+        fun ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier: String?) =
+            apply {
+                body.ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier)
+            }
+
+        /**
+         * Sets [Builder.ultimateOriginatingPartyIdentifier] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.ultimateOriginatingPartyIdentifier] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun ultimateOriginatingPartyIdentifier(
+            ultimateOriginatingPartyIdentifier: MultipartField<String>
+        ) = apply { body.ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier) }
+
+        /** Name of the ultimate originator of the payment order. */
+        fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: String?) = apply {
+            body.ultimateOriginatingPartyName(ultimateOriginatingPartyName)
+        }
+
+        /**
+         * Sets [Builder.ultimateOriginatingPartyName] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.ultimateOriginatingPartyName] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: MultipartField<String>) =
+            apply {
+                body.ultimateOriginatingPartyName(ultimateOriginatingPartyName)
+            }
+
+        /** Identifier of the ultimate funds recipient. */
+        fun ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier: String?) = apply {
+            body.ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier)
+        }
+
+        /**
+         * Sets [Builder.ultimateReceivingPartyIdentifier] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.ultimateReceivingPartyIdentifier] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun ultimateReceivingPartyIdentifier(
+            ultimateReceivingPartyIdentifier: MultipartField<String>
+        ) = apply { body.ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier) }
+
+        /** Name of the ultimate funds recipient. */
+        fun ultimateReceivingPartyName(ultimateReceivingPartyName: String?) = apply {
+            body.ultimateReceivingPartyName(ultimateReceivingPartyName)
+        }
+
+        /**
+         * Sets [Builder.ultimateReceivingPartyName] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.ultimateReceivingPartyName] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun ultimateReceivingPartyName(ultimateReceivingPartyName: MultipartField<String>) = apply {
+            body.ultimateReceivingPartyName(ultimateReceivingPartyName)
+        }
+
+        fun additionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
+
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
+
+        fun putAdditionalHeader(name: String, value: String) = apply {
+            additionalHeaders.put(name, value)
+        }
+
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.put(name, values)
+        }
+
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
+
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
+
+        fun replaceAdditionalHeaders(name: String, value: String) = apply {
+            additionalHeaders.replace(name, value)
+        }
+
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.replace(name, values)
+        }
+
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
+
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
+
+        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
+
+        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
+            additionalHeaders.removeAll(names)
+        }
+
+        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
+
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
+
+        fun putAdditionalQueryParam(key: String, value: String) = apply {
+            additionalQueryParams.put(key, value)
+        }
+
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.put(key, values)
+        }
+
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.putAll(additionalQueryParams)
+        }
+
+        fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.putAll(additionalQueryParams)
+            }
+
+        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
+            additionalQueryParams.replace(key, value)
+        }
+
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.replace(key, values)
+        }
+
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.replaceAll(additionalQueryParams)
+        }
+
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
+
+        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
+
+        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
+            additionalQueryParams.removeAll(keys)
+        }
+
+        /**
+         * Returns an immutable instance of [PaymentOrderCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amount()
+         * .direction()
+         * .originatingAccountId()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): PaymentOrderCreateParams =
+            PaymentOrderCreateParams(
+                body.build(),
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
+            )
+    }
+
     internal fun _body(): Map<String, MultipartField<*>> =
         mapOf(
                 "amount" to _amount(),
@@ -697,9 +1498,7 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    @NoAutoDetect
     class PaymentOrderCreateRequest
-    @JsonCreator
     private constructor(
         private val amount: MultipartField<Long>,
         private val direction: MultipartField<Direction>,
@@ -1100,7 +1899,7 @@ private constructor(
          *
          * Unlike [amount], this method doesn't throw if the multipart field has an unexpected type.
          */
-        fun _amount(): MultipartField<Long> = amount
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): MultipartField<Long> = amount
 
         /**
          * Returns the raw multipart value of [direction].
@@ -1108,6 +1907,8 @@ private constructor(
          * Unlike [direction], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("direction")
+        @ExcludeMissing
         fun _direction(): MultipartField<Direction> = direction
 
         /**
@@ -1116,6 +1917,8 @@ private constructor(
          * Unlike [originatingAccountId], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("originating_account_id")
+        @ExcludeMissing
         fun _originatingAccountId(): MultipartField<String> = originatingAccountId
 
         /**
@@ -1123,7 +1926,7 @@ private constructor(
          *
          * Unlike [type], this method doesn't throw if the multipart field has an unexpected type.
          */
-        fun _type(): MultipartField<PaymentOrderType> = type
+        @JsonProperty("type") @ExcludeMissing fun _type(): MultipartField<PaymentOrderType> = type
 
         /**
          * Returns the raw multipart value of [accounting].
@@ -1131,6 +1934,8 @@ private constructor(
          * Unlike [accounting], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("accounting")
+        @ExcludeMissing
         fun _accounting(): MultipartField<Accounting> = accounting
 
         /**
@@ -1140,6 +1945,8 @@ private constructor(
          * unexpected type.
          */
         @Deprecated("deprecated")
+        @JsonProperty("accounting_category_id")
+        @ExcludeMissing
         fun _accountingCategoryId(): MultipartField<String> = accountingCategoryId
 
         /**
@@ -1149,6 +1956,8 @@ private constructor(
          * unexpected type.
          */
         @Deprecated("deprecated")
+        @JsonProperty("accounting_ledger_class_id")
+        @ExcludeMissing
         fun _accountingLedgerClassId(): MultipartField<String> = accountingLedgerClassId
 
         /**
@@ -1157,6 +1966,8 @@ private constructor(
          * Unlike [chargeBearer], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("charge_bearer")
+        @ExcludeMissing
         fun _chargeBearer(): MultipartField<ChargeBearer> = chargeBearer
 
         /**
@@ -1165,6 +1976,8 @@ private constructor(
          * Unlike [currency], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("currency")
+        @ExcludeMissing
         fun _currency(): MultipartField<Currency> = currency
 
         /**
@@ -1173,6 +1986,8 @@ private constructor(
          * Unlike [description], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("description")
+        @ExcludeMissing
         fun _description(): MultipartField<String> = description
 
         /**
@@ -1181,6 +1996,8 @@ private constructor(
          * Unlike [documents], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("documents")
+        @ExcludeMissing
         fun _documents(): MultipartField<List<DocumentCreateRequest>> = documents
 
         /**
@@ -1189,6 +2006,8 @@ private constructor(
          * Unlike [effectiveDate], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("effective_date")
+        @ExcludeMissing
         fun _effectiveDate(): MultipartField<LocalDate> = effectiveDate
 
         /**
@@ -1197,6 +2016,8 @@ private constructor(
          * Unlike [expiresAt], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("expires_at")
+        @ExcludeMissing
         fun _expiresAt(): MultipartField<OffsetDateTime> = expiresAt
 
         /**
@@ -1205,6 +2026,8 @@ private constructor(
          * Unlike [fallbackType], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("fallback_type")
+        @ExcludeMissing
         fun _fallbackType(): MultipartField<FallbackType> = fallbackType
 
         /**
@@ -1213,6 +2036,8 @@ private constructor(
          * Unlike [foreignExchangeContract], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("foreign_exchange_contract")
+        @ExcludeMissing
         fun _foreignExchangeContract(): MultipartField<String> = foreignExchangeContract
 
         /**
@@ -1221,6 +2046,8 @@ private constructor(
          * Unlike [foreignExchangeIndicator], this method doesn't throw if the multipart field has
          * an unexpected type.
          */
+        @JsonProperty("foreign_exchange_indicator")
+        @ExcludeMissing
         fun _foreignExchangeIndicator(): MultipartField<ForeignExchangeIndicator> =
             foreignExchangeIndicator
 
@@ -1230,6 +2057,8 @@ private constructor(
          * Unlike [ledgerTransaction], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("ledger_transaction")
+        @ExcludeMissing
         fun _ledgerTransaction(): MultipartField<LedgerTransactionCreateRequest> = ledgerTransaction
 
         /**
@@ -1238,6 +2067,8 @@ private constructor(
          * Unlike [ledgerTransactionId], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("ledger_transaction_id")
+        @ExcludeMissing
         fun _ledgerTransactionId(): MultipartField<String> = ledgerTransactionId
 
         /**
@@ -1246,6 +2077,8 @@ private constructor(
          * Unlike [lineItems], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("line_items")
+        @ExcludeMissing
         fun _lineItems(): MultipartField<List<LineItemRequest>> = lineItems
 
         /**
@@ -1254,6 +2087,8 @@ private constructor(
          * Unlike [metadata], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("metadata")
+        @ExcludeMissing
         fun _metadata(): MultipartField<Metadata> = metadata
 
         /**
@@ -1262,6 +2097,8 @@ private constructor(
          * Unlike [nsfProtected], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("nsf_protected")
+        @ExcludeMissing
         fun _nsfProtected(): MultipartField<Boolean> = nsfProtected
 
         /**
@@ -1270,6 +2107,8 @@ private constructor(
          * Unlike [originatingPartyName], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("originating_party_name")
+        @ExcludeMissing
         fun _originatingPartyName(): MultipartField<String> = originatingPartyName
 
         /**
@@ -1278,6 +2117,8 @@ private constructor(
          * Unlike [priority], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("priority")
+        @ExcludeMissing
         fun _priority(): MultipartField<Priority> = priority
 
         /**
@@ -1286,6 +2127,8 @@ private constructor(
          * Unlike [processAfter], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("process_after")
+        @ExcludeMissing
         fun _processAfter(): MultipartField<OffsetDateTime> = processAfter
 
         /**
@@ -1294,7 +2137,7 @@ private constructor(
          * Unlike [purpose], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
-        fun _purpose(): MultipartField<String> = purpose
+        @JsonProperty("purpose") @ExcludeMissing fun _purpose(): MultipartField<String> = purpose
 
         /**
          * Returns the raw multipart value of [receivingAccount].
@@ -1302,6 +2145,8 @@ private constructor(
          * Unlike [receivingAccount], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("receiving_account")
+        @ExcludeMissing
         fun _receivingAccount(): MultipartField<ReceivingAccount> = receivingAccount
 
         /**
@@ -1310,6 +2155,8 @@ private constructor(
          * Unlike [receivingAccountId], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("receiving_account_id")
+        @ExcludeMissing
         fun _receivingAccountId(): MultipartField<String> = receivingAccountId
 
         /**
@@ -1318,6 +2165,8 @@ private constructor(
          * Unlike [remittanceInformation], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("remittance_information")
+        @ExcludeMissing
         fun _remittanceInformation(): MultipartField<String> = remittanceInformation
 
         /**
@@ -1326,6 +2175,8 @@ private constructor(
          * Unlike [sendRemittanceAdvice], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("send_remittance_advice")
+        @ExcludeMissing
         fun _sendRemittanceAdvice(): MultipartField<Boolean> = sendRemittanceAdvice
 
         /**
@@ -1334,6 +2185,8 @@ private constructor(
          * Unlike [statementDescriptor], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("statement_descriptor")
+        @ExcludeMissing
         fun _statementDescriptor(): MultipartField<String> = statementDescriptor
 
         /**
@@ -1342,6 +2195,8 @@ private constructor(
          * Unlike [subtype], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("subtype")
+        @ExcludeMissing
         fun _subtype(): MultipartField<PaymentOrderSubtype> = subtype
 
         /**
@@ -1350,6 +2205,8 @@ private constructor(
          * Unlike [transactionMonitoringEnabled], this method doesn't throw if the multipart field
          * has an unexpected type.
          */
+        @JsonProperty("transaction_monitoring_enabled")
+        @ExcludeMissing
         fun _transactionMonitoringEnabled(): MultipartField<Boolean> = transactionMonitoringEnabled
 
         /**
@@ -1358,6 +2215,8 @@ private constructor(
          * Unlike [ultimateOriginatingPartyIdentifier], this method doesn't throw if the multipart
          * field has an unexpected type.
          */
+        @JsonProperty("ultimate_originating_party_identifier")
+        @ExcludeMissing
         fun _ultimateOriginatingPartyIdentifier(): MultipartField<String> =
             ultimateOriginatingPartyIdentifier
 
@@ -1367,6 +2226,8 @@ private constructor(
          * Unlike [ultimateOriginatingPartyName], this method doesn't throw if the multipart field
          * has an unexpected type.
          */
+        @JsonProperty("ultimate_originating_party_name")
+        @ExcludeMissing
         fun _ultimateOriginatingPartyName(): MultipartField<String> = ultimateOriginatingPartyName
 
         /**
@@ -1375,6 +2236,8 @@ private constructor(
          * Unlike [ultimateReceivingPartyIdentifier], this method doesn't throw if the multipart
          * field has an unexpected type.
          */
+        @JsonProperty("ultimate_receiving_party_identifier")
+        @ExcludeMissing
         fun _ultimateReceivingPartyIdentifier(): MultipartField<String> =
             ultimateReceivingPartyIdentifier
 
@@ -1384,53 +2247,9 @@ private constructor(
          * Unlike [ultimateReceivingPartyName], this method doesn't throw if the multipart field has
          * an unexpected type.
          */
+        @JsonProperty("ultimate_receiving_party_name")
+        @ExcludeMissing
         fun _ultimateReceivingPartyName(): MultipartField<String> = ultimateReceivingPartyName
-
-        private var validated: Boolean = false
-
-        fun validate(): PaymentOrderCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            amount()
-            direction()
-            originatingAccountId()
-            type()
-            accounting()?.validate()
-            accountingCategoryId()
-            accountingLedgerClassId()
-            chargeBearer()
-            currency()
-            description()
-            documents()?.forEach { it.validate() }
-            effectiveDate()
-            expiresAt()
-            fallbackType()
-            foreignExchangeContract()
-            foreignExchangeIndicator()
-            ledgerTransaction()?.validate()
-            ledgerTransactionId()
-            lineItems()?.forEach { it.validate() }
-            metadata()?.validate()
-            nsfProtected()
-            originatingPartyName()
-            priority()
-            processAfter()
-            purpose()
-            receivingAccount()?.validate()
-            receivingAccountId()
-            remittanceInformation()
-            sendRemittanceAdvice()
-            statementDescriptor()
-            subtype()
-            transactionMonitoringEnabled()
-            ultimateOriginatingPartyIdentifier()
-            ultimateOriginatingPartyName()
-            ultimateReceivingPartyIdentifier()
-            ultimateReceivingPartyName()
-            validated = true
-        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -2256,6 +3075,52 @@ private constructor(
                 )
         }
 
+        private var validated: Boolean = false
+
+        fun validate(): PaymentOrderCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            amount()
+            direction()
+            originatingAccountId()
+            type()
+            accounting()?.validate()
+            accountingCategoryId()
+            accountingLedgerClassId()
+            chargeBearer()
+            currency()
+            description()
+            documents()?.forEach { it.validate() }
+            effectiveDate()
+            expiresAt()
+            fallbackType()
+            foreignExchangeContract()
+            foreignExchangeIndicator()
+            ledgerTransaction()?.validate()
+            ledgerTransactionId()
+            lineItems()?.forEach { it.validate() }
+            metadata()?.validate()
+            nsfProtected()
+            originatingPartyName()
+            priority()
+            processAfter()
+            purpose()
+            receivingAccount()?.validate()
+            receivingAccountId()
+            remittanceInformation()
+            sendRemittanceAdvice()
+            statementDescriptor()
+            subtype()
+            transactionMonitoringEnabled()
+            ultimateOriginatingPartyIdentifier()
+            ultimateOriginatingPartyName()
+            ultimateReceivingPartyIdentifier()
+            ultimateReceivingPartyName()
+            validated = true
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -2272,808 +3137,6 @@ private constructor(
 
         override fun toString() =
             "PaymentOrderCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, documents=$documents, effectiveDate=$effectiveDate, expiresAt=$expiresAt, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName}"
-    }
-
-    fun toBuilder() = Builder().from(this)
-
-    companion object {
-
-        /**
-         * Returns a mutable builder for constructing an instance of [PaymentOrderCreateParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .amount()
-         * .direction()
-         * .originatingAccountId()
-         * .type()
-         * ```
-         */
-        fun builder() = Builder()
-    }
-
-    /** A builder for [PaymentOrderCreateParams]. */
-    @NoAutoDetect
-    class Builder internal constructor() {
-
-        private var body: PaymentOrderCreateRequest.Builder = PaymentOrderCreateRequest.builder()
-        private var additionalHeaders: Headers.Builder = Headers.builder()
-        private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-
-        internal fun from(paymentOrderCreateParams: PaymentOrderCreateParams) = apply {
-            body = paymentOrderCreateParams.body.toBuilder()
-            additionalHeaders = paymentOrderCreateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = paymentOrderCreateParams.additionalQueryParams.toBuilder()
-        }
-
-        /**
-         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
-         * (cents). For RTP, the maximum amount allowed by the network is $100,000.
-         */
-        fun amount(amount: Long) = apply { body.amount(amount) }
-
-        /**
-         * Sets [Builder.amount] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun amount(amount: MultipartField<Long>) = apply { body.amount(amount) }
-
-        /**
-         * One of `credit`, `debit`. Describes the direction money is flowing in the transaction. A
-         * `credit` moves money from your account to someone else's. A `debit` pulls money from
-         * someone else's account to your own. Note that wire, rtp, and check payments will always
-         * be `credit`.
-         */
-        fun direction(direction: Direction) = apply { body.direction(direction) }
-
-        /**
-         * Sets [Builder.direction] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.direction] with a well-typed [Direction] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun direction(direction: MultipartField<Direction>) = apply { body.direction(direction) }
-
-        /** The ID of one of your organization's internal accounts. */
-        fun originatingAccountId(originatingAccountId: String) = apply {
-            body.originatingAccountId(originatingAccountId)
-        }
-
-        /**
-         * Sets [Builder.originatingAccountId] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.originatingAccountId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun originatingAccountId(originatingAccountId: MultipartField<String>) = apply {
-            body.originatingAccountId(originatingAccountId)
-        }
-
-        /**
-         * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
-         * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
-         * `signet`, `provexchange`, `zengin`.
-         */
-        fun type(type: PaymentOrderType) = apply { body.type(type) }
-
-        /**
-         * Sets [Builder.type] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.type] with a well-typed [PaymentOrderType] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun type(type: MultipartField<PaymentOrderType>) = apply { body.type(type) }
-
-        fun accounting(accounting: Accounting) = apply { body.accounting(accounting) }
-
-        /**
-         * Sets [Builder.accounting] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.accounting] with a well-typed [Accounting] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun accounting(accounting: MultipartField<Accounting>) = apply {
-            body.accounting(accounting)
-        }
-
-        /**
-         * The ID of one of your accounting categories. Note that these will only be accessible if
-         * your accounting system has been connected.
-         */
-        @Deprecated("deprecated")
-        fun accountingCategoryId(accountingCategoryId: String?) = apply {
-            body.accountingCategoryId(accountingCategoryId)
-        }
-
-        /**
-         * Sets [Builder.accountingCategoryId] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.accountingCategoryId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        @Deprecated("deprecated")
-        fun accountingCategoryId(accountingCategoryId: MultipartField<String>) = apply {
-            body.accountingCategoryId(accountingCategoryId)
-        }
-
-        /**
-         * The ID of one of your accounting ledger classes. Note that these will only be accessible
-         * if your accounting system has been connected.
-         */
-        @Deprecated("deprecated")
-        fun accountingLedgerClassId(accountingLedgerClassId: String?) = apply {
-            body.accountingLedgerClassId(accountingLedgerClassId)
-        }
-
-        /**
-         * Sets [Builder.accountingLedgerClassId] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.accountingLedgerClassId] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        @Deprecated("deprecated")
-        fun accountingLedgerClassId(accountingLedgerClassId: MultipartField<String>) = apply {
-            body.accountingLedgerClassId(accountingLedgerClassId)
-        }
-
-        /**
-         * The party that will pay the fees for the payment order. Only applies to wire payment
-         * orders. Can be one of shared, sender, or receiver, which correspond respectively with the
-         * SWIFT 71A values `SHA`, `OUR`, `BEN`.
-         */
-        fun chargeBearer(chargeBearer: ChargeBearer?) = apply { body.chargeBearer(chargeBearer) }
-
-        /**
-         * Sets [Builder.chargeBearer] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.chargeBearer] with a well-typed [ChargeBearer] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun chargeBearer(chargeBearer: MultipartField<ChargeBearer>) = apply {
-            body.chargeBearer(chargeBearer)
-        }
-
-        /** Defaults to the currency of the originating account. */
-        fun currency(currency: Currency) = apply { body.currency(currency) }
-
-        /**
-         * Sets [Builder.currency] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.currency] with a well-typed [Currency] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun currency(currency: MultipartField<Currency>) = apply { body.currency(currency) }
-
-        /** An optional description for internal use. */
-        fun description(description: String?) = apply { body.description(description) }
-
-        /**
-         * Sets [Builder.description] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.description] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun description(description: MultipartField<String>) = apply {
-            body.description(description)
-        }
-
-        /**
-         * An array of documents to be attached to the payment order. Note that if you attach
-         * documents, the request's content type must be `multipart/form-data`.
-         */
-        fun documents(documents: List<DocumentCreateRequest>) = apply { body.documents(documents) }
-
-        /**
-         * Sets [Builder.documents] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.documents] with a well-typed
-         * `List<DocumentCreateRequest>` value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
-         */
-        fun documents(documents: MultipartField<List<DocumentCreateRequest>>) = apply {
-            body.documents(documents)
-        }
-
-        /**
-         * Adds a single [DocumentCreateRequest] to [documents].
-         *
-         * @throws IllegalStateException if the field was previously set to a non-list.
-         */
-        fun addDocument(document: DocumentCreateRequest) = apply { body.addDocument(document) }
-
-        /**
-         * Date transactions are to be posted to the participants' account. Defaults to the current
-         * business day or the next business day if the current day is a bank holiday or weekend.
-         * Format: yyyy-mm-dd.
-         */
-        fun effectiveDate(effectiveDate: LocalDate) = apply { body.effectiveDate(effectiveDate) }
-
-        /**
-         * Sets [Builder.effectiveDate] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.effectiveDate] with a well-typed [LocalDate] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun effectiveDate(effectiveDate: MultipartField<LocalDate>) = apply {
-            body.effectiveDate(effectiveDate)
-        }
-
-        /** RFP payments require an expires_at. This value must be past the effective_date. */
-        fun expiresAt(expiresAt: OffsetDateTime?) = apply { body.expiresAt(expiresAt) }
-
-        /**
-         * Sets [Builder.expiresAt] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.expiresAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun expiresAt(expiresAt: MultipartField<OffsetDateTime>) = apply {
-            body.expiresAt(expiresAt)
-        }
-
-        /**
-         * A payment type to fallback to if the original type is not valid for the receiving
-         * account. Currently, this only supports falling back from RTP to ACH (type=rtp and
-         * fallback_type=ach)
-         */
-        fun fallbackType(fallbackType: FallbackType) = apply { body.fallbackType(fallbackType) }
-
-        /**
-         * Sets [Builder.fallbackType] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.fallbackType] with a well-typed [FallbackType] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun fallbackType(fallbackType: MultipartField<FallbackType>) = apply {
-            body.fallbackType(fallbackType)
-        }
-
-        /**
-         * If present, indicates a specific foreign exchange contract number that has been generated
-         * by your financial institution.
-         */
-        fun foreignExchangeContract(foreignExchangeContract: String?) = apply {
-            body.foreignExchangeContract(foreignExchangeContract)
-        }
-
-        /**
-         * Sets [Builder.foreignExchangeContract] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.foreignExchangeContract] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun foreignExchangeContract(foreignExchangeContract: MultipartField<String>) = apply {
-            body.foreignExchangeContract(foreignExchangeContract)
-        }
-
-        /**
-         * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
-         * `fixed_to_variable`, or `null` if the payment order currency matches the originating
-         * account currency.
-         */
-        fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator?) = apply {
-            body.foreignExchangeIndicator(foreignExchangeIndicator)
-        }
-
-        /**
-         * Sets [Builder.foreignExchangeIndicator] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.foreignExchangeIndicator] with a well-typed
-         * [ForeignExchangeIndicator] value instead. This method is primarily for setting the field
-         * to an undocumented or not yet supported value.
-         */
-        fun foreignExchangeIndicator(
-            foreignExchangeIndicator: MultipartField<ForeignExchangeIndicator>
-        ) = apply { body.foreignExchangeIndicator(foreignExchangeIndicator) }
-
-        /**
-         * Specifies a ledger transaction object that will be created with the payment order. If the
-         * ledger transaction cannot be created, then the payment order creation will fail. The
-         * resulting ledger transaction will mirror the status of the payment order.
-         */
-        fun ledgerTransaction(ledgerTransaction: LedgerTransactionCreateRequest) = apply {
-            body.ledgerTransaction(ledgerTransaction)
-        }
-
-        /**
-         * Sets [Builder.ledgerTransaction] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.ledgerTransaction] with a well-typed
-         * [LedgerTransactionCreateRequest] value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
-         */
-        fun ledgerTransaction(ledgerTransaction: MultipartField<LedgerTransactionCreateRequest>) =
-            apply {
-                body.ledgerTransaction(ledgerTransaction)
-            }
-
-        /**
-         * Either ledger_transaction or ledger_transaction_id can be provided. Only a pending ledger
-         * transaction can be attached upon payment order creation. Once the payment order is
-         * created, the status of the ledger transaction tracks the payment order automatically.
-         */
-        fun ledgerTransactionId(ledgerTransactionId: String) = apply {
-            body.ledgerTransactionId(ledgerTransactionId)
-        }
-
-        /**
-         * Sets [Builder.ledgerTransactionId] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.ledgerTransactionId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun ledgerTransactionId(ledgerTransactionId: MultipartField<String>) = apply {
-            body.ledgerTransactionId(ledgerTransactionId)
-        }
-
-        /** An array of line items that must sum up to the amount of the payment order. */
-        fun lineItems(lineItems: List<LineItemRequest>) = apply { body.lineItems(lineItems) }
-
-        /**
-         * Sets [Builder.lineItems] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.lineItems] with a well-typed `List<LineItemRequest>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun lineItems(lineItems: MultipartField<List<LineItemRequest>>) = apply {
-            body.lineItems(lineItems)
-        }
-
-        /**
-         * Adds a single [LineItemRequest] to [lineItems].
-         *
-         * @throws IllegalStateException if the field was previously set to a non-list.
-         */
-        fun addLineItem(lineItem: LineItemRequest) = apply { body.addLineItem(lineItem) }
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
-
-        /**
-         * Sets [Builder.metadata] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun metadata(metadata: MultipartField<Metadata>) = apply { body.metadata(metadata) }
-
-        /**
-         * A boolean to determine if NSF Protection is enabled for this payment order. Note that
-         * this setting must also be turned on in your organization settings page.
-         */
-        fun nsfProtected(nsfProtected: Boolean) = apply { body.nsfProtected(nsfProtected) }
-
-        /**
-         * Sets [Builder.nsfProtected] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.nsfProtected] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun nsfProtected(nsfProtected: MultipartField<Boolean>) = apply {
-            body.nsfProtected(nsfProtected)
-        }
-
-        /**
-         * If present, this will replace your default company name on receiver's bank statement.
-         * This field can only be used for ACH payments currently. For ACH, only the first 16
-         * characters of this string will be used. Any additional characters will be truncated.
-         */
-        fun originatingPartyName(originatingPartyName: String?) = apply {
-            body.originatingPartyName(originatingPartyName)
-        }
-
-        /**
-         * Sets [Builder.originatingPartyName] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.originatingPartyName] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun originatingPartyName(originatingPartyName: MultipartField<String>) = apply {
-            body.originatingPartyName(originatingPartyName)
-        }
-
-        /**
-         * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or
-         * EFT transfer, respectively. For check payments, `high` can mean an overnight check rather
-         * than standard mail.
-         */
-        fun priority(priority: Priority) = apply { body.priority(priority) }
-
-        /**
-         * Sets [Builder.priority] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.priority] with a well-typed [Priority] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun priority(priority: MultipartField<Priority>) = apply { body.priority(priority) }
-
-        /**
-         * If present, Modern Treasury will not process the payment until after this time. If
-         * `process_after` is past the cutoff for `effective_date`, `process_after` will take
-         * precedence and `effective_date` will automatically update to reflect the earliest
-         * possible sending date after `process_after`. Format is ISO8601 timestamp.
-         */
-        fun processAfter(processAfter: OffsetDateTime?) = apply { body.processAfter(processAfter) }
-
-        /**
-         * Sets [Builder.processAfter] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.processAfter] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun processAfter(processAfter: MultipartField<OffsetDateTime>) = apply {
-            body.processAfter(processAfter)
-        }
-
-        /**
-         * For `wire`, this is usually the purpose which is transmitted via the "InstrForDbtrAgt"
-         * field in the ISO20022 file. For `eft`, this field is the 3 digit CPA Code that will be
-         * attached to the payment.
-         */
-        fun purpose(purpose: String?) = apply { body.purpose(purpose) }
-
-        /**
-         * Sets [Builder.purpose] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.purpose] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun purpose(purpose: MultipartField<String>) = apply { body.purpose(purpose) }
-
-        /**
-         * Either `receiving_account` or `receiving_account_id` must be present. When using
-         * `receiving_account_id`, you may pass the id of an external account or an internal
-         * account.
-         */
-        fun receivingAccount(receivingAccount: ReceivingAccount) = apply {
-            body.receivingAccount(receivingAccount)
-        }
-
-        /**
-         * Sets [Builder.receivingAccount] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.receivingAccount] with a well-typed [ReceivingAccount]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun receivingAccount(receivingAccount: MultipartField<ReceivingAccount>) = apply {
-            body.receivingAccount(receivingAccount)
-        }
-
-        /**
-         * Either `receiving_account` or `receiving_account_id` must be present. When using
-         * `receiving_account_id`, you may pass the id of an external account or an internal
-         * account.
-         */
-        fun receivingAccountId(receivingAccountId: String) = apply {
-            body.receivingAccountId(receivingAccountId)
-        }
-
-        /**
-         * Sets [Builder.receivingAccountId] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.receivingAccountId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun receivingAccountId(receivingAccountId: MultipartField<String>) = apply {
-            body.receivingAccountId(receivingAccountId)
-        }
-
-        /**
-         * For `ach`, this field will be passed through on an addenda record. For `wire` payments
-         * the field will be passed through as the "Originator to Beneficiary Information", also
-         * known as OBI or Fedwire tag 6000.
-         */
-        fun remittanceInformation(remittanceInformation: String?) = apply {
-            body.remittanceInformation(remittanceInformation)
-        }
-
-        /**
-         * Sets [Builder.remittanceInformation] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.remittanceInformation] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun remittanceInformation(remittanceInformation: MultipartField<String>) = apply {
-            body.remittanceInformation(remittanceInformation)
-        }
-
-        /**
-         * Send an email to the counterparty when the payment order is sent to the bank. If `null`,
-         * `send_remittance_advice` on the Counterparty is used.
-         */
-        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean?) = apply {
-            body.sendRemittanceAdvice(sendRemittanceAdvice)
-        }
-
-        /**
-         * Alias for [Builder.sendRemittanceAdvice].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) =
-            sendRemittanceAdvice(sendRemittanceAdvice as Boolean?)
-
-        /**
-         * Sets [Builder.sendRemittanceAdvice] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun sendRemittanceAdvice(sendRemittanceAdvice: MultipartField<Boolean>) = apply {
-            body.sendRemittanceAdvice(sendRemittanceAdvice)
-        }
-
-        /**
-         * An optional descriptor which will appear in the receiver's statement. For `check`
-         * payments this field will be used as the memo line. For `ach` the maximum length is 10
-         * characters. Note that for ACH payments, the name on your bank account will be included
-         * automatically by the bank, so you can use the characters for other useful information.
-         * For `eft` the maximum length is 15 characters.
-         */
-        fun statementDescriptor(statementDescriptor: String?) = apply {
-            body.statementDescriptor(statementDescriptor)
-        }
-
-        /**
-         * Sets [Builder.statementDescriptor] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.statementDescriptor] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun statementDescriptor(statementDescriptor: MultipartField<String>) = apply {
-            body.statementDescriptor(statementDescriptor)
-        }
-
-        /**
-         * An additional layer of classification for the type of payment order you are doing. This
-         * field is only used for `ach` payment orders currently. For `ach` payment orders, the
-         * `subtype` represents the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`,
-         * `WEB`, `CIE`, and `TEL`.
-         */
-        fun subtype(subtype: PaymentOrderSubtype?) = apply { body.subtype(subtype) }
-
-        /**
-         * Sets [Builder.subtype] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.subtype] with a well-typed [PaymentOrderSubtype] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun subtype(subtype: MultipartField<PaymentOrderSubtype>) = apply { body.subtype(subtype) }
-
-        /**
-         * A flag that determines whether a payment order should go through transaction monitoring.
-         */
-        fun transactionMonitoringEnabled(transactionMonitoringEnabled: Boolean) = apply {
-            body.transactionMonitoringEnabled(transactionMonitoringEnabled)
-        }
-
-        /**
-         * Sets [Builder.transactionMonitoringEnabled] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.transactionMonitoringEnabled] with a well-typed
-         * [Boolean] value instead. This method is primarily for setting the field to an
-         * undocumented or not yet supported value.
-         */
-        fun transactionMonitoringEnabled(transactionMonitoringEnabled: MultipartField<Boolean>) =
-            apply {
-                body.transactionMonitoringEnabled(transactionMonitoringEnabled)
-            }
-
-        /** Identifier of the ultimate originator of the payment order. */
-        fun ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier: String?) =
-            apply {
-                body.ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier)
-            }
-
-        /**
-         * Sets [Builder.ultimateOriginatingPartyIdentifier] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.ultimateOriginatingPartyIdentifier] with a well-typed
-         * [String] value instead. This method is primarily for setting the field to an undocumented
-         * or not yet supported value.
-         */
-        fun ultimateOriginatingPartyIdentifier(
-            ultimateOriginatingPartyIdentifier: MultipartField<String>
-        ) = apply { body.ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier) }
-
-        /** Name of the ultimate originator of the payment order. */
-        fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: String?) = apply {
-            body.ultimateOriginatingPartyName(ultimateOriginatingPartyName)
-        }
-
-        /**
-         * Sets [Builder.ultimateOriginatingPartyName] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.ultimateOriginatingPartyName] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: MultipartField<String>) =
-            apply {
-                body.ultimateOriginatingPartyName(ultimateOriginatingPartyName)
-            }
-
-        /** Identifier of the ultimate funds recipient. */
-        fun ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier: String?) = apply {
-            body.ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier)
-        }
-
-        /**
-         * Sets [Builder.ultimateReceivingPartyIdentifier] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.ultimateReceivingPartyIdentifier] with a well-typed
-         * [String] value instead. This method is primarily for setting the field to an undocumented
-         * or not yet supported value.
-         */
-        fun ultimateReceivingPartyIdentifier(
-            ultimateReceivingPartyIdentifier: MultipartField<String>
-        ) = apply { body.ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier) }
-
-        /** Name of the ultimate funds recipient. */
-        fun ultimateReceivingPartyName(ultimateReceivingPartyName: String?) = apply {
-            body.ultimateReceivingPartyName(ultimateReceivingPartyName)
-        }
-
-        /**
-         * Sets [Builder.ultimateReceivingPartyName] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.ultimateReceivingPartyName] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun ultimateReceivingPartyName(ultimateReceivingPartyName: MultipartField<String>) = apply {
-            body.ultimateReceivingPartyName(ultimateReceivingPartyName)
-        }
-
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
-
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
-
-        fun putAdditionalHeader(name: String, value: String) = apply {
-            additionalHeaders.put(name, value)
-        }
-
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.put(name, values)
-        }
-
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
-
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
-
-        fun replaceAdditionalHeaders(name: String, value: String) = apply {
-            additionalHeaders.replace(name, value)
-        }
-
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.replace(name, values)
-        }
-
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
-
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
-
-        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
-
-        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
-            additionalHeaders.removeAll(names)
-        }
-
-        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
-
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
-
-        fun putAdditionalQueryParam(key: String, value: String) = apply {
-            additionalQueryParams.put(key, value)
-        }
-
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.put(key, values)
-        }
-
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.putAll(additionalQueryParams)
-        }
-
-        fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalQueryParams.putAll(additionalQueryParams)
-            }
-
-        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
-            additionalQueryParams.replace(key, value)
-        }
-
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.replace(key, values)
-        }
-
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.replaceAll(additionalQueryParams)
-        }
-
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalQueryParams.replaceAll(additionalQueryParams)
-            }
-
-        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
-
-        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
-            additionalQueryParams.removeAll(keys)
-        }
-
-        /**
-         * Returns an immutable instance of [PaymentOrderCreateParams].
-         *
-         * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .amount()
-         * .direction()
-         * .originatingAccountId()
-         * .type()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
-         */
-        fun build(): PaymentOrderCreateParams =
-            PaymentOrderCreateParams(
-                body.build(),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
     }
 
     /**
@@ -3181,14 +3244,11 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    @NoAutoDetect
     class Accounting
-    @JsonCreator
     private constructor(
         private val accountId: MultipartField<String>,
         private val classId: MultipartField<String>,
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         /**
@@ -3216,6 +3276,8 @@ private constructor(
          * Unlike [accountId], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("account_id")
+        @ExcludeMissing
         fun _accountId(): MultipartField<String> = accountId
 
         /**
@@ -3224,23 +3286,17 @@ private constructor(
          * Unlike [classId], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
-        fun _classId(): MultipartField<String> = classId
+        @JsonProperty("class_id") @ExcludeMissing fun _classId(): MultipartField<String> = classId
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Accounting = apply {
-            if (validated) {
-                return@apply
-            }
-
-            accountId()
-            classId()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -3319,7 +3375,19 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): Accounting =
-                Accounting(accountId, classId, additionalProperties.toImmutable())
+                Accounting(accountId, classId, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Accounting = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountId()
+            classId()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -3452,16 +3520,13 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    @NoAutoDetect
     class DocumentCreateRequest
-    @JsonCreator
     private constructor(
         private val documentableId: MultipartField<String>,
         private val documentableType: MultipartField<DocumentableType>,
         private val file: MultipartField<InputStream>,
         private val documentType: MultipartField<String>,
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         /**
@@ -3499,6 +3564,8 @@ private constructor(
          * Unlike [documentableId], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("documentable_id")
+        @ExcludeMissing
         fun _documentableId(): MultipartField<String> = documentableId
 
         /**
@@ -3507,6 +3574,8 @@ private constructor(
          * Unlike [documentableType], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("documentable_type")
+        @ExcludeMissing
         fun _documentableType(): MultipartField<DocumentableType> = documentableType
 
         /**
@@ -3514,7 +3583,7 @@ private constructor(
          *
          * Unlike [file], this method doesn't throw if the multipart field has an unexpected type.
          */
-        fun _file(): MultipartField<InputStream> = file
+        @JsonProperty("file") @ExcludeMissing fun _file(): MultipartField<InputStream> = file
 
         /**
          * Returns the raw multipart value of [documentType].
@@ -3522,25 +3591,19 @@ private constructor(
          * Unlike [documentType], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("document_type")
+        @ExcludeMissing
         fun _documentType(): MultipartField<String> = documentType
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): DocumentCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            documentableId()
-            documentableType()
-            file()
-            documentType()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -3679,8 +3742,22 @@ private constructor(
                     checkRequired("documentableType", documentableType),
                     checkRequired("file", file),
                     documentType,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): DocumentCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            documentableId()
+            documentableType()
+            file()
+            documentType()
+            validated = true
         }
 
         class DocumentableType
@@ -4084,9 +4161,7 @@ private constructor(
      * ledger transaction cannot be created, then the payment order creation will fail. The
      * resulting ledger transaction will mirror the status of the payment order.
      */
-    @NoAutoDetect
     class LedgerTransactionCreateRequest
-    @JsonCreator
     private constructor(
         private val ledgerEntries: MultipartField<List<LedgerEntryCreateRequest>>,
         private val description: MultipartField<String>,
@@ -4097,8 +4172,7 @@ private constructor(
         private val ledgerableType: MultipartField<LedgerableType>,
         private val metadata: MultipartField<Metadata>,
         private val status: MultipartField<Status>,
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         /**
@@ -4185,6 +4259,8 @@ private constructor(
          * Unlike [ledgerEntries], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("ledger_entries")
+        @ExcludeMissing
         fun _ledgerEntries(): MultipartField<List<LedgerEntryCreateRequest>> = ledgerEntries
 
         /**
@@ -4193,6 +4269,8 @@ private constructor(
          * Unlike [description], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("description")
+        @ExcludeMissing
         fun _description(): MultipartField<String> = description
 
         /**
@@ -4201,6 +4279,8 @@ private constructor(
          * Unlike [effectiveAt], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("effective_at")
+        @ExcludeMissing
         fun _effectiveAt(): MultipartField<OffsetDateTime> = effectiveAt
 
         /**
@@ -4209,6 +4289,8 @@ private constructor(
          * Unlike [effectiveDate], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("effective_date")
+        @ExcludeMissing
         fun _effectiveDate(): MultipartField<LocalDate> = effectiveDate
 
         /**
@@ -4217,6 +4299,8 @@ private constructor(
          * Unlike [externalId], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("external_id")
+        @ExcludeMissing
         fun _externalId(): MultipartField<String> = externalId
 
         /**
@@ -4225,6 +4309,8 @@ private constructor(
          * Unlike [ledgerableId], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("ledgerable_id")
+        @ExcludeMissing
         fun _ledgerableId(): MultipartField<String> = ledgerableId
 
         /**
@@ -4233,6 +4319,8 @@ private constructor(
          * Unlike [ledgerableType], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("ledgerable_type")
+        @ExcludeMissing
         fun _ledgerableType(): MultipartField<LedgerableType> = ledgerableType
 
         /**
@@ -4241,6 +4329,8 @@ private constructor(
          * Unlike [metadata], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("metadata")
+        @ExcludeMissing
         fun _metadata(): MultipartField<Metadata> = metadata
 
         /**
@@ -4248,30 +4338,17 @@ private constructor(
          *
          * Unlike [status], this method doesn't throw if the multipart field has an unexpected type.
          */
-        fun _status(): MultipartField<Status> = status
+        @JsonProperty("status") @ExcludeMissing fun _status(): MultipartField<Status> = status
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LedgerTransactionCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            ledgerEntries().forEach { it.validate() }
-            description()
-            effectiveAt()
-            effectiveDate()
-            externalId()
-            ledgerableId()
-            ledgerableType()
-            metadata()?.validate()
-            status()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -4519,13 +4596,30 @@ private constructor(
                     ledgerableType,
                     metadata,
                     status,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
         }
 
-        @NoAutoDetect
+        private var validated: Boolean = false
+
+        fun validate(): LedgerTransactionCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            ledgerEntries().forEach { it.validate() }
+            description()
+            effectiveAt()
+            effectiveDate()
+            externalId()
+            ledgerableId()
+            ledgerableType()
+            metadata()?.validate()
+            status()
+            validated = true
+        }
+
         class LedgerEntryCreateRequest
-        @JsonCreator
         private constructor(
             private val amount: MultipartField<Long>,
             private val direction: MultipartField<TransactionDirection>,
@@ -4536,8 +4630,7 @@ private constructor(
             private val pendingBalanceAmount: MultipartField<PendingBalanceAmount>,
             private val postedBalanceAmount: MultipartField<PostedBalanceAmount>,
             private val showResultingLedgerAccountBalances: MultipartField<Boolean>,
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             /**
@@ -4642,7 +4735,7 @@ private constructor(
              * Unlike [amount], this method doesn't throw if the multipart field has an unexpected
              * type.
              */
-            fun _amount(): MultipartField<Long> = amount
+            @JsonProperty("amount") @ExcludeMissing fun _amount(): MultipartField<Long> = amount
 
             /**
              * Returns the raw multipart value of [direction].
@@ -4650,6 +4743,8 @@ private constructor(
              * Unlike [direction], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("direction")
+            @ExcludeMissing
             fun _direction(): MultipartField<TransactionDirection> = direction
 
             /**
@@ -4658,6 +4753,8 @@ private constructor(
              * Unlike [ledgerAccountId], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("ledger_account_id")
+            @ExcludeMissing
             fun _ledgerAccountId(): MultipartField<String> = ledgerAccountId
 
             /**
@@ -4666,6 +4763,8 @@ private constructor(
              * Unlike [availableBalanceAmount], this method doesn't throw if the multipart field has
              * an unexpected type.
              */
+            @JsonProperty("available_balance_amount")
+            @ExcludeMissing
             fun _availableBalanceAmount(): MultipartField<AvailableBalanceAmount> =
                 availableBalanceAmount
 
@@ -4675,6 +4774,8 @@ private constructor(
              * Unlike [lockVersion], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("lock_version")
+            @ExcludeMissing
             fun _lockVersion(): MultipartField<Long> = lockVersion
 
             /**
@@ -4683,6 +4784,8 @@ private constructor(
              * Unlike [metadata], this method doesn't throw if the multipart field has an unexpected
              * type.
              */
+            @JsonProperty("metadata")
+            @ExcludeMissing
             fun _metadata(): MultipartField<Metadata> = metadata
 
             /**
@@ -4691,6 +4794,8 @@ private constructor(
              * Unlike [pendingBalanceAmount], this method doesn't throw if the multipart field has
              * an unexpected type.
              */
+            @JsonProperty("pending_balance_amount")
+            @ExcludeMissing
             fun _pendingBalanceAmount(): MultipartField<PendingBalanceAmount> = pendingBalanceAmount
 
             /**
@@ -4699,6 +4804,8 @@ private constructor(
              * Unlike [postedBalanceAmount], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("posted_balance_amount")
+            @ExcludeMissing
             fun _postedBalanceAmount(): MultipartField<PostedBalanceAmount> = postedBalanceAmount
 
             /**
@@ -4707,31 +4814,20 @@ private constructor(
              * Unlike [showResultingLedgerAccountBalances], this method doesn't throw if the
              * multipart field has an unexpected type.
              */
+            @JsonProperty("show_resulting_ledger_account_balances")
+            @ExcludeMissing
             fun _showResultingLedgerAccountBalances(): MultipartField<Boolean> =
                 showResultingLedgerAccountBalances
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): LedgerEntryCreateRequest = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                amount()
-                direction()
-                ledgerAccountId()
-                availableBalanceAmount()?.validate()
-                lockVersion()
-                metadata()?.validate()
-                pendingBalanceAmount()?.validate()
-                postedBalanceAmount()?.validate()
-                showResultingLedgerAccountBalances()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -5019,8 +5115,27 @@ private constructor(
                         pendingBalanceAmount,
                         postedBalanceAmount,
                         showResultingLedgerAccountBalances,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): LedgerEntryCreateRequest = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                amount()
+                direction()
+                ledgerAccountId()
+                availableBalanceAmount()?.validate()
+                lockVersion()
+                metadata()?.validate()
+                pendingBalanceAmount()?.validate()
+                postedBalanceAmount()?.validate()
+                showResultingLedgerAccountBalances()
+                validated = true
             }
 
             /**
@@ -5028,27 +5143,18 @@ private constructor(
              * available balance. If any of these conditions would be false after the transaction is
              * created, the entire call will fail with error code 422.
              */
-            @NoAutoDetect
             class AvailableBalanceAmount
-            @JsonCreator
-            private constructor(
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-            ) {
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
 
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): AvailableBalanceAmount = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -5099,7 +5205,17 @@ private constructor(
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
                     fun build(): AvailableBalanceAmount =
-                        AvailableBalanceAmount(additionalProperties.toImmutable())
+                        AvailableBalanceAmount(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): AvailableBalanceAmount = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -5124,27 +5240,18 @@ private constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            @NoAutoDetect
             class Metadata
-            @JsonCreator
-            private constructor(
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-            ) {
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
 
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): Metadata = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -5190,7 +5297,17 @@ private constructor(
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                    fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Metadata = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -5215,27 +5332,18 @@ private constructor(
              * pending balance. If any of these conditions would be false after the transaction is
              * created, the entire call will fail with error code 422.
              */
-            @NoAutoDetect
             class PendingBalanceAmount
-            @JsonCreator
-            private constructor(
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-            ) {
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
 
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): PendingBalanceAmount = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -5286,7 +5394,17 @@ private constructor(
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
                     fun build(): PendingBalanceAmount =
-                        PendingBalanceAmount(additionalProperties.toImmutable())
+                        PendingBalanceAmount(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): PendingBalanceAmount = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -5312,27 +5430,18 @@ private constructor(
              * posted balance. If any of these conditions would be false after the transaction is
              * created, the entire call will fail with error code 422.
              */
-            @NoAutoDetect
             class PostedBalanceAmount
-            @JsonCreator
-            private constructor(
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-            ) {
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
 
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): PostedBalanceAmount = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -5383,7 +5492,17 @@ private constructor(
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
                     fun build(): PostedBalanceAmount =
-                        PostedBalanceAmount(additionalProperties.toImmutable())
+                        PostedBalanceAmount(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): PostedBalanceAmount = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -5559,27 +5678,18 @@ private constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @NoAutoDetect
         class Metadata
-        @JsonCreator
-        private constructor(
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
             @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-        ) {
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Metadata = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -5625,7 +5735,17 @@ private constructor(
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Metadata = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -5771,16 +5891,13 @@ private constructor(
             "LedgerTransactionCreateRequest{ledgerEntries=$ledgerEntries, description=$description, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
     }
 
-    @NoAutoDetect
     class LineItemRequest
-    @JsonCreator
     private constructor(
         private val amount: MultipartField<Long>,
         private val accountingCategoryId: MultipartField<String>,
         private val description: MultipartField<String>,
         private val metadata: MultipartField<Metadata>,
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         /**
@@ -5822,7 +5939,7 @@ private constructor(
          *
          * Unlike [amount], this method doesn't throw if the multipart field has an unexpected type.
          */
-        fun _amount(): MultipartField<Long> = amount
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): MultipartField<Long> = amount
 
         /**
          * Returns the raw multipart value of [accountingCategoryId].
@@ -5830,6 +5947,8 @@ private constructor(
          * Unlike [accountingCategoryId], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("accounting_category_id")
+        @ExcludeMissing
         fun _accountingCategoryId(): MultipartField<String> = accountingCategoryId
 
         /**
@@ -5838,6 +5957,8 @@ private constructor(
          * Unlike [description], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("description")
+        @ExcludeMissing
         fun _description(): MultipartField<String> = description
 
         /**
@@ -5846,25 +5967,19 @@ private constructor(
          * Unlike [metadata], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("metadata")
+        @ExcludeMissing
         fun _metadata(): MultipartField<Metadata> = metadata
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LineItemRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            amount()
-            accountingCategoryId()
-            description()
-            metadata()?.validate()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -5996,34 +6111,39 @@ private constructor(
                     accountingCategoryId,
                     description,
                     metadata,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): LineItemRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            amount()
+            accountingCategoryId()
+            description()
+            metadata()?.validate()
+            validated = true
         }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @NoAutoDetect
         class Metadata
-        @JsonCreator
-        private constructor(
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
             @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-        ) {
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Metadata = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -6069,7 +6189,17 @@ private constructor(
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Metadata = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -6108,27 +6238,18 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @NoAutoDetect
     class Metadata
-    @JsonCreator
-    private constructor(
+    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-    ) {
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -6171,7 +6292,17 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+            fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -6298,9 +6429,7 @@ private constructor(
      * Either `receiving_account` or `receiving_account_id` must be present. When using
      * `receiving_account_id`, you may pass the id of an external account or an internal account.
      */
-    @NoAutoDetect
     class ReceivingAccount
-    @JsonCreator
     private constructor(
         private val accountDetails: MultipartField<List<AccountDetail>>,
         private val accountType: MultipartField<ExternalAccountType>,
@@ -6314,8 +6443,7 @@ private constructor(
         private val partyType: MultipartField<PartyType>,
         private val plaidProcessorToken: MultipartField<String>,
         private val routingDetails: MultipartField<List<RoutingDetail>>,
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         /**
@@ -6423,6 +6551,8 @@ private constructor(
          * Unlike [accountDetails], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("account_details")
+        @ExcludeMissing
         fun _accountDetails(): MultipartField<List<AccountDetail>> = accountDetails
 
         /**
@@ -6431,6 +6561,8 @@ private constructor(
          * Unlike [accountType], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("account_type")
+        @ExcludeMissing
         fun _accountType(): MultipartField<ExternalAccountType> = accountType
 
         /**
@@ -6439,6 +6571,8 @@ private constructor(
          * Unlike [contactDetails], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("contact_details")
+        @ExcludeMissing
         fun _contactDetails(): MultipartField<List<ContactDetailCreateRequest>> = contactDetails
 
         /**
@@ -6447,6 +6581,8 @@ private constructor(
          * Unlike [ledgerAccount], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("ledger_account")
+        @ExcludeMissing
         fun _ledgerAccount(): MultipartField<LedgerAccountCreateRequest> = ledgerAccount
 
         /**
@@ -6455,6 +6591,8 @@ private constructor(
          * Unlike [metadata], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("metadata")
+        @ExcludeMissing
         fun _metadata(): MultipartField<Metadata> = metadata
 
         /**
@@ -6462,7 +6600,7 @@ private constructor(
          *
          * Unlike [name], this method doesn't throw if the multipart field has an unexpected type.
          */
-        fun _name(): MultipartField<String> = name
+        @JsonProperty("name") @ExcludeMissing fun _name(): MultipartField<String> = name
 
         /**
          * Returns the raw multipart value of [partyAddress].
@@ -6470,6 +6608,8 @@ private constructor(
          * Unlike [partyAddress], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("party_address")
+        @ExcludeMissing
         fun _partyAddress(): MultipartField<AddressRequest> = partyAddress
 
         /**
@@ -6478,6 +6618,8 @@ private constructor(
          * Unlike [partyIdentifier], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("party_identifier")
+        @ExcludeMissing
         fun _partyIdentifier(): MultipartField<String> = partyIdentifier
 
         /**
@@ -6486,6 +6628,8 @@ private constructor(
          * Unlike [partyName], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("party_name")
+        @ExcludeMissing
         fun _partyName(): MultipartField<String> = partyName
 
         /**
@@ -6494,6 +6638,8 @@ private constructor(
          * Unlike [partyType], this method doesn't throw if the multipart field has an unexpected
          * type.
          */
+        @JsonProperty("party_type")
+        @ExcludeMissing
         fun _partyType(): MultipartField<PartyType> = partyType
 
         /**
@@ -6502,6 +6648,8 @@ private constructor(
          * Unlike [plaidProcessorToken], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("plaid_processor_token")
+        @ExcludeMissing
         fun _plaidProcessorToken(): MultipartField<String> = plaidProcessorToken
 
         /**
@@ -6510,33 +6658,19 @@ private constructor(
          * Unlike [routingDetails], this method doesn't throw if the multipart field has an
          * unexpected type.
          */
+        @JsonProperty("routing_details")
+        @ExcludeMissing
         fun _routingDetails(): MultipartField<List<RoutingDetail>> = routingDetails
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): ReceivingAccount = apply {
-            if (validated) {
-                return@apply
-            }
-
-            accountDetails()?.forEach { it.validate() }
-            accountType()
-            contactDetails()?.forEach { it.validate() }
-            ledgerAccount()?.validate()
-            metadata()?.validate()
-            name()
-            partyAddress()?.validate()
-            partyIdentifier()
-            partyName()
-            partyType()
-            plaidProcessorToken()
-            routingDetails()?.forEach { it.validate() }
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -6837,18 +6971,37 @@ private constructor(
                     partyType,
                     plaidProcessorToken,
                     (routingDetails ?: MultipartField.of(null)).map { it.toImmutable() },
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
         }
 
-        @NoAutoDetect
+        private var validated: Boolean = false
+
+        fun validate(): ReceivingAccount = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountDetails()?.forEach { it.validate() }
+            accountType()
+            contactDetails()?.forEach { it.validate() }
+            ledgerAccount()?.validate()
+            metadata()?.validate()
+            name()
+            partyAddress()?.validate()
+            partyIdentifier()
+            partyName()
+            partyType()
+            plaidProcessorToken()
+            routingDetails()?.forEach { it.validate() }
+            validated = true
+        }
+
         class AccountDetail
-        @JsonCreator
         private constructor(
             private val accountNumber: MultipartField<String>,
             private val accountNumberType: MultipartField<AccountNumberType>,
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             /**
@@ -6871,6 +7024,8 @@ private constructor(
              * Unlike [accountNumber], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("account_number")
+            @ExcludeMissing
             fun _accountNumber(): MultipartField<String> = accountNumber
 
             /**
@@ -6879,23 +7034,19 @@ private constructor(
              * Unlike [accountNumberType], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("account_number_type")
+            @ExcludeMissing
             fun _accountNumberType(): MultipartField<AccountNumberType> = accountNumberType
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): AccountDetail = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                accountNumber()
-                accountNumberType()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -6993,8 +7144,20 @@ private constructor(
                     AccountDetail(
                         checkRequired("accountNumber", accountNumber),
                         accountNumberType,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): AccountDetail = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                accountNumber()
+                accountNumberType()
+                validated = true
             }
 
             class AccountNumberType
@@ -7172,14 +7335,11 @@ private constructor(
                 "AccountDetail{accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalProperties=$additionalProperties}"
         }
 
-        @NoAutoDetect
         class ContactDetailCreateRequest
-        @JsonCreator
         private constructor(
             private val contactIdentifier: MultipartField<String>,
             private val contactIdentifierType: MultipartField<ContactIdentifierType>,
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             /**
@@ -7202,6 +7362,8 @@ private constructor(
              * Unlike [contactIdentifier], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("contact_identifier")
+            @ExcludeMissing
             fun _contactIdentifier(): MultipartField<String> = contactIdentifier
 
             /**
@@ -7210,24 +7372,20 @@ private constructor(
              * Unlike [contactIdentifierType], this method doesn't throw if the multipart field has
              * an unexpected type.
              */
+            @JsonProperty("contact_identifier_type")
+            @ExcludeMissing
             fun _contactIdentifierType(): MultipartField<ContactIdentifierType> =
                 contactIdentifierType
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): ContactDetailCreateRequest = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                contactIdentifier()
-                contactIdentifierType()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -7314,8 +7472,20 @@ private constructor(
                     ContactDetailCreateRequest(
                         contactIdentifier,
                         contactIdentifierType,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): ContactDetailCreateRequest = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                contactIdentifier()
+                contactIdentifierType()
+                validated = true
             }
 
             class ContactIdentifierType
@@ -7458,9 +7628,7 @@ private constructor(
          * https://docs.moderntreasury.com/docs/linking-to-other-modern-treasury-objects for more
          * details.
          */
-        @NoAutoDetect
         class LedgerAccountCreateRequest
-        @JsonCreator
         private constructor(
             private val currency: MultipartField<String>,
             private val ledgerId: MultipartField<String>,
@@ -7472,8 +7640,7 @@ private constructor(
             private val ledgerableId: MultipartField<String>,
             private val ledgerableType: MultipartField<LedgerableType>,
             private val metadata: MultipartField<Metadata>,
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             /**
@@ -7574,6 +7741,8 @@ private constructor(
              * Unlike [currency], this method doesn't throw if the multipart field has an unexpected
              * type.
              */
+            @JsonProperty("currency")
+            @ExcludeMissing
             fun _currency(): MultipartField<String> = currency
 
             /**
@@ -7582,6 +7751,8 @@ private constructor(
              * Unlike [ledgerId], this method doesn't throw if the multipart field has an unexpected
              * type.
              */
+            @JsonProperty("ledger_id")
+            @ExcludeMissing
             fun _ledgerId(): MultipartField<String> = ledgerId
 
             /**
@@ -7590,7 +7761,7 @@ private constructor(
              * Unlike [name], this method doesn't throw if the multipart field has an unexpected
              * type.
              */
-            fun _name(): MultipartField<String> = name
+            @JsonProperty("name") @ExcludeMissing fun _name(): MultipartField<String> = name
 
             /**
              * Returns the raw multipart value of [normalBalance].
@@ -7598,6 +7769,8 @@ private constructor(
              * Unlike [normalBalance], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("normal_balance")
+            @ExcludeMissing
             fun _normalBalance(): MultipartField<TransactionDirection> = normalBalance
 
             /**
@@ -7606,6 +7779,8 @@ private constructor(
              * Unlike [currencyExponent], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("currency_exponent")
+            @ExcludeMissing
             fun _currencyExponent(): MultipartField<Long> = currencyExponent
 
             /**
@@ -7614,6 +7789,8 @@ private constructor(
              * Unlike [description], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("description")
+            @ExcludeMissing
             fun _description(): MultipartField<String> = description
 
             /**
@@ -7622,6 +7799,8 @@ private constructor(
              * Unlike [ledgerAccountCategoryIds], this method doesn't throw if the multipart field
              * has an unexpected type.
              */
+            @JsonProperty("ledger_account_category_ids")
+            @ExcludeMissing
             fun _ledgerAccountCategoryIds(): MultipartField<List<String>> = ledgerAccountCategoryIds
 
             /**
@@ -7630,6 +7809,8 @@ private constructor(
              * Unlike [ledgerableId], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("ledgerable_id")
+            @ExcludeMissing
             fun _ledgerableId(): MultipartField<String> = ledgerableId
 
             /**
@@ -7638,6 +7819,8 @@ private constructor(
              * Unlike [ledgerableType], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("ledgerable_type")
+            @ExcludeMissing
             fun _ledgerableType(): MultipartField<LedgerableType> = ledgerableType
 
             /**
@@ -7646,31 +7829,19 @@ private constructor(
              * Unlike [metadata], this method doesn't throw if the multipart field has an unexpected
              * type.
              */
+            @JsonProperty("metadata")
+            @ExcludeMissing
             fun _metadata(): MultipartField<Metadata> = metadata
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): LedgerAccountCreateRequest = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                currency()
-                ledgerId()
-                name()
-                normalBalance()
-                currencyExponent()
-                description()
-                ledgerAccountCategoryIds()
-                ledgerableId()
-                ledgerableType()
-                metadata()?.validate()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -7950,8 +8121,28 @@ private constructor(
                         ledgerableId,
                         ledgerableType,
                         metadata,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): LedgerAccountCreateRequest = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                currency()
+                ledgerId()
+                name()
+                normalBalance()
+                currencyExponent()
+                description()
+                ledgerAccountCategoryIds()
+                ledgerableId()
+                ledgerableType()
+                metadata()?.validate()
+                validated = true
             }
 
             /**
@@ -8084,27 +8275,18 @@ private constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            @NoAutoDetect
             class Metadata
-            @JsonCreator
-            private constructor(
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-            ) {
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
 
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): Metadata = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -8150,7 +8332,17 @@ private constructor(
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                    fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Metadata = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -8191,27 +8383,18 @@ private constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @NoAutoDetect
         class Metadata
-        @JsonCreator
-        private constructor(
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
             @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-        ) {
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Metadata = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -8257,7 +8440,17 @@ private constructor(
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Metadata = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -8278,9 +8471,7 @@ private constructor(
         }
 
         /** Required if receiving wire payments. */
-        @NoAutoDetect
         class AddressRequest
-        @JsonCreator
         private constructor(
             private val country: MultipartField<String>,
             private val line1: MultipartField<String>,
@@ -8288,8 +8479,7 @@ private constructor(
             private val locality: MultipartField<String>,
             private val postalCode: MultipartField<String>,
             private val region: MultipartField<String>,
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             /**
@@ -8342,6 +8532,8 @@ private constructor(
              * Unlike [country], this method doesn't throw if the multipart field has an unexpected
              * type.
              */
+            @JsonProperty("country")
+            @ExcludeMissing
             fun _country(): MultipartField<String> = country
 
             /**
@@ -8350,7 +8542,7 @@ private constructor(
              * Unlike [line1], this method doesn't throw if the multipart field has an unexpected
              * type.
              */
-            fun _line1(): MultipartField<String> = line1
+            @JsonProperty("line1") @ExcludeMissing fun _line1(): MultipartField<String> = line1
 
             /**
              * Returns the raw multipart value of [line2].
@@ -8358,7 +8550,7 @@ private constructor(
              * Unlike [line2], this method doesn't throw if the multipart field has an unexpected
              * type.
              */
-            fun _line2(): MultipartField<String> = line2
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): MultipartField<String> = line2
 
             /**
              * Returns the raw multipart value of [locality].
@@ -8366,6 +8558,8 @@ private constructor(
              * Unlike [locality], this method doesn't throw if the multipart field has an unexpected
              * type.
              */
+            @JsonProperty("locality")
+            @ExcludeMissing
             fun _locality(): MultipartField<String> = locality
 
             /**
@@ -8374,6 +8568,8 @@ private constructor(
              * Unlike [postalCode], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("postal_code")
+            @ExcludeMissing
             fun _postalCode(): MultipartField<String> = postalCode
 
             /**
@@ -8382,27 +8578,17 @@ private constructor(
              * Unlike [region], this method doesn't throw if the multipart field has an unexpected
              * type.
              */
-            fun _region(): MultipartField<String> = region
+            @JsonProperty("region") @ExcludeMissing fun _region(): MultipartField<String> = region
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): AddressRequest = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                country()
-                line1()
-                line2()
-                locality()
-                postalCode()
-                region()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -8540,8 +8726,24 @@ private constructor(
                         locality,
                         postalCode,
                         region,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): AddressRequest = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                country()
+                line1()
+                line2()
+                locality()
+                postalCode()
+                region()
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -8666,15 +8868,12 @@ private constructor(
             override fun toString() = value.toString()
         }
 
-        @NoAutoDetect
         class RoutingDetail
-        @JsonCreator
         private constructor(
             private val routingNumber: MultipartField<String>,
             private val routingNumberType: MultipartField<RoutingNumberType>,
             private val paymentType: MultipartField<PaymentType>,
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             /**
@@ -8704,6 +8903,8 @@ private constructor(
              * Unlike [routingNumber], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("routing_number")
+            @ExcludeMissing
             fun _routingNumber(): MultipartField<String> = routingNumber
 
             /**
@@ -8712,6 +8913,8 @@ private constructor(
              * Unlike [routingNumberType], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("routing_number_type")
+            @ExcludeMissing
             fun _routingNumberType(): MultipartField<RoutingNumberType> = routingNumberType
 
             /**
@@ -8720,24 +8923,19 @@ private constructor(
              * Unlike [paymentType], this method doesn't throw if the multipart field has an
              * unexpected type.
              */
+            @JsonProperty("payment_type")
+            @ExcludeMissing
             fun _paymentType(): MultipartField<PaymentType> = paymentType
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): RoutingDetail = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                routingNumber()
-                routingNumberType()
-                paymentType()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -8853,8 +9051,21 @@ private constructor(
                         checkRequired("routingNumber", routingNumber),
                         checkRequired("routingNumberType", routingNumberType),
                         paymentType,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): RoutingDetail = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                routingNumber()
+                routingNumberType()
+                paymentType()
+                validated = true
             }
 
             class RoutingNumberType
