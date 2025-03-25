@@ -10,15 +10,14 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 /** Add ledger entries to a draft ledger account settlement. */
@@ -54,183 +53,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerAccountSettlementEntriesPatchRequest = body
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> id
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class LedgerAccountSettlementEntriesPatchRequest
-    @JsonCreator
-    private constructor(
-        @JsonProperty("ledger_entry_ids")
-        @ExcludeMissing
-        private val ledgerEntryIds: JsonField<List<String>> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The ids of the ledger entries that are to be added or removed from the ledger account
-         * settlement.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun ledgerEntryIds(): List<String>? = ledgerEntryIds.getNullable("ledger_entry_ids")
-
-        /**
-         * Returns the raw JSON value of [ledgerEntryIds].
-         *
-         * Unlike [ledgerEntryIds], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("ledger_entry_ids")
-        @ExcludeMissing
-        fun _ledgerEntryIds(): JsonField<List<String>> = ledgerEntryIds
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LedgerAccountSettlementEntriesPatchRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            ledgerEntryIds()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of
-             * [LedgerAccountSettlementEntriesPatchRequest].
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .ledgerEntryIds()
-             * ```
-             */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [LedgerAccountSettlementEntriesPatchRequest]. */
-        class Builder internal constructor() {
-
-            private var ledgerEntryIds: JsonField<MutableList<String>>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(
-                ledgerAccountSettlementEntriesPatchRequest:
-                    LedgerAccountSettlementEntriesPatchRequest
-            ) = apply {
-                ledgerEntryIds =
-                    ledgerAccountSettlementEntriesPatchRequest.ledgerEntryIds.map {
-                        it.toMutableList()
-                    }
-                additionalProperties =
-                    ledgerAccountSettlementEntriesPatchRequest.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * The ids of the ledger entries that are to be added or removed from the ledger account
-             * settlement.
-             */
-            fun ledgerEntryIds(ledgerEntryIds: List<String>?) =
-                ledgerEntryIds(JsonField.ofNullable(ledgerEntryIds))
-
-            /**
-             * Sets [Builder.ledgerEntryIds] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.ledgerEntryIds] with a well-typed `List<String>`
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun ledgerEntryIds(ledgerEntryIds: JsonField<List<String>>) = apply {
-                this.ledgerEntryIds = ledgerEntryIds.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [String] to [ledgerEntryIds].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addLedgerEntryId(ledgerEntryId: String) = apply {
-                ledgerEntryIds =
-                    (ledgerEntryIds ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("ledgerEntryIds", it).add(ledgerEntryId)
-                    }
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [LedgerAccountSettlementEntriesPatchRequest].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .ledgerEntryIds()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): LedgerAccountSettlementEntriesPatchRequest =
-                LedgerAccountSettlementEntriesPatchRequest(
-                    checkRequired("ledgerEntryIds", ledgerEntryIds).map { it.toImmutable() },
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is LedgerAccountSettlementEntriesPatchRequest && ledgerEntryIds == other.ledgerEntryIds && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(ledgerEntryIds, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "LedgerAccountSettlementEntriesPatchRequest{ledgerEntryIds=$ledgerEntryIds, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -249,7 +71,6 @@ private constructor(
     }
 
     /** A builder for [LedgerAccountSettlementAccountEntryUpdateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var id: String? = null
@@ -435,6 +256,191 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    internal fun _body(): LedgerAccountSettlementEntriesPatchRequest = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> id
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class LedgerAccountSettlementEntriesPatchRequest
+    private constructor(
+        private val ledgerEntryIds: JsonField<List<String>>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("ledger_entry_ids")
+            @ExcludeMissing
+            ledgerEntryIds: JsonField<List<String>> = JsonMissing.of()
+        ) : this(ledgerEntryIds, mutableMapOf())
+
+        /**
+         * The ids of the ledger entries that are to be added or removed from the ledger account
+         * settlement.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun ledgerEntryIds(): List<String>? = ledgerEntryIds.getNullable("ledger_entry_ids")
+
+        /**
+         * Returns the raw JSON value of [ledgerEntryIds].
+         *
+         * Unlike [ledgerEntryIds], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("ledger_entry_ids")
+        @ExcludeMissing
+        fun _ledgerEntryIds(): JsonField<List<String>> = ledgerEntryIds
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerAccountSettlementEntriesPatchRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .ledgerEntryIds()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [LedgerAccountSettlementEntriesPatchRequest]. */
+        class Builder internal constructor() {
+
+            private var ledgerEntryIds: JsonField<MutableList<String>>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(
+                ledgerAccountSettlementEntriesPatchRequest:
+                    LedgerAccountSettlementEntriesPatchRequest
+            ) = apply {
+                ledgerEntryIds =
+                    ledgerAccountSettlementEntriesPatchRequest.ledgerEntryIds.map {
+                        it.toMutableList()
+                    }
+                additionalProperties =
+                    ledgerAccountSettlementEntriesPatchRequest.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The ids of the ledger entries that are to be added or removed from the ledger account
+             * settlement.
+             */
+            fun ledgerEntryIds(ledgerEntryIds: List<String>?) =
+                ledgerEntryIds(JsonField.ofNullable(ledgerEntryIds))
+
+            /**
+             * Sets [Builder.ledgerEntryIds] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerEntryIds] with a well-typed `List<String>`
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun ledgerEntryIds(ledgerEntryIds: JsonField<List<String>>) = apply {
+                this.ledgerEntryIds = ledgerEntryIds.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [String] to [ledgerEntryIds].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addLedgerEntryId(ledgerEntryId: String) = apply {
+                ledgerEntryIds =
+                    (ledgerEntryIds ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("ledgerEntryIds", it).add(ledgerEntryId)
+                    }
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [LedgerAccountSettlementEntriesPatchRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .ledgerEntryIds()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): LedgerAccountSettlementEntriesPatchRequest =
+                LedgerAccountSettlementEntriesPatchRequest(
+                    checkRequired("ledgerEntryIds", ledgerEntryIds).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerAccountSettlementEntriesPatchRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            ledgerEntryIds()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is LedgerAccountSettlementEntriesPatchRequest && ledgerEntryIds == other.ledgerEntryIds && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(ledgerEntryIds, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "LedgerAccountSettlementEntriesPatchRequest{ledgerEntryIds=$ledgerEntryIds, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

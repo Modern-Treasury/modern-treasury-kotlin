@@ -11,90 +11,124 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class Transaction
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("as_of_date")
-    @ExcludeMissing
-    private val asOfDate: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("as_of_time")
-    @ExcludeMissing
-    private val asOfTime: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("as_of_timezone")
-    @ExcludeMissing
-    private val asOfTimezone: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("currency")
-    @ExcludeMissing
-    private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("custom_identifiers")
-    @ExcludeMissing
-    private val customIdentifiers: JsonField<CustomIdentifiers> = JsonMissing.of(),
-    @JsonProperty("direction")
-    @ExcludeMissing
-    private val direction: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("discarded_at")
-    @ExcludeMissing
-    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("foreign_exchange_rate")
-    @ExcludeMissing
-    private val foreignExchangeRate: JsonField<ForeignExchangeRate> = JsonMissing.of(),
-    @JsonProperty("internal_account_id")
-    @ExcludeMissing
-    private val internalAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("metadata")
-    @ExcludeMissing
-    private val metadata: JsonField<Metadata> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("posted")
-    @ExcludeMissing
-    private val posted: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("reconciled")
-    @ExcludeMissing
-    private val reconciled: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("vendor_code")
-    @ExcludeMissing
-    private val vendorCode: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("vendor_code_type")
-    @ExcludeMissing
-    private val vendorCodeType: JsonField<VendorCodeType> = JsonMissing.of(),
-    @JsonProperty("vendor_customer_id")
-    @ExcludeMissing
-    private val vendorCustomerId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("vendor_id")
-    @ExcludeMissing
-    private val vendorId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("details")
-    @ExcludeMissing
-    private val details: JsonField<Details> = JsonMissing.of(),
-    @JsonProperty("vendor_description")
-    @ExcludeMissing
-    private val vendorDescription: JsonField<String> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val amount: JsonField<Long>,
+    private val asOfDate: JsonField<LocalDate>,
+    private val asOfTime: JsonField<String>,
+    private val asOfTimezone: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val currency: JsonField<Currency>,
+    private val customIdentifiers: JsonField<CustomIdentifiers>,
+    private val direction: JsonField<String>,
+    private val discardedAt: JsonField<OffsetDateTime>,
+    private val foreignExchangeRate: JsonField<ForeignExchangeRate>,
+    private val internalAccountId: JsonField<String>,
+    private val liveMode: JsonField<Boolean>,
+    private val metadata: JsonField<Metadata>,
+    private val object_: JsonField<String>,
+    private val posted: JsonField<Boolean>,
+    private val reconciled: JsonField<Boolean>,
+    private val type: JsonField<Type>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val vendorCode: JsonField<String>,
+    private val vendorCodeType: JsonField<VendorCodeType>,
+    private val vendorCustomerId: JsonField<String>,
+    private val vendorId: JsonField<String>,
+    private val details: JsonField<Details>,
+    private val vendorDescription: JsonField<String>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("as_of_date")
+        @ExcludeMissing
+        asOfDate: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("as_of_time") @ExcludeMissing asOfTime: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("as_of_timezone")
+        @ExcludeMissing
+        asOfTimezone: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("currency") @ExcludeMissing currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("custom_identifiers")
+        @ExcludeMissing
+        customIdentifiers: JsonField<CustomIdentifiers> = JsonMissing.of(),
+        @JsonProperty("direction") @ExcludeMissing direction: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("discarded_at")
+        @ExcludeMissing
+        discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("foreign_exchange_rate")
+        @ExcludeMissing
+        foreignExchangeRate: JsonField<ForeignExchangeRate> = JsonMissing.of(),
+        @JsonProperty("internal_account_id")
+        @ExcludeMissing
+        internalAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
+        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("posted") @ExcludeMissing posted: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("reconciled")
+        @ExcludeMissing
+        reconciled: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("vendor_code")
+        @ExcludeMissing
+        vendorCode: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("vendor_code_type")
+        @ExcludeMissing
+        vendorCodeType: JsonField<VendorCodeType> = JsonMissing.of(),
+        @JsonProperty("vendor_customer_id")
+        @ExcludeMissing
+        vendorCustomerId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("vendor_id") @ExcludeMissing vendorId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("details") @ExcludeMissing details: JsonField<Details> = JsonMissing.of(),
+        @JsonProperty("vendor_description")
+        @ExcludeMissing
+        vendorDescription: JsonField<String> = JsonMissing.of(),
+    ) : this(
+        id,
+        amount,
+        asOfDate,
+        asOfTime,
+        asOfTimezone,
+        createdAt,
+        currency,
+        customIdentifiers,
+        direction,
+        discardedAt,
+        foreignExchangeRate,
+        internalAccountId,
+        liveMode,
+        metadata,
+        object_,
+        posted,
+        reconciled,
+        type,
+        updatedAt,
+        vendorCode,
+        vendorCodeType,
+        vendorCustomerId,
+        vendorId,
+        details,
+        vendorDescription,
+        mutableMapOf(),
+    )
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -502,44 +536,15 @@ private constructor(
     @ExcludeMissing
     fun _vendorDescription(): JsonField<String> = vendorDescription
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): Transaction = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        amount()
-        asOfDate()
-        asOfTime()
-        asOfTimezone()
-        createdAt()
-        currency()
-        customIdentifiers().validate()
-        direction()
-        discardedAt()
-        foreignExchangeRate()?.validate()
-        internalAccountId()
-        liveMode()
-        metadata().validate()
-        object_()
-        posted()
-        reconciled()
-        type()
-        updatedAt()
-        vendorCode()
-        vendorCodeType()
-        vendorCustomerId()
-        vendorId()
-        details()?.validate()
-        vendorDescription()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -1065,35 +1070,63 @@ private constructor(
                 checkRequired("vendorId", vendorId),
                 details,
                 vendorDescription,
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): Transaction = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        amount()
+        asOfDate()
+        asOfTime()
+        asOfTimezone()
+        createdAt()
+        currency()
+        customIdentifiers().validate()
+        direction()
+        discardedAt()
+        foreignExchangeRate()?.validate()
+        internalAccountId()
+        liveMode()
+        metadata().validate()
+        object_()
+        posted()
+        reconciled()
+        type()
+        updatedAt()
+        vendorCode()
+        vendorCodeType()
+        vendorCustomerId()
+        vendorId()
+        details()?.validate()
+        vendorDescription()
+        validated = true
     }
 
     /**
      * An object containing key-value pairs, each with a custom identifier as the key and a string
      * value.
      */
-    @NoAutoDetect
     class CustomIdentifiers
-    @JsonCreator
-    private constructor(
+    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+        @JsonCreator private constructor() : this(mutableMapOf())
+
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-    ) {
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): CustomIdentifiers = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1136,7 +1169,17 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): CustomIdentifiers = CustomIdentifiers(additionalProperties.toImmutable())
+            fun build(): CustomIdentifiers = CustomIdentifiers(additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CustomIdentifiers = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1157,34 +1200,47 @@ private constructor(
     }
 
     /** Associated serialized foreign exchange rate information. */
-    @NoAutoDetect
     class ForeignExchangeRate
-    @JsonCreator
     private constructor(
-        @JsonProperty("base_amount")
-        @ExcludeMissing
-        private val baseAmount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("base_currency")
-        @ExcludeMissing
-        private val baseCurrency: JsonField<Currency> = JsonMissing.of(),
-        @JsonProperty("exponent")
-        @ExcludeMissing
-        private val exponent: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("rate_string")
-        @ExcludeMissing
-        private val rateString: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("target_amount")
-        @ExcludeMissing
-        private val targetAmount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("target_currency")
-        @ExcludeMissing
-        private val targetCurrency: JsonField<Currency> = JsonMissing.of(),
-        @JsonProperty("value")
-        @ExcludeMissing
-        private val value: JsonField<Long> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val baseAmount: JsonField<Long>,
+        private val baseCurrency: JsonField<Currency>,
+        private val exponent: JsonField<Long>,
+        private val rateString: JsonField<String>,
+        private val targetAmount: JsonField<Long>,
+        private val targetCurrency: JsonField<Currency>,
+        private val value: JsonField<Long>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("base_amount")
+            @ExcludeMissing
+            baseAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("base_currency")
+            @ExcludeMissing
+            baseCurrency: JsonField<Currency> = JsonMissing.of(),
+            @JsonProperty("exponent") @ExcludeMissing exponent: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("rate_string")
+            @ExcludeMissing
+            rateString: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("target_amount")
+            @ExcludeMissing
+            targetAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("target_currency")
+            @ExcludeMissing
+            targetCurrency: JsonField<Currency> = JsonMissing.of(),
+            @JsonProperty("value") @ExcludeMissing value: JsonField<Long> = JsonMissing.of(),
+        ) : this(
+            baseAmount,
+            baseCurrency,
+            exponent,
+            rateString,
+            targetAmount,
+            targetCurrency,
+            value,
+            mutableMapOf(),
+        )
 
         /**
          * Amount in the lowest denomination of the `base_currency` to convert, often called the
@@ -1306,26 +1362,15 @@ private constructor(
          */
         @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<Long> = value
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): ForeignExchangeRate = apply {
-            if (validated) {
-                return@apply
-            }
-
-            baseAmount()
-            baseCurrency()
-            exponent()
-            rateString()
-            targetAmount()
-            targetCurrency()
-            value()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1520,8 +1565,25 @@ private constructor(
                     checkRequired("targetAmount", targetAmount),
                     checkRequired("targetCurrency", targetCurrency),
                     checkRequired("value", value),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): ForeignExchangeRate = apply {
+            if (validated) {
+                return@apply
+            }
+
+            baseAmount()
+            baseCurrency()
+            exponent()
+            rateString()
+            targetAmount()
+            targetCurrency()
+            value()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1543,27 +1605,20 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @NoAutoDetect
     class Metadata
-    @JsonCreator
-    private constructor(
+    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+        @JsonCreator private constructor() : this(mutableMapOf())
+
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-    ) {
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1606,7 +1661,17 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+            fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -2143,27 +2208,20 @@ private constructor(
      * vary based on your banking partner. Currently, the following keys may be in the details
      * object: `originator_name`, `originator_to_beneficiary_information`.
      */
-    @NoAutoDetect
     class Details
-    @JsonCreator
-    private constructor(
+    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+        @JsonCreator private constructor() : this(mutableMapOf())
+
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-    ) {
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Details = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -2206,7 +2264,17 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Details = Details(additionalProperties.toImmutable())
+            fun build(): Details = Details(additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Details = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

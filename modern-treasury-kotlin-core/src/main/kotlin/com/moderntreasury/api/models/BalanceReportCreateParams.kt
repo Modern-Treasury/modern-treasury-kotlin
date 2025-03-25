@@ -11,16 +11,15 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
+import java.util.Collections
 import java.util.Objects
 
 /** create balance reports */
@@ -102,290 +101,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): BalanceReportCreateRequest = body
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> internalAccountId
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class BalanceReportCreateRequest
-    @JsonCreator
-    private constructor(
-        @JsonProperty("as_of_date")
-        @ExcludeMissing
-        private val asOfDate: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonProperty("as_of_time")
-        @ExcludeMissing
-        private val asOfTime: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("balance_report_type")
-        @ExcludeMissing
-        private val balanceReportType: JsonField<BalanceReportType> = JsonMissing.of(),
-        @JsonProperty("balances")
-        @ExcludeMissing
-        private val balances: JsonField<List<BalanceCreateRequest>> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The date of the balance report in local time.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun asOfDate(): LocalDate = asOfDate.getRequired("as_of_date")
-
-        /**
-         * The time (24-hour clock) of the balance report in local time.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun asOfTime(): String = asOfTime.getRequired("as_of_time")
-
-        /**
-         * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
-         * `other`.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun balanceReportType(): BalanceReportType =
-            balanceReportType.getRequired("balance_report_type")
-
-        /**
-         * An array of `Balance` objects.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun balances(): List<BalanceCreateRequest> = balances.getRequired("balances")
-
-        /**
-         * Returns the raw JSON value of [asOfDate].
-         *
-         * Unlike [asOfDate], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate(): JsonField<LocalDate> = asOfDate
-
-        /**
-         * Returns the raw JSON value of [asOfTime].
-         *
-         * Unlike [asOfTime], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("as_of_time") @ExcludeMissing fun _asOfTime(): JsonField<String> = asOfTime
-
-        /**
-         * Returns the raw JSON value of [balanceReportType].
-         *
-         * Unlike [balanceReportType], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("balance_report_type")
-        @ExcludeMissing
-        fun _balanceReportType(): JsonField<BalanceReportType> = balanceReportType
-
-        /**
-         * Returns the raw JSON value of [balances].
-         *
-         * Unlike [balances], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("balances")
-        @ExcludeMissing
-        fun _balances(): JsonField<List<BalanceCreateRequest>> = balances
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): BalanceReportCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            asOfDate()
-            asOfTime()
-            balanceReportType()
-            balances().forEach { it.validate() }
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of
-             * [BalanceReportCreateRequest].
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .asOfDate()
-             * .asOfTime()
-             * .balanceReportType()
-             * .balances()
-             * ```
-             */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [BalanceReportCreateRequest]. */
-        class Builder internal constructor() {
-
-            private var asOfDate: JsonField<LocalDate>? = null
-            private var asOfTime: JsonField<String>? = null
-            private var balanceReportType: JsonField<BalanceReportType>? = null
-            private var balances: JsonField<MutableList<BalanceCreateRequest>>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(balanceReportCreateRequest: BalanceReportCreateRequest) = apply {
-                asOfDate = balanceReportCreateRequest.asOfDate
-                asOfTime = balanceReportCreateRequest.asOfTime
-                balanceReportType = balanceReportCreateRequest.balanceReportType
-                balances = balanceReportCreateRequest.balances.map { it.toMutableList() }
-                additionalProperties =
-                    balanceReportCreateRequest.additionalProperties.toMutableMap()
-            }
-
-            /** The date of the balance report in local time. */
-            fun asOfDate(asOfDate: LocalDate) = asOfDate(JsonField.of(asOfDate))
-
-            /**
-             * Sets [Builder.asOfDate] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.asOfDate] with a well-typed [LocalDate] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
-
-            /** The time (24-hour clock) of the balance report in local time. */
-            fun asOfTime(asOfTime: String) = asOfTime(JsonField.of(asOfTime))
-
-            /**
-             * Sets [Builder.asOfTime] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.asOfTime] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun asOfTime(asOfTime: JsonField<String>) = apply { this.asOfTime = asOfTime }
-
-            /**
-             * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`,
-             * or `other`.
-             */
-            fun balanceReportType(balanceReportType: BalanceReportType) =
-                balanceReportType(JsonField.of(balanceReportType))
-
-            /**
-             * Sets [Builder.balanceReportType] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.balanceReportType] with a well-typed
-             * [BalanceReportType] value instead. This method is primarily for setting the field to
-             * an undocumented or not yet supported value.
-             */
-            fun balanceReportType(balanceReportType: JsonField<BalanceReportType>) = apply {
-                this.balanceReportType = balanceReportType
-            }
-
-            /** An array of `Balance` objects. */
-            fun balances(balances: List<BalanceCreateRequest>) = balances(JsonField.of(balances))
-
-            /**
-             * Sets [Builder.balances] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.balances] with a well-typed
-             * `List<BalanceCreateRequest>` value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
-             */
-            fun balances(balances: JsonField<List<BalanceCreateRequest>>) = apply {
-                this.balances = balances.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [BalanceCreateRequest] to [balances].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addBalance(balance: BalanceCreateRequest) = apply {
-                balances =
-                    (balances ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("balances", it).add(balance)
-                    }
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [BalanceReportCreateRequest].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .asOfDate()
-             * .asOfTime()
-             * .balanceReportType()
-             * .balances()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): BalanceReportCreateRequest =
-                BalanceReportCreateRequest(
-                    checkRequired("asOfDate", asOfDate),
-                    checkRequired("asOfTime", asOfTime),
-                    checkRequired("balanceReportType", balanceReportType),
-                    checkRequired("balances", balances).map { it.toImmutable() },
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is BalanceReportCreateRequest && asOfDate == other.asOfDate && asOfTime == other.asOfTime && balanceReportType == other.balanceReportType && balances == other.balances && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(asOfDate, asOfTime, balanceReportType, balances, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "BalanceReportCreateRequest{asOfDate=$asOfDate, asOfTime=$asOfTime, balanceReportType=$balanceReportType, balances=$balances, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -406,7 +121,6 @@ private constructor(
     }
 
     /** A builder for [BalanceReportCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var internalAccountId: String? = null
@@ -630,6 +344,301 @@ private constructor(
             )
     }
 
+    internal fun _body(): BalanceReportCreateRequest = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> internalAccountId
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class BalanceReportCreateRequest
+    private constructor(
+        private val asOfDate: JsonField<LocalDate>,
+        private val asOfTime: JsonField<String>,
+        private val balanceReportType: JsonField<BalanceReportType>,
+        private val balances: JsonField<List<BalanceCreateRequest>>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("as_of_date")
+            @ExcludeMissing
+            asOfDate: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("as_of_time")
+            @ExcludeMissing
+            asOfTime: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("balance_report_type")
+            @ExcludeMissing
+            balanceReportType: JsonField<BalanceReportType> = JsonMissing.of(),
+            @JsonProperty("balances")
+            @ExcludeMissing
+            balances: JsonField<List<BalanceCreateRequest>> = JsonMissing.of(),
+        ) : this(asOfDate, asOfTime, balanceReportType, balances, mutableMapOf())
+
+        /**
+         * The date of the balance report in local time.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun asOfDate(): LocalDate = asOfDate.getRequired("as_of_date")
+
+        /**
+         * The time (24-hour clock) of the balance report in local time.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun asOfTime(): String = asOfTime.getRequired("as_of_time")
+
+        /**
+         * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
+         * `other`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun balanceReportType(): BalanceReportType =
+            balanceReportType.getRequired("balance_report_type")
+
+        /**
+         * An array of `Balance` objects.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun balances(): List<BalanceCreateRequest> = balances.getRequired("balances")
+
+        /**
+         * Returns the raw JSON value of [asOfDate].
+         *
+         * Unlike [asOfDate], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate(): JsonField<LocalDate> = asOfDate
+
+        /**
+         * Returns the raw JSON value of [asOfTime].
+         *
+         * Unlike [asOfTime], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("as_of_time") @ExcludeMissing fun _asOfTime(): JsonField<String> = asOfTime
+
+        /**
+         * Returns the raw JSON value of [balanceReportType].
+         *
+         * Unlike [balanceReportType], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("balance_report_type")
+        @ExcludeMissing
+        fun _balanceReportType(): JsonField<BalanceReportType> = balanceReportType
+
+        /**
+         * Returns the raw JSON value of [balances].
+         *
+         * Unlike [balances], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("balances")
+        @ExcludeMissing
+        fun _balances(): JsonField<List<BalanceCreateRequest>> = balances
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [BalanceReportCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .asOfDate()
+             * .asOfTime()
+             * .balanceReportType()
+             * .balances()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [BalanceReportCreateRequest]. */
+        class Builder internal constructor() {
+
+            private var asOfDate: JsonField<LocalDate>? = null
+            private var asOfTime: JsonField<String>? = null
+            private var balanceReportType: JsonField<BalanceReportType>? = null
+            private var balances: JsonField<MutableList<BalanceCreateRequest>>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(balanceReportCreateRequest: BalanceReportCreateRequest) = apply {
+                asOfDate = balanceReportCreateRequest.asOfDate
+                asOfTime = balanceReportCreateRequest.asOfTime
+                balanceReportType = balanceReportCreateRequest.balanceReportType
+                balances = balanceReportCreateRequest.balances.map { it.toMutableList() }
+                additionalProperties =
+                    balanceReportCreateRequest.additionalProperties.toMutableMap()
+            }
+
+            /** The date of the balance report in local time. */
+            fun asOfDate(asOfDate: LocalDate) = asOfDate(JsonField.of(asOfDate))
+
+            /**
+             * Sets [Builder.asOfDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.asOfDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
+
+            /** The time (24-hour clock) of the balance report in local time. */
+            fun asOfTime(asOfTime: String) = asOfTime(JsonField.of(asOfTime))
+
+            /**
+             * Sets [Builder.asOfTime] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.asOfTime] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun asOfTime(asOfTime: JsonField<String>) = apply { this.asOfTime = asOfTime }
+
+            /**
+             * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`,
+             * or `other`.
+             */
+            fun balanceReportType(balanceReportType: BalanceReportType) =
+                balanceReportType(JsonField.of(balanceReportType))
+
+            /**
+             * Sets [Builder.balanceReportType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.balanceReportType] with a well-typed
+             * [BalanceReportType] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun balanceReportType(balanceReportType: JsonField<BalanceReportType>) = apply {
+                this.balanceReportType = balanceReportType
+            }
+
+            /** An array of `Balance` objects. */
+            fun balances(balances: List<BalanceCreateRequest>) = balances(JsonField.of(balances))
+
+            /**
+             * Sets [Builder.balances] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.balances] with a well-typed
+             * `List<BalanceCreateRequest>` value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun balances(balances: JsonField<List<BalanceCreateRequest>>) = apply {
+                this.balances = balances.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [BalanceCreateRequest] to [balances].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addBalance(balance: BalanceCreateRequest) = apply {
+                balances =
+                    (balances ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("balances", it).add(balance)
+                    }
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [BalanceReportCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .asOfDate()
+             * .asOfTime()
+             * .balanceReportType()
+             * .balances()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): BalanceReportCreateRequest =
+                BalanceReportCreateRequest(
+                    checkRequired("asOfDate", asOfDate),
+                    checkRequired("asOfTime", asOfTime),
+                    checkRequired("balanceReportType", balanceReportType),
+                    checkRequired("balances", balances).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): BalanceReportCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            asOfDate()
+            asOfTime()
+            balanceReportType()
+            balances().forEach { it.validate() }
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is BalanceReportCreateRequest && asOfDate == other.asOfDate && asOfTime == other.asOfTime && balanceReportType == other.balanceReportType && balances == other.balances && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(asOfDate, asOfTime, balanceReportType, balances, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "BalanceReportCreateRequest{asOfDate=$asOfDate, asOfTime=$asOfTime, balanceReportType=$balanceReportType, balances=$balances, additionalProperties=$additionalProperties}"
+    }
+
     /**
      * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
      * `other`.
@@ -749,25 +758,28 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    @NoAutoDetect
     class BalanceCreateRequest
-    @JsonCreator
     private constructor(
-        @JsonProperty("amount")
-        @ExcludeMissing
-        private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("balance_type")
-        @ExcludeMissing
-        private val balanceType: JsonField<BalanceType> = JsonMissing.of(),
-        @JsonProperty("vendor_code")
-        @ExcludeMissing
-        private val vendorCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("vendor_code_type")
-        @ExcludeMissing
-        private val vendorCodeType: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val amount: JsonField<Long>,
+        private val balanceType: JsonField<BalanceType>,
+        private val vendorCode: JsonField<String>,
+        private val vendorCodeType: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("balance_type")
+            @ExcludeMissing
+            balanceType: JsonField<BalanceType> = JsonMissing.of(),
+            @JsonProperty("vendor_code")
+            @ExcludeMissing
+            vendorCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("vendor_code_type")
+            @ExcludeMissing
+            vendorCodeType: JsonField<String> = JsonMissing.of(),
+        ) : this(amount, balanceType, vendorCode, vendorCodeType, mutableMapOf())
 
         /**
          * The balance amount.
@@ -840,23 +852,15 @@ private constructor(
         @ExcludeMissing
         fun _vendorCodeType(): JsonField<String> = vendorCodeType
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): BalanceCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            amount()
-            balanceType()
-            vendorCode()
-            vendorCodeType()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -995,8 +999,22 @@ private constructor(
                     checkRequired("balanceType", balanceType),
                     checkRequired("vendorCode", vendorCode),
                     checkRequired("vendorCodeType", vendorCodeType),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): BalanceCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            amount()
+            balanceType()
+            vendorCode()
+            vendorCodeType()
+            validated = true
         }
 
         /**

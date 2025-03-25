@@ -2,7 +2,6 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -81,35 +80,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                afterCursor?.let { put("after_cursor", it) }
-                asOfDateEnd?.let { put("as_of_date_end", it.toString()) }
-                asOfDateStart?.let { put("as_of_date_start", it.toString()) }
-                counterpartyId?.let { put("counterparty_id", it) }
-                description?.let { put("description", it) }
-                direction?.let { put("direction", it) }
-                internalAccountId?.let { put("internal_account_id", it) }
-                metadata?.let {
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("metadata[$key]", value)
-                        }
-                    }
-                }
-                paymentType?.let { put("payment_type", it) }
-                perPage?.let { put("per_page", it.toString()) }
-                posted?.let { put("posted", it.toString()) }
-                transactableType?.let { put("transactable_type", it) }
-                vendorId?.let { put("vendor_id", it) }
-                virtualAccountId?.let { put("virtual_account_id", it) }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -121,7 +91,6 @@ private constructor(
     }
 
     /** A builder for [TransactionListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var afterCursor: String? = null
@@ -352,6 +321,35 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                asOfDateEnd?.let { put("as_of_date_end", it.toString()) }
+                asOfDateStart?.let { put("as_of_date_start", it.toString()) }
+                counterpartyId?.let { put("counterparty_id", it) }
+                description?.let { put("description", it) }
+                direction?.let { put("direction", it) }
+                internalAccountId?.let { put("internal_account_id", it) }
+                metadata?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("metadata[$key]", value)
+                        }
+                    }
+                }
+                paymentType?.let { put("payment_type", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                posted?.let { put("posted", it.toString()) }
+                transactableType?.let { put("transactable_type", it) }
+                vendorId?.let { put("vendor_id", it) }
+                virtualAccountId?.let { put("virtual_account_id", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     /**
      * For example, if you want to query for records with metadata key `Type` and value `Loan`, the

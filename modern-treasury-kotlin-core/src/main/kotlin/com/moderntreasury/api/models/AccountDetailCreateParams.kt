@@ -11,14 +11,12 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 /** Create an account detail for an external account. */
@@ -73,206 +71,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): AccountDetailCreateRequest = body
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> accountsType.toString()
-            1 -> accountId
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class AccountDetailCreateRequest
-    @JsonCreator
-    private constructor(
-        @JsonProperty("account_number")
-        @ExcludeMissing
-        private val accountNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("account_number_type")
-        @ExcludeMissing
-        private val accountNumberType: JsonField<AccountNumberType> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The account number for the bank account.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun accountNumber(): String = accountNumber.getRequired("account_number")
-
-        /**
-         * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
-         * number is in a generic format.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun accountNumberType(): AccountNumberType? =
-            accountNumberType.getNullable("account_number_type")
-
-        /**
-         * Returns the raw JSON value of [accountNumber].
-         *
-         * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("account_number")
-        @ExcludeMissing
-        fun _accountNumber(): JsonField<String> = accountNumber
-
-        /**
-         * Returns the raw JSON value of [accountNumberType].
-         *
-         * Unlike [accountNumberType], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("account_number_type")
-        @ExcludeMissing
-        fun _accountNumberType(): JsonField<AccountNumberType> = accountNumberType
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): AccountDetailCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            accountNumber()
-            accountNumberType()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of
-             * [AccountDetailCreateRequest].
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .accountNumber()
-             * ```
-             */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [AccountDetailCreateRequest]. */
-        class Builder internal constructor() {
-
-            private var accountNumber: JsonField<String>? = null
-            private var accountNumberType: JsonField<AccountNumberType> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(accountDetailCreateRequest: AccountDetailCreateRequest) = apply {
-                accountNumber = accountDetailCreateRequest.accountNumber
-                accountNumberType = accountDetailCreateRequest.accountNumberType
-                additionalProperties =
-                    accountDetailCreateRequest.additionalProperties.toMutableMap()
-            }
-
-            /** The account number for the bank account. */
-            fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
-
-            /**
-             * Sets [Builder.accountNumber] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accountNumber] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun accountNumber(accountNumber: JsonField<String>) = apply {
-                this.accountNumber = accountNumber
-            }
-
-            /**
-             * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
-             * number is in a generic format.
-             */
-            fun accountNumberType(accountNumberType: AccountNumberType) =
-                accountNumberType(JsonField.of(accountNumberType))
-
-            /**
-             * Sets [Builder.accountNumberType] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accountNumberType] with a well-typed
-             * [AccountNumberType] value instead. This method is primarily for setting the field to
-             * an undocumented or not yet supported value.
-             */
-            fun accountNumberType(accountNumberType: JsonField<AccountNumberType>) = apply {
-                this.accountNumberType = accountNumberType
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [AccountDetailCreateRequest].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .accountNumber()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): AccountDetailCreateRequest =
-                AccountDetailCreateRequest(
-                    checkRequired("accountNumber", accountNumber),
-                    accountNumberType,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is AccountDetailCreateRequest && accountNumber == other.accountNumber && accountNumberType == other.accountNumberType && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountNumber, accountNumberType, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "AccountDetailCreateRequest{accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -291,7 +89,6 @@ private constructor(
     }
 
     /** A builder for [AccountDetailCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var accountsType: AccountsType? = null
@@ -484,6 +281,215 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    internal fun _body(): AccountDetailCreateRequest = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> accountsType.toString()
+            1 -> accountId
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class AccountDetailCreateRequest
+    private constructor(
+        private val accountNumber: JsonField<String>,
+        private val accountNumberType: JsonField<AccountNumberType>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_number")
+            @ExcludeMissing
+            accountNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("account_number_type")
+            @ExcludeMissing
+            accountNumberType: JsonField<AccountNumberType> = JsonMissing.of(),
+        ) : this(accountNumber, accountNumberType, mutableMapOf())
+
+        /**
+         * The account number for the bank account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun accountNumber(): String = accountNumber.getRequired("account_number")
+
+        /**
+         * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
+         * number is in a generic format.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun accountNumberType(): AccountNumberType? =
+            accountNumberType.getNullable("account_number_type")
+
+        /**
+         * Returns the raw JSON value of [accountNumber].
+         *
+         * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        fun _accountNumber(): JsonField<String> = accountNumber
+
+        /**
+         * Returns the raw JSON value of [accountNumberType].
+         *
+         * Unlike [accountNumberType], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("account_number_type")
+        @ExcludeMissing
+        fun _accountNumberType(): JsonField<AccountNumberType> = accountNumberType
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [AccountDetailCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountNumber()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [AccountDetailCreateRequest]. */
+        class Builder internal constructor() {
+
+            private var accountNumber: JsonField<String>? = null
+            private var accountNumberType: JsonField<AccountNumberType> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(accountDetailCreateRequest: AccountDetailCreateRequest) = apply {
+                accountNumber = accountDetailCreateRequest.accountNumber
+                accountNumberType = accountDetailCreateRequest.accountNumberType
+                additionalProperties =
+                    accountDetailCreateRequest.additionalProperties.toMutableMap()
+            }
+
+            /** The account number for the bank account. */
+            fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
+
+            /**
+             * Sets [Builder.accountNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountNumber(accountNumber: JsonField<String>) = apply {
+                this.accountNumber = accountNumber
+            }
+
+            /**
+             * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
+             * number is in a generic format.
+             */
+            fun accountNumberType(accountNumberType: AccountNumberType) =
+                accountNumberType(JsonField.of(accountNumberType))
+
+            /**
+             * Sets [Builder.accountNumberType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumberType] with a well-typed
+             * [AccountNumberType] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun accountNumberType(accountNumberType: JsonField<AccountNumberType>) = apply {
+                this.accountNumberType = accountNumberType
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [AccountDetailCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountNumber()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): AccountDetailCreateRequest =
+                AccountDetailCreateRequest(
+                    checkRequired("accountNumber", accountNumber),
+                    accountNumberType,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): AccountDetailCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountNumber()
+            accountNumberType()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is AccountDetailCreateRequest && accountNumber == other.accountNumber && accountNumberType == other.accountNumberType && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountNumber, accountNumberType, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "AccountDetailCreateRequest{accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalProperties=$additionalProperties}"
     }
 
     /**
