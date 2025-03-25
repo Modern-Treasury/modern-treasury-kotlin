@@ -10,10 +10,8 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.AccountCollectionFlowService
+import java.util.Collections
 import java.util.Objects
 
 /** list account_collection_flows */
@@ -75,17 +73,17 @@ private constructor(
         ) = AccountCollectionFlowListPage(accountCollectionFlowsService, params, response)
     }
 
-    @NoAutoDetect
-    class Response
-    @JsonCreator
-    constructor(
-        @JsonProperty("items")
-        private val items: JsonField<List<AccountCollectionFlow>> = JsonMissing.of(),
+    class Response(
+        private val items: JsonField<List<AccountCollectionFlow>>,
         private val perPage: String,
         private val afterCursor: String,
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("items") items: JsonField<List<AccountCollectionFlow>> = JsonMissing.of()
+        ) : this(items, "", "", mutableMapOf())
 
         fun items(): List<AccountCollectionFlow> = items.getNullable("items") ?: listOf()
 
@@ -95,9 +93,15 @@ private constructor(
 
         @JsonProperty("items") fun _items(): JsonField<List<AccountCollectionFlow>>? = items
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         private var validated: Boolean = false
 
@@ -166,7 +170,7 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): Response =
-                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toMutableMap())
         }
     }
 

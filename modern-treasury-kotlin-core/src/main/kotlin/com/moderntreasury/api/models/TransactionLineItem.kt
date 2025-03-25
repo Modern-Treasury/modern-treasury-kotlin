@@ -11,59 +11,87 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class TransactionLineItem
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("counterparty_id")
-    @ExcludeMissing
-    private val counterpartyId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("description")
-    @ExcludeMissing
-    private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("discarded_at")
-    @ExcludeMissing
-    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("expected_payment_id")
-    @ExcludeMissing
-    private val expectedPaymentId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("reconcilable")
-    @ExcludeMissing
-    private val reconcilable: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("transactable_id")
-    @ExcludeMissing
-    private val transactableId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("transactable_type")
-    @ExcludeMissing
-    private val transactableType: JsonField<TransactableType> = JsonMissing.of(),
-    @JsonProperty("transaction_id")
-    @ExcludeMissing
-    private val transactionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val amount: JsonField<Long>,
+    private val counterpartyId: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val description: JsonField<String>,
+    private val discardedAt: JsonField<OffsetDateTime>,
+    private val expectedPaymentId: JsonField<String>,
+    private val liveMode: JsonField<Boolean>,
+    private val object_: JsonField<String>,
+    private val reconcilable: JsonField<Boolean>,
+    private val transactableId: JsonField<String>,
+    private val transactableType: JsonField<TransactableType>,
+    private val transactionId: JsonField<String>,
+    private val type: JsonField<Type>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        counterpartyId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("discarded_at")
+        @ExcludeMissing
+        discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("expected_payment_id")
+        @ExcludeMissing
+        expectedPaymentId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("reconcilable")
+        @ExcludeMissing
+        reconcilable: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("transactable_id")
+        @ExcludeMissing
+        transactableId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("transactable_type")
+        @ExcludeMissing
+        transactableType: JsonField<TransactableType> = JsonMissing.of(),
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        transactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(
+        id,
+        amount,
+        counterpartyId,
+        createdAt,
+        description,
+        discardedAt,
+        expectedPaymentId,
+        liveMode,
+        object_,
+        reconcilable,
+        transactableId,
+        transactableType,
+        transactionId,
+        type,
+        updatedAt,
+        mutableMapOf(),
+    )
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -309,34 +337,15 @@ private constructor(
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): TransactionLineItem = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        amount()
-        counterpartyId()
-        createdAt()
-        description()
-        discardedAt()
-        expectedPaymentId()
-        liveMode()
-        object_()
-        reconcilable()
-        transactableId()
-        transactableType()
-        transactionId()
-        type()
-        updatedAt()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -681,8 +690,33 @@ private constructor(
                 checkRequired("transactionId", transactionId),
                 checkRequired("type", type),
                 checkRequired("updatedAt", updatedAt),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): TransactionLineItem = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        amount()
+        counterpartyId()
+        createdAt()
+        description()
+        discardedAt()
+        expectedPaymentId()
+        liveMode()
+        object_()
+        reconcilable()
+        transactableId()
+        transactableType()
+        transactionId()
+        type()
+        updatedAt()
+        validated = true
     }
 
     /**

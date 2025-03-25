@@ -11,15 +11,13 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
 /** Create a ledger transaction reversal. */
@@ -150,395 +148,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerTransactionReversalCreateRequest = body
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> id
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class LedgerTransactionReversalCreateRequest
-    @JsonCreator
-    private constructor(
-        @JsonProperty("description")
-        @ExcludeMissing
-        private val description: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("effective_at")
-        @ExcludeMissing
-        private val effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("external_id")
-        @ExcludeMissing
-        private val externalId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("ledgerable_id")
-        @ExcludeMissing
-        private val ledgerableId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("ledgerable_type")
-        @ExcludeMissing
-        private val ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
-        @JsonProperty("metadata")
-        @ExcludeMissing
-        private val metadata: JsonField<Metadata> = JsonMissing.of(),
-        @JsonProperty("status")
-        @ExcludeMissing
-        private val status: JsonField<Status> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * An optional free-form description for the reversal ledger transaction. Maximum of 1000
-         * characters allowed.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun description(): String? = description.getNullable("description")
-
-        /**
-         * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
-         * reporting purposes. It defaults to the `effective_at` of the original ledger transaction
-         * if not provided.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun effectiveAt(): OffsetDateTime? = effectiveAt.getNullable("effective_at")
-
-        /**
-         * Must be unique within the ledger.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun externalId(): String? = externalId.getNullable("external_id")
-
-        /**
-         * Specify this if you'd like to link the reversal ledger transaction to a Payment object
-         * like Return or Reversal.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun ledgerableId(): String? = ledgerableId.getNullable("ledgerable_id")
-
-        /**
-         * Specify this if you'd like to link the reversal ledger transaction to a Payment object
-         * like Return or Reversal.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun ledgerableType(): LedgerableType? = ledgerableType.getNullable("ledgerable_type")
-
-        /**
-         * Additional data to be added to the reversal ledger transaction as key-value pairs. Both
-         * the key and value must be strings.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-        /**
-         * Status of the reversal ledger transaction. It defaults to `posted` if not provided.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun status(): Status? = status.getNullable("status")
-
-        /**
-         * Returns the raw JSON value of [description].
-         *
-         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("description")
-        @ExcludeMissing
-        fun _description(): JsonField<String> = description
-
-        /**
-         * Returns the raw JSON value of [effectiveAt].
-         *
-         * Unlike [effectiveAt], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("effective_at")
-        @ExcludeMissing
-        fun _effectiveAt(): JsonField<OffsetDateTime> = effectiveAt
-
-        /**
-         * Returns the raw JSON value of [externalId].
-         *
-         * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("external_id")
-        @ExcludeMissing
-        fun _externalId(): JsonField<String> = externalId
-
-        /**
-         * Returns the raw JSON value of [ledgerableId].
-         *
-         * Unlike [ledgerableId], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("ledgerable_id")
-        @ExcludeMissing
-        fun _ledgerableId(): JsonField<String> = ledgerableId
-
-        /**
-         * Returns the raw JSON value of [ledgerableType].
-         *
-         * Unlike [ledgerableType], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("ledgerable_type")
-        @ExcludeMissing
-        fun _ledgerableType(): JsonField<LedgerableType> = ledgerableType
-
-        /**
-         * Returns the raw JSON value of [metadata].
-         *
-         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
-
-        /**
-         * Returns the raw JSON value of [status].
-         *
-         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LedgerTransactionReversalCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            description()
-            effectiveAt()
-            externalId()
-            ledgerableId()
-            ledgerableType()
-            metadata()?.validate()
-            status()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of
-             * [LedgerTransactionReversalCreateRequest].
-             */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [LedgerTransactionReversalCreateRequest]. */
-        class Builder internal constructor() {
-
-            private var description: JsonField<String> = JsonMissing.of()
-            private var effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var externalId: JsonField<String> = JsonMissing.of()
-            private var ledgerableId: JsonField<String> = JsonMissing.of()
-            private var ledgerableType: JsonField<LedgerableType> = JsonMissing.of()
-            private var metadata: JsonField<Metadata> = JsonMissing.of()
-            private var status: JsonField<Status> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(
-                ledgerTransactionReversalCreateRequest: LedgerTransactionReversalCreateRequest
-            ) = apply {
-                description = ledgerTransactionReversalCreateRequest.description
-                effectiveAt = ledgerTransactionReversalCreateRequest.effectiveAt
-                externalId = ledgerTransactionReversalCreateRequest.externalId
-                ledgerableId = ledgerTransactionReversalCreateRequest.ledgerableId
-                ledgerableType = ledgerTransactionReversalCreateRequest.ledgerableType
-                metadata = ledgerTransactionReversalCreateRequest.metadata
-                status = ledgerTransactionReversalCreateRequest.status
-                additionalProperties =
-                    ledgerTransactionReversalCreateRequest.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * An optional free-form description for the reversal ledger transaction. Maximum of
-             * 1000 characters allowed.
-             */
-            fun description(description: String) = description(JsonField.of(description))
-
-            /**
-             * Sets [Builder.description] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.description] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun description(description: JsonField<String>) = apply {
-                this.description = description
-            }
-
-            /**
-             * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
-             * reporting purposes. It defaults to the `effective_at` of the original ledger
-             * transaction if not provided.
-             */
-            fun effectiveAt(effectiveAt: OffsetDateTime?) =
-                effectiveAt(JsonField.ofNullable(effectiveAt))
-
-            /**
-             * Sets [Builder.effectiveAt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.effectiveAt] with a well-typed [OffsetDateTime]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
-                this.effectiveAt = effectiveAt
-            }
-
-            /** Must be unique within the ledger. */
-            fun externalId(externalId: String) = externalId(JsonField.of(externalId))
-
-            /**
-             * Sets [Builder.externalId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.externalId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
-
-            /**
-             * Specify this if you'd like to link the reversal ledger transaction to a Payment
-             * object like Return or Reversal.
-             */
-            fun ledgerableId(ledgerableId: String) = ledgerableId(JsonField.of(ledgerableId))
-
-            /**
-             * Sets [Builder.ledgerableId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.ledgerableId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun ledgerableId(ledgerableId: JsonField<String>) = apply {
-                this.ledgerableId = ledgerableId
-            }
-
-            /**
-             * Specify this if you'd like to link the reversal ledger transaction to a Payment
-             * object like Return or Reversal.
-             */
-            fun ledgerableType(ledgerableType: LedgerableType) =
-                ledgerableType(JsonField.of(ledgerableType))
-
-            /**
-             * Sets [Builder.ledgerableType] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.ledgerableType] with a well-typed [LedgerableType]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun ledgerableType(ledgerableType: JsonField<LedgerableType>) = apply {
-                this.ledgerableType = ledgerableType
-            }
-
-            /**
-             * Additional data to be added to the reversal ledger transaction as key-value pairs.
-             * Both the key and value must be strings.
-             */
-            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-            /**
-             * Sets [Builder.metadata] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-            /**
-             * Status of the reversal ledger transaction. It defaults to `posted` if not provided.
-             */
-            fun status(status: Status) = status(JsonField.of(status))
-
-            /**
-             * Sets [Builder.status] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.status] with a well-typed [Status] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun status(status: JsonField<Status>) = apply { this.status = status }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [LedgerTransactionReversalCreateRequest].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): LedgerTransactionReversalCreateRequest =
-                LedgerTransactionReversalCreateRequest(
-                    description,
-                    effectiveAt,
-                    externalId,
-                    ledgerableId,
-                    ledgerableType,
-                    metadata,
-                    status,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is LedgerTransactionReversalCreateRequest && description == other.description && effectiveAt == other.effectiveAt && externalId == other.externalId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(description, effectiveAt, externalId, ledgerableId, ledgerableType, metadata, status, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "LedgerTransactionReversalCreateRequest{description=$description, effectiveAt=$effectiveAt, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -556,7 +165,6 @@ private constructor(
     }
 
     /** A builder for [LedgerTransactionCreateReversalParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var id: String? = null
@@ -822,6 +430,416 @@ private constructor(
             )
     }
 
+    internal fun _body(): LedgerTransactionReversalCreateRequest = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> id
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class LedgerTransactionReversalCreateRequest
+    private constructor(
+        private val description: JsonField<String>,
+        private val effectiveAt: JsonField<OffsetDateTime>,
+        private val externalId: JsonField<String>,
+        private val ledgerableId: JsonField<String>,
+        private val ledgerableType: JsonField<LedgerableType>,
+        private val metadata: JsonField<Metadata>,
+        private val status: JsonField<Status>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("description")
+            @ExcludeMissing
+            description: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("effective_at")
+            @ExcludeMissing
+            effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("external_id")
+            @ExcludeMissing
+            externalId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("ledgerable_id")
+            @ExcludeMissing
+            ledgerableId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("ledgerable_type")
+            @ExcludeMissing
+            ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        ) : this(
+            description,
+            effectiveAt,
+            externalId,
+            ledgerableId,
+            ledgerableType,
+            metadata,
+            status,
+            mutableMapOf(),
+        )
+
+        /**
+         * An optional free-form description for the reversal ledger transaction. Maximum of 1000
+         * characters allowed.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun description(): String? = description.getNullable("description")
+
+        /**
+         * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
+         * reporting purposes. It defaults to the `effective_at` of the original ledger transaction
+         * if not provided.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun effectiveAt(): OffsetDateTime? = effectiveAt.getNullable("effective_at")
+
+        /**
+         * Must be unique within the ledger.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun externalId(): String? = externalId.getNullable("external_id")
+
+        /**
+         * Specify this if you'd like to link the reversal ledger transaction to a Payment object
+         * like Return or Reversal.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun ledgerableId(): String? = ledgerableId.getNullable("ledgerable_id")
+
+        /**
+         * Specify this if you'd like to link the reversal ledger transaction to a Payment object
+         * like Return or Reversal.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun ledgerableType(): LedgerableType? = ledgerableType.getNullable("ledgerable_type")
+
+        /**
+         * Additional data to be added to the reversal ledger transaction as key-value pairs. Both
+         * the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
+
+        /**
+         * Status of the reversal ledger transaction. It defaults to `posted` if not provided.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun status(): Status? = status.getNullable("status")
+
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /**
+         * Returns the raw JSON value of [effectiveAt].
+         *
+         * Unlike [effectiveAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("effective_at")
+        @ExcludeMissing
+        fun _effectiveAt(): JsonField<OffsetDateTime> = effectiveAt
+
+        /**
+         * Returns the raw JSON value of [externalId].
+         *
+         * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        fun _externalId(): JsonField<String> = externalId
+
+        /**
+         * Returns the raw JSON value of [ledgerableId].
+         *
+         * Unlike [ledgerableId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("ledgerable_id")
+        @ExcludeMissing
+        fun _ledgerableId(): JsonField<String> = ledgerableId
+
+        /**
+         * Returns the raw JSON value of [ledgerableType].
+         *
+         * Unlike [ledgerableType], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("ledgerable_type")
+        @ExcludeMissing
+        fun _ledgerableType(): JsonField<LedgerableType> = ledgerableType
+
+        /**
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerTransactionReversalCreateRequest].
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [LedgerTransactionReversalCreateRequest]. */
+        class Builder internal constructor() {
+
+            private var description: JsonField<String> = JsonMissing.of()
+            private var effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var externalId: JsonField<String> = JsonMissing.of()
+            private var ledgerableId: JsonField<String> = JsonMissing.of()
+            private var ledgerableType: JsonField<LedgerableType> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var status: JsonField<Status> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(
+                ledgerTransactionReversalCreateRequest: LedgerTransactionReversalCreateRequest
+            ) = apply {
+                description = ledgerTransactionReversalCreateRequest.description
+                effectiveAt = ledgerTransactionReversalCreateRequest.effectiveAt
+                externalId = ledgerTransactionReversalCreateRequest.externalId
+                ledgerableId = ledgerTransactionReversalCreateRequest.ledgerableId
+                ledgerableType = ledgerTransactionReversalCreateRequest.ledgerableType
+                metadata = ledgerTransactionReversalCreateRequest.metadata
+                status = ledgerTransactionReversalCreateRequest.status
+                additionalProperties =
+                    ledgerTransactionReversalCreateRequest.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * An optional free-form description for the reversal ledger transaction. Maximum of
+             * 1000 characters allowed.
+             */
+            fun description(description: String) = description(JsonField.of(description))
+
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
+
+            /**
+             * The timestamp (ISO8601 format) at which the reversal ledger transaction happened for
+             * reporting purposes. It defaults to the `effective_at` of the original ledger
+             * transaction if not provided.
+             */
+            fun effectiveAt(effectiveAt: OffsetDateTime?) =
+                effectiveAt(JsonField.ofNullable(effectiveAt))
+
+            /**
+             * Sets [Builder.effectiveAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.effectiveAt] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
+                this.effectiveAt = effectiveAt
+            }
+
+            /** Must be unique within the ledger. */
+            fun externalId(externalId: String) = externalId(JsonField.of(externalId))
+
+            /**
+             * Sets [Builder.externalId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.externalId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
+
+            /**
+             * Specify this if you'd like to link the reversal ledger transaction to a Payment
+             * object like Return or Reversal.
+             */
+            fun ledgerableId(ledgerableId: String) = ledgerableId(JsonField.of(ledgerableId))
+
+            /**
+             * Sets [Builder.ledgerableId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerableId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun ledgerableId(ledgerableId: JsonField<String>) = apply {
+                this.ledgerableId = ledgerableId
+            }
+
+            /**
+             * Specify this if you'd like to link the reversal ledger transaction to a Payment
+             * object like Return or Reversal.
+             */
+            fun ledgerableType(ledgerableType: LedgerableType) =
+                ledgerableType(JsonField.of(ledgerableType))
+
+            /**
+             * Sets [Builder.ledgerableType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerableType] with a well-typed [LedgerableType]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun ledgerableType(ledgerableType: JsonField<LedgerableType>) = apply {
+                this.ledgerableType = ledgerableType
+            }
+
+            /**
+             * Additional data to be added to the reversal ledger transaction as key-value pairs.
+             * Both the key and value must be strings.
+             */
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+            /**
+             * Status of the reversal ledger transaction. It defaults to `posted` if not provided.
+             */
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [LedgerTransactionReversalCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): LedgerTransactionReversalCreateRequest =
+                LedgerTransactionReversalCreateRequest(
+                    description,
+                    effectiveAt,
+                    externalId,
+                    ledgerableId,
+                    ledgerableType,
+                    metadata,
+                    status,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerTransactionReversalCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            description()
+            effectiveAt()
+            externalId()
+            ledgerableId()
+            ledgerableType()
+            metadata()?.validate()
+            status()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is LedgerTransactionReversalCreateRequest && description == other.description && effectiveAt == other.effectiveAt && externalId == other.externalId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(description, effectiveAt, externalId, ledgerableId, ledgerableType, metadata, status, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "LedgerTransactionReversalCreateRequest{description=$description, effectiveAt=$effectiveAt, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
+    }
+
     /**
      * Specify this if you'd like to link the reversal ledger transaction to a Payment object like
      * Return or Reversal.
@@ -956,27 +974,20 @@ private constructor(
      * Additional data to be added to the reversal ledger transaction as key-value pairs. Both the
      * key and value must be strings.
      */
-    @NoAutoDetect
     class Metadata
-    @JsonCreator
-    private constructor(
+    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+        @JsonCreator private constructor() : this(mutableMapOf())
+
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-    ) {
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1019,7 +1030,17 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+            fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

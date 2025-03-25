@@ -20,56 +20,71 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.getOrThrow
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class BulkResult
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("entity")
-    @ExcludeMissing
-    private val entity: JsonField<Entity> = JsonMissing.of(),
-    @JsonProperty("entity_id")
-    @ExcludeMissing
-    private val entityId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("entity_type")
-    @ExcludeMissing
-    private val entityType: JsonField<EntityType> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("request_id")
-    @ExcludeMissing
-    private val requestId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("request_params")
-    @ExcludeMissing
-    private val requestParams: JsonField<RequestParams> = JsonMissing.of(),
-    @JsonProperty("request_type")
-    @ExcludeMissing
-    private val requestType: JsonField<RequestType> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val entity: JsonField<Entity>,
+    private val entityId: JsonField<String>,
+    private val entityType: JsonField<EntityType>,
+    private val liveMode: JsonField<Boolean>,
+    private val object_: JsonField<String>,
+    private val requestId: JsonField<String>,
+    private val requestParams: JsonField<RequestParams>,
+    private val requestType: JsonField<RequestType>,
+    private val status: JsonField<Status>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("entity") @ExcludeMissing entity: JsonField<Entity> = JsonMissing.of(),
+        @JsonProperty("entity_id") @ExcludeMissing entityId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("entity_type")
+        @ExcludeMissing
+        entityType: JsonField<EntityType> = JsonMissing.of(),
+        @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("request_id") @ExcludeMissing requestId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("request_params")
+        @ExcludeMissing
+        requestParams: JsonField<RequestParams> = JsonMissing.of(),
+        @JsonProperty("request_type")
+        @ExcludeMissing
+        requestType: JsonField<RequestType> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(
+        id,
+        createdAt,
+        entity,
+        entityId,
+        entityType,
+        liveMode,
+        object_,
+        requestId,
+        requestParams,
+        requestType,
+        status,
+        updatedAt,
+        mutableMapOf(),
+    )
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -259,31 +274,15 @@ private constructor(
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): BulkResult = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        createdAt()
-        entity().validate()
-        entityId()
-        entityType()
-        liveMode()
-        object_()
-        requestId()
-        requestParams()?.validate()
-        requestType()
-        status()
-        updatedAt()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -576,8 +575,30 @@ private constructor(
                 checkRequired("requestType", requestType),
                 checkRequired("status", status),
                 checkRequired("updatedAt", updatedAt),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): BulkResult = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        createdAt()
+        entity().validate()
+        entityId()
+        entityType()
+        liveMode()
+        object_()
+        requestId()
+        requestParams()?.validate()
+        requestType()
+        status()
+        updatedAt()
+        validated = true
     }
 
     /**
@@ -787,31 +808,36 @@ private constructor(
             }
         }
 
-        @NoAutoDetect
         class BulkError
-        @JsonCreator
         private constructor(
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("created_at")
-            @ExcludeMissing
-            private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonProperty("live_mode")
-            @ExcludeMissing
-            private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("object")
-            @ExcludeMissing
-            private val object_: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("request_errors")
-            @ExcludeMissing
-            private val requestErrors: JsonField<List<RequestError>> = JsonMissing.of(),
-            @JsonProperty("updated_at")
-            @ExcludeMissing
-            private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val id: JsonField<String>,
+            private val createdAt: JsonField<OffsetDateTime>,
+            private val liveMode: JsonField<Boolean>,
+            private val object_: JsonField<String>,
+            private val requestErrors: JsonField<List<RequestError>>,
+            private val updatedAt: JsonField<OffsetDateTime>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("created_at")
+                @ExcludeMissing
+                createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("live_mode")
+                @ExcludeMissing
+                liveMode: JsonField<Boolean> = JsonMissing.of(),
+                @JsonProperty("object")
+                @ExcludeMissing
+                object_: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("request_errors")
+                @ExcludeMissing
+                requestErrors: JsonField<List<RequestError>> = JsonMissing.of(),
+                @JsonProperty("updated_at")
+                @ExcludeMissing
+                updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            ) : this(id, createdAt, liveMode, object_, requestErrors, updatedAt, mutableMapOf())
 
             /**
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
@@ -912,25 +938,15 @@ private constructor(
             @ExcludeMissing
             fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): BulkError = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                id()
-                createdAt()
-                liveMode()
-                object_()
-                requestErrors().forEach { it.validate() }
-                updatedAt()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -1109,26 +1125,46 @@ private constructor(
                         checkRequired("object_", object_),
                         checkRequired("requestErrors", requestErrors).map { it.toImmutable() },
                         checkRequired("updatedAt", updatedAt),
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
             }
 
-            @NoAutoDetect
+            private var validated: Boolean = false
+
+            fun validate(): BulkError = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                id()
+                createdAt()
+                liveMode()
+                object_()
+                requestErrors().forEach { it.validate() }
+                updatedAt()
+                validated = true
+            }
+
             class RequestError
-            @JsonCreator
             private constructor(
-                @JsonProperty("code")
-                @ExcludeMissing
-                private val code: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("message")
-                @ExcludeMissing
-                private val message: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("parameter")
-                @ExcludeMissing
-                private val parameter: JsonField<String> = JsonMissing.of(),
-                @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                private val code: JsonField<String>,
+                private val message: JsonField<String>,
+                private val parameter: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("code")
+                    @ExcludeMissing
+                    code: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("message")
+                    @ExcludeMissing
+                    message: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("parameter")
+                    @ExcludeMissing
+                    parameter: JsonField<String> = JsonMissing.of(),
+                ) : this(code, message, parameter, mutableMapOf())
 
                 /**
                  * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
@@ -1174,22 +1210,15 @@ private constructor(
                 @ExcludeMissing
                 fun _parameter(): JsonField<String> = parameter
 
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): RequestError = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    code()
-                    message()
-                    parameter()
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -1277,7 +1306,20 @@ private constructor(
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
                     fun build(): RequestError =
-                        RequestError(code, message, parameter, additionalProperties.toImmutable())
+                        RequestError(code, message, parameter, additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): RequestError = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    code()
+                    message()
+                    parameter()
+                    validated = true
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -1443,27 +1485,20 @@ private constructor(
      * An optional object that contains the provided input params for the request that created this
      * result. This is an item in the `resources` array for the bulk_request
      */
-    @NoAutoDetect
     class RequestParams
-    @JsonCreator
-    private constructor(
+    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+        @JsonCreator private constructor() : this(mutableMapOf())
+
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-    ) {
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): RequestParams = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1506,7 +1541,17 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): RequestParams = RequestParams(additionalProperties.toImmutable())
+            fun build(): RequestParams = RequestParams(additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): RequestParams = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

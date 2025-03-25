@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
@@ -37,17 +36,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                put("routing_number", routingNumber)
-                put("routing_number_type", routingNumberType.toString())
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -66,7 +54,6 @@ private constructor(
     }
 
     /** A builder for [ValidationValidateRoutingNumberParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var routingNumber: String? = null
@@ -216,6 +203,17 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                put("routing_number", routingNumber)
+                put("routing_number_type", routingNumberType.toString())
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     /**
      * The type of routing number. See

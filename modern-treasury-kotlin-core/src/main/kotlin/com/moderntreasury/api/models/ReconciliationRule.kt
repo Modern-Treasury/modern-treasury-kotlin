@@ -11,48 +11,68 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class ReconciliationRule
-@JsonCreator
 private constructor(
-    @JsonProperty("amount_lower_bound")
-    @ExcludeMissing
-    private val amountLowerBound: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("amount_upper_bound")
-    @ExcludeMissing
-    private val amountUpperBound: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("direction")
-    @ExcludeMissing
-    private val direction: JsonField<Direction> = JsonMissing.of(),
-    @JsonProperty("internal_account_id")
-    @ExcludeMissing
-    private val internalAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("counterparty_id")
-    @ExcludeMissing
-    private val counterpartyId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("currency")
-    @ExcludeMissing
-    private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("custom_identifiers")
-    @ExcludeMissing
-    private val customIdentifiers: JsonField<CustomIdentifiers> = JsonMissing.of(),
-    @JsonProperty("date_lower_bound")
-    @ExcludeMissing
-    private val dateLowerBound: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("date_upper_bound")
-    @ExcludeMissing
-    private val dateUpperBound: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val amountLowerBound: JsonField<Long>,
+    private val amountUpperBound: JsonField<Long>,
+    private val direction: JsonField<Direction>,
+    private val internalAccountId: JsonField<String>,
+    private val counterpartyId: JsonField<String>,
+    private val currency: JsonField<Currency>,
+    private val customIdentifiers: JsonField<CustomIdentifiers>,
+    private val dateLowerBound: JsonField<LocalDate>,
+    private val dateUpperBound: JsonField<LocalDate>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("amount_lower_bound")
+        @ExcludeMissing
+        amountLowerBound: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("amount_upper_bound")
+        @ExcludeMissing
+        amountUpperBound: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("direction")
+        @ExcludeMissing
+        direction: JsonField<Direction> = JsonMissing.of(),
+        @JsonProperty("internal_account_id")
+        @ExcludeMissing
+        internalAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        counterpartyId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("currency") @ExcludeMissing currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("custom_identifiers")
+        @ExcludeMissing
+        customIdentifiers: JsonField<CustomIdentifiers> = JsonMissing.of(),
+        @JsonProperty("date_lower_bound")
+        @ExcludeMissing
+        dateLowerBound: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("date_upper_bound")
+        @ExcludeMissing
+        dateUpperBound: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(
+        amountLowerBound,
+        amountUpperBound,
+        direction,
+        internalAccountId,
+        counterpartyId,
+        currency,
+        customIdentifiers,
+        dateLowerBound,
+        dateUpperBound,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The lowest amount this expected payment may be equal to. Value in specified currency's
@@ -227,29 +247,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): ReconciliationRule = apply {
-        if (validated) {
-            return@apply
-        }
-
-        amountLowerBound()
-        amountUpperBound()
-        direction()
-        internalAccountId()
-        counterpartyId()
-        currency()
-        customIdentifiers()?.validate()
-        dateLowerBound()
-        dateUpperBound()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -496,8 +502,28 @@ private constructor(
                 dateLowerBound,
                 dateUpperBound,
                 type,
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): ReconciliationRule = apply {
+        if (validated) {
+            return@apply
+        }
+
+        amountLowerBound()
+        amountUpperBound()
+        direction()
+        internalAccountId()
+        counterpartyId()
+        currency()
+        customIdentifiers()?.validate()
+        dateLowerBound()
+        dateUpperBound()
+        type()
+        validated = true
     }
 
     /**
@@ -605,27 +631,20 @@ private constructor(
     }
 
     /** A hash of custom identifiers for this payment */
-    @NoAutoDetect
     class CustomIdentifiers
-    @JsonCreator
-    private constructor(
+    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+        @JsonCreator private constructor() : this(mutableMapOf())
+
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-    ) {
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): CustomIdentifiers = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -668,7 +687,17 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): CustomIdentifiers = CustomIdentifiers(additionalProperties.toImmutable())
+            fun build(): CustomIdentifiers = CustomIdentifiers(additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CustomIdentifiers = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

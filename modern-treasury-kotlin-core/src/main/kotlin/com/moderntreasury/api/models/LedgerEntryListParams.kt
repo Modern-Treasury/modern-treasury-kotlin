@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -137,73 +136,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                id?.forEach { put("id[]", it) }
-                afterCursor?.let { put("after_cursor", it) }
-                asOfLockVersion?.let { put("as_of_lock_version", it.toString()) }
-                direction?.let { put("direction", it.toString()) }
-                effectiveAt?.let {
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("effective_at[$key]", value)
-                        }
-                    }
-                }
-                effectiveDate?.let {
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("effective_date[$key]", value)
-                        }
-                    }
-                }
-                ledgerAccountCategoryId?.let { put("ledger_account_category_id", it) }
-                ledgerAccountId?.let { put("ledger_account_id", it) }
-                ledgerAccountLockVersion?.let {
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("ledger_account_lock_version[$key]", value)
-                        }
-                    }
-                }
-                ledgerAccountPayoutId?.let { put("ledger_account_payout_id", it) }
-                ledgerAccountSettlementId?.let { put("ledger_account_settlement_id", it) }
-                ledgerAccountStatementId?.let { put("ledger_account_statement_id", it) }
-                ledgerTransactionId?.let { put("ledger_transaction_id", it) }
-                metadata?.let {
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("metadata[$key]", value)
-                        }
-                    }
-                }
-                orderBy?.let {
-                    it.createdAt()?.let { put("order_by[created_at]", it.toString()) }
-                    it.effectiveAt()?.let { put("order_by[effective_at]", it.toString()) }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("order_by[$key]", value)
-                        }
-                    }
-                }
-                perPage?.let { put("per_page", it.toString()) }
-                showBalances?.let { put("show_balances", it.toString()) }
-                showDeleted?.let { put("show_deleted", it.toString()) }
-                status?.let { put("status", it.toString()) }
-                updatedAt?.let {
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("updated_at[$key]", value)
-                        }
-                    }
-                }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -215,7 +147,6 @@ private constructor(
     }
 
     /** A builder for [LedgerEntryListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var id: MutableList<String>? = null
@@ -541,6 +472,73 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                id?.forEach { put("id[]", it) }
+                afterCursor?.let { put("after_cursor", it) }
+                asOfLockVersion?.let { put("as_of_lock_version", it.toString()) }
+                direction?.let { put("direction", it.toString()) }
+                effectiveAt?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("effective_at[$key]", value)
+                        }
+                    }
+                }
+                effectiveDate?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("effective_date[$key]", value)
+                        }
+                    }
+                }
+                ledgerAccountCategoryId?.let { put("ledger_account_category_id", it) }
+                ledgerAccountId?.let { put("ledger_account_id", it) }
+                ledgerAccountLockVersion?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("ledger_account_lock_version[$key]", value)
+                        }
+                    }
+                }
+                ledgerAccountPayoutId?.let { put("ledger_account_payout_id", it) }
+                ledgerAccountSettlementId?.let { put("ledger_account_settlement_id", it) }
+                ledgerAccountStatementId?.let { put("ledger_account_statement_id", it) }
+                ledgerTransactionId?.let { put("ledger_transaction_id", it) }
+                metadata?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("metadata[$key]", value)
+                        }
+                    }
+                }
+                orderBy?.let {
+                    it.createdAt()?.let { put("order_by[created_at]", it.toString()) }
+                    it.effectiveAt()?.let { put("order_by[effective_at]", it.toString()) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("order_by[$key]", value)
+                        }
+                    }
+                }
+                perPage?.let { put("per_page", it.toString()) }
+                showBalances?.let { put("show_balances", it.toString()) }
+                showDeleted?.let { put("show_deleted", it.toString()) }
+                status?.let { put("status", it.toString()) }
+                updatedAt?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("updated_at[$key]", value)
+                        }
+                    }
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     /**
      * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the transaction's

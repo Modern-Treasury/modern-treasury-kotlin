@@ -11,16 +11,15 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
 /** Create a ledger transaction that partially posts another ledger transaction. */
@@ -106,314 +105,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerTransactionPartialPostCreateRequest = body
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> id
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class LedgerTransactionPartialPostCreateRequest
-    @JsonCreator
-    private constructor(
-        @JsonProperty("posted_ledger_entries")
-        @ExcludeMissing
-        private val postedLedgerEntries: JsonField<List<LedgerEntryPartialPostCreateRequest>> =
-            JsonMissing.of(),
-        @JsonProperty("description")
-        @ExcludeMissing
-        private val description: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("effective_at")
-        @ExcludeMissing
-        private val effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("metadata")
-        @ExcludeMissing
-        private val metadata: JsonField<Metadata> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * An array of ledger entry objects to be set on the posted ledger transaction. There must
-         * be one entry for each of the existing entries with a lesser amount than the existing
-         * entry.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun postedLedgerEntries(): List<LedgerEntryPartialPostCreateRequest> =
-            postedLedgerEntries.getRequired("posted_ledger_entries")
-
-        /**
-         * An optional free-form description for the posted ledger transaction. Maximum of 1000
-         * characters allowed.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun description(): String? = description.getNullable("description")
-
-        /**
-         * The timestamp (IS08601 format) at which the posted ledger transaction happened for
-         * reporting purposes.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun effectiveAt(): OffsetDateTime? = effectiveAt.getNullable("effective_at")
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-        /**
-         * Returns the raw JSON value of [postedLedgerEntries].
-         *
-         * Unlike [postedLedgerEntries], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("posted_ledger_entries")
-        @ExcludeMissing
-        fun _postedLedgerEntries(): JsonField<List<LedgerEntryPartialPostCreateRequest>> =
-            postedLedgerEntries
-
-        /**
-         * Returns the raw JSON value of [description].
-         *
-         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("description")
-        @ExcludeMissing
-        fun _description(): JsonField<String> = description
-
-        /**
-         * Returns the raw JSON value of [effectiveAt].
-         *
-         * Unlike [effectiveAt], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("effective_at")
-        @ExcludeMissing
-        fun _effectiveAt(): JsonField<OffsetDateTime> = effectiveAt
-
-        /**
-         * Returns the raw JSON value of [metadata].
-         *
-         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LedgerTransactionPartialPostCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            postedLedgerEntries().forEach { it.validate() }
-            description()
-            effectiveAt()
-            metadata()?.validate()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of
-             * [LedgerTransactionPartialPostCreateRequest].
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .postedLedgerEntries()
-             * ```
-             */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [LedgerTransactionPartialPostCreateRequest]. */
-        class Builder internal constructor() {
-
-            private var postedLedgerEntries:
-                JsonField<MutableList<LedgerEntryPartialPostCreateRequest>>? =
-                null
-            private var description: JsonField<String> = JsonMissing.of()
-            private var effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var metadata: JsonField<Metadata> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(
-                ledgerTransactionPartialPostCreateRequest: LedgerTransactionPartialPostCreateRequest
-            ) = apply {
-                postedLedgerEntries =
-                    ledgerTransactionPartialPostCreateRequest.postedLedgerEntries.map {
-                        it.toMutableList()
-                    }
-                description = ledgerTransactionPartialPostCreateRequest.description
-                effectiveAt = ledgerTransactionPartialPostCreateRequest.effectiveAt
-                metadata = ledgerTransactionPartialPostCreateRequest.metadata
-                additionalProperties =
-                    ledgerTransactionPartialPostCreateRequest.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * An array of ledger entry objects to be set on the posted ledger transaction. There
-             * must be one entry for each of the existing entries with a lesser amount than the
-             * existing entry.
-             */
-            fun postedLedgerEntries(
-                postedLedgerEntries: List<LedgerEntryPartialPostCreateRequest>
-            ) = postedLedgerEntries(JsonField.of(postedLedgerEntries))
-
-            /**
-             * Sets [Builder.postedLedgerEntries] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.postedLedgerEntries] with a well-typed
-             * `List<LedgerEntryPartialPostCreateRequest>` value instead. This method is primarily
-             * for setting the field to an undocumented or not yet supported value.
-             */
-            fun postedLedgerEntries(
-                postedLedgerEntries: JsonField<List<LedgerEntryPartialPostCreateRequest>>
-            ) = apply { this.postedLedgerEntries = postedLedgerEntries.map { it.toMutableList() } }
-
-            /**
-             * Adds a single [LedgerEntryPartialPostCreateRequest] to [postedLedgerEntries].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addPostedLedgerEntry(postedLedgerEntry: LedgerEntryPartialPostCreateRequest) =
-                apply {
-                    postedLedgerEntries =
-                        (postedLedgerEntries ?: JsonField.of(mutableListOf())).also {
-                            checkKnown("postedLedgerEntries", it).add(postedLedgerEntry)
-                        }
-                }
-
-            /**
-             * An optional free-form description for the posted ledger transaction. Maximum of 1000
-             * characters allowed.
-             */
-            fun description(description: String) = description(JsonField.of(description))
-
-            /**
-             * Sets [Builder.description] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.description] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun description(description: JsonField<String>) = apply {
-                this.description = description
-            }
-
-            /**
-             * The timestamp (IS08601 format) at which the posted ledger transaction happened for
-             * reporting purposes.
-             */
-            fun effectiveAt(effectiveAt: OffsetDateTime) = effectiveAt(JsonField.of(effectiveAt))
-
-            /**
-             * Sets [Builder.effectiveAt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.effectiveAt] with a well-typed [OffsetDateTime]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
-                this.effectiveAt = effectiveAt
-            }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-            /**
-             * Sets [Builder.metadata] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [LedgerTransactionPartialPostCreateRequest].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .postedLedgerEntries()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): LedgerTransactionPartialPostCreateRequest =
-                LedgerTransactionPartialPostCreateRequest(
-                    checkRequired("postedLedgerEntries", postedLedgerEntries).map {
-                        it.toImmutable()
-                    },
-                    description,
-                    effectiveAt,
-                    metadata,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is LedgerTransactionPartialPostCreateRequest && postedLedgerEntries == other.postedLedgerEntries && description == other.description && effectiveAt == other.effectiveAt && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(postedLedgerEntries, description, effectiveAt, metadata, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "LedgerTransactionPartialPostCreateRequest{postedLedgerEntries=$postedLedgerEntries, description=$description, effectiveAt=$effectiveAt, metadata=$metadata, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -432,7 +123,6 @@ private constructor(
     }
 
     /** A builder for [LedgerTransactionCreatePartialPostParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var id: String? = null
@@ -669,25 +359,347 @@ private constructor(
             )
     }
 
-    @NoAutoDetect
-    class LedgerEntryPartialPostCreateRequest
-    @JsonCreator
+    internal fun _body(): LedgerTransactionPartialPostCreateRequest = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> id
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class LedgerTransactionPartialPostCreateRequest
     private constructor(
-        @JsonProperty("amount")
-        @ExcludeMissing
-        private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("direction")
-        @ExcludeMissing
-        private val direction: JsonField<Direction> = JsonMissing.of(),
-        @JsonProperty("ledger_account_id")
-        @ExcludeMissing
-        private val ledgerAccountId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("metadata")
-        @ExcludeMissing
-        private val metadata: JsonField<Metadata> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val postedLedgerEntries: JsonField<List<LedgerEntryPartialPostCreateRequest>>,
+        private val description: JsonField<String>,
+        private val effectiveAt: JsonField<OffsetDateTime>,
+        private val metadata: JsonField<Metadata>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("posted_ledger_entries")
+            @ExcludeMissing
+            postedLedgerEntries: JsonField<List<LedgerEntryPartialPostCreateRequest>> =
+                JsonMissing.of(),
+            @JsonProperty("description")
+            @ExcludeMissing
+            description: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("effective_at")
+            @ExcludeMissing
+            effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
+        ) : this(postedLedgerEntries, description, effectiveAt, metadata, mutableMapOf())
+
+        /**
+         * An array of ledger entry objects to be set on the posted ledger transaction. There must
+         * be one entry for each of the existing entries with a lesser amount than the existing
+         * entry.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun postedLedgerEntries(): List<LedgerEntryPartialPostCreateRequest> =
+            postedLedgerEntries.getRequired("posted_ledger_entries")
+
+        /**
+         * An optional free-form description for the posted ledger transaction. Maximum of 1000
+         * characters allowed.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun description(): String? = description.getNullable("description")
+
+        /**
+         * The timestamp (IS08601 format) at which the posted ledger transaction happened for
+         * reporting purposes.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun effectiveAt(): OffsetDateTime? = effectiveAt.getNullable("effective_at")
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
+
+        /**
+         * Returns the raw JSON value of [postedLedgerEntries].
+         *
+         * Unlike [postedLedgerEntries], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("posted_ledger_entries")
+        @ExcludeMissing
+        fun _postedLedgerEntries(): JsonField<List<LedgerEntryPartialPostCreateRequest>> =
+            postedLedgerEntries
+
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /**
+         * Returns the raw JSON value of [effectiveAt].
+         *
+         * Unlike [effectiveAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("effective_at")
+        @ExcludeMissing
+        fun _effectiveAt(): JsonField<OffsetDateTime> = effectiveAt
+
+        /**
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerTransactionPartialPostCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .postedLedgerEntries()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [LedgerTransactionPartialPostCreateRequest]. */
+        class Builder internal constructor() {
+
+            private var postedLedgerEntries:
+                JsonField<MutableList<LedgerEntryPartialPostCreateRequest>>? =
+                null
+            private var description: JsonField<String> = JsonMissing.of()
+            private var effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(
+                ledgerTransactionPartialPostCreateRequest: LedgerTransactionPartialPostCreateRequest
+            ) = apply {
+                postedLedgerEntries =
+                    ledgerTransactionPartialPostCreateRequest.postedLedgerEntries.map {
+                        it.toMutableList()
+                    }
+                description = ledgerTransactionPartialPostCreateRequest.description
+                effectiveAt = ledgerTransactionPartialPostCreateRequest.effectiveAt
+                metadata = ledgerTransactionPartialPostCreateRequest.metadata
+                additionalProperties =
+                    ledgerTransactionPartialPostCreateRequest.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * An array of ledger entry objects to be set on the posted ledger transaction. There
+             * must be one entry for each of the existing entries with a lesser amount than the
+             * existing entry.
+             */
+            fun postedLedgerEntries(
+                postedLedgerEntries: List<LedgerEntryPartialPostCreateRequest>
+            ) = postedLedgerEntries(JsonField.of(postedLedgerEntries))
+
+            /**
+             * Sets [Builder.postedLedgerEntries] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.postedLedgerEntries] with a well-typed
+             * `List<LedgerEntryPartialPostCreateRequest>` value instead. This method is primarily
+             * for setting the field to an undocumented or not yet supported value.
+             */
+            fun postedLedgerEntries(
+                postedLedgerEntries: JsonField<List<LedgerEntryPartialPostCreateRequest>>
+            ) = apply { this.postedLedgerEntries = postedLedgerEntries.map { it.toMutableList() } }
+
+            /**
+             * Adds a single [LedgerEntryPartialPostCreateRequest] to [postedLedgerEntries].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addPostedLedgerEntry(postedLedgerEntry: LedgerEntryPartialPostCreateRequest) =
+                apply {
+                    postedLedgerEntries =
+                        (postedLedgerEntries ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("postedLedgerEntries", it).add(postedLedgerEntry)
+                        }
+                }
+
+            /**
+             * An optional free-form description for the posted ledger transaction. Maximum of 1000
+             * characters allowed.
+             */
+            fun description(description: String) = description(JsonField.of(description))
+
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
+
+            /**
+             * The timestamp (IS08601 format) at which the posted ledger transaction happened for
+             * reporting purposes.
+             */
+            fun effectiveAt(effectiveAt: OffsetDateTime) = effectiveAt(JsonField.of(effectiveAt))
+
+            /**
+             * Sets [Builder.effectiveAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.effectiveAt] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
+                this.effectiveAt = effectiveAt
+            }
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [LedgerTransactionPartialPostCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .postedLedgerEntries()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): LedgerTransactionPartialPostCreateRequest =
+                LedgerTransactionPartialPostCreateRequest(
+                    checkRequired("postedLedgerEntries", postedLedgerEntries).map {
+                        it.toImmutable()
+                    },
+                    description,
+                    effectiveAt,
+                    metadata,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerTransactionPartialPostCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            postedLedgerEntries().forEach { it.validate() }
+            description()
+            effectiveAt()
+            metadata()?.validate()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is LedgerTransactionPartialPostCreateRequest && postedLedgerEntries == other.postedLedgerEntries && description == other.description && effectiveAt == other.effectiveAt && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(postedLedgerEntries, description, effectiveAt, metadata, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "LedgerTransactionPartialPostCreateRequest{postedLedgerEntries=$postedLedgerEntries, description=$description, effectiveAt=$effectiveAt, metadata=$metadata, additionalProperties=$additionalProperties}"
+    }
+
+    class LedgerEntryPartialPostCreateRequest
+    private constructor(
+        private val amount: JsonField<Long>,
+        private val direction: JsonField<Direction>,
+        private val ledgerAccountId: JsonField<String>,
+        private val metadata: JsonField<Metadata>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("direction")
+            @ExcludeMissing
+            direction: JsonField<Direction> = JsonMissing.of(),
+            @JsonProperty("ledger_account_id")
+            @ExcludeMissing
+            ledgerAccountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
+        ) : this(amount, direction, ledgerAccountId, metadata, mutableMapOf())
 
         /**
          * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. Can
@@ -758,23 +770,15 @@ private constructor(
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LedgerEntryPartialPostCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            amount()
-            direction()
-            ledgerAccountId()
-            metadata()?.validate()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -915,8 +919,22 @@ private constructor(
                     checkRequired("direction", direction),
                     checkRequired("ledgerAccountId", ledgerAccountId),
                     metadata,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerEntryPartialPostCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            amount()
+            direction()
+            ledgerAccountId()
+            metadata()?.validate()
+            validated = true
         }
 
         /**
@@ -1031,27 +1049,20 @@ private constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @NoAutoDetect
         class Metadata
-        @JsonCreator
-        private constructor(
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
             @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-        ) {
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Metadata = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -1097,7 +1108,17 @@ private constructor(
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Metadata = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1136,27 +1157,20 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @NoAutoDetect
     class Metadata
-    @JsonCreator
-    private constructor(
+    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+        @JsonCreator private constructor() : this(mutableMapOf())
+
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-    ) {
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1199,7 +1213,17 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+            fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

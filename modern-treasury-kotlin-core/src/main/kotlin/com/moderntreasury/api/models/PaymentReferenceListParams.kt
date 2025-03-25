@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -47,20 +46,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                afterCursor?.let { put("after_cursor", it) }
-                perPage?.let { put("per_page", it.toString()) }
-                referenceNumber?.let { put("reference_number", it) }
-                referenceableId?.let { put("referenceable_id", it) }
-                referenceableType?.let { put("referenceable_type", it.toString()) }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -74,7 +59,6 @@ private constructor(
     }
 
     /** A builder for [PaymentReferenceListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var afterCursor: String? = null
@@ -241,6 +225,20 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                referenceNumber?.let { put("reference_number", it) }
+                referenceableId?.let { put("referenceable_id", it) }
+                referenceableType?.let { put("referenceable_type", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     /**
      * One of the referenceable types. This must be accompanied by the id of the referenceable or

@@ -15,6 +15,7 @@ class ClientOptions
 private constructor(
     private val originalHttpClient: HttpClient,
     val httpClient: HttpClient,
+    val checkJacksonVersionCompatibility: Boolean,
     val jsonMapper: JsonMapper,
     val clock: Clock,
     val baseUrl: String,
@@ -27,6 +28,12 @@ private constructor(
     val organizationId: String,
     val webhookKey: String?,
 ) {
+
+    init {
+        if (checkJacksonVersionCompatibility) {
+            checkJacksonVersionCompatibility()
+        }
+    }
 
     fun toBuilder() = Builder().from(this)
 
@@ -53,6 +60,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var httpClient: HttpClient? = null
+        private var checkJacksonVersionCompatibility: Boolean = true
         private var jsonMapper: JsonMapper = jsonMapper()
         private var clock: Clock = Clock.systemUTC()
         private var baseUrl: String = PRODUCTION_URL
@@ -67,6 +75,7 @@ private constructor(
 
         internal fun from(clientOptions: ClientOptions) = apply {
             httpClient = clientOptions.originalHttpClient
+            checkJacksonVersionCompatibility = clientOptions.checkJacksonVersionCompatibility
             jsonMapper = clientOptions.jsonMapper
             clock = clientOptions.clock
             baseUrl = clientOptions.baseUrl
@@ -81,6 +90,10 @@ private constructor(
         }
 
         fun httpClient(httpClient: HttpClient) = apply { this.httpClient = httpClient }
+
+        fun checkJacksonVersionCompatibility(checkJacksonVersionCompatibility: Boolean) = apply {
+            this.checkJacksonVersionCompatibility = checkJacksonVersionCompatibility
+        }
 
         fun jsonMapper(jsonMapper: JsonMapper) = apply { this.jsonMapper = jsonMapper }
 
@@ -239,6 +252,7 @@ private constructor(
                         .idempotencyHeader("Idempotency-Key")
                         .build()
                 ),
+                checkJacksonVersionCompatibility,
                 jsonMapper,
                 clock,
                 baseUrl,
