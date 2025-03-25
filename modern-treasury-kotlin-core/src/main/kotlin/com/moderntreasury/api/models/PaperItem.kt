@@ -11,71 +11,99 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class PaperItem
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("account_number")
-    @ExcludeMissing
-    private val accountNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("account_number_safe")
-    @ExcludeMissing
-    private val accountNumberSafe: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("check_number")
-    @ExcludeMissing
-    private val checkNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("currency")
-    @ExcludeMissing
-    private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("deposit_date")
-    @ExcludeMissing
-    private val depositDate: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("lockbox_number")
-    @ExcludeMissing
-    private val lockboxNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("memo_field")
-    @ExcludeMissing
-    private val memoField: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("remitter_name")
-    @ExcludeMissing
-    private val remitterName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("routing_number")
-    @ExcludeMissing
-    private val routingNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("transaction_id")
-    @ExcludeMissing
-    private val transactionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("transaction_line_item_id")
-    @ExcludeMissing
-    private val transactionLineItemId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val accountNumber: JsonField<String>,
+    private val accountNumberSafe: JsonField<String>,
+    private val amount: JsonField<Long>,
+    private val checkNumber: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val currency: JsonField<Currency>,
+    private val depositDate: JsonField<LocalDate>,
+    private val liveMode: JsonField<Boolean>,
+    private val lockboxNumber: JsonField<String>,
+    private val memoField: JsonField<String>,
+    private val object_: JsonField<String>,
+    private val remitterName: JsonField<String>,
+    private val routingNumber: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val transactionId: JsonField<String>,
+    private val transactionLineItemId: JsonField<String>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        accountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_number_safe")
+        @ExcludeMissing
+        accountNumberSafe: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("check_number")
+        @ExcludeMissing
+        checkNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("currency") @ExcludeMissing currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("deposit_date")
+        @ExcludeMissing
+        depositDate: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("lockbox_number")
+        @ExcludeMissing
+        lockboxNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("memo_field") @ExcludeMissing memoField: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("remitter_name")
+        @ExcludeMissing
+        remitterName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        routingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        transactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("transaction_line_item_id")
+        @ExcludeMissing
+        transactionLineItemId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(
+        id,
+        accountNumber,
+        accountNumberSafe,
+        amount,
+        checkNumber,
+        createdAt,
+        currency,
+        depositDate,
+        liveMode,
+        lockboxNumber,
+        memoField,
+        object_,
+        remitterName,
+        routingNumber,
+        status,
+        transactionId,
+        transactionLineItemId,
+        updatedAt,
+        mutableMapOf(),
+    )
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -365,37 +393,15 @@ private constructor(
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): PaperItem = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        accountNumber()
-        accountNumberSafe()
-        amount()
-        checkNumber()
-        createdAt()
-        currency()
-        depositDate()
-        liveMode()
-        lockboxNumber()
-        memoField()
-        object_()
-        remitterName()
-        routingNumber()
-        status()
-        transactionId()
-        transactionLineItemId()
-        updatedAt()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -774,8 +780,36 @@ private constructor(
                 checkRequired("transactionId", transactionId),
                 checkRequired("transactionLineItemId", transactionLineItemId),
                 checkRequired("updatedAt", updatedAt),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): PaperItem = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        accountNumber()
+        accountNumberSafe()
+        amount()
+        checkNumber()
+        createdAt()
+        currency()
+        depositDate()
+        liveMode()
+        lockboxNumber()
+        memoField()
+        object_()
+        remitterName()
+        routingNumber()
+        status()
+        transactionId()
+        transactionLineItemId()
+        updatedAt()
+        validated = true
     }
 
     /** The current status of the paper item. One of `pending`, `completed`, or `returned`. */

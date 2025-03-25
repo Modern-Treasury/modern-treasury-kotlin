@@ -10,20 +10,21 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class PingResponse
-@JsonCreator
 private constructor(
-    @JsonProperty("ping") @ExcludeMissing private val ping: JsonField<String> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val ping: JsonField<String>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("ping") @ExcludeMissing ping: JsonField<String> = JsonMissing.of()
+    ) : this(ping, mutableMapOf())
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -38,20 +39,15 @@ private constructor(
      */
     @JsonProperty("ping") @ExcludeMissing fun _ping(): JsonField<String> = ping
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): PingResponse = apply {
-        if (validated) {
-            return@apply
-        }
-
-        ping()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -121,7 +117,18 @@ private constructor(
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PingResponse =
-            PingResponse(checkRequired("ping", ping), additionalProperties.toImmutable())
+            PingResponse(checkRequired("ping", ping), additionalProperties.toMutableMap())
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): PingResponse = apply {
+        if (validated) {
+            return@apply
+        }
+
+        ping()
+        validated = true
     }
 
     override fun equals(other: Any?): Boolean {

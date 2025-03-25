@@ -11,45 +11,61 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class PaymentReference
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("reference_number")
-    @ExcludeMissing
-    private val referenceNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("reference_number_type")
-    @ExcludeMissing
-    private val referenceNumberType: JsonField<ReferenceNumberType> = JsonMissing.of(),
-    @JsonProperty("referenceable_id")
-    @ExcludeMissing
-    private val referenceableId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("referenceable_type")
-    @ExcludeMissing
-    private val referenceableType: JsonField<ReferenceableType> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val liveMode: JsonField<Boolean>,
+    private val object_: JsonField<String>,
+    private val referenceNumber: JsonField<String>,
+    private val referenceNumberType: JsonField<ReferenceNumberType>,
+    private val referenceableId: JsonField<String>,
+    private val referenceableType: JsonField<ReferenceableType>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("reference_number")
+        @ExcludeMissing
+        referenceNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("reference_number_type")
+        @ExcludeMissing
+        referenceNumberType: JsonField<ReferenceNumberType> = JsonMissing.of(),
+        @JsonProperty("referenceable_id")
+        @ExcludeMissing
+        referenceableId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("referenceable_type")
+        @ExcludeMissing
+        referenceableType: JsonField<ReferenceableType> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(
+        id,
+        createdAt,
+        liveMode,
+        object_,
+        referenceNumber,
+        referenceNumberType,
+        referenceableId,
+        referenceableType,
+        updatedAt,
+        mutableMapOf(),
+    )
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -196,28 +212,15 @@ private constructor(
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): PaymentReference = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        createdAt()
-        liveMode()
-        object_()
-        referenceNumber()
-        referenceNumberType()
-        referenceableId()
-        referenceableType()
-        updatedAt()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -442,8 +445,27 @@ private constructor(
                 checkRequired("referenceableId", referenceableId),
                 checkRequired("referenceableType", referenceableType),
                 checkRequired("updatedAt", updatedAt),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): PaymentReference = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        createdAt()
+        liveMode()
+        object_()
+        referenceNumber()
+        referenceNumberType()
+        referenceableId()
+        referenceableType()
+        updatedAt()
+        validated = true
     }
 
     /** The type of reference number. */

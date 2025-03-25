@@ -11,16 +11,15 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
+import java.util.Collections
 import java.util.Objects
 
 /** Create a new counterparty. */
@@ -201,552 +200,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): CounterpartyCreateRequest = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class CounterpartyCreateRequest
-    @JsonCreator
-    private constructor(
-        @JsonProperty("name")
-        @ExcludeMissing
-        private val name: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("accounting")
-        @ExcludeMissing
-        private val accounting: JsonField<Accounting> = JsonMissing.of(),
-        @JsonProperty("accounts")
-        @ExcludeMissing
-        private val accounts: JsonField<List<Account>> = JsonMissing.of(),
-        @JsonProperty("email")
-        @ExcludeMissing
-        private val email: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("ledger_type")
-        @ExcludeMissing
-        private val ledgerType: JsonField<LedgerType> = JsonMissing.of(),
-        @JsonProperty("legal_entity")
-        @ExcludeMissing
-        private val legalEntity: JsonField<LegalEntityCreateRequest> = JsonMissing.of(),
-        @JsonProperty("legal_entity_id")
-        @ExcludeMissing
-        private val legalEntityId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("metadata")
-        @ExcludeMissing
-        private val metadata: JsonField<Metadata> = JsonMissing.of(),
-        @JsonProperty("send_remittance_advice")
-        @ExcludeMissing
-        private val sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("taxpayer_identifier")
-        @ExcludeMissing
-        private val taxpayerIdentifier: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("verification_status")
-        @ExcludeMissing
-        private val verificationStatus: JsonField<VerificationStatus> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * A human friendly name for this counterparty.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun name(): String? = name.getNullable("name")
-
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun accounting(): Accounting? = accounting.getNullable("accounting")
-
-        /**
-         * The accounts for this counterparty.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun accounts(): List<Account>? = accounts.getNullable("accounts")
-
-        /**
-         * The counterparty's email.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun email(): String? = email.getNullable("email")
-
-        /**
-         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-         * `vendor`.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        @Deprecated("deprecated")
-        fun ledgerType(): LedgerType? = ledgerType.getNullable("ledger_type")
-
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun legalEntity(): LegalEntityCreateRequest? = legalEntity.getNullable("legal_entity")
-
-        /**
-         * The id of the legal entity.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun legalEntityId(): String? = legalEntityId.getNullable("legal_entity_id")
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-        /**
-         * Send an email to the counterparty whenever an associated payment order is sent to the
-         * bank.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun sendRemittanceAdvice(): Boolean? =
-            sendRemittanceAdvice.getNullable("send_remittance_advice")
-
-        /**
-         * Either a valid SSN or EIN.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun taxpayerIdentifier(): String? = taxpayerIdentifier.getNullable("taxpayer_identifier")
-
-        /**
-         * The verification status of the counterparty.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun verificationStatus(): VerificationStatus? =
-            verificationStatus.getNullable("verification_status")
-
-        /**
-         * Returns the raw JSON value of [name].
-         *
-         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        /**
-         * Returns the raw JSON value of [accounting].
-         *
-         * Unlike [accounting], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("accounting")
-        @ExcludeMissing
-        fun _accounting(): JsonField<Accounting> = accounting
-
-        /**
-         * Returns the raw JSON value of [accounts].
-         *
-         * Unlike [accounts], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("accounts")
-        @ExcludeMissing
-        fun _accounts(): JsonField<List<Account>> = accounts
-
-        /**
-         * Returns the raw JSON value of [email].
-         *
-         * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
-
-        /**
-         * Returns the raw JSON value of [ledgerType].
-         *
-         * Unlike [ledgerType], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @Deprecated("deprecated")
-        @JsonProperty("ledger_type")
-        @ExcludeMissing
-        fun _ledgerType(): JsonField<LedgerType> = ledgerType
-
-        /**
-         * Returns the raw JSON value of [legalEntity].
-         *
-         * Unlike [legalEntity], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("legal_entity")
-        @ExcludeMissing
-        fun _legalEntity(): JsonField<LegalEntityCreateRequest> = legalEntity
-
-        /**
-         * Returns the raw JSON value of [legalEntityId].
-         *
-         * Unlike [legalEntityId], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("legal_entity_id")
-        @ExcludeMissing
-        fun _legalEntityId(): JsonField<String> = legalEntityId
-
-        /**
-         * Returns the raw JSON value of [metadata].
-         *
-         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
-
-        /**
-         * Returns the raw JSON value of [sendRemittanceAdvice].
-         *
-         * Unlike [sendRemittanceAdvice], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("send_remittance_advice")
-        @ExcludeMissing
-        fun _sendRemittanceAdvice(): JsonField<Boolean> = sendRemittanceAdvice
-
-        /**
-         * Returns the raw JSON value of [taxpayerIdentifier].
-         *
-         * Unlike [taxpayerIdentifier], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("taxpayer_identifier")
-        @ExcludeMissing
-        fun _taxpayerIdentifier(): JsonField<String> = taxpayerIdentifier
-
-        /**
-         * Returns the raw JSON value of [verificationStatus].
-         *
-         * Unlike [verificationStatus], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("verification_status")
-        @ExcludeMissing
-        fun _verificationStatus(): JsonField<VerificationStatus> = verificationStatus
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): CounterpartyCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            name()
-            accounting()?.validate()
-            accounts()?.forEach { it.validate() }
-            email()
-            ledgerType()
-            legalEntity()?.validate()
-            legalEntityId()
-            metadata()?.validate()
-            sendRemittanceAdvice()
-            taxpayerIdentifier()
-            verificationStatus()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of
-             * [CounterpartyCreateRequest].
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .name()
-             * ```
-             */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [CounterpartyCreateRequest]. */
-        class Builder internal constructor() {
-
-            private var name: JsonField<String>? = null
-            private var accounting: JsonField<Accounting> = JsonMissing.of()
-            private var accounts: JsonField<MutableList<Account>>? = null
-            private var email: JsonField<String> = JsonMissing.of()
-            private var ledgerType: JsonField<LedgerType> = JsonMissing.of()
-            private var legalEntity: JsonField<LegalEntityCreateRequest> = JsonMissing.of()
-            private var legalEntityId: JsonField<String> = JsonMissing.of()
-            private var metadata: JsonField<Metadata> = JsonMissing.of()
-            private var sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of()
-            private var taxpayerIdentifier: JsonField<String> = JsonMissing.of()
-            private var verificationStatus: JsonField<VerificationStatus> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(counterpartyCreateRequest: CounterpartyCreateRequest) = apply {
-                name = counterpartyCreateRequest.name
-                accounting = counterpartyCreateRequest.accounting
-                accounts = counterpartyCreateRequest.accounts.map { it.toMutableList() }
-                email = counterpartyCreateRequest.email
-                ledgerType = counterpartyCreateRequest.ledgerType
-                legalEntity = counterpartyCreateRequest.legalEntity
-                legalEntityId = counterpartyCreateRequest.legalEntityId
-                metadata = counterpartyCreateRequest.metadata
-                sendRemittanceAdvice = counterpartyCreateRequest.sendRemittanceAdvice
-                taxpayerIdentifier = counterpartyCreateRequest.taxpayerIdentifier
-                verificationStatus = counterpartyCreateRequest.verificationStatus
-                additionalProperties = counterpartyCreateRequest.additionalProperties.toMutableMap()
-            }
-
-            /** A human friendly name for this counterparty. */
-            fun name(name: String?) = name(JsonField.ofNullable(name))
-
-            /**
-             * Sets [Builder.name] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.name] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun name(name: JsonField<String>) = apply { this.name = name }
-
-            fun accounting(accounting: Accounting) = accounting(JsonField.of(accounting))
-
-            /**
-             * Sets [Builder.accounting] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accounting] with a well-typed [Accounting] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun accounting(accounting: JsonField<Accounting>) = apply {
-                this.accounting = accounting
-            }
-
-            /** The accounts for this counterparty. */
-            fun accounts(accounts: List<Account>) = accounts(JsonField.of(accounts))
-
-            /**
-             * Sets [Builder.accounts] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accounts] with a well-typed `List<Account>` value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun accounts(accounts: JsonField<List<Account>>) = apply {
-                this.accounts = accounts.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [Account] to [accounts].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addAccount(account: Account) = apply {
-                accounts =
-                    (accounts ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("accounts", it).add(account)
-                    }
-            }
-
-            /** The counterparty's email. */
-            fun email(email: String?) = email(JsonField.ofNullable(email))
-
-            /**
-             * Sets [Builder.email] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.email] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun email(email: JsonField<String>) = apply { this.email = email }
-
-            /**
-             * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-             * `vendor`.
-             */
-            @Deprecated("deprecated")
-            fun ledgerType(ledgerType: LedgerType) = ledgerType(JsonField.of(ledgerType))
-
-            /**
-             * Sets [Builder.ledgerType] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.ledgerType] with a well-typed [LedgerType] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            @Deprecated("deprecated")
-            fun ledgerType(ledgerType: JsonField<LedgerType>) = apply {
-                this.ledgerType = ledgerType
-            }
-
-            fun legalEntity(legalEntity: LegalEntityCreateRequest) =
-                legalEntity(JsonField.of(legalEntity))
-
-            /**
-             * Sets [Builder.legalEntity] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.legalEntity] with a well-typed
-             * [LegalEntityCreateRequest] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
-             */
-            fun legalEntity(legalEntity: JsonField<LegalEntityCreateRequest>) = apply {
-                this.legalEntity = legalEntity
-            }
-
-            /** The id of the legal entity. */
-            fun legalEntityId(legalEntityId: String?) =
-                legalEntityId(JsonField.ofNullable(legalEntityId))
-
-            /**
-             * Sets [Builder.legalEntityId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.legalEntityId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun legalEntityId(legalEntityId: JsonField<String>) = apply {
-                this.legalEntityId = legalEntityId
-            }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-            /**
-             * Sets [Builder.metadata] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-            /**
-             * Send an email to the counterparty whenever an associated payment order is sent to the
-             * bank.
-             */
-            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) =
-                sendRemittanceAdvice(JsonField.of(sendRemittanceAdvice))
-
-            /**
-             * Sets [Builder.sendRemittanceAdvice] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) = apply {
-                this.sendRemittanceAdvice = sendRemittanceAdvice
-            }
-
-            /** Either a valid SSN or EIN. */
-            fun taxpayerIdentifier(taxpayerIdentifier: String) =
-                taxpayerIdentifier(JsonField.of(taxpayerIdentifier))
-
-            /**
-             * Sets [Builder.taxpayerIdentifier] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.taxpayerIdentifier] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun taxpayerIdentifier(taxpayerIdentifier: JsonField<String>) = apply {
-                this.taxpayerIdentifier = taxpayerIdentifier
-            }
-
-            /** The verification status of the counterparty. */
-            fun verificationStatus(verificationStatus: VerificationStatus) =
-                verificationStatus(JsonField.of(verificationStatus))
-
-            /**
-             * Sets [Builder.verificationStatus] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.verificationStatus] with a well-typed
-             * [VerificationStatus] value instead. This method is primarily for setting the field to
-             * an undocumented or not yet supported value.
-             */
-            fun verificationStatus(verificationStatus: JsonField<VerificationStatus>) = apply {
-                this.verificationStatus = verificationStatus
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [CounterpartyCreateRequest].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .name()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): CounterpartyCreateRequest =
-                CounterpartyCreateRequest(
-                    checkRequired("name", name),
-                    accounting,
-                    (accounts ?: JsonMissing.of()).map { it.toImmutable() },
-                    email,
-                    ledgerType,
-                    legalEntity,
-                    legalEntityId,
-                    metadata,
-                    sendRemittanceAdvice,
-                    taxpayerIdentifier,
-                    verificationStatus,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is CounterpartyCreateRequest && name == other.name && accounting == other.accounting && accounts == other.accounts && email == other.email && ledgerType == other.ledgerType && legalEntity == other.legalEntity && legalEntityId == other.legalEntityId && metadata == other.metadata && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(name, accounting, accounts, email, ledgerType, legalEntity, legalEntityId, metadata, sendRemittanceAdvice, taxpayerIdentifier, verificationStatus, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "CounterpartyCreateRequest{name=$name, accounting=$accounting, accounts=$accounts, email=$email, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -763,7 +216,6 @@ private constructor(
     }
 
     /** A builder for [CounterpartyCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: CounterpartyCreateRequest.Builder = CounterpartyCreateRequest.builder()
@@ -1076,14 +528,589 @@ private constructor(
             )
     }
 
-    @NoAutoDetect
-    class Accounting
-    @JsonCreator
+    internal fun _body(): CounterpartyCreateRequest = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class CounterpartyCreateRequest
     private constructor(
-        @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val name: JsonField<String>,
+        private val accounting: JsonField<Accounting>,
+        private val accounts: JsonField<List<Account>>,
+        private val email: JsonField<String>,
+        private val ledgerType: JsonField<LedgerType>,
+        private val legalEntity: JsonField<LegalEntityCreateRequest>,
+        private val legalEntityId: JsonField<String>,
+        private val metadata: JsonField<Metadata>,
+        private val sendRemittanceAdvice: JsonField<Boolean>,
+        private val taxpayerIdentifier: JsonField<String>,
+        private val verificationStatus: JsonField<VerificationStatus>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("accounting")
+            @ExcludeMissing
+            accounting: JsonField<Accounting> = JsonMissing.of(),
+            @JsonProperty("accounts")
+            @ExcludeMissing
+            accounts: JsonField<List<Account>> = JsonMissing.of(),
+            @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("ledger_type")
+            @ExcludeMissing
+            ledgerType: JsonField<LedgerType> = JsonMissing.of(),
+            @JsonProperty("legal_entity")
+            @ExcludeMissing
+            legalEntity: JsonField<LegalEntityCreateRequest> = JsonMissing.of(),
+            @JsonProperty("legal_entity_id")
+            @ExcludeMissing
+            legalEntityId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("send_remittance_advice")
+            @ExcludeMissing
+            sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("taxpayer_identifier")
+            @ExcludeMissing
+            taxpayerIdentifier: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("verification_status")
+            @ExcludeMissing
+            verificationStatus: JsonField<VerificationStatus> = JsonMissing.of(),
+        ) : this(
+            name,
+            accounting,
+            accounts,
+            email,
+            ledgerType,
+            legalEntity,
+            legalEntityId,
+            metadata,
+            sendRemittanceAdvice,
+            taxpayerIdentifier,
+            verificationStatus,
+            mutableMapOf(),
+        )
+
+        /**
+         * A human friendly name for this counterparty.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun name(): String? = name.getNullable("name")
+
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun accounting(): Accounting? = accounting.getNullable("accounting")
+
+        /**
+         * The accounts for this counterparty.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun accounts(): List<Account>? = accounts.getNullable("accounts")
+
+        /**
+         * The counterparty's email.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun email(): String? = email.getNullable("email")
+
+        /**
+         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
+         * `vendor`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        @Deprecated("deprecated")
+        fun ledgerType(): LedgerType? = ledgerType.getNullable("ledger_type")
+
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun legalEntity(): LegalEntityCreateRequest? = legalEntity.getNullable("legal_entity")
+
+        /**
+         * The id of the legal entity.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun legalEntityId(): String? = legalEntityId.getNullable("legal_entity_id")
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
+
+        /**
+         * Send an email to the counterparty whenever an associated payment order is sent to the
+         * bank.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun sendRemittanceAdvice(): Boolean? =
+            sendRemittanceAdvice.getNullable("send_remittance_advice")
+
+        /**
+         * Either a valid SSN or EIN.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun taxpayerIdentifier(): String? = taxpayerIdentifier.getNullable("taxpayer_identifier")
+
+        /**
+         * The verification status of the counterparty.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun verificationStatus(): VerificationStatus? =
+            verificationStatus.getNullable("verification_status")
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [accounting].
+         *
+         * Unlike [accounting], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("accounting")
+        @ExcludeMissing
+        fun _accounting(): JsonField<Accounting> = accounting
+
+        /**
+         * Returns the raw JSON value of [accounts].
+         *
+         * Unlike [accounts], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("accounts")
+        @ExcludeMissing
+        fun _accounts(): JsonField<List<Account>> = accounts
+
+        /**
+         * Returns the raw JSON value of [email].
+         *
+         * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
+
+        /**
+         * Returns the raw JSON value of [ledgerType].
+         *
+         * Unlike [ledgerType], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @Deprecated("deprecated")
+        @JsonProperty("ledger_type")
+        @ExcludeMissing
+        fun _ledgerType(): JsonField<LedgerType> = ledgerType
+
+        /**
+         * Returns the raw JSON value of [legalEntity].
+         *
+         * Unlike [legalEntity], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("legal_entity")
+        @ExcludeMissing
+        fun _legalEntity(): JsonField<LegalEntityCreateRequest> = legalEntity
+
+        /**
+         * Returns the raw JSON value of [legalEntityId].
+         *
+         * Unlike [legalEntityId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("legal_entity_id")
+        @ExcludeMissing
+        fun _legalEntityId(): JsonField<String> = legalEntityId
+
+        /**
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+
+        /**
+         * Returns the raw JSON value of [sendRemittanceAdvice].
+         *
+         * Unlike [sendRemittanceAdvice], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("send_remittance_advice")
+        @ExcludeMissing
+        fun _sendRemittanceAdvice(): JsonField<Boolean> = sendRemittanceAdvice
+
+        /**
+         * Returns the raw JSON value of [taxpayerIdentifier].
+         *
+         * Unlike [taxpayerIdentifier], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("taxpayer_identifier")
+        @ExcludeMissing
+        fun _taxpayerIdentifier(): JsonField<String> = taxpayerIdentifier
+
+        /**
+         * Returns the raw JSON value of [verificationStatus].
+         *
+         * Unlike [verificationStatus], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("verification_status")
+        @ExcludeMissing
+        fun _verificationStatus(): JsonField<VerificationStatus> = verificationStatus
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [CounterpartyCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .name()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [CounterpartyCreateRequest]. */
+        class Builder internal constructor() {
+
+            private var name: JsonField<String>? = null
+            private var accounting: JsonField<Accounting> = JsonMissing.of()
+            private var accounts: JsonField<MutableList<Account>>? = null
+            private var email: JsonField<String> = JsonMissing.of()
+            private var ledgerType: JsonField<LedgerType> = JsonMissing.of()
+            private var legalEntity: JsonField<LegalEntityCreateRequest> = JsonMissing.of()
+            private var legalEntityId: JsonField<String> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of()
+            private var taxpayerIdentifier: JsonField<String> = JsonMissing.of()
+            private var verificationStatus: JsonField<VerificationStatus> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(counterpartyCreateRequest: CounterpartyCreateRequest) = apply {
+                name = counterpartyCreateRequest.name
+                accounting = counterpartyCreateRequest.accounting
+                accounts = counterpartyCreateRequest.accounts.map { it.toMutableList() }
+                email = counterpartyCreateRequest.email
+                ledgerType = counterpartyCreateRequest.ledgerType
+                legalEntity = counterpartyCreateRequest.legalEntity
+                legalEntityId = counterpartyCreateRequest.legalEntityId
+                metadata = counterpartyCreateRequest.metadata
+                sendRemittanceAdvice = counterpartyCreateRequest.sendRemittanceAdvice
+                taxpayerIdentifier = counterpartyCreateRequest.taxpayerIdentifier
+                verificationStatus = counterpartyCreateRequest.verificationStatus
+                additionalProperties = counterpartyCreateRequest.additionalProperties.toMutableMap()
+            }
+
+            /** A human friendly name for this counterparty. */
+            fun name(name: String?) = name(JsonField.ofNullable(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            fun accounting(accounting: Accounting) = accounting(JsonField.of(accounting))
+
+            /**
+             * Sets [Builder.accounting] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accounting] with a well-typed [Accounting] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accounting(accounting: JsonField<Accounting>) = apply {
+                this.accounting = accounting
+            }
+
+            /** The accounts for this counterparty. */
+            fun accounts(accounts: List<Account>) = accounts(JsonField.of(accounts))
+
+            /**
+             * Sets [Builder.accounts] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accounts] with a well-typed `List<Account>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accounts(accounts: JsonField<List<Account>>) = apply {
+                this.accounts = accounts.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Account] to [accounts].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addAccount(account: Account) = apply {
+                accounts =
+                    (accounts ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("accounts", it).add(account)
+                    }
+            }
+
+            /** The counterparty's email. */
+            fun email(email: String?) = email(JsonField.ofNullable(email))
+
+            /**
+             * Sets [Builder.email] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.email] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun email(email: JsonField<String>) = apply { this.email = email }
+
+            /**
+             * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
+             * `vendor`.
+             */
+            @Deprecated("deprecated")
+            fun ledgerType(ledgerType: LedgerType) = ledgerType(JsonField.of(ledgerType))
+
+            /**
+             * Sets [Builder.ledgerType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerType] with a well-typed [LedgerType] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            @Deprecated("deprecated")
+            fun ledgerType(ledgerType: JsonField<LedgerType>) = apply {
+                this.ledgerType = ledgerType
+            }
+
+            fun legalEntity(legalEntity: LegalEntityCreateRequest) =
+                legalEntity(JsonField.of(legalEntity))
+
+            /**
+             * Sets [Builder.legalEntity] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.legalEntity] with a well-typed
+             * [LegalEntityCreateRequest] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun legalEntity(legalEntity: JsonField<LegalEntityCreateRequest>) = apply {
+                this.legalEntity = legalEntity
+            }
+
+            /** The id of the legal entity. */
+            fun legalEntityId(legalEntityId: String?) =
+                legalEntityId(JsonField.ofNullable(legalEntityId))
+
+            /**
+             * Sets [Builder.legalEntityId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.legalEntityId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun legalEntityId(legalEntityId: JsonField<String>) = apply {
+                this.legalEntityId = legalEntityId
+            }
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+            /**
+             * Send an email to the counterparty whenever an associated payment order is sent to the
+             * bank.
+             */
+            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) =
+                sendRemittanceAdvice(JsonField.of(sendRemittanceAdvice))
+
+            /**
+             * Sets [Builder.sendRemittanceAdvice] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) = apply {
+                this.sendRemittanceAdvice = sendRemittanceAdvice
+            }
+
+            /** Either a valid SSN or EIN. */
+            fun taxpayerIdentifier(taxpayerIdentifier: String) =
+                taxpayerIdentifier(JsonField.of(taxpayerIdentifier))
+
+            /**
+             * Sets [Builder.taxpayerIdentifier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.taxpayerIdentifier] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun taxpayerIdentifier(taxpayerIdentifier: JsonField<String>) = apply {
+                this.taxpayerIdentifier = taxpayerIdentifier
+            }
+
+            /** The verification status of the counterparty. */
+            fun verificationStatus(verificationStatus: VerificationStatus) =
+                verificationStatus(JsonField.of(verificationStatus))
+
+            /**
+             * Sets [Builder.verificationStatus] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.verificationStatus] with a well-typed
+             * [VerificationStatus] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun verificationStatus(verificationStatus: JsonField<VerificationStatus>) = apply {
+                this.verificationStatus = verificationStatus
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [CounterpartyCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .name()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): CounterpartyCreateRequest =
+                CounterpartyCreateRequest(
+                    checkRequired("name", name),
+                    accounting,
+                    (accounts ?: JsonMissing.of()).map { it.toImmutable() },
+                    email,
+                    ledgerType,
+                    legalEntity,
+                    legalEntityId,
+                    metadata,
+                    sendRemittanceAdvice,
+                    taxpayerIdentifier,
+                    verificationStatus,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CounterpartyCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            name()
+            accounting()?.validate()
+            accounts()?.forEach { it.validate() }
+            email()
+            ledgerType()
+            legalEntity()?.validate()
+            legalEntityId()
+            metadata()?.validate()
+            sendRemittanceAdvice()
+            taxpayerIdentifier()
+            verificationStatus()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is CounterpartyCreateRequest && name == other.name && accounting == other.accounting && accounts == other.accounts && email == other.email && ledgerType == other.ledgerType && legalEntity == other.legalEntity && legalEntityId == other.legalEntityId && metadata == other.metadata && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(name, accounting, accounts, email, ledgerType, legalEntity, legalEntityId, metadata, sendRemittanceAdvice, taxpayerIdentifier, verificationStatus, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "CounterpartyCreateRequest{name=$name, accounting=$accounting, accounts=$accounts, email=$email, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
+    }
+
+    class Accounting
+    private constructor(
+        private val type: JsonField<Type>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of()
+        ) : this(type, mutableMapOf())
 
         /**
          * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
@@ -1101,20 +1128,15 @@ private constructor(
          */
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Accounting = apply {
-            if (validated) {
-                return@apply
-            }
-
-            type()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1174,7 +1196,18 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Accounting = Accounting(type, additionalProperties.toImmutable())
+            fun build(): Accounting = Accounting(type, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Accounting = apply {
+            if (validated) {
+                return@apply
+            }
+
+            type()
+            validated = true
         }
 
         /**
@@ -1298,49 +1331,74 @@ private constructor(
             "Accounting{type=$type, additionalProperties=$additionalProperties}"
     }
 
-    @NoAutoDetect
     class Account
-    @JsonCreator
     private constructor(
-        @JsonProperty("account_details")
-        @ExcludeMissing
-        private val accountDetails: JsonField<List<AccountDetail>> = JsonMissing.of(),
-        @JsonProperty("account_type")
-        @ExcludeMissing
-        private val accountType: JsonField<ExternalAccountType> = JsonMissing.of(),
-        @JsonProperty("contact_details")
-        @ExcludeMissing
-        private val contactDetails: JsonField<List<ContactDetailCreateRequest>> = JsonMissing.of(),
-        @JsonProperty("ledger_account")
-        @ExcludeMissing
-        private val ledgerAccount: JsonField<LedgerAccountCreateRequest> = JsonMissing.of(),
-        @JsonProperty("metadata")
-        @ExcludeMissing
-        private val metadata: JsonField<Metadata> = JsonMissing.of(),
-        @JsonProperty("name")
-        @ExcludeMissing
-        private val name: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("party_address")
-        @ExcludeMissing
-        private val partyAddress: JsonField<AddressRequest> = JsonMissing.of(),
-        @JsonProperty("party_identifier")
-        @ExcludeMissing
-        private val partyIdentifier: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("party_name")
-        @ExcludeMissing
-        private val partyName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("party_type")
-        @ExcludeMissing
-        private val partyType: JsonField<PartyType> = JsonMissing.of(),
-        @JsonProperty("plaid_processor_token")
-        @ExcludeMissing
-        private val plaidProcessorToken: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("routing_details")
-        @ExcludeMissing
-        private val routingDetails: JsonField<List<RoutingDetail>> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val accountDetails: JsonField<List<AccountDetail>>,
+        private val accountType: JsonField<ExternalAccountType>,
+        private val contactDetails: JsonField<List<ContactDetailCreateRequest>>,
+        private val ledgerAccount: JsonField<LedgerAccountCreateRequest>,
+        private val metadata: JsonField<Metadata>,
+        private val name: JsonField<String>,
+        private val partyAddress: JsonField<AddressRequest>,
+        private val partyIdentifier: JsonField<String>,
+        private val partyName: JsonField<String>,
+        private val partyType: JsonField<PartyType>,
+        private val plaidProcessorToken: JsonField<String>,
+        private val routingDetails: JsonField<List<RoutingDetail>>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_details")
+            @ExcludeMissing
+            accountDetails: JsonField<List<AccountDetail>> = JsonMissing.of(),
+            @JsonProperty("account_type")
+            @ExcludeMissing
+            accountType: JsonField<ExternalAccountType> = JsonMissing.of(),
+            @JsonProperty("contact_details")
+            @ExcludeMissing
+            contactDetails: JsonField<List<ContactDetailCreateRequest>> = JsonMissing.of(),
+            @JsonProperty("ledger_account")
+            @ExcludeMissing
+            ledgerAccount: JsonField<LedgerAccountCreateRequest> = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("party_address")
+            @ExcludeMissing
+            partyAddress: JsonField<AddressRequest> = JsonMissing.of(),
+            @JsonProperty("party_identifier")
+            @ExcludeMissing
+            partyIdentifier: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("party_name")
+            @ExcludeMissing
+            partyName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("party_type")
+            @ExcludeMissing
+            partyType: JsonField<PartyType> = JsonMissing.of(),
+            @JsonProperty("plaid_processor_token")
+            @ExcludeMissing
+            plaidProcessorToken: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("routing_details")
+            @ExcludeMissing
+            routingDetails: JsonField<List<RoutingDetail>> = JsonMissing.of(),
+        ) : this(
+            accountDetails,
+            accountType,
+            contactDetails,
+            ledgerAccount,
+            metadata,
+            name,
+            partyAddress,
+            partyIdentifier,
+            partyName,
+            partyType,
+            plaidProcessorToken,
+            routingDetails,
+            mutableMapOf(),
+        )
 
         /**
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -1548,31 +1606,15 @@ private constructor(
         @ExcludeMissing
         fun _routingDetails(): JsonField<List<RoutingDetail>> = routingDetails
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Account = apply {
-            if (validated) {
-                return@apply
-            }
-
-            accountDetails()?.forEach { it.validate() }
-            accountType()
-            contactDetails()?.forEach { it.validate() }
-            ledgerAccount()?.validate()
-            metadata()?.validate()
-            name()
-            partyAddress()?.validate()
-            partyIdentifier()
-            partyName()
-            partyType()
-            plaidProcessorToken()
-            routingDetails()?.forEach { it.validate() }
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1869,23 +1911,48 @@ private constructor(
                     partyType,
                     plaidProcessorToken,
                     (routingDetails ?: JsonMissing.of()).map { it.toImmutable() },
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
         }
 
-        @NoAutoDetect
+        private var validated: Boolean = false
+
+        fun validate(): Account = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountDetails()?.forEach { it.validate() }
+            accountType()
+            contactDetails()?.forEach { it.validate() }
+            ledgerAccount()?.validate()
+            metadata()?.validate()
+            name()
+            partyAddress()?.validate()
+            partyIdentifier()
+            partyName()
+            partyType()
+            plaidProcessorToken()
+            routingDetails()?.forEach { it.validate() }
+            validated = true
+        }
+
         class AccountDetail
-        @JsonCreator
         private constructor(
-            @JsonProperty("account_number")
-            @ExcludeMissing
-            private val accountNumber: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("account_number_type")
-            @ExcludeMissing
-            private val accountNumberType: JsonField<AccountNumberType> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val accountNumber: JsonField<String>,
+            private val accountNumberType: JsonField<AccountNumberType>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("account_number")
+                @ExcludeMissing
+                accountNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("account_number_type")
+                @ExcludeMissing
+                accountNumberType: JsonField<AccountNumberType> = JsonMissing.of(),
+            ) : this(accountNumber, accountNumberType, mutableMapOf())
 
             /**
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
@@ -1921,21 +1988,15 @@ private constructor(
             @ExcludeMissing
             fun _accountNumberType(): JsonField<AccountNumberType> = accountNumberType
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): AccountDetail = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                accountNumber()
-                accountNumberType()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -2031,8 +2092,20 @@ private constructor(
                     AccountDetail(
                         checkRequired("accountNumber", accountNumber),
                         accountNumberType,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): AccountDetail = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                accountNumber()
+                accountNumberType()
+                validated = true
             }
 
             class AccountNumberType
@@ -2210,19 +2283,22 @@ private constructor(
                 "AccountDetail{accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalProperties=$additionalProperties}"
         }
 
-        @NoAutoDetect
         class ContactDetailCreateRequest
-        @JsonCreator
         private constructor(
-            @JsonProperty("contact_identifier")
-            @ExcludeMissing
-            private val contactIdentifier: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("contact_identifier_type")
-            @ExcludeMissing
-            private val contactIdentifierType: JsonField<ContactIdentifierType> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val contactIdentifier: JsonField<String>,
+            private val contactIdentifierType: JsonField<ContactIdentifierType>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("contact_identifier")
+                @ExcludeMissing
+                contactIdentifier: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("contact_identifier_type")
+                @ExcludeMissing
+                contactIdentifierType: JsonField<ContactIdentifierType> = JsonMissing.of(),
+            ) : this(contactIdentifier, contactIdentifierType, mutableMapOf())
 
             /**
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
@@ -2257,21 +2333,15 @@ private constructor(
             @ExcludeMissing
             fun _contactIdentifierType(): JsonField<ContactIdentifierType> = contactIdentifierType
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): ContactDetailCreateRequest = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                contactIdentifier()
-                contactIdentifierType()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -2359,8 +2429,20 @@ private constructor(
                     ContactDetailCreateRequest(
                         contactIdentifier,
                         contactIdentifierType,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): ContactDetailCreateRequest = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                contactIdentifier()
+                contactIdentifierType()
+                validated = true
             }
 
             class ContactIdentifierType
@@ -2503,43 +2585,64 @@ private constructor(
          * https://docs.moderntreasury.com/docs/linking-to-other-modern-treasury-objects for more
          * details.
          */
-        @NoAutoDetect
         class LedgerAccountCreateRequest
-        @JsonCreator
         private constructor(
-            @JsonProperty("currency")
-            @ExcludeMissing
-            private val currency: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("ledger_id")
-            @ExcludeMissing
-            private val ledgerId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("name")
-            @ExcludeMissing
-            private val name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("normal_balance")
-            @ExcludeMissing
-            private val normalBalance: JsonField<TransactionDirection> = JsonMissing.of(),
-            @JsonProperty("currency_exponent")
-            @ExcludeMissing
-            private val currencyExponent: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("description")
-            @ExcludeMissing
-            private val description: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("ledger_account_category_ids")
-            @ExcludeMissing
-            private val ledgerAccountCategoryIds: JsonField<List<String>> = JsonMissing.of(),
-            @JsonProperty("ledgerable_id")
-            @ExcludeMissing
-            private val ledgerableId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("ledgerable_type")
-            @ExcludeMissing
-            private val ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
-            @JsonProperty("metadata")
-            @ExcludeMissing
-            private val metadata: JsonField<Metadata> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val currency: JsonField<String>,
+            private val ledgerId: JsonField<String>,
+            private val name: JsonField<String>,
+            private val normalBalance: JsonField<TransactionDirection>,
+            private val currencyExponent: JsonField<Long>,
+            private val description: JsonField<String>,
+            private val ledgerAccountCategoryIds: JsonField<List<String>>,
+            private val ledgerableId: JsonField<String>,
+            private val ledgerableType: JsonField<LedgerableType>,
+            private val metadata: JsonField<Metadata>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("currency")
+                @ExcludeMissing
+                currency: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("ledger_id")
+                @ExcludeMissing
+                ledgerId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("normal_balance")
+                @ExcludeMissing
+                normalBalance: JsonField<TransactionDirection> = JsonMissing.of(),
+                @JsonProperty("currency_exponent")
+                @ExcludeMissing
+                currencyExponent: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("description")
+                @ExcludeMissing
+                description: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("ledger_account_category_ids")
+                @ExcludeMissing
+                ledgerAccountCategoryIds: JsonField<List<String>> = JsonMissing.of(),
+                @JsonProperty("ledgerable_id")
+                @ExcludeMissing
+                ledgerableId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("ledgerable_type")
+                @ExcludeMissing
+                ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
+                @JsonProperty("metadata")
+                @ExcludeMissing
+                metadata: JsonField<Metadata> = JsonMissing.of(),
+            ) : this(
+                currency,
+                ledgerId,
+                name,
+                normalBalance,
+                currencyExponent,
+                description,
+                ledgerAccountCategoryIds,
+                ledgerableId,
+                ledgerableType,
+                metadata,
+                mutableMapOf(),
+            )
 
             /**
              * The currency of the ledger account.
@@ -2724,29 +2827,15 @@ private constructor(
             @ExcludeMissing
             fun _metadata(): JsonField<Metadata> = metadata
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): LedgerAccountCreateRequest = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                currency()
-                ledgerId()
-                name()
-                normalBalance()
-                currencyExponent()
-                description()
-                ledgerAccountCategoryIds()
-                ledgerableId()
-                ledgerableType()
-                metadata()?.validate()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -3021,8 +3110,28 @@ private constructor(
                         ledgerableId,
                         ledgerableType,
                         metadata,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): LedgerAccountCreateRequest = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                currency()
+                ledgerId()
+                name()
+                normalBalance()
+                currencyExponent()
+                description()
+                ledgerAccountCategoryIds()
+                ledgerableId()
+                ledgerableType()
+                metadata()?.validate()
+                validated = true
             }
 
             /**
@@ -3155,27 +3264,20 @@ private constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            @NoAutoDetect
             class Metadata
-            @JsonCreator
-            private constructor(
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-            ) {
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
 
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): Metadata = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -3221,7 +3323,17 @@ private constructor(
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                    fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Metadata = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -3262,27 +3374,20 @@ private constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @NoAutoDetect
         class Metadata
-        @JsonCreator
-        private constructor(
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
             @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-        ) {
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Metadata = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -3328,7 +3433,17 @@ private constructor(
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Metadata = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -3349,31 +3464,32 @@ private constructor(
         }
 
         /** Required if receiving wire payments. */
-        @NoAutoDetect
         class AddressRequest
-        @JsonCreator
         private constructor(
-            @JsonProperty("country")
-            @ExcludeMissing
-            private val country: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("line1")
-            @ExcludeMissing
-            private val line1: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("line2")
-            @ExcludeMissing
-            private val line2: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("locality")
-            @ExcludeMissing
-            private val locality: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("postal_code")
-            @ExcludeMissing
-            private val postalCode: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("region")
-            @ExcludeMissing
-            private val region: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val country: JsonField<String>,
+            private val line1: JsonField<String>,
+            private val line2: JsonField<String>,
+            private val locality: JsonField<String>,
+            private val postalCode: JsonField<String>,
+            private val region: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("country")
+                @ExcludeMissing
+                country: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("locality")
+                @ExcludeMissing
+                locality: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("postal_code")
+                @ExcludeMissing
+                postalCode: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("region") @ExcludeMissing region: JsonField<String> = JsonMissing.of(),
+            ) : this(country, line1, line2, locality, postalCode, region, mutableMapOf())
 
             /**
              * Country code conforms to [ISO 3166-1 alpha-2]
@@ -3465,25 +3581,15 @@ private constructor(
              */
             @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): AddressRequest = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                country()
-                line1()
-                line2()
-                locality()
-                postalCode()
-                region()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -3621,8 +3727,24 @@ private constructor(
                         locality,
                         postalCode,
                         region,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): AddressRequest = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                country()
+                line1()
+                line2()
+                locality()
+                postalCode()
+                region()
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -3747,22 +3869,26 @@ private constructor(
             override fun toString() = value.toString()
         }
 
-        @NoAutoDetect
         class RoutingDetail
-        @JsonCreator
         private constructor(
-            @JsonProperty("routing_number")
-            @ExcludeMissing
-            private val routingNumber: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("routing_number_type")
-            @ExcludeMissing
-            private val routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
-            @JsonProperty("payment_type")
-            @ExcludeMissing
-            private val paymentType: JsonField<PaymentType> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val routingNumber: JsonField<String>,
+            private val routingNumberType: JsonField<RoutingNumberType>,
+            private val paymentType: JsonField<PaymentType>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("routing_number")
+                @ExcludeMissing
+                routingNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("routing_number_type")
+                @ExcludeMissing
+                routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
+                @JsonProperty("payment_type")
+                @ExcludeMissing
+                paymentType: JsonField<PaymentType> = JsonMissing.of(),
+            ) : this(routingNumber, routingNumberType, paymentType, mutableMapOf())
 
             /**
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
@@ -3815,22 +3941,15 @@ private constructor(
             @ExcludeMissing
             fun _paymentType(): JsonField<PaymentType> = paymentType
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): RoutingDetail = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                routingNumber()
-                routingNumberType()
-                paymentType()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -3944,8 +4063,21 @@ private constructor(
                         checkRequired("routingNumber", routingNumber),
                         checkRequired("routingNumberType", routingNumberType),
                         paymentType,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): RoutingDetail = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                routingNumber()
+                routingNumberType()
+                paymentType()
+                validated = true
             }
 
             class RoutingNumberType
@@ -4584,89 +4716,130 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    @NoAutoDetect
     class LegalEntityCreateRequest
-    @JsonCreator
     private constructor(
-        @JsonProperty("legal_entity_type")
-        @ExcludeMissing
-        private val legalEntityType: JsonField<LegalEntityType> = JsonMissing.of(),
-        @JsonProperty("addresses")
-        @ExcludeMissing
-        private val addresses: JsonField<List<LegalEntityAddressCreateRequest>> = JsonMissing.of(),
-        @JsonProperty("bank_settings")
-        @ExcludeMissing
-        private val bankSettings: JsonField<BankSettings> = JsonMissing.of(),
-        @JsonProperty("business_name")
-        @ExcludeMissing
-        private val businessName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("citizenship_country")
-        @ExcludeMissing
-        private val citizenshipCountry: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("date_formed")
-        @ExcludeMissing
-        private val dateFormed: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonProperty("date_of_birth")
-        @ExcludeMissing
-        private val dateOfBirth: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonProperty("doing_business_as_names")
-        @ExcludeMissing
-        private val doingBusinessAsNames: JsonField<List<String>> = JsonMissing.of(),
-        @JsonProperty("email")
-        @ExcludeMissing
-        private val email: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("first_name")
-        @ExcludeMissing
-        private val firstName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("identifications")
-        @ExcludeMissing
-        private val identifications: JsonField<List<IdentificationCreateRequest>> =
-            JsonMissing.of(),
-        @JsonProperty("last_name")
-        @ExcludeMissing
-        private val lastName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("legal_entity_associations")
-        @ExcludeMissing
+        private val legalEntityType: JsonField<LegalEntityType>,
+        private val addresses: JsonField<List<LegalEntityAddressCreateRequest>>,
+        private val bankSettings: JsonField<BankSettings>,
+        private val businessName: JsonField<String>,
+        private val citizenshipCountry: JsonField<String>,
+        private val dateFormed: JsonField<LocalDate>,
+        private val dateOfBirth: JsonField<LocalDate>,
+        private val doingBusinessAsNames: JsonField<List<String>>,
+        private val email: JsonField<String>,
+        private val firstName: JsonField<String>,
+        private val identifications: JsonField<List<IdentificationCreateRequest>>,
+        private val lastName: JsonField<String>,
         private val legalEntityAssociations:
-            JsonField<List<LegalEntityAssociationInlineCreateRequest>> =
-            JsonMissing.of(),
-        @JsonProperty("legal_structure")
-        @ExcludeMissing
-        private val legalStructure: JsonField<LegalStructure> = JsonMissing.of(),
-        @JsonProperty("metadata")
-        @ExcludeMissing
-        private val metadata: JsonField<Metadata> = JsonMissing.of(),
-        @JsonProperty("middle_name")
-        @ExcludeMissing
-        private val middleName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("phone_numbers")
-        @ExcludeMissing
-        private val phoneNumbers: JsonField<List<PhoneNumber>> = JsonMissing.of(),
-        @JsonProperty("politically_exposed_person")
-        @ExcludeMissing
-        private val politicallyExposedPerson: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("preferred_name")
-        @ExcludeMissing
-        private val preferredName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("prefix")
-        @ExcludeMissing
-        private val prefix: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("risk_rating")
-        @ExcludeMissing
-        private val riskRating: JsonField<RiskRating> = JsonMissing.of(),
-        @JsonProperty("suffix")
-        @ExcludeMissing
-        private val suffix: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("wealth_and_employment_details")
-        @ExcludeMissing
-        private val wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails> =
-            JsonMissing.of(),
-        @JsonProperty("website")
-        @ExcludeMissing
-        private val website: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            JsonField<List<LegalEntityAssociationInlineCreateRequest>>,
+        private val legalStructure: JsonField<LegalStructure>,
+        private val metadata: JsonField<Metadata>,
+        private val middleName: JsonField<String>,
+        private val phoneNumbers: JsonField<List<PhoneNumber>>,
+        private val politicallyExposedPerson: JsonField<Boolean>,
+        private val preferredName: JsonField<String>,
+        private val prefix: JsonField<String>,
+        private val riskRating: JsonField<RiskRating>,
+        private val suffix: JsonField<String>,
+        private val wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails>,
+        private val website: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("legal_entity_type")
+            @ExcludeMissing
+            legalEntityType: JsonField<LegalEntityType> = JsonMissing.of(),
+            @JsonProperty("addresses")
+            @ExcludeMissing
+            addresses: JsonField<List<LegalEntityAddressCreateRequest>> = JsonMissing.of(),
+            @JsonProperty("bank_settings")
+            @ExcludeMissing
+            bankSettings: JsonField<BankSettings> = JsonMissing.of(),
+            @JsonProperty("business_name")
+            @ExcludeMissing
+            businessName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("citizenship_country")
+            @ExcludeMissing
+            citizenshipCountry: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("date_formed")
+            @ExcludeMissing
+            dateFormed: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("date_of_birth")
+            @ExcludeMissing
+            dateOfBirth: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("doing_business_as_names")
+            @ExcludeMissing
+            doingBusinessAsNames: JsonField<List<String>> = JsonMissing.of(),
+            @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("first_name")
+            @ExcludeMissing
+            firstName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("identifications")
+            @ExcludeMissing
+            identifications: JsonField<List<IdentificationCreateRequest>> = JsonMissing.of(),
+            @JsonProperty("last_name")
+            @ExcludeMissing
+            lastName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("legal_entity_associations")
+            @ExcludeMissing
+            legalEntityAssociations: JsonField<List<LegalEntityAssociationInlineCreateRequest>> =
+                JsonMissing.of(),
+            @JsonProperty("legal_structure")
+            @ExcludeMissing
+            legalStructure: JsonField<LegalStructure> = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("middle_name")
+            @ExcludeMissing
+            middleName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("phone_numbers")
+            @ExcludeMissing
+            phoneNumbers: JsonField<List<PhoneNumber>> = JsonMissing.of(),
+            @JsonProperty("politically_exposed_person")
+            @ExcludeMissing
+            politicallyExposedPerson: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("preferred_name")
+            @ExcludeMissing
+            preferredName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("prefix") @ExcludeMissing prefix: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("risk_rating")
+            @ExcludeMissing
+            riskRating: JsonField<RiskRating> = JsonMissing.of(),
+            @JsonProperty("suffix") @ExcludeMissing suffix: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("wealth_and_employment_details")
+            @ExcludeMissing
+            wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails> = JsonMissing.of(),
+            @JsonProperty("website") @ExcludeMissing website: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            legalEntityType,
+            addresses,
+            bankSettings,
+            businessName,
+            citizenshipCountry,
+            dateFormed,
+            dateOfBirth,
+            doingBusinessAsNames,
+            email,
+            firstName,
+            identifications,
+            lastName,
+            legalEntityAssociations,
+            legalStructure,
+            metadata,
+            middleName,
+            phoneNumbers,
+            politicallyExposedPerson,
+            preferredName,
+            prefix,
+            riskRating,
+            suffix,
+            wealthAndEmploymentDetails,
+            website,
+            mutableMapOf(),
+        )
 
         /**
          * The type of legal entity.
@@ -5073,43 +5246,15 @@ private constructor(
          */
         @JsonProperty("website") @ExcludeMissing fun _website(): JsonField<String> = website
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LegalEntityCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            legalEntityType()
-            addresses()?.forEach { it.validate() }
-            bankSettings()?.validate()
-            businessName()
-            citizenshipCountry()
-            dateFormed()
-            dateOfBirth()
-            doingBusinessAsNames()
-            email()
-            firstName()
-            identifications()?.forEach { it.validate() }
-            lastName()
-            legalEntityAssociations()?.forEach { it.validate() }
-            legalStructure()
-            metadata()?.validate()
-            middleName()
-            phoneNumbers()?.forEach { it.validate() }
-            politicallyExposedPerson()
-            preferredName()
-            prefix()
-            riskRating()
-            suffix()
-            wealthAndEmploymentDetails()?.validate()
-            website()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -5655,8 +5800,42 @@ private constructor(
                     suffix,
                     wealthAndEmploymentDetails,
                     website,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): LegalEntityCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            legalEntityType()
+            addresses()?.forEach { it.validate() }
+            bankSettings()?.validate()
+            businessName()
+            citizenshipCountry()
+            dateFormed()
+            dateOfBirth()
+            doingBusinessAsNames()
+            email()
+            firstName()
+            identifications()?.forEach { it.validate() }
+            lastName()
+            legalEntityAssociations()?.forEach { it.validate() }
+            legalStructure()
+            metadata()?.validate()
+            middleName()
+            phoneNumbers()?.forEach { it.validate() }
+            politicallyExposedPerson()
+            preferredName()
+            prefix()
+            riskRating()
+            suffix()
+            wealthAndEmploymentDetails()?.validate()
+            website()
+            validated = true
         }
 
         /** The type of legal entity. */
@@ -5765,34 +5944,47 @@ private constructor(
             override fun toString() = value.toString()
         }
 
-        @NoAutoDetect
         class LegalEntityAddressCreateRequest
-        @JsonCreator
         private constructor(
-            @JsonProperty("country")
-            @ExcludeMissing
-            private val country: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("line1")
-            @ExcludeMissing
-            private val line1: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("locality")
-            @ExcludeMissing
-            private val locality: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("postal_code")
-            @ExcludeMissing
-            private val postalCode: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("region")
-            @ExcludeMissing
-            private val region: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("address_types")
-            @ExcludeMissing
-            private val addressTypes: JsonField<List<AddressType>> = JsonMissing.of(),
-            @JsonProperty("line2")
-            @ExcludeMissing
-            private val line2: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val country: JsonField<String>,
+            private val line1: JsonField<String>,
+            private val locality: JsonField<String>,
+            private val postalCode: JsonField<String>,
+            private val region: JsonField<String>,
+            private val addressTypes: JsonField<List<AddressType>>,
+            private val line2: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("country")
+                @ExcludeMissing
+                country: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("locality")
+                @ExcludeMissing
+                locality: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("postal_code")
+                @ExcludeMissing
+                postalCode: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("region")
+                @ExcludeMissing
+                region: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("address_types")
+                @ExcludeMissing
+                addressTypes: JsonField<List<AddressType>> = JsonMissing.of(),
+                @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+            ) : this(
+                country,
+                line1,
+                locality,
+                postalCode,
+                region,
+                addressTypes,
+                line2,
+                mutableMapOf(),
+            )
 
             /**
              * Country code conforms to [ISO 3166-1 alpha-2]
@@ -5902,26 +6094,15 @@ private constructor(
              */
             @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): LegalEntityAddressCreateRequest = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                country()
-                line1()
-                locality()
-                postalCode()
-                region()
-                addressTypes()
-                line2()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -6116,8 +6297,25 @@ private constructor(
                         checkRequired("region", region),
                         (addressTypes ?: JsonMissing.of()).map { it.toImmutable() },
                         line2,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): LegalEntityAddressCreateRequest = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                country()
+                line1()
+                locality()
+                postalCode()
+                region()
+                addressTypes()
+                line2()
+                validated = true
             }
 
             class AddressType
@@ -6261,22 +6459,26 @@ private constructor(
                 "LegalEntityAddressCreateRequest{country=$country, line1=$line1, locality=$locality, postalCode=$postalCode, region=$region, addressTypes=$addressTypes, line2=$line2, additionalProperties=$additionalProperties}"
         }
 
-        @NoAutoDetect
         class IdentificationCreateRequest
-        @JsonCreator
         private constructor(
-            @JsonProperty("id_number")
-            @ExcludeMissing
-            private val idNumber: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("id_type")
-            @ExcludeMissing
-            private val idType: JsonField<IdType> = JsonMissing.of(),
-            @JsonProperty("issuing_country")
-            @ExcludeMissing
-            private val issuingCountry: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val idNumber: JsonField<String>,
+            private val idType: JsonField<IdType>,
+            private val issuingCountry: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("id_number")
+                @ExcludeMissing
+                idNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("id_type")
+                @ExcludeMissing
+                idType: JsonField<IdType> = JsonMissing.of(),
+                @JsonProperty("issuing_country")
+                @ExcludeMissing
+                issuingCountry: JsonField<String> = JsonMissing.of(),
+            ) : this(idNumber, idType, issuingCountry, mutableMapOf())
 
             /**
              * The ID number of identification document.
@@ -6329,22 +6531,15 @@ private constructor(
             @ExcludeMissing
             fun _issuingCountry(): JsonField<String> = issuingCountry
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): IdentificationCreateRequest = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                idNumber()
-                idType()
-                issuingCountry()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -6461,8 +6656,21 @@ private constructor(
                         checkRequired("idNumber", idNumber),
                         checkRequired("idType", idType),
                         issuingCountry,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): IdentificationCreateRequest = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                idNumber()
+                idType()
+                issuingCountry()
+                validated = true
             }
 
             /** The type of ID number. */
@@ -6701,28 +6909,39 @@ private constructor(
                 "IdentificationCreateRequest{idNumber=$idNumber, idType=$idType, issuingCountry=$issuingCountry, additionalProperties=$additionalProperties}"
         }
 
-        @NoAutoDetect
         class LegalEntityAssociationInlineCreateRequest
-        @JsonCreator
         private constructor(
-            @JsonProperty("relationship_types")
-            @ExcludeMissing
-            private val relationshipTypes: JsonField<List<RelationshipType>> = JsonMissing.of(),
-            @JsonProperty("child_legal_entity")
-            @ExcludeMissing
-            private val childLegalEntity: JsonField<ChildLegalEntityCreate> = JsonMissing.of(),
-            @JsonProperty("child_legal_entity_id")
-            @ExcludeMissing
-            private val childLegalEntityId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("ownership_percentage")
-            @ExcludeMissing
-            private val ownershipPercentage: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("title")
-            @ExcludeMissing
-            private val title: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val relationshipTypes: JsonField<List<RelationshipType>>,
+            private val childLegalEntity: JsonField<ChildLegalEntityCreate>,
+            private val childLegalEntityId: JsonField<String>,
+            private val ownershipPercentage: JsonField<Long>,
+            private val title: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("relationship_types")
+                @ExcludeMissing
+                relationshipTypes: JsonField<List<RelationshipType>> = JsonMissing.of(),
+                @JsonProperty("child_legal_entity")
+                @ExcludeMissing
+                childLegalEntity: JsonField<ChildLegalEntityCreate> = JsonMissing.of(),
+                @JsonProperty("child_legal_entity_id")
+                @ExcludeMissing
+                childLegalEntityId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("ownership_percentage")
+                @ExcludeMissing
+                ownershipPercentage: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("title") @ExcludeMissing title: JsonField<String> = JsonMissing.of(),
+            ) : this(
+                relationshipTypes,
+                childLegalEntity,
+                childLegalEntityId,
+                ownershipPercentage,
+                title,
+                mutableMapOf(),
+            )
 
             /**
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
@@ -6814,24 +7033,15 @@ private constructor(
              */
             @JsonProperty("title") @ExcludeMissing fun _title(): JsonField<String> = title
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): LegalEntityAssociationInlineCreateRequest = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                relationshipTypes()
-                childLegalEntity()?.validate()
-                childLegalEntityId()
-                ownershipPercentage()
-                title()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -7013,8 +7223,23 @@ private constructor(
                         childLegalEntityId,
                         ownershipPercentage,
                         title,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): LegalEntityAssociationInlineCreateRequest = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                relationshipTypes()
+                childLegalEntity()?.validate()
+                childLegalEntityId()
+                ownershipPercentage()
+                title()
+                validated = true
             }
 
             /** A list of relationship types for how the child entity relates to parent entity. */
@@ -7128,85 +7353,133 @@ private constructor(
             }
 
             /** The child legal entity. */
-            @NoAutoDetect
             class ChildLegalEntityCreate
-            @JsonCreator
             private constructor(
-                @JsonProperty("addresses")
-                @ExcludeMissing
-                private val addresses: JsonField<List<LegalEntityAddressCreateRequest>> =
-                    JsonMissing.of(),
-                @JsonProperty("bank_settings")
-                @ExcludeMissing
-                private val bankSettings: JsonField<BankSettings> = JsonMissing.of(),
-                @JsonProperty("business_name")
-                @ExcludeMissing
-                private val businessName: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("citizenship_country")
-                @ExcludeMissing
-                private val citizenshipCountry: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("date_formed")
-                @ExcludeMissing
-                private val dateFormed: JsonField<LocalDate> = JsonMissing.of(),
-                @JsonProperty("date_of_birth")
-                @ExcludeMissing
-                private val dateOfBirth: JsonField<LocalDate> = JsonMissing.of(),
-                @JsonProperty("doing_business_as_names")
-                @ExcludeMissing
-                private val doingBusinessAsNames: JsonField<List<String>> = JsonMissing.of(),
-                @JsonProperty("email")
-                @ExcludeMissing
-                private val email: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("first_name")
-                @ExcludeMissing
-                private val firstName: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("identifications")
-                @ExcludeMissing
-                private val identifications: JsonField<List<IdentificationCreateRequest>> =
-                    JsonMissing.of(),
-                @JsonProperty("last_name")
-                @ExcludeMissing
-                private val lastName: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("legal_entity_type")
-                @ExcludeMissing
-                private val legalEntityType: JsonField<LegalEntityType> = JsonMissing.of(),
-                @JsonProperty("legal_structure")
-                @ExcludeMissing
-                private val legalStructure: JsonField<LegalStructure> = JsonMissing.of(),
-                @JsonProperty("metadata")
-                @ExcludeMissing
-                private val metadata: JsonField<Metadata> = JsonMissing.of(),
-                @JsonProperty("middle_name")
-                @ExcludeMissing
-                private val middleName: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("phone_numbers")
-                @ExcludeMissing
-                private val phoneNumbers: JsonField<List<PhoneNumber>> = JsonMissing.of(),
-                @JsonProperty("politically_exposed_person")
-                @ExcludeMissing
-                private val politicallyExposedPerson: JsonField<Boolean> = JsonMissing.of(),
-                @JsonProperty("preferred_name")
-                @ExcludeMissing
-                private val preferredName: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("prefix")
-                @ExcludeMissing
-                private val prefix: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("risk_rating")
-                @ExcludeMissing
-                private val riskRating: JsonField<RiskRating> = JsonMissing.of(),
-                @JsonProperty("suffix")
-                @ExcludeMissing
-                private val suffix: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("wealth_and_employment_details")
-                @ExcludeMissing
-                private val wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails> =
-                    JsonMissing.of(),
-                @JsonProperty("website")
-                @ExcludeMissing
-                private val website: JsonField<String> = JsonMissing.of(),
-                @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                private val addresses: JsonField<List<LegalEntityAddressCreateRequest>>,
+                private val bankSettings: JsonField<BankSettings>,
+                private val businessName: JsonField<String>,
+                private val citizenshipCountry: JsonField<String>,
+                private val dateFormed: JsonField<LocalDate>,
+                private val dateOfBirth: JsonField<LocalDate>,
+                private val doingBusinessAsNames: JsonField<List<String>>,
+                private val email: JsonField<String>,
+                private val firstName: JsonField<String>,
+                private val identifications: JsonField<List<IdentificationCreateRequest>>,
+                private val lastName: JsonField<String>,
+                private val legalEntityType: JsonField<LegalEntityType>,
+                private val legalStructure: JsonField<LegalStructure>,
+                private val metadata: JsonField<Metadata>,
+                private val middleName: JsonField<String>,
+                private val phoneNumbers: JsonField<List<PhoneNumber>>,
+                private val politicallyExposedPerson: JsonField<Boolean>,
+                private val preferredName: JsonField<String>,
+                private val prefix: JsonField<String>,
+                private val riskRating: JsonField<RiskRating>,
+                private val suffix: JsonField<String>,
+                private val wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails>,
+                private val website: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("addresses")
+                    @ExcludeMissing
+                    addresses: JsonField<List<LegalEntityAddressCreateRequest>> = JsonMissing.of(),
+                    @JsonProperty("bank_settings")
+                    @ExcludeMissing
+                    bankSettings: JsonField<BankSettings> = JsonMissing.of(),
+                    @JsonProperty("business_name")
+                    @ExcludeMissing
+                    businessName: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("citizenship_country")
+                    @ExcludeMissing
+                    citizenshipCountry: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("date_formed")
+                    @ExcludeMissing
+                    dateFormed: JsonField<LocalDate> = JsonMissing.of(),
+                    @JsonProperty("date_of_birth")
+                    @ExcludeMissing
+                    dateOfBirth: JsonField<LocalDate> = JsonMissing.of(),
+                    @JsonProperty("doing_business_as_names")
+                    @ExcludeMissing
+                    doingBusinessAsNames: JsonField<List<String>> = JsonMissing.of(),
+                    @JsonProperty("email")
+                    @ExcludeMissing
+                    email: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("first_name")
+                    @ExcludeMissing
+                    firstName: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("identifications")
+                    @ExcludeMissing
+                    identifications: JsonField<List<IdentificationCreateRequest>> =
+                        JsonMissing.of(),
+                    @JsonProperty("last_name")
+                    @ExcludeMissing
+                    lastName: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("legal_entity_type")
+                    @ExcludeMissing
+                    legalEntityType: JsonField<LegalEntityType> = JsonMissing.of(),
+                    @JsonProperty("legal_structure")
+                    @ExcludeMissing
+                    legalStructure: JsonField<LegalStructure> = JsonMissing.of(),
+                    @JsonProperty("metadata")
+                    @ExcludeMissing
+                    metadata: JsonField<Metadata> = JsonMissing.of(),
+                    @JsonProperty("middle_name")
+                    @ExcludeMissing
+                    middleName: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("phone_numbers")
+                    @ExcludeMissing
+                    phoneNumbers: JsonField<List<PhoneNumber>> = JsonMissing.of(),
+                    @JsonProperty("politically_exposed_person")
+                    @ExcludeMissing
+                    politicallyExposedPerson: JsonField<Boolean> = JsonMissing.of(),
+                    @JsonProperty("preferred_name")
+                    @ExcludeMissing
+                    preferredName: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("prefix")
+                    @ExcludeMissing
+                    prefix: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("risk_rating")
+                    @ExcludeMissing
+                    riskRating: JsonField<RiskRating> = JsonMissing.of(),
+                    @JsonProperty("suffix")
+                    @ExcludeMissing
+                    suffix: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("wealth_and_employment_details")
+                    @ExcludeMissing
+                    wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails> =
+                        JsonMissing.of(),
+                    @JsonProperty("website")
+                    @ExcludeMissing
+                    website: JsonField<String> = JsonMissing.of(),
+                ) : this(
+                    addresses,
+                    bankSettings,
+                    businessName,
+                    citizenshipCountry,
+                    dateFormed,
+                    dateOfBirth,
+                    doingBusinessAsNames,
+                    email,
+                    firstName,
+                    identifications,
+                    lastName,
+                    legalEntityType,
+                    legalStructure,
+                    metadata,
+                    middleName,
+                    phoneNumbers,
+                    politicallyExposedPerson,
+                    preferredName,
+                    prefix,
+                    riskRating,
+                    suffix,
+                    wealthAndEmploymentDetails,
+                    website,
+                    mutableMapOf(),
+                )
 
                 /**
                  * A list of addresses for the entity.
@@ -7617,42 +7890,15 @@ private constructor(
                  */
                 @JsonProperty("website") @ExcludeMissing fun _website(): JsonField<String> = website
 
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): ChildLegalEntityCreate = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    addresses()?.forEach { it.validate() }
-                    bankSettings()?.validate()
-                    businessName()
-                    citizenshipCountry()
-                    dateFormed()
-                    dateOfBirth()
-                    doingBusinessAsNames()
-                    email()
-                    firstName()
-                    identifications()?.forEach { it.validate() }
-                    lastName()
-                    legalEntityType()
-                    legalStructure()
-                    metadata()?.validate()
-                    middleName()
-                    phoneNumbers()?.forEach { it.validate() }
-                    politicallyExposedPerson()
-                    preferredName()
-                    prefix()
-                    riskRating()
-                    suffix()
-                    wealthAndEmploymentDetails()?.validate()
-                    website()
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -8170,38 +8416,88 @@ private constructor(
                             suffix,
                             wealthAndEmploymentDetails,
                             website,
-                            additionalProperties.toImmutable(),
+                            additionalProperties.toMutableMap(),
                         )
                 }
 
-                @NoAutoDetect
+                private var validated: Boolean = false
+
+                fun validate(): ChildLegalEntityCreate = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    addresses()?.forEach { it.validate() }
+                    bankSettings()?.validate()
+                    businessName()
+                    citizenshipCountry()
+                    dateFormed()
+                    dateOfBirth()
+                    doingBusinessAsNames()
+                    email()
+                    firstName()
+                    identifications()?.forEach { it.validate() }
+                    lastName()
+                    legalEntityType()
+                    legalStructure()
+                    metadata()?.validate()
+                    middleName()
+                    phoneNumbers()?.forEach { it.validate() }
+                    politicallyExposedPerson()
+                    preferredName()
+                    prefix()
+                    riskRating()
+                    suffix()
+                    wealthAndEmploymentDetails()?.validate()
+                    website()
+                    validated = true
+                }
+
                 class LegalEntityAddressCreateRequest
-                @JsonCreator
                 private constructor(
-                    @JsonProperty("country")
-                    @ExcludeMissing
-                    private val country: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("line1")
-                    @ExcludeMissing
-                    private val line1: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("locality")
-                    @ExcludeMissing
-                    private val locality: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("postal_code")
-                    @ExcludeMissing
-                    private val postalCode: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("region")
-                    @ExcludeMissing
-                    private val region: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("address_types")
-                    @ExcludeMissing
-                    private val addressTypes: JsonField<List<AddressType>> = JsonMissing.of(),
-                    @JsonProperty("line2")
-                    @ExcludeMissing
-                    private val line2: JsonField<String> = JsonMissing.of(),
-                    @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val country: JsonField<String>,
+                    private val line1: JsonField<String>,
+                    private val locality: JsonField<String>,
+                    private val postalCode: JsonField<String>,
+                    private val region: JsonField<String>,
+                    private val addressTypes: JsonField<List<AddressType>>,
+                    private val line2: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
                 ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("country")
+                        @ExcludeMissing
+                        country: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("line1")
+                        @ExcludeMissing
+                        line1: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("locality")
+                        @ExcludeMissing
+                        locality: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("postal_code")
+                        @ExcludeMissing
+                        postalCode: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("region")
+                        @ExcludeMissing
+                        region: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("address_types")
+                        @ExcludeMissing
+                        addressTypes: JsonField<List<AddressType>> = JsonMissing.of(),
+                        @JsonProperty("line2")
+                        @ExcludeMissing
+                        line2: JsonField<String> = JsonMissing.of(),
+                    ) : this(
+                        country,
+                        line1,
+                        locality,
+                        postalCode,
+                        region,
+                        addressTypes,
+                        line2,
+                        mutableMapOf(),
+                    )
 
                     /**
                      * Country code conforms to [ISO 3166-1 alpha-2]
@@ -8322,26 +8618,15 @@ private constructor(
                      */
                     @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
                     @JsonAnyGetter
                     @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                    private var validated: Boolean = false
-
-                    fun validate(): LegalEntityAddressCreateRequest = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        country()
-                        line1()
-                        locality()
-                        postalCode()
-                        region()
-                        addressTypes()
-                        line2()
-                        validated = true
-                    }
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
 
                     fun toBuilder() = Builder().from(this)
 
@@ -8543,8 +8828,25 @@ private constructor(
                                 checkRequired("region", region),
                                 (addressTypes ?: JsonMissing.of()).map { it.toImmutable() },
                                 line2,
-                                additionalProperties.toImmutable(),
+                                additionalProperties.toMutableMap(),
                             )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): LegalEntityAddressCreateRequest = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        country()
+                        line1()
+                        locality()
+                        postalCode()
+                        region()
+                        addressTypes()
+                        line2()
+                        validated = true
                     }
 
                     class AddressType
@@ -8693,22 +8995,26 @@ private constructor(
                         "LegalEntityAddressCreateRequest{country=$country, line1=$line1, locality=$locality, postalCode=$postalCode, region=$region, addressTypes=$addressTypes, line2=$line2, additionalProperties=$additionalProperties}"
                 }
 
-                @NoAutoDetect
                 class IdentificationCreateRequest
-                @JsonCreator
                 private constructor(
-                    @JsonProperty("id_number")
-                    @ExcludeMissing
-                    private val idNumber: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("id_type")
-                    @ExcludeMissing
-                    private val idType: JsonField<IdType> = JsonMissing.of(),
-                    @JsonProperty("issuing_country")
-                    @ExcludeMissing
-                    private val issuingCountry: JsonField<String> = JsonMissing.of(),
-                    @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val idNumber: JsonField<String>,
+                    private val idType: JsonField<IdType>,
+                    private val issuingCountry: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
                 ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("id_number")
+                        @ExcludeMissing
+                        idNumber: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("id_type")
+                        @ExcludeMissing
+                        idType: JsonField<IdType> = JsonMissing.of(),
+                        @JsonProperty("issuing_country")
+                        @ExcludeMissing
+                        issuingCountry: JsonField<String> = JsonMissing.of(),
+                    ) : this(idNumber, idType, issuingCountry, mutableMapOf())
 
                     /**
                      * The ID number of identification document.
@@ -8767,22 +9073,15 @@ private constructor(
                     @ExcludeMissing
                     fun _issuingCountry(): JsonField<String> = issuingCountry
 
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
                     @JsonAnyGetter
                     @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                    private var validated: Boolean = false
-
-                    fun validate(): IdentificationCreateRequest = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        idNumber()
-                        idType()
-                        issuingCountry()
-                        validated = true
-                    }
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
 
                     fun toBuilder() = Builder().from(this)
 
@@ -8904,8 +9203,21 @@ private constructor(
                                 checkRequired("idNumber", idNumber),
                                 checkRequired("idType", idType),
                                 issuingCountry,
-                                additionalProperties.toImmutable(),
+                                additionalProperties.toMutableMap(),
                             )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): IdentificationCreateRequest = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        idNumber()
+                        idType()
+                        issuingCountry()
+                        validated = true
                     }
 
                     /** The type of ID number. */
@@ -9401,27 +9713,22 @@ private constructor(
                  * Additional data represented as key-value pairs. Both the key and value must be
                  * strings.
                  */
-                @NoAutoDetect
                 class Metadata
-                @JsonCreator
                 private constructor(
-                    @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
+                    private val additionalProperties: MutableMap<String, JsonValue>
                 ) {
+
+                    @JsonCreator private constructor() : this(mutableMapOf())
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
 
                     @JsonAnyGetter
                     @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                    private var validated: Boolean = false
-
-                    fun validate(): Metadata = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        validated = true
-                    }
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
 
                     fun toBuilder() = Builder().from(this)
 
@@ -9468,7 +9775,17 @@ private constructor(
                          *
                          * Further updates to this [Builder] will not mutate the returned instance.
                          */
-                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                        fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Metadata = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        validated = true
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -9489,16 +9806,18 @@ private constructor(
                 }
 
                 /** A list of phone numbers in E.164 format. */
-                @NoAutoDetect
                 class PhoneNumber
-                @JsonCreator
                 private constructor(
-                    @JsonProperty("phone_number")
-                    @ExcludeMissing
-                    private val phoneNumber: JsonField<String> = JsonMissing.of(),
-                    @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val phoneNumber: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
                 ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("phone_number")
+                        @ExcludeMissing
+                        phoneNumber: JsonField<String> = JsonMissing.of()
+                    ) : this(phoneNumber, mutableMapOf())
 
                     /**
                      * @throws ModernTreasuryInvalidDataException if the JSON field has an
@@ -9516,20 +9835,15 @@ private constructor(
                     @ExcludeMissing
                     fun _phoneNumber(): JsonField<String> = phoneNumber
 
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
                     @JsonAnyGetter
                     @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                    private var validated: Boolean = false
-
-                    fun validate(): PhoneNumber = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        phoneNumber()
-                        validated = true
-                    }
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
 
                     fun toBuilder() = Builder().from(this)
 
@@ -9595,7 +9909,18 @@ private constructor(
                          * Further updates to this [Builder] will not mutate the returned instance.
                          */
                         fun build(): PhoneNumber =
-                            PhoneNumber(phoneNumber, additionalProperties.toImmutable())
+                            PhoneNumber(phoneNumber, additionalProperties.toMutableMap())
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): PhoneNumber = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        phoneNumber()
+                        validated = true
                     }
 
                     override fun equals(other: Any?): Boolean {
@@ -9902,27 +10227,20 @@ private constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @NoAutoDetect
         class Metadata
-        @JsonCreator
-        private constructor(
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
             @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-        ) {
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Metadata = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -9968,7 +10286,17 @@ private constructor(
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Metadata = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -9989,16 +10317,18 @@ private constructor(
         }
 
         /** A list of phone numbers in E.164 format. */
-        @NoAutoDetect
         class PhoneNumber
-        @JsonCreator
         private constructor(
-            @JsonProperty("phone_number")
-            @ExcludeMissing
-            private val phoneNumber: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val phoneNumber: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("phone_number")
+                @ExcludeMissing
+                phoneNumber: JsonField<String> = JsonMissing.of()
+            ) : this(phoneNumber, mutableMapOf())
 
             /**
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
@@ -10016,20 +10346,15 @@ private constructor(
             @ExcludeMissing
             fun _phoneNumber(): JsonField<String> = phoneNumber
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): PhoneNumber = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                phoneNumber()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -10091,7 +10416,18 @@ private constructor(
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
                 fun build(): PhoneNumber =
-                    PhoneNumber(phoneNumber, additionalProperties.toImmutable())
+                    PhoneNumber(phoneNumber, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): PhoneNumber = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                phoneNumber()
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -10241,27 +10577,20 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @NoAutoDetect
     class Metadata
-    @JsonCreator
-    private constructor(
+    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+        @JsonCreator private constructor() : this(mutableMapOf())
+
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-    ) {
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -10304,7 +10633,17 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+            fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

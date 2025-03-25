@@ -11,72 +11,104 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class WealthAndEmploymentDetails
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("annual_income")
-    @ExcludeMissing
-    private val annualIncome: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("discarded_at")
-    @ExcludeMissing
-    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("employer_country")
-    @ExcludeMissing
-    private val employerCountry: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("employer_name")
-    @ExcludeMissing
-    private val employerName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("employer_state")
-    @ExcludeMissing
-    private val employerState: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("employment_status")
-    @ExcludeMissing
-    private val employmentStatus: JsonField<EmploymentStatus> = JsonMissing.of(),
-    @JsonProperty("income_country")
-    @ExcludeMissing
-    private val incomeCountry: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("income_source")
-    @ExcludeMissing
-    private val incomeSource: JsonField<IncomeSource> = JsonMissing.of(),
-    @JsonProperty("income_state")
-    @ExcludeMissing
-    private val incomeState: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("industry")
-    @ExcludeMissing
-    private val industry: JsonField<Industry> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("occupation")
-    @ExcludeMissing
-    private val occupation: JsonField<Occupation> = JsonMissing.of(),
-    @JsonProperty("source_of_funds")
-    @ExcludeMissing
-    private val sourceOfFunds: JsonField<SourceOfFunds> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("wealth_source")
-    @ExcludeMissing
-    private val wealthSource: JsonField<WealthSource> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val annualIncome: JsonField<Long>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val discardedAt: JsonField<OffsetDateTime>,
+    private val employerCountry: JsonField<String>,
+    private val employerName: JsonField<String>,
+    private val employerState: JsonField<String>,
+    private val employmentStatus: JsonField<EmploymentStatus>,
+    private val incomeCountry: JsonField<String>,
+    private val incomeSource: JsonField<IncomeSource>,
+    private val incomeState: JsonField<String>,
+    private val industry: JsonField<Industry>,
+    private val liveMode: JsonField<Boolean>,
+    private val object_: JsonField<String>,
+    private val occupation: JsonField<Occupation>,
+    private val sourceOfFunds: JsonField<SourceOfFunds>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val wealthSource: JsonField<WealthSource>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("annual_income")
+        @ExcludeMissing
+        annualIncome: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("discarded_at")
+        @ExcludeMissing
+        discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("employer_country")
+        @ExcludeMissing
+        employerCountry: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("employer_name")
+        @ExcludeMissing
+        employerName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("employer_state")
+        @ExcludeMissing
+        employerState: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("employment_status")
+        @ExcludeMissing
+        employmentStatus: JsonField<EmploymentStatus> = JsonMissing.of(),
+        @JsonProperty("income_country")
+        @ExcludeMissing
+        incomeCountry: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("income_source")
+        @ExcludeMissing
+        incomeSource: JsonField<IncomeSource> = JsonMissing.of(),
+        @JsonProperty("income_state")
+        @ExcludeMissing
+        incomeState: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("industry") @ExcludeMissing industry: JsonField<Industry> = JsonMissing.of(),
+        @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("occupation")
+        @ExcludeMissing
+        occupation: JsonField<Occupation> = JsonMissing.of(),
+        @JsonProperty("source_of_funds")
+        @ExcludeMissing
+        sourceOfFunds: JsonField<SourceOfFunds> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("wealth_source")
+        @ExcludeMissing
+        wealthSource: JsonField<WealthSource> = JsonMissing.of(),
+    ) : this(
+        id,
+        annualIncome,
+        createdAt,
+        discardedAt,
+        employerCountry,
+        employerName,
+        employerState,
+        employmentStatus,
+        incomeCountry,
+        incomeSource,
+        incomeState,
+        industry,
+        liveMode,
+        object_,
+        occupation,
+        sourceOfFunds,
+        updatedAt,
+        wealthSource,
+        mutableMapOf(),
+    )
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -368,37 +400,15 @@ private constructor(
     @ExcludeMissing
     fun _wealthSource(): JsonField<WealthSource> = wealthSource
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): WealthAndEmploymentDetails = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        annualIncome()
-        createdAt()
-        discardedAt()
-        employerCountry()
-        employerName()
-        employerState()
-        employmentStatus()
-        incomeCountry()
-        incomeSource()
-        incomeState()
-        industry()
-        liveMode()
-        object_()
-        occupation()
-        sourceOfFunds()
-        updatedAt()
-        wealthSource()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -790,8 +800,36 @@ private constructor(
                 checkRequired("sourceOfFunds", sourceOfFunds),
                 checkRequired("updatedAt", updatedAt),
                 checkRequired("wealthSource", wealthSource),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): WealthAndEmploymentDetails = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        annualIncome()
+        createdAt()
+        discardedAt()
+        employerCountry()
+        employerName()
+        employerState()
+        employmentStatus()
+        incomeCountry()
+        incomeSource()
+        incomeState()
+        industry()
+        liveMode()
+        object_()
+        occupation()
+        sourceOfFunds()
+        updatedAt()
+        wealthSource()
+        validated = true
     }
 
     /** The employment status of the individual. */

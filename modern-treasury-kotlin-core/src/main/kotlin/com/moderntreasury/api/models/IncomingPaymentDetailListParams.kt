@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -70,30 +69,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                afterCursor?.let { put("after_cursor", it) }
-                asOfDateEnd?.let { put("as_of_date_end", it.toString()) }
-                asOfDateStart?.let { put("as_of_date_start", it.toString()) }
-                direction?.let { put("direction", it.toString()) }
-                metadata?.let {
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("metadata[$key]", value)
-                        }
-                    }
-                }
-                perPage?.let { put("per_page", it.toString()) }
-                status?.let { put("status", it.toString()) }
-                type?.let { put("type", it.toString()) }
-                virtualAccountId?.let { put("virtual_account_id", it) }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -108,7 +83,6 @@ private constructor(
     }
 
     /** A builder for [IncomingPaymentDetailListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var afterCursor: String? = null
@@ -305,6 +279,30 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                asOfDateEnd?.let { put("as_of_date_end", it.toString()) }
+                asOfDateStart?.let { put("as_of_date_start", it.toString()) }
+                direction?.let { put("direction", it.toString()) }
+                metadata?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("metadata[$key]", value)
+                        }
+                    }
+                }
+                perPage?.let { put("per_page", it.toString()) }
+                status?.let { put("status", it.toString()) }
+                type?.let { put("type", it.toString()) }
+                virtualAccountId?.let { put("virtual_account_id", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     /**
      * For example, if you want to query for records with metadata key `Type` and value `Loan`, the

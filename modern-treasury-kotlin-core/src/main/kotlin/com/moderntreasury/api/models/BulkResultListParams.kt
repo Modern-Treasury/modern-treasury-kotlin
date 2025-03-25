@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -58,22 +57,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                afterCursor?.let { put("after_cursor", it) }
-                entityId?.let { put("entity_id", it) }
-                entityType?.let { put("entity_type", it.toString()) }
-                perPage?.let { put("per_page", it.toString()) }
-                requestId?.let { put("request_id", it) }
-                requestType?.let { put("request_type", it.toString()) }
-                status?.let { put("status", it.toString()) }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -85,7 +68,6 @@ private constructor(
     }
 
     /** A builder for [BulkResultListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var afterCursor: String? = null
@@ -261,6 +243,22 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                entityId?.let { put("entity_id", it) }
+                entityType?.let { put("entity_type", it.toString()) }
+                perPage?.let { put("per_page", it.toString()) }
+                requestId?.let { put("request_id", it) }
+                requestType?.let { put("request_type", it.toString()) }
+                status?.let { put("status", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     /**
      * The type of the request that created this result. bulk_request is the only supported

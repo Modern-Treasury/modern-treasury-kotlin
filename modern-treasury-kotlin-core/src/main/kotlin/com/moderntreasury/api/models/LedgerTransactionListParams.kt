@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -113,74 +112,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                id?.forEach { put("id[]", it) }
-                afterCursor?.let { put("after_cursor", it) }
-                effectiveAt?.let {
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("effective_at[$key]", value)
-                        }
-                    }
-                }
-                effectiveDate?.let {
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("effective_date[$key]", value)
-                        }
-                    }
-                }
-                externalId?.let { put("external_id", it) }
-                ledgerAccountCategoryId?.let { put("ledger_account_category_id", it) }
-                ledgerAccountId?.let { put("ledger_account_id", it) }
-                ledgerAccountSettlementId?.let { put("ledger_account_settlement_id", it) }
-                ledgerId?.let { put("ledger_id", it) }
-                ledgerableId?.let { put("ledgerable_id", it) }
-                ledgerableType?.let { put("ledgerable_type", it.toString()) }
-                metadata?.let {
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("metadata[$key]", value)
-                        }
-                    }
-                }
-                orderBy?.let {
-                    it.createdAt()?.let { put("order_by[created_at]", it.toString()) }
-                    it.effectiveAt()?.let { put("order_by[effective_at]", it.toString()) }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("order_by[$key]", value)
-                        }
-                    }
-                }
-                partiallyPostsLedgerTransactionId?.let {
-                    put("partially_posts_ledger_transaction_id", it)
-                }
-                perPage?.let { put("per_page", it.toString()) }
-                postedAt?.let {
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("posted_at[$key]", value)
-                        }
-                    }
-                }
-                reversesLedgerTransactionId?.let { put("reverses_ledger_transaction_id", it) }
-                status?.let { put("status", it.toString()) }
-                updatedAt?.let {
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("updated_at[$key]", value)
-                        }
-                    }
-                }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -194,7 +125,6 @@ private constructor(
     }
 
     /** A builder for [LedgerTransactionListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var id: MutableList<String>? = null
@@ -470,6 +400,74 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                id?.forEach { put("id[]", it) }
+                afterCursor?.let { put("after_cursor", it) }
+                effectiveAt?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("effective_at[$key]", value)
+                        }
+                    }
+                }
+                effectiveDate?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("effective_date[$key]", value)
+                        }
+                    }
+                }
+                externalId?.let { put("external_id", it) }
+                ledgerAccountCategoryId?.let { put("ledger_account_category_id", it) }
+                ledgerAccountId?.let { put("ledger_account_id", it) }
+                ledgerAccountSettlementId?.let { put("ledger_account_settlement_id", it) }
+                ledgerId?.let { put("ledger_id", it) }
+                ledgerableId?.let { put("ledgerable_id", it) }
+                ledgerableType?.let { put("ledgerable_type", it.toString()) }
+                metadata?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("metadata[$key]", value)
+                        }
+                    }
+                }
+                orderBy?.let {
+                    it.createdAt()?.let { put("order_by[created_at]", it.toString()) }
+                    it.effectiveAt()?.let { put("order_by[effective_at]", it.toString()) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("order_by[$key]", value)
+                        }
+                    }
+                }
+                partiallyPostsLedgerTransactionId?.let {
+                    put("partially_posts_ledger_transaction_id", it)
+                }
+                perPage?.let { put("per_page", it.toString()) }
+                postedAt?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("posted_at[$key]", value)
+                        }
+                    }
+                }
+                reversesLedgerTransactionId?.let { put("reverses_ledger_transaction_id", it) }
+                status?.let { put("status", it.toString()) }
+                updatedAt?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("updated_at[$key]", value)
+                        }
+                    }
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     /**
      * Use "gt" (>), "gte" (>=), "lt" (<), "lte" (<=), or "eq" (=) to filter by effective at. For

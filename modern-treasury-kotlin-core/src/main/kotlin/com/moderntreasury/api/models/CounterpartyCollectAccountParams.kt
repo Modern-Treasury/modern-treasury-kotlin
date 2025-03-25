@@ -11,15 +11,14 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 /** Send an email requesting account details. */
@@ -109,312 +108,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): CounterpartyCollectAccountRequest = body
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> id
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class CounterpartyCollectAccountRequest
-    @JsonCreator
-    private constructor(
-        @JsonProperty("direction")
-        @ExcludeMissing
-        private val direction: JsonField<TransactionDirection> = JsonMissing.of(),
-        @JsonProperty("custom_redirect")
-        @ExcludeMissing
-        private val customRedirect: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("fields")
-        @ExcludeMissing
-        private val fields: JsonField<List<Field>> = JsonMissing.of(),
-        @JsonProperty("send_email")
-        @ExcludeMissing
-        private val sendEmail: JsonField<Boolean> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * One of `credit` or `debit`. Use `credit` when you want to pay a counterparty. Use `debit`
-         * when you need to charge a counterparty. This field helps us send a more tailored email to
-         * your counterparties."
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun direction(): TransactionDirection = direction.getRequired("direction")
-
-        /**
-         * The URL you want your customer to visit upon filling out the form. By default, they will
-         * be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if set.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun customRedirect(): String? = customRedirect.getNullable("custom_redirect")
-
-        /**
-         * The list of fields you want on the form. This field is optional and if it is not set,
-         * will default to
-         * [\"nameOnAccount\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\"].
-         * The full list of options is
-         * [\"name\", \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun fields(): List<Field>? = fields.getNullable("fields")
-
-        /**
-         * By default, Modern Treasury will send an email to your counterparty that includes a link
-         * to the form they must fill out. However, if you would like to send the counterparty the
-         * link, you can set this parameter to `false`. The JSON body will include the link to the
-         * secure Modern Treasury form.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun sendEmail(): Boolean? = sendEmail.getNullable("send_email")
-
-        /**
-         * Returns the raw JSON value of [direction].
-         *
-         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("direction")
-        @ExcludeMissing
-        fun _direction(): JsonField<TransactionDirection> = direction
-
-        /**
-         * Returns the raw JSON value of [customRedirect].
-         *
-         * Unlike [customRedirect], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("custom_redirect")
-        @ExcludeMissing
-        fun _customRedirect(): JsonField<String> = customRedirect
-
-        /**
-         * Returns the raw JSON value of [fields].
-         *
-         * Unlike [fields], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("fields") @ExcludeMissing fun _fields(): JsonField<List<Field>> = fields
-
-        /**
-         * Returns the raw JSON value of [sendEmail].
-         *
-         * Unlike [sendEmail], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("send_email") @ExcludeMissing fun _sendEmail(): JsonField<Boolean> = sendEmail
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): CounterpartyCollectAccountRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            direction()
-            customRedirect()
-            fields()
-            sendEmail()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of
-             * [CounterpartyCollectAccountRequest].
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .direction()
-             * ```
-             */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [CounterpartyCollectAccountRequest]. */
-        class Builder internal constructor() {
-
-            private var direction: JsonField<TransactionDirection>? = null
-            private var customRedirect: JsonField<String> = JsonMissing.of()
-            private var fields: JsonField<MutableList<Field>>? = null
-            private var sendEmail: JsonField<Boolean> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(
-                counterpartyCollectAccountRequest: CounterpartyCollectAccountRequest
-            ) = apply {
-                direction = counterpartyCollectAccountRequest.direction
-                customRedirect = counterpartyCollectAccountRequest.customRedirect
-                fields = counterpartyCollectAccountRequest.fields.map { it.toMutableList() }
-                sendEmail = counterpartyCollectAccountRequest.sendEmail
-                additionalProperties =
-                    counterpartyCollectAccountRequest.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * One of `credit` or `debit`. Use `credit` when you want to pay a counterparty. Use
-             * `debit` when you need to charge a counterparty. This field helps us send a more
-             * tailored email to your counterparties."
-             */
-            fun direction(direction: TransactionDirection) = direction(JsonField.of(direction))
-
-            /**
-             * Sets [Builder.direction] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.direction] with a well-typed [TransactionDirection]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun direction(direction: JsonField<TransactionDirection>) = apply {
-                this.direction = direction
-            }
-
-            /**
-             * The URL you want your customer to visit upon filling out the form. By default, they
-             * will be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if
-             * set.
-             */
-            fun customRedirect(customRedirect: String) =
-                customRedirect(JsonField.of(customRedirect))
-
-            /**
-             * Sets [Builder.customRedirect] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.customRedirect] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun customRedirect(customRedirect: JsonField<String>) = apply {
-                this.customRedirect = customRedirect
-            }
-
-            /**
-             * The list of fields you want on the form. This field is optional and if it is not set,
-             * will default to
-             * [\"nameOnAccount\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\"].
-             * The full list of options is
-             * [\"name\", \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
-             */
-            fun fields(fields: List<Field>) = fields(JsonField.of(fields))
-
-            /**
-             * Sets [Builder.fields] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.fields] with a well-typed `List<Field>` value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun fields(fields: JsonField<List<Field>>) = apply {
-                this.fields = fields.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [Field] to [fields].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addField(field: Field) = apply {
-                fields =
-                    (fields ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("fields", it).add(field)
-                    }
-            }
-
-            /**
-             * By default, Modern Treasury will send an email to your counterparty that includes a
-             * link to the form they must fill out. However, if you would like to send the
-             * counterparty the link, you can set this parameter to `false`. The JSON body will
-             * include the link to the secure Modern Treasury form.
-             */
-            fun sendEmail(sendEmail: Boolean) = sendEmail(JsonField.of(sendEmail))
-
-            /**
-             * Sets [Builder.sendEmail] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.sendEmail] with a well-typed [Boolean] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun sendEmail(sendEmail: JsonField<Boolean>) = apply { this.sendEmail = sendEmail }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [CounterpartyCollectAccountRequest].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .direction()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): CounterpartyCollectAccountRequest =
-                CounterpartyCollectAccountRequest(
-                    checkRequired("direction", direction),
-                    customRedirect,
-                    (fields ?: JsonMissing.of()).map { it.toImmutable() },
-                    sendEmail,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is CounterpartyCollectAccountRequest && direction == other.direction && customRedirect == other.customRedirect && fields == other.fields && sendEmail == other.sendEmail && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(direction, customRedirect, fields, sendEmail, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "CounterpartyCollectAccountRequest{direction=$direction, customRedirect=$customRedirect, fields=$fields, sendEmail=$sendEmail, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -433,7 +126,6 @@ private constructor(
     }
 
     /** A builder for [CounterpartyCollectAccountParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var id: String? = null
@@ -667,6 +359,323 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    internal fun _body(): CounterpartyCollectAccountRequest = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> id
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class CounterpartyCollectAccountRequest
+    private constructor(
+        private val direction: JsonField<TransactionDirection>,
+        private val customRedirect: JsonField<String>,
+        private val fields: JsonField<List<Field>>,
+        private val sendEmail: JsonField<Boolean>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("direction")
+            @ExcludeMissing
+            direction: JsonField<TransactionDirection> = JsonMissing.of(),
+            @JsonProperty("custom_redirect")
+            @ExcludeMissing
+            customRedirect: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("fields")
+            @ExcludeMissing
+            fields: JsonField<List<Field>> = JsonMissing.of(),
+            @JsonProperty("send_email")
+            @ExcludeMissing
+            sendEmail: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(direction, customRedirect, fields, sendEmail, mutableMapOf())
+
+        /**
+         * One of `credit` or `debit`. Use `credit` when you want to pay a counterparty. Use `debit`
+         * when you need to charge a counterparty. This field helps us send a more tailored email to
+         * your counterparties."
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun direction(): TransactionDirection = direction.getRequired("direction")
+
+        /**
+         * The URL you want your customer to visit upon filling out the form. By default, they will
+         * be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if set.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun customRedirect(): String? = customRedirect.getNullable("custom_redirect")
+
+        /**
+         * The list of fields you want on the form. This field is optional and if it is not set,
+         * will default to
+         * [\"nameOnAccount\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\"].
+         * The full list of options is
+         * [\"name\", \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun fields(): List<Field>? = fields.getNullable("fields")
+
+        /**
+         * By default, Modern Treasury will send an email to your counterparty that includes a link
+         * to the form they must fill out. However, if you would like to send the counterparty the
+         * link, you can set this parameter to `false`. The JSON body will include the link to the
+         * secure Modern Treasury form.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun sendEmail(): Boolean? = sendEmail.getNullable("send_email")
+
+        /**
+         * Returns the raw JSON value of [direction].
+         *
+         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("direction")
+        @ExcludeMissing
+        fun _direction(): JsonField<TransactionDirection> = direction
+
+        /**
+         * Returns the raw JSON value of [customRedirect].
+         *
+         * Unlike [customRedirect], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("custom_redirect")
+        @ExcludeMissing
+        fun _customRedirect(): JsonField<String> = customRedirect
+
+        /**
+         * Returns the raw JSON value of [fields].
+         *
+         * Unlike [fields], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("fields") @ExcludeMissing fun _fields(): JsonField<List<Field>> = fields
+
+        /**
+         * Returns the raw JSON value of [sendEmail].
+         *
+         * Unlike [sendEmail], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("send_email") @ExcludeMissing fun _sendEmail(): JsonField<Boolean> = sendEmail
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [CounterpartyCollectAccountRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .direction()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [CounterpartyCollectAccountRequest]. */
+        class Builder internal constructor() {
+
+            private var direction: JsonField<TransactionDirection>? = null
+            private var customRedirect: JsonField<String> = JsonMissing.of()
+            private var fields: JsonField<MutableList<Field>>? = null
+            private var sendEmail: JsonField<Boolean> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(
+                counterpartyCollectAccountRequest: CounterpartyCollectAccountRequest
+            ) = apply {
+                direction = counterpartyCollectAccountRequest.direction
+                customRedirect = counterpartyCollectAccountRequest.customRedirect
+                fields = counterpartyCollectAccountRequest.fields.map { it.toMutableList() }
+                sendEmail = counterpartyCollectAccountRequest.sendEmail
+                additionalProperties =
+                    counterpartyCollectAccountRequest.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * One of `credit` or `debit`. Use `credit` when you want to pay a counterparty. Use
+             * `debit` when you need to charge a counterparty. This field helps us send a more
+             * tailored email to your counterparties."
+             */
+            fun direction(direction: TransactionDirection) = direction(JsonField.of(direction))
+
+            /**
+             * Sets [Builder.direction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.direction] with a well-typed [TransactionDirection]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun direction(direction: JsonField<TransactionDirection>) = apply {
+                this.direction = direction
+            }
+
+            /**
+             * The URL you want your customer to visit upon filling out the form. By default, they
+             * will be sent to a Modern Treasury landing page. This must be a valid HTTPS URL if
+             * set.
+             */
+            fun customRedirect(customRedirect: String) =
+                customRedirect(JsonField.of(customRedirect))
+
+            /**
+             * Sets [Builder.customRedirect] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.customRedirect] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun customRedirect(customRedirect: JsonField<String>) = apply {
+                this.customRedirect = customRedirect
+            }
+
+            /**
+             * The list of fields you want on the form. This field is optional and if it is not set,
+             * will default to
+             * [\"nameOnAccount\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\"].
+             * The full list of options is
+             * [\"name\", \"nameOnAccount\", \"taxpayerIdentifier\", \"accountType\", \"accountNumber\", \"routingNumber\", \"address\", \"ibanNumber\", \"swiftCode\"].
+             */
+            fun fields(fields: List<Field>) = fields(JsonField.of(fields))
+
+            /**
+             * Sets [Builder.fields] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fields] with a well-typed `List<Field>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun fields(fields: JsonField<List<Field>>) = apply {
+                this.fields = fields.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Field] to [fields].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addField(field: Field) = apply {
+                fields =
+                    (fields ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("fields", it).add(field)
+                    }
+            }
+
+            /**
+             * By default, Modern Treasury will send an email to your counterparty that includes a
+             * link to the form they must fill out. However, if you would like to send the
+             * counterparty the link, you can set this parameter to `false`. The JSON body will
+             * include the link to the secure Modern Treasury form.
+             */
+            fun sendEmail(sendEmail: Boolean) = sendEmail(JsonField.of(sendEmail))
+
+            /**
+             * Sets [Builder.sendEmail] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sendEmail] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun sendEmail(sendEmail: JsonField<Boolean>) = apply { this.sendEmail = sendEmail }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [CounterpartyCollectAccountRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .direction()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): CounterpartyCollectAccountRequest =
+                CounterpartyCollectAccountRequest(
+                    checkRequired("direction", direction),
+                    customRedirect,
+                    (fields ?: JsonMissing.of()).map { it.toImmutable() },
+                    sendEmail,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CounterpartyCollectAccountRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            direction()
+            customRedirect()
+            fields()
+            sendEmail()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is CounterpartyCollectAccountRequest && direction == other.direction && customRedirect == other.customRedirect && fields == other.fields && sendEmail == other.sendEmail && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(direction, customRedirect, fields, sendEmail, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "CounterpartyCollectAccountRequest{direction=$direction, customRedirect=$customRedirect, fields=$fields, sendEmail=$sendEmail, additionalProperties=$additionalProperties}"
     }
 
     class Field @JsonCreator private constructor(private val value: JsonField<String>) : Enum {

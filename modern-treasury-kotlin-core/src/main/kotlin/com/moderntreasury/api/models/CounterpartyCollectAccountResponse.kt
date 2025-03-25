@@ -10,26 +10,25 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class CounterpartyCollectAccountResponse
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("form_link")
-    @ExcludeMissing
-    private val formLink: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("is_resend")
-    @ExcludeMissing
-    private val isResend: JsonField<Boolean> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val formLink: JsonField<String>,
+    private val isResend: JsonField<Boolean>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("form_link") @ExcludeMissing formLink: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("is_resend") @ExcludeMissing isResend: JsonField<Boolean> = JsonMissing.of(),
+    ) : this(id, formLink, isResend, mutableMapOf())
 
     /**
      * The id of the existing counterparty.
@@ -80,22 +79,15 @@ private constructor(
      */
     @JsonProperty("is_resend") @ExcludeMissing fun _isResend(): JsonField<Boolean> = isResend
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): CounterpartyCollectAccountResponse = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        formLink()
-        isResend()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -212,8 +204,21 @@ private constructor(
                 checkRequired("id", id),
                 checkRequired("formLink", formLink),
                 checkRequired("isResend", isResend),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): CounterpartyCollectAccountResponse = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        formLink()
+        isResend()
+        validated = true
     }
 
     override fun equals(other: Any?): Boolean {

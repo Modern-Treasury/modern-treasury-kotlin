@@ -11,51 +11,69 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class RoutingDetail
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("bank_address")
-    @ExcludeMissing
-    private val bankAddress: JsonField<Address> = JsonMissing.of(),
-    @JsonProperty("bank_name")
-    @ExcludeMissing
-    private val bankName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("discarded_at")
-    @ExcludeMissing
-    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("payment_type")
-    @ExcludeMissing
-    private val paymentType: JsonField<PaymentType> = JsonMissing.of(),
-    @JsonProperty("routing_number")
-    @ExcludeMissing
-    private val routingNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("routing_number_type")
-    @ExcludeMissing
-    private val routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val bankAddress: JsonField<Address>,
+    private val bankName: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val discardedAt: JsonField<OffsetDateTime>,
+    private val liveMode: JsonField<Boolean>,
+    private val object_: JsonField<String>,
+    private val paymentType: JsonField<PaymentType>,
+    private val routingNumber: JsonField<String>,
+    private val routingNumberType: JsonField<RoutingNumberType>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("bank_address")
+        @ExcludeMissing
+        bankAddress: JsonField<Address> = JsonMissing.of(),
+        @JsonProperty("bank_name") @ExcludeMissing bankName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("discarded_at")
+        @ExcludeMissing
+        discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("payment_type")
+        @ExcludeMissing
+        paymentType: JsonField<PaymentType> = JsonMissing.of(),
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        routingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("routing_number_type")
+        @ExcludeMissing
+        routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(
+        id,
+        bankAddress,
+        bankName,
+        createdAt,
+        discardedAt,
+        liveMode,
+        object_,
+        paymentType,
+        routingNumber,
+        routingNumberType,
+        updatedAt,
+        mutableMapOf(),
+    )
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -229,30 +247,15 @@ private constructor(
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): RoutingDetail = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        bankAddress()?.validate()
-        bankName()
-        createdAt()
-        discardedAt()
-        liveMode()
-        object_()
-        paymentType()
-        routingNumber()
-        routingNumberType()
-        updatedAt()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -507,48 +510,84 @@ private constructor(
                 checkRequired("routingNumber", routingNumber),
                 checkRequired("routingNumberType", routingNumberType),
                 checkRequired("updatedAt", updatedAt),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
     }
 
-    @NoAutoDetect
+    private var validated: Boolean = false
+
+    fun validate(): RoutingDetail = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        bankAddress()?.validate()
+        bankName()
+        createdAt()
+        discardedAt()
+        liveMode()
+        object_()
+        paymentType()
+        routingNumber()
+        routingNumberType()
+        updatedAt()
+        validated = true
+    }
+
     class Address
-    @JsonCreator
     private constructor(
-        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("country")
-        @ExcludeMissing
-        private val country: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("line1")
-        @ExcludeMissing
-        private val line1: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line2")
-        @ExcludeMissing
-        private val line2: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("live_mode")
-        @ExcludeMissing
-        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("locality")
-        @ExcludeMissing
-        private val locality: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("object")
-        @ExcludeMissing
-        private val object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("postal_code")
-        @ExcludeMissing
-        private val postalCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("region")
-        @ExcludeMissing
-        private val region: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val id: JsonField<String>,
+        private val country: JsonField<String>,
+        private val createdAt: JsonField<OffsetDateTime>,
+        private val line1: JsonField<String>,
+        private val line2: JsonField<String>,
+        private val liveMode: JsonField<Boolean>,
+        private val locality: JsonField<String>,
+        private val object_: JsonField<String>,
+        private val postalCode: JsonField<String>,
+        private val region: JsonField<String>,
+        private val updatedAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("country") @ExcludeMissing country: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("live_mode")
+            @ExcludeMissing
+            liveMode: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("locality")
+            @ExcludeMissing
+            locality: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("region") @ExcludeMissing region: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("updated_at")
+            @ExcludeMissing
+            updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(
+            id,
+            country,
+            createdAt,
+            line1,
+            line2,
+            liveMode,
+            locality,
+            object_,
+            postalCode,
+            region,
+            updatedAt,
+            mutableMapOf(),
+        )
 
         /**
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -710,30 +749,15 @@ private constructor(
         @ExcludeMissing
         fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Address = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            country()
-            createdAt()
-            line1()
-            line2()
-            liveMode()
-            locality()
-            object_()
-            postalCode()
-            region()
-            updatedAt()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -978,8 +1002,29 @@ private constructor(
                     checkRequired("postalCode", postalCode),
                     checkRequired("region", region),
                     checkRequired("updatedAt", updatedAt),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Address = apply {
+            if (validated) {
+                return@apply
+            }
+
+            id()
+            country()
+            createdAt()
+            line1()
+            line2()
+            liveMode()
+            locality()
+            object_()
+            postalCode()
+            region()
+            updatedAt()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

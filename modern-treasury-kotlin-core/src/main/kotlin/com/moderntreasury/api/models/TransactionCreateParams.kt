@@ -11,15 +11,13 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
+import java.util.Collections
 import java.util.Objects
 
 /** create transaction */
@@ -193,506 +191,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): TransactionCreateRequest = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class TransactionCreateRequest
-    @JsonCreator
-    private constructor(
-        @JsonProperty("amount")
-        @ExcludeMissing
-        private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("as_of_date")
-        @ExcludeMissing
-        private val asOfDate: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonProperty("direction")
-        @ExcludeMissing
-        private val direction: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("internal_account_id")
-        @ExcludeMissing
-        private val internalAccountId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("vendor_code")
-        @ExcludeMissing
-        private val vendorCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("vendor_code_type")
-        @ExcludeMissing
-        private val vendorCodeType: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("metadata")
-        @ExcludeMissing
-        private val metadata: JsonField<Metadata> = JsonMissing.of(),
-        @JsonProperty("posted")
-        @ExcludeMissing
-        private val posted: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-        @JsonProperty("vendor_description")
-        @ExcludeMissing
-        private val vendorDescription: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun amount(): Long = amount.getRequired("amount")
-
-        /**
-         * The date on which the transaction occurred.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun asOfDate(): LocalDate? = asOfDate.getNullable("as_of_date")
-
-        /**
-         * Either `credit` or `debit`.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun direction(): String = direction.getRequired("direction")
-
-        /**
-         * The ID of the relevant Internal Account.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
-
-        /**
-         * When applicable, the bank-given code that determines the transaction's category. For most
-         * banks this is the BAI2/BTRS transaction code.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun vendorCode(): String? = vendorCode.getNullable("vendor_code")
-
-        /**
-         * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
-         * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
-         * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or
-         * others.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun vendorCodeType(): String? = vendorCodeType.getNullable("vendor_code_type")
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-        /**
-         * This field will be `true` if the transaction has posted to the account.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun posted(): Boolean? = posted.getNullable("posted")
-
-        /**
-         * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
-         * `book`, or `sen`.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun type(): Type? = type.getNullable("type")
-
-        /**
-         * The transaction detail text that often appears in on your bank statement and in your
-         * banking portal.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun vendorDescription(): String? = vendorDescription.getNullable("vendor_description")
-
-        /**
-         * Returns the raw JSON value of [amount].
-         *
-         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-        /**
-         * Returns the raw JSON value of [asOfDate].
-         *
-         * Unlike [asOfDate], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate(): JsonField<LocalDate> = asOfDate
-
-        /**
-         * Returns the raw JSON value of [direction].
-         *
-         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("direction") @ExcludeMissing fun _direction(): JsonField<String> = direction
-
-        /**
-         * Returns the raw JSON value of [internalAccountId].
-         *
-         * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("internal_account_id")
-        @ExcludeMissing
-        fun _internalAccountId(): JsonField<String> = internalAccountId
-
-        /**
-         * Returns the raw JSON value of [vendorCode].
-         *
-         * Unlike [vendorCode], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("vendor_code")
-        @ExcludeMissing
-        fun _vendorCode(): JsonField<String> = vendorCode
-
-        /**
-         * Returns the raw JSON value of [vendorCodeType].
-         *
-         * Unlike [vendorCodeType], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("vendor_code_type")
-        @ExcludeMissing
-        fun _vendorCodeType(): JsonField<String> = vendorCodeType
-
-        /**
-         * Returns the raw JSON value of [metadata].
-         *
-         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
-
-        /**
-         * Returns the raw JSON value of [posted].
-         *
-         * Unlike [posted], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("posted") @ExcludeMissing fun _posted(): JsonField<Boolean> = posted
-
-        /**
-         * Returns the raw JSON value of [type].
-         *
-         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
-
-        /**
-         * Returns the raw JSON value of [vendorDescription].
-         *
-         * Unlike [vendorDescription], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("vendor_description")
-        @ExcludeMissing
-        fun _vendorDescription(): JsonField<String> = vendorDescription
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): TransactionCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            amount()
-            asOfDate()
-            direction()
-            internalAccountId()
-            vendorCode()
-            vendorCodeType()
-            metadata()?.validate()
-            posted()
-            type()
-            vendorDescription()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [TransactionCreateRequest].
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .amount()
-             * .asOfDate()
-             * .direction()
-             * .internalAccountId()
-             * .vendorCode()
-             * .vendorCodeType()
-             * ```
-             */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [TransactionCreateRequest]. */
-        class Builder internal constructor() {
-
-            private var amount: JsonField<Long>? = null
-            private var asOfDate: JsonField<LocalDate>? = null
-            private var direction: JsonField<String>? = null
-            private var internalAccountId: JsonField<String>? = null
-            private var vendorCode: JsonField<String>? = null
-            private var vendorCodeType: JsonField<String>? = null
-            private var metadata: JsonField<Metadata> = JsonMissing.of()
-            private var posted: JsonField<Boolean> = JsonMissing.of()
-            private var type: JsonField<Type> = JsonMissing.of()
-            private var vendorDescription: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(transactionCreateRequest: TransactionCreateRequest) = apply {
-                amount = transactionCreateRequest.amount
-                asOfDate = transactionCreateRequest.asOfDate
-                direction = transactionCreateRequest.direction
-                internalAccountId = transactionCreateRequest.internalAccountId
-                vendorCode = transactionCreateRequest.vendorCode
-                vendorCodeType = transactionCreateRequest.vendorCodeType
-                metadata = transactionCreateRequest.metadata
-                posted = transactionCreateRequest.posted
-                type = transactionCreateRequest.type
-                vendorDescription = transactionCreateRequest.vendorDescription
-                additionalProperties = transactionCreateRequest.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
-             */
-            fun amount(amount: Long) = amount(JsonField.of(amount))
-
-            /**
-             * Sets [Builder.amount] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-            /** The date on which the transaction occurred. */
-            fun asOfDate(asOfDate: LocalDate?) = asOfDate(JsonField.ofNullable(asOfDate))
-
-            /**
-             * Sets [Builder.asOfDate] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.asOfDate] with a well-typed [LocalDate] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
-
-            /** Either `credit` or `debit`. */
-            fun direction(direction: String) = direction(JsonField.of(direction))
-
-            /**
-             * Sets [Builder.direction] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.direction] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun direction(direction: JsonField<String>) = apply { this.direction = direction }
-
-            /** The ID of the relevant Internal Account. */
-            fun internalAccountId(internalAccountId: String) =
-                internalAccountId(JsonField.of(internalAccountId))
-
-            /**
-             * Sets [Builder.internalAccountId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.internalAccountId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun internalAccountId(internalAccountId: JsonField<String>) = apply {
-                this.internalAccountId = internalAccountId
-            }
-
-            /**
-             * When applicable, the bank-given code that determines the transaction's category. For
-             * most banks this is the BAI2/BTRS transaction code.
-             */
-            fun vendorCode(vendorCode: String?) = vendorCode(JsonField.ofNullable(vendorCode))
-
-            /**
-             * Sets [Builder.vendorCode] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.vendorCode] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun vendorCode(vendorCode: JsonField<String>) = apply { this.vendorCode = vendorCode }
-
-            /**
-             * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`,
-             * `bnk_dev`, `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`,
-             * `evolve`, `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`,
-             * `us_bank`, or others.
-             */
-            fun vendorCodeType(vendorCodeType: String?) =
-                vendorCodeType(JsonField.ofNullable(vendorCodeType))
-
-            /**
-             * Sets [Builder.vendorCodeType] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.vendorCodeType] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun vendorCodeType(vendorCodeType: JsonField<String>) = apply {
-                this.vendorCodeType = vendorCodeType
-            }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-            /**
-             * Sets [Builder.metadata] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-            /** This field will be `true` if the transaction has posted to the account. */
-            fun posted(posted: Boolean) = posted(JsonField.of(posted))
-
-            /**
-             * Sets [Builder.posted] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.posted] with a well-typed [Boolean] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun posted(posted: JsonField<Boolean>) = apply { this.posted = posted }
-
-            /**
-             * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
-             * `book`, or `sen`.
-             */
-            fun type(type: Type?) = type(JsonField.ofNullable(type))
-
-            /**
-             * Sets [Builder.type] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun type(type: JsonField<Type>) = apply { this.type = type }
-
-            /**
-             * The transaction detail text that often appears in on your bank statement and in your
-             * banking portal.
-             */
-            fun vendorDescription(vendorDescription: String?) =
-                vendorDescription(JsonField.ofNullable(vendorDescription))
-
-            /**
-             * Sets [Builder.vendorDescription] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.vendorDescription] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun vendorDescription(vendorDescription: JsonField<String>) = apply {
-                this.vendorDescription = vendorDescription
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [TransactionCreateRequest].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .amount()
-             * .asOfDate()
-             * .direction()
-             * .internalAccountId()
-             * .vendorCode()
-             * .vendorCodeType()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): TransactionCreateRequest =
-                TransactionCreateRequest(
-                    checkRequired("amount", amount),
-                    checkRequired("asOfDate", asOfDate),
-                    checkRequired("direction", direction),
-                    checkRequired("internalAccountId", internalAccountId),
-                    checkRequired("vendorCode", vendorCode),
-                    checkRequired("vendorCodeType", vendorCodeType),
-                    metadata,
-                    posted,
-                    type,
-                    vendorDescription,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is TransactionCreateRequest && amount == other.amount && asOfDate == other.asOfDate && direction == other.direction && internalAccountId == other.internalAccountId && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && metadata == other.metadata && posted == other.posted && type == other.type && vendorDescription == other.vendorDescription && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, asOfDate, direction, internalAccountId, vendorCode, vendorCodeType, metadata, posted, type, vendorDescription, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "TransactionCreateRequest{amount=$amount, asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, metadata=$metadata, posted=$posted, type=$type, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -714,7 +212,6 @@ private constructor(
     }
 
     /** A builder for [TransactionCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: TransactionCreateRequest.Builder = TransactionCreateRequest.builder()
@@ -1012,28 +509,546 @@ private constructor(
             )
     }
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @NoAutoDetect
-    class Metadata
-    @JsonCreator
+    internal fun _body(): TransactionCreateRequest = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class TransactionCreateRequest
     private constructor(
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
+        private val amount: JsonField<Long>,
+        private val asOfDate: JsonField<LocalDate>,
+        private val direction: JsonField<String>,
+        private val internalAccountId: JsonField<String>,
+        private val vendorCode: JsonField<String>,
+        private val vendorCodeType: JsonField<String>,
+        private val metadata: JsonField<Metadata>,
+        private val posted: JsonField<Boolean>,
+        private val type: JsonField<Type>,
+        private val vendorDescription: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("as_of_date")
+            @ExcludeMissing
+            asOfDate: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("direction")
+            @ExcludeMissing
+            direction: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("internal_account_id")
+            @ExcludeMissing
+            internalAccountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("vendor_code")
+            @ExcludeMissing
+            vendorCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("vendor_code_type")
+            @ExcludeMissing
+            vendorCodeType: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("posted") @ExcludeMissing posted: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+            @JsonProperty("vendor_description")
+            @ExcludeMissing
+            vendorDescription: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            amount,
+            asOfDate,
+            direction,
+            internalAccountId,
+            vendorCode,
+            vendorCodeType,
+            metadata,
+            posted,
+            type,
+            vendorDescription,
+            mutableMapOf(),
+        )
+
+        /**
+         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun amount(): Long = amount.getRequired("amount")
+
+        /**
+         * The date on which the transaction occurred.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun asOfDate(): LocalDate? = asOfDate.getNullable("as_of_date")
+
+        /**
+         * Either `credit` or `debit`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun direction(): String = direction.getRequired("direction")
+
+        /**
+         * The ID of the relevant Internal Account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
+
+        /**
+         * When applicable, the bank-given code that determines the transaction's category. For most
+         * banks this is the BAI2/BTRS transaction code.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun vendorCode(): String? = vendorCode.getNullable("vendor_code")
+
+        /**
+         * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
+         * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
+         * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or
+         * others.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun vendorCodeType(): String? = vendorCodeType.getNullable("vendor_code_type")
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
+
+        /**
+         * This field will be `true` if the transaction has posted to the account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun posted(): Boolean? = posted.getNullable("posted")
+
+        /**
+         * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
+         * `book`, or `sen`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun type(): Type? = type.getNullable("type")
+
+        /**
+         * The transaction detail text that often appears in on your bank statement and in your
+         * banking portal.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun vendorDescription(): String? = vendorDescription.getNullable("vendor_description")
+
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /**
+         * Returns the raw JSON value of [asOfDate].
+         *
+         * Unlike [asOfDate], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate(): JsonField<LocalDate> = asOfDate
+
+        /**
+         * Returns the raw JSON value of [direction].
+         *
+         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("direction") @ExcludeMissing fun _direction(): JsonField<String> = direction
+
+        /**
+         * Returns the raw JSON value of [internalAccountId].
+         *
+         * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("internal_account_id")
+        @ExcludeMissing
+        fun _internalAccountId(): JsonField<String> = internalAccountId
+
+        /**
+         * Returns the raw JSON value of [vendorCode].
+         *
+         * Unlike [vendorCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("vendor_code")
+        @ExcludeMissing
+        fun _vendorCode(): JsonField<String> = vendorCode
+
+        /**
+         * Returns the raw JSON value of [vendorCodeType].
+         *
+         * Unlike [vendorCodeType], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("vendor_code_type")
+        @ExcludeMissing
+        fun _vendorCodeType(): JsonField<String> = vendorCodeType
+
+        /**
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+
+        /**
+         * Returns the raw JSON value of [posted].
+         *
+         * Unlike [posted], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("posted") @ExcludeMissing fun _posted(): JsonField<Boolean> = posted
+
+        /**
+         * Returns the raw JSON value of [type].
+         *
+         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+        /**
+         * Returns the raw JSON value of [vendorDescription].
+         *
+         * Unlike [vendorDescription], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("vendor_description")
+        @ExcludeMissing
+        fun _vendorDescription(): JsonField<String> = vendorDescription
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [TransactionCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .asOfDate()
+             * .direction()
+             * .internalAccountId()
+             * .vendorCode()
+             * .vendorCodeType()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [TransactionCreateRequest]. */
+        class Builder internal constructor() {
+
+            private var amount: JsonField<Long>? = null
+            private var asOfDate: JsonField<LocalDate>? = null
+            private var direction: JsonField<String>? = null
+            private var internalAccountId: JsonField<String>? = null
+            private var vendorCode: JsonField<String>? = null
+            private var vendorCodeType: JsonField<String>? = null
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var posted: JsonField<Boolean> = JsonMissing.of()
+            private var type: JsonField<Type> = JsonMissing.of()
+            private var vendorDescription: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(transactionCreateRequest: TransactionCreateRequest) = apply {
+                amount = transactionCreateRequest.amount
+                asOfDate = transactionCreateRequest.asOfDate
+                direction = transactionCreateRequest.direction
+                internalAccountId = transactionCreateRequest.internalAccountId
+                vendorCode = transactionCreateRequest.vendorCode
+                vendorCodeType = transactionCreateRequest.vendorCodeType
+                metadata = transactionCreateRequest.metadata
+                posted = transactionCreateRequest.posted
+                type = transactionCreateRequest.type
+                vendorDescription = transactionCreateRequest.vendorDescription
+                additionalProperties = transactionCreateRequest.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
+             */
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /** The date on which the transaction occurred. */
+            fun asOfDate(asOfDate: LocalDate?) = asOfDate(JsonField.ofNullable(asOfDate))
+
+            /**
+             * Sets [Builder.asOfDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.asOfDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
+
+            /** Either `credit` or `debit`. */
+            fun direction(direction: String) = direction(JsonField.of(direction))
+
+            /**
+             * Sets [Builder.direction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.direction] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun direction(direction: JsonField<String>) = apply { this.direction = direction }
+
+            /** The ID of the relevant Internal Account. */
+            fun internalAccountId(internalAccountId: String) =
+                internalAccountId(JsonField.of(internalAccountId))
+
+            /**
+             * Sets [Builder.internalAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.internalAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun internalAccountId(internalAccountId: JsonField<String>) = apply {
+                this.internalAccountId = internalAccountId
+            }
+
+            /**
+             * When applicable, the bank-given code that determines the transaction's category. For
+             * most banks this is the BAI2/BTRS transaction code.
+             */
+            fun vendorCode(vendorCode: String?) = vendorCode(JsonField.ofNullable(vendorCode))
+
+            /**
+             * Sets [Builder.vendorCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.vendorCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun vendorCode(vendorCode: JsonField<String>) = apply { this.vendorCode = vendorCode }
+
+            /**
+             * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`,
+             * `bnk_dev`, `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`,
+             * `evolve`, `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`,
+             * `us_bank`, or others.
+             */
+            fun vendorCodeType(vendorCodeType: String?) =
+                vendorCodeType(JsonField.ofNullable(vendorCodeType))
+
+            /**
+             * Sets [Builder.vendorCodeType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.vendorCodeType] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun vendorCodeType(vendorCodeType: JsonField<String>) = apply {
+                this.vendorCodeType = vendorCodeType
+            }
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+            /** This field will be `true` if the transaction has posted to the account. */
+            fun posted(posted: Boolean) = posted(JsonField.of(posted))
+
+            /**
+             * Sets [Builder.posted] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.posted] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun posted(posted: JsonField<Boolean>) = apply { this.posted = posted }
+
+            /**
+             * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
+             * `book`, or `sen`.
+             */
+            fun type(type: Type?) = type(JsonField.ofNullable(type))
+
+            /**
+             * Sets [Builder.type] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun type(type: JsonField<Type>) = apply { this.type = type }
+
+            /**
+             * The transaction detail text that often appears in on your bank statement and in your
+             * banking portal.
+             */
+            fun vendorDescription(vendorDescription: String?) =
+                vendorDescription(JsonField.ofNullable(vendorDescription))
+
+            /**
+             * Sets [Builder.vendorDescription] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.vendorDescription] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun vendorDescription(vendorDescription: JsonField<String>) = apply {
+                this.vendorDescription = vendorDescription
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [TransactionCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .asOfDate()
+             * .direction()
+             * .internalAccountId()
+             * .vendorCode()
+             * .vendorCodeType()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): TransactionCreateRequest =
+                TransactionCreateRequest(
+                    checkRequired("amount", amount),
+                    checkRequired("asOfDate", asOfDate),
+                    checkRequired("direction", direction),
+                    checkRequired("internalAccountId", internalAccountId),
+                    checkRequired("vendorCode", vendorCode),
+                    checkRequired("vendorCodeType", vendorCodeType),
+                    metadata,
+                    posted,
+                    type,
+                    vendorDescription,
+                    additionalProperties.toMutableMap(),
+                )
+        }
 
         private var validated: Boolean = false
 
-        fun validate(): Metadata = apply {
+        fun validate(): TransactionCreateRequest = apply {
             if (validated) {
                 return@apply
             }
 
+            amount()
+            asOfDate()
+            direction()
+            internalAccountId()
+            vendorCode()
+            vendorCodeType()
+            metadata()?.validate()
+            posted()
+            type()
+            vendorDescription()
             validated = true
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is TransactionCreateRequest && amount == other.amount && asOfDate == other.asOfDate && direction == other.direction && internalAccountId == other.internalAccountId && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && metadata == other.metadata && posted == other.posted && type == other.type && vendorDescription == other.vendorDescription && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(amount, asOfDate, direction, internalAccountId, vendorCode, vendorCodeType, metadata, posted, type, vendorDescription, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "TransactionCreateRequest{amount=$amount, asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, metadata=$metadata, posted=$posted, type=$type, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
+    }
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    class Metadata
+    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+        @JsonCreator private constructor() : this(mutableMapOf())
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1076,7 +1091,17 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+            fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

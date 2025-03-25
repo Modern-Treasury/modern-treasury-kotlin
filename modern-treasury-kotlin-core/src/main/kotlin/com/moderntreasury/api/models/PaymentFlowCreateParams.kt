@@ -11,15 +11,13 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
+import java.util.Collections
 import java.util.Objects
 
 /** create payment_flow */
@@ -132,358 +130,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): PaymentFlowCreateRequest = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class PaymentFlowCreateRequest
-    @JsonCreator
-    private constructor(
-        @JsonProperty("amount")
-        @ExcludeMissing
-        private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("counterparty_id")
-        @ExcludeMissing
-        private val counterpartyId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("currency")
-        @ExcludeMissing
-        private val currency: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("direction")
-        @ExcludeMissing
-        private val direction: JsonField<Direction> = JsonMissing.of(),
-        @JsonProperty("originating_account_id")
-        @ExcludeMissing
-        private val originatingAccountId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("due_date")
-        @ExcludeMissing
-        private val dueDate: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
-         * as 1000. Can be any integer up to 36 digits.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun amount(): Long = amount.getRequired("amount")
-
-        /**
-         * Required. The ID of a counterparty associated with the payment. As part of the payment
-         * workflow an external account will be associated with this model.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun counterpartyId(): String = counterpartyId.getRequired("counterparty_id")
-
-        /**
-         * Required. The currency of the payment.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun currency(): String = currency.getRequired("currency")
-
-        /**
-         * Required. Describes the direction money is flowing in the transaction. Can only be
-         * `debit`. A `debit` pulls money from someone else's account to your own.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun direction(): Direction = direction.getRequired("direction")
-
-        /**
-         * Required. The ID of one of your organization's internal accounts.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun originatingAccountId(): String =
-            originatingAccountId.getRequired("originating_account_id")
-
-        /**
-         * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When
-         * set, the due date is shown to your end-user in the pre-built UI as they are selecting a
-         * payment `effective_date`.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun dueDate(): LocalDate? = dueDate.getNullable("due_date")
-
-        /**
-         * Returns the raw JSON value of [amount].
-         *
-         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-        /**
-         * Returns the raw JSON value of [counterpartyId].
-         *
-         * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("counterparty_id")
-        @ExcludeMissing
-        fun _counterpartyId(): JsonField<String> = counterpartyId
-
-        /**
-         * Returns the raw JSON value of [currency].
-         *
-         * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
-
-        /**
-         * Returns the raw JSON value of [direction].
-         *
-         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("direction")
-        @ExcludeMissing
-        fun _direction(): JsonField<Direction> = direction
-
-        /**
-         * Returns the raw JSON value of [originatingAccountId].
-         *
-         * Unlike [originatingAccountId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("originating_account_id")
-        @ExcludeMissing
-        fun _originatingAccountId(): JsonField<String> = originatingAccountId
-
-        /**
-         * Returns the raw JSON value of [dueDate].
-         *
-         * Unlike [dueDate], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("due_date") @ExcludeMissing fun _dueDate(): JsonField<LocalDate> = dueDate
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): PaymentFlowCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            amount()
-            counterpartyId()
-            currency()
-            direction()
-            originatingAccountId()
-            dueDate()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [PaymentFlowCreateRequest].
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .amount()
-             * .counterpartyId()
-             * .currency()
-             * .direction()
-             * .originatingAccountId()
-             * ```
-             */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [PaymentFlowCreateRequest]. */
-        class Builder internal constructor() {
-
-            private var amount: JsonField<Long>? = null
-            private var counterpartyId: JsonField<String>? = null
-            private var currency: JsonField<String>? = null
-            private var direction: JsonField<Direction>? = null
-            private var originatingAccountId: JsonField<String>? = null
-            private var dueDate: JsonField<LocalDate> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(paymentFlowCreateRequest: PaymentFlowCreateRequest) = apply {
-                amount = paymentFlowCreateRequest.amount
-                counterpartyId = paymentFlowCreateRequest.counterpartyId
-                currency = paymentFlowCreateRequest.currency
-                direction = paymentFlowCreateRequest.direction
-                originatingAccountId = paymentFlowCreateRequest.originatingAccountId
-                dueDate = paymentFlowCreateRequest.dueDate
-                additionalProperties = paymentFlowCreateRequest.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
-             * as 1000. Can be any integer up to 36 digits.
-             */
-            fun amount(amount: Long) = amount(JsonField.of(amount))
-
-            /**
-             * Sets [Builder.amount] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-            /**
-             * Required. The ID of a counterparty associated with the payment. As part of the
-             * payment workflow an external account will be associated with this model.
-             */
-            fun counterpartyId(counterpartyId: String) =
-                counterpartyId(JsonField.of(counterpartyId))
-
-            /**
-             * Sets [Builder.counterpartyId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.counterpartyId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun counterpartyId(counterpartyId: JsonField<String>) = apply {
-                this.counterpartyId = counterpartyId
-            }
-
-            /** Required. The currency of the payment. */
-            fun currency(currency: String) = currency(JsonField.of(currency))
-
-            /**
-             * Sets [Builder.currency] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.currency] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun currency(currency: JsonField<String>) = apply { this.currency = currency }
-
-            /**
-             * Required. Describes the direction money is flowing in the transaction. Can only be
-             * `debit`. A `debit` pulls money from someone else's account to your own.
-             */
-            fun direction(direction: Direction) = direction(JsonField.of(direction))
-
-            /**
-             * Sets [Builder.direction] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.direction] with a well-typed [Direction] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
-
-            /** Required. The ID of one of your organization's internal accounts. */
-            fun originatingAccountId(originatingAccountId: String) =
-                originatingAccountId(JsonField.of(originatingAccountId))
-
-            /**
-             * Sets [Builder.originatingAccountId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.originatingAccountId] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
-                this.originatingAccountId = originatingAccountId
-            }
-
-            /**
-             * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`.
-             * When set, the due date is shown to your end-user in the pre-built UI as they are
-             * selecting a payment `effective_date`.
-             */
-            fun dueDate(dueDate: LocalDate) = dueDate(JsonField.of(dueDate))
-
-            /**
-             * Sets [Builder.dueDate] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.dueDate] with a well-typed [LocalDate] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun dueDate(dueDate: JsonField<LocalDate>) = apply { this.dueDate = dueDate }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [PaymentFlowCreateRequest].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .amount()
-             * .counterpartyId()
-             * .currency()
-             * .direction()
-             * .originatingAccountId()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): PaymentFlowCreateRequest =
-                PaymentFlowCreateRequest(
-                    checkRequired("amount", amount),
-                    checkRequired("counterpartyId", counterpartyId),
-                    checkRequired("currency", currency),
-                    checkRequired("direction", direction),
-                    checkRequired("originatingAccountId", originatingAccountId),
-                    dueDate,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is PaymentFlowCreateRequest && amount == other.amount && counterpartyId == other.counterpartyId && currency == other.currency && direction == other.direction && originatingAccountId == other.originatingAccountId && dueDate == other.dueDate && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, counterpartyId, currency, direction, originatingAccountId, dueDate, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "PaymentFlowCreateRequest{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, dueDate=$dueDate, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -504,7 +150,6 @@ private constructor(
     }
 
     /** A builder for [PaymentFlowCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: PaymentFlowCreateRequest.Builder = PaymentFlowCreateRequest.builder()
@@ -745,6 +390,377 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    internal fun _body(): PaymentFlowCreateRequest = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class PaymentFlowCreateRequest
+    private constructor(
+        private val amount: JsonField<Long>,
+        private val counterpartyId: JsonField<String>,
+        private val currency: JsonField<String>,
+        private val direction: JsonField<Direction>,
+        private val originatingAccountId: JsonField<String>,
+        private val dueDate: JsonField<LocalDate>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("counterparty_id")
+            @ExcludeMissing
+            counterpartyId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("currency")
+            @ExcludeMissing
+            currency: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("direction")
+            @ExcludeMissing
+            direction: JsonField<Direction> = JsonMissing.of(),
+            @JsonProperty("originating_account_id")
+            @ExcludeMissing
+            originatingAccountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("due_date")
+            @ExcludeMissing
+            dueDate: JsonField<LocalDate> = JsonMissing.of(),
+        ) : this(
+            amount,
+            counterpartyId,
+            currency,
+            direction,
+            originatingAccountId,
+            dueDate,
+            mutableMapOf(),
+        )
+
+        /**
+         * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
+         * as 1000. Can be any integer up to 36 digits.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun amount(): Long = amount.getRequired("amount")
+
+        /**
+         * Required. The ID of a counterparty associated with the payment. As part of the payment
+         * workflow an external account will be associated with this model.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun counterpartyId(): String = counterpartyId.getRequired("counterparty_id")
+
+        /**
+         * Required. The currency of the payment.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun currency(): String = currency.getRequired("currency")
+
+        /**
+         * Required. Describes the direction money is flowing in the transaction. Can only be
+         * `debit`. A `debit` pulls money from someone else's account to your own.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun direction(): Direction = direction.getRequired("direction")
+
+        /**
+         * Required. The ID of one of your organization's internal accounts.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun originatingAccountId(): String =
+            originatingAccountId.getRequired("originating_account_id")
+
+        /**
+         * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`. When
+         * set, the due date is shown to your end-user in the pre-built UI as they are selecting a
+         * payment `effective_date`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun dueDate(): LocalDate? = dueDate.getNullable("due_date")
+
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /**
+         * Returns the raw JSON value of [counterpartyId].
+         *
+         * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        fun _counterpartyId(): JsonField<String> = counterpartyId
+
+        /**
+         * Returns the raw JSON value of [currency].
+         *
+         * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
+
+        /**
+         * Returns the raw JSON value of [direction].
+         *
+         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("direction")
+        @ExcludeMissing
+        fun _direction(): JsonField<Direction> = direction
+
+        /**
+         * Returns the raw JSON value of [originatingAccountId].
+         *
+         * Unlike [originatingAccountId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("originating_account_id")
+        @ExcludeMissing
+        fun _originatingAccountId(): JsonField<String> = originatingAccountId
+
+        /**
+         * Returns the raw JSON value of [dueDate].
+         *
+         * Unlike [dueDate], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("due_date") @ExcludeMissing fun _dueDate(): JsonField<LocalDate> = dueDate
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [PaymentFlowCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .counterpartyId()
+             * .currency()
+             * .direction()
+             * .originatingAccountId()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [PaymentFlowCreateRequest]. */
+        class Builder internal constructor() {
+
+            private var amount: JsonField<Long>? = null
+            private var counterpartyId: JsonField<String>? = null
+            private var currency: JsonField<String>? = null
+            private var direction: JsonField<Direction>? = null
+            private var originatingAccountId: JsonField<String>? = null
+            private var dueDate: JsonField<LocalDate> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(paymentFlowCreateRequest: PaymentFlowCreateRequest) = apply {
+                amount = paymentFlowCreateRequest.amount
+                counterpartyId = paymentFlowCreateRequest.counterpartyId
+                currency = paymentFlowCreateRequest.currency
+                direction = paymentFlowCreateRequest.direction
+                originatingAccountId = paymentFlowCreateRequest.originatingAccountId
+                dueDate = paymentFlowCreateRequest.dueDate
+                additionalProperties = paymentFlowCreateRequest.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
+             * as 1000. Can be any integer up to 36 digits.
+             */
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /**
+             * Required. The ID of a counterparty associated with the payment. As part of the
+             * payment workflow an external account will be associated with this model.
+             */
+            fun counterpartyId(counterpartyId: String) =
+                counterpartyId(JsonField.of(counterpartyId))
+
+            /**
+             * Sets [Builder.counterpartyId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.counterpartyId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun counterpartyId(counterpartyId: JsonField<String>) = apply {
+                this.counterpartyId = counterpartyId
+            }
+
+            /** Required. The currency of the payment. */
+            fun currency(currency: String) = currency(JsonField.of(currency))
+
+            /**
+             * Sets [Builder.currency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.currency] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun currency(currency: JsonField<String>) = apply { this.currency = currency }
+
+            /**
+             * Required. Describes the direction money is flowing in the transaction. Can only be
+             * `debit`. A `debit` pulls money from someone else's account to your own.
+             */
+            fun direction(direction: Direction) = direction(JsonField.of(direction))
+
+            /**
+             * Sets [Builder.direction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.direction] with a well-typed [Direction] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
+
+            /** Required. The ID of one of your organization's internal accounts. */
+            fun originatingAccountId(originatingAccountId: String) =
+                originatingAccountId(JsonField.of(originatingAccountId))
+
+            /**
+             * Sets [Builder.originatingAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatingAccountId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
+                this.originatingAccountId = originatingAccountId
+            }
+
+            /**
+             * Optional. Can only be passed in when `effective_date_selection_enabled` is `true`.
+             * When set, the due date is shown to your end-user in the pre-built UI as they are
+             * selecting a payment `effective_date`.
+             */
+            fun dueDate(dueDate: LocalDate) = dueDate(JsonField.of(dueDate))
+
+            /**
+             * Sets [Builder.dueDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dueDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun dueDate(dueDate: JsonField<LocalDate>) = apply { this.dueDate = dueDate }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [PaymentFlowCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .counterpartyId()
+             * .currency()
+             * .direction()
+             * .originatingAccountId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): PaymentFlowCreateRequest =
+                PaymentFlowCreateRequest(
+                    checkRequired("amount", amount),
+                    checkRequired("counterpartyId", counterpartyId),
+                    checkRequired("currency", currency),
+                    checkRequired("direction", direction),
+                    checkRequired("originatingAccountId", originatingAccountId),
+                    dueDate,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): PaymentFlowCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            amount()
+            counterpartyId()
+            currency()
+            direction()
+            originatingAccountId()
+            dueDate()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is PaymentFlowCreateRequest && amount == other.amount && counterpartyId == other.counterpartyId && currency == other.currency && direction == other.direction && originatingAccountId == other.originatingAccountId && dueDate == other.dueDate && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(amount, counterpartyId, currency, direction, originatingAccountId, dueDate, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "PaymentFlowCreateRequest{amount=$amount, counterpartyId=$counterpartyId, currency=$currency, direction=$direction, originatingAccountId=$originatingAccountId, dueDate=$dueDate, additionalProperties=$additionalProperties}"
     }
 
     /**

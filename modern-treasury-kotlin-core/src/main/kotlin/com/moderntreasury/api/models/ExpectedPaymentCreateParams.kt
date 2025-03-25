@@ -11,17 +11,16 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
 /** create expected payment */
@@ -319,889 +318,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): ExpectedPaymentCreateRequest = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class ExpectedPaymentCreateRequest
-    @JsonCreator
-    private constructor(
-        @JsonProperty("amount_lower_bound")
-        @ExcludeMissing
-        private val amountLowerBound: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("amount_upper_bound")
-        @ExcludeMissing
-        private val amountUpperBound: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("counterparty_id")
-        @ExcludeMissing
-        private val counterpartyId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("currency")
-        @ExcludeMissing
-        private val currency: JsonField<Currency> = JsonMissing.of(),
-        @JsonProperty("date_lower_bound")
-        @ExcludeMissing
-        private val dateLowerBound: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonProperty("date_upper_bound")
-        @ExcludeMissing
-        private val dateUpperBound: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonProperty("description")
-        @ExcludeMissing
-        private val description: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("direction")
-        @ExcludeMissing
-        private val direction: JsonField<Direction> = JsonMissing.of(),
-        @JsonProperty("internal_account_id")
-        @ExcludeMissing
-        private val internalAccountId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("ledger_transaction")
-        @ExcludeMissing
-        private val ledgerTransaction: JsonField<LedgerTransactionCreateRequest> = JsonMissing.of(),
-        @JsonProperty("ledger_transaction_id")
-        @ExcludeMissing
-        private val ledgerTransactionId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line_items")
-        @ExcludeMissing
-        private val lineItems: JsonField<List<LineItemRequest>> = JsonMissing.of(),
-        @JsonProperty("metadata")
-        @ExcludeMissing
-        private val metadata: JsonField<Metadata> = JsonMissing.of(),
-        @JsonProperty("reconciliation_filters")
-        @ExcludeMissing
-        private val reconciliationFilters: JsonValue = JsonMissing.of(),
-        @JsonProperty("reconciliation_groups")
-        @ExcludeMissing
-        private val reconciliationGroups: JsonValue = JsonMissing.of(),
-        @JsonProperty("reconciliation_rule_variables")
-        @ExcludeMissing
-        private val reconciliationRuleVariables: JsonField<List<ReconciliationRule>> =
-            JsonMissing.of(),
-        @JsonProperty("remittance_information")
-        @ExcludeMissing
-        private val remittanceInformation: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("statement_descriptor")
-        @ExcludeMissing
-        private val statementDescriptor: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("type")
-        @ExcludeMissing
-        private val type: JsonField<ExpectedPaymentType> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The lowest amount this expected payment may be equal to. Value in specified currency's
-         * smallest unit. e.g. $10 would be represented as 1000.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun amountLowerBound(): Long? = amountLowerBound.getNullable("amount_lower_bound")
-
-        /**
-         * The highest amount this expected payment may be equal to. Value in specified currency's
-         * smallest unit. e.g. $10 would be represented as 1000.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun amountUpperBound(): Long? = amountUpperBound.getNullable("amount_upper_bound")
-
-        /**
-         * The ID of the counterparty you expect for this payment.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
-
-        /**
-         * Must conform to ISO 4217. Defaults to the currency of the internal account.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun currency(): Currency? = currency.getNullable("currency")
-
-        /**
-         * The earliest date the payment may come in. Format: yyyy-mm-dd
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun dateLowerBound(): LocalDate? = dateLowerBound.getNullable("date_lower_bound")
-
-        /**
-         * The latest date the payment may come in. Format: yyyy-mm-dd
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun dateUpperBound(): LocalDate? = dateUpperBound.getNullable("date_upper_bound")
-
-        /**
-         * An optional description for internal use.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun description(): String? = description.getNullable("description")
-
-        /**
-         * One of credit or debit. When you are receiving money, use credit. When you are being
-         * charged, use debit.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun direction(): Direction? = direction.getNullable("direction")
-
-        /**
-         * The ID of the Internal Account for the expected payment.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun internalAccountId(): String? = internalAccountId.getNullable("internal_account_id")
-
-        /**
-         * Specifies a ledger transaction object that will be created with the expected payment. If
-         * the ledger transaction cannot be created, then the expected payment creation will fail.
-         * The resulting ledger transaction will mirror the status of the expected payment.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun ledgerTransaction(): LedgerTransactionCreateRequest? =
-            ledgerTransaction.getNullable("ledger_transaction")
-
-        /**
-         * Either ledger_transaction or ledger_transaction_id can be provided. Only a pending ledger
-         * transaction can be attached upon expected payment creation. Once the expected payment is
-         * created, the status of the ledger transaction tracks the expected payment automatically.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun ledgerTransactionId(): String? =
-            ledgerTransactionId.getNullable("ledger_transaction_id")
-
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun lineItems(): List<LineItemRequest>? = lineItems.getNullable("line_items")
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-        /** The reconciliation filters you have for this payment. */
-        @JsonProperty("reconciliation_filters")
-        @ExcludeMissing
-        fun _reconciliationFilters(): JsonValue = reconciliationFilters
-
-        /** The reconciliation groups you have for this payment. */
-        @JsonProperty("reconciliation_groups")
-        @ExcludeMissing
-        fun _reconciliationGroups(): JsonValue = reconciliationGroups
-
-        /**
-         * An array of reconciliation rule variables for this payment.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun reconciliationRuleVariables(): List<ReconciliationRule>? =
-            reconciliationRuleVariables.getNullable("reconciliation_rule_variables")
-
-        /**
-         * For `ach`, this field will be passed through on an addenda record. For `wire` payments
-         * the field will be passed through as the "Originator to Beneficiary Information", also
-         * known as OBI or Fedwire tag 6000.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun remittanceInformation(): String? =
-            remittanceInformation.getNullable("remittance_information")
-
-        /**
-         * The statement description you expect to see on the transaction. For ACH payments, this
-         * will be the full line item passed from the bank. For wire payments, this will be the OBI
-         * field on the wire. For check payments, this will be the memo field.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun statementDescriptor(): String? = statementDescriptor.getNullable("statement_descriptor")
-
-        /**
-         * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
-         * signet, wire.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun type(): ExpectedPaymentType? = type.getNullable("type")
-
-        /**
-         * Returns the raw JSON value of [amountLowerBound].
-         *
-         * Unlike [amountLowerBound], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("amount_lower_bound")
-        @ExcludeMissing
-        fun _amountLowerBound(): JsonField<Long> = amountLowerBound
-
-        /**
-         * Returns the raw JSON value of [amountUpperBound].
-         *
-         * Unlike [amountUpperBound], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("amount_upper_bound")
-        @ExcludeMissing
-        fun _amountUpperBound(): JsonField<Long> = amountUpperBound
-
-        /**
-         * Returns the raw JSON value of [counterpartyId].
-         *
-         * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("counterparty_id")
-        @ExcludeMissing
-        fun _counterpartyId(): JsonField<String> = counterpartyId
-
-        /**
-         * Returns the raw JSON value of [currency].
-         *
-         * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
-
-        /**
-         * Returns the raw JSON value of [dateLowerBound].
-         *
-         * Unlike [dateLowerBound], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("date_lower_bound")
-        @ExcludeMissing
-        fun _dateLowerBound(): JsonField<LocalDate> = dateLowerBound
-
-        /**
-         * Returns the raw JSON value of [dateUpperBound].
-         *
-         * Unlike [dateUpperBound], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("date_upper_bound")
-        @ExcludeMissing
-        fun _dateUpperBound(): JsonField<LocalDate> = dateUpperBound
-
-        /**
-         * Returns the raw JSON value of [description].
-         *
-         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("description")
-        @ExcludeMissing
-        fun _description(): JsonField<String> = description
-
-        /**
-         * Returns the raw JSON value of [direction].
-         *
-         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("direction")
-        @ExcludeMissing
-        fun _direction(): JsonField<Direction> = direction
-
-        /**
-         * Returns the raw JSON value of [internalAccountId].
-         *
-         * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("internal_account_id")
-        @ExcludeMissing
-        fun _internalAccountId(): JsonField<String> = internalAccountId
-
-        /**
-         * Returns the raw JSON value of [ledgerTransaction].
-         *
-         * Unlike [ledgerTransaction], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("ledger_transaction")
-        @ExcludeMissing
-        fun _ledgerTransaction(): JsonField<LedgerTransactionCreateRequest> = ledgerTransaction
-
-        /**
-         * Returns the raw JSON value of [ledgerTransactionId].
-         *
-         * Unlike [ledgerTransactionId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("ledger_transaction_id")
-        @ExcludeMissing
-        fun _ledgerTransactionId(): JsonField<String> = ledgerTransactionId
-
-        /**
-         * Returns the raw JSON value of [lineItems].
-         *
-         * Unlike [lineItems], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("line_items")
-        @ExcludeMissing
-        fun _lineItems(): JsonField<List<LineItemRequest>> = lineItems
-
-        /**
-         * Returns the raw JSON value of [metadata].
-         *
-         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
-
-        /**
-         * Returns the raw JSON value of [reconciliationRuleVariables].
-         *
-         * Unlike [reconciliationRuleVariables], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("reconciliation_rule_variables")
-        @ExcludeMissing
-        fun _reconciliationRuleVariables(): JsonField<List<ReconciliationRule>> =
-            reconciliationRuleVariables
-
-        /**
-         * Returns the raw JSON value of [remittanceInformation].
-         *
-         * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("remittance_information")
-        @ExcludeMissing
-        fun _remittanceInformation(): JsonField<String> = remittanceInformation
-
-        /**
-         * Returns the raw JSON value of [statementDescriptor].
-         *
-         * Unlike [statementDescriptor], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("statement_descriptor")
-        @ExcludeMissing
-        fun _statementDescriptor(): JsonField<String> = statementDescriptor
-
-        /**
-         * Returns the raw JSON value of [type].
-         *
-         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<ExpectedPaymentType> = type
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): ExpectedPaymentCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            amountLowerBound()
-            amountUpperBound()
-            counterpartyId()
-            currency()
-            dateLowerBound()
-            dateUpperBound()
-            description()
-            direction()
-            internalAccountId()
-            ledgerTransaction()?.validate()
-            ledgerTransactionId()
-            lineItems()?.forEach { it.validate() }
-            metadata()?.validate()
-            reconciliationRuleVariables()?.forEach { it.validate() }
-            remittanceInformation()
-            statementDescriptor()
-            type()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of
-             * [ExpectedPaymentCreateRequest].
-             */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [ExpectedPaymentCreateRequest]. */
-        class Builder internal constructor() {
-
-            private var amountLowerBound: JsonField<Long> = JsonMissing.of()
-            private var amountUpperBound: JsonField<Long> = JsonMissing.of()
-            private var counterpartyId: JsonField<String> = JsonMissing.of()
-            private var currency: JsonField<Currency> = JsonMissing.of()
-            private var dateLowerBound: JsonField<LocalDate> = JsonMissing.of()
-            private var dateUpperBound: JsonField<LocalDate> = JsonMissing.of()
-            private var description: JsonField<String> = JsonMissing.of()
-            private var direction: JsonField<Direction> = JsonMissing.of()
-            private var internalAccountId: JsonField<String> = JsonMissing.of()
-            private var ledgerTransaction: JsonField<LedgerTransactionCreateRequest> =
-                JsonMissing.of()
-            private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
-            private var lineItems: JsonField<MutableList<LineItemRequest>>? = null
-            private var metadata: JsonField<Metadata> = JsonMissing.of()
-            private var reconciliationFilters: JsonValue = JsonMissing.of()
-            private var reconciliationGroups: JsonValue = JsonMissing.of()
-            private var reconciliationRuleVariables: JsonField<MutableList<ReconciliationRule>>? =
-                null
-            private var remittanceInformation: JsonField<String> = JsonMissing.of()
-            private var statementDescriptor: JsonField<String> = JsonMissing.of()
-            private var type: JsonField<ExpectedPaymentType> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(expectedPaymentCreateRequest: ExpectedPaymentCreateRequest) = apply {
-                amountLowerBound = expectedPaymentCreateRequest.amountLowerBound
-                amountUpperBound = expectedPaymentCreateRequest.amountUpperBound
-                counterpartyId = expectedPaymentCreateRequest.counterpartyId
-                currency = expectedPaymentCreateRequest.currency
-                dateLowerBound = expectedPaymentCreateRequest.dateLowerBound
-                dateUpperBound = expectedPaymentCreateRequest.dateUpperBound
-                description = expectedPaymentCreateRequest.description
-                direction = expectedPaymentCreateRequest.direction
-                internalAccountId = expectedPaymentCreateRequest.internalAccountId
-                ledgerTransaction = expectedPaymentCreateRequest.ledgerTransaction
-                ledgerTransactionId = expectedPaymentCreateRequest.ledgerTransactionId
-                lineItems = expectedPaymentCreateRequest.lineItems.map { it.toMutableList() }
-                metadata = expectedPaymentCreateRequest.metadata
-                reconciliationFilters = expectedPaymentCreateRequest.reconciliationFilters
-                reconciliationGroups = expectedPaymentCreateRequest.reconciliationGroups
-                reconciliationRuleVariables =
-                    expectedPaymentCreateRequest.reconciliationRuleVariables.map {
-                        it.toMutableList()
-                    }
-                remittanceInformation = expectedPaymentCreateRequest.remittanceInformation
-                statementDescriptor = expectedPaymentCreateRequest.statementDescriptor
-                type = expectedPaymentCreateRequest.type
-                additionalProperties =
-                    expectedPaymentCreateRequest.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * The lowest amount this expected payment may be equal to. Value in specified
-             * currency's smallest unit. e.g. $10 would be represented as 1000.
-             */
-            fun amountLowerBound(amountLowerBound: Long?) =
-                amountLowerBound(JsonField.ofNullable(amountLowerBound))
-
-            /**
-             * Alias for [Builder.amountLowerBound].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun amountLowerBound(amountLowerBound: Long) =
-                amountLowerBound(amountLowerBound as Long?)
-
-            /**
-             * Sets [Builder.amountLowerBound] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.amountLowerBound] with a well-typed [Long] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun amountLowerBound(amountLowerBound: JsonField<Long>) = apply {
-                this.amountLowerBound = amountLowerBound
-            }
-
-            /**
-             * The highest amount this expected payment may be equal to. Value in specified
-             * currency's smallest unit. e.g. $10 would be represented as 1000.
-             */
-            fun amountUpperBound(amountUpperBound: Long?) =
-                amountUpperBound(JsonField.ofNullable(amountUpperBound))
-
-            /**
-             * Alias for [Builder.amountUpperBound].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun amountUpperBound(amountUpperBound: Long) =
-                amountUpperBound(amountUpperBound as Long?)
-
-            /**
-             * Sets [Builder.amountUpperBound] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.amountUpperBound] with a well-typed [Long] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun amountUpperBound(amountUpperBound: JsonField<Long>) = apply {
-                this.amountUpperBound = amountUpperBound
-            }
-
-            /** The ID of the counterparty you expect for this payment. */
-            fun counterpartyId(counterpartyId: String?) =
-                counterpartyId(JsonField.ofNullable(counterpartyId))
-
-            /**
-             * Sets [Builder.counterpartyId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.counterpartyId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun counterpartyId(counterpartyId: JsonField<String>) = apply {
-                this.counterpartyId = counterpartyId
-            }
-
-            /** Must conform to ISO 4217. Defaults to the currency of the internal account. */
-            fun currency(currency: Currency?) = currency(JsonField.ofNullable(currency))
-
-            /**
-             * Sets [Builder.currency] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.currency] with a well-typed [Currency] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-            /** The earliest date the payment may come in. Format: yyyy-mm-dd */
-            fun dateLowerBound(dateLowerBound: LocalDate?) =
-                dateLowerBound(JsonField.ofNullable(dateLowerBound))
-
-            /**
-             * Sets [Builder.dateLowerBound] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.dateLowerBound] with a well-typed [LocalDate] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun dateLowerBound(dateLowerBound: JsonField<LocalDate>) = apply {
-                this.dateLowerBound = dateLowerBound
-            }
-
-            /** The latest date the payment may come in. Format: yyyy-mm-dd */
-            fun dateUpperBound(dateUpperBound: LocalDate?) =
-                dateUpperBound(JsonField.ofNullable(dateUpperBound))
-
-            /**
-             * Sets [Builder.dateUpperBound] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.dateUpperBound] with a well-typed [LocalDate] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun dateUpperBound(dateUpperBound: JsonField<LocalDate>) = apply {
-                this.dateUpperBound = dateUpperBound
-            }
-
-            /** An optional description for internal use. */
-            fun description(description: String?) = description(JsonField.ofNullable(description))
-
-            /**
-             * Sets [Builder.description] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.description] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun description(description: JsonField<String>) = apply {
-                this.description = description
-            }
-
-            /**
-             * One of credit or debit. When you are receiving money, use credit. When you are being
-             * charged, use debit.
-             */
-            fun direction(direction: Direction?) = direction(JsonField.ofNullable(direction))
-
-            /**
-             * Sets [Builder.direction] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.direction] with a well-typed [Direction] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
-
-            /** The ID of the Internal Account for the expected payment. */
-            fun internalAccountId(internalAccountId: String?) =
-                internalAccountId(JsonField.ofNullable(internalAccountId))
-
-            /**
-             * Sets [Builder.internalAccountId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.internalAccountId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun internalAccountId(internalAccountId: JsonField<String>) = apply {
-                this.internalAccountId = internalAccountId
-            }
-
-            /**
-             * Specifies a ledger transaction object that will be created with the expected payment.
-             * If the ledger transaction cannot be created, then the expected payment creation will
-             * fail. The resulting ledger transaction will mirror the status of the expected
-             * payment.
-             */
-            fun ledgerTransaction(ledgerTransaction: LedgerTransactionCreateRequest) =
-                ledgerTransaction(JsonField.of(ledgerTransaction))
-
-            /**
-             * Sets [Builder.ledgerTransaction] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.ledgerTransaction] with a well-typed
-             * [LedgerTransactionCreateRequest] value instead. This method is primarily for setting
-             * the field to an undocumented or not yet supported value.
-             */
-            fun ledgerTransaction(ledgerTransaction: JsonField<LedgerTransactionCreateRequest>) =
-                apply {
-                    this.ledgerTransaction = ledgerTransaction
-                }
-
-            /**
-             * Either ledger_transaction or ledger_transaction_id can be provided. Only a pending
-             * ledger transaction can be attached upon expected payment creation. Once the expected
-             * payment is created, the status of the ledger transaction tracks the expected payment
-             * automatically.
-             */
-            fun ledgerTransactionId(ledgerTransactionId: String) =
-                ledgerTransactionId(JsonField.of(ledgerTransactionId))
-
-            /**
-             * Sets [Builder.ledgerTransactionId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.ledgerTransactionId] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
-                this.ledgerTransactionId = ledgerTransactionId
-            }
-
-            fun lineItems(lineItems: List<LineItemRequest>) = lineItems(JsonField.of(lineItems))
-
-            /**
-             * Sets [Builder.lineItems] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.lineItems] with a well-typed `List<LineItemRequest>`
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun lineItems(lineItems: JsonField<List<LineItemRequest>>) = apply {
-                this.lineItems = lineItems.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [LineItemRequest] to [lineItems].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addLineItem(lineItem: LineItemRequest) = apply {
-                lineItems =
-                    (lineItems ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("lineItems", it).add(lineItem)
-                    }
-            }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-            /**
-             * Sets [Builder.metadata] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-            /** The reconciliation filters you have for this payment. */
-            fun reconciliationFilters(reconciliationFilters: JsonValue) = apply {
-                this.reconciliationFilters = reconciliationFilters
-            }
-
-            /** The reconciliation groups you have for this payment. */
-            fun reconciliationGroups(reconciliationGroups: JsonValue) = apply {
-                this.reconciliationGroups = reconciliationGroups
-            }
-
-            /** An array of reconciliation rule variables for this payment. */
-            fun reconciliationRuleVariables(
-                reconciliationRuleVariables: List<ReconciliationRule>?
-            ) = reconciliationRuleVariables(JsonField.ofNullable(reconciliationRuleVariables))
-
-            /**
-             * Sets [Builder.reconciliationRuleVariables] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.reconciliationRuleVariables] with a well-typed
-             * `List<ReconciliationRule>` value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
-             */
-            fun reconciliationRuleVariables(
-                reconciliationRuleVariables: JsonField<List<ReconciliationRule>>
-            ) = apply {
-                this.reconciliationRuleVariables =
-                    reconciliationRuleVariables.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [ReconciliationRule] to [reconciliationRuleVariables].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addReconciliationRuleVariable(reconciliationRuleVariable: ReconciliationRule) =
-                apply {
-                    reconciliationRuleVariables =
-                        (reconciliationRuleVariables ?: JsonField.of(mutableListOf())).also {
-                            checkKnown("reconciliationRuleVariables", it)
-                                .add(reconciliationRuleVariable)
-                        }
-                }
-
-            /**
-             * For `ach`, this field will be passed through on an addenda record. For `wire`
-             * payments the field will be passed through as the "Originator to Beneficiary
-             * Information", also known as OBI or Fedwire tag 6000.
-             */
-            fun remittanceInformation(remittanceInformation: String?) =
-                remittanceInformation(JsonField.ofNullable(remittanceInformation))
-
-            /**
-             * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.remittanceInformation] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-                this.remittanceInformation = remittanceInformation
-            }
-
-            /**
-             * The statement description you expect to see on the transaction. For ACH payments,
-             * this will be the full line item passed from the bank. For wire payments, this will be
-             * the OBI field on the wire. For check payments, this will be the memo field.
-             */
-            fun statementDescriptor(statementDescriptor: String?) =
-                statementDescriptor(JsonField.ofNullable(statementDescriptor))
-
-            /**
-             * Sets [Builder.statementDescriptor] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.statementDescriptor] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun statementDescriptor(statementDescriptor: JsonField<String>) = apply {
-                this.statementDescriptor = statementDescriptor
-            }
-
-            /**
-             * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
-             * signet, wire.
-             */
-            fun type(type: ExpectedPaymentType?) = type(JsonField.ofNullable(type))
-
-            /**
-             * Sets [Builder.type] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.type] with a well-typed [ExpectedPaymentType] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun type(type: JsonField<ExpectedPaymentType>) = apply { this.type = type }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [ExpectedPaymentCreateRequest].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): ExpectedPaymentCreateRequest =
-                ExpectedPaymentCreateRequest(
-                    amountLowerBound,
-                    amountUpperBound,
-                    counterpartyId,
-                    currency,
-                    dateLowerBound,
-                    dateUpperBound,
-                    description,
-                    direction,
-                    internalAccountId,
-                    ledgerTransaction,
-                    ledgerTransactionId,
-                    (lineItems ?: JsonMissing.of()).map { it.toImmutable() },
-                    metadata,
-                    reconciliationFilters,
-                    reconciliationGroups,
-                    (reconciliationRuleVariables ?: JsonMissing.of()).map { it.toImmutable() },
-                    remittanceInformation,
-                    statementDescriptor,
-                    type,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is ExpectedPaymentCreateRequest && amountLowerBound == other.amountLowerBound && amountUpperBound == other.amountUpperBound && counterpartyId == other.counterpartyId && currency == other.currency && dateLowerBound == other.dateLowerBound && dateUpperBound == other.dateUpperBound && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && ledgerTransaction == other.ledgerTransaction && ledgerTransactionId == other.ledgerTransactionId && lineItems == other.lineItems && metadata == other.metadata && reconciliationFilters == other.reconciliationFilters && reconciliationGroups == other.reconciliationGroups && reconciliationRuleVariables == other.reconciliationRuleVariables && remittanceInformation == other.remittanceInformation && statementDescriptor == other.statementDescriptor && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amountLowerBound, amountUpperBound, counterpartyId, currency, dateLowerBound, dateUpperBound, description, direction, internalAccountId, ledgerTransaction, ledgerTransactionId, lineItems, metadata, reconciliationFilters, reconciliationGroups, reconciliationRuleVariables, remittanceInformation, statementDescriptor, type, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "ExpectedPaymentCreateRequest{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, internalAccountId=$internalAccountId, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -1215,7 +331,6 @@ private constructor(
     }
 
     /** A builder for [ExpectedPaymentCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: ExpectedPaymentCreateRequest.Builder =
@@ -1678,6 +793,935 @@ private constructor(
             )
     }
 
+    internal fun _body(): ExpectedPaymentCreateRequest = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class ExpectedPaymentCreateRequest
+    private constructor(
+        private val amountLowerBound: JsonField<Long>,
+        private val amountUpperBound: JsonField<Long>,
+        private val counterpartyId: JsonField<String>,
+        private val currency: JsonField<Currency>,
+        private val dateLowerBound: JsonField<LocalDate>,
+        private val dateUpperBound: JsonField<LocalDate>,
+        private val description: JsonField<String>,
+        private val direction: JsonField<Direction>,
+        private val internalAccountId: JsonField<String>,
+        private val ledgerTransaction: JsonField<LedgerTransactionCreateRequest>,
+        private val ledgerTransactionId: JsonField<String>,
+        private val lineItems: JsonField<List<LineItemRequest>>,
+        private val metadata: JsonField<Metadata>,
+        private val reconciliationFilters: JsonValue,
+        private val reconciliationGroups: JsonValue,
+        private val reconciliationRuleVariables: JsonField<List<ReconciliationRule>>,
+        private val remittanceInformation: JsonField<String>,
+        private val statementDescriptor: JsonField<String>,
+        private val type: JsonField<ExpectedPaymentType>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("amount_lower_bound")
+            @ExcludeMissing
+            amountLowerBound: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("amount_upper_bound")
+            @ExcludeMissing
+            amountUpperBound: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("counterparty_id")
+            @ExcludeMissing
+            counterpartyId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("currency")
+            @ExcludeMissing
+            currency: JsonField<Currency> = JsonMissing.of(),
+            @JsonProperty("date_lower_bound")
+            @ExcludeMissing
+            dateLowerBound: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("date_upper_bound")
+            @ExcludeMissing
+            dateUpperBound: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("description")
+            @ExcludeMissing
+            description: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("direction")
+            @ExcludeMissing
+            direction: JsonField<Direction> = JsonMissing.of(),
+            @JsonProperty("internal_account_id")
+            @ExcludeMissing
+            internalAccountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("ledger_transaction")
+            @ExcludeMissing
+            ledgerTransaction: JsonField<LedgerTransactionCreateRequest> = JsonMissing.of(),
+            @JsonProperty("ledger_transaction_id")
+            @ExcludeMissing
+            ledgerTransactionId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line_items")
+            @ExcludeMissing
+            lineItems: JsonField<List<LineItemRequest>> = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("reconciliation_filters")
+            @ExcludeMissing
+            reconciliationFilters: JsonValue = JsonMissing.of(),
+            @JsonProperty("reconciliation_groups")
+            @ExcludeMissing
+            reconciliationGroups: JsonValue = JsonMissing.of(),
+            @JsonProperty("reconciliation_rule_variables")
+            @ExcludeMissing
+            reconciliationRuleVariables: JsonField<List<ReconciliationRule>> = JsonMissing.of(),
+            @JsonProperty("remittance_information")
+            @ExcludeMissing
+            remittanceInformation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("statement_descriptor")
+            @ExcludeMissing
+            statementDescriptor: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("type")
+            @ExcludeMissing
+            type: JsonField<ExpectedPaymentType> = JsonMissing.of(),
+        ) : this(
+            amountLowerBound,
+            amountUpperBound,
+            counterpartyId,
+            currency,
+            dateLowerBound,
+            dateUpperBound,
+            description,
+            direction,
+            internalAccountId,
+            ledgerTransaction,
+            ledgerTransactionId,
+            lineItems,
+            metadata,
+            reconciliationFilters,
+            reconciliationGroups,
+            reconciliationRuleVariables,
+            remittanceInformation,
+            statementDescriptor,
+            type,
+            mutableMapOf(),
+        )
+
+        /**
+         * The lowest amount this expected payment may be equal to. Value in specified currency's
+         * smallest unit. e.g. $10 would be represented as 1000.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun amountLowerBound(): Long? = amountLowerBound.getNullable("amount_lower_bound")
+
+        /**
+         * The highest amount this expected payment may be equal to. Value in specified currency's
+         * smallest unit. e.g. $10 would be represented as 1000.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun amountUpperBound(): Long? = amountUpperBound.getNullable("amount_upper_bound")
+
+        /**
+         * The ID of the counterparty you expect for this payment.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
+
+        /**
+         * Must conform to ISO 4217. Defaults to the currency of the internal account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun currency(): Currency? = currency.getNullable("currency")
+
+        /**
+         * The earliest date the payment may come in. Format: yyyy-mm-dd
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun dateLowerBound(): LocalDate? = dateLowerBound.getNullable("date_lower_bound")
+
+        /**
+         * The latest date the payment may come in. Format: yyyy-mm-dd
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun dateUpperBound(): LocalDate? = dateUpperBound.getNullable("date_upper_bound")
+
+        /**
+         * An optional description for internal use.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun description(): String? = description.getNullable("description")
+
+        /**
+         * One of credit or debit. When you are receiving money, use credit. When you are being
+         * charged, use debit.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun direction(): Direction? = direction.getNullable("direction")
+
+        /**
+         * The ID of the Internal Account for the expected payment.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun internalAccountId(): String? = internalAccountId.getNullable("internal_account_id")
+
+        /**
+         * Specifies a ledger transaction object that will be created with the expected payment. If
+         * the ledger transaction cannot be created, then the expected payment creation will fail.
+         * The resulting ledger transaction will mirror the status of the expected payment.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun ledgerTransaction(): LedgerTransactionCreateRequest? =
+            ledgerTransaction.getNullable("ledger_transaction")
+
+        /**
+         * Either ledger_transaction or ledger_transaction_id can be provided. Only a pending ledger
+         * transaction can be attached upon expected payment creation. Once the expected payment is
+         * created, the status of the ledger transaction tracks the expected payment automatically.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun ledgerTransactionId(): String? =
+            ledgerTransactionId.getNullable("ledger_transaction_id")
+
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun lineItems(): List<LineItemRequest>? = lineItems.getNullable("line_items")
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
+
+        /** The reconciliation filters you have for this payment. */
+        @JsonProperty("reconciliation_filters")
+        @ExcludeMissing
+        fun _reconciliationFilters(): JsonValue = reconciliationFilters
+
+        /** The reconciliation groups you have for this payment. */
+        @JsonProperty("reconciliation_groups")
+        @ExcludeMissing
+        fun _reconciliationGroups(): JsonValue = reconciliationGroups
+
+        /**
+         * An array of reconciliation rule variables for this payment.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun reconciliationRuleVariables(): List<ReconciliationRule>? =
+            reconciliationRuleVariables.getNullable("reconciliation_rule_variables")
+
+        /**
+         * For `ach`, this field will be passed through on an addenda record. For `wire` payments
+         * the field will be passed through as the "Originator to Beneficiary Information", also
+         * known as OBI or Fedwire tag 6000.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun remittanceInformation(): String? =
+            remittanceInformation.getNullable("remittance_information")
+
+        /**
+         * The statement description you expect to see on the transaction. For ACH payments, this
+         * will be the full line item passed from the bank. For wire payments, this will be the OBI
+         * field on the wire. For check payments, this will be the memo field.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun statementDescriptor(): String? = statementDescriptor.getNullable("statement_descriptor")
+
+        /**
+         * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
+         * signet, wire.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun type(): ExpectedPaymentType? = type.getNullable("type")
+
+        /**
+         * Returns the raw JSON value of [amountLowerBound].
+         *
+         * Unlike [amountLowerBound], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("amount_lower_bound")
+        @ExcludeMissing
+        fun _amountLowerBound(): JsonField<Long> = amountLowerBound
+
+        /**
+         * Returns the raw JSON value of [amountUpperBound].
+         *
+         * Unlike [amountUpperBound], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("amount_upper_bound")
+        @ExcludeMissing
+        fun _amountUpperBound(): JsonField<Long> = amountUpperBound
+
+        /**
+         * Returns the raw JSON value of [counterpartyId].
+         *
+         * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        fun _counterpartyId(): JsonField<String> = counterpartyId
+
+        /**
+         * Returns the raw JSON value of [currency].
+         *
+         * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
+
+        /**
+         * Returns the raw JSON value of [dateLowerBound].
+         *
+         * Unlike [dateLowerBound], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("date_lower_bound")
+        @ExcludeMissing
+        fun _dateLowerBound(): JsonField<LocalDate> = dateLowerBound
+
+        /**
+         * Returns the raw JSON value of [dateUpperBound].
+         *
+         * Unlike [dateUpperBound], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("date_upper_bound")
+        @ExcludeMissing
+        fun _dateUpperBound(): JsonField<LocalDate> = dateUpperBound
+
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /**
+         * Returns the raw JSON value of [direction].
+         *
+         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("direction")
+        @ExcludeMissing
+        fun _direction(): JsonField<Direction> = direction
+
+        /**
+         * Returns the raw JSON value of [internalAccountId].
+         *
+         * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("internal_account_id")
+        @ExcludeMissing
+        fun _internalAccountId(): JsonField<String> = internalAccountId
+
+        /**
+         * Returns the raw JSON value of [ledgerTransaction].
+         *
+         * Unlike [ledgerTransaction], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("ledger_transaction")
+        @ExcludeMissing
+        fun _ledgerTransaction(): JsonField<LedgerTransactionCreateRequest> = ledgerTransaction
+
+        /**
+         * Returns the raw JSON value of [ledgerTransactionId].
+         *
+         * Unlike [ledgerTransactionId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("ledger_transaction_id")
+        @ExcludeMissing
+        fun _ledgerTransactionId(): JsonField<String> = ledgerTransactionId
+
+        /**
+         * Returns the raw JSON value of [lineItems].
+         *
+         * Unlike [lineItems], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("line_items")
+        @ExcludeMissing
+        fun _lineItems(): JsonField<List<LineItemRequest>> = lineItems
+
+        /**
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+
+        /**
+         * Returns the raw JSON value of [reconciliationRuleVariables].
+         *
+         * Unlike [reconciliationRuleVariables], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("reconciliation_rule_variables")
+        @ExcludeMissing
+        fun _reconciliationRuleVariables(): JsonField<List<ReconciliationRule>> =
+            reconciliationRuleVariables
+
+        /**
+         * Returns the raw JSON value of [remittanceInformation].
+         *
+         * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("remittance_information")
+        @ExcludeMissing
+        fun _remittanceInformation(): JsonField<String> = remittanceInformation
+
+        /**
+         * Returns the raw JSON value of [statementDescriptor].
+         *
+         * Unlike [statementDescriptor], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("statement_descriptor")
+        @ExcludeMissing
+        fun _statementDescriptor(): JsonField<String> = statementDescriptor
+
+        /**
+         * Returns the raw JSON value of [type].
+         *
+         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<ExpectedPaymentType> = type
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [ExpectedPaymentCreateRequest].
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [ExpectedPaymentCreateRequest]. */
+        class Builder internal constructor() {
+
+            private var amountLowerBound: JsonField<Long> = JsonMissing.of()
+            private var amountUpperBound: JsonField<Long> = JsonMissing.of()
+            private var counterpartyId: JsonField<String> = JsonMissing.of()
+            private var currency: JsonField<Currency> = JsonMissing.of()
+            private var dateLowerBound: JsonField<LocalDate> = JsonMissing.of()
+            private var dateUpperBound: JsonField<LocalDate> = JsonMissing.of()
+            private var description: JsonField<String> = JsonMissing.of()
+            private var direction: JsonField<Direction> = JsonMissing.of()
+            private var internalAccountId: JsonField<String> = JsonMissing.of()
+            private var ledgerTransaction: JsonField<LedgerTransactionCreateRequest> =
+                JsonMissing.of()
+            private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
+            private var lineItems: JsonField<MutableList<LineItemRequest>>? = null
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var reconciliationFilters: JsonValue = JsonMissing.of()
+            private var reconciliationGroups: JsonValue = JsonMissing.of()
+            private var reconciliationRuleVariables: JsonField<MutableList<ReconciliationRule>>? =
+                null
+            private var remittanceInformation: JsonField<String> = JsonMissing.of()
+            private var statementDescriptor: JsonField<String> = JsonMissing.of()
+            private var type: JsonField<ExpectedPaymentType> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(expectedPaymentCreateRequest: ExpectedPaymentCreateRequest) = apply {
+                amountLowerBound = expectedPaymentCreateRequest.amountLowerBound
+                amountUpperBound = expectedPaymentCreateRequest.amountUpperBound
+                counterpartyId = expectedPaymentCreateRequest.counterpartyId
+                currency = expectedPaymentCreateRequest.currency
+                dateLowerBound = expectedPaymentCreateRequest.dateLowerBound
+                dateUpperBound = expectedPaymentCreateRequest.dateUpperBound
+                description = expectedPaymentCreateRequest.description
+                direction = expectedPaymentCreateRequest.direction
+                internalAccountId = expectedPaymentCreateRequest.internalAccountId
+                ledgerTransaction = expectedPaymentCreateRequest.ledgerTransaction
+                ledgerTransactionId = expectedPaymentCreateRequest.ledgerTransactionId
+                lineItems = expectedPaymentCreateRequest.lineItems.map { it.toMutableList() }
+                metadata = expectedPaymentCreateRequest.metadata
+                reconciliationFilters = expectedPaymentCreateRequest.reconciliationFilters
+                reconciliationGroups = expectedPaymentCreateRequest.reconciliationGroups
+                reconciliationRuleVariables =
+                    expectedPaymentCreateRequest.reconciliationRuleVariables.map {
+                        it.toMutableList()
+                    }
+                remittanceInformation = expectedPaymentCreateRequest.remittanceInformation
+                statementDescriptor = expectedPaymentCreateRequest.statementDescriptor
+                type = expectedPaymentCreateRequest.type
+                additionalProperties =
+                    expectedPaymentCreateRequest.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The lowest amount this expected payment may be equal to. Value in specified
+             * currency's smallest unit. e.g. $10 would be represented as 1000.
+             */
+            fun amountLowerBound(amountLowerBound: Long?) =
+                amountLowerBound(JsonField.ofNullable(amountLowerBound))
+
+            /**
+             * Alias for [Builder.amountLowerBound].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun amountLowerBound(amountLowerBound: Long) =
+                amountLowerBound(amountLowerBound as Long?)
+
+            /**
+             * Sets [Builder.amountLowerBound] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amountLowerBound] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun amountLowerBound(amountLowerBound: JsonField<Long>) = apply {
+                this.amountLowerBound = amountLowerBound
+            }
+
+            /**
+             * The highest amount this expected payment may be equal to. Value in specified
+             * currency's smallest unit. e.g. $10 would be represented as 1000.
+             */
+            fun amountUpperBound(amountUpperBound: Long?) =
+                amountUpperBound(JsonField.ofNullable(amountUpperBound))
+
+            /**
+             * Alias for [Builder.amountUpperBound].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun amountUpperBound(amountUpperBound: Long) =
+                amountUpperBound(amountUpperBound as Long?)
+
+            /**
+             * Sets [Builder.amountUpperBound] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amountUpperBound] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun amountUpperBound(amountUpperBound: JsonField<Long>) = apply {
+                this.amountUpperBound = amountUpperBound
+            }
+
+            /** The ID of the counterparty you expect for this payment. */
+            fun counterpartyId(counterpartyId: String?) =
+                counterpartyId(JsonField.ofNullable(counterpartyId))
+
+            /**
+             * Sets [Builder.counterpartyId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.counterpartyId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun counterpartyId(counterpartyId: JsonField<String>) = apply {
+                this.counterpartyId = counterpartyId
+            }
+
+            /** Must conform to ISO 4217. Defaults to the currency of the internal account. */
+            fun currency(currency: Currency?) = currency(JsonField.ofNullable(currency))
+
+            /**
+             * Sets [Builder.currency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.currency] with a well-typed [Currency] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+            /** The earliest date the payment may come in. Format: yyyy-mm-dd */
+            fun dateLowerBound(dateLowerBound: LocalDate?) =
+                dateLowerBound(JsonField.ofNullable(dateLowerBound))
+
+            /**
+             * Sets [Builder.dateLowerBound] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dateLowerBound] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun dateLowerBound(dateLowerBound: JsonField<LocalDate>) = apply {
+                this.dateLowerBound = dateLowerBound
+            }
+
+            /** The latest date the payment may come in. Format: yyyy-mm-dd */
+            fun dateUpperBound(dateUpperBound: LocalDate?) =
+                dateUpperBound(JsonField.ofNullable(dateUpperBound))
+
+            /**
+             * Sets [Builder.dateUpperBound] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dateUpperBound] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun dateUpperBound(dateUpperBound: JsonField<LocalDate>) = apply {
+                this.dateUpperBound = dateUpperBound
+            }
+
+            /** An optional description for internal use. */
+            fun description(description: String?) = description(JsonField.ofNullable(description))
+
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
+
+            /**
+             * One of credit or debit. When you are receiving money, use credit. When you are being
+             * charged, use debit.
+             */
+            fun direction(direction: Direction?) = direction(JsonField.ofNullable(direction))
+
+            /**
+             * Sets [Builder.direction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.direction] with a well-typed [Direction] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
+
+            /** The ID of the Internal Account for the expected payment. */
+            fun internalAccountId(internalAccountId: String?) =
+                internalAccountId(JsonField.ofNullable(internalAccountId))
+
+            /**
+             * Sets [Builder.internalAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.internalAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun internalAccountId(internalAccountId: JsonField<String>) = apply {
+                this.internalAccountId = internalAccountId
+            }
+
+            /**
+             * Specifies a ledger transaction object that will be created with the expected payment.
+             * If the ledger transaction cannot be created, then the expected payment creation will
+             * fail. The resulting ledger transaction will mirror the status of the expected
+             * payment.
+             */
+            fun ledgerTransaction(ledgerTransaction: LedgerTransactionCreateRequest) =
+                ledgerTransaction(JsonField.of(ledgerTransaction))
+
+            /**
+             * Sets [Builder.ledgerTransaction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerTransaction] with a well-typed
+             * [LedgerTransactionCreateRequest] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun ledgerTransaction(ledgerTransaction: JsonField<LedgerTransactionCreateRequest>) =
+                apply {
+                    this.ledgerTransaction = ledgerTransaction
+                }
+
+            /**
+             * Either ledger_transaction or ledger_transaction_id can be provided. Only a pending
+             * ledger transaction can be attached upon expected payment creation. Once the expected
+             * payment is created, the status of the ledger transaction tracks the expected payment
+             * automatically.
+             */
+            fun ledgerTransactionId(ledgerTransactionId: String) =
+                ledgerTransactionId(JsonField.of(ledgerTransactionId))
+
+            /**
+             * Sets [Builder.ledgerTransactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerTransactionId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
+                this.ledgerTransactionId = ledgerTransactionId
+            }
+
+            fun lineItems(lineItems: List<LineItemRequest>) = lineItems(JsonField.of(lineItems))
+
+            /**
+             * Sets [Builder.lineItems] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.lineItems] with a well-typed `List<LineItemRequest>`
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun lineItems(lineItems: JsonField<List<LineItemRequest>>) = apply {
+                this.lineItems = lineItems.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [LineItemRequest] to [lineItems].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addLineItem(lineItem: LineItemRequest) = apply {
+                lineItems =
+                    (lineItems ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("lineItems", it).add(lineItem)
+                    }
+            }
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+            /** The reconciliation filters you have for this payment. */
+            fun reconciliationFilters(reconciliationFilters: JsonValue) = apply {
+                this.reconciliationFilters = reconciliationFilters
+            }
+
+            /** The reconciliation groups you have for this payment. */
+            fun reconciliationGroups(reconciliationGroups: JsonValue) = apply {
+                this.reconciliationGroups = reconciliationGroups
+            }
+
+            /** An array of reconciliation rule variables for this payment. */
+            fun reconciliationRuleVariables(
+                reconciliationRuleVariables: List<ReconciliationRule>?
+            ) = reconciliationRuleVariables(JsonField.ofNullable(reconciliationRuleVariables))
+
+            /**
+             * Sets [Builder.reconciliationRuleVariables] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reconciliationRuleVariables] with a well-typed
+             * `List<ReconciliationRule>` value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun reconciliationRuleVariables(
+                reconciliationRuleVariables: JsonField<List<ReconciliationRule>>
+            ) = apply {
+                this.reconciliationRuleVariables =
+                    reconciliationRuleVariables.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [ReconciliationRule] to [reconciliationRuleVariables].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addReconciliationRuleVariable(reconciliationRuleVariable: ReconciliationRule) =
+                apply {
+                    reconciliationRuleVariables =
+                        (reconciliationRuleVariables ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("reconciliationRuleVariables", it)
+                                .add(reconciliationRuleVariable)
+                        }
+                }
+
+            /**
+             * For `ach`, this field will be passed through on an addenda record. For `wire`
+             * payments the field will be passed through as the "Originator to Beneficiary
+             * Information", also known as OBI or Fedwire tag 6000.
+             */
+            fun remittanceInformation(remittanceInformation: String?) =
+                remittanceInformation(JsonField.ofNullable(remittanceInformation))
+
+            /**
+             * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.remittanceInformation] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
+                this.remittanceInformation = remittanceInformation
+            }
+
+            /**
+             * The statement description you expect to see on the transaction. For ACH payments,
+             * this will be the full line item passed from the bank. For wire payments, this will be
+             * the OBI field on the wire. For check payments, this will be the memo field.
+             */
+            fun statementDescriptor(statementDescriptor: String?) =
+                statementDescriptor(JsonField.ofNullable(statementDescriptor))
+
+            /**
+             * Sets [Builder.statementDescriptor] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.statementDescriptor] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun statementDescriptor(statementDescriptor: JsonField<String>) = apply {
+                this.statementDescriptor = statementDescriptor
+            }
+
+            /**
+             * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
+             * signet, wire.
+             */
+            fun type(type: ExpectedPaymentType?) = type(JsonField.ofNullable(type))
+
+            /**
+             * Sets [Builder.type] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.type] with a well-typed [ExpectedPaymentType] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun type(type: JsonField<ExpectedPaymentType>) = apply { this.type = type }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ExpectedPaymentCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): ExpectedPaymentCreateRequest =
+                ExpectedPaymentCreateRequest(
+                    amountLowerBound,
+                    amountUpperBound,
+                    counterpartyId,
+                    currency,
+                    dateLowerBound,
+                    dateUpperBound,
+                    description,
+                    direction,
+                    internalAccountId,
+                    ledgerTransaction,
+                    ledgerTransactionId,
+                    (lineItems ?: JsonMissing.of()).map { it.toImmutable() },
+                    metadata,
+                    reconciliationFilters,
+                    reconciliationGroups,
+                    (reconciliationRuleVariables ?: JsonMissing.of()).map { it.toImmutable() },
+                    remittanceInformation,
+                    statementDescriptor,
+                    type,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): ExpectedPaymentCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            amountLowerBound()
+            amountUpperBound()
+            counterpartyId()
+            currency()
+            dateLowerBound()
+            dateUpperBound()
+            description()
+            direction()
+            internalAccountId()
+            ledgerTransaction()?.validate()
+            ledgerTransactionId()
+            lineItems()?.forEach { it.validate() }
+            metadata()?.validate()
+            reconciliationRuleVariables()?.forEach { it.validate() }
+            remittanceInformation()
+            statementDescriptor()
+            type()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is ExpectedPaymentCreateRequest && amountLowerBound == other.amountLowerBound && amountUpperBound == other.amountUpperBound && counterpartyId == other.counterpartyId && currency == other.currency && dateLowerBound == other.dateLowerBound && dateUpperBound == other.dateUpperBound && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && ledgerTransaction == other.ledgerTransaction && ledgerTransactionId == other.ledgerTransactionId && lineItems == other.lineItems && metadata == other.metadata && reconciliationFilters == other.reconciliationFilters && reconciliationGroups == other.reconciliationGroups && reconciliationRuleVariables == other.reconciliationRuleVariables && remittanceInformation == other.remittanceInformation && statementDescriptor == other.statementDescriptor && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(amountLowerBound, amountUpperBound, counterpartyId, currency, dateLowerBound, dateUpperBound, description, direction, internalAccountId, ledgerTransaction, ledgerTransactionId, lineItems, metadata, reconciliationFilters, reconciliationGroups, reconciliationRuleVariables, remittanceInformation, statementDescriptor, type, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ExpectedPaymentCreateRequest{amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, internalAccountId=$internalAccountId, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalProperties=$additionalProperties}"
+    }
+
     /**
      * One of credit or debit. When you are receiving money, use credit. When you are being charged,
      * use debit.
@@ -1787,40 +1831,59 @@ private constructor(
      * ledger transaction cannot be created, then the expected payment creation will fail. The
      * resulting ledger transaction will mirror the status of the expected payment.
      */
-    @NoAutoDetect
     class LedgerTransactionCreateRequest
-    @JsonCreator
     private constructor(
-        @JsonProperty("ledger_entries")
-        @ExcludeMissing
-        private val ledgerEntries: JsonField<List<LedgerEntryCreateRequest>> = JsonMissing.of(),
-        @JsonProperty("description")
-        @ExcludeMissing
-        private val description: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("effective_at")
-        @ExcludeMissing
-        private val effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("effective_date")
-        @ExcludeMissing
-        private val effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonProperty("external_id")
-        @ExcludeMissing
-        private val externalId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("ledgerable_id")
-        @ExcludeMissing
-        private val ledgerableId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("ledgerable_type")
-        @ExcludeMissing
-        private val ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
-        @JsonProperty("metadata")
-        @ExcludeMissing
-        private val metadata: JsonField<Metadata> = JsonMissing.of(),
-        @JsonProperty("status")
-        @ExcludeMissing
-        private val status: JsonField<Status> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val ledgerEntries: JsonField<List<LedgerEntryCreateRequest>>,
+        private val description: JsonField<String>,
+        private val effectiveAt: JsonField<OffsetDateTime>,
+        private val effectiveDate: JsonField<LocalDate>,
+        private val externalId: JsonField<String>,
+        private val ledgerableId: JsonField<String>,
+        private val ledgerableType: JsonField<LedgerableType>,
+        private val metadata: JsonField<Metadata>,
+        private val status: JsonField<Status>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("ledger_entries")
+            @ExcludeMissing
+            ledgerEntries: JsonField<List<LedgerEntryCreateRequest>> = JsonMissing.of(),
+            @JsonProperty("description")
+            @ExcludeMissing
+            description: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("effective_at")
+            @ExcludeMissing
+            effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("effective_date")
+            @ExcludeMissing
+            effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("external_id")
+            @ExcludeMissing
+            externalId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("ledgerable_id")
+            @ExcludeMissing
+            ledgerableId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("ledgerable_type")
+            @ExcludeMissing
+            ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        ) : this(
+            ledgerEntries,
+            description,
+            effectiveAt,
+            effectiveDate,
+            externalId,
+            ledgerableId,
+            ledgerableType,
+            metadata,
+            status,
+            mutableMapOf(),
+        )
 
         /**
          * An array of ledger entry objects.
@@ -1981,28 +2044,15 @@ private constructor(
          */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LedgerTransactionCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            ledgerEntries().forEach { it.validate() }
-            description()
-            effectiveAt()
-            effectiveDate()
-            externalId()
-            ledgerableId()
-            ledgerableType()
-            metadata()?.validate()
-            status()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -2245,45 +2295,82 @@ private constructor(
                     ledgerableType,
                     metadata,
                     status,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
         }
 
-        @NoAutoDetect
+        private var validated: Boolean = false
+
+        fun validate(): LedgerTransactionCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            ledgerEntries().forEach { it.validate() }
+            description()
+            effectiveAt()
+            effectiveDate()
+            externalId()
+            ledgerableId()
+            ledgerableType()
+            metadata()?.validate()
+            status()
+            validated = true
+        }
+
         class LedgerEntryCreateRequest
-        @JsonCreator
         private constructor(
-            @JsonProperty("amount")
-            @ExcludeMissing
-            private val amount: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("direction")
-            @ExcludeMissing
-            private val direction: JsonField<TransactionDirection> = JsonMissing.of(),
-            @JsonProperty("ledger_account_id")
-            @ExcludeMissing
-            private val ledgerAccountId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("available_balance_amount")
-            @ExcludeMissing
-            private val availableBalanceAmount: JsonField<AvailableBalanceAmount> =
-                JsonMissing.of(),
-            @JsonProperty("lock_version")
-            @ExcludeMissing
-            private val lockVersion: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("metadata")
-            @ExcludeMissing
-            private val metadata: JsonField<Metadata> = JsonMissing.of(),
-            @JsonProperty("pending_balance_amount")
-            @ExcludeMissing
-            private val pendingBalanceAmount: JsonField<PendingBalanceAmount> = JsonMissing.of(),
-            @JsonProperty("posted_balance_amount")
-            @ExcludeMissing
-            private val postedBalanceAmount: JsonField<PostedBalanceAmount> = JsonMissing.of(),
-            @JsonProperty("show_resulting_ledger_account_balances")
-            @ExcludeMissing
-            private val showResultingLedgerAccountBalances: JsonField<Boolean> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val amount: JsonField<Long>,
+            private val direction: JsonField<TransactionDirection>,
+            private val ledgerAccountId: JsonField<String>,
+            private val availableBalanceAmount: JsonField<AvailableBalanceAmount>,
+            private val lockVersion: JsonField<Long>,
+            private val metadata: JsonField<Metadata>,
+            private val pendingBalanceAmount: JsonField<PendingBalanceAmount>,
+            private val postedBalanceAmount: JsonField<PostedBalanceAmount>,
+            private val showResultingLedgerAccountBalances: JsonField<Boolean>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("direction")
+                @ExcludeMissing
+                direction: JsonField<TransactionDirection> = JsonMissing.of(),
+                @JsonProperty("ledger_account_id")
+                @ExcludeMissing
+                ledgerAccountId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("available_balance_amount")
+                @ExcludeMissing
+                availableBalanceAmount: JsonField<AvailableBalanceAmount> = JsonMissing.of(),
+                @JsonProperty("lock_version")
+                @ExcludeMissing
+                lockVersion: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("metadata")
+                @ExcludeMissing
+                metadata: JsonField<Metadata> = JsonMissing.of(),
+                @JsonProperty("pending_balance_amount")
+                @ExcludeMissing
+                pendingBalanceAmount: JsonField<PendingBalanceAmount> = JsonMissing.of(),
+                @JsonProperty("posted_balance_amount")
+                @ExcludeMissing
+                postedBalanceAmount: JsonField<PostedBalanceAmount> = JsonMissing.of(),
+                @JsonProperty("show_resulting_ledger_account_balances")
+                @ExcludeMissing
+                showResultingLedgerAccountBalances: JsonField<Boolean> = JsonMissing.of(),
+            ) : this(
+                amount,
+                direction,
+                ledgerAccountId,
+                availableBalanceAmount,
+                lockVersion,
+                metadata,
+                pendingBalanceAmount,
+                postedBalanceAmount,
+                showResultingLedgerAccountBalances,
+                mutableMapOf(),
+            )
 
             /**
              * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
@@ -2470,28 +2557,15 @@ private constructor(
             fun _showResultingLedgerAccountBalances(): JsonField<Boolean> =
                 showResultingLedgerAccountBalances
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): LedgerEntryCreateRequest = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                amount()
-                direction()
-                ledgerAccountId()
-                availableBalanceAmount()?.validate()
-                lockVersion()
-                metadata()?.validate()
-                pendingBalanceAmount()?.validate()
-                postedBalanceAmount()?.validate()
-                showResultingLedgerAccountBalances()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -2774,8 +2848,27 @@ private constructor(
                         pendingBalanceAmount,
                         postedBalanceAmount,
                         showResultingLedgerAccountBalances,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): LedgerEntryCreateRequest = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                amount()
+                direction()
+                ledgerAccountId()
+                availableBalanceAmount()?.validate()
+                lockVersion()
+                metadata()?.validate()
+                pendingBalanceAmount()?.validate()
+                postedBalanceAmount()?.validate()
+                showResultingLedgerAccountBalances()
+                validated = true
             }
 
             /**
@@ -2783,27 +2876,20 @@ private constructor(
              * available balance. If any of these conditions would be false after the transaction is
              * created, the entire call will fail with error code 422.
              */
-            @NoAutoDetect
             class AvailableBalanceAmount
-            @JsonCreator
-            private constructor(
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-            ) {
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
 
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): AvailableBalanceAmount = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -2854,7 +2940,17 @@ private constructor(
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
                     fun build(): AvailableBalanceAmount =
-                        AvailableBalanceAmount(additionalProperties.toImmutable())
+                        AvailableBalanceAmount(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): AvailableBalanceAmount = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -2879,27 +2975,20 @@ private constructor(
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
              */
-            @NoAutoDetect
             class Metadata
-            @JsonCreator
-            private constructor(
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-            ) {
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
 
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): Metadata = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -2945,7 +3034,17 @@ private constructor(
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
-                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                    fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Metadata = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -2970,27 +3069,20 @@ private constructor(
              * pending balance. If any of these conditions would be false after the transaction is
              * created, the entire call will fail with error code 422.
              */
-            @NoAutoDetect
             class PendingBalanceAmount
-            @JsonCreator
-            private constructor(
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-            ) {
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
 
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): PendingBalanceAmount = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -3041,7 +3133,17 @@ private constructor(
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
                     fun build(): PendingBalanceAmount =
-                        PendingBalanceAmount(additionalProperties.toImmutable())
+                        PendingBalanceAmount(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): PendingBalanceAmount = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -3067,27 +3169,20 @@ private constructor(
              * posted balance. If any of these conditions would be false after the transaction is
              * created, the entire call will fail with error code 422.
              */
-            @NoAutoDetect
             class PostedBalanceAmount
-            @JsonCreator
-            private constructor(
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
                 @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-            ) {
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
 
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): PostedBalanceAmount = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -3138,7 +3233,17 @@ private constructor(
                      * Further updates to this [Builder] will not mutate the returned instance.
                      */
                     fun build(): PostedBalanceAmount =
-                        PostedBalanceAmount(additionalProperties.toImmutable())
+                        PostedBalanceAmount(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): PostedBalanceAmount = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -3314,27 +3419,20 @@ private constructor(
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @NoAutoDetect
         class Metadata
-        @JsonCreator
-        private constructor(
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
             @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-        ) {
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Metadata = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -3380,7 +3478,17 @@ private constructor(
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Metadata = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -3526,25 +3634,28 @@ private constructor(
             "LedgerTransactionCreateRequest{ledgerEntries=$ledgerEntries, description=$description, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
     }
 
-    @NoAutoDetect
     class LineItemRequest
-    @JsonCreator
     private constructor(
-        @JsonProperty("amount")
-        @ExcludeMissing
-        private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("accounting_category_id")
-        @ExcludeMissing
-        private val accountingCategoryId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("description")
-        @ExcludeMissing
-        private val description: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("metadata")
-        @ExcludeMissing
-        private val metadata: JsonField<Metadata> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val amount: JsonField<Long>,
+        private val accountingCategoryId: JsonField<String>,
+        private val description: JsonField<String>,
+        private val metadata: JsonField<Metadata>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("accounting_category_id")
+            @ExcludeMissing
+            accountingCategoryId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("description")
+            @ExcludeMissing
+            description: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
+        ) : this(amount, accountingCategoryId, description, metadata, mutableMapOf())
 
         /**
          * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
@@ -3613,23 +3724,15 @@ private constructor(
          */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LineItemRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            amount()
-            accountingCategoryId()
-            description()
-            metadata()?.validate()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -3761,34 +3864,41 @@ private constructor(
                     accountingCategoryId,
                     description,
                     metadata,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): LineItemRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            amount()
+            accountingCategoryId()
+            description()
+            metadata()?.validate()
+            validated = true
         }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
-        @NoAutoDetect
         class Metadata
-        @JsonCreator
-        private constructor(
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
             @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-        ) {
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Metadata = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -3834,7 +3944,17 @@ private constructor(
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+                fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Metadata = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -3873,27 +3993,20 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @NoAutoDetect
     class Metadata
-    @JsonCreator
-    private constructor(
+    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+        @JsonCreator private constructor() : this(mutableMapOf())
+
         @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-    ) {
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -3936,7 +4049,17 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+            fun build(): Metadata = Metadata(additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

@@ -11,53 +11,74 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class Document
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("discarded_at")
-    @ExcludeMissing
-    private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("document_details")
-    @ExcludeMissing
-    private val documentDetails: JsonField<List<DocumentDetail>> = JsonMissing.of(),
-    @JsonProperty("document_type")
-    @ExcludeMissing
-    private val documentType: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("documentable_id")
-    @ExcludeMissing
-    private val documentableId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("documentable_type")
-    @ExcludeMissing
-    private val documentableType: JsonField<DocumentableType> = JsonMissing.of(),
-    @JsonProperty("file") @ExcludeMissing private val file: JsonField<File> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("source")
-    @ExcludeMissing
-    private val source: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val discardedAt: JsonField<OffsetDateTime>,
+    private val documentDetails: JsonField<List<DocumentDetail>>,
+    private val documentType: JsonField<String>,
+    private val documentableId: JsonField<String>,
+    private val documentableType: JsonField<DocumentableType>,
+    private val file: JsonField<File>,
+    private val liveMode: JsonField<Boolean>,
+    private val object_: JsonField<String>,
+    private val source: JsonField<String>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("discarded_at")
+        @ExcludeMissing
+        discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("document_details")
+        @ExcludeMissing
+        documentDetails: JsonField<List<DocumentDetail>> = JsonMissing.of(),
+        @JsonProperty("document_type")
+        @ExcludeMissing
+        documentType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("documentable_id")
+        @ExcludeMissing
+        documentableId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("documentable_type")
+        @ExcludeMissing
+        documentableType: JsonField<DocumentableType> = JsonMissing.of(),
+        @JsonProperty("file") @ExcludeMissing file: JsonField<File> = JsonMissing.of(),
+        @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("source") @ExcludeMissing source: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(
+        id,
+        createdAt,
+        discardedAt,
+        documentDetails,
+        documentType,
+        documentableId,
+        documentableType,
+        file,
+        liveMode,
+        object_,
+        source,
+        updatedAt,
+        mutableMapOf(),
+    )
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -243,31 +264,15 @@ private constructor(
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): Document = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        createdAt()
-        discardedAt()
-        documentDetails().forEach { it.validate() }
-        documentType()
-        documentableId()
-        documentableType()
-        file().validate()
-        liveMode()
-        object_()
-        source()
-        updatedAt()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -549,39 +554,78 @@ private constructor(
                 checkRequired("object_", object_),
                 checkRequired("source", source),
                 checkRequired("updatedAt", updatedAt),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
     }
 
-    @NoAutoDetect
+    private var validated: Boolean = false
+
+    fun validate(): Document = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        createdAt()
+        discardedAt()
+        documentDetails().forEach { it.validate() }
+        documentType()
+        documentableId()
+        documentableType()
+        file().validate()
+        liveMode()
+        object_()
+        source()
+        updatedAt()
+        validated = true
+    }
+
     class DocumentDetail
-    @JsonCreator
     private constructor(
-        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("discarded_at")
-        @ExcludeMissing
-        private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("document_identifier")
-        @ExcludeMissing
-        private val documentIdentifier: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("document_identifier_type")
-        @ExcludeMissing
-        private val documentIdentifierType: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("live_mode")
-        @ExcludeMissing
-        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("object")
-        @ExcludeMissing
-        private val object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val id: JsonField<String>,
+        private val createdAt: JsonField<OffsetDateTime>,
+        private val discardedAt: JsonField<OffsetDateTime>,
+        private val documentIdentifier: JsonField<String>,
+        private val documentIdentifierType: JsonField<String>,
+        private val liveMode: JsonField<Boolean>,
+        private val object_: JsonField<String>,
+        private val updatedAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("discarded_at")
+            @ExcludeMissing
+            discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("document_identifier")
+            @ExcludeMissing
+            documentIdentifier: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("document_identifier_type")
+            @ExcludeMissing
+            documentIdentifierType: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("live_mode")
+            @ExcludeMissing
+            liveMode: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("updated_at")
+            @ExcludeMissing
+            updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(
+            id,
+            createdAt,
+            discardedAt,
+            documentIdentifier,
+            documentIdentifierType,
+            liveMode,
+            object_,
+            updatedAt,
+            mutableMapOf(),
+        )
 
         /**
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -703,27 +747,15 @@ private constructor(
         @ExcludeMissing
         fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): DocumentDetail = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            createdAt()
-            discardedAt()
-            documentIdentifier()
-            documentIdentifierType()
-            liveMode()
-            object_()
-            updatedAt()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -925,8 +957,26 @@ private constructor(
                     checkRequired("liveMode", liveMode),
                     checkRequired("object_", object_),
                     checkRequired("updatedAt", updatedAt),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): DocumentDetail = apply {
+            if (validated) {
+                return@apply
+            }
+
+            id()
+            createdAt()
+            discardedAt()
+            documentIdentifier()
+            documentIdentifierType()
+            liveMode()
+            object_()
+            updatedAt()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1114,20 +1164,24 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    @NoAutoDetect
     class File
-    @JsonCreator
     private constructor(
-        @JsonProperty("content_type")
-        @ExcludeMissing
-        private val contentType: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("filename")
-        @ExcludeMissing
-        private val filename: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("size") @ExcludeMissing private val size: JsonField<Long> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val contentType: JsonField<String>,
+        private val filename: JsonField<String>,
+        private val size: JsonField<Long>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("content_type")
+            @ExcludeMissing
+            contentType: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("filename")
+            @ExcludeMissing
+            filename: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("size") @ExcludeMissing size: JsonField<Long> = JsonMissing.of(),
+        ) : this(contentType, filename, size, mutableMapOf())
 
         /**
          * The MIME content type of the document.
@@ -1176,22 +1230,15 @@ private constructor(
          */
         @JsonProperty("size") @ExcludeMissing fun _size(): JsonField<Long> = size
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): File = apply {
-            if (validated) {
-                return@apply
-            }
-
-            contentType()
-            filename()
-            size()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1279,7 +1326,20 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): File =
-                File(contentType, filename, size, additionalProperties.toImmutable())
+                File(contentType, filename, size, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): File = apply {
+            if (validated) {
+                return@apply
+            }
+
+            contentType()
+            filename()
+            size()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
