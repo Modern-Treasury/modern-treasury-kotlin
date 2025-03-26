@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.checkRequired
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.util.Collections
@@ -632,19 +633,15 @@ private constructor(
 
     /** A hash of custom identifiers for this payment */
     class CustomIdentifiers
-    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
-
-        @JsonCreator private constructor() : this(mutableMapOf())
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
 
@@ -687,7 +684,7 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): CustomIdentifiers = CustomIdentifiers(additionalProperties.toMutableMap())
+            fun build(): CustomIdentifiers = CustomIdentifiers(additionalProperties.toImmutable())
         }
 
         private var validated: Boolean = false

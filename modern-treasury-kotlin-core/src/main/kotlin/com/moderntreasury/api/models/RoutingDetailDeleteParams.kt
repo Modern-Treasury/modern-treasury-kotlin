@@ -2,19 +2,16 @@
 
 package com.moderntreasury.api.models
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
-import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
-import java.util.Collections
 import java.util.Objects
 
 /** Delete a routing detail for a single external account. */
@@ -25,7 +22,7 @@ private constructor(
     private val id: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: MutableMap<String, JsonValue>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     fun accountsType(): AccountsType = accountsType
@@ -34,19 +31,11 @@ private constructor(
 
     fun id(): String = id
 
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    @JsonAnySetter
-    private fun putAdditionalBodyProperty(key: String, value: JsonValue) {
-        additionalBodyProperties.put(key, value)
-    }
-
-    @JsonAnyGetter
-    @ExcludeMissing
-    fun _additionalBodyProperties(): Map<String, JsonValue> =
-        Collections.unmodifiableMap(additionalBodyProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -232,7 +221,7 @@ private constructor(
                 checkRequired("id", id),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toMutableMap(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
