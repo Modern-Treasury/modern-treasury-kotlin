@@ -11,14 +11,12 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 /** Create a routing detail for a single external account. */
@@ -26,7 +24,7 @@ class RoutingDetailCreateParams
 private constructor(
     private val accountsType: AccountsType,
     private val accountId: String,
-    private val body: RoutingDetailCreateBody,
+    private val body: RoutingDetailCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -35,33 +33,51 @@ private constructor(
 
     fun accountId(): String = accountId
 
-    /** The routing number of the bank. */
+    /**
+     * The routing number of the bank.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun routingNumber(): String = body.routingNumber()
 
     /**
      * The type of routing number. See
      * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun routingNumberType(): RoutingNumberType = body.routingNumberType()
 
     /**
      * If the routing detail is to be used for a specific payment type this field will be populated,
      * otherwise null.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun paymentType(): PaymentType? = body.paymentType()
 
-    /** The routing number of the bank. */
+    /**
+     * Returns the raw JSON value of [routingNumber].
+     *
+     * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _routingNumber(): JsonField<String> = body._routingNumber()
 
     /**
-     * The type of routing number. See
-     * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details.
+     * Returns the raw JSON value of [routingNumberType].
+     *
+     * Unlike [routingNumberType], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _routingNumberType(): JsonField<RoutingNumberType> = body._routingNumberType()
 
     /**
-     * If the routing detail is to be used for a specific payment type this field will be populated,
-     * otherwise null.
+     * Returns the raw JSON value of [paymentType].
+     *
+     * Unlike [paymentType], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _paymentType(): JsonField<PaymentType> = body._paymentType()
 
@@ -71,215 +87,30 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): RoutingDetailCreateBody = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    fun getPathParam(index: Int): String {
-        return when (index) {
-            0 -> accountsType.toString()
-            1 -> accountId
-            else -> ""
-        }
-    }
-
-    @NoAutoDetect
-    class RoutingDetailCreateBody
-    @JsonCreator
-    internal constructor(
-        @JsonProperty("routing_number")
-        @ExcludeMissing
-        private val routingNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("routing_number_type")
-        @ExcludeMissing
-        private val routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
-        @JsonProperty("payment_type")
-        @ExcludeMissing
-        private val paymentType: JsonField<PaymentType> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /** The routing number of the bank. */
-        fun routingNumber(): String = routingNumber.getRequired("routing_number")
-
-        /**
-         * The type of routing number. See
-         * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
-         * details.
-         */
-        fun routingNumberType(): RoutingNumberType =
-            routingNumberType.getRequired("routing_number_type")
-
-        /**
-         * If the routing detail is to be used for a specific payment type this field will be
-         * populated, otherwise null.
-         */
-        fun paymentType(): PaymentType? = paymentType.getNullable("payment_type")
-
-        /** The routing number of the bank. */
-        @JsonProperty("routing_number")
-        @ExcludeMissing
-        fun _routingNumber(): JsonField<String> = routingNumber
-
-        /**
-         * The type of routing number. See
-         * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
-         * details.
-         */
-        @JsonProperty("routing_number_type")
-        @ExcludeMissing
-        fun _routingNumberType(): JsonField<RoutingNumberType> = routingNumberType
-
-        /**
-         * If the routing detail is to be used for a specific payment type this field will be
-         * populated, otherwise null.
-         */
-        @JsonProperty("payment_type")
-        @ExcludeMissing
-        fun _paymentType(): JsonField<PaymentType> = paymentType
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): RoutingDetailCreateBody = apply {
-            if (validated) {
-                return@apply
-            }
-
-            routingNumber()
-            routingNumberType()
-            paymentType()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        /** A builder for [RoutingDetailCreateBody]. */
-        class Builder internal constructor() {
-
-            private var routingNumber: JsonField<String>? = null
-            private var routingNumberType: JsonField<RoutingNumberType>? = null
-            private var paymentType: JsonField<PaymentType> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(routingDetailCreateBody: RoutingDetailCreateBody) = apply {
-                routingNumber = routingDetailCreateBody.routingNumber
-                routingNumberType = routingDetailCreateBody.routingNumberType
-                paymentType = routingDetailCreateBody.paymentType
-                additionalProperties = routingDetailCreateBody.additionalProperties.toMutableMap()
-            }
-
-            /** The routing number of the bank. */
-            fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
-
-            /** The routing number of the bank. */
-            fun routingNumber(routingNumber: JsonField<String>) = apply {
-                this.routingNumber = routingNumber
-            }
-
-            /**
-             * The type of routing number. See
-             * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
-             * details.
-             */
-            fun routingNumberType(routingNumberType: RoutingNumberType) =
-                routingNumberType(JsonField.of(routingNumberType))
-
-            /**
-             * The type of routing number. See
-             * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
-             * details.
-             */
-            fun routingNumberType(routingNumberType: JsonField<RoutingNumberType>) = apply {
-                this.routingNumberType = routingNumberType
-            }
-
-            /**
-             * If the routing detail is to be used for a specific payment type this field will be
-             * populated, otherwise null.
-             */
-            fun paymentType(paymentType: PaymentType?) =
-                paymentType(JsonField.ofNullable(paymentType))
-
-            /**
-             * If the routing detail is to be used for a specific payment type this field will be
-             * populated, otherwise null.
-             */
-            fun paymentType(paymentType: JsonField<PaymentType>) = apply {
-                this.paymentType = paymentType
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            fun build(): RoutingDetailCreateBody =
-                RoutingDetailCreateBody(
-                    checkRequired("routingNumber", routingNumber),
-                    checkRequired("routingNumberType", routingNumberType),
-                    paymentType,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is RoutingDetailCreateBody && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "RoutingDetailCreateBody{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [RoutingDetailCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountsType()
+         * .accountId()
+         * .routingNumber()
+         * .routingNumberType()
+         * ```
+         */
         fun builder() = Builder()
     }
 
     /** A builder for [RoutingDetailCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var accountsType: AccountsType? = null
         private var accountId: String? = null
-        private var body: RoutingDetailCreateBody.Builder = RoutingDetailCreateBody.builder()
+        private var body: RoutingDetailCreateRequest.Builder = RoutingDetailCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -298,7 +129,13 @@ private constructor(
         /** The routing number of the bank. */
         fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
-        /** The routing number of the bank. */
+        /**
+         * Sets [Builder.routingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.routingNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun routingNumber(routingNumber: JsonField<String>) = apply {
             body.routingNumber(routingNumber)
         }
@@ -313,9 +150,11 @@ private constructor(
         }
 
         /**
-         * The type of routing number. See
-         * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
-         * details.
+         * Sets [Builder.routingNumberType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.routingNumberType] with a well-typed [RoutingNumberType]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun routingNumberType(routingNumberType: JsonField<RoutingNumberType>) = apply {
             body.routingNumberType(routingNumberType)
@@ -328,8 +167,11 @@ private constructor(
         fun paymentType(paymentType: PaymentType?) = apply { body.paymentType(paymentType) }
 
         /**
-         * If the routing detail is to be used for a specific payment type this field will be
-         * populated, otherwise null.
+         * Sets [Builder.paymentType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.paymentType] with a well-typed [PaymentType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun paymentType(paymentType: JsonField<PaymentType>) = apply {
             body.paymentType(paymentType)
@@ -452,6 +294,21 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [RoutingDetailCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountsType()
+         * .accountId()
+         * .routingNumber()
+         * .routingNumberType()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): RoutingDetailCreateParams =
             RoutingDetailCreateParams(
                 checkRequired("accountsType", accountsType),
@@ -460,6 +317,263 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    internal fun _body(): RoutingDetailCreateRequest = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> accountsType.toString()
+            1 -> accountId
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class RoutingDetailCreateRequest
+    private constructor(
+        private val routingNumber: JsonField<String>,
+        private val routingNumberType: JsonField<RoutingNumberType>,
+        private val paymentType: JsonField<PaymentType>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("routing_number")
+            @ExcludeMissing
+            routingNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("routing_number_type")
+            @ExcludeMissing
+            routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
+            @JsonProperty("payment_type")
+            @ExcludeMissing
+            paymentType: JsonField<PaymentType> = JsonMissing.of(),
+        ) : this(routingNumber, routingNumberType, paymentType, mutableMapOf())
+
+        /**
+         * The routing number of the bank.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun routingNumber(): String = routingNumber.getRequired("routing_number")
+
+        /**
+         * The type of routing number. See
+         * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
+         * details.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun routingNumberType(): RoutingNumberType =
+            routingNumberType.getRequired("routing_number_type")
+
+        /**
+         * If the routing detail is to be used for a specific payment type this field will be
+         * populated, otherwise null.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun paymentType(): PaymentType? = paymentType.getNullable("payment_type")
+
+        /**
+         * Returns the raw JSON value of [routingNumber].
+         *
+         * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        fun _routingNumber(): JsonField<String> = routingNumber
+
+        /**
+         * Returns the raw JSON value of [routingNumberType].
+         *
+         * Unlike [routingNumberType], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("routing_number_type")
+        @ExcludeMissing
+        fun _routingNumberType(): JsonField<RoutingNumberType> = routingNumberType
+
+        /**
+         * Returns the raw JSON value of [paymentType].
+         *
+         * Unlike [paymentType], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("payment_type")
+        @ExcludeMissing
+        fun _paymentType(): JsonField<PaymentType> = paymentType
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [RoutingDetailCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .routingNumber()
+             * .routingNumberType()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [RoutingDetailCreateRequest]. */
+        class Builder internal constructor() {
+
+            private var routingNumber: JsonField<String>? = null
+            private var routingNumberType: JsonField<RoutingNumberType>? = null
+            private var paymentType: JsonField<PaymentType> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(routingDetailCreateRequest: RoutingDetailCreateRequest) = apply {
+                routingNumber = routingDetailCreateRequest.routingNumber
+                routingNumberType = routingDetailCreateRequest.routingNumberType
+                paymentType = routingDetailCreateRequest.paymentType
+                additionalProperties =
+                    routingDetailCreateRequest.additionalProperties.toMutableMap()
+            }
+
+            /** The routing number of the bank. */
+            fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
+
+            /**
+             * Sets [Builder.routingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.routingNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun routingNumber(routingNumber: JsonField<String>) = apply {
+                this.routingNumber = routingNumber
+            }
+
+            /**
+             * The type of routing number. See
+             * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
+             * details.
+             */
+            fun routingNumberType(routingNumberType: RoutingNumberType) =
+                routingNumberType(JsonField.of(routingNumberType))
+
+            /**
+             * Sets [Builder.routingNumberType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.routingNumberType] with a well-typed
+             * [RoutingNumberType] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun routingNumberType(routingNumberType: JsonField<RoutingNumberType>) = apply {
+                this.routingNumberType = routingNumberType
+            }
+
+            /**
+             * If the routing detail is to be used for a specific payment type this field will be
+             * populated, otherwise null.
+             */
+            fun paymentType(paymentType: PaymentType?) =
+                paymentType(JsonField.ofNullable(paymentType))
+
+            /**
+             * Sets [Builder.paymentType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.paymentType] with a well-typed [PaymentType] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun paymentType(paymentType: JsonField<PaymentType>) = apply {
+                this.paymentType = paymentType
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [RoutingDetailCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .routingNumber()
+             * .routingNumberType()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): RoutingDetailCreateRequest =
+                RoutingDetailCreateRequest(
+                    checkRequired("routingNumber", routingNumber),
+                    checkRequired("routingNumberType", routingNumberType),
+                    paymentType,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): RoutingDetailCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            routingNumber()
+            routingNumberType()
+            paymentType()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is RoutingDetailCreateRequest && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "RoutingDetailCreateRequest{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
     }
 
     /**

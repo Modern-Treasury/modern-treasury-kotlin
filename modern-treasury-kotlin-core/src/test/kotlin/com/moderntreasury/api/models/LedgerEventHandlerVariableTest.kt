@@ -5,10 +5,10 @@ package com.moderntreasury.api.models
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LedgerEventHandlerVariableTest {
+internal class LedgerEventHandlerVariableTest {
 
     @Test
-    fun createLedgerEventHandlerVariable() {
+    fun create() {
         val ledgerEventHandlerVariable =
             LedgerEventHandlerVariable.builder()
                 .query(
@@ -20,7 +20,7 @@ class LedgerEventHandlerVariableTest {
                 )
                 .type("ledger_account")
                 .build()
-        assertThat(ledgerEventHandlerVariable).isNotNull
+
         assertThat(ledgerEventHandlerVariable.query())
             .isEqualTo(
                 LedgerEventHandlerVariable.LedgerEventHandlerConditions.builder()

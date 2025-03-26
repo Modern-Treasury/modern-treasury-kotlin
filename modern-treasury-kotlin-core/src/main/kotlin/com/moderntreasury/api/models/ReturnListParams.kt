@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -51,31 +50,17 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.counterpartyId?.let { queryParams.put("counterparty_id", listOf(it.toString())) }
-        this.internalAccountId?.let {
-            queryParams.put("internal_account_id", listOf(it.toString()))
-        }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.returnableId?.let { queryParams.put("returnable_id", listOf(it.toString())) }
-        this.returnableType?.let { queryParams.put("returnable_type", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        fun none(): ReturnListParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [ReturnListParams]. */
         fun builder() = Builder()
     }
 
     /** A builder for [ReturnListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var afterCursor: String? = null
@@ -113,6 +98,11 @@ private constructor(
 
         fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
+        /**
+         * Alias for [Builder.perPage].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /** The ID of a valid returnable. Must be accompanied by `returnable_type`. */
@@ -224,6 +214,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [ReturnListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): ReturnListParams =
             ReturnListParams(
                 afterCursor,
@@ -236,6 +231,21 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                counterpartyId?.let { put("counterparty_id", it) }
+                internalAccountId?.let { put("internal_account_id", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                returnableId?.let { put("returnable_id", it) }
+                returnableType?.let { put("returnable_type", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     /**
      * One of `payment_order`, `paper_item`, `reversal`, or `incoming_payment_detail`. Must be

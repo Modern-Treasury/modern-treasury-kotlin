@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class RoutingDetailTest {
+internal class RoutingDetailTest {
 
     @Test
-    fun createRoutingDetail() {
+    fun create() {
         val routingDetail =
             RoutingDetail.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -38,7 +38,7 @@ class RoutingDetailTest {
                 .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        assertThat(routingDetail).isNotNull
+
         assertThat(routingDetail.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(routingDetail.bankAddress())
             .isEqualTo(

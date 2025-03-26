@@ -8,7 +8,7 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ExpectedPaymentCreateParamsTest {
+internal class ExpectedPaymentCreateParamsTest {
 
     @Test
     fun create() {
@@ -269,8 +269,9 @@ class ExpectedPaymentCreateParamsTest {
                 .statementDescriptor("statement_descriptor")
                 .type(ExpectedPaymentType.ACH)
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.amountLowerBound()).isEqualTo(0L)
         assertThat(body.amountUpperBound()).isEqualTo(0L)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -352,21 +353,19 @@ class ExpectedPaymentCreateParamsTest {
             )
         assertThat(body.ledgerTransactionId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.lineItems())
-            .isEqualTo(
-                listOf(
-                    ExpectedPaymentCreateParams.LineItemRequest.builder()
-                        .amount(0L)
-                        .accountingCategoryId("accounting_category_id")
-                        .description("description")
-                        .metadata(
-                            ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                .build()
-                        )
-                        .build()
-                )
+            .containsExactly(
+                ExpectedPaymentCreateParams.LineItemRequest.builder()
+                    .amount(0L)
+                    .accountingCategoryId("accounting_category_id")
+                    .description("description")
+                    .metadata(
+                        ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .build()
             )
         assertThat(body.metadata())
             .isEqualTo(
@@ -379,25 +378,23 @@ class ExpectedPaymentCreateParamsTest {
         assertThat(body._reconciliationFilters()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(body._reconciliationGroups()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(body.reconciliationRuleVariables())
-            .isEqualTo(
-                listOf(
-                    ReconciliationRule.builder()
-                        .amountLowerBound(0L)
-                        .amountUpperBound(0L)
-                        .direction(ReconciliationRule.Direction.CREDIT)
-                        .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .currency(Currency.AED)
-                        .customIdentifiers(
-                            ReconciliationRule.CustomIdentifiers.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .dateLowerBound(LocalDate.parse("2019-12-27"))
-                        .dateUpperBound(LocalDate.parse("2019-12-27"))
-                        .type(ReconciliationRule.Type.ACH)
-                        .build()
-                )
+            .containsExactly(
+                ReconciliationRule.builder()
+                    .amountLowerBound(0L)
+                    .amountUpperBound(0L)
+                    .direction(ReconciliationRule.Direction.CREDIT)
+                    .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .currency(Currency.AED)
+                    .customIdentifiers(
+                        ReconciliationRule.CustomIdentifiers.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
+                    .dateLowerBound(LocalDate.parse("2019-12-27"))
+                    .dateUpperBound(LocalDate.parse("2019-12-27"))
+                    .type(ReconciliationRule.Type.ACH)
+                    .build()
             )
         assertThat(body.remittanceInformation()).isEqualTo("remittance_information")
         assertThat(body.statementDescriptor()).isEqualTo("statement_descriptor")
@@ -407,7 +404,7 @@ class ExpectedPaymentCreateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = ExpectedPaymentCreateParams.builder().build()
+
         val body = params._body()
-        assertThat(body).isNotNull
     }
 }

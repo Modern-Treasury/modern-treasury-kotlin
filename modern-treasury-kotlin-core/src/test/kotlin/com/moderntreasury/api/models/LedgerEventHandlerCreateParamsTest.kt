@@ -6,7 +6,7 @@ import com.moderntreasury.api.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LedgerEventHandlerCreateParamsTest {
+internal class LedgerEventHandlerCreateParamsTest {
 
     @Test
     fun create() {
@@ -123,8 +123,9 @@ class LedgerEventHandlerCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.ledgerTransactionTemplate())
             .isEqualTo(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate.builder()
@@ -206,8 +207,9 @@ class LedgerEventHandlerCreateParamsTest {
                 )
                 .name("name")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.ledgerTransactionTemplate())
             .isEqualTo(
                 LedgerEventHandlerCreateParams.LedgerEventHandlerLedgerTransactionTemplate.builder()

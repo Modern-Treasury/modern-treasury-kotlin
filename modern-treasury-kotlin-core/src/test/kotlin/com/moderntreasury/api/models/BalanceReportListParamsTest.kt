@@ -7,7 +7,7 @@ import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class BalanceReportListParamsTest {
+internal class BalanceReportListParamsTest {
 
     @Test
     fun create() {
@@ -21,6 +21,16 @@ class BalanceReportListParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            BalanceReportListParams.builder().internalAccountId("internal_account_id").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("internal_account_id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun queryParams() {
         val params =
             BalanceReportListParams.builder()
@@ -30,33 +40,27 @@ class BalanceReportListParamsTest {
                 .balanceReportType(BalanceReportListParams.BalanceReportType.INTRADAY)
                 .perPage(0L)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("as_of_date", "2019-12-27")
-        expected.put(
-            "balance_report_type",
-            BalanceReportListParams.BalanceReportType.INTRADAY.toString(),
-        )
-        expected.put("per_page", "0")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("as_of_date", "2019-12-27")
+                    .put("balance_report_type", "intraday")
+                    .put("per_page", "0")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params =
             BalanceReportListParams.builder().internalAccountId("internal_account_id").build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
-    }
 
-    @Test
-    fun getPathParam() {
-        val params =
-            BalanceReportListParams.builder().internalAccountId("internal_account_id").build()
-        assertThat(params).isNotNull
-        // path param "internalAccountId"
-        assertThat(params.getPathParam(0)).isEqualTo("internal_account_id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

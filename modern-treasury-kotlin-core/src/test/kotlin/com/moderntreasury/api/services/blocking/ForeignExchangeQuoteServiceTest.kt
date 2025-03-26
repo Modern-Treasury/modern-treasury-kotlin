@@ -6,17 +6,16 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.ForeignExchangeQuoteCreateParams
-import com.moderntreasury.api.models.ForeignExchangeQuoteListParams
 import com.moderntreasury.api.models.ForeignExchangeQuoteRetrieveParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class ForeignExchangeQuoteServiceTest {
+internal class ForeignExchangeQuoteServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -24,6 +23,7 @@ class ForeignExchangeQuoteServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val foreignExchangeQuoteService = client.foreignExchangeQuotes()
+
         val foreignExchangeQuote =
             foreignExchangeQuoteService.create(
                 ForeignExchangeQuoteCreateParams.builder()
@@ -35,12 +35,12 @@ class ForeignExchangeQuoteServiceTest {
                     .targetAmount(0L)
                     .build()
             )
-        println(foreignExchangeQuote)
+
         foreignExchangeQuote.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -48,16 +48,17 @@ class ForeignExchangeQuoteServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val foreignExchangeQuoteService = client.foreignExchangeQuotes()
+
         val foreignExchangeQuote =
             foreignExchangeQuoteService.retrieve(
                 ForeignExchangeQuoteRetrieveParams.builder().id("id").build()
             )
-        println(foreignExchangeQuote)
+
         foreignExchangeQuote.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -65,9 +66,9 @@ class ForeignExchangeQuoteServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val foreignExchangeQuoteService = client.foreignExchangeQuotes()
-        val response =
-            foreignExchangeQuoteService.list(ForeignExchangeQuoteListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = foreignExchangeQuoteService.list()
+
+        page.response().validate()
     }
 }

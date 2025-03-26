@@ -2,7 +2,6 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -105,53 +104,17 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.id?.let { queryParams.put("id[]", it.map(Any::toString)) }
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.availableBalanceAmount?.forEachQueryParam { key, values ->
-            queryParams.put("available_balance_amount[$key]", values)
-        }
-        this.balances?.forEachQueryParam { key, values ->
-            queryParams.put("balances[$key]", values)
-        }
-        this.createdAt?.forEachQueryParam { key, values ->
-            queryParams.put("created_at[$key]", values)
-        }
-        this.currency?.let { queryParams.put("currency", listOf(it.toString())) }
-        this.ledgerAccountCategoryId?.let {
-            queryParams.put("ledger_account_category_id", listOf(it.toString()))
-        }
-        this.ledgerId?.let { queryParams.put("ledger_id", listOf(it.toString())) }
-        this.metadata?.forEachQueryParam { key, values ->
-            queryParams.put("metadata[$key]", values)
-        }
-        this.name?.let { queryParams.put("name[]", it.map(Any::toString)) }
-        this.pendingBalanceAmount?.forEachQueryParam { key, values ->
-            queryParams.put("pending_balance_amount[$key]", values)
-        }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.postedBalanceAmount?.forEachQueryParam { key, values ->
-            queryParams.put("posted_balance_amount[$key]", values)
-        }
-        this.updatedAt?.forEachQueryParam { key, values ->
-            queryParams.put("updated_at[$key]", values)
-        }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        fun none(): LedgerAccountListParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [LedgerAccountListParams]. */
         fun builder() = Builder()
     }
 
     /** A builder for [LedgerAccountListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var id: MutableList<String>? = null
@@ -197,8 +160,9 @@ private constructor(
         fun id(id: List<String>?) = apply { this.id = id?.toMutableList() }
 
         /**
-         * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
-         * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
+         * Adds a single [String] to [Builder.id].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addId(id: String) = apply { this.id = (this.id ?: mutableListOf()).apply { add(id) } }
 
@@ -248,8 +212,9 @@ private constructor(
         fun name(name: List<String>?) = apply { this.name = name?.toMutableList() }
 
         /**
-         * If you have specific names to retrieve in bulk, you can pass them as query parameters
-         * delimited with `name[]=`, for example `?name[]=123&name[]=abc`.
+         * Adds a single [String] to [Builder.name].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addName(name: String) = apply {
             this.name = (this.name ?: mutableListOf()).apply { add(name) }
@@ -265,6 +230,11 @@ private constructor(
 
         fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
+        /**
+         * Alias for [Builder.perPage].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /**
@@ -380,6 +350,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [LedgerAccountListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): LedgerAccountListParams =
             LedgerAccountListParams(
                 id?.toImmutable(),
@@ -400,6 +375,108 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                id?.forEach { put("id[]", it) }
+                afterCursor?.let { put("after_cursor", it) }
+                availableBalanceAmount?.let {
+                    it.eq()?.let { put("available_balance_amount[eq]", it.toString()) }
+                    it.gt()?.let { put("available_balance_amount[gt]", it.toString()) }
+                    it.gte()?.let { put("available_balance_amount[gte]", it.toString()) }
+                    it.lt()?.let { put("available_balance_amount[lt]", it.toString()) }
+                    it.lte()?.let { put("available_balance_amount[lte]", it.toString()) }
+                    it.notEq()?.let { put("available_balance_amount[not_eq]", it.toString()) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("available_balance_amount[$key]", value)
+                        }
+                    }
+                }
+                balances?.let {
+                    it.asOfDate()?.let { put("balances[as_of_date]", it.toString()) }
+                    it.effectiveAt()?.let {
+                        put(
+                            "balances[effective_at]",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.effectiveAtLowerBound()?.let {
+                        put(
+                            "balances[effective_at_lower_bound]",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.effectiveAtUpperBound()?.let {
+                        put(
+                            "balances[effective_at_upper_bound]",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("balances[$key]", value)
+                        }
+                    }
+                }
+                createdAt?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("created_at[$key]", value)
+                        }
+                    }
+                }
+                currency?.let { put("currency", it) }
+                ledgerAccountCategoryId?.let { put("ledger_account_category_id", it) }
+                ledgerId?.let { put("ledger_id", it) }
+                metadata?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("metadata[$key]", value)
+                        }
+                    }
+                }
+                name?.forEach { put("name[]", it) }
+                pendingBalanceAmount?.let {
+                    it.eq()?.let { put("pending_balance_amount[eq]", it.toString()) }
+                    it.gt()?.let { put("pending_balance_amount[gt]", it.toString()) }
+                    it.gte()?.let { put("pending_balance_amount[gte]", it.toString()) }
+                    it.lt()?.let { put("pending_balance_amount[lt]", it.toString()) }
+                    it.lte()?.let { put("pending_balance_amount[lte]", it.toString()) }
+                    it.notEq()?.let { put("pending_balance_amount[not_eq]", it.toString()) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("pending_balance_amount[$key]", value)
+                        }
+                    }
+                }
+                perPage?.let { put("per_page", it.toString()) }
+                postedBalanceAmount?.let {
+                    it.eq()?.let { put("posted_balance_amount[eq]", it.toString()) }
+                    it.gt()?.let { put("posted_balance_amount[gt]", it.toString()) }
+                    it.gte()?.let { put("posted_balance_amount[gte]", it.toString()) }
+                    it.lt()?.let { put("posted_balance_amount[lt]", it.toString()) }
+                    it.lte()?.let { put("posted_balance_amount[lte]", it.toString()) }
+                    it.notEq()?.let { put("posted_balance_amount[not_eq]", it.toString()) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("posted_balance_amount[$key]", value)
+                        }
+                    }
+                }
+                updatedAt?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("updated_at[$key]", value)
+                        }
+                    }
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     /**
      * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), `eq` (=), or `not_eq` (!=) to filter by
@@ -430,20 +507,13 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.eq?.let { putParam("eq", listOf(it.toString())) }
-            this.gt?.let { putParam("gt", listOf(it.toString())) }
-            this.gte?.let { putParam("gte", listOf(it.toString())) }
-            this.lt?.let { putParam("lt", listOf(it.toString())) }
-            this.lte?.let { putParam("lte", listOf(it.toString())) }
-            this.notEq?.let { putParam("not_eq", listOf(it.toString())) }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [AvailableBalanceAmount].
+             */
             fun builder() = Builder()
         }
 
@@ -470,26 +540,56 @@ private constructor(
 
             fun eq(eq: Long?) = apply { this.eq = eq }
 
+            /**
+             * Alias for [Builder.eq].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun eq(eq: Long) = eq(eq as Long?)
 
             fun gt(gt: Long?) = apply { this.gt = gt }
 
+            /**
+             * Alias for [Builder.gt].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun gt(gt: Long) = gt(gt as Long?)
 
             fun gte(gte: Long?) = apply { this.gte = gte }
 
+            /**
+             * Alias for [Builder.gte].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun gte(gte: Long) = gte(gte as Long?)
 
             fun lt(lt: Long?) = apply { this.lt = lt }
 
+            /**
+             * Alias for [Builder.lt].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun lt(lt: Long) = lt(lt as Long?)
 
             fun lte(lte: Long?) = apply { this.lte = lte }
 
+            /**
+             * Alias for [Builder.lte].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun lte(lte: Long) = lte(lte as Long?)
 
             fun notEq(notEq: Long?) = apply { this.notEq = notEq }
 
+            /**
+             * Alias for [Builder.notEq].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun notEq(notEq: Long) = notEq(notEq as Long?)
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
@@ -541,6 +641,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [AvailableBalanceAmount].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): AvailableBalanceAmount =
                 AvailableBalanceAmount(eq, gt, gte, lt, lte, notEq, additionalProperties.build())
         }
@@ -588,30 +693,11 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.asOfDate?.let { putParam("as_of_date", listOf(it.toString())) }
-            this.effectiveAt?.let {
-                putParam("effective_at", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.effectiveAtLowerBound?.let {
-                putParam(
-                    "effective_at_lower_bound",
-                    listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
-                )
-            }
-            this.effectiveAtUpperBound?.let {
-                putParam(
-                    "effective_at_upper_bound",
-                    listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
-                )
-            }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Balances]. */
             fun builder() = Builder()
         }
 
@@ -693,6 +779,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Balances].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Balances =
                 Balances(
                     asOfDate,
@@ -730,14 +821,11 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             fun builder() = Builder()
         }
 
@@ -799,6 +887,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [CreatedAt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): CreatedAt = CreatedAt(additionalProperties.build())
         }
 
@@ -827,14 +920,11 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -896,6 +986,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.build())
         }
 
@@ -945,20 +1040,11 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.eq?.let { putParam("eq", listOf(it.toString())) }
-            this.gt?.let { putParam("gt", listOf(it.toString())) }
-            this.gte?.let { putParam("gte", listOf(it.toString())) }
-            this.lt?.let { putParam("lt", listOf(it.toString())) }
-            this.lte?.let { putParam("lte", listOf(it.toString())) }
-            this.notEq?.let { putParam("not_eq", listOf(it.toString())) }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [PendingBalanceAmount]. */
             fun builder() = Builder()
         }
 
@@ -985,26 +1071,56 @@ private constructor(
 
             fun eq(eq: Long?) = apply { this.eq = eq }
 
+            /**
+             * Alias for [Builder.eq].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun eq(eq: Long) = eq(eq as Long?)
 
             fun gt(gt: Long?) = apply { this.gt = gt }
 
+            /**
+             * Alias for [Builder.gt].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun gt(gt: Long) = gt(gt as Long?)
 
             fun gte(gte: Long?) = apply { this.gte = gte }
 
+            /**
+             * Alias for [Builder.gte].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun gte(gte: Long) = gte(gte as Long?)
 
             fun lt(lt: Long?) = apply { this.lt = lt }
 
+            /**
+             * Alias for [Builder.lt].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun lt(lt: Long) = lt(lt as Long?)
 
             fun lte(lte: Long?) = apply { this.lte = lte }
 
+            /**
+             * Alias for [Builder.lte].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun lte(lte: Long) = lte(lte as Long?)
 
             fun notEq(notEq: Long?) = apply { this.notEq = notEq }
 
+            /**
+             * Alias for [Builder.notEq].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun notEq(notEq: Long) = notEq(notEq as Long?)
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
@@ -1056,6 +1172,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [PendingBalanceAmount].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): PendingBalanceAmount =
                 PendingBalanceAmount(eq, gt, gte, lt, lte, notEq, additionalProperties.build())
         }
@@ -1107,20 +1228,11 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.eq?.let { putParam("eq", listOf(it.toString())) }
-            this.gt?.let { putParam("gt", listOf(it.toString())) }
-            this.gte?.let { putParam("gte", listOf(it.toString())) }
-            this.lt?.let { putParam("lt", listOf(it.toString())) }
-            this.lte?.let { putParam("lte", listOf(it.toString())) }
-            this.notEq?.let { putParam("not_eq", listOf(it.toString())) }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [PostedBalanceAmount]. */
             fun builder() = Builder()
         }
 
@@ -1147,26 +1259,56 @@ private constructor(
 
             fun eq(eq: Long?) = apply { this.eq = eq }
 
+            /**
+             * Alias for [Builder.eq].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun eq(eq: Long) = eq(eq as Long?)
 
             fun gt(gt: Long?) = apply { this.gt = gt }
 
+            /**
+             * Alias for [Builder.gt].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun gt(gt: Long) = gt(gt as Long?)
 
             fun gte(gte: Long?) = apply { this.gte = gte }
 
+            /**
+             * Alias for [Builder.gte].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun gte(gte: Long) = gte(gte as Long?)
 
             fun lt(lt: Long?) = apply { this.lt = lt }
 
+            /**
+             * Alias for [Builder.lt].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun lt(lt: Long) = lt(lt as Long?)
 
             fun lte(lte: Long?) = apply { this.lte = lte }
 
+            /**
+             * Alias for [Builder.lte].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun lte(lte: Long) = lte(lte as Long?)
 
             fun notEq(notEq: Long?) = apply { this.notEq = notEq }
 
+            /**
+             * Alias for [Builder.notEq].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun notEq(notEq: Long) = notEq(notEq as Long?)
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
@@ -1218,6 +1360,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [PostedBalanceAmount].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): PostedBalanceAmount =
                 PostedBalanceAmount(eq, gt, gte, lt, lte, notEq, additionalProperties.build())
         }
@@ -1249,14 +1396,11 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [UpdatedAt]. */
             fun builder() = Builder()
         }
 
@@ -1318,6 +1462,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [UpdatedAt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): UpdatedAt = UpdatedAt(additionalProperties.build())
         }
 

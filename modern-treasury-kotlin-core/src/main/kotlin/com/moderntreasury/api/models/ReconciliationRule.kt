@@ -11,176 +11,268 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class ReconciliationRule
-@JsonCreator
 private constructor(
-    @JsonProperty("amount_lower_bound")
-    @ExcludeMissing
-    private val amountLowerBound: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("amount_upper_bound")
-    @ExcludeMissing
-    private val amountUpperBound: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("direction")
-    @ExcludeMissing
-    private val direction: JsonField<Direction> = JsonMissing.of(),
-    @JsonProperty("internal_account_id")
-    @ExcludeMissing
-    private val internalAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("counterparty_id")
-    @ExcludeMissing
-    private val counterpartyId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("currency")
-    @ExcludeMissing
-    private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("custom_identifiers")
-    @ExcludeMissing
-    private val customIdentifiers: JsonField<CustomIdentifiers> = JsonMissing.of(),
-    @JsonProperty("date_lower_bound")
-    @ExcludeMissing
-    private val dateLowerBound: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("date_upper_bound")
-    @ExcludeMissing
-    private val dateUpperBound: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val amountLowerBound: JsonField<Long>,
+    private val amountUpperBound: JsonField<Long>,
+    private val direction: JsonField<Direction>,
+    private val internalAccountId: JsonField<String>,
+    private val counterpartyId: JsonField<String>,
+    private val currency: JsonField<Currency>,
+    private val customIdentifiers: JsonField<CustomIdentifiers>,
+    private val dateLowerBound: JsonField<LocalDate>,
+    private val dateUpperBound: JsonField<LocalDate>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("amount_lower_bound")
+        @ExcludeMissing
+        amountLowerBound: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("amount_upper_bound")
+        @ExcludeMissing
+        amountUpperBound: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("direction")
+        @ExcludeMissing
+        direction: JsonField<Direction> = JsonMissing.of(),
+        @JsonProperty("internal_account_id")
+        @ExcludeMissing
+        internalAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        counterpartyId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("currency") @ExcludeMissing currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("custom_identifiers")
+        @ExcludeMissing
+        customIdentifiers: JsonField<CustomIdentifiers> = JsonMissing.of(),
+        @JsonProperty("date_lower_bound")
+        @ExcludeMissing
+        dateLowerBound: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("date_upper_bound")
+        @ExcludeMissing
+        dateUpperBound: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(
+        amountLowerBound,
+        amountUpperBound,
+        direction,
+        internalAccountId,
+        counterpartyId,
+        currency,
+        customIdentifiers,
+        dateLowerBound,
+        dateUpperBound,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The lowest amount this expected payment may be equal to. Value in specified currency's
      * smallest unit. e.g. $10 would be represented as 1000.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amountLowerBound(): Long = amountLowerBound.getRequired("amount_lower_bound")
 
     /**
      * The highest amount this expected payment may be equal to. Value in specified currency's
      * smallest unit. e.g. $10 would be represented as 1000.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amountUpperBound(): Long = amountUpperBound.getRequired("amount_upper_bound")
 
     /**
      * One of credit or debit. When you are receiving money, use credit. When you are being charged,
      * use debit.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun direction(): Direction = direction.getRequired("direction")
 
-    /** The ID of the Internal Account for the expected payment */
+    /**
+     * The ID of the Internal Account for the expected payment
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
 
-    /** The ID of the counterparty you expect for this payment */
+    /**
+     * The ID of the counterparty you expect for this payment
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
 
-    /** Must conform to ISO 4217. Defaults to the currency of the internal account */
+    /**
+     * Must conform to ISO 4217. Defaults to the currency of the internal account
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun currency(): Currency? = currency.getNullable("currency")
 
-    /** A hash of custom identifiers for this payment */
+    /**
+     * A hash of custom identifiers for this payment
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun customIdentifiers(): CustomIdentifiers? =
         customIdentifiers.getNullable("custom_identifiers")
 
-    /** The earliest date the payment may come in. Format is yyyy-mm-dd */
+    /**
+     * The earliest date the payment may come in. Format is yyyy-mm-dd
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun dateLowerBound(): LocalDate? = dateLowerBound.getNullable("date_lower_bound")
 
-    /** The latest date the payment may come in. Format is yyyy-mm-dd */
+    /**
+     * The latest date the payment may come in. Format is yyyy-mm-dd
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun dateUpperBound(): LocalDate? = dateUpperBound.getNullable("date_upper_bound")
 
     /**
      * One of ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa, signet
      * wire
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun type(): Type? = type.getNullable("type")
 
     /**
-     * The lowest amount this expected payment may be equal to. Value in specified currency's
-     * smallest unit. e.g. $10 would be represented as 1000.
+     * Returns the raw JSON value of [amountLowerBound].
+     *
+     * Unlike [amountLowerBound], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("amount_lower_bound")
     @ExcludeMissing
     fun _amountLowerBound(): JsonField<Long> = amountLowerBound
 
     /**
-     * The highest amount this expected payment may be equal to. Value in specified currency's
-     * smallest unit. e.g. $10 would be represented as 1000.
+     * Returns the raw JSON value of [amountUpperBound].
+     *
+     * Unlike [amountUpperBound], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("amount_upper_bound")
     @ExcludeMissing
     fun _amountUpperBound(): JsonField<Long> = amountUpperBound
 
     /**
-     * One of credit or debit. When you are receiving money, use credit. When you are being charged,
-     * use debit.
+     * Returns the raw JSON value of [direction].
+     *
+     * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("direction") @ExcludeMissing fun _direction(): JsonField<Direction> = direction
 
-    /** The ID of the Internal Account for the expected payment */
+    /**
+     * Returns the raw JSON value of [internalAccountId].
+     *
+     * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("internal_account_id")
     @ExcludeMissing
     fun _internalAccountId(): JsonField<String> = internalAccountId
 
-    /** The ID of the counterparty you expect for this payment */
+    /**
+     * Returns the raw JSON value of [counterpartyId].
+     *
+     * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("counterparty_id")
     @ExcludeMissing
     fun _counterpartyId(): JsonField<String> = counterpartyId
 
-    /** Must conform to ISO 4217. Defaults to the currency of the internal account */
+    /**
+     * Returns the raw JSON value of [currency].
+     *
+     * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
-    /** A hash of custom identifiers for this payment */
+    /**
+     * Returns the raw JSON value of [customIdentifiers].
+     *
+     * Unlike [customIdentifiers], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("custom_identifiers")
     @ExcludeMissing
     fun _customIdentifiers(): JsonField<CustomIdentifiers> = customIdentifiers
 
-    /** The earliest date the payment may come in. Format is yyyy-mm-dd */
+    /**
+     * Returns the raw JSON value of [dateLowerBound].
+     *
+     * Unlike [dateLowerBound], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("date_lower_bound")
     @ExcludeMissing
     fun _dateLowerBound(): JsonField<LocalDate> = dateLowerBound
 
-    /** The latest date the payment may come in. Format is yyyy-mm-dd */
+    /**
+     * Returns the raw JSON value of [dateUpperBound].
+     *
+     * Unlike [dateUpperBound], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("date_upper_bound")
     @ExcludeMissing
     fun _dateUpperBound(): JsonField<LocalDate> = dateUpperBound
 
     /**
-     * One of ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa, signet
-     * wire
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): ReconciliationRule = apply {
-        if (validated) {
-            return@apply
-        }
-
-        amountLowerBound()
-        amountUpperBound()
-        direction()
-        internalAccountId()
-        counterpartyId()
-        currency()
-        customIdentifiers()?.validate()
-        dateLowerBound()
-        dateUpperBound()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ReconciliationRule].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amountLowerBound()
+         * .amountUpperBound()
+         * .direction()
+         * .internalAccountId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -221,8 +313,11 @@ private constructor(
             amountLowerBound(JsonField.of(amountLowerBound))
 
         /**
-         * The lowest amount this expected payment may be equal to. Value in specified currency's
-         * smallest unit. e.g. $10 would be represented as 1000.
+         * Sets [Builder.amountLowerBound] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amountLowerBound] with a well-typed [Long] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun amountLowerBound(amountLowerBound: JsonField<Long>) = apply {
             this.amountLowerBound = amountLowerBound
@@ -236,8 +331,11 @@ private constructor(
             amountUpperBound(JsonField.of(amountUpperBound))
 
         /**
-         * The highest amount this expected payment may be equal to. Value in specified currency's
-         * smallest unit. e.g. $10 would be represented as 1000.
+         * Sets [Builder.amountUpperBound] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amountUpperBound] with a well-typed [Long] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun amountUpperBound(amountUpperBound: JsonField<Long>) = apply {
             this.amountUpperBound = amountUpperBound
@@ -250,8 +348,11 @@ private constructor(
         fun direction(direction: Direction) = direction(JsonField.of(direction))
 
         /**
-         * One of credit or debit. When you are receiving money, use credit. When you are being
-         * charged, use debit.
+         * Sets [Builder.direction] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.direction] with a well-typed [Direction] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
@@ -259,7 +360,13 @@ private constructor(
         fun internalAccountId(internalAccountId: String) =
             internalAccountId(JsonField.of(internalAccountId))
 
-        /** The ID of the Internal Account for the expected payment */
+        /**
+         * Sets [Builder.internalAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.internalAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun internalAccountId(internalAccountId: JsonField<String>) = apply {
             this.internalAccountId = internalAccountId
         }
@@ -268,7 +375,13 @@ private constructor(
         fun counterpartyId(counterpartyId: String?) =
             counterpartyId(JsonField.ofNullable(counterpartyId))
 
-        /** The ID of the counterparty you expect for this payment */
+        /**
+         * Sets [Builder.counterpartyId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.counterpartyId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
             this.counterpartyId = counterpartyId
         }
@@ -276,14 +389,26 @@ private constructor(
         /** Must conform to ISO 4217. Defaults to the currency of the internal account */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
-        /** Must conform to ISO 4217. Defaults to the currency of the internal account */
+        /**
+         * Sets [Builder.currency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currency] with a well-typed [Currency] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** A hash of custom identifiers for this payment */
         fun customIdentifiers(customIdentifiers: CustomIdentifiers?) =
             customIdentifiers(JsonField.ofNullable(customIdentifiers))
 
-        /** A hash of custom identifiers for this payment */
+        /**
+         * Sets [Builder.customIdentifiers] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.customIdentifiers] with a well-typed [CustomIdentifiers]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun customIdentifiers(customIdentifiers: JsonField<CustomIdentifiers>) = apply {
             this.customIdentifiers = customIdentifiers
         }
@@ -292,7 +417,13 @@ private constructor(
         fun dateLowerBound(dateLowerBound: LocalDate?) =
             dateLowerBound(JsonField.ofNullable(dateLowerBound))
 
-        /** The earliest date the payment may come in. Format is yyyy-mm-dd */
+        /**
+         * Sets [Builder.dateLowerBound] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dateLowerBound] with a well-typed [LocalDate] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun dateLowerBound(dateLowerBound: JsonField<LocalDate>) = apply {
             this.dateLowerBound = dateLowerBound
         }
@@ -301,7 +432,13 @@ private constructor(
         fun dateUpperBound(dateUpperBound: LocalDate?) =
             dateUpperBound(JsonField.ofNullable(dateUpperBound))
 
-        /** The latest date the payment may come in. Format is yyyy-mm-dd */
+        /**
+         * Sets [Builder.dateUpperBound] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dateUpperBound] with a well-typed [LocalDate] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun dateUpperBound(dateUpperBound: JsonField<LocalDate>) = apply {
             this.dateUpperBound = dateUpperBound
         }
@@ -313,8 +450,10 @@ private constructor(
         fun type(type: Type?) = type(JsonField.ofNullable(type))
 
         /**
-         * One of ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa, signet
-         * wire
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -337,6 +476,21 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [ReconciliationRule].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amountLowerBound()
+         * .amountUpperBound()
+         * .direction()
+         * .internalAccountId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ReconciliationRule =
             ReconciliationRule(
                 checkRequired("amountLowerBound", amountLowerBound),
@@ -349,8 +503,28 @@ private constructor(
                 dateLowerBound,
                 dateUpperBound,
                 type,
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): ReconciliationRule = apply {
+        if (validated) {
+            return@apply
+        }
+
+        amountLowerBound()
+        amountUpperBound()
+        direction()
+        internalAccountId()
+        counterpartyId()
+        currency()
+        customIdentifiers()?.validate()
+        dateLowerBound()
+        dateUpperBound()
+        type()
+        validated = true
     }
 
     /**
@@ -458,32 +632,22 @@ private constructor(
     }
 
     /** A hash of custom identifiers for this payment */
-    @NoAutoDetect
     class CustomIdentifiers
     @JsonCreator
     private constructor(
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
     ) {
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        private var validated: Boolean = false
-
-        fun validate(): CustomIdentifiers = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CustomIdentifiers]. */
             fun builder() = Builder()
         }
 
@@ -515,7 +679,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [CustomIdentifiers].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): CustomIdentifiers = CustomIdentifiers(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CustomIdentifiers = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

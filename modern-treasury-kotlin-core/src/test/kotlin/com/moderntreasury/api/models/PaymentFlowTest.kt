@@ -7,10 +7,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class PaymentFlowTest {
+internal class PaymentFlowTest {
 
     @Test
-    fun createPaymentFlow() {
+    fun create() {
         val paymentFlow =
             PaymentFlow.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -33,7 +33,7 @@ class PaymentFlowTest {
                 .status(PaymentFlow.Status.CANCELLED)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        assertThat(paymentFlow).isNotNull
+
         assertThat(paymentFlow.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(paymentFlow.amount()).isEqualTo(0L)
         assertThat(paymentFlow.clientToken()).isEqualTo("client_token")

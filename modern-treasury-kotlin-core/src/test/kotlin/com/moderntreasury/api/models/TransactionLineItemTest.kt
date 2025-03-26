@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class TransactionLineItemTest {
+internal class TransactionLineItemTest {
 
     @Test
-    fun createTransactionLineItem() {
+    fun create() {
         val transactionLineItem =
             TransactionLineItem.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -28,7 +28,7 @@ class TransactionLineItemTest {
                 .type(TransactionLineItem.Type.ORIGINATING)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        assertThat(transactionLineItem).isNotNull
+
         assertThat(transactionLineItem.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(transactionLineItem.amount()).isEqualTo(0L)
         assertThat(transactionLineItem.counterpartyId()).isEqualTo("counterparty_id")

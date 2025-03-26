@@ -7,10 +7,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ExternalAccountTest {
+internal class ExternalAccountTest {
 
     @Test
-    fun createExternalAccount() {
+    fun create() {
         val externalAccount =
             ExternalAccount.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -106,7 +106,7 @@ class ExternalAccountTest {
                 .verificationSource(ExternalAccount.VerificationSource.ACH_PRENOTE)
                 .verificationStatus(ExternalAccount.VerificationStatus.PENDING_VERIFICATION)
                 .build()
-        assertThat(externalAccount).isNotNull
+
         assertThat(externalAccount.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(externalAccount.accountDetails())
             .containsExactly(

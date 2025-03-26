@@ -6,7 +6,7 @@ import com.moderntreasury.api.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LedgerEntryUpdateParamsTest {
+internal class LedgerEntryUpdateParamsTest {
 
     @Test
     fun create() {
@@ -23,6 +23,15 @@ class LedgerEntryUpdateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params = LedgerEntryUpdateParams.builder().id("id").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             LedgerEntryUpdateParams.builder()
@@ -35,8 +44,9 @@ class LedgerEntryUpdateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.metadata())
             .isEqualTo(
                 LedgerEntryUpdateParams.Metadata.builder()
@@ -50,17 +60,7 @@ class LedgerEntryUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = LedgerEntryUpdateParams.builder().id("id").build()
-        val body = params._body()
-        assertThat(body).isNotNull
-    }
 
-    @Test
-    fun getPathParam() {
-        val params = LedgerEntryUpdateParams.builder().id("id").build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        val body = params._body()
     }
 }

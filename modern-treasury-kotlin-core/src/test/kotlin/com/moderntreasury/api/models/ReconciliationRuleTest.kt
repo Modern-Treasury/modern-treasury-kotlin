@@ -7,10 +7,10 @@ import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ReconciliationRuleTest {
+internal class ReconciliationRuleTest {
 
     @Test
-    fun createReconciliationRule() {
+    fun create() {
         val reconciliationRule =
             ReconciliationRule.builder()
                 .amountLowerBound(0L)
@@ -28,7 +28,7 @@ class ReconciliationRuleTest {
                 .dateUpperBound(LocalDate.parse("2019-12-27"))
                 .type(ReconciliationRule.Type.ACH)
                 .build()
-        assertThat(reconciliationRule).isNotNull
+
         assertThat(reconciliationRule.amountLowerBound()).isEqualTo(0L)
         assertThat(reconciliationRule.amountUpperBound()).isEqualTo(0L)
         assertThat(reconciliationRule.direction()).isEqualTo(ReconciliationRule.Direction.CREDIT)

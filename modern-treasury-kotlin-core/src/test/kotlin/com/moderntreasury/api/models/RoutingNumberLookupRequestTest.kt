@@ -6,10 +6,10 @@ import com.moderntreasury.api.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class RoutingNumberLookupRequestTest {
+internal class RoutingNumberLookupRequestTest {
 
     @Test
-    fun createRoutingNumberLookupRequest() {
+    fun create() {
         val routingNumberLookupRequest =
             RoutingNumberLookupRequest.builder()
                 .bankAddress(
@@ -65,7 +65,7 @@ class RoutingNumberLookupRequestTest {
                     )
                 )
                 .build()
-        assertThat(routingNumberLookupRequest).isNotNull
+
         assertThat(routingNumberLookupRequest.bankAddress())
             .isEqualTo(
                 RoutingNumberLookupRequest.AddressRequest.builder()

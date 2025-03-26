@@ -2,7 +2,6 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -81,41 +80,17 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.asOfDateEnd?.let { queryParams.put("as_of_date_end", listOf(it.toString())) }
-        this.asOfDateStart?.let { queryParams.put("as_of_date_start", listOf(it.toString())) }
-        this.counterpartyId?.let { queryParams.put("counterparty_id", listOf(it.toString())) }
-        this.description?.let { queryParams.put("description", listOf(it.toString())) }
-        this.direction?.let { queryParams.put("direction", listOf(it.toString())) }
-        this.internalAccountId?.let {
-            queryParams.put("internal_account_id", listOf(it.toString()))
-        }
-        this.metadata?.forEachQueryParam { key, values ->
-            queryParams.put("metadata[$key]", values)
-        }
-        this.paymentType?.let { queryParams.put("payment_type", listOf(it.toString())) }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.posted?.let { queryParams.put("posted", listOf(it.toString())) }
-        this.transactableType?.let { queryParams.put("transactable_type", listOf(it.toString())) }
-        this.vendorId?.let { queryParams.put("vendor_id", listOf(it.toString())) }
-        this.virtualAccountId?.let { queryParams.put("virtual_account_id", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        fun none(): TransactionListParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [TransactionListParams]. */
         fun builder() = Builder()
     }
 
     /** A builder for [TransactionListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var afterCursor: String? = null
@@ -192,12 +167,21 @@ private constructor(
 
         fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
+        /**
+         * Alias for [Builder.perPage].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /** Either `true` or `false`. */
         fun posted(posted: Boolean?) = apply { this.posted = posted }
 
-        /** Either `true` or `false`. */
+        /**
+         * Alias for [Builder.posted].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun posted(posted: Boolean) = posted(posted as Boolean?)
 
         fun transactableType(transactableType: String?) = apply {
@@ -312,6 +296,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [TransactionListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): TransactionListParams =
             TransactionListParams(
                 afterCursor,
@@ -333,6 +322,35 @@ private constructor(
             )
     }
 
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                asOfDateEnd?.let { put("as_of_date_end", it.toString()) }
+                asOfDateStart?.let { put("as_of_date_start", it.toString()) }
+                counterpartyId?.let { put("counterparty_id", it) }
+                description?.let { put("description", it) }
+                direction?.let { put("direction", it) }
+                internalAccountId?.let { put("internal_account_id", it) }
+                metadata?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("metadata[$key]", value)
+                        }
+                    }
+                }
+                paymentType?.let { put("payment_type", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                posted?.let { put("posted", it.toString()) }
+                transactableType?.let { put("transactable_type", it) }
+                vendorId?.let { put("vendor_id", it) }
+                virtualAccountId?.let { put("virtual_account_id", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
+
     /**
      * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
      * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
@@ -341,14 +359,11 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -410,6 +425,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.build())
         }
 

@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -137,63 +136,17 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.id?.let { queryParams.put("id[]", it.map(Any::toString)) }
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.asOfLockVersion?.let { queryParams.put("as_of_lock_version", listOf(it.toString())) }
-        this.direction?.let { queryParams.put("direction", listOf(it.toString())) }
-        this.effectiveAt?.forEachQueryParam { key, values ->
-            queryParams.put("effective_at[$key]", values)
-        }
-        this.effectiveDate?.forEachQueryParam { key, values ->
-            queryParams.put("effective_date[$key]", values)
-        }
-        this.ledgerAccountCategoryId?.let {
-            queryParams.put("ledger_account_category_id", listOf(it.toString()))
-        }
-        this.ledgerAccountId?.let { queryParams.put("ledger_account_id", listOf(it.toString())) }
-        this.ledgerAccountLockVersion?.forEachQueryParam { key, values ->
-            queryParams.put("ledger_account_lock_version[$key]", values)
-        }
-        this.ledgerAccountPayoutId?.let {
-            queryParams.put("ledger_account_payout_id", listOf(it.toString()))
-        }
-        this.ledgerAccountSettlementId?.let {
-            queryParams.put("ledger_account_settlement_id", listOf(it.toString()))
-        }
-        this.ledgerAccountStatementId?.let {
-            queryParams.put("ledger_account_statement_id", listOf(it.toString()))
-        }
-        this.ledgerTransactionId?.let {
-            queryParams.put("ledger_transaction_id", listOf(it.toString()))
-        }
-        this.metadata?.forEachQueryParam { key, values ->
-            queryParams.put("metadata[$key]", values)
-        }
-        this.orderBy?.forEachQueryParam { key, values -> queryParams.put("order_by[$key]", values) }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.showBalances?.let { queryParams.put("show_balances", listOf(it.toString())) }
-        this.showDeleted?.let { queryParams.put("show_deleted", listOf(it.toString())) }
-        this.status?.let { queryParams.put("status", listOf(it.toString())) }
-        this.updatedAt?.forEachQueryParam { key, values ->
-            queryParams.put("updated_at[$key]", values)
-        }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        fun none(): LedgerEntryListParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [LedgerEntryListParams]. */
         fun builder() = Builder()
     }
 
     /** A builder for [LedgerEntryListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var id: MutableList<String>? = null
@@ -251,8 +204,9 @@ private constructor(
         fun id(id: List<String>?) = apply { this.id = id?.toMutableList() }
 
         /**
-         * If you have specific IDs to retrieve in bulk, you can pass them as query parameters
-         * delimited with `id[]=`, for example `?id[]=123&id[]=abc`.
+         * Adds a single [String] to [Builder.id].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addId(id: String) = apply { this.id = (this.id ?: mutableListOf()).apply { add(id) } }
 
@@ -267,8 +221,9 @@ private constructor(
         }
 
         /**
-         * Shows all ledger entries that were present on a ledger account at a particular
-         * `lock_version`. You must also specify `ledger_account_id`.
+         * Alias for [Builder.asOfLockVersion].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun asOfLockVersion(asOfLockVersion: Long) = asOfLockVersion(asOfLockVersion as Long?)
 
@@ -342,6 +297,11 @@ private constructor(
 
         fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
+        /**
+         * Alias for [Builder.perPage].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /**
@@ -351,8 +311,9 @@ private constructor(
         fun showBalances(showBalances: Boolean?) = apply { this.showBalances = showBalances }
 
         /**
-         * If true, response will include the balances attached to the ledger entry. If there is no
-         * balance available, null will be returned instead.
+         * Alias for [Builder.showBalances].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun showBalances(showBalances: Boolean) = showBalances(showBalances as Boolean?)
 
@@ -363,8 +324,9 @@ private constructor(
         fun showDeleted(showDeleted: Boolean?) = apply { this.showDeleted = showDeleted }
 
         /**
-         * If true, response will include ledger entries that were deleted. When you update a ledger
-         * transaction to specify a new set of entries, the previous entries are deleted.
+         * Alias for [Builder.showDeleted].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun showDeleted(showDeleted: Boolean) = showDeleted(showDeleted as Boolean?)
 
@@ -479,6 +441,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [LedgerEntryListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): LedgerEntryListParams =
             LedgerEntryListParams(
                 id?.toImmutable(),
@@ -506,6 +473,73 @@ private constructor(
             )
     }
 
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                id?.forEach { put("id[]", it) }
+                afterCursor?.let { put("after_cursor", it) }
+                asOfLockVersion?.let { put("as_of_lock_version", it.toString()) }
+                direction?.let { put("direction", it.toString()) }
+                effectiveAt?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("effective_at[$key]", value)
+                        }
+                    }
+                }
+                effectiveDate?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("effective_date[$key]", value)
+                        }
+                    }
+                }
+                ledgerAccountCategoryId?.let { put("ledger_account_category_id", it) }
+                ledgerAccountId?.let { put("ledger_account_id", it) }
+                ledgerAccountLockVersion?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("ledger_account_lock_version[$key]", value)
+                        }
+                    }
+                }
+                ledgerAccountPayoutId?.let { put("ledger_account_payout_id", it) }
+                ledgerAccountSettlementId?.let { put("ledger_account_settlement_id", it) }
+                ledgerAccountStatementId?.let { put("ledger_account_statement_id", it) }
+                ledgerTransactionId?.let { put("ledger_transaction_id", it) }
+                metadata?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("metadata[$key]", value)
+                        }
+                    }
+                }
+                orderBy?.let {
+                    it.createdAt()?.let { put("order_by[created_at]", it.toString()) }
+                    it.effectiveAt()?.let { put("order_by[effective_at]", it.toString()) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("order_by[$key]", value)
+                        }
+                    }
+                }
+                perPage?.let { put("per_page", it.toString()) }
+                showBalances?.let { put("show_balances", it.toString()) }
+                showDeleted?.let { put("show_deleted", it.toString()) }
+                status?.let { put("status", it.toString()) }
+                updatedAt?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("updated_at[$key]", value)
+                        }
+                    }
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
+
     /**
      * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the transaction's
      * effective time. Format ISO8601
@@ -514,14 +548,11 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [EffectiveAt]. */
             fun builder() = Builder()
         }
 
@@ -583,6 +614,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [EffectiveAt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): EffectiveAt = EffectiveAt(additionalProperties.build())
         }
 
@@ -611,14 +647,11 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [EffectiveDate]. */
             fun builder() = Builder()
         }
 
@@ -680,6 +713,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [EffectiveDate].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): EffectiveDate = EffectiveDate(additionalProperties.build())
         }
 
@@ -710,14 +748,13 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [LedgerAccountLockVersion].
+             */
             fun builder() = Builder()
         }
 
@@ -779,6 +816,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [LedgerAccountLockVersion].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): LedgerAccountLockVersion =
                 LedgerAccountLockVersion(additionalProperties.build())
         }
@@ -809,14 +851,11 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -878,6 +917,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.build())
         }
 
@@ -916,16 +960,11 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.createdAt?.let { putParam("created_at", listOf(it.toString())) }
-            this.effectiveAt?.let { putParam("effective_at", listOf(it.toString())) }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [OrderBy]. */
             fun builder() = Builder()
         }
 
@@ -995,6 +1034,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [OrderBy].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): OrderBy = OrderBy(createdAt, effectiveAt, additionalProperties.build())
         }
 
@@ -1339,14 +1383,11 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [UpdatedAt]. */
             fun builder() = Builder()
         }
 
@@ -1408,6 +1449,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [UpdatedAt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): UpdatedAt = UpdatedAt(additionalProperties.build())
         }
 

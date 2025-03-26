@@ -6,7 +6,7 @@ import com.moderntreasury.api.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LedgerAccountCreateParamsTest {
+internal class LedgerAccountCreateParamsTest {
 
     @Test
     fun create() {
@@ -51,8 +51,9 @@ class LedgerAccountCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.currency()).isEqualTo("currency")
         assertThat(body.ledgerId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.name()).isEqualTo("name")
@@ -60,7 +61,7 @@ class LedgerAccountCreateParamsTest {
         assertThat(body.currencyExponent()).isEqualTo(0L)
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.ledgerAccountCategoryIds())
-            .isEqualTo(listOf("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"))
+            .containsExactly("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.ledgerableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.ledgerableType())
             .isEqualTo(LedgerAccountCreateParams.LedgerableType.COUNTERPARTY)
@@ -83,8 +84,9 @@ class LedgerAccountCreateParamsTest {
                 .name("name")
                 .normalBalance(TransactionDirection.CREDIT)
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.currency()).isEqualTo("currency")
         assertThat(body.ledgerId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.name()).isEqualTo("name")

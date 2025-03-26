@@ -7,7 +7,6 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.BankSettings
 import com.moderntreasury.api.models.ConnectionLegalEntityCreateParams
-import com.moderntreasury.api.models.ConnectionLegalEntityListParams
 import com.moderntreasury.api.models.ConnectionLegalEntityRetrieveParams
 import com.moderntreasury.api.models.ConnectionLegalEntityUpdateParams
 import com.moderntreasury.api.models.WealthAndEmploymentDetails
@@ -17,10 +16,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class ConnectionLegalEntityServiceTest {
+internal class ConnectionLegalEntityServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -28,6 +27,7 @@ class ConnectionLegalEntityServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val connectionLegalEntityService = client.connectionLegalEntities()
+
         val connectionLegalEntity =
             connectionLegalEntityService.create(
                 ConnectionLegalEntityCreateParams.builder()
@@ -356,12 +356,12 @@ class ConnectionLegalEntityServiceTest {
                     .legalEntityId("legal_entity_id")
                     .build()
             )
-        println(connectionLegalEntity)
+
         connectionLegalEntity.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -369,16 +369,17 @@ class ConnectionLegalEntityServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val connectionLegalEntityService = client.connectionLegalEntities()
+
         val connectionLegalEntity =
             connectionLegalEntityService.retrieve(
                 ConnectionLegalEntityRetrieveParams.builder().id("id").build()
             )
-        println(connectionLegalEntity)
+
         connectionLegalEntity.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -386,6 +387,7 @@ class ConnectionLegalEntityServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val connectionLegalEntityService = client.connectionLegalEntities()
+
         val connectionLegalEntity =
             connectionLegalEntityService.update(
                 ConnectionLegalEntityUpdateParams.builder()
@@ -393,12 +395,12 @@ class ConnectionLegalEntityServiceTest {
                     .status(ConnectionLegalEntityUpdateParams.Status.PROCESSING)
                     .build()
             )
-        println(connectionLegalEntity)
+
         connectionLegalEntity.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -406,9 +408,9 @@ class ConnectionLegalEntityServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val connectionLegalEntityService = client.connectionLegalEntities()
-        val response =
-            connectionLegalEntityService.list(ConnectionLegalEntityListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = connectionLegalEntityService.list()
+
+        page.response().validate()
     }
 }

@@ -6,17 +6,16 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.InternalAccountCreateParams
-import com.moderntreasury.api.models.InternalAccountListParams
 import com.moderntreasury.api.models.InternalAccountRetrieveParams
 import com.moderntreasury.api.models.InternalAccountUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class InternalAccountServiceTest {
+internal class InternalAccountServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -24,6 +23,7 @@ class InternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val internalAccountService = client.internalAccounts()
+
         val internalAccount =
             internalAccountService.create(
                 InternalAccountCreateParams.builder()
@@ -53,12 +53,12 @@ class InternalAccountServiceTest {
                     )
                     .build()
             )
-        println(internalAccount)
+
         internalAccount.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -66,16 +66,17 @@ class InternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val internalAccountService = client.internalAccounts()
+
         val internalAccount =
             internalAccountService.retrieve(
                 InternalAccountRetrieveParams.builder().id("id").build()
             )
-        println(internalAccount)
+
         internalAccount.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -83,6 +84,7 @@ class InternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val internalAccountService = client.internalAccounts()
+
         val internalAccount =
             internalAccountService.update(
                 InternalAccountUpdateParams.builder()
@@ -98,12 +100,12 @@ class InternalAccountServiceTest {
                     .parentAccountId("parent_account_id")
                     .build()
             )
-        println(internalAccount)
+
         internalAccount.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -111,8 +113,9 @@ class InternalAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val internalAccountService = client.internalAccounts()
-        val response = internalAccountService.list(InternalAccountListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = internalAccountService.list()
+
+        page.response().validate()
     }
 }

@@ -2,7 +2,6 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
@@ -26,27 +25,24 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    fun getPathParam(index: Int): String {
-        return when (index) {
-            0 -> paymentOrderId
-            1 -> reversalId
-            else -> ""
-        }
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [PaymentOrderReversalRetrieveParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .paymentOrderId()
+         * .reversalId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
     /** A builder for [PaymentOrderReversalRetrieveParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var paymentOrderId: String? = null
@@ -165,6 +161,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [PaymentOrderReversalRetrieveParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .paymentOrderId()
+         * .reversalId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): PaymentOrderReversalRetrieveParams =
             PaymentOrderReversalRetrieveParams(
                 checkRequired("paymentOrderId", paymentOrderId),
@@ -173,6 +182,17 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> paymentOrderId
+            1 -> reversalId
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

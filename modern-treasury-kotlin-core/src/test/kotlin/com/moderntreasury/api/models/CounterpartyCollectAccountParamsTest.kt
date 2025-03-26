@@ -5,7 +5,7 @@ package com.moderntreasury.api.models
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class CounterpartyCollectAccountParamsTest {
+internal class CounterpartyCollectAccountParamsTest {
 
     @Test
     fun create() {
@@ -19,6 +19,19 @@ class CounterpartyCollectAccountParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            CounterpartyCollectAccountParams.builder()
+                .id("id")
+                .direction(TransactionDirection.CREDIT)
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             CounterpartyCollectAccountParams.builder()
@@ -28,11 +41,12 @@ class CounterpartyCollectAccountParamsTest {
                 .addField(CounterpartyCollectAccountParams.Field.NAME)
                 .sendEmail(true)
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
         assertThat(body.customRedirect()).isEqualTo("https://example.com")
-        assertThat(body.fields()).isEqualTo(listOf(CounterpartyCollectAccountParams.Field.NAME))
+        assertThat(body.fields()).containsExactly(CounterpartyCollectAccountParams.Field.NAME)
         assertThat(body.sendEmail()).isEqualTo(true)
     }
 
@@ -43,22 +57,9 @@ class CounterpartyCollectAccountParamsTest {
                 .id("id")
                 .direction(TransactionDirection.CREDIT)
                 .build()
-        val body = params._body()
-        assertThat(body).isNotNull
-        assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
-    }
 
-    @Test
-    fun getPathParam() {
-        val params =
-            CounterpartyCollectAccountParams.builder()
-                .id("id")
-                .direction(TransactionDirection.CREDIT)
-                .build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        val body = params._body()
+
+        assertThat(body.direction()).isEqualTo(TransactionDirection.CREDIT)
     }
 }

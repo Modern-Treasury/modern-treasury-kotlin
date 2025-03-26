@@ -6,7 +6,7 @@ import com.moderntreasury.api.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LineItemUpdateParamsTest {
+internal class LineItemUpdateParamsTest {
 
     @Test
     fun create() {
@@ -25,6 +25,22 @@ class LineItemUpdateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            LineItemUpdateParams.builder()
+                .itemizableType(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS)
+                .itemizableId("itemizable_id")
+                .id("id")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("expected_payments")
+        assertThat(params._pathParam(1)).isEqualTo("itemizable_id")
+        assertThat(params._pathParam(2)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(3)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             LineItemUpdateParams.builder()
@@ -39,8 +55,9 @@ class LineItemUpdateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.metadata())
             .isEqualTo(
                 LineItemUpdateParams.Metadata.builder()
@@ -59,27 +76,7 @@ class LineItemUpdateParamsTest {
                 .itemizableId("itemizable_id")
                 .id("id")
                 .build()
-        val body = params._body()
-        assertThat(body).isNotNull
-    }
 
-    @Test
-    fun getPathParam() {
-        val params =
-            LineItemUpdateParams.builder()
-                .itemizableType(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS)
-                .itemizableId("itemizable_id")
-                .id("id")
-                .build()
-        assertThat(params).isNotNull
-        // path param "itemizableType"
-        assertThat(params.getPathParam(0))
-            .isEqualTo(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS.toString())
-        // path param "itemizableId"
-        assertThat(params.getPathParam(1)).isEqualTo("itemizable_id")
-        // path param "id"
-        assertThat(params.getPathParam(2)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(3)).isEqualTo("")
+        val body = params._body()
     }
 }

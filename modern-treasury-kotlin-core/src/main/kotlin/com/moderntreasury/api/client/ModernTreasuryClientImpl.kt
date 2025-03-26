@@ -3,6 +3,7 @@
 package com.moderntreasury.api.client
 
 import com.moderntreasury.api.core.ClientOptions
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.getPackageVersion
 import com.moderntreasury.api.core.handlers.errorHandler
@@ -11,8 +12,9 @@ import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse.Handler
+import com.moderntreasury.api.core.http.HttpResponseFor
+import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepare
-import com.moderntreasury.api.errors.ModernTreasuryError
 import com.moderntreasury.api.models.ClientPingParams
 import com.moderntreasury.api.models.PingResponse
 import com.moderntreasury.api.services.blocking.AccountCollectionFlowService
@@ -102,11 +104,13 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
                 .putHeader("User-Agent", "${javaClass.simpleName}/Kotlin ${getPackageVersion()}")
                 .build()
 
-    private val errorHandler: Handler<ModernTreasuryError> = errorHandler(clientOptions.jsonMapper)
-
     // Pass the original clientOptions so that this client sets its own User-Agent.
     private val async: ModernTreasuryClientAsync by lazy {
         ModernTreasuryClientAsyncImpl(clientOptions)
+    }
+
+    private val withRawResponse: ModernTreasuryClient.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
     }
 
     private val connections: ConnectionService by lazy {
@@ -253,6 +257,8 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
 
     override fun async(): ModernTreasuryClientAsync = async
 
+    override fun withRawResponse(): ModernTreasuryClient.WithRawResponse = withRawResponse
+
     override fun connections(): ConnectionService = connections
 
     override fun counterparties(): CounterpartyService = counterparties
@@ -331,28 +337,277 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
 
     override fun legalEntityAssociations(): LegalEntityAssociationService = legalEntityAssociations
 
-    private val pingHandler: Handler<PingResponse> =
-        jsonHandler<PingResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /**
-     * A test endpoint often used to confirm credentials and headers are being passed in correctly.
-     */
-    override fun ping(params: ClientPingParams, requestOptions: RequestOptions): PingResponse {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("api", "ping")
-                .build()
-                .prepare(clientOptions, params)
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { pingHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                    it.validate()
-                }
-            }
-    }
+    override fun ping(params: ClientPingParams, requestOptions: RequestOptions): PingResponse =
+        // get /api/ping
+        withRawResponse().ping(params, requestOptions).parse()
 
     override fun close() = clientOptions.httpClient.close()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        ModernTreasuryClient.WithRawResponse {
+
+        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        private val connections: ConnectionService.WithRawResponse by lazy {
+            ConnectionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val counterparties: CounterpartyService.WithRawResponse by lazy {
+            CounterpartyServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val events: EventService.WithRawResponse by lazy {
+            EventServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val expectedPayments: ExpectedPaymentService.WithRawResponse by lazy {
+            ExpectedPaymentServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val externalAccounts: ExternalAccountService.WithRawResponse by lazy {
+            ExternalAccountServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val incomingPaymentDetails: IncomingPaymentDetailService.WithRawResponse by lazy {
+            IncomingPaymentDetailServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val invoices: InvoiceService.WithRawResponse by lazy {
+            InvoiceServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val documents: DocumentService.WithRawResponse by lazy {
+            DocumentServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val accountCollectionFlows: AccountCollectionFlowService.WithRawResponse by lazy {
+            AccountCollectionFlowServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val accountDetails: AccountDetailService.WithRawResponse by lazy {
+            AccountDetailServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val routingDetails: RoutingDetailService.WithRawResponse by lazy {
+            RoutingDetailServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val internalAccounts: InternalAccountService.WithRawResponse by lazy {
+            InternalAccountServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val ledgers: LedgerService.WithRawResponse by lazy {
+            LedgerServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val ledgerableEvents: LedgerableEventService.WithRawResponse by lazy {
+            LedgerableEventServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val ledgerAccountCategories: LedgerAccountCategoryService.WithRawResponse by lazy {
+            LedgerAccountCategoryServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val ledgerAccounts: LedgerAccountService.WithRawResponse by lazy {
+            LedgerAccountServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val ledgerAccountBalanceMonitors:
+            LedgerAccountBalanceMonitorService.WithRawResponse by lazy {
+            LedgerAccountBalanceMonitorServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val ledgerAccountStatements: LedgerAccountStatementService.WithRawResponse by lazy {
+            LedgerAccountStatementServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val ledgerEntries: LedgerEntryService.WithRawResponse by lazy {
+            LedgerEntryServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val ledgerEventHandlers: LedgerEventHandlerService.WithRawResponse by lazy {
+            LedgerEventHandlerServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val ledgerTransactions: LedgerTransactionService.WithRawResponse by lazy {
+            LedgerTransactionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val lineItems: LineItemService.WithRawResponse by lazy {
+            LineItemServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val paymentFlows: PaymentFlowService.WithRawResponse by lazy {
+            PaymentFlowServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val paymentOrders: PaymentOrderService.WithRawResponse by lazy {
+            PaymentOrderServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val paymentReferences: PaymentReferenceService.WithRawResponse by lazy {
+            PaymentReferenceServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val returns: ReturnService.WithRawResponse by lazy {
+            ReturnServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val transactions: TransactionService.WithRawResponse by lazy {
+            TransactionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val validations: ValidationService.WithRawResponse by lazy {
+            ValidationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val paperItems: PaperItemService.WithRawResponse by lazy {
+            PaperItemServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val virtualAccounts: VirtualAccountService.WithRawResponse by lazy {
+            VirtualAccountServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val bulkRequests: BulkRequestService.WithRawResponse by lazy {
+            BulkRequestServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val bulkResults: BulkResultService.WithRawResponse by lazy {
+            BulkResultServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val ledgerAccountSettlements:
+            LedgerAccountSettlementService.WithRawResponse by lazy {
+            LedgerAccountSettlementServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val foreignExchangeQuotes: ForeignExchangeQuoteService.WithRawResponse by lazy {
+            ForeignExchangeQuoteServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val connectionLegalEntities: ConnectionLegalEntityService.WithRawResponse by lazy {
+            ConnectionLegalEntityServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val legalEntities: LegalEntityService.WithRawResponse by lazy {
+            LegalEntityServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val legalEntityAssociations: LegalEntityAssociationService.WithRawResponse by lazy {
+            LegalEntityAssociationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        override fun connections(): ConnectionService.WithRawResponse = connections
+
+        override fun counterparties(): CounterpartyService.WithRawResponse = counterparties
+
+        override fun events(): EventService.WithRawResponse = events
+
+        override fun expectedPayments(): ExpectedPaymentService.WithRawResponse = expectedPayments
+
+        override fun externalAccounts(): ExternalAccountService.WithRawResponse = externalAccounts
+
+        override fun incomingPaymentDetails(): IncomingPaymentDetailService.WithRawResponse =
+            incomingPaymentDetails
+
+        override fun invoices(): InvoiceService.WithRawResponse = invoices
+
+        override fun documents(): DocumentService.WithRawResponse = documents
+
+        override fun accountCollectionFlows(): AccountCollectionFlowService.WithRawResponse =
+            accountCollectionFlows
+
+        override fun accountDetails(): AccountDetailService.WithRawResponse = accountDetails
+
+        override fun routingDetails(): RoutingDetailService.WithRawResponse = routingDetails
+
+        override fun internalAccounts(): InternalAccountService.WithRawResponse = internalAccounts
+
+        override fun ledgers(): LedgerService.WithRawResponse = ledgers
+
+        override fun ledgerableEvents(): LedgerableEventService.WithRawResponse = ledgerableEvents
+
+        override fun ledgerAccountCategories(): LedgerAccountCategoryService.WithRawResponse =
+            ledgerAccountCategories
+
+        override fun ledgerAccounts(): LedgerAccountService.WithRawResponse = ledgerAccounts
+
+        override fun ledgerAccountBalanceMonitors():
+            LedgerAccountBalanceMonitorService.WithRawResponse = ledgerAccountBalanceMonitors
+
+        override fun ledgerAccountStatements(): LedgerAccountStatementService.WithRawResponse =
+            ledgerAccountStatements
+
+        override fun ledgerEntries(): LedgerEntryService.WithRawResponse = ledgerEntries
+
+        override fun ledgerEventHandlers(): LedgerEventHandlerService.WithRawResponse =
+            ledgerEventHandlers
+
+        override fun ledgerTransactions(): LedgerTransactionService.WithRawResponse =
+            ledgerTransactions
+
+        override fun lineItems(): LineItemService.WithRawResponse = lineItems
+
+        override fun paymentFlows(): PaymentFlowService.WithRawResponse = paymentFlows
+
+        override fun paymentOrders(): PaymentOrderService.WithRawResponse = paymentOrders
+
+        override fun paymentReferences(): PaymentReferenceService.WithRawResponse =
+            paymentReferences
+
+        override fun returns(): ReturnService.WithRawResponse = returns
+
+        override fun transactions(): TransactionService.WithRawResponse = transactions
+
+        override fun validations(): ValidationService.WithRawResponse = validations
+
+        override fun paperItems(): PaperItemService.WithRawResponse = paperItems
+
+        override fun virtualAccounts(): VirtualAccountService.WithRawResponse = virtualAccounts
+
+        override fun bulkRequests(): BulkRequestService.WithRawResponse = bulkRequests
+
+        override fun bulkResults(): BulkResultService.WithRawResponse = bulkResults
+
+        override fun ledgerAccountSettlements(): LedgerAccountSettlementService.WithRawResponse =
+            ledgerAccountSettlements
+
+        override fun foreignExchangeQuotes(): ForeignExchangeQuoteService.WithRawResponse =
+            foreignExchangeQuotes
+
+        override fun connectionLegalEntities(): ConnectionLegalEntityService.WithRawResponse =
+            connectionLegalEntities
+
+        override fun legalEntities(): LegalEntityService.WithRawResponse = legalEntities
+
+        override fun legalEntityAssociations(): LegalEntityAssociationService.WithRawResponse =
+            legalEntityAssociations
+
+        private val pingHandler: Handler<PingResponse> =
+            jsonHandler<PingResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override fun ping(
+            params: ClientPingParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PingResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("api", "ping")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { pingHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+    }
 }

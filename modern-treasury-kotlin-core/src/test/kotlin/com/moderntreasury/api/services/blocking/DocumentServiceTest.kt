@@ -5,18 +5,17 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.DocumentCreateParams
-import com.moderntreasury.api.models.DocumentListParams
 import com.moderntreasury.api.models.DocumentRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class DocumentServiceTest {
+internal class DocumentServiceTest {
 
     @Disabled("multipart/form-data not yet supported")
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -24,6 +23,7 @@ class DocumentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val documentService = client.documents()
+
         val document =
             documentService.create(
                 DocumentCreateParams.builder()
@@ -33,12 +33,12 @@ class DocumentServiceTest {
                     .documentType("document_type")
                     .build()
             )
-        println(document)
+
         document.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -46,13 +46,14 @@ class DocumentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val documentService = client.documents()
+
         val document = documentService.retrieve(DocumentRetrieveParams.builder().id("id").build())
-        println(document)
+
         document.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -60,8 +61,9 @@ class DocumentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val documentService = client.documents()
-        val response = documentService.list(DocumentListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = documentService.list()
+
+        page.response().validate()
     }
 }

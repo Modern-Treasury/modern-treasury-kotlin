@@ -5,17 +5,16 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.ReturnCreateParams
-import com.moderntreasury.api.models.ReturnListParams
 import com.moderntreasury.api.models.ReturnRetrieveParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class ReturnServiceTest {
+internal class ReturnServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -23,6 +22,7 @@ class ReturnServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val returnService = client.returns()
+
         val returnObject =
             returnService.create(
                 ReturnCreateParams.builder()
@@ -34,12 +34,12 @@ class ReturnServiceTest {
                     .reason("reason")
                     .build()
             )
-        println(returnObject)
+
         returnObject.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -47,13 +47,14 @@ class ReturnServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val returnService = client.returns()
+
         val returnObject = returnService.retrieve(ReturnRetrieveParams.builder().id("id").build())
-        println(returnObject)
+
         returnObject.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -61,8 +62,9 @@ class ReturnServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val returnService = client.returns()
-        val response = returnService.list(ReturnListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = returnService.list()
+
+        page.response().validate()
     }
 }

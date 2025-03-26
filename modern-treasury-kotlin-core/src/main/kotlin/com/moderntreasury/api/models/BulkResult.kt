@@ -20,196 +20,293 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.getOrThrow
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class BulkResult
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("entity")
-    @ExcludeMissing
-    private val entity: JsonField<Entity> = JsonMissing.of(),
-    @JsonProperty("entity_id")
-    @ExcludeMissing
-    private val entityId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("entity_type")
-    @ExcludeMissing
-    private val entityType: JsonField<EntityType> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("request_id")
-    @ExcludeMissing
-    private val requestId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("request_params")
-    @ExcludeMissing
-    private val requestParams: JsonField<RequestParams> = JsonMissing.of(),
-    @JsonProperty("request_type")
-    @ExcludeMissing
-    private val requestType: JsonField<RequestType> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val entity: JsonField<Entity>,
+    private val entityId: JsonField<String>,
+    private val entityType: JsonField<EntityType>,
+    private val liveMode: JsonField<Boolean>,
+    private val object_: JsonField<String>,
+    private val requestId: JsonField<String>,
+    private val requestParams: JsonField<RequestParams>,
+    private val requestType: JsonField<RequestType>,
+    private val status: JsonField<Status>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("entity") @ExcludeMissing entity: JsonField<Entity> = JsonMissing.of(),
+        @JsonProperty("entity_id") @ExcludeMissing entityId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("entity_type")
+        @ExcludeMissing
+        entityType: JsonField<EntityType> = JsonMissing.of(),
+        @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("request_id") @ExcludeMissing requestId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("request_params")
+        @ExcludeMissing
+        requestParams: JsonField<RequestParams> = JsonMissing.of(),
+        @JsonProperty("request_type")
+        @ExcludeMissing
+        requestType: JsonField<RequestType> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(
+        id,
+        createdAt,
+        entity,
+        entityId,
+        entityType,
+        liveMode,
+        object_,
+        requestId,
+        requestParams,
+        requestType,
+        status,
+        updatedAt,
+        mutableMapOf(),
+    )
+
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * An object with type as indicated by `entity_type`. This is the result object that is
      * generated by performing the requested action on the provided input `request_params`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun entity(): Entity = entity.getRequired("entity")
 
-    /** Unique identifier for the result entity object. */
+    /**
+     * Unique identifier for the result entity object.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun entityId(): String = entityId.getRequired("entity_id")
 
     /**
      * The type of the result entity object. For a successful bulk result, this is the same as the
      * `resource_type` of the bulk request. For a failed bulk result, this is always bulk_error
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun entityType(): EntityType = entityType.getRequired("entity_type")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun object_(): String = object_.getRequired("object")
 
     /**
      * Unique identifier for the request that created this bulk result. This is the ID of the bulk
      * request when `request_type` is bulk_request
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun requestId(): String = requestId.getRequired("request_id")
 
     /**
      * An optional object that contains the provided input params for the request that created this
      * result. This is an item in the `resources` array for the bulk_request
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun requestParams(): RequestParams? = requestParams.getNullable("request_params")
 
     /**
      * The type of the request that created this result. bulk_request is the only supported
      * `request_type`
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun requestType(): RequestType = requestType.getRequired("request_type")
 
-    /** One of successful or failed. */
+    /**
+     * One of successful or failed.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
-     * An object with type as indicated by `entity_type`. This is the result object that is
-     * generated by performing the requested action on the provided input `request_params`.
+     * Returns the raw JSON value of [entity].
+     *
+     * Unlike [entity], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("entity") @ExcludeMissing fun _entity(): JsonField<Entity> = entity
 
-    /** Unique identifier for the result entity object. */
+    /**
+     * Returns the raw JSON value of [entityId].
+     *
+     * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
     /**
-     * The type of the result entity object. For a successful bulk result, this is the same as the
-     * `resource_type` of the bulk request. For a failed bulk result, this is always bulk_error
+     * Returns the raw JSON value of [entityType].
+     *
+     * Unlike [entityType], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("entity_type")
     @ExcludeMissing
     fun _entityType(): JsonField<EntityType> = entityType
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /**
-     * Unique identifier for the request that created this bulk result. This is the ID of the bulk
-     * request when `request_type` is bulk_request
+     * Returns the raw JSON value of [requestId].
+     *
+     * Unlike [requestId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("request_id") @ExcludeMissing fun _requestId(): JsonField<String> = requestId
 
     /**
-     * An optional object that contains the provided input params for the request that created this
-     * result. This is an item in the `resources` array for the bulk_request
+     * Returns the raw JSON value of [requestParams].
+     *
+     * Unlike [requestParams], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("request_params")
     @ExcludeMissing
     fun _requestParams(): JsonField<RequestParams> = requestParams
 
     /**
-     * The type of the request that created this result. bulk_request is the only supported
-     * `request_type`
+     * Returns the raw JSON value of [requestType].
+     *
+     * Unlike [requestType], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("request_type")
     @ExcludeMissing
     fun _requestType(): JsonField<RequestType> = requestType
 
-    /** One of successful or failed. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): BulkResult = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        createdAt()
-        entity().validate()
-        entityId()
-        entityType()
-        liveMode()
-        object_()
-        requestId()
-        requestParams()?.validate()
-        requestType()
-        status()
-        updatedAt()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [BulkResult].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .createdAt()
+         * .entity()
+         * .entityId()
+         * .entityType()
+         * .liveMode()
+         * .object_()
+         * .requestId()
+         * .requestParams()
+         * .requestType()
+         * .status()
+         * .updatedAt()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -248,10 +345,23 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
@@ -261,47 +371,39 @@ private constructor(
         fun entity(entity: Entity) = entity(JsonField.of(entity))
 
         /**
-         * An object with type as indicated by `entity_type`. This is the result object that is
-         * generated by performing the requested action on the provided input `request_params`.
+         * Sets [Builder.entity] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.entity] with a well-typed [Entity] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun entity(entity: JsonField<Entity>) = apply { this.entity = entity }
 
-        /**
-         * An object with type as indicated by `entity_type`. This is the result object that is
-         * generated by performing the requested action on the provided input `request_params`.
-         */
+        /** Alias for calling [entity] with `Entity.ofPaymentOrder(paymentOrder)`. */
         fun entity(paymentOrder: PaymentOrder) = entity(Entity.ofPaymentOrder(paymentOrder))
 
-        /**
-         * An object with type as indicated by `entity_type`. This is the result object that is
-         * generated by performing the requested action on the provided input `request_params`.
-         */
+        /** Alias for calling [entity] with `Entity.ofExpectedPayment(expectedPayment)`. */
         fun entity(expectedPayment: ExpectedPayment) =
             entity(Entity.ofExpectedPayment(expectedPayment))
 
-        /**
-         * An object with type as indicated by `entity_type`. This is the result object that is
-         * generated by performing the requested action on the provided input `request_params`.
-         */
+        /** Alias for calling [entity] with `Entity.ofLedgerTransaction(ledgerTransaction)`. */
         fun entity(ledgerTransaction: LedgerTransaction) =
             entity(Entity.ofLedgerTransaction(ledgerTransaction))
 
-        /**
-         * An object with type as indicated by `entity_type`. This is the result object that is
-         * generated by performing the requested action on the provided input `request_params`.
-         */
+        /** Alias for calling [entity] with `Entity.ofTransaction(transaction)`. */
         fun entity(transaction: Transaction) = entity(Entity.ofTransaction(transaction))
 
-        /**
-         * An object with type as indicated by `entity_type`. This is the result object that is
-         * generated by performing the requested action on the provided input `request_params`.
-         */
+        /** Alias for calling [entity] with `Entity.ofBulkError(bulkError)`. */
         fun entity(bulkError: Entity.BulkError) = entity(Entity.ofBulkError(bulkError))
 
         /** Unique identifier for the result entity object. */
         fun entityId(entityId: String) = entityId(JsonField.of(entityId))
 
-        /** Unique identifier for the result entity object. */
+        /**
+         * Sets [Builder.entityId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.entityId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
         /**
@@ -312,9 +414,11 @@ private constructor(
         fun entityType(entityType: EntityType) = entityType(JsonField.of(entityType))
 
         /**
-         * The type of the result entity object. For a successful bulk result, this is the same as
-         * the `resource_type` of the bulk request. For a failed bulk result, this is always
-         * bulk_error
+         * Sets [Builder.entityType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.entityType] with a well-typed [EntityType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun entityType(entityType: JsonField<EntityType>) = apply { this.entityType = entityType }
 
@@ -325,13 +429,22 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
@@ -341,8 +454,11 @@ private constructor(
         fun requestId(requestId: String) = requestId(JsonField.of(requestId))
 
         /**
-         * Unique identifier for the request that created this bulk result. This is the ID of the
-         * bulk request when `request_type` is bulk_request
+         * Sets [Builder.requestId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.requestId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun requestId(requestId: JsonField<String>) = apply { this.requestId = requestId }
 
@@ -354,8 +470,11 @@ private constructor(
             requestParams(JsonField.ofNullable(requestParams))
 
         /**
-         * An optional object that contains the provided input params for the request that created
-         * this result. This is an item in the `resources` array for the bulk_request
+         * Sets [Builder.requestParams] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.requestParams] with a well-typed [RequestParams] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun requestParams(requestParams: JsonField<RequestParams>) = apply {
             this.requestParams = requestParams
@@ -368,8 +487,11 @@ private constructor(
         fun requestType(requestType: RequestType) = requestType(JsonField.of(requestType))
 
         /**
-         * The type of the request that created this result. bulk_request is the only supported
-         * `request_type`
+         * Sets [Builder.requestType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.requestType] with a well-typed [RequestType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun requestType(requestType: JsonField<RequestType>) = apply {
             this.requestType = requestType
@@ -378,11 +500,23 @@ private constructor(
         /** One of successful or failed. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** One of successful or failed. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -404,6 +538,29 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [BulkResult].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .createdAt()
+         * .entity()
+         * .entityId()
+         * .entityType()
+         * .liveMode()
+         * .object_()
+         * .requestId()
+         * .requestParams()
+         * .requestType()
+         * .status()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): BulkResult =
             BulkResult(
                 checkRequired("id", id),
@@ -418,8 +575,30 @@ private constructor(
                 checkRequired("requestType", requestType),
                 checkRequired("status", status),
                 checkRequired("updatedAt", updatedAt),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): BulkResult = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        createdAt()
+        entity().validate()
+        entityId()
+        entityType()
+        liveMode()
+        object_()
+        requestId()
+        requestParams()?.validate()
+        requestType()
+        status()
+        updatedAt()
+        validated = true
     }
 
     /**
@@ -629,96 +808,163 @@ private constructor(
             }
         }
 
-        @NoAutoDetect
         class BulkError
-        @JsonCreator
         private constructor(
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("created_at")
-            @ExcludeMissing
-            private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonProperty("live_mode")
-            @ExcludeMissing
-            private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("object")
-            @ExcludeMissing
-            private val object_: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("request_errors")
-            @ExcludeMissing
-            private val requestErrors: JsonField<List<RequestError>> = JsonMissing.of(),
-            @JsonProperty("updated_at")
-            @ExcludeMissing
-            private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val id: JsonField<String>,
+            private val createdAt: JsonField<OffsetDateTime>,
+            private val liveMode: JsonField<Boolean>,
+            private val object_: JsonField<String>,
+            private val requestErrors: JsonField<List<RequestError>>,
+            private val updatedAt: JsonField<OffsetDateTime>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
+            @JsonCreator
+            private constructor(
+                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("created_at")
+                @ExcludeMissing
+                createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("live_mode")
+                @ExcludeMissing
+                liveMode: JsonField<Boolean> = JsonMissing.of(),
+                @JsonProperty("object")
+                @ExcludeMissing
+                object_: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("request_errors")
+                @ExcludeMissing
+                requestErrors: JsonField<List<RequestError>> = JsonMissing.of(),
+                @JsonProperty("updated_at")
+                @ExcludeMissing
+                updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            ) : this(id, createdAt, liveMode, object_, requestErrors, updatedAt, mutableMapOf())
+
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun id(): String = id.getRequired("id")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
             /**
              * This field will be true if this object exists in the live environment or false if it
              * exists in the test environment.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
             fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun object_(): String = object_.getRequired("object")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun requestErrors(): List<RequestError> = requestErrors.getRequired("request_errors")
 
+            /**
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+            /**
+             * Returns the raw JSON value of [id].
+             *
+             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
+            /**
+             * Returns the raw JSON value of [createdAt].
+             *
+             * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("created_at")
             @ExcludeMissing
             fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
             /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
+             * Returns the raw JSON value of [liveMode].
+             *
+             * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
             @JsonProperty("live_mode")
             @ExcludeMissing
             fun _liveMode(): JsonField<Boolean> = liveMode
 
+            /**
+             * Returns the raw JSON value of [object_].
+             *
+             * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
+            /**
+             * Returns the raw JSON value of [requestErrors].
+             *
+             * Unlike [requestErrors], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("request_errors")
             @ExcludeMissing
             fun _requestErrors(): JsonField<List<RequestError>> = requestErrors
 
+            /**
+             * Returns the raw JSON value of [updatedAt].
+             *
+             * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("updated_at")
             @ExcludeMissing
             fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): BulkError = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                id()
-                createdAt()
-                liveMode()
-                object_()
-                requestErrors().forEach { it.validate() }
-                updatedAt()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [BulkError].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .createdAt()
+                 * .liveMode()
+                 * .object_()
+                 * .requestErrors()
+                 * .updatedAt()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -745,10 +991,24 @@ private constructor(
 
                 fun id(id: String) = id(JsonField.of(id))
 
+                /**
+                 * Sets [Builder.id] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.id] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun id(id: JsonField<String>) = apply { this.id = id }
 
                 fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+                /**
+                 * Sets [Builder.createdAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
                 fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                     this.createdAt = createdAt
                 }
@@ -760,35 +1020,60 @@ private constructor(
                 fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
                 /**
-                 * This field will be true if this object exists in the live environment or false if
-                 * it exists in the test environment.
+                 * Sets [Builder.liveMode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.liveMode] with a well-typed [Boolean] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
                 fun object_(object_: String) = object_(JsonField.of(object_))
 
+                /**
+                 * Sets [Builder.object_] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.object_] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
                 fun requestErrors(requestErrors: List<RequestError>) =
                     requestErrors(JsonField.of(requestErrors))
 
+                /**
+                 * Sets [Builder.requestErrors] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.requestErrors] with a well-typed
+                 * `List<RequestError>` value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
                 fun requestErrors(requestErrors: JsonField<List<RequestError>>) = apply {
                     this.requestErrors = requestErrors.map { it.toMutableList() }
                 }
 
+                /**
+                 * Adds a single [RequestError] to [requestErrors].
+                 *
+                 * @throws IllegalStateException if the field was previously set to a non-list.
+                 */
                 fun addRequestError(requestError: RequestError) = apply {
                     requestErrors =
-                        (requestErrors ?: JsonField.of(mutableListOf())).apply {
-                            (asKnown()
-                                    ?: throw IllegalStateException(
-                                        "Field was set to non-list type: ${javaClass.simpleName}"
-                                    ))
-                                .add(requestError)
+                        (requestErrors ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("requestErrors", it).add(requestError)
                         }
                 }
 
                 fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+                /**
+                 * Sets [Builder.updatedAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
                 fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
                     this.updatedAt = updatedAt
                 }
@@ -815,6 +1100,23 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [BulkError].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .createdAt()
+                 * .liveMode()
+                 * .object_()
+                 * .requestErrors()
+                 * .updatedAt()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): BulkError =
                     BulkError(
                         checkRequired("id", id),
@@ -823,62 +1125,106 @@ private constructor(
                         checkRequired("object_", object_),
                         checkRequired("requestErrors", requestErrors).map { it.toImmutable() },
                         checkRequired("updatedAt", updatedAt),
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
             }
 
-            @NoAutoDetect
+            private var validated: Boolean = false
+
+            fun validate(): BulkError = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                id()
+                createdAt()
+                liveMode()
+                object_()
+                requestErrors().forEach { it.validate() }
+                updatedAt()
+                validated = true
+            }
+
             class RequestError
-            @JsonCreator
             private constructor(
-                @JsonProperty("code")
-                @ExcludeMissing
-                private val code: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("message")
-                @ExcludeMissing
-                private val message: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("parameter")
-                @ExcludeMissing
-                private val parameter: JsonField<String> = JsonMissing.of(),
-                @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                private val code: JsonField<String>,
+                private val message: JsonField<String>,
+                private val parameter: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
 
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("code")
+                    @ExcludeMissing
+                    code: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("message")
+                    @ExcludeMissing
+                    message: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("parameter")
+                    @ExcludeMissing
+                    parameter: JsonField<String> = JsonMissing.of(),
+                ) : this(code, message, parameter, mutableMapOf())
+
+                /**
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
                 fun code(): String? = code.getNullable("code")
 
+                /**
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
                 fun message(): String? = message.getNullable("message")
 
+                /**
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
                 fun parameter(): String? = parameter.getNullable("parameter")
 
+                /**
+                 * Returns the raw JSON value of [code].
+                 *
+                 * Unlike [code], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
 
+                /**
+                 * Returns the raw JSON value of [message].
+                 *
+                 * Unlike [message], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("message") @ExcludeMissing fun _message(): JsonField<String> = message
 
+                /**
+                 * Returns the raw JSON value of [parameter].
+                 *
+                 * Unlike [parameter], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("parameter")
                 @ExcludeMissing
                 fun _parameter(): JsonField<String> = parameter
 
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): RequestError = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    code()
-                    message()
-                    parameter()
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
                 companion object {
 
+                    /** Returns a mutable builder for constructing an instance of [RequestError]. */
                     fun builder() = Builder()
                 }
 
@@ -899,14 +1245,35 @@ private constructor(
 
                     fun code(code: String) = code(JsonField.of(code))
 
+                    /**
+                     * Sets [Builder.code] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.code] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun code(code: JsonField<String>) = apply { this.code = code }
 
                     fun message(message: String) = message(JsonField.of(message))
 
+                    /**
+                     * Sets [Builder.message] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.message] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun message(message: JsonField<String>) = apply { this.message = message }
 
                     fun parameter(parameter: String) = parameter(JsonField.of(parameter))
 
+                    /**
+                     * Sets [Builder.parameter] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.parameter] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun parameter(parameter: JsonField<String>) = apply {
                         this.parameter = parameter
                     }
@@ -933,8 +1300,26 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [RequestError].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
                     fun build(): RequestError =
-                        RequestError(code, message, parameter, additionalProperties.toImmutable())
+                        RequestError(code, message, parameter, additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): RequestError = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    code()
+                    message()
+                    parameter()
+                    validated = true
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -1100,32 +1485,22 @@ private constructor(
      * An optional object that contains the provided input params for the request that created this
      * result. This is an item in the `resources` array for the bulk_request
      */
-    @NoAutoDetect
     class RequestParams
     @JsonCreator
     private constructor(
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
     ) {
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        private var validated: Boolean = false
-
-        fun validate(): RequestParams = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [RequestParams]. */
             fun builder() = Builder()
         }
 
@@ -1157,7 +1532,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [RequestParams].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): RequestParams = RequestParams(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): RequestParams = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

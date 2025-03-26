@@ -8,7 +8,7 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class PaymentOrderUpdateParamsTest {
+internal class PaymentOrderUpdateParamsTest {
 
     @Test
     fun create() {
@@ -163,6 +163,15 @@ class PaymentOrderUpdateParamsTest {
             .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
             .ultimateReceivingPartyName("ultimate_receiving_party_name")
             .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params = PaymentOrderUpdateParams.builder().id("id").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
@@ -323,8 +332,9 @@ class PaymentOrderUpdateParamsTest {
                 .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                 .ultimateReceivingPartyName("ultimate_receiving_party_name")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.accounting())
             .isEqualTo(
                 PaymentOrderUpdateParams.Accounting.builder()
@@ -347,21 +357,19 @@ class PaymentOrderUpdateParamsTest {
         assertThat(body.foreignExchangeIndicator())
             .isEqualTo(PaymentOrderUpdateParams.ForeignExchangeIndicator.FIXED_TO_VARIABLE)
         assertThat(body.lineItems())
-            .isEqualTo(
-                listOf(
-                    PaymentOrderUpdateParams.LineItemRequest.builder()
-                        .amount(0L)
-                        .accountingCategoryId("accounting_category_id")
-                        .description("description")
-                        .metadata(
-                            PaymentOrderUpdateParams.LineItemRequest.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                .build()
-                        )
-                        .build()
-                )
+            .containsExactly(
+                PaymentOrderUpdateParams.LineItemRequest.builder()
+                    .amount(0L)
+                    .accountingCategoryId("accounting_category_id")
+                    .description("description")
+                    .metadata(
+                        PaymentOrderUpdateParams.LineItemRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .build()
             )
         assertThat(body.metadata())
             .isEqualTo(
@@ -485,17 +493,7 @@ class PaymentOrderUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = PaymentOrderUpdateParams.builder().id("id").build()
-        val body = params._body()
-        assertThat(body).isNotNull
-    }
 
-    @Test
-    fun getPathParam() {
-        val params = PaymentOrderUpdateParams.builder().id("id").build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        val body = params._body()
     }
 }

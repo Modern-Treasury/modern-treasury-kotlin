@@ -15,17 +15,25 @@ class ClientOptions
 private constructor(
     private val originalHttpClient: HttpClient,
     val httpClient: HttpClient,
+    val checkJacksonVersionCompatibility: Boolean,
     val jsonMapper: JsonMapper,
     val clock: Clock,
     val baseUrl: String,
     val headers: Headers,
     val queryParams: QueryParams,
     val responseValidation: Boolean,
+    val timeout: Timeout,
     val maxRetries: Int,
     val apiKey: String,
     val organizationId: String,
     val webhookKey: String?,
 ) {
+
+    init {
+        if (checkJacksonVersionCompatibility) {
+            checkJacksonVersionCompatibility()
+        }
+    }
 
     fun toBuilder() = Builder().from(this)
 
@@ -33,6 +41,16 @@ private constructor(
 
         const val PRODUCTION_URL = "https://app.moderntreasury.com"
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ClientOptions].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .httpClient()
+         * .apiKey()
+         * .organizationId()
+         * ```
+         */
         fun builder() = Builder()
 
         fun fromEnv(): ClientOptions = builder().fromEnv().build()
@@ -42,12 +60,14 @@ private constructor(
     class Builder internal constructor() {
 
         private var httpClient: HttpClient? = null
+        private var checkJacksonVersionCompatibility: Boolean = true
         private var jsonMapper: JsonMapper = jsonMapper()
         private var clock: Clock = Clock.systemUTC()
         private var baseUrl: String = PRODUCTION_URL
         private var headers: Headers.Builder = Headers.builder()
         private var queryParams: QueryParams.Builder = QueryParams.builder()
         private var responseValidation: Boolean = false
+        private var timeout: Timeout = Timeout.default()
         private var maxRetries: Int = 2
         private var apiKey: String? = null
         private var organizationId: String? = null
@@ -55,12 +75,14 @@ private constructor(
 
         internal fun from(clientOptions: ClientOptions) = apply {
             httpClient = clientOptions.originalHttpClient
+            checkJacksonVersionCompatibility = clientOptions.checkJacksonVersionCompatibility
             jsonMapper = clientOptions.jsonMapper
             clock = clientOptions.clock
             baseUrl = clientOptions.baseUrl
             headers = clientOptions.headers.toBuilder()
             queryParams = clientOptions.queryParams.toBuilder()
             responseValidation = clientOptions.responseValidation
+            timeout = clientOptions.timeout
             maxRetries = clientOptions.maxRetries
             apiKey = clientOptions.apiKey
             organizationId = clientOptions.organizationId
@@ -68,6 +90,10 @@ private constructor(
         }
 
         fun httpClient(httpClient: HttpClient) = apply { this.httpClient = httpClient }
+
+        fun checkJacksonVersionCompatibility(checkJacksonVersionCompatibility: Boolean) = apply {
+            this.checkJacksonVersionCompatibility = checkJacksonVersionCompatibility
+        }
 
         fun jsonMapper(jsonMapper: JsonMapper) = apply { this.jsonMapper = jsonMapper }
 
@@ -78,6 +104,8 @@ private constructor(
         fun responseValidation(responseValidation: Boolean) = apply {
             this.responseValidation = responseValidation
         }
+
+        fun timeout(timeout: Timeout) = apply { this.timeout = timeout }
 
         fun maxRetries(maxRetries: Int) = apply { this.maxRetries = maxRetries }
 
@@ -173,6 +201,20 @@ private constructor(
             System.getenv("MODERN_TREASURY_WEBHOOK_KEY")?.let { webhookKey(it) }
         }
 
+        /**
+         * Returns an immutable instance of [ClientOptions].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .httpClient()
+         * .apiKey()
+         * .organizationId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ClientOptions {
             val httpClient = checkRequired("httpClient", httpClient)
             val apiKey = checkRequired("apiKey", apiKey)
@@ -210,12 +252,14 @@ private constructor(
                         .idempotencyHeader("Idempotency-Key")
                         .build()
                 ),
+                checkJacksonVersionCompatibility,
                 jsonMapper,
                 clock,
                 baseUrl,
                 headers.build(),
                 queryParams.build(),
                 responseValidation,
+                timeout,
                 maxRetries,
                 apiKey,
                 organizationId,

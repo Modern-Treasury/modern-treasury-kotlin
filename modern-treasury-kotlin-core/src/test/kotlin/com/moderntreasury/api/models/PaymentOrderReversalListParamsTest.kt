@@ -6,7 +6,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class PaymentOrderReversalListParamsTest {
+internal class PaymentOrderReversalListParamsTest {
 
     @Test
     fun create() {
@@ -18,6 +18,16 @@ class PaymentOrderReversalListParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            PaymentOrderReversalListParams.builder().paymentOrderId("payment_order_id").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("payment_order_id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun queryParams() {
         val params =
             PaymentOrderReversalListParams.builder()
@@ -25,28 +35,25 @@ class PaymentOrderReversalListParamsTest {
                 .afterCursor("after_cursor")
                 .perPage(0L)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("per_page", "0")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("per_page", "0")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params =
             PaymentOrderReversalListParams.builder().paymentOrderId("payment_order_id").build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
-    }
 
-    @Test
-    fun getPathParam() {
-        val params =
-            PaymentOrderReversalListParams.builder().paymentOrderId("payment_order_id").build()
-        assertThat(params).isNotNull
-        // path param "paymentOrderId"
-        assertThat(params.getPathParam(0)).isEqualTo("payment_order_id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

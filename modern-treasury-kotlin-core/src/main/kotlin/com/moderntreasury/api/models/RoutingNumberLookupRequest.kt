@@ -11,44 +11,73 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.immutableEmptyMap
+import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class RoutingNumberLookupRequest
-@JsonCreator
 private constructor(
-    @JsonProperty("bank_address")
-    @ExcludeMissing
-    private val bankAddress: JsonField<AddressRequest> = JsonMissing.of(),
-    @JsonProperty("bank_name")
-    @ExcludeMissing
-    private val bankName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("routing_number")
-    @ExcludeMissing
-    private val routingNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("routing_number_type")
-    @ExcludeMissing
-    private val routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
-    @JsonProperty("sanctions")
-    @ExcludeMissing
-    private val sanctions: JsonField<Sanctions> = JsonMissing.of(),
-    @JsonProperty("supported_payment_types")
-    @ExcludeMissing
-    private val supportedPaymentTypes: JsonField<List<SupportedPaymentType>> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val bankAddress: JsonField<AddressRequest>,
+    private val bankName: JsonField<String>,
+    private val routingNumber: JsonField<String>,
+    private val routingNumberType: JsonField<RoutingNumberType>,
+    private val sanctions: JsonField<Sanctions>,
+    private val supportedPaymentTypes: JsonField<List<SupportedPaymentType>>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
-    /** The address of the bank. */
+    @JsonCreator
+    private constructor(
+        @JsonProperty("bank_address")
+        @ExcludeMissing
+        bankAddress: JsonField<AddressRequest> = JsonMissing.of(),
+        @JsonProperty("bank_name") @ExcludeMissing bankName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        routingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("routing_number_type")
+        @ExcludeMissing
+        routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
+        @JsonProperty("sanctions")
+        @ExcludeMissing
+        sanctions: JsonField<Sanctions> = JsonMissing.of(),
+        @JsonProperty("supported_payment_types")
+        @ExcludeMissing
+        supportedPaymentTypes: JsonField<List<SupportedPaymentType>> = JsonMissing.of(),
+    ) : this(
+        bankAddress,
+        bankName,
+        routingNumber,
+        routingNumberType,
+        sanctions,
+        supportedPaymentTypes,
+        mutableMapOf(),
+    )
+
+    /**
+     * The address of the bank.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun bankAddress(): AddressRequest? = bankAddress.getNullable("bank_address")
 
-    /** The name of the bank. */
+    /**
+     * The name of the bank.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun bankName(): String? = bankName.getNullable("bank_name")
 
-    /** The routing number of the bank. */
+    /**
+     * The routing number of the bank.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun routingNumber(): String? = routingNumber.getNullable("routing_number")
 
     /**
@@ -56,6 +85,9 @@ private constructor(
      * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details. In
      * sandbox mode we currently only support `aba` and `swift` with routing numbers '123456789' and
      * 'GRINUST0XXX' respectively.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun routingNumberType(): RoutingNumberType? =
         routingNumberType.getNullable("routing_number_type")
@@ -64,78 +96,91 @@ private constructor(
      * An object containing key-value pairs, each with a sanctions list as the key and a boolean
      * value representing whether the bank is on that particular sanctions list. Currently, this
      * includes eu_con, uk_hmt, us_ofac, and un sanctions lists.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun sanctions(): Sanctions? = sanctions.getNullable("sanctions")
 
     /**
      * An array of payment types that are supported for this routing number. This can include `ach`,
      * `wire`, `rtp`, `sepa`, `bacs`, `au_becs`, and 'fednow' currently.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun supportedPaymentTypes(): List<SupportedPaymentType>? =
         supportedPaymentTypes.getNullable("supported_payment_types")
 
-    /** The address of the bank. */
+    /**
+     * Returns the raw JSON value of [bankAddress].
+     *
+     * Unlike [bankAddress], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("bank_address")
     @ExcludeMissing
     fun _bankAddress(): JsonField<AddressRequest> = bankAddress
 
-    /** The name of the bank. */
+    /**
+     * Returns the raw JSON value of [bankName].
+     *
+     * Unlike [bankName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("bank_name") @ExcludeMissing fun _bankName(): JsonField<String> = bankName
 
-    /** The routing number of the bank. */
+    /**
+     * Returns the raw JSON value of [routingNumber].
+     *
+     * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("routing_number")
     @ExcludeMissing
     fun _routingNumber(): JsonField<String> = routingNumber
 
     /**
-     * The type of routing number. See
-     * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details. In
-     * sandbox mode we currently only support `aba` and `swift` with routing numbers '123456789' and
-     * 'GRINUST0XXX' respectively.
+     * Returns the raw JSON value of [routingNumberType].
+     *
+     * Unlike [routingNumberType], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("routing_number_type")
     @ExcludeMissing
     fun _routingNumberType(): JsonField<RoutingNumberType> = routingNumberType
 
     /**
-     * An object containing key-value pairs, each with a sanctions list as the key and a boolean
-     * value representing whether the bank is on that particular sanctions list. Currently, this
-     * includes eu_con, uk_hmt, us_ofac, and un sanctions lists.
+     * Returns the raw JSON value of [sanctions].
+     *
+     * Unlike [sanctions], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("sanctions") @ExcludeMissing fun _sanctions(): JsonField<Sanctions> = sanctions
 
     /**
-     * An array of payment types that are supported for this routing number. This can include `ach`,
-     * `wire`, `rtp`, `sepa`, `bacs`, `au_becs`, and 'fednow' currently.
+     * Returns the raw JSON value of [supportedPaymentTypes].
+     *
+     * Unlike [supportedPaymentTypes], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("supported_payment_types")
     @ExcludeMissing
     fun _supportedPaymentTypes(): JsonField<List<SupportedPaymentType>> = supportedPaymentTypes
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): RoutingNumberLookupRequest = apply {
-        if (validated) {
-            return@apply
-        }
-
-        bankAddress()?.validate()
-        bankName()
-        routingNumber()
-        routingNumberType()
-        sanctions()?.validate()
-        supportedPaymentTypes()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [RoutingNumberLookupRequest].
+         */
         fun builder() = Builder()
     }
 
@@ -164,7 +209,13 @@ private constructor(
         /** The address of the bank. */
         fun bankAddress(bankAddress: AddressRequest) = bankAddress(JsonField.of(bankAddress))
 
-        /** The address of the bank. */
+        /**
+         * Sets [Builder.bankAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bankAddress] with a well-typed [AddressRequest] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun bankAddress(bankAddress: JsonField<AddressRequest>) = apply {
             this.bankAddress = bankAddress
         }
@@ -172,13 +223,24 @@ private constructor(
         /** The name of the bank. */
         fun bankName(bankName: String) = bankName(JsonField.of(bankName))
 
-        /** The name of the bank. */
+        /**
+         * Sets [Builder.bankName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bankName] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun bankName(bankName: JsonField<String>) = apply { this.bankName = bankName }
 
         /** The routing number of the bank. */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
-        /** The routing number of the bank. */
+        /**
+         * Sets [Builder.routingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.routingNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun routingNumber(routingNumber: JsonField<String>) = apply {
             this.routingNumber = routingNumber
         }
@@ -193,10 +255,11 @@ private constructor(
             routingNumberType(JsonField.of(routingNumberType))
 
         /**
-         * The type of routing number. See
-         * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
-         * details. In sandbox mode we currently only support `aba` and `swift` with routing numbers
-         * '123456789' and 'GRINUST0XXX' respectively.
+         * Sets [Builder.routingNumberType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.routingNumberType] with a well-typed [RoutingNumberType]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun routingNumberType(routingNumberType: JsonField<RoutingNumberType>) = apply {
             this.routingNumberType = routingNumberType
@@ -210,9 +273,11 @@ private constructor(
         fun sanctions(sanctions: Sanctions) = sanctions(JsonField.of(sanctions))
 
         /**
-         * An object containing key-value pairs, each with a sanctions list as the key and a boolean
-         * value representing whether the bank is on that particular sanctions list. Currently, this
-         * includes eu_con, uk_hmt, us_ofac, and un sanctions lists.
+         * Sets [Builder.sanctions] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sanctions] with a well-typed [Sanctions] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun sanctions(sanctions: JsonField<Sanctions>) = apply { this.sanctions = sanctions }
 
@@ -224,8 +289,11 @@ private constructor(
             supportedPaymentTypes(JsonField.of(supportedPaymentTypes))
 
         /**
-         * An array of payment types that are supported for this routing number. This can include
-         * `ach`, `wire`, `rtp`, `sepa`, `bacs`, `au_becs`, and 'fednow' currently.
+         * Sets [Builder.supportedPaymentTypes] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.supportedPaymentTypes] with a well-typed
+         * `List<SupportedPaymentType>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
         fun supportedPaymentTypes(supportedPaymentTypes: JsonField<List<SupportedPaymentType>>) =
             apply {
@@ -233,17 +301,14 @@ private constructor(
             }
 
         /**
-         * An array of payment types that are supported for this routing number. This can include
-         * `ach`, `wire`, `rtp`, `sepa`, `bacs`, `au_becs`, and 'fednow' currently.
+         * Adds a single [SupportedPaymentType] to [supportedPaymentTypes].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addSupportedPaymentType(supportedPaymentType: SupportedPaymentType) = apply {
             supportedPaymentTypes =
-                (supportedPaymentTypes ?: JsonField.of(mutableListOf())).apply {
-                    (asKnown()
-                            ?: throw IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            ))
-                        .add(supportedPaymentType)
+                (supportedPaymentTypes ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("supportedPaymentTypes", it).add(supportedPaymentType)
                 }
         }
 
@@ -266,6 +331,11 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [RoutingNumberLookupRequest].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): RoutingNumberLookupRequest =
             RoutingNumberLookupRequest(
                 bankAddress,
@@ -274,95 +344,155 @@ private constructor(
                 routingNumberType,
                 sanctions,
                 (supportedPaymentTypes ?: JsonMissing.of()).map { it.toImmutable() },
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
     }
 
+    private var validated: Boolean = false
+
+    fun validate(): RoutingNumberLookupRequest = apply {
+        if (validated) {
+            return@apply
+        }
+
+        bankAddress()?.validate()
+        bankName()
+        routingNumber()
+        routingNumberType()
+        sanctions()?.validate()
+        supportedPaymentTypes()
+        validated = true
+    }
+
     /** The address of the bank. */
-    @NoAutoDetect
     class AddressRequest
-    @JsonCreator
     private constructor(
-        @JsonProperty("country")
-        @ExcludeMissing
-        private val country: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line1")
-        @ExcludeMissing
-        private val line1: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line2")
-        @ExcludeMissing
-        private val line2: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("locality")
-        @ExcludeMissing
-        private val locality: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("postal_code")
-        @ExcludeMissing
-        private val postalCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("region")
-        @ExcludeMissing
-        private val region: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val country: JsonField<String>,
+        private val line1: JsonField<String>,
+        private val line2: JsonField<String>,
+        private val locality: JsonField<String>,
+        private val postalCode: JsonField<String>,
+        private val region: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        @JsonCreator
+        private constructor(
+            @JsonProperty("country") @ExcludeMissing country: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("locality")
+            @ExcludeMissing
+            locality: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("region") @ExcludeMissing region: JsonField<String> = JsonMissing.of(),
+        ) : this(country, line1, line2, locality, postalCode, region, mutableMapOf())
+
+        /**
+         * Country code conforms to [ISO 3166-1 alpha-2]
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun country(): String? = country.getNullable("country")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun line1(): String? = line1.getNullable("line1")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun line2(): String? = line2.getNullable("line2")
 
-        /** Locality or City. */
+        /**
+         * Locality or City.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun locality(): String? = locality.getNullable("locality")
 
-        /** The postal code of the address. */
+        /**
+         * The postal code of the address.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun postalCode(): String? = postalCode.getNullable("postal_code")
 
-        /** Region or State. */
+        /**
+         * Region or State.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun region(): String? = region.getNullable("region")
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        /**
+         * Returns the raw JSON value of [country].
+         *
+         * Unlike [country], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
+        /**
+         * Returns the raw JSON value of [line1].
+         *
+         * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
+        /**
+         * Returns the raw JSON value of [line2].
+         *
+         * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
-        /** Locality or City. */
+        /**
+         * Returns the raw JSON value of [locality].
+         *
+         * Unlike [locality], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("locality") @ExcludeMissing fun _locality(): JsonField<String> = locality
 
-        /** The postal code of the address. */
+        /**
+         * Returns the raw JSON value of [postalCode].
+         *
+         * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("postal_code")
         @ExcludeMissing
         fun _postalCode(): JsonField<String> = postalCode
 
-        /** Region or State. */
+        /**
+         * Returns the raw JSON value of [region].
+         *
+         * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): AddressRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            country()
-            line1()
-            line2()
-            locality()
-            postalCode()
-            region()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [AddressRequest]. */
             fun builder() = Builder()
         }
 
@@ -390,33 +520,71 @@ private constructor(
             /** Country code conforms to [ISO 3166-1 alpha-2] */
             fun country(country: String?) = country(JsonField.ofNullable(country))
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            /**
+             * Sets [Builder.country] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.country] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun country(country: JsonField<String>) = apply { this.country = country }
 
             fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
 
+            /**
+             * Sets [Builder.line1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line1] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
             fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
+            /**
+             * Sets [Builder.line2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line2] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
             /** Locality or City. */
             fun locality(locality: String?) = locality(JsonField.ofNullable(locality))
 
-            /** Locality or City. */
+            /**
+             * Sets [Builder.locality] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.locality] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun locality(locality: JsonField<String>) = apply { this.locality = locality }
 
             /** The postal code of the address. */
             fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
 
-            /** The postal code of the address. */
+            /**
+             * Sets [Builder.postalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.postalCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
             /** Region or State. */
             fun region(region: String?) = region(JsonField.ofNullable(region))
 
-            /** Region or State. */
+            /**
+             * Sets [Builder.region] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.region] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun region(region: JsonField<String>) = apply { this.region = region }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -438,6 +606,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [AddressRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): AddressRequest =
                 AddressRequest(
                     country,
@@ -446,8 +619,24 @@ private constructor(
                     locality,
                     postalCode,
                     region,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): AddressRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            country()
+            line1()
+            line2()
+            locality()
+            postalCode()
+            region()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -618,32 +807,22 @@ private constructor(
      * value representing whether the bank is on that particular sanctions list. Currently, this
      * includes eu_con, uk_hmt, us_ofac, and un sanctions lists.
      */
-    @NoAutoDetect
     class Sanctions
     @JsonCreator
     private constructor(
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
     ) {
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        private var validated: Boolean = false
-
-        fun validate(): Sanctions = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Sanctions]. */
             fun builder() = Builder()
         }
 
@@ -675,7 +854,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Sanctions].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Sanctions = Sanctions(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Sanctions = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

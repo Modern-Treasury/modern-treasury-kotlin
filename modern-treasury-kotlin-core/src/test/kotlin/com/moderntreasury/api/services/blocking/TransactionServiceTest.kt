@@ -7,7 +7,6 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.TransactionCreateParams
 import com.moderntreasury.api.models.TransactionDeleteParams
-import com.moderntreasury.api.models.TransactionListParams
 import com.moderntreasury.api.models.TransactionRetrieveParams
 import com.moderntreasury.api.models.TransactionUpdateParams
 import java.time.LocalDate
@@ -15,10 +14,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class TransactionServiceTest {
+internal class TransactionServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -26,6 +25,7 @@ class TransactionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val transactionService = client.transactions()
+
         val transaction =
             transactionService.create(
                 TransactionCreateParams.builder()
@@ -47,12 +47,12 @@ class TransactionServiceTest {
                     .vendorDescription("vendor_description")
                     .build()
             )
-        println(transaction)
+
         transaction.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -60,14 +60,15 @@ class TransactionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val transactionService = client.transactions()
+
         val transaction =
             transactionService.retrieve(TransactionRetrieveParams.builder().id("id").build())
-        println(transaction)
+
         transaction.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -75,6 +76,7 @@ class TransactionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val transactionService = client.transactions()
+
         val transaction =
             transactionService.update(
                 TransactionUpdateParams.builder()
@@ -86,12 +88,12 @@ class TransactionServiceTest {
                     )
                     .build()
             )
-        println(transaction)
+
         transaction.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -99,13 +101,14 @@ class TransactionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val transactionService = client.transactions()
-        val response = transactionService.list(TransactionListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = transactionService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -113,6 +116,7 @@ class TransactionServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val transactionService = client.transactions()
+
         transactionService.delete(TransactionDeleteParams.builder().id("id").build())
     }
 }

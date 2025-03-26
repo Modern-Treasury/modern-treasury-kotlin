@@ -6,7 +6,7 @@ import com.moderntreasury.api.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class InvoiceLineItemUpdateParamsTest {
+internal class InvoiceLineItemUpdateParamsTest {
 
     @Test
     fun create() {
@@ -30,6 +30,16 @@ class InvoiceLineItemUpdateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params = InvoiceLineItemUpdateParams.builder().invoiceId("invoice_id").id("id").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("invoice_id")
+        assertThat(params._pathParam(1)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(2)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             InvoiceLineItemUpdateParams.builder()
@@ -49,8 +59,9 @@ class InvoiceLineItemUpdateParamsTest {
                 .unitAmount(0L)
                 .unitAmountDecimal("unit_amount_decimal")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.direction()).isEqualTo("direction")
         assertThat(body.metadata())
@@ -70,19 +81,7 @@ class InvoiceLineItemUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = InvoiceLineItemUpdateParams.builder().invoiceId("invoice_id").id("id").build()
-        val body = params._body()
-        assertThat(body).isNotNull
-    }
 
-    @Test
-    fun getPathParam() {
-        val params = InvoiceLineItemUpdateParams.builder().invoiceId("invoice_id").id("id").build()
-        assertThat(params).isNotNull
-        // path param "invoiceId"
-        assertThat(params.getPathParam(0)).isEqualTo("invoice_id")
-        // path param "id"
-        assertThat(params.getPathParam(1)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(2)).isEqualTo("")
+        val body = params._body()
     }
 }

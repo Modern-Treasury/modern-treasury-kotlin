@@ -7,10 +7,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LedgerAccountStatementCreateResponseTest {
+internal class LedgerAccountStatementCreateResponseTest {
 
     @Test
-    fun createLedgerAccountStatementCreateResponse() {
+    fun create() {
         val ledgerAccountStatementCreateResponse =
             LedgerAccountStatementCreateResponse.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -101,7 +101,7 @@ class LedgerAccountStatementCreateResponseTest {
                 )
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        assertThat(ledgerAccountStatementCreateResponse).isNotNull
+
         assertThat(ledgerAccountStatementCreateResponse.id())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(ledgerAccountStatementCreateResponse.createdAt())

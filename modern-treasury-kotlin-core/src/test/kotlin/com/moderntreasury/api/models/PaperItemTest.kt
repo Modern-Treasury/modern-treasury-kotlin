@@ -7,10 +7,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class PaperItemTest {
+internal class PaperItemTest {
 
     @Test
-    fun createPaperItem() {
+    fun create() {
         val paperItem =
             PaperItem.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -32,7 +32,7 @@ class PaperItemTest {
                 .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        assertThat(paperItem).isNotNull
+
         assertThat(paperItem.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(paperItem.accountNumber()).isEqualTo("account_number")
         assertThat(paperItem.accountNumberSafe()).isEqualTo("account_number_safe")

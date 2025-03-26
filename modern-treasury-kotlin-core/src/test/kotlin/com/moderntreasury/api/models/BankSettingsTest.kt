@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class BankSettingsTest {
+internal class BankSettingsTest {
 
     @Test
-    fun createBankSettings() {
+    fun create() {
         val bankSettings =
             BankSettings.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -23,7 +23,7 @@ class BankSettingsTest {
                 .regulationO(true)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        assertThat(bankSettings).isNotNull
+
         assertThat(bankSettings.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(bankSettings.backupWithholdingPercentage()).isEqualTo(0L)
         assertThat(bankSettings.createdAt())

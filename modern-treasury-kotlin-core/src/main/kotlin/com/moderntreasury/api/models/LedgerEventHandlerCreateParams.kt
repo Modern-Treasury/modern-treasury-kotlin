@@ -10,62 +10,127 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
+import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 /** create ledger_event_handler */
 class LedgerEventHandlerCreateParams
 private constructor(
-    private val body: LedgerEventHandlerCreateBody,
+    private val body: LedgerEventHandlerCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     @Deprecated("deprecated")
     fun ledgerTransactionTemplate(): LedgerEventHandlerLedgerTransactionTemplate =
         body.ledgerTransactionTemplate()
 
-    /** Name of the ledger event handler. */
+    /**
+     * Name of the ledger event handler.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun name(): String = body.name()
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     @Deprecated("deprecated") fun conditions(): LedgerEventHandlerConditions? = body.conditions()
 
-    /** An optional description. */
+    /**
+     * An optional description.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun description(): String? = body.description()
 
-    /** The id of the ledger that this account belongs to. */
+    /**
+     * The id of the ledger that this account belongs to.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun ledgerId(): String? = body.ledgerId()
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Additional data represented as key-value pairs. Both the key and value must be strings.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun metadata(): Metadata? = body.metadata()
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     @Deprecated("deprecated") fun variables(): LedgerEventHandlerVariables? = body.variables()
 
+    /**
+     * Returns the raw JSON value of [ledgerTransactionTemplate].
+     *
+     * Unlike [ledgerTransactionTemplate], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @Deprecated("deprecated")
     fun _ledgerTransactionTemplate(): JsonField<LedgerEventHandlerLedgerTransactionTemplate> =
         body._ledgerTransactionTemplate()
 
-    /** Name of the ledger event handler. */
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _name(): JsonField<String> = body._name()
 
+    /**
+     * Returns the raw JSON value of [conditions].
+     *
+     * Unlike [conditions], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @Deprecated("deprecated")
     fun _conditions(): JsonField<LedgerEventHandlerConditions> = body._conditions()
 
-    /** An optional description. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
-    /** The id of the ledger that this account belongs to. */
+    /**
+     * Returns the raw JSON value of [ledgerId].
+     *
+     * Unlike [ledgerId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _ledgerId(): JsonField<String> = body._ledgerId()
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _metadata(): JsonField<Metadata> = body._metadata()
 
+    /**
+     * Returns the raw JSON value of [variables].
+     *
+     * Unlike [variables], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @Deprecated("deprecated")
     fun _variables(): JsonField<LedgerEventHandlerVariables> = body._variables()
 
@@ -75,276 +140,28 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerEventHandlerCreateBody = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class LedgerEventHandlerCreateBody
-    @JsonCreator
-    internal constructor(
-        @JsonProperty("ledger_transaction_template")
-        @ExcludeMissing
-        private val ledgerTransactionTemplate:
-            JsonField<LedgerEventHandlerLedgerTransactionTemplate> =
-            JsonMissing.of(),
-        @JsonProperty("name")
-        @ExcludeMissing
-        private val name: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("conditions")
-        @ExcludeMissing
-        private val conditions: JsonField<LedgerEventHandlerConditions> = JsonMissing.of(),
-        @JsonProperty("description")
-        @ExcludeMissing
-        private val description: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("ledger_id")
-        @ExcludeMissing
-        private val ledgerId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("metadata")
-        @ExcludeMissing
-        private val metadata: JsonField<Metadata> = JsonMissing.of(),
-        @JsonProperty("variables")
-        @ExcludeMissing
-        private val variables: JsonField<LedgerEventHandlerVariables> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        @Deprecated("deprecated")
-        fun ledgerTransactionTemplate(): LedgerEventHandlerLedgerTransactionTemplate =
-            ledgerTransactionTemplate.getRequired("ledger_transaction_template")
-
-        /** Name of the ledger event handler. */
-        fun name(): String = name.getRequired("name")
-
-        @Deprecated("deprecated")
-        fun conditions(): LedgerEventHandlerConditions? = conditions.getNullable("conditions")
-
-        /** An optional description. */
-        fun description(): String? = description.getNullable("description")
-
-        /** The id of the ledger that this account belongs to. */
-        fun ledgerId(): String? = ledgerId.getNullable("ledger_id")
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-        @Deprecated("deprecated")
-        fun variables(): LedgerEventHandlerVariables? = variables.getNullable("variables")
-
-        @Deprecated("deprecated")
-        @JsonProperty("ledger_transaction_template")
-        @ExcludeMissing
-        fun _ledgerTransactionTemplate(): JsonField<LedgerEventHandlerLedgerTransactionTemplate> =
-            ledgerTransactionTemplate
-
-        /** Name of the ledger event handler. */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        @Deprecated("deprecated")
-        @JsonProperty("conditions")
-        @ExcludeMissing
-        fun _conditions(): JsonField<LedgerEventHandlerConditions> = conditions
-
-        /** An optional description. */
-        @JsonProperty("description")
-        @ExcludeMissing
-        fun _description(): JsonField<String> = description
-
-        /** The id of the ledger that this account belongs to. */
-        @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId(): JsonField<String> = ledgerId
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
-
-        @Deprecated("deprecated")
-        @JsonProperty("variables")
-        @ExcludeMissing
-        fun _variables(): JsonField<LedgerEventHandlerVariables> = variables
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LedgerEventHandlerCreateBody = apply {
-            if (validated) {
-                return@apply
-            }
-
-            ledgerTransactionTemplate().validate()
-            name()
-            conditions()?.validate()
-            description()
-            ledgerId()
-            metadata()?.validate()
-            variables()?.validate()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        /** A builder for [LedgerEventHandlerCreateBody]. */
-        class Builder internal constructor() {
-
-            private var ledgerTransactionTemplate:
-                JsonField<LedgerEventHandlerLedgerTransactionTemplate>? =
-                null
-            private var name: JsonField<String>? = null
-            private var conditions: JsonField<LedgerEventHandlerConditions> = JsonMissing.of()
-            private var description: JsonField<String> = JsonMissing.of()
-            private var ledgerId: JsonField<String> = JsonMissing.of()
-            private var metadata: JsonField<Metadata> = JsonMissing.of()
-            private var variables: JsonField<LedgerEventHandlerVariables> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(ledgerEventHandlerCreateBody: LedgerEventHandlerCreateBody) = apply {
-                ledgerTransactionTemplate = ledgerEventHandlerCreateBody.ledgerTransactionTemplate
-                name = ledgerEventHandlerCreateBody.name
-                conditions = ledgerEventHandlerCreateBody.conditions
-                description = ledgerEventHandlerCreateBody.description
-                ledgerId = ledgerEventHandlerCreateBody.ledgerId
-                metadata = ledgerEventHandlerCreateBody.metadata
-                variables = ledgerEventHandlerCreateBody.variables
-                additionalProperties =
-                    ledgerEventHandlerCreateBody.additionalProperties.toMutableMap()
-            }
-
-            @Deprecated("deprecated")
-            fun ledgerTransactionTemplate(
-                ledgerTransactionTemplate: LedgerEventHandlerLedgerTransactionTemplate
-            ) = ledgerTransactionTemplate(JsonField.of(ledgerTransactionTemplate))
-
-            @Deprecated("deprecated")
-            fun ledgerTransactionTemplate(
-                ledgerTransactionTemplate: JsonField<LedgerEventHandlerLedgerTransactionTemplate>
-            ) = apply { this.ledgerTransactionTemplate = ledgerTransactionTemplate }
-
-            /** Name of the ledger event handler. */
-            fun name(name: String) = name(JsonField.of(name))
-
-            /** Name of the ledger event handler. */
-            fun name(name: JsonField<String>) = apply { this.name = name }
-
-            @Deprecated("deprecated")
-            fun conditions(conditions: LedgerEventHandlerConditions?) =
-                conditions(JsonField.ofNullable(conditions))
-
-            @Deprecated("deprecated")
-            fun conditions(conditions: JsonField<LedgerEventHandlerConditions>) = apply {
-                this.conditions = conditions
-            }
-
-            /** An optional description. */
-            fun description(description: String?) = description(JsonField.ofNullable(description))
-
-            /** An optional description. */
-            fun description(description: JsonField<String>) = apply {
-                this.description = description
-            }
-
-            /** The id of the ledger that this account belongs to. */
-            fun ledgerId(ledgerId: String) = ledgerId(JsonField.of(ledgerId))
-
-            /** The id of the ledger that this account belongs to. */
-            fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            fun metadata(metadata: Metadata?) = metadata(JsonField.ofNullable(metadata))
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-            @Deprecated("deprecated")
-            fun variables(variables: LedgerEventHandlerVariables?) =
-                variables(JsonField.ofNullable(variables))
-
-            @Deprecated("deprecated")
-            fun variables(variables: JsonField<LedgerEventHandlerVariables>) = apply {
-                this.variables = variables
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            fun build(): LedgerEventHandlerCreateBody =
-                LedgerEventHandlerCreateBody(
-                    checkRequired("ledgerTransactionTemplate", ledgerTransactionTemplate),
-                    checkRequired("name", name),
-                    conditions,
-                    description,
-                    ledgerId,
-                    metadata,
-                    variables,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is LedgerEventHandlerCreateBody && ledgerTransactionTemplate == other.ledgerTransactionTemplate && name == other.name && conditions == other.conditions && description == other.description && ledgerId == other.ledgerId && metadata == other.metadata && variables == other.variables && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(ledgerTransactionTemplate, name, conditions, description, ledgerId, metadata, variables, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "LedgerEventHandlerCreateBody{ledgerTransactionTemplate=$ledgerTransactionTemplate, name=$name, conditions=$conditions, description=$description, ledgerId=$ledgerId, metadata=$metadata, variables=$variables, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerEventHandlerCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .ledgerTransactionTemplate()
+         * .name()
+         * ```
+         */
         fun builder() = Builder()
     }
 
     /** A builder for [LedgerEventHandlerCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: LedgerEventHandlerCreateBody.Builder =
-            LedgerEventHandlerCreateBody.builder()
+        private var body: LedgerEventHandlerCreateRequest.Builder =
+            LedgerEventHandlerCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -359,6 +176,13 @@ private constructor(
             ledgerTransactionTemplate: LedgerEventHandlerLedgerTransactionTemplate
         ) = apply { body.ledgerTransactionTemplate(ledgerTransactionTemplate) }
 
+        /**
+         * Sets [Builder.ledgerTransactionTemplate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerTransactionTemplate] with a well-typed
+         * [LedgerEventHandlerLedgerTransactionTemplate] value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
+         */
         @Deprecated("deprecated")
         fun ledgerTransactionTemplate(
             ledgerTransactionTemplate: JsonField<LedgerEventHandlerLedgerTransactionTemplate>
@@ -367,7 +191,12 @@ private constructor(
         /** Name of the ledger event handler. */
         fun name(name: String) = apply { body.name(name) }
 
-        /** Name of the ledger event handler. */
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun name(name: JsonField<String>) = apply { body.name(name) }
 
         @Deprecated("deprecated")
@@ -375,6 +204,13 @@ private constructor(
             body.conditions(conditions)
         }
 
+        /**
+         * Sets [Builder.conditions] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.conditions] with a well-typed
+         * [LedgerEventHandlerConditions] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
         @Deprecated("deprecated")
         fun conditions(conditions: JsonField<LedgerEventHandlerConditions>) = apply {
             body.conditions(conditions)
@@ -383,13 +219,24 @@ private constructor(
         /** An optional description. */
         fun description(description: String?) = apply { body.description(description) }
 
-        /** An optional description. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /** The id of the ledger that this account belongs to. */
         fun ledgerId(ledgerId: String) = apply { body.ledgerId(ledgerId) }
 
-        /** The id of the ledger that this account belongs to. */
+        /**
+         * Sets [Builder.ledgerId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun ledgerId(ledgerId: JsonField<String>) = apply { body.ledgerId(ledgerId) }
 
         /**
@@ -398,13 +245,24 @@ private constructor(
         fun metadata(metadata: Metadata?) = apply { body.metadata(metadata) }
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
         @Deprecated("deprecated")
         fun variables(variables: LedgerEventHandlerVariables?) = apply { body.variables(variables) }
 
+        /**
+         * Sets [Builder.variables] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.variables] with a well-typed
+         * [LedgerEventHandlerVariables] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
         @Deprecated("deprecated")
         fun variables(variables: JsonField<LedgerEventHandlerVariables>) = apply {
             body.variables(variables)
@@ -527,6 +385,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [LedgerEventHandlerCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .ledgerTransactionTemplate()
+         * .name()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): LedgerEventHandlerCreateParams =
             LedgerEventHandlerCreateParams(
                 body.build(),
@@ -535,87 +406,530 @@ private constructor(
             )
     }
 
-    @Deprecated("deprecated")
-    @NoAutoDetect
-    class LedgerEventHandlerLedgerTransactionTemplate
-    @JsonCreator
+    internal fun _body(): LedgerEventHandlerCreateRequest = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class LedgerEventHandlerCreateRequest
     private constructor(
-        @JsonProperty("description")
-        @ExcludeMissing
-        private val description: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("effective_at")
-        @ExcludeMissing
-        private val effectiveAt: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("ledger_entries")
-        @ExcludeMissing
-        private val ledgerEntries: JsonField<List<LedgerEventHandlerLedgerEntries>> =
-            JsonMissing.of(),
-        @JsonProperty("status")
-        @ExcludeMissing
-        private val status: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val ledgerTransactionTemplate:
+            JsonField<LedgerEventHandlerLedgerTransactionTemplate>,
+        private val name: JsonField<String>,
+        private val conditions: JsonField<LedgerEventHandlerConditions>,
+        private val description: JsonField<String>,
+        private val ledgerId: JsonField<String>,
+        private val metadata: JsonField<Metadata>,
+        private val variables: JsonField<LedgerEventHandlerVariables>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
-        /** An optional description for internal use. */
+        @JsonCreator
+        private constructor(
+            @JsonProperty("ledger_transaction_template")
+            @ExcludeMissing
+            ledgerTransactionTemplate: JsonField<LedgerEventHandlerLedgerTransactionTemplate> =
+                JsonMissing.of(),
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("conditions")
+            @ExcludeMissing
+            conditions: JsonField<LedgerEventHandlerConditions> = JsonMissing.of(),
+            @JsonProperty("description")
+            @ExcludeMissing
+            description: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("ledger_id")
+            @ExcludeMissing
+            ledgerId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("variables")
+            @ExcludeMissing
+            variables: JsonField<LedgerEventHandlerVariables> = JsonMissing.of(),
+        ) : this(
+            ledgerTransactionTemplate,
+            name,
+            conditions,
+            description,
+            ledgerId,
+            metadata,
+            variables,
+            mutableMapOf(),
+        )
+
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        @Deprecated("deprecated")
+        fun ledgerTransactionTemplate(): LedgerEventHandlerLedgerTransactionTemplate =
+            ledgerTransactionTemplate.getRequired("ledger_transaction_template")
+
+        /**
+         * Name of the ledger event handler.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun name(): String = name.getRequired("name")
+
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        @Deprecated("deprecated")
+        fun conditions(): LedgerEventHandlerConditions? = conditions.getNullable("conditions")
+
+        /**
+         * An optional description.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun description(): String? = description.getNullable("description")
 
         /**
-         * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
-         * purposes.
+         * The id of the ledger that this account belongs to.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
-        fun effectiveAt(): String? = effectiveAt.getNullable("effective_at")
+        fun ledgerId(): String? = ledgerId.getNullable("ledger_id")
 
-        /** An array of ledger entry objects. */
-        fun ledgerEntries(): List<LedgerEventHandlerLedgerEntries> =
-            ledgerEntries.getRequired("ledger_entries")
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
 
-        /** To post a ledger transaction at creation, use `posted`. */
-        fun status(): String? = status.getNullable("status")
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        @Deprecated("deprecated")
+        fun variables(): LedgerEventHandlerVariables? = variables.getNullable("variables")
 
-        /** An optional description for internal use. */
+        /**
+         * Returns the raw JSON value of [ledgerTransactionTemplate].
+         *
+         * Unlike [ledgerTransactionTemplate], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @Deprecated("deprecated")
+        @JsonProperty("ledger_transaction_template")
+        @ExcludeMissing
+        fun _ledgerTransactionTemplate(): JsonField<LedgerEventHandlerLedgerTransactionTemplate> =
+            ledgerTransactionTemplate
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [conditions].
+         *
+         * Unlike [conditions], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @Deprecated("deprecated")
+        @JsonProperty("conditions")
+        @ExcludeMissing
+        fun _conditions(): JsonField<LedgerEventHandlerConditions> = conditions
+
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
         /**
-         * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
-         * purposes.
+         * Returns the raw JSON value of [ledgerId].
+         *
+         * Unlike [ledgerId], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("effective_at")
-        @ExcludeMissing
-        fun _effectiveAt(): JsonField<String> = effectiveAt
+        @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId(): JsonField<String> = ledgerId
 
-        /** An array of ledger entry objects. */
-        @JsonProperty("ledger_entries")
-        @ExcludeMissing
-        fun _ledgerEntries(): JsonField<List<LedgerEventHandlerLedgerEntries>> = ledgerEntries
+        /**
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
-        /** To post a ledger transaction at creation, use `posted`. */
-        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<String> = status
+        /**
+         * Returns the raw JSON value of [variables].
+         *
+         * Unlike [variables], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @Deprecated("deprecated")
+        @JsonProperty("variables")
+        @ExcludeMissing
+        fun _variables(): JsonField<LedgerEventHandlerVariables> = variables
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LedgerEventHandlerLedgerTransactionTemplate = apply {
-            if (validated) {
-                return@apply
-            }
-
-            description()
-            effectiveAt()
-            ledgerEntries().forEach { it.validate() }
-            status()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEventHandlerCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .ledgerTransactionTemplate()
+             * .name()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [LedgerEventHandlerCreateRequest]. */
+        class Builder internal constructor() {
+
+            private var ledgerTransactionTemplate:
+                JsonField<LedgerEventHandlerLedgerTransactionTemplate>? =
+                null
+            private var name: JsonField<String>? = null
+            private var conditions: JsonField<LedgerEventHandlerConditions> = JsonMissing.of()
+            private var description: JsonField<String> = JsonMissing.of()
+            private var ledgerId: JsonField<String> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var variables: JsonField<LedgerEventHandlerVariables> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(ledgerEventHandlerCreateRequest: LedgerEventHandlerCreateRequest) =
+                apply {
+                    ledgerTransactionTemplate =
+                        ledgerEventHandlerCreateRequest.ledgerTransactionTemplate
+                    name = ledgerEventHandlerCreateRequest.name
+                    conditions = ledgerEventHandlerCreateRequest.conditions
+                    description = ledgerEventHandlerCreateRequest.description
+                    ledgerId = ledgerEventHandlerCreateRequest.ledgerId
+                    metadata = ledgerEventHandlerCreateRequest.metadata
+                    variables = ledgerEventHandlerCreateRequest.variables
+                    additionalProperties =
+                        ledgerEventHandlerCreateRequest.additionalProperties.toMutableMap()
+                }
+
+            @Deprecated("deprecated")
+            fun ledgerTransactionTemplate(
+                ledgerTransactionTemplate: LedgerEventHandlerLedgerTransactionTemplate
+            ) = ledgerTransactionTemplate(JsonField.of(ledgerTransactionTemplate))
+
+            /**
+             * Sets [Builder.ledgerTransactionTemplate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerTransactionTemplate] with a well-typed
+             * [LedgerEventHandlerLedgerTransactionTemplate] value instead. This method is primarily
+             * for setting the field to an undocumented or not yet supported value.
+             */
+            @Deprecated("deprecated")
+            fun ledgerTransactionTemplate(
+                ledgerTransactionTemplate: JsonField<LedgerEventHandlerLedgerTransactionTemplate>
+            ) = apply { this.ledgerTransactionTemplate = ledgerTransactionTemplate }
+
+            /** Name of the ledger event handler. */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            @Deprecated("deprecated")
+            fun conditions(conditions: LedgerEventHandlerConditions?) =
+                conditions(JsonField.ofNullable(conditions))
+
+            /**
+             * Sets [Builder.conditions] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.conditions] with a well-typed
+             * [LedgerEventHandlerConditions] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            @Deprecated("deprecated")
+            fun conditions(conditions: JsonField<LedgerEventHandlerConditions>) = apply {
+                this.conditions = conditions
+            }
+
+            /** An optional description. */
+            fun description(description: String?) = description(JsonField.ofNullable(description))
+
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
+
+            /** The id of the ledger that this account belongs to. */
+            fun ledgerId(ledgerId: String) = ledgerId(JsonField.of(ledgerId))
+
+            /**
+             * Sets [Builder.ledgerId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: Metadata?) = metadata(JsonField.ofNullable(metadata))
+
+            /**
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+            @Deprecated("deprecated")
+            fun variables(variables: LedgerEventHandlerVariables?) =
+                variables(JsonField.ofNullable(variables))
+
+            /**
+             * Sets [Builder.variables] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.variables] with a well-typed
+             * [LedgerEventHandlerVariables] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            @Deprecated("deprecated")
+            fun variables(variables: JsonField<LedgerEventHandlerVariables>) = apply {
+                this.variables = variables
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [LedgerEventHandlerCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .ledgerTransactionTemplate()
+             * .name()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): LedgerEventHandlerCreateRequest =
+                LedgerEventHandlerCreateRequest(
+                    checkRequired("ledgerTransactionTemplate", ledgerTransactionTemplate),
+                    checkRequired("name", name),
+                    conditions,
+                    description,
+                    ledgerId,
+                    metadata,
+                    variables,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerEventHandlerCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            ledgerTransactionTemplate().validate()
+            name()
+            conditions()?.validate()
+            description()
+            ledgerId()
+            metadata()?.validate()
+            variables()?.validate()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is LedgerEventHandlerCreateRequest && ledgerTransactionTemplate == other.ledgerTransactionTemplate && name == other.name && conditions == other.conditions && description == other.description && ledgerId == other.ledgerId && metadata == other.metadata && variables == other.variables && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(ledgerTransactionTemplate, name, conditions, description, ledgerId, metadata, variables, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "LedgerEventHandlerCreateRequest{ledgerTransactionTemplate=$ledgerTransactionTemplate, name=$name, conditions=$conditions, description=$description, ledgerId=$ledgerId, metadata=$metadata, variables=$variables, additionalProperties=$additionalProperties}"
+    }
+
+    @Deprecated("deprecated")
+    class LedgerEventHandlerLedgerTransactionTemplate
+    private constructor(
+        private val description: JsonField<String>,
+        private val effectiveAt: JsonField<String>,
+        private val ledgerEntries: JsonField<List<LedgerEventHandlerLedgerEntries>>,
+        private val status: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("description")
+            @ExcludeMissing
+            description: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("effective_at")
+            @ExcludeMissing
+            effectiveAt: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("ledger_entries")
+            @ExcludeMissing
+            ledgerEntries: JsonField<List<LedgerEventHandlerLedgerEntries>> = JsonMissing.of(),
+            @JsonProperty("status") @ExcludeMissing status: JsonField<String> = JsonMissing.of(),
+        ) : this(description, effectiveAt, ledgerEntries, status, mutableMapOf())
+
+        /**
+         * An optional description for internal use.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun description(): String? = description.getNullable("description")
+
+        /**
+         * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
+         * purposes.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun effectiveAt(): String? = effectiveAt.getNullable("effective_at")
+
+        /**
+         * An array of ledger entry objects.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun ledgerEntries(): List<LedgerEventHandlerLedgerEntries> =
+            ledgerEntries.getRequired("ledger_entries")
+
+        /**
+         * To post a ledger transaction at creation, use `posted`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun status(): String? = status.getNullable("status")
+
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /**
+         * Returns the raw JSON value of [effectiveAt].
+         *
+         * Unlike [effectiveAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("effective_at")
+        @ExcludeMissing
+        fun _effectiveAt(): JsonField<String> = effectiveAt
+
+        /**
+         * Returns the raw JSON value of [ledgerEntries].
+         *
+         * Unlike [ledgerEntries], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("ledger_entries")
+        @ExcludeMissing
+        fun _ledgerEntries(): JsonField<List<LedgerEventHandlerLedgerEntries>> = ledgerEntries
+
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<String> = status
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEventHandlerLedgerTransactionTemplate].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .description()
+             * .effectiveAt()
+             * .ledgerEntries()
+             * .status()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -647,7 +961,13 @@ private constructor(
             /** An optional description for internal use. */
             fun description(description: String?) = description(JsonField.ofNullable(description))
 
-            /** An optional description for internal use. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -659,8 +979,11 @@ private constructor(
             fun effectiveAt(effectiveAt: String?) = effectiveAt(JsonField.ofNullable(effectiveAt))
 
             /**
-             * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
-             * purposes.
+             * Sets [Builder.effectiveAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.effectiveAt] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun effectiveAt(effectiveAt: JsonField<String>) = apply {
                 this.effectiveAt = effectiveAt
@@ -670,28 +993,40 @@ private constructor(
             fun ledgerEntries(ledgerEntries: List<LedgerEventHandlerLedgerEntries>) =
                 ledgerEntries(JsonField.of(ledgerEntries))
 
-            /** An array of ledger entry objects. */
+            /**
+             * Sets [Builder.ledgerEntries] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerEntries] with a well-typed
+             * `List<LedgerEventHandlerLedgerEntries>` value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
             fun ledgerEntries(ledgerEntries: JsonField<List<LedgerEventHandlerLedgerEntries>>) =
                 apply {
                     this.ledgerEntries = ledgerEntries.map { it.toMutableList() }
                 }
 
-            /** An array of ledger entry objects. */
+            /**
+             * Adds a single [LedgerEventHandlerLedgerEntries] to [ledgerEntries].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addLedgerEntry(ledgerEntry: LedgerEventHandlerLedgerEntries) = apply {
                 ledgerEntries =
-                    (ledgerEntries ?: JsonField.of(mutableListOf())).apply {
-                        (asKnown()
-                                ?: throw IllegalStateException(
-                                    "Field was set to non-list type: ${javaClass.simpleName}"
-                                ))
-                            .add(ledgerEntry)
+                    (ledgerEntries ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("ledgerEntries", it).add(ledgerEntry)
                     }
             }
 
             /** To post a ledger transaction at creation, use `posted`. */
             fun status(status: String?) = status(JsonField.ofNullable(status))
 
-            /** To post a ledger transaction at creation, use `posted`. */
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun status(status: JsonField<String>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -713,77 +1048,146 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [LedgerEventHandlerLedgerTransactionTemplate].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .description()
+             * .effectiveAt()
+             * .ledgerEntries()
+             * .status()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): LedgerEventHandlerLedgerTransactionTemplate =
                 LedgerEventHandlerLedgerTransactionTemplate(
                     checkRequired("description", description),
                     checkRequired("effectiveAt", effectiveAt),
                     checkRequired("ledgerEntries", ledgerEntries).map { it.toImmutable() },
                     checkRequired("status", status),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
         }
 
+        private var validated: Boolean = false
+
+        fun validate(): LedgerEventHandlerLedgerTransactionTemplate = apply {
+            if (validated) {
+                return@apply
+            }
+
+            description()
+            effectiveAt()
+            ledgerEntries().forEach { it.validate() }
+            status()
+            validated = true
+        }
+
         @Deprecated("deprecated")
-        @NoAutoDetect
         class LedgerEventHandlerLedgerEntries
-        @JsonCreator
         private constructor(
-            @JsonProperty("amount")
-            @ExcludeMissing
-            private val amount: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("direction")
-            @ExcludeMissing
-            private val direction: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("ledger_account_id")
-            @ExcludeMissing
-            private val ledgerAccountId: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val amount: JsonField<String>,
+            private val direction: JsonField<String>,
+            private val ledgerAccountId: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
-            /** The LHS of the conditional. */
+            @JsonCreator
+            private constructor(
+                @JsonProperty("amount")
+                @ExcludeMissing
+                amount: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("direction")
+                @ExcludeMissing
+                direction: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("ledger_account_id")
+                @ExcludeMissing
+                ledgerAccountId: JsonField<String> = JsonMissing.of(),
+            ) : this(amount, direction, ledgerAccountId, mutableMapOf())
+
+            /**
+             * The LHS of the conditional.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun amount(): String = amount.getRequired("amount")
 
-            /** What the operator between the `field` and `value` is. */
+            /**
+             * What the operator between the `field` and `value` is.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun direction(): String = direction.getRequired("direction")
 
-            /** The RHS of the conditional. */
+            /**
+             * The RHS of the conditional.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun ledgerAccountId(): String = ledgerAccountId.getRequired("ledger_account_id")
 
-            /** The LHS of the conditional. */
+            /**
+             * Returns the raw JSON value of [amount].
+             *
+             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<String> = amount
 
-            /** What the operator between the `field` and `value` is. */
+            /**
+             * Returns the raw JSON value of [direction].
+             *
+             * Unlike [direction], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("direction")
             @ExcludeMissing
             fun _direction(): JsonField<String> = direction
 
-            /** The RHS of the conditional. */
+            /**
+             * Returns the raw JSON value of [ledgerAccountId].
+             *
+             * Unlike [ledgerAccountId], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
             @JsonProperty("ledger_account_id")
             @ExcludeMissing
             fun _ledgerAccountId(): JsonField<String> = ledgerAccountId
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): LedgerEventHandlerLedgerEntries = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                amount()
-                direction()
-                ledgerAccountId()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [LedgerEventHandlerLedgerEntries].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .direction()
+                 * .ledgerAccountId()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -808,20 +1212,38 @@ private constructor(
                 /** The LHS of the conditional. */
                 fun amount(amount: String) = amount(JsonField.of(amount))
 
-                /** The LHS of the conditional. */
+                /**
+                 * Sets [Builder.amount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.amount] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun amount(amount: JsonField<String>) = apply { this.amount = amount }
 
                 /** What the operator between the `field` and `value` is. */
                 fun direction(direction: String) = direction(JsonField.of(direction))
 
-                /** What the operator between the `field` and `value` is. */
+                /**
+                 * Sets [Builder.direction] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.direction] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun direction(direction: JsonField<String>) = apply { this.direction = direction }
 
                 /** The RHS of the conditional. */
                 fun ledgerAccountId(ledgerAccountId: String) =
                     ledgerAccountId(JsonField.of(ledgerAccountId))
 
-                /** The RHS of the conditional. */
+                /**
+                 * Sets [Builder.ledgerAccountId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.ledgerAccountId] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
                 fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
                     this.ledgerAccountId = ledgerAccountId
                 }
@@ -848,13 +1270,40 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [LedgerEventHandlerLedgerEntries].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .direction()
+                 * .ledgerAccountId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): LedgerEventHandlerLedgerEntries =
                     LedgerEventHandlerLedgerEntries(
                         checkRequired("amount", amount),
                         checkRequired("direction", direction),
                         checkRequired("ledgerAccountId", ledgerAccountId),
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): LedgerEventHandlerLedgerEntries = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                amount()
+                direction()
+                ledgerAccountId()
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -894,62 +1343,93 @@ private constructor(
     }
 
     @Deprecated("deprecated")
-    @NoAutoDetect
     class LedgerEventHandlerConditions
-    @JsonCreator
     private constructor(
-        @JsonProperty("field")
-        @ExcludeMissing
-        private val field: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("operator")
-        @ExcludeMissing
-        private val operator: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("value")
-        @ExcludeMissing
-        private val value: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val field: JsonField<String>,
+        private val operator: JsonField<String>,
+        private val value: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
-        /** The LHS of the conditional. */
+        @JsonCreator
+        private constructor(
+            @JsonProperty("field") @ExcludeMissing field: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("operator")
+            @ExcludeMissing
+            operator: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("value") @ExcludeMissing value: JsonField<String> = JsonMissing.of(),
+        ) : this(field, operator, value, mutableMapOf())
+
+        /**
+         * The LHS of the conditional.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun field(): String = field.getRequired("field")
 
-        /** What the operator between the `field` and `value` is. */
+        /**
+         * What the operator between the `field` and `value` is.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun operator(): String = operator.getRequired("operator")
 
-        /** The RHS of the conditional. */
+        /**
+         * The RHS of the conditional.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun value(): String = value.getRequired("value")
 
-        /** The LHS of the conditional. */
+        /**
+         * Returns the raw JSON value of [field].
+         *
+         * Unlike [field], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("field") @ExcludeMissing fun _field(): JsonField<String> = field
 
-        /** What the operator between the `field` and `value` is. */
+        /**
+         * Returns the raw JSON value of [operator].
+         *
+         * Unlike [operator], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("operator") @ExcludeMissing fun _operator(): JsonField<String> = operator
 
-        /** The RHS of the conditional. */
+        /**
+         * Returns the raw JSON value of [value].
+         *
+         * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<String> = value
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LedgerEventHandlerConditions = apply {
-            if (validated) {
-                return@apply
-            }
-
-            field()
-            operator()
-            value()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEventHandlerConditions].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .field()
+             * .operator()
+             * .value()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -972,19 +1452,37 @@ private constructor(
             /** The LHS of the conditional. */
             fun field(field: String) = field(JsonField.of(field))
 
-            /** The LHS of the conditional. */
+            /**
+             * Sets [Builder.field] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.field] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun field(field: JsonField<String>) = apply { this.field = field }
 
             /** What the operator between the `field` and `value` is. */
             fun operator(operator: String) = operator(JsonField.of(operator))
 
-            /** What the operator between the `field` and `value` is. */
+            /**
+             * Sets [Builder.operator] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.operator] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun operator(operator: JsonField<String>) = apply { this.operator = operator }
 
             /** The RHS of the conditional. */
             fun value(value: String) = value(JsonField.of(value))
 
-            /** The RHS of the conditional. */
+            /**
+             * Sets [Builder.value] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.value] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun value(value: JsonField<String>) = apply { this.value = value }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1006,13 +1504,40 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [LedgerEventHandlerConditions].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .field()
+             * .operator()
+             * .value()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): LedgerEventHandlerConditions =
                 LedgerEventHandlerConditions(
                     checkRequired("field", field),
                     checkRequired("operator", operator),
                     checkRequired("value", value),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerEventHandlerConditions = apply {
+            if (validated) {
+                return@apply
+            }
+
+            field()
+            operator()
+            value()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1034,32 +1559,22 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @NoAutoDetect
     class Metadata
     @JsonCreator
     private constructor(
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
     ) {
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        private var validated: Boolean = false
-
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -1091,7 +1606,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1112,32 +1642,25 @@ private constructor(
     }
 
     @Deprecated("deprecated")
-    @NoAutoDetect
     class LedgerEventHandlerVariables
     @JsonCreator
     private constructor(
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
     ) {
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        private var validated: Boolean = false
-
-        fun validate(): LedgerEventHandlerVariables = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEventHandlerVariables].
+             */
             fun builder() = Builder()
         }
 
@@ -1170,8 +1693,23 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [LedgerEventHandlerVariables].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): LedgerEventHandlerVariables =
                 LedgerEventHandlerVariables(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerEventHandlerVariables = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

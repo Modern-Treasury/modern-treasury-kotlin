@@ -4,16 +4,15 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.models.BulkResultListParams
 import com.moderntreasury.api.models.BulkResultRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class BulkResultServiceTest {
+internal class BulkResultServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -21,14 +20,15 @@ class BulkResultServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val bulkResultService = client.bulkResults()
+
         val bulkResult =
             bulkResultService.retrieve(BulkResultRetrieveParams.builder().id("id").build())
-        println(bulkResult)
+
         bulkResult.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -36,8 +36,9 @@ class BulkResultServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val bulkResultService = client.bulkResults()
-        val response = bulkResultService.list(BulkResultListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = bulkResultService.list()
+
+        page.response().validate()
     }
 }

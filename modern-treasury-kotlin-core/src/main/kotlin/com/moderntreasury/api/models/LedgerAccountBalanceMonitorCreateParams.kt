@@ -10,45 +10,81 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 /** Create a ledger account balance monitor. */
 class LedgerAccountBalanceMonitorCreateParams
 private constructor(
-    private val body: LedgerAccountBalanceMonitorCreateBody,
+    private val body: LedgerAccountBalanceMonitorCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** Describes the condition that must be satisfied for the monitor to be triggered. */
+    /**
+     * Describes the condition that must be satisfied for the monitor to be triggered.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun alertCondition(): AlertConditionCreateRequest = body.alertCondition()
 
-    /** The ledger account associated with this balance monitor. */
+    /**
+     * The ledger account associated with this balance monitor.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun ledgerAccountId(): String = body.ledgerAccountId()
 
-    /** An optional, free-form description for internal use. */
+    /**
+     * An optional, free-form description for internal use.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun description(): String? = body.description()
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Additional data represented as key-value pairs. Both the key and value must be strings.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun metadata(): Metadata? = body.metadata()
 
-    /** Describes the condition that must be satisfied for the monitor to be triggered. */
+    /**
+     * Returns the raw JSON value of [alertCondition].
+     *
+     * Unlike [alertCondition], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _alertCondition(): JsonField<AlertConditionCreateRequest> = body._alertCondition()
 
-    /** The ledger account associated with this balance monitor. */
+    /**
+     * Returns the raw JSON value of [ledgerAccountId].
+     *
+     * Unlike [ledgerAccountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _ledgerAccountId(): JsonField<String> = body._ledgerAccountId()
 
-    /** An optional, free-form description for internal use. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _metadata(): JsonField<Metadata> = body._metadata()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -57,210 +93,28 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LedgerAccountBalanceMonitorCreateBody = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class LedgerAccountBalanceMonitorCreateBody
-    @JsonCreator
-    internal constructor(
-        @JsonProperty("alert_condition")
-        @ExcludeMissing
-        private val alertCondition: JsonField<AlertConditionCreateRequest> = JsonMissing.of(),
-        @JsonProperty("ledger_account_id")
-        @ExcludeMissing
-        private val ledgerAccountId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("description")
-        @ExcludeMissing
-        private val description: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("metadata")
-        @ExcludeMissing
-        private val metadata: JsonField<Metadata> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /** Describes the condition that must be satisfied for the monitor to be triggered. */
-        fun alertCondition(): AlertConditionCreateRequest =
-            alertCondition.getRequired("alert_condition")
-
-        /** The ledger account associated with this balance monitor. */
-        fun ledgerAccountId(): String = ledgerAccountId.getRequired("ledger_account_id")
-
-        /** An optional, free-form description for internal use. */
-        fun description(): String? = description.getNullable("description")
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-        /** Describes the condition that must be satisfied for the monitor to be triggered. */
-        @JsonProperty("alert_condition")
-        @ExcludeMissing
-        fun _alertCondition(): JsonField<AlertConditionCreateRequest> = alertCondition
-
-        /** The ledger account associated with this balance monitor. */
-        @JsonProperty("ledger_account_id")
-        @ExcludeMissing
-        fun _ledgerAccountId(): JsonField<String> = ledgerAccountId
-
-        /** An optional, free-form description for internal use. */
-        @JsonProperty("description")
-        @ExcludeMissing
-        fun _description(): JsonField<String> = description
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LedgerAccountBalanceMonitorCreateBody = apply {
-            if (validated) {
-                return@apply
-            }
-
-            alertCondition().validate()
-            ledgerAccountId()
-            description()
-            metadata()?.validate()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        /** A builder for [LedgerAccountBalanceMonitorCreateBody]. */
-        class Builder internal constructor() {
-
-            private var alertCondition: JsonField<AlertConditionCreateRequest>? = null
-            private var ledgerAccountId: JsonField<String>? = null
-            private var description: JsonField<String> = JsonMissing.of()
-            private var metadata: JsonField<Metadata> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(
-                ledgerAccountBalanceMonitorCreateBody: LedgerAccountBalanceMonitorCreateBody
-            ) = apply {
-                alertCondition = ledgerAccountBalanceMonitorCreateBody.alertCondition
-                ledgerAccountId = ledgerAccountBalanceMonitorCreateBody.ledgerAccountId
-                description = ledgerAccountBalanceMonitorCreateBody.description
-                metadata = ledgerAccountBalanceMonitorCreateBody.metadata
-                additionalProperties =
-                    ledgerAccountBalanceMonitorCreateBody.additionalProperties.toMutableMap()
-            }
-
-            /** Describes the condition that must be satisfied for the monitor to be triggered. */
-            fun alertCondition(alertCondition: AlertConditionCreateRequest) =
-                alertCondition(JsonField.of(alertCondition))
-
-            /** Describes the condition that must be satisfied for the monitor to be triggered. */
-            fun alertCondition(alertCondition: JsonField<AlertConditionCreateRequest>) = apply {
-                this.alertCondition = alertCondition
-            }
-
-            /** The ledger account associated with this balance monitor. */
-            fun ledgerAccountId(ledgerAccountId: String) =
-                ledgerAccountId(JsonField.of(ledgerAccountId))
-
-            /** The ledger account associated with this balance monitor. */
-            fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
-                this.ledgerAccountId = ledgerAccountId
-            }
-
-            /** An optional, free-form description for internal use. */
-            fun description(description: String) = description(JsonField.of(description))
-
-            /** An optional, free-form description for internal use. */
-            fun description(description: JsonField<String>) = apply {
-                this.description = description
-            }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            fun build(): LedgerAccountBalanceMonitorCreateBody =
-                LedgerAccountBalanceMonitorCreateBody(
-                    checkRequired("alertCondition", alertCondition),
-                    checkRequired("ledgerAccountId", ledgerAccountId),
-                    description,
-                    metadata,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is LedgerAccountBalanceMonitorCreateBody && alertCondition == other.alertCondition && ledgerAccountId == other.ledgerAccountId && description == other.description && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(alertCondition, ledgerAccountId, description, metadata, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "LedgerAccountBalanceMonitorCreateBody{alertCondition=$alertCondition, ledgerAccountId=$ledgerAccountId, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerAccountBalanceMonitorCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .alertCondition()
+         * .ledgerAccountId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
     /** A builder for [LedgerAccountBalanceMonitorCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: LedgerAccountBalanceMonitorCreateBody.Builder =
-            LedgerAccountBalanceMonitorCreateBody.builder()
+        private var body: LedgerAccountBalanceMonitorCreateRequest.Builder =
+            LedgerAccountBalanceMonitorCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -279,7 +133,13 @@ private constructor(
             body.alertCondition(alertCondition)
         }
 
-        /** Describes the condition that must be satisfied for the monitor to be triggered. */
+        /**
+         * Sets [Builder.alertCondition] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.alertCondition] with a well-typed
+         * [AlertConditionCreateRequest] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
         fun alertCondition(alertCondition: JsonField<AlertConditionCreateRequest>) = apply {
             body.alertCondition(alertCondition)
         }
@@ -289,7 +149,13 @@ private constructor(
             body.ledgerAccountId(ledgerAccountId)
         }
 
-        /** The ledger account associated with this balance monitor. */
+        /**
+         * Sets [Builder.ledgerAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
             body.ledgerAccountId(ledgerAccountId)
         }
@@ -297,7 +163,13 @@ private constructor(
         /** An optional, free-form description for internal use. */
         fun description(description: String) = apply { body.description(description) }
 
-        /** An optional, free-form description for internal use. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /**
@@ -306,7 +178,11 @@ private constructor(
         fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
 
@@ -427,6 +303,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [LedgerAccountBalanceMonitorCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .alertCondition()
+         * .ledgerAccountId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): LedgerAccountBalanceMonitorCreateParams =
             LedgerAccountBalanceMonitorCreateParams(
                 body.build(),
@@ -435,81 +324,377 @@ private constructor(
             )
     }
 
-    /** Describes the condition that must be satisfied for the monitor to be triggered. */
-    @NoAutoDetect
-    class AlertConditionCreateRequest
-    @JsonCreator
+    internal fun _body(): LedgerAccountBalanceMonitorCreateRequest = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class LedgerAccountBalanceMonitorCreateRequest
     private constructor(
-        @JsonProperty("field")
-        @ExcludeMissing
-        private val field: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("operator")
-        @ExcludeMissing
-        private val operator: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("value")
-        @ExcludeMissing
-        private val value: JsonField<Long> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val alertCondition: JsonField<AlertConditionCreateRequest>,
+        private val ledgerAccountId: JsonField<String>,
+        private val description: JsonField<String>,
+        private val metadata: JsonField<Metadata>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("alert_condition")
+            @ExcludeMissing
+            alertCondition: JsonField<AlertConditionCreateRequest> = JsonMissing.of(),
+            @JsonProperty("ledger_account_id")
+            @ExcludeMissing
+            ledgerAccountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("description")
+            @ExcludeMissing
+            description: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
+        ) : this(alertCondition, ledgerAccountId, description, metadata, mutableMapOf())
+
+        /**
+         * Describes the condition that must be satisfied for the monitor to be triggered.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun alertCondition(): AlertConditionCreateRequest =
+            alertCondition.getRequired("alert_condition")
+
+        /**
+         * The ledger account associated with this balance monitor.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun ledgerAccountId(): String = ledgerAccountId.getRequired("ledger_account_id")
+
+        /**
+         * An optional, free-form description for internal use.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun description(): String? = description.getNullable("description")
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
+
+        /**
+         * Returns the raw JSON value of [alertCondition].
+         *
+         * Unlike [alertCondition], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("alert_condition")
+        @ExcludeMissing
+        fun _alertCondition(): JsonField<AlertConditionCreateRequest> = alertCondition
+
+        /**
+         * Returns the raw JSON value of [ledgerAccountId].
+         *
+         * Unlike [ledgerAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("ledger_account_id")
+        @ExcludeMissing
+        fun _ledgerAccountId(): JsonField<String> = ledgerAccountId
+
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /**
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerAccountBalanceMonitorCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .alertCondition()
+             * .ledgerAccountId()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [LedgerAccountBalanceMonitorCreateRequest]. */
+        class Builder internal constructor() {
+
+            private var alertCondition: JsonField<AlertConditionCreateRequest>? = null
+            private var ledgerAccountId: JsonField<String>? = null
+            private var description: JsonField<String> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(
+                ledgerAccountBalanceMonitorCreateRequest: LedgerAccountBalanceMonitorCreateRequest
+            ) = apply {
+                alertCondition = ledgerAccountBalanceMonitorCreateRequest.alertCondition
+                ledgerAccountId = ledgerAccountBalanceMonitorCreateRequest.ledgerAccountId
+                description = ledgerAccountBalanceMonitorCreateRequest.description
+                metadata = ledgerAccountBalanceMonitorCreateRequest.metadata
+                additionalProperties =
+                    ledgerAccountBalanceMonitorCreateRequest.additionalProperties.toMutableMap()
+            }
+
+            /** Describes the condition that must be satisfied for the monitor to be triggered. */
+            fun alertCondition(alertCondition: AlertConditionCreateRequest) =
+                alertCondition(JsonField.of(alertCondition))
+
+            /**
+             * Sets [Builder.alertCondition] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.alertCondition] with a well-typed
+             * [AlertConditionCreateRequest] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun alertCondition(alertCondition: JsonField<AlertConditionCreateRequest>) = apply {
+                this.alertCondition = alertCondition
+            }
+
+            /** The ledger account associated with this balance monitor. */
+            fun ledgerAccountId(ledgerAccountId: String) =
+                ledgerAccountId(JsonField.of(ledgerAccountId))
+
+            /**
+             * Sets [Builder.ledgerAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun ledgerAccountId(ledgerAccountId: JsonField<String>) = apply {
+                this.ledgerAccountId = ledgerAccountId
+            }
+
+            /** An optional, free-form description for internal use. */
+            fun description(description: String) = description(JsonField.of(description))
+
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
+
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [LedgerAccountBalanceMonitorCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .alertCondition()
+             * .ledgerAccountId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): LedgerAccountBalanceMonitorCreateRequest =
+                LedgerAccountBalanceMonitorCreateRequest(
+                    checkRequired("alertCondition", alertCondition),
+                    checkRequired("ledgerAccountId", ledgerAccountId),
+                    description,
+                    metadata,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerAccountBalanceMonitorCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            alertCondition().validate()
+            ledgerAccountId()
+            description()
+            metadata()?.validate()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is LedgerAccountBalanceMonitorCreateRequest && alertCondition == other.alertCondition && ledgerAccountId == other.ledgerAccountId && description == other.description && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(alertCondition, ledgerAccountId, description, metadata, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "LedgerAccountBalanceMonitorCreateRequest{alertCondition=$alertCondition, ledgerAccountId=$ledgerAccountId, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
+    }
+
+    /** Describes the condition that must be satisfied for the monitor to be triggered. */
+    class AlertConditionCreateRequest
+    private constructor(
+        private val field: JsonField<String>,
+        private val operator: JsonField<String>,
+        private val value: JsonField<Long>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("field") @ExcludeMissing field: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("operator")
+            @ExcludeMissing
+            operator: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("value") @ExcludeMissing value: JsonField<Long> = JsonMissing.of(),
+        ) : this(field, operator, value, mutableMapOf())
 
         /**
          * One of `available_balance_amount`, `pending_balance_amount`, `posted_balance_amount`,
          * `ledger_account_lock_version`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun field(): String = field.getRequired("field")
 
         /**
          * A logical operator to compare the `field` against the `value`. One of `less_than`,
          * `less_than_or_equals`, `equals`, `greater_than_or_equals`, `greater_than`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun operator(): String = operator.getRequired("operator")
 
         /**
          * The monitor's `current_ledger_account_balance_state.triggered` will be `true` when
          * comparing the `field` to this integer value using the `operator` is logically true.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun value(): Long = value.getRequired("value")
 
         /**
-         * One of `available_balance_amount`, `pending_balance_amount`, `posted_balance_amount`,
-         * `ledger_account_lock_version`.
+         * Returns the raw JSON value of [field].
+         *
+         * Unlike [field], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("field") @ExcludeMissing fun _field(): JsonField<String> = field
 
         /**
-         * A logical operator to compare the `field` against the `value`. One of `less_than`,
-         * `less_than_or_equals`, `equals`, `greater_than_or_equals`, `greater_than`.
+         * Returns the raw JSON value of [operator].
+         *
+         * Unlike [operator], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("operator") @ExcludeMissing fun _operator(): JsonField<String> = operator
 
         /**
-         * The monitor's `current_ledger_account_balance_state.triggered` will be `true` when
-         * comparing the `field` to this integer value using the `operator` is logically true.
+         * Returns the raw JSON value of [value].
+         *
+         * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<Long> = value
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): AlertConditionCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            field()
-            operator()
-            value()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [AlertConditionCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .field()
+             * .operator()
+             * .value()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -536,8 +721,11 @@ private constructor(
             fun field(field: String) = field(JsonField.of(field))
 
             /**
-             * One of `available_balance_amount`, `pending_balance_amount`, `posted_balance_amount`,
-             * `ledger_account_lock_version`.
+             * Sets [Builder.field] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.field] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun field(field: JsonField<String>) = apply { this.field = field }
 
@@ -548,8 +736,11 @@ private constructor(
             fun operator(operator: String) = operator(JsonField.of(operator))
 
             /**
-             * A logical operator to compare the `field` against the `value`. One of `less_than`,
-             * `less_than_or_equals`, `equals`, `greater_than_or_equals`, `greater_than`.
+             * Sets [Builder.operator] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.operator] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun operator(operator: JsonField<String>) = apply { this.operator = operator }
 
@@ -560,8 +751,11 @@ private constructor(
             fun value(value: Long) = value(JsonField.of(value))
 
             /**
-             * The monitor's `current_ledger_account_balance_state.triggered` will be `true` when
-             * comparing the `field` to this integer value using the `operator` is logically true.
+             * Sets [Builder.value] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.value] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun value(value: JsonField<Long>) = apply { this.value = value }
 
@@ -584,13 +778,40 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [AlertConditionCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .field()
+             * .operator()
+             * .value()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): AlertConditionCreateRequest =
                 AlertConditionCreateRequest(
                     checkRequired("field", field),
                     checkRequired("operator", operator),
                     checkRequired("value", value),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): AlertConditionCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            field()
+            operator()
+            value()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -612,32 +833,22 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @NoAutoDetect
     class Metadata
     @JsonCreator
     private constructor(
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
     ) {
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        private var validated: Boolean = false
-
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -669,7 +880,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

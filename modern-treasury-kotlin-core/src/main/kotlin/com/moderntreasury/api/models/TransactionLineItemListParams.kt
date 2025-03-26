@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -38,28 +37,20 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.id?.forEachQueryParam { key, values -> queryParams.put("id[$key]", values) }
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.transactionId?.let { queryParams.put("transaction_id", listOf(it.toString())) }
-        this.type?.let { queryParams.put("type", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        fun none(): TransactionLineItemListParams = builder().build()
+
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [TransactionLineItemListParams].
+         */
         fun builder() = Builder()
     }
 
     /** A builder for [TransactionLineItemListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var id: Id? = null
@@ -86,6 +77,11 @@ private constructor(
 
         fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
+        /**
+         * Alias for [Builder.perPage].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         fun transactionId(transactionId: String?) = apply { this.transactionId = transactionId }
@@ -190,6 +186,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [TransactionLineItemListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): TransactionLineItemListParams =
             TransactionLineItemListParams(
                 id,
@@ -202,18 +203,35 @@ private constructor(
             )
     }
 
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                id?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("id[$key]", value)
+                        }
+                    }
+                }
+                afterCursor?.let { put("after_cursor", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                transactionId?.let { put("transaction_id", it) }
+                type?.let { put("type", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
+
     class Id private constructor(private val additionalProperties: QueryParams) {
 
         fun _additionalProperties(): QueryParams = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Id]. */
             fun builder() = Builder()
         }
 
@@ -275,6 +293,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Id].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Id = Id(additionalProperties.build())
         }
 

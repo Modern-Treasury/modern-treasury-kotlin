@@ -6,7 +6,7 @@ import com.moderntreasury.api.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LedgerAccountBalanceMonitorCreateParamsTest {
+internal class LedgerAccountBalanceMonitorCreateParamsTest {
 
     @Test
     fun create() {
@@ -51,8 +51,9 @@ class LedgerAccountBalanceMonitorCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.alertCondition())
             .isEqualTo(
                 LedgerAccountBalanceMonitorCreateParams.AlertConditionCreateRequest.builder()
@@ -86,8 +87,9 @@ class LedgerAccountBalanceMonitorCreateParamsTest {
                 )
                 .ledgerAccountId("ledger_account_id")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.alertCondition())
             .isEqualTo(
                 LedgerAccountBalanceMonitorCreateParams.AlertConditionCreateRequest.builder()

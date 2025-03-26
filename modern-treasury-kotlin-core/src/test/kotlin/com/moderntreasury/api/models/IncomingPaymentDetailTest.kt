@@ -8,10 +8,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class IncomingPaymentDetailTest {
+internal class IncomingPaymentDetailTest {
 
     @Test
-    fun createIncomingPaymentDetail() {
+    fun create() {
         val incomingPaymentDetail =
             IncomingPaymentDetail.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -119,7 +119,7 @@ class IncomingPaymentDetailTest {
                 .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .originatingAccountNumber("originating_account_number")
                 .build()
-        assertThat(incomingPaymentDetail).isNotNull
+
         assertThat(incomingPaymentDetail.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(incomingPaymentDetail.amount()).isEqualTo(0L)
         assertThat(incomingPaymentDetail.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))

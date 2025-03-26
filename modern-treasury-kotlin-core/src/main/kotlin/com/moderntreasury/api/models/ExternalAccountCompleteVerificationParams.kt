@@ -10,28 +10,38 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
+import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 /** complete verification of external account */
 class ExternalAccountCompleteVerificationParams
 private constructor(
     private val id: String,
-    private val body: ExternalAccountCompleteVerificationBody,
+    private val body: ExternalAccountCompleteVerificationRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun id(): String = id
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun amounts(): List<Long>? = body.amounts()
 
+    /**
+     * Returns the raw JSON value of [amounts].
+     *
+     * Unlike [amounts], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _amounts(): JsonField<List<Long>> = body._amounts()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -40,145 +50,28 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): ExternalAccountCompleteVerificationBody = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    fun getPathParam(index: Int): String {
-        return when (index) {
-            0 -> id
-            else -> ""
-        }
-    }
-
-    @NoAutoDetect
-    class ExternalAccountCompleteVerificationBody
-    @JsonCreator
-    internal constructor(
-        @JsonProperty("amounts")
-        @ExcludeMissing
-        private val amounts: JsonField<List<Long>> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        fun amounts(): List<Long>? = amounts.getNullable("amounts")
-
-        @JsonProperty("amounts") @ExcludeMissing fun _amounts(): JsonField<List<Long>> = amounts
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): ExternalAccountCompleteVerificationBody = apply {
-            if (validated) {
-                return@apply
-            }
-
-            amounts()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            fun builder() = Builder()
-        }
-
-        /** A builder for [ExternalAccountCompleteVerificationBody]. */
-        class Builder internal constructor() {
-
-            private var amounts: JsonField<MutableList<Long>>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(
-                externalAccountCompleteVerificationBody: ExternalAccountCompleteVerificationBody
-            ) = apply {
-                amounts = externalAccountCompleteVerificationBody.amounts.map { it.toMutableList() }
-                additionalProperties =
-                    externalAccountCompleteVerificationBody.additionalProperties.toMutableMap()
-            }
-
-            fun amounts(amounts: List<Long>) = amounts(JsonField.of(amounts))
-
-            fun amounts(amounts: JsonField<List<Long>>) = apply {
-                this.amounts = amounts.map { it.toMutableList() }
-            }
-
-            fun addAmount(amount: Long) = apply {
-                amounts =
-                    (amounts ?: JsonField.of(mutableListOf())).apply {
-                        (asKnown()
-                                ?: throw IllegalStateException(
-                                    "Field was set to non-list type: ${javaClass.simpleName}"
-                                ))
-                            .add(amount)
-                    }
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            fun build(): ExternalAccountCompleteVerificationBody =
-                ExternalAccountCompleteVerificationBody(
-                    (amounts ?: JsonMissing.of()).map { it.toImmutable() },
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is ExternalAccountCompleteVerificationBody && amounts == other.amounts && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amounts, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "ExternalAccountCompleteVerificationBody{amounts=$amounts, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [ExternalAccountCompleteVerificationParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * ```
+         */
         fun builder() = Builder()
     }
 
     /** A builder for [ExternalAccountCompleteVerificationParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: ExternalAccountCompleteVerificationBody.Builder =
-            ExternalAccountCompleteVerificationBody.builder()
+        private var body: ExternalAccountCompleteVerificationRequest.Builder =
+            ExternalAccountCompleteVerificationRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -197,8 +90,20 @@ private constructor(
 
         fun amounts(amounts: List<Long>) = apply { body.amounts(amounts) }
 
+        /**
+         * Sets [Builder.amounts] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amounts] with a well-typed `List<Long>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun amounts(amounts: JsonField<List<Long>>) = apply { body.amounts(amounts) }
 
+        /**
+         * Adds a single [Long] to [amounts].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addAmount(amount: Long) = apply { body.addAmount(amount) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -318,6 +223,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [ExternalAccountCompleteVerificationParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ExternalAccountCompleteVerificationParams =
             ExternalAccountCompleteVerificationParams(
                 checkRequired("id", id),
@@ -325,6 +242,166 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    internal fun _body(): ExternalAccountCompleteVerificationRequest = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> id
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class ExternalAccountCompleteVerificationRequest
+    private constructor(
+        private val amounts: JsonField<List<Long>>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("amounts")
+            @ExcludeMissing
+            amounts: JsonField<List<Long>> = JsonMissing.of()
+        ) : this(amounts, mutableMapOf())
+
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun amounts(): List<Long>? = amounts.getNullable("amounts")
+
+        /**
+         * Returns the raw JSON value of [amounts].
+         *
+         * Unlike [amounts], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("amounts") @ExcludeMissing fun _amounts(): JsonField<List<Long>> = amounts
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [ExternalAccountCompleteVerificationRequest].
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [ExternalAccountCompleteVerificationRequest]. */
+        class Builder internal constructor() {
+
+            private var amounts: JsonField<MutableList<Long>>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(
+                externalAccountCompleteVerificationRequest:
+                    ExternalAccountCompleteVerificationRequest
+            ) = apply {
+                amounts =
+                    externalAccountCompleteVerificationRequest.amounts.map { it.toMutableList() }
+                additionalProperties =
+                    externalAccountCompleteVerificationRequest.additionalProperties.toMutableMap()
+            }
+
+            fun amounts(amounts: List<Long>) = amounts(JsonField.of(amounts))
+
+            /**
+             * Sets [Builder.amounts] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amounts] with a well-typed `List<Long>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun amounts(amounts: JsonField<List<Long>>) = apply {
+                this.amounts = amounts.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Long] to [amounts].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addAmount(amount: Long) = apply {
+                amounts =
+                    (amounts ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("amounts", it).add(amount)
+                    }
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ExternalAccountCompleteVerificationRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): ExternalAccountCompleteVerificationRequest =
+                ExternalAccountCompleteVerificationRequest(
+                    (amounts ?: JsonMissing.of()).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): ExternalAccountCompleteVerificationRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            amounts()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is ExternalAccountCompleteVerificationRequest && amounts == other.amounts && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(amounts, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ExternalAccountCompleteVerificationRequest{amounts=$amounts, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

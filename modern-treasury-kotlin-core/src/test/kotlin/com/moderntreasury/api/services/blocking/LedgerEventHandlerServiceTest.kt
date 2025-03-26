@@ -7,16 +7,15 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerEventHandlerCreateParams
 import com.moderntreasury.api.models.LedgerEventHandlerDeleteParams
-import com.moderntreasury.api.models.LedgerEventHandlerListParams
 import com.moderntreasury.api.models.LedgerEventHandlerRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class LedgerEventHandlerServiceTest {
+internal class LedgerEventHandlerServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -24,6 +23,7 @@ class LedgerEventHandlerServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerEventHandlerService = client.ledgerEventHandlers()
+
         val ledgerEventHandler =
             ledgerEventHandlerService.create(
                 LedgerEventHandlerCreateParams.builder()
@@ -82,12 +82,12 @@ class LedgerEventHandlerServiceTest {
                     )
                     .build()
             )
-        println(ledgerEventHandler)
+
         ledgerEventHandler.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -95,16 +95,17 @@ class LedgerEventHandlerServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerEventHandlerService = client.ledgerEventHandlers()
+
         val ledgerEventHandler =
             ledgerEventHandlerService.retrieve(
                 LedgerEventHandlerRetrieveParams.builder().id("id").build()
             )
-        println(ledgerEventHandler)
+
         ledgerEventHandler.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -112,14 +113,14 @@ class LedgerEventHandlerServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerEventHandlerService = client.ledgerEventHandlers()
-        val response =
-            ledgerEventHandlerService.list(LedgerEventHandlerListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = ledgerEventHandlerService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -127,11 +128,12 @@ class LedgerEventHandlerServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerEventHandlerService = client.ledgerEventHandlers()
+
         val ledgerEventHandler =
             ledgerEventHandlerService.delete(
                 LedgerEventHandlerDeleteParams.builder().id("id").build()
             )
-        println(ledgerEventHandler)
+
         ledgerEventHandler.validate()
     }
 }

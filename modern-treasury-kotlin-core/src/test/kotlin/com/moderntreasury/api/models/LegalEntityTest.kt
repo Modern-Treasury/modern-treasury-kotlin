@@ -8,10 +8,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LegalEntityTest {
+internal class LegalEntityTest {
 
     @Test
-    fun createLegalEntity() {
+    fun create() {
         val legalEntity =
             LegalEntity.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -266,7 +266,7 @@ class LegalEntityTest {
                 )
                 .website("website")
                 .build()
-        assertThat(legalEntity).isNotNull
+
         assertThat(legalEntity.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(legalEntity.addresses())
             .containsExactly(

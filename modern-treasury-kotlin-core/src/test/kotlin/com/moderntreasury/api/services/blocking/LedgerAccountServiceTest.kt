@@ -7,7 +7,6 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerAccountCreateParams
 import com.moderntreasury.api.models.LedgerAccountDeleteParams
-import com.moderntreasury.api.models.LedgerAccountListParams
 import com.moderntreasury.api.models.LedgerAccountRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountUpdateParams
 import com.moderntreasury.api.models.TransactionDirection
@@ -17,10 +16,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class LedgerAccountServiceTest {
+internal class LedgerAccountServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -28,6 +27,7 @@ class LedgerAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountService = client.ledgerAccounts()
+
         val ledgerAccount =
             ledgerAccountService.create(
                 LedgerAccountCreateParams.builder()
@@ -49,12 +49,12 @@ class LedgerAccountServiceTest {
                     )
                     .build()
             )
-        println(ledgerAccount)
+
         ledgerAccount.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -62,6 +62,7 @@ class LedgerAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountService = client.ledgerAccounts()
+
         val ledgerAccount =
             ledgerAccountService.retrieve(
                 LedgerAccountRetrieveParams.builder()
@@ -77,12 +78,12 @@ class LedgerAccountServiceTest {
                     )
                     .build()
             )
-        println(ledgerAccount)
+
         ledgerAccount.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -90,6 +91,7 @@ class LedgerAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountService = client.ledgerAccounts()
+
         val ledgerAccount =
             ledgerAccountService.update(
                 LedgerAccountUpdateParams.builder()
@@ -105,12 +107,12 @@ class LedgerAccountServiceTest {
                     .name("name")
                     .build()
             )
-        println(ledgerAccount)
+
         ledgerAccount.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -118,13 +120,14 @@ class LedgerAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountService = client.ledgerAccounts()
-        val response = ledgerAccountService.list(LedgerAccountListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = ledgerAccountService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -132,9 +135,10 @@ class LedgerAccountServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountService = client.ledgerAccounts()
+
         val ledgerAccount =
             ledgerAccountService.delete(LedgerAccountDeleteParams.builder().id("id").build())
-        println(ledgerAccount)
+
         ledgerAccount.validate()
     }
 }

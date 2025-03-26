@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
@@ -37,25 +36,24 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.routingNumber.let { queryParams.put("routing_number", listOf(it.toString())) }
-        this.routingNumberType.let { queryParams.put("routing_number_type", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [ValidationValidateRoutingNumberParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .routingNumber()
+         * .routingNumberType()
+         * ```
+         */
         fun builder() = Builder()
     }
 
     /** A builder for [ValidationValidateRoutingNumberParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var routingNumber: String? = null
@@ -184,6 +182,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [ValidationValidateRoutingNumberParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .routingNumber()
+         * .routingNumberType()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ValidationValidateRoutingNumberParams =
             ValidationValidateRoutingNumberParams(
                 checkRequired("routingNumber", routingNumber),
@@ -192,6 +203,17 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                put("routing_number", routingNumber)
+                put("routing_number_type", routingNumberType.toString())
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     /**
      * The type of routing number. See

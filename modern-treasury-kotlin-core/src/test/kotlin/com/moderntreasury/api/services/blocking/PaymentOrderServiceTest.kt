@@ -9,7 +9,6 @@ import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.ExternalAccountType
 import com.moderntreasury.api.models.PaymentOrderCreateAsyncParams
 import com.moderntreasury.api.models.PaymentOrderCreateParams
-import com.moderntreasury.api.models.PaymentOrderListParams
 import com.moderntreasury.api.models.PaymentOrderRetrieveParams
 import com.moderntreasury.api.models.PaymentOrderSubtype
 import com.moderntreasury.api.models.PaymentOrderType
@@ -21,10 +20,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class PaymentOrderServiceTest {
+internal class PaymentOrderServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -32,6 +31,7 @@ class PaymentOrderServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentOrderService = client.paymentOrders()
+
         val paymentOrder =
             paymentOrderService.create(
                 PaymentOrderCreateParams.builder()
@@ -57,7 +57,7 @@ class PaymentOrderServiceTest {
                                 PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
                                     .CASES
                             )
-                            .file("some content")
+                            .file("some content".toByteArray())
                             .documentType("document_type")
                             .build()
                     )
@@ -279,12 +279,12 @@ class PaymentOrderServiceTest {
                     .ultimateReceivingPartyName("ultimate_receiving_party_name")
                     .build()
             )
-        println(paymentOrder)
+
         paymentOrder.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -292,14 +292,15 @@ class PaymentOrderServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentOrderService = client.paymentOrders()
+
         val paymentOrder =
             paymentOrderService.retrieve(PaymentOrderRetrieveParams.builder().id("id").build())
-        println(paymentOrder)
+
         paymentOrder.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -307,6 +308,7 @@ class PaymentOrderServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentOrderService = client.paymentOrders()
+
         val paymentOrder =
             paymentOrderService.update(
                 PaymentOrderUpdateParams.builder()
@@ -470,12 +472,12 @@ class PaymentOrderServiceTest {
                     .ultimateReceivingPartyName("ultimate_receiving_party_name")
                     .build()
             )
-        println(paymentOrder)
+
         paymentOrder.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -483,13 +485,14 @@ class PaymentOrderServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentOrderService = client.paymentOrders()
-        val response = paymentOrderService.list(PaymentOrderListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = paymentOrderService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callCreateAsync() {
+    fun createAsync() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -497,6 +500,7 @@ class PaymentOrderServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentOrderService = client.paymentOrders()
+
         val asyncResponse =
             paymentOrderService.createAsync(
                 PaymentOrderCreateAsyncParams.builder()
@@ -741,7 +745,7 @@ class PaymentOrderServiceTest {
                     .ultimateReceivingPartyName("ultimate_receiving_party_name")
                     .build()
             )
-        println(asyncResponse)
+
         asyncResponse.validate()
     }
 }

@@ -7,7 +7,7 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LedgerTransactionCreatePartialPostParamsTest {
+internal class LedgerTransactionCreatePartialPostParamsTest {
 
     @Test
     fun create() {
@@ -44,6 +44,31 @@ class LedgerTransactionCreatePartialPostParamsTest {
                     .build()
             )
             .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params =
+            LedgerTransactionCreatePartialPostParams.builder()
+                .id("id")
+                .addPostedLedgerEntry(
+                    LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
+                        .builder()
+                        .amount(0L)
+                        .direction(
+                            LedgerTransactionCreatePartialPostParams
+                                .LedgerEntryPartialPostCreateRequest
+                                .Direction
+                                .CREDIT
+                        )
+                        .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .build()
+                )
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
@@ -84,33 +109,30 @@ class LedgerTransactionCreatePartialPostParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.postedLedgerEntries())
-            .isEqualTo(
-                listOf(
-                    LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
-                        .builder()
-                        .amount(0L)
-                        .direction(
-                            LedgerTransactionCreatePartialPostParams
-                                .LedgerEntryPartialPostCreateRequest
-                                .Direction
-                                .CREDIT
-                        )
-                        .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .metadata(
-                            LedgerTransactionCreatePartialPostParams
-                                .LedgerEntryPartialPostCreateRequest
-                                .Metadata
-                                .builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                .build()
-                        )
-                        .build()
-                )
+            .containsExactly(
+                LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
+                    .builder()
+                    .amount(0L)
+                    .direction(
+                        LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
+                            .Direction
+                            .CREDIT
+                    )
+                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .metadata(
+                        LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
+                            .Metadata
+                            .builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .build()
             )
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.effectiveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -143,49 +165,21 @@ class LedgerTransactionCreatePartialPostParamsTest {
                         .build()
                 )
                 .build()
-        val body = params._body()
-        assertThat(body).isNotNull
-        assertThat(body.postedLedgerEntries())
-            .isEqualTo(
-                listOf(
-                    LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
-                        .builder()
-                        .amount(0L)
-                        .direction(
-                            LedgerTransactionCreatePartialPostParams
-                                .LedgerEntryPartialPostCreateRequest
-                                .Direction
-                                .CREDIT
-                        )
-                        .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .build()
-                )
-            )
-    }
 
-    @Test
-    fun getPathParam() {
-        val params =
-            LedgerTransactionCreatePartialPostParams.builder()
-                .id("id")
-                .addPostedLedgerEntry(
-                    LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
-                        .builder()
-                        .amount(0L)
-                        .direction(
-                            LedgerTransactionCreatePartialPostParams
-                                .LedgerEntryPartialPostCreateRequest
-                                .Direction
-                                .CREDIT
-                        )
-                        .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .build()
-                )
-                .build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        val body = params._body()
+
+        assertThat(body.postedLedgerEntries())
+            .containsExactly(
+                LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
+                    .builder()
+                    .amount(0L)
+                    .direction(
+                        LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
+                            .Direction
+                            .CREDIT
+                    )
+                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .build()
+            )
     }
 }

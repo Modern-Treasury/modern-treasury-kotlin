@@ -14,10 +14,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class LegalEntityAssociationServiceTest {
+internal class LegalEntityAssociationServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -25,6 +25,7 @@ class LegalEntityAssociationServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val legalEntityAssociationService = client.legalEntityAssociations()
+
         val legalEntityAssociation =
             legalEntityAssociationService.create(
                 LegalEntityAssociationCreateParams.builder()
@@ -158,7 +159,7 @@ class LegalEntityAssociationServiceTest {
                     .title("title")
                     .build()
             )
-        println(legalEntityAssociation)
+
         legalEntityAssociation.validate()
     }
 }

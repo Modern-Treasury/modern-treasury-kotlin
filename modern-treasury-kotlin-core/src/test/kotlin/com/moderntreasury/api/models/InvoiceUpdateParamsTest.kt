@@ -8,7 +8,7 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class InvoiceUpdateParamsTest {
+internal class InvoiceUpdateParamsTest {
 
     @Test
     fun create() {
@@ -105,6 +105,15 @@ class InvoiceUpdateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params = InvoiceUpdateParams.builder().id("id").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             InvoiceUpdateParams.builder()
@@ -197,24 +206,23 @@ class InvoiceUpdateParamsTest {
                 .status("status")
                 .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.contactDetails())
-            .isEqualTo(
-                listOf(
-                    InvoiceUpdateParams.ContactDetail.builder()
-                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .contactIdentifier("contact_identifier")
-                        .contactIdentifierType(
-                            InvoiceUpdateParams.ContactDetail.ContactIdentifierType.EMAIL
-                        )
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .liveMode(true)
-                        .object_("object")
-                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .build()
-                )
+            .containsExactly(
+                InvoiceUpdateParams.ContactDetail.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .contactIdentifier("contact_identifier")
+                    .contactIdentifierType(
+                        InvoiceUpdateParams.ContactDetail.ContactIdentifierType.EMAIL
+                    )
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .liveMode(true)
+                    .object_("object")
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
             )
         assertThat(body.counterpartyBillingAddress())
             .isEqualTo(
@@ -245,24 +253,22 @@ class InvoiceUpdateParamsTest {
         assertThat(body.fallbackPaymentMethod()).isEqualTo("fallback_payment_method")
         assertThat(body.ingestLedgerEntries()).isEqualTo(true)
         assertThat(body.invoiceLineItems())
-            .isEqualTo(
-                listOf(
-                    InvoiceUpdateParams.InvoiceLineItemCreateRequest.builder()
-                        .name("name")
-                        .unitAmount(0L)
-                        .description("description")
-                        .direction("direction")
-                        .metadata(
-                            InvoiceUpdateParams.InvoiceLineItemCreateRequest.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
-                                .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                .build()
-                        )
-                        .quantity(0L)
-                        .unitAmountDecimal("unit_amount_decimal")
-                        .build()
-                )
+            .containsExactly(
+                InvoiceUpdateParams.InvoiceLineItemCreateRequest.builder()
+                    .name("name")
+                    .unitAmount(0L)
+                    .description("description")
+                    .direction("direction")
+                    .metadata(
+                        InvoiceUpdateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .quantity(0L)
+                    .unitAmountDecimal("unit_amount_decimal")
+                    .build()
             )
         assertThat(body.invoicerAddress())
             .isEqualTo(
@@ -285,7 +291,7 @@ class InvoiceUpdateParamsTest {
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
-        assertThat(body.notificationEmailAddresses()).isEqualTo(listOf("string"))
+        assertThat(body.notificationEmailAddresses()).containsExactly("string")
         assertThat(body.notificationsEnabled()).isEqualTo(true)
         assertThat(body.originatingAccountId()).isEqualTo("originating_account_id")
         assertThat(body.paymentEffectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
@@ -294,7 +300,7 @@ class InvoiceUpdateParamsTest {
         assertThat(body.receivingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.recipientEmail()).isEqualTo("recipient_email")
         assertThat(body.recipientName()).isEqualTo("recipient_name")
-        assertThat(body.remindAfterOverdueDays()).isEqualTo(listOf(0L))
+        assertThat(body.remindAfterOverdueDays()).containsExactly(0L)
         assertThat(body.status()).isEqualTo("status")
         assertThat(body.virtualAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
     }
@@ -302,17 +308,7 @@ class InvoiceUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = InvoiceUpdateParams.builder().id("id").build()
-        val body = params._body()
-        assertThat(body).isNotNull
-    }
 
-    @Test
-    fun getPathParam() {
-        val params = InvoiceUpdateParams.builder().id("id").build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        val body = params._body()
     }
 }

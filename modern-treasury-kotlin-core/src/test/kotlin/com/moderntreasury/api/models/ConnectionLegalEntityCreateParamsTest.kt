@@ -8,7 +8,7 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ConnectionLegalEntityCreateParamsTest {
+internal class ConnectionLegalEntityCreateParamsTest {
 
     @Test
     fun create() {
@@ -606,8 +606,9 @@ class ConnectionLegalEntityCreateParamsTest {
                 )
                 .legalEntityId("legal_entity_id")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.legalEntity())
             .isEqualTo(
@@ -903,8 +904,9 @@ class ConnectionLegalEntityCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             ConnectionLegalEntityCreateParams.builder().connectionId("connection_id").build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.connectionId()).isEqualTo("connection_id")
     }
 }

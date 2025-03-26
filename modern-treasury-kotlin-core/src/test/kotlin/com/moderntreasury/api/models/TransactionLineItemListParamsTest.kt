@@ -6,7 +6,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class TransactionLineItemListParamsTest {
+internal class TransactionLineItemListParamsTest {
 
     @Test
     fun create() {
@@ -37,22 +37,27 @@ class TransactionLineItemListParamsTest {
                 .transactionId("transaction_id")
                 .type(TransactionLineItemListParams.Type.ORIGINATING)
                 .build()
-        val expected = QueryParams.builder()
-        TransactionLineItemListParams.Id.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("id[$key]", values) }
-        expected.put("after_cursor", "after_cursor")
-        expected.put("per_page", "0")
-        expected.put("transaction_id", "transaction_id")
-        expected.put("type", TransactionLineItemListParams.Type.ORIGINATING.toString())
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("id[foo]", "string")
+                    .put("after_cursor", "after_cursor")
+                    .put("per_page", "0")
+                    .put("transaction_id", "transaction_id")
+                    .put("type", "originating")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = TransactionLineItemListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

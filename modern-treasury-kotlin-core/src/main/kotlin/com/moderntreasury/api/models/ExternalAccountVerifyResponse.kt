@@ -20,13 +20,11 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.getOrThrow
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
 @JsonDeserialize(using = ExternalAccountVerifyResponse.Deserializer::class)
@@ -177,145 +175,250 @@ private constructor(
         }
     }
 
-    @NoAutoDetect
     class ExternalAccountVerificationAttempt
-    @JsonCreator
     private constructor(
-        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("external_account_id")
-        @ExcludeMissing
-        private val externalAccountId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("live_mode")
-        @ExcludeMissing
-        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("object")
-        @ExcludeMissing
-        private val object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("originating_account_id")
-        @ExcludeMissing
-        private val originatingAccountId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("payment_type")
-        @ExcludeMissing
-        private val paymentType: JsonField<PaymentType> = JsonMissing.of(),
-        @JsonProperty("priority")
-        @ExcludeMissing
-        private val priority: JsonField<Priority> = JsonMissing.of(),
-        @JsonProperty("status")
-        @ExcludeMissing
-        private val status: JsonField<Status> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val id: JsonField<String>,
+        private val createdAt: JsonField<OffsetDateTime>,
+        private val externalAccountId: JsonField<String>,
+        private val liveMode: JsonField<Boolean>,
+        private val object_: JsonField<String>,
+        private val originatingAccountId: JsonField<String>,
+        private val paymentType: JsonField<PaymentType>,
+        private val priority: JsonField<Priority>,
+        private val status: JsonField<Status>,
+        private val updatedAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
+        @JsonCreator
+        private constructor(
+            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("external_account_id")
+            @ExcludeMissing
+            externalAccountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("live_mode")
+            @ExcludeMissing
+            liveMode: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("originating_account_id")
+            @ExcludeMissing
+            originatingAccountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("payment_type")
+            @ExcludeMissing
+            paymentType: JsonField<PaymentType> = JsonMissing.of(),
+            @JsonProperty("priority")
+            @ExcludeMissing
+            priority: JsonField<Priority> = JsonMissing.of(),
+            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+            @JsonProperty("updated_at")
+            @ExcludeMissing
+            updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(
+            id,
+            createdAt,
+            externalAccountId,
+            liveMode,
+            object_,
+            originatingAccountId,
+            paymentType,
+            priority,
+            status,
+            updatedAt,
+            mutableMapOf(),
+        )
+
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun id(): String = id.getRequired("id")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-        /** The ID of the external account. */
+        /**
+         * The ID of the external account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun externalAccountId(): String = externalAccountId.getRequired("external_account_id")
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun object_(): String = object_.getRequired("object")
 
-        /** The ID of the internal account where the micro-deposits originate from. */
+        /**
+         * The ID of the internal account where the micro-deposits originate from.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun originatingAccountId(): String =
             originatingAccountId.getRequired("originating_account_id")
 
-        /** The type of payment that can be made to this account. Can be `ach`, `eft`, or `rtp`. */
+        /**
+         * The type of payment that can be made to this account. Can be `ach`, `eft`, or `rtp`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun paymentType(): PaymentType = paymentType.getRequired("payment_type")
 
-        /** The priority of the payment. Can be `normal` or `high`. */
+        /**
+         * The priority of the payment. Can be `normal` or `high`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun priority(): Priority? = priority.getNullable("priority")
 
         /**
          * The status of the verification attempt. Can be `pending_verification`, `verified`,
          * `failed`, or `cancelled`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun status(): Status = status.getRequired("status")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+        /**
+         * Returns the raw JSON value of [id].
+         *
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
+        /**
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-        /** The ID of the external account. */
+        /**
+         * Returns the raw JSON value of [externalAccountId].
+         *
+         * Unlike [externalAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("external_account_id")
         @ExcludeMissing
         fun _externalAccountId(): JsonField<String> = externalAccountId
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Returns the raw JSON value of [liveMode].
+         *
+         * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
+        /**
+         * Returns the raw JSON value of [object_].
+         *
+         * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-        /** The ID of the internal account where the micro-deposits originate from. */
+        /**
+         * Returns the raw JSON value of [originatingAccountId].
+         *
+         * Unlike [originatingAccountId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("originating_account_id")
         @ExcludeMissing
         fun _originatingAccountId(): JsonField<String> = originatingAccountId
 
-        /** The type of payment that can be made to this account. Can be `ach`, `eft`, or `rtp`. */
+        /**
+         * Returns the raw JSON value of [paymentType].
+         *
+         * Unlike [paymentType], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("payment_type")
         @ExcludeMissing
         fun _paymentType(): JsonField<PaymentType> = paymentType
 
-        /** The priority of the payment. Can be `normal` or `high`. */
+        /**
+         * Returns the raw JSON value of [priority].
+         *
+         * Unlike [priority], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("priority") @ExcludeMissing fun _priority(): JsonField<Priority> = priority
 
         /**
-         * The status of the verification attempt. Can be `pending_verification`, `verified`,
-         * `failed`, or `cancelled`.
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
+        /**
+         * Returns the raw JSON value of [updatedAt].
+         *
+         * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("updated_at")
         @ExcludeMissing
         fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): ExternalAccountVerificationAttempt = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            createdAt()
-            externalAccountId()
-            liveMode()
-            object_()
-            originatingAccountId()
-            paymentType()
-            priority()
-            status()
-            updatedAt()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [ExternalAccountVerificationAttempt].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .createdAt()
+             * .externalAccountId()
+             * .liveMode()
+             * .object_()
+             * .originatingAccountId()
+             * .paymentType()
+             * .priority()
+             * .status()
+             * .updatedAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -353,10 +456,24 @@ private constructor(
 
             fun id(id: String) = id(JsonField.of(id))
 
+            /**
+             * Sets [Builder.id] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+            /**
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                 this.createdAt = createdAt
             }
@@ -365,7 +482,13 @@ private constructor(
             fun externalAccountId(externalAccountId: String) =
                 externalAccountId(JsonField.of(externalAccountId))
 
-            /** The ID of the external account. */
+            /**
+             * Sets [Builder.externalAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.externalAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun externalAccountId(externalAccountId: JsonField<String>) = apply {
                 this.externalAccountId = externalAccountId
             }
@@ -377,20 +500,36 @@ private constructor(
             fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
             /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
+             * Sets [Builder.liveMode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
             fun object_(object_: String) = object_(JsonField.of(object_))
 
+            /**
+             * Sets [Builder.object_] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.object_] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             /** The ID of the internal account where the micro-deposits originate from. */
             fun originatingAccountId(originatingAccountId: String) =
                 originatingAccountId(JsonField.of(originatingAccountId))
 
-            /** The ID of the internal account where the micro-deposits originate from. */
+            /**
+             * Sets [Builder.originatingAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatingAccountId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
                 this.originatingAccountId = originatingAccountId
             }
@@ -401,7 +540,11 @@ private constructor(
             fun paymentType(paymentType: PaymentType) = paymentType(JsonField.of(paymentType))
 
             /**
-             * The type of payment that can be made to this account. Can be `ach`, `eft`, or `rtp`.
+             * Sets [Builder.paymentType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.paymentType] with a well-typed [PaymentType] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun paymentType(paymentType: JsonField<PaymentType>) = apply {
                 this.paymentType = paymentType
@@ -410,7 +553,13 @@ private constructor(
             /** The priority of the payment. Can be `normal` or `high`. */
             fun priority(priority: Priority?) = priority(JsonField.ofNullable(priority))
 
-            /** The priority of the payment. Can be `normal` or `high`. */
+            /**
+             * Sets [Builder.priority] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.priority] with a well-typed [Priority] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun priority(priority: JsonField<Priority>) = apply { this.priority = priority }
 
             /**
@@ -420,13 +569,23 @@ private constructor(
             fun status(status: Status) = status(JsonField.of(status))
 
             /**
-             * The status of the verification attempt. Can be `pending_verification`, `verified`,
-             * `failed`, or `cancelled`.
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+            /**
+             * Sets [Builder.updatedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
                 this.updatedAt = updatedAt
             }
@@ -450,6 +609,27 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [ExternalAccountVerificationAttempt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .createdAt()
+             * .externalAccountId()
+             * .liveMode()
+             * .object_()
+             * .originatingAccountId()
+             * .paymentType()
+             * .priority()
+             * .status()
+             * .updatedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): ExternalAccountVerificationAttempt =
                 ExternalAccountVerificationAttempt(
                     checkRequired("id", id),
@@ -462,8 +642,28 @@ private constructor(
                     checkRequired("priority", priority),
                     checkRequired("status", status),
                     checkRequired("updatedAt", updatedAt),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): ExternalAccountVerificationAttempt = apply {
+            if (validated) {
+                return@apply
+            }
+
+            id()
+            createdAt()
+            externalAccountId()
+            liveMode()
+            object_()
+            originatingAccountId()
+            paymentType()
+            priority()
+            status()
+            updatedAt()
+            validated = true
         }
 
         /** The type of payment that can be made to this account. Can be `ach`, `eft`, or `rtp`. */

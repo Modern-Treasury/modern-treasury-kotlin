@@ -2,7 +2,6 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -43,35 +42,17 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.clientToken?.let { queryParams.put("client_token", listOf(it.toString())) }
-        this.counterpartyId?.let { queryParams.put("counterparty_id", listOf(it.toString())) }
-        this.originatingAccountId?.let {
-            queryParams.put("originating_account_id", listOf(it.toString()))
-        }
-        this.paymentOrderId?.let { queryParams.put("payment_order_id", listOf(it.toString())) }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.receivingAccountId?.let {
-            queryParams.put("receiving_account_id", listOf(it.toString()))
-        }
-        this.status?.let { queryParams.put("status", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        fun none(): PaymentFlowListParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [PaymentFlowListParams]. */
         fun builder() = Builder()
     }
 
     /** A builder for [PaymentFlowListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var afterCursor: String? = null
@@ -112,6 +93,11 @@ private constructor(
 
         fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
+        /**
+         * Alias for [Builder.perPage].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         fun receivingAccountId(receivingAccountId: String?) = apply {
@@ -218,6 +204,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [PaymentFlowListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): PaymentFlowListParams =
             PaymentFlowListParams(
                 afterCursor,
@@ -232,6 +223,23 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                clientToken?.let { put("client_token", it) }
+                counterpartyId?.let { put("counterparty_id", it) }
+                originatingAccountId?.let { put("originating_account_id", it) }
+                paymentOrderId?.let { put("payment_order_id", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                receivingAccountId?.let { put("receiving_account_id", it) }
+                status?.let { put("status", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

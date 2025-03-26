@@ -6,7 +6,7 @@ import com.moderntreasury.api.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class InvoiceLineItemCreateParamsTest {
+internal class InvoiceLineItemCreateParamsTest {
 
     @Test
     fun create() {
@@ -29,6 +29,20 @@ class InvoiceLineItemCreateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            InvoiceLineItemCreateParams.builder()
+                .invoiceId("invoice_id")
+                .name("name")
+                .unitAmount(0L)
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("invoice_id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             InvoiceLineItemCreateParams.builder()
@@ -47,8 +61,9 @@ class InvoiceLineItemCreateParamsTest {
                 .quantity(0L)
                 .unitAmountDecimal("unit_amount_decimal")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.unitAmount()).isEqualTo(0L)
         assertThat(body.description()).isEqualTo("description")
@@ -73,24 +88,10 @@ class InvoiceLineItemCreateParamsTest {
                 .name("name")
                 .unitAmount(0L)
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.unitAmount()).isEqualTo(0L)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            InvoiceLineItemCreateParams.builder()
-                .invoiceId("invoice_id")
-                .name("name")
-                .unitAmount(0L)
-                .build()
-        assertThat(params).isNotNull
-        // path param "invoiceId"
-        assertThat(params.getPathParam(0)).isEqualTo("invoice_id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

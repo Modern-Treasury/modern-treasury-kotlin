@@ -9,7 +9,6 @@ import com.moderntreasury.api.models.LedgerAccountCategoryAddLedgerAccountParams
 import com.moderntreasury.api.models.LedgerAccountCategoryAddNestedCategoryParams
 import com.moderntreasury.api.models.LedgerAccountCategoryCreateParams
 import com.moderntreasury.api.models.LedgerAccountCategoryDeleteParams
-import com.moderntreasury.api.models.LedgerAccountCategoryListParams
 import com.moderntreasury.api.models.LedgerAccountCategoryRemoveLedgerAccountParams
 import com.moderntreasury.api.models.LedgerAccountCategoryRemoveNestedCategoryParams
 import com.moderntreasury.api.models.LedgerAccountCategoryRetrieveParams
@@ -21,10 +20,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class LedgerAccountCategoryServiceTest {
+internal class LedgerAccountCategoryServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -32,6 +31,7 @@ class LedgerAccountCategoryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
+
         val ledgerAccountCategory =
             ledgerAccountCategoryService.create(
                 LedgerAccountCategoryCreateParams.builder()
@@ -51,12 +51,12 @@ class LedgerAccountCategoryServiceTest {
                     )
                     .build()
             )
-        println(ledgerAccountCategory)
+
         ledgerAccountCategory.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -64,6 +64,7 @@ class LedgerAccountCategoryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
+
         val ledgerAccountCategory =
             ledgerAccountCategoryService.retrieve(
                 LedgerAccountCategoryRetrieveParams.builder()
@@ -76,12 +77,12 @@ class LedgerAccountCategoryServiceTest {
                     )
                     .build()
             )
-        println(ledgerAccountCategory)
+
         ledgerAccountCategory.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -89,6 +90,7 @@ class LedgerAccountCategoryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
+
         val ledgerAccountCategory =
             ledgerAccountCategoryService.update(
                 LedgerAccountCategoryUpdateParams.builder()
@@ -104,12 +106,12 @@ class LedgerAccountCategoryServiceTest {
                     .name("name")
                     .build()
             )
-        println(ledgerAccountCategory)
+
         ledgerAccountCategory.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -117,14 +119,14 @@ class LedgerAccountCategoryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
-        val response =
-            ledgerAccountCategoryService.list(LedgerAccountCategoryListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = ledgerAccountCategoryService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -132,16 +134,17 @@ class LedgerAccountCategoryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
+
         val ledgerAccountCategory =
             ledgerAccountCategoryService.delete(
                 LedgerAccountCategoryDeleteParams.builder().id("id").build()
             )
-        println(ledgerAccountCategory)
+
         ledgerAccountCategory.validate()
     }
 
     @Test
-    fun callAddLedgerAccount() {
+    fun addLedgerAccount() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -149,6 +152,7 @@ class LedgerAccountCategoryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
+
         ledgerAccountCategoryService.addLedgerAccount(
             LedgerAccountCategoryAddLedgerAccountParams.builder()
                 .id("id")
@@ -158,7 +162,7 @@ class LedgerAccountCategoryServiceTest {
     }
 
     @Test
-    fun callAddNestedCategory() {
+    fun addNestedCategory() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -166,6 +170,7 @@ class LedgerAccountCategoryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
+
         ledgerAccountCategoryService.addNestedCategory(
             LedgerAccountCategoryAddNestedCategoryParams.builder()
                 .id("id")
@@ -175,7 +180,7 @@ class LedgerAccountCategoryServiceTest {
     }
 
     @Test
-    fun callRemoveLedgerAccount() {
+    fun removeLedgerAccount() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -183,6 +188,7 @@ class LedgerAccountCategoryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
+
         ledgerAccountCategoryService.removeLedgerAccount(
             LedgerAccountCategoryRemoveLedgerAccountParams.builder()
                 .id("id")
@@ -192,7 +198,7 @@ class LedgerAccountCategoryServiceTest {
     }
 
     @Test
-    fun callRemoveNestedCategory() {
+    fun removeNestedCategory() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -200,6 +206,7 @@ class LedgerAccountCategoryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountCategoryService = client.ledgerAccountCategories()
+
         ledgerAccountCategoryService.removeNestedCategory(
             LedgerAccountCategoryRemoveNestedCategoryParams.builder()
                 .id("id")

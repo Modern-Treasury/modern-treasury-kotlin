@@ -6,7 +6,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LedgerAccountBalanceMonitorListParamsTest {
+internal class LedgerAccountBalanceMonitorListParamsTest {
 
     @Test
     fun create() {
@@ -37,22 +37,27 @@ class LedgerAccountBalanceMonitorListParamsTest {
                 )
                 .perPage(0L)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("id[]", "string")
-        expected.put("after_cursor", "after_cursor")
-        expected.put("ledger_account_id", "ledger_account_id")
-        LedgerAccountBalanceMonitorListParams.Metadata.builder()
-            .putAdditionalProperty("foo", "string")
-            .build()
-            .forEachQueryParam { key, values -> expected.put("metadata[$key]", values) }
-        expected.put("per_page", "0")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("id[]", "string")
+                    .put("after_cursor", "after_cursor")
+                    .put("ledger_account_id", "ledger_account_id")
+                    .put("metadata[foo]", "string")
+                    .put("per_page", "0")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = LedgerAccountBalanceMonitorListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

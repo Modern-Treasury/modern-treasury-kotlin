@@ -11,151 +11,254 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class BalanceReport
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("as_of_date")
-    @ExcludeMissing
-    private val asOfDate: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("as_of_time")
-    @ExcludeMissing
-    private val asOfTime: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("balance_report_type")
-    @ExcludeMissing
-    private val balanceReportType: JsonField<BalanceReportType> = JsonMissing.of(),
-    @JsonProperty("balances")
-    @ExcludeMissing
-    private val balances: JsonField<List<Balance>> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("internal_account_id")
-    @ExcludeMissing
-    private val internalAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val asOfDate: JsonField<LocalDate>,
+    private val asOfTime: JsonField<String>,
+    private val balanceReportType: JsonField<BalanceReportType>,
+    private val balances: JsonField<List<Balance>>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val internalAccountId: JsonField<String>,
+    private val liveMode: JsonField<Boolean>,
+    private val object_: JsonField<String>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("as_of_date")
+        @ExcludeMissing
+        asOfDate: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("as_of_time") @ExcludeMissing asOfTime: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("balance_report_type")
+        @ExcludeMissing
+        balanceReportType: JsonField<BalanceReportType> = JsonMissing.of(),
+        @JsonProperty("balances")
+        @ExcludeMissing
+        balances: JsonField<List<Balance>> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("internal_account_id")
+        @ExcludeMissing
+        internalAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(
+        id,
+        asOfDate,
+        asOfTime,
+        balanceReportType,
+        balances,
+        createdAt,
+        internalAccountId,
+        liveMode,
+        object_,
+        updatedAt,
+        mutableMapOf(),
+    )
+
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The date of the balance report in local time. */
+    /**
+     * The date of the balance report in local time.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun asOfDate(): LocalDate = asOfDate.getRequired("as_of_date")
 
-    /** The time (24-hour clock) of the balance report in local time. */
+    /**
+     * The time (24-hour clock) of the balance report in local time.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun asOfTime(): String? = asOfTime.getNullable("as_of_time")
 
     /**
      * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
      * `other`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun balanceReportType(): BalanceReportType =
         balanceReportType.getRequired("balance_report_type")
 
-    /** An array of `Balance` objects. */
+    /**
+     * An array of `Balance` objects.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun balances(): List<Balance> = balances.getRequired("balances")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The ID of one of your organization's Internal Accounts. */
+    /**
+     * The ID of one of your organization's Internal Accounts.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun object_(): String = object_.getRequired("object")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The date of the balance report in local time. */
+    /**
+     * Returns the raw JSON value of [asOfDate].
+     *
+     * Unlike [asOfDate], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate(): JsonField<LocalDate> = asOfDate
 
-    /** The time (24-hour clock) of the balance report in local time. */
+    /**
+     * Returns the raw JSON value of [asOfTime].
+     *
+     * Unlike [asOfTime], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("as_of_time") @ExcludeMissing fun _asOfTime(): JsonField<String> = asOfTime
 
     /**
-     * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
-     * `other`.
+     * Returns the raw JSON value of [balanceReportType].
+     *
+     * Unlike [balanceReportType], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("balance_report_type")
     @ExcludeMissing
     fun _balanceReportType(): JsonField<BalanceReportType> = balanceReportType
 
-    /** An array of `Balance` objects. */
+    /**
+     * Returns the raw JSON value of [balances].
+     *
+     * Unlike [balances], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("balances") @ExcludeMissing fun _balances(): JsonField<List<Balance>> = balances
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The ID of one of your organization's Internal Accounts. */
+    /**
+     * Returns the raw JSON value of [internalAccountId].
+     *
+     * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("internal_account_id")
     @ExcludeMissing
     fun _internalAccountId(): JsonField<String> = internalAccountId
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): BalanceReport = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        asOfDate()
-        asOfTime()
-        balanceReportType()
-        balances().forEach { it.validate() }
-        createdAt()
-        internalAccountId()
-        liveMode()
-        object_()
-        updatedAt()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [BalanceReport].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .asOfDate()
+         * .asOfTime()
+         * .balanceReportType()
+         * .balances()
+         * .createdAt()
+         * .internalAccountId()
+         * .liveMode()
+         * .object_()
+         * .updatedAt()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -190,18 +293,35 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The date of the balance report in local time. */
         fun asOfDate(asOfDate: LocalDate) = asOfDate(JsonField.of(asOfDate))
 
-        /** The date of the balance report in local time. */
+        /**
+         * Sets [Builder.asOfDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.asOfDate] with a well-typed [LocalDate] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
 
         /** The time (24-hour clock) of the balance report in local time. */
         fun asOfTime(asOfTime: String?) = asOfTime(JsonField.ofNullable(asOfTime))
 
-        /** The time (24-hour clock) of the balance report in local time. */
+        /**
+         * Sets [Builder.asOfTime] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.asOfTime] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun asOfTime(asOfTime: JsonField<String>) = apply { this.asOfTime = asOfTime }
 
         /**
@@ -212,8 +332,11 @@ private constructor(
             balanceReportType(JsonField.of(balanceReportType))
 
         /**
-         * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
-         * `other`.
+         * Sets [Builder.balanceReportType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.balanceReportType] with a well-typed [BalanceReportType]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun balanceReportType(balanceReportType: JsonField<BalanceReportType>) = apply {
             this.balanceReportType = balanceReportType
@@ -222,32 +345,51 @@ private constructor(
         /** An array of `Balance` objects. */
         fun balances(balances: List<Balance>) = balances(JsonField.of(balances))
 
-        /** An array of `Balance` objects. */
+        /**
+         * Sets [Builder.balances] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.balances] with a well-typed `List<Balance>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun balances(balances: JsonField<List<Balance>>) = apply {
             this.balances = balances.map { it.toMutableList() }
         }
 
-        /** An array of `Balance` objects. */
+        /**
+         * Adds a single [Balance] to [balances].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addBalance(balance: Balance) = apply {
             balances =
-                (balances ?: JsonField.of(mutableListOf())).apply {
-                    (asKnown()
-                            ?: throw IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            ))
-                        .add(balance)
+                (balances ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("balances", it).add(balance)
                 }
         }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The ID of one of your organization's Internal Accounts. */
         fun internalAccountId(internalAccountId: String) =
             internalAccountId(JsonField.of(internalAccountId))
 
-        /** The ID of one of your organization's Internal Accounts. */
+        /**
+         * Sets [Builder.internalAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.internalAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun internalAccountId(internalAccountId: JsonField<String>) = apply {
             this.internalAccountId = internalAccountId
         }
@@ -259,17 +401,33 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -291,6 +449,27 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [BalanceReport].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .asOfDate()
+         * .asOfTime()
+         * .balanceReportType()
+         * .balances()
+         * .createdAt()
+         * .internalAccountId()
+         * .liveMode()
+         * .object_()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): BalanceReport =
             BalanceReport(
                 checkRequired("id", id),
@@ -303,8 +482,28 @@ private constructor(
                 checkRequired("liveMode", liveMode),
                 checkRequired("object_", object_),
                 checkRequired("updatedAt", updatedAt),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): BalanceReport = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        asOfDate()
+        asOfTime()
+        balanceReportType()
+        balances().forEach { it.validate() }
+        createdAt()
+        internalAccountId()
+        liveMode()
+        object_()
+        updatedAt()
+        validated = true
     }
 
     /**
@@ -426,186 +625,315 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    @NoAutoDetect
     class Balance
-    @JsonCreator
     private constructor(
-        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("amount")
-        @ExcludeMissing
-        private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("as_of_date")
-        @ExcludeMissing
-        private val asOfDate: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonProperty("as_of_time")
-        @ExcludeMissing
-        private val asOfTime: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("balance_type")
-        @ExcludeMissing
-        private val balanceType: JsonField<BalanceType> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("currency")
-        @ExcludeMissing
-        private val currency: JsonField<Currency> = JsonMissing.of(),
-        @JsonProperty("live_mode")
-        @ExcludeMissing
-        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("object")
-        @ExcludeMissing
-        private val object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("value_date")
-        @ExcludeMissing
-        private val valueDate: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonProperty("vendor_code")
-        @ExcludeMissing
-        private val vendorCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("vendor_code_type")
-        @ExcludeMissing
-        private val vendorCodeType: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val id: JsonField<String>,
+        private val amount: JsonField<Long>,
+        private val asOfDate: JsonField<LocalDate>,
+        private val asOfTime: JsonField<String>,
+        private val balanceType: JsonField<BalanceType>,
+        private val createdAt: JsonField<OffsetDateTime>,
+        private val currency: JsonField<Currency>,
+        private val liveMode: JsonField<Boolean>,
+        private val object_: JsonField<String>,
+        private val updatedAt: JsonField<OffsetDateTime>,
+        private val valueDate: JsonField<LocalDate>,
+        private val vendorCode: JsonField<String>,
+        private val vendorCodeType: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
+        @JsonCreator
+        private constructor(
+            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("as_of_date")
+            @ExcludeMissing
+            asOfDate: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("as_of_time")
+            @ExcludeMissing
+            asOfTime: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("balance_type")
+            @ExcludeMissing
+            balanceType: JsonField<BalanceType> = JsonMissing.of(),
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("currency")
+            @ExcludeMissing
+            currency: JsonField<Currency> = JsonMissing.of(),
+            @JsonProperty("live_mode")
+            @ExcludeMissing
+            liveMode: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("updated_at")
+            @ExcludeMissing
+            updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("value_date")
+            @ExcludeMissing
+            valueDate: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("vendor_code")
+            @ExcludeMissing
+            vendorCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("vendor_code_type")
+            @ExcludeMissing
+            vendorCodeType: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            id,
+            amount,
+            asOfDate,
+            asOfTime,
+            balanceType,
+            createdAt,
+            currency,
+            liveMode,
+            object_,
+            updatedAt,
+            valueDate,
+            vendorCode,
+            vendorCodeType,
+            mutableMapOf(),
+        )
+
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun id(): String = id.getRequired("id")
 
-        /** The balance amount. */
+        /**
+         * The balance amount.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** The date on which the balance became true for the account. */
+        /**
+         * The date on which the balance became true for the account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun asOfDate(): LocalDate? = asOfDate.getNullable("as_of_date")
 
-        /** The time on which the balance became true for the account. */
+        /**
+         * The time on which the balance became true for the account.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun asOfTime(): String? = asOfTime.getNullable("as_of_time")
 
         /**
          * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
          * `current_ledger`, `opening_available`, `opening_available_next_business_day`,
          * `closing_available`, `current_available`, 'previously_closed_book', or `other`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun balanceType(): BalanceType = balanceType.getRequired("balance_type")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-        /** The currency of the balance. */
+        /**
+         * The currency of the balance.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun currency(): Currency = currency.getRequired("currency")
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun object_(): String = object_.getRequired("object")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-        /** The date on which the balance becomes available. */
+        /**
+         * The date on which the balance becomes available.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun valueDate(): LocalDate? = valueDate.getNullable("value_date")
 
-        /** The code used by the bank when reporting this specific balance. */
+        /**
+         * The code used by the bank when reporting this specific balance.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun vendorCode(): String = vendorCode.getRequired("vendor_code")
 
         /**
          * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
          * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
          * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, or `us_bank`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
         fun vendorCodeType(): String? = vendorCodeType.getNullable("vendor_code_type")
 
+        /**
+         * Returns the raw JSON value of [id].
+         *
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-        /** The balance amount. */
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-        /** The date on which the balance became true for the account. */
+        /**
+         * Returns the raw JSON value of [asOfDate].
+         *
+         * Unlike [asOfDate], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("as_of_date") @ExcludeMissing fun _asOfDate(): JsonField<LocalDate> = asOfDate
 
-        /** The time on which the balance became true for the account. */
+        /**
+         * Returns the raw JSON value of [asOfTime].
+         *
+         * Unlike [asOfTime], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("as_of_time") @ExcludeMissing fun _asOfTime(): JsonField<String> = asOfTime
 
         /**
-         * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
-         * `current_ledger`, `opening_available`, `opening_available_next_business_day`,
-         * `closing_available`, `current_available`, 'previously_closed_book', or `other`.
+         * Returns the raw JSON value of [balanceType].
+         *
+         * Unlike [balanceType], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("balance_type")
         @ExcludeMissing
         fun _balanceType(): JsonField<BalanceType> = balanceType
 
+        /**
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-        /** The currency of the balance. */
+        /**
+         * Returns the raw JSON value of [currency].
+         *
+         * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Returns the raw JSON value of [liveMode].
+         *
+         * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
+        /**
+         * Returns the raw JSON value of [object_].
+         *
+         * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
+        /**
+         * Returns the raw JSON value of [updatedAt].
+         *
+         * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("updated_at")
         @ExcludeMissing
         fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
-        /** The date on which the balance becomes available. */
+        /**
+         * Returns the raw JSON value of [valueDate].
+         *
+         * Unlike [valueDate], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("value_date")
         @ExcludeMissing
         fun _valueDate(): JsonField<LocalDate> = valueDate
 
-        /** The code used by the bank when reporting this specific balance. */
+        /**
+         * Returns the raw JSON value of [vendorCode].
+         *
+         * Unlike [vendorCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("vendor_code")
         @ExcludeMissing
         fun _vendorCode(): JsonField<String> = vendorCode
 
         /**
-         * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
-         * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
-         * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, or `us_bank`.
+         * Returns the raw JSON value of [vendorCodeType].
+         *
+         * Unlike [vendorCodeType], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("vendor_code_type")
         @ExcludeMissing
         fun _vendorCodeType(): JsonField<String> = vendorCodeType
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Balance = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            amount()
-            asOfDate()
-            asOfTime()
-            balanceType()
-            createdAt()
-            currency()
-            liveMode()
-            object_()
-            updatedAt()
-            valueDate()
-            vendorCode()
-            vendorCodeType()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Balance].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .amount()
+             * .asOfDate()
+             * .asOfTime()
+             * .balanceType()
+             * .createdAt()
+             * .currency()
+             * .liveMode()
+             * .object_()
+             * .updatedAt()
+             * .valueDate()
+             * .vendorCode()
+             * .vendorCodeType()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -646,24 +974,49 @@ private constructor(
 
             fun id(id: String) = id(JsonField.of(id))
 
+            /**
+             * Sets [Builder.id] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** The balance amount. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
-            /** The balance amount. */
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The date on which the balance became true for the account. */
             fun asOfDate(asOfDate: LocalDate?) = asOfDate(JsonField.ofNullable(asOfDate))
 
-            /** The date on which the balance became true for the account. */
+            /**
+             * Sets [Builder.asOfDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.asOfDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
 
             /** The time on which the balance became true for the account. */
             fun asOfTime(asOfTime: String?) = asOfTime(JsonField.ofNullable(asOfTime))
 
-            /** The time on which the balance became true for the account. */
+            /**
+             * Sets [Builder.asOfTime] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.asOfTime] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun asOfTime(asOfTime: JsonField<String>) = apply { this.asOfTime = asOfTime }
 
             /**
@@ -674,9 +1027,11 @@ private constructor(
             fun balanceType(balanceType: BalanceType) = balanceType(JsonField.of(balanceType))
 
             /**
-             * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
-             * `current_ledger`, `opening_available`, `opening_available_next_business_day`,
-             * `closing_available`, `current_available`, 'previously_closed_book', or `other`.
+             * Sets [Builder.balanceType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.balanceType] with a well-typed [BalanceType] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun balanceType(balanceType: JsonField<BalanceType>) = apply {
                 this.balanceType = balanceType
@@ -684,6 +1039,13 @@ private constructor(
 
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+            /**
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                 this.createdAt = createdAt
             }
@@ -691,7 +1053,13 @@ private constructor(
             /** The currency of the balance. */
             fun currency(currency: Currency) = currency(JsonField.of(currency))
 
-            /** The currency of the balance. */
+            /**
+             * Sets [Builder.currency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.currency] with a well-typed [Currency] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
             /**
@@ -701,17 +1069,34 @@ private constructor(
             fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
             /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
+             * Sets [Builder.liveMode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
             fun object_(object_: String) = object_(JsonField.of(object_))
 
+            /**
+             * Sets [Builder.object_] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.object_] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+            /**
+             * Sets [Builder.updatedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
                 this.updatedAt = updatedAt
             }
@@ -719,13 +1104,25 @@ private constructor(
             /** The date on which the balance becomes available. */
             fun valueDate(valueDate: LocalDate?) = valueDate(JsonField.ofNullable(valueDate))
 
-            /** The date on which the balance becomes available. */
+            /**
+             * Sets [Builder.valueDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.valueDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun valueDate(valueDate: JsonField<LocalDate>) = apply { this.valueDate = valueDate }
 
             /** The code used by the bank when reporting this specific balance. */
             fun vendorCode(vendorCode: String) = vendorCode(JsonField.of(vendorCode))
 
-            /** The code used by the bank when reporting this specific balance. */
+            /**
+             * Sets [Builder.vendorCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.vendorCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun vendorCode(vendorCode: JsonField<String>) = apply { this.vendorCode = vendorCode }
 
             /**
@@ -738,10 +1135,11 @@ private constructor(
                 vendorCodeType(JsonField.ofNullable(vendorCodeType))
 
             /**
-             * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`,
-             * `bnk_dev`, `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`,
-             * `evolve`, `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`,
-             * or `us_bank`.
+             * Sets [Builder.vendorCodeType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.vendorCodeType] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun vendorCodeType(vendorCodeType: JsonField<String>) = apply {
                 this.vendorCodeType = vendorCodeType
@@ -766,6 +1164,30 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Balance].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .amount()
+             * .asOfDate()
+             * .asOfTime()
+             * .balanceType()
+             * .createdAt()
+             * .currency()
+             * .liveMode()
+             * .object_()
+             * .updatedAt()
+             * .valueDate()
+             * .vendorCode()
+             * .vendorCodeType()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Balance =
                 Balance(
                     checkRequired("id", id),
@@ -781,8 +1203,31 @@ private constructor(
                     checkRequired("valueDate", valueDate),
                     checkRequired("vendorCode", vendorCode),
                     checkRequired("vendorCodeType", vendorCodeType),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Balance = apply {
+            if (validated) {
+                return@apply
+            }
+
+            id()
+            amount()
+            asOfDate()
+            asOfTime()
+            balanceType()
+            createdAt()
+            currency()
+            liveMode()
+            object_()
+            updatedAt()
+            valueDate()
+            vendorCode()
+            vendorCodeType()
+            validated = true
         }
 
         /**

@@ -5,7 +5,6 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.PaymentFlowCreateParams
-import com.moderntreasury.api.models.PaymentFlowListParams
 import com.moderntreasury.api.models.PaymentFlowRetrieveParams
 import com.moderntreasury.api.models.PaymentFlowUpdateParams
 import java.time.LocalDate
@@ -13,10 +12,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class PaymentFlowServiceTest {
+internal class PaymentFlowServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -24,6 +23,7 @@ class PaymentFlowServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentFlowService = client.paymentFlows()
+
         val paymentFlow =
             paymentFlowService.create(
                 PaymentFlowCreateParams.builder()
@@ -35,12 +35,12 @@ class PaymentFlowServiceTest {
                     .dueDate(LocalDate.parse("2019-12-27"))
                     .build()
             )
-        println(paymentFlow)
+
         paymentFlow.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -48,14 +48,15 @@ class PaymentFlowServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentFlowService = client.paymentFlows()
+
         val paymentFlow =
             paymentFlowService.retrieve(PaymentFlowRetrieveParams.builder().id("id").build())
-        println(paymentFlow)
+
         paymentFlow.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -63,6 +64,7 @@ class PaymentFlowServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentFlowService = client.paymentFlows()
+
         val paymentFlow =
             paymentFlowService.update(
                 PaymentFlowUpdateParams.builder()
@@ -70,12 +72,12 @@ class PaymentFlowServiceTest {
                     .status(PaymentFlowUpdateParams.Status.CANCELLED)
                     .build()
             )
-        println(paymentFlow)
+
         paymentFlow.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -83,8 +85,9 @@ class PaymentFlowServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val paymentFlowService = client.paymentFlows()
-        val response = paymentFlowService.list(PaymentFlowListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = paymentFlowService.list()
+
+        page.response().validate()
     }
 }

@@ -10,10 +10,8 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.paymentOrders.ReversalService
+import java.util.Collections
 import java.util.Objects
 
 /** Get a list of all reversals of a payment order. */
@@ -75,16 +73,17 @@ private constructor(
         ) = PaymentOrderReversalListPage(reversalsService, params, response)
     }
 
-    @NoAutoDetect
-    class Response
-    @JsonCreator
-    constructor(
-        @JsonProperty("items") private val items: JsonField<List<Reversal>> = JsonMissing.of(),
+    class Response(
+        private val items: JsonField<List<Reversal>>,
         private val perPage: String,
         private val afterCursor: String,
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("items") items: JsonField<List<Reversal>> = JsonMissing.of()
+        ) : this(items, "", "", mutableMapOf())
 
         fun items(): List<Reversal> = items.getNullable("items") ?: listOf()
 
@@ -94,9 +93,15 @@ private constructor(
 
         @JsonProperty("items") fun _items(): JsonField<List<Reversal>>? = items
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         private var validated: Boolean = false
 
@@ -126,6 +131,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [PaymentOrderReversalListPage].
+             */
             fun builder() = Builder()
         }
 
@@ -155,8 +164,13 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
+            /**
+             * Returns an immutable instance of [Response].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Response =
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toMutableMap())
         }
     }
 

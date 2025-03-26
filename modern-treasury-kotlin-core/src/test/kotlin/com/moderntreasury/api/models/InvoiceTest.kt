@@ -8,10 +8,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class InvoiceTest {
+internal class InvoiceTest {
 
     @Test
-    fun createInvoice() {
+    fun create() {
         val invoice =
             Invoice.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -357,7 +357,7 @@ class InvoiceTest {
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
-        assertThat(invoice).isNotNull
+
         assertThat(invoice.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(invoice.amountPaid()).isEqualTo(0L)
         assertThat(invoice.amountRemaining()).isEqualTo(0L)

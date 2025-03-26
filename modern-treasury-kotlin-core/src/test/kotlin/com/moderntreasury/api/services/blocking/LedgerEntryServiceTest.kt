@@ -5,17 +5,16 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.models.LedgerEntryListParams
 import com.moderntreasury.api.models.LedgerEntryRetrieveParams
 import com.moderntreasury.api.models.LedgerEntryUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class LedgerEntryServiceTest {
+internal class LedgerEntryServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -23,16 +22,17 @@ class LedgerEntryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerEntryService = client.ledgerEntries()
+
         val ledgerEntry =
             ledgerEntryService.retrieve(
                 LedgerEntryRetrieveParams.builder().id("id").showBalances(true).build()
             )
-        println(ledgerEntry)
+
         ledgerEntry.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -40,6 +40,7 @@ class LedgerEntryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerEntryService = client.ledgerEntries()
+
         val ledgerEntry =
             ledgerEntryService.update(
                 LedgerEntryUpdateParams.builder()
@@ -53,12 +54,12 @@ class LedgerEntryServiceTest {
                     )
                     .build()
             )
-        println(ledgerEntry)
+
         ledgerEntry.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -66,8 +67,9 @@ class LedgerEntryServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerEntryService = client.ledgerEntries()
-        val response = ledgerEntryService.list(LedgerEntryListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = ledgerEntryService.list()
+
+        page.response().validate()
     }
 }

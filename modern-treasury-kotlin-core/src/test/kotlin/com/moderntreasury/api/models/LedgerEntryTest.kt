@@ -7,10 +7,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LedgerEntryTest {
+internal class LedgerEntryTest {
 
     @Test
-    fun createLedgerEntry() {
+    fun create() {
         val ledgerEntry =
             LedgerEntry.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -66,7 +66,7 @@ class LedgerEntryTest {
                 .status(LedgerEntry.Status.ARCHIVED)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        assertThat(ledgerEntry).isNotNull
+
         assertThat(ledgerEntry.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(ledgerEntry.amount()).isEqualTo(0L)
         assertThat(ledgerEntry.createdAt())

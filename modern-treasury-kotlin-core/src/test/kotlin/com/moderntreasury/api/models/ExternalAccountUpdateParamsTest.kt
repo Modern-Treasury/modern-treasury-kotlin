@@ -6,7 +6,7 @@ import com.moderntreasury.api.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ExternalAccountUpdateParamsTest {
+internal class ExternalAccountUpdateParamsTest {
 
     @Test
     fun create() {
@@ -36,6 +36,15 @@ class ExternalAccountUpdateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params = ExternalAccountUpdateParams.builder().id("id").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             ExternalAccountUpdateParams.builder()
@@ -61,8 +70,9 @@ class ExternalAccountUpdateParamsTest {
                 .partyName("party_name")
                 .partyType(ExternalAccountUpdateParams.PartyType.BUSINESS)
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.accountType()).isEqualTo(ExternalAccountType.CASH)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata())
@@ -90,17 +100,7 @@ class ExternalAccountUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = ExternalAccountUpdateParams.builder().id("id").build()
-        val body = params._body()
-        assertThat(body).isNotNull
-    }
 
-    @Test
-    fun getPathParam() {
-        val params = ExternalAccountUpdateParams.builder().id("id").build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        val body = params._body()
     }
 }

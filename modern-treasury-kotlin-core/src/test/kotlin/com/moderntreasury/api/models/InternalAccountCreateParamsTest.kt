@@ -6,7 +6,7 @@ import com.moderntreasury.api.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class InternalAccountCreateParamsTest {
+internal class InternalAccountCreateParamsTest {
 
     @Test
     fun create() {
@@ -67,8 +67,9 @@ class InternalAccountCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)
         assertThat(body.name()).isEqualTo("name")
@@ -106,8 +107,9 @@ class InternalAccountCreateParamsTest {
                 .name("name")
                 .partyName("party_name")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)
         assertThat(body.name()).isEqualTo("name")

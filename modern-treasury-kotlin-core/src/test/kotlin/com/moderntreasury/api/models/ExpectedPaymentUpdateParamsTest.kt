@@ -7,7 +7,7 @@ import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ExpectedPaymentUpdateParamsTest {
+internal class ExpectedPaymentUpdateParamsTest {
 
     @Test
     fun create() {
@@ -57,6 +57,15 @@ class ExpectedPaymentUpdateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params = ExpectedPaymentUpdateParams.builder().id("id").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("id")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             ExpectedPaymentUpdateParams.builder()
@@ -102,8 +111,9 @@ class ExpectedPaymentUpdateParamsTest {
                 .status(ExpectedPaymentUpdateParams.Status.RECONCILED)
                 .type(ExpectedPaymentType.ACH)
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.amountLowerBound()).isEqualTo(0L)
         assertThat(body.amountUpperBound()).isEqualTo(0L)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -124,25 +134,23 @@ class ExpectedPaymentUpdateParamsTest {
         assertThat(body._reconciliationFilters()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(body._reconciliationGroups()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(body.reconciliationRuleVariables())
-            .isEqualTo(
-                listOf(
-                    ReconciliationRule.builder()
-                        .amountLowerBound(0L)
-                        .amountUpperBound(0L)
-                        .direction(ReconciliationRule.Direction.CREDIT)
-                        .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .currency(Currency.AED)
-                        .customIdentifiers(
-                            ReconciliationRule.CustomIdentifiers.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .dateLowerBound(LocalDate.parse("2019-12-27"))
-                        .dateUpperBound(LocalDate.parse("2019-12-27"))
-                        .type(ReconciliationRule.Type.ACH)
-                        .build()
-                )
+            .containsExactly(
+                ReconciliationRule.builder()
+                    .amountLowerBound(0L)
+                    .amountUpperBound(0L)
+                    .direction(ReconciliationRule.Direction.CREDIT)
+                    .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .currency(Currency.AED)
+                    .customIdentifiers(
+                        ReconciliationRule.CustomIdentifiers.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
+                    .dateLowerBound(LocalDate.parse("2019-12-27"))
+                    .dateUpperBound(LocalDate.parse("2019-12-27"))
+                    .type(ReconciliationRule.Type.ACH)
+                    .build()
             )
         assertThat(body.remittanceInformation()).isEqualTo("remittance_information")
         assertThat(body.statementDescriptor()).isEqualTo("statement_descriptor")
@@ -153,17 +161,7 @@ class ExpectedPaymentUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = ExpectedPaymentUpdateParams.builder().id("id").build()
-        val body = params._body()
-        assertThat(body).isNotNull
-    }
 
-    @Test
-    fun getPathParam() {
-        val params = ExpectedPaymentUpdateParams.builder().id("id").build()
-        assertThat(params).isNotNull
-        // path param "id"
-        assertThat(params.getPathParam(0)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        val body = params._body()
     }
 }

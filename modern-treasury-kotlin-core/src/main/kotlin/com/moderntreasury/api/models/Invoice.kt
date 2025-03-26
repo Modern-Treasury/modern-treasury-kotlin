@@ -11,206 +11,347 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class Invoice
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("amount_paid")
-    @ExcludeMissing
-    private val amountPaid: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("amount_remaining")
-    @ExcludeMissing
-    private val amountRemaining: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("contact_details")
-    @ExcludeMissing
-    private val contactDetails: JsonField<List<ContactDetail>> = JsonMissing.of(),
-    @JsonProperty("counterparty_billing_address")
-    @ExcludeMissing
-    private val counterpartyBillingAddress: JsonField<CounterpartyBillingAddress> =
-        JsonMissing.of(),
-    @JsonProperty("counterparty_id")
-    @ExcludeMissing
-    private val counterpartyId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("counterparty_shipping_address")
-    @ExcludeMissing
-    private val counterpartyShippingAddress: JsonField<CounterpartyShippingAddress> =
-        JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("currency")
-    @ExcludeMissing
-    private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("description")
-    @ExcludeMissing
-    private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("due_date")
-    @ExcludeMissing
-    private val dueDate: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("expected_payments")
-    @ExcludeMissing
-    private val expectedPayments: JsonField<List<ExpectedPayment>> = JsonMissing.of(),
-    @JsonProperty("fallback_payment_method")
-    @ExcludeMissing
-    private val fallbackPaymentMethod: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("hosted_url")
-    @ExcludeMissing
-    private val hostedUrl: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("invoicer_address")
-    @ExcludeMissing
-    private val invoicerAddress: JsonField<InvoicerAddress> = JsonMissing.of(),
-    @JsonProperty("ledger_account_settlement_id")
-    @ExcludeMissing
-    private val ledgerAccountSettlementId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("metadata")
-    @ExcludeMissing
-    private val metadata: JsonField<Metadata> = JsonMissing.of(),
-    @JsonProperty("notification_email_addresses")
-    @ExcludeMissing
-    private val notificationEmailAddresses: JsonField<List<String>> = JsonMissing.of(),
-    @JsonProperty("notifications_enabled")
-    @ExcludeMissing
-    private val notificationsEnabled: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("number")
-    @ExcludeMissing
-    private val number: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("originating_account_id")
-    @ExcludeMissing
-    private val originatingAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("payment_effective_date")
-    @ExcludeMissing
-    private val paymentEffectiveDate: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("payment_method")
-    @ExcludeMissing
-    private val paymentMethod: JsonField<PaymentMethod> = JsonMissing.of(),
-    @JsonProperty("payment_orders")
-    @ExcludeMissing
-    private val paymentOrders: JsonField<List<PaymentOrder>> = JsonMissing.of(),
-    @JsonProperty("payment_type")
-    @ExcludeMissing
-    private val paymentType: JsonField<PaymentType> = JsonMissing.of(),
-    @JsonProperty("pdf_url")
-    @ExcludeMissing
-    private val pdfUrl: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("receiving_account_id")
-    @ExcludeMissing
-    private val receivingAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("recipient_email")
-    @ExcludeMissing
-    private val recipientEmail: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("recipient_name")
-    @ExcludeMissing
-    private val recipientName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("remind_after_overdue_days")
-    @ExcludeMissing
-    private val remindAfterOverdueDays: JsonField<List<Long>> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("total_amount")
-    @ExcludeMissing
-    private val totalAmount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("transaction_line_item_ids")
-    @ExcludeMissing
-    private val transactionLineItemIds: JsonField<List<String>> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("virtual_account_id")
-    @ExcludeMissing
-    private val virtualAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val amountPaid: JsonField<Long>,
+    private val amountRemaining: JsonField<Long>,
+    private val contactDetails: JsonField<List<ContactDetail>>,
+    private val counterpartyBillingAddress: JsonField<CounterpartyBillingAddress>,
+    private val counterpartyId: JsonField<String>,
+    private val counterpartyShippingAddress: JsonField<CounterpartyShippingAddress>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val currency: JsonField<Currency>,
+    private val description: JsonField<String>,
+    private val dueDate: JsonField<OffsetDateTime>,
+    private val expectedPayments: JsonField<List<ExpectedPayment>>,
+    private val fallbackPaymentMethod: JsonField<String>,
+    private val hostedUrl: JsonField<String>,
+    private val invoicerAddress: JsonField<InvoicerAddress>,
+    private val ledgerAccountSettlementId: JsonField<String>,
+    private val liveMode: JsonField<Boolean>,
+    private val metadata: JsonField<Metadata>,
+    private val notificationEmailAddresses: JsonField<List<String>>,
+    private val notificationsEnabled: JsonField<Boolean>,
+    private val number: JsonField<String>,
+    private val object_: JsonField<String>,
+    private val originatingAccountId: JsonField<String>,
+    private val paymentEffectiveDate: JsonField<LocalDate>,
+    private val paymentMethod: JsonField<PaymentMethod>,
+    private val paymentOrders: JsonField<List<PaymentOrder>>,
+    private val paymentType: JsonField<PaymentType>,
+    private val pdfUrl: JsonField<String>,
+    private val receivingAccountId: JsonField<String>,
+    private val recipientEmail: JsonField<String>,
+    private val recipientName: JsonField<String>,
+    private val remindAfterOverdueDays: JsonField<List<Long>>,
+    private val status: JsonField<Status>,
+    private val totalAmount: JsonField<Long>,
+    private val transactionLineItemIds: JsonField<List<String>>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val virtualAccountId: JsonField<String>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount_paid") @ExcludeMissing amountPaid: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("amount_remaining")
+        @ExcludeMissing
+        amountRemaining: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("contact_details")
+        @ExcludeMissing
+        contactDetails: JsonField<List<ContactDetail>> = JsonMissing.of(),
+        @JsonProperty("counterparty_billing_address")
+        @ExcludeMissing
+        counterpartyBillingAddress: JsonField<CounterpartyBillingAddress> = JsonMissing.of(),
+        @JsonProperty("counterparty_id")
+        @ExcludeMissing
+        counterpartyId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("counterparty_shipping_address")
+        @ExcludeMissing
+        counterpartyShippingAddress: JsonField<CounterpartyShippingAddress> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("currency") @ExcludeMissing currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("due_date")
+        @ExcludeMissing
+        dueDate: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("expected_payments")
+        @ExcludeMissing
+        expectedPayments: JsonField<List<ExpectedPayment>> = JsonMissing.of(),
+        @JsonProperty("fallback_payment_method")
+        @ExcludeMissing
+        fallbackPaymentMethod: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("hosted_url") @ExcludeMissing hostedUrl: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("invoicer_address")
+        @ExcludeMissing
+        invoicerAddress: JsonField<InvoicerAddress> = JsonMissing.of(),
+        @JsonProperty("ledger_account_settlement_id")
+        @ExcludeMissing
+        ledgerAccountSettlementId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
+        @JsonProperty("notification_email_addresses")
+        @ExcludeMissing
+        notificationEmailAddresses: JsonField<List<String>> = JsonMissing.of(),
+        @JsonProperty("notifications_enabled")
+        @ExcludeMissing
+        notificationsEnabled: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("number") @ExcludeMissing number: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originating_account_id")
+        @ExcludeMissing
+        originatingAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("payment_effective_date")
+        @ExcludeMissing
+        paymentEffectiveDate: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("payment_method")
+        @ExcludeMissing
+        paymentMethod: JsonField<PaymentMethod> = JsonMissing.of(),
+        @JsonProperty("payment_orders")
+        @ExcludeMissing
+        paymentOrders: JsonField<List<PaymentOrder>> = JsonMissing.of(),
+        @JsonProperty("payment_type")
+        @ExcludeMissing
+        paymentType: JsonField<PaymentType> = JsonMissing.of(),
+        @JsonProperty("pdf_url") @ExcludeMissing pdfUrl: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("receiving_account_id")
+        @ExcludeMissing
+        receivingAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("recipient_email")
+        @ExcludeMissing
+        recipientEmail: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("recipient_name")
+        @ExcludeMissing
+        recipientName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("remind_after_overdue_days")
+        @ExcludeMissing
+        remindAfterOverdueDays: JsonField<List<Long>> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("total_amount")
+        @ExcludeMissing
+        totalAmount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("transaction_line_item_ids")
+        @ExcludeMissing
+        transactionLineItemIds: JsonField<List<String>> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("virtual_account_id")
+        @ExcludeMissing
+        virtualAccountId: JsonField<String> = JsonMissing.of(),
+    ) : this(
+        id,
+        amountPaid,
+        amountRemaining,
+        contactDetails,
+        counterpartyBillingAddress,
+        counterpartyId,
+        counterpartyShippingAddress,
+        createdAt,
+        currency,
+        description,
+        dueDate,
+        expectedPayments,
+        fallbackPaymentMethod,
+        hostedUrl,
+        invoicerAddress,
+        ledgerAccountSettlementId,
+        liveMode,
+        metadata,
+        notificationEmailAddresses,
+        notificationsEnabled,
+        number,
+        object_,
+        originatingAccountId,
+        paymentEffectiveDate,
+        paymentMethod,
+        paymentOrders,
+        paymentType,
+        pdfUrl,
+        receivingAccountId,
+        recipientEmail,
+        recipientName,
+        remindAfterOverdueDays,
+        status,
+        totalAmount,
+        transactionLineItemIds,
+        updatedAt,
+        virtualAccountId,
+        mutableMapOf(),
+    )
+
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
     /**
      * Amount paid on the invoice in specified currency's smallest unit, e.g., $10 USD would be
      * represented as 1000.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amountPaid(): Long = amountPaid.getRequired("amount_paid")
 
     /**
      * Amount remaining due on the invoice in specified currency's smallest unit, e.g., $10 USD
      * would be represented as 1000.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amountRemaining(): Long = amountRemaining.getRequired("amount_remaining")
 
-    /** The invoicer's contact details displayed at the top of the invoice. */
+    /**
+     * The invoicer's contact details displayed at the top of the invoice.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun contactDetails(): List<ContactDetail> = contactDetails.getRequired("contact_details")
 
-    /** The counterparty's billing address. */
+    /**
+     * The counterparty's billing address.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun counterpartyBillingAddress(): CounterpartyBillingAddress? =
         counterpartyBillingAddress.getNullable("counterparty_billing_address")
 
-    /** The ID of the counterparty receiving the invoice. */
+    /**
+     * The ID of the counterparty receiving the invoice.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun counterpartyId(): String = counterpartyId.getRequired("counterparty_id")
 
-    /** The counterparty's shipping address where physical goods should be delivered. */
+    /**
+     * The counterparty's shipping address where physical goods should be delivered.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun counterpartyShippingAddress(): CounterpartyShippingAddress? =
         counterpartyShippingAddress.getNullable("counterparty_shipping_address")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** Currency that the invoice is denominated in. Defaults to `USD` if not provided. */
+    /**
+     * Currency that the invoice is denominated in. Defaults to `USD` if not provided.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun currency(): Currency = currency.getRequired("currency")
 
-    /** A free-form description of the invoice. */
+    /**
+     * A free-form description of the invoice.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun description(): String = description.getRequired("description")
 
-    /** A future date by when the invoice needs to be paid. */
+    /**
+     * A future date by when the invoice needs to be paid.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun dueDate(): OffsetDateTime = dueDate.getRequired("due_date")
 
-    /** The expected payments created for an unpaid invoice. */
+    /**
+     * The expected payments created for an unpaid invoice.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun expectedPayments(): List<ExpectedPayment> =
         expectedPayments.getRequired("expected_payments")
 
     /**
      * When payment_method is automatic, the fallback payment method to use when an automatic
      * payment fails. One of `manual` or `ui`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun fallbackPaymentMethod(): String? =
         fallbackPaymentMethod.getNullable("fallback_payment_method")
 
-    /** The URL of the hosted web UI where the invoice can be viewed. */
+    /**
+     * The URL of the hosted web UI where the invoice can be viewed.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun hostedUrl(): String = hostedUrl.getRequired("hosted_url")
 
-    /** The invoice issuer's business address. */
+    /**
+     * The invoice issuer's business address.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun invoicerAddress(): InvoicerAddress? = invoicerAddress.getNullable("invoicer_address")
 
-    /** The ledger account settlement object linked to the invoice. */
+    /**
+     * The ledger account settlement object linked to the invoice.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun ledgerAccountSettlementId(): String? =
         ledgerAccountSettlementId.getNullable("ledger_account_settlement_id")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Additional data represented as key-value pairs. Both the key and value must be strings.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun metadata(): Metadata? = metadata.getNullable("metadata")
 
     /**
      * Emails in addition to the counterparty email to send invoice status notifications to. At
      * least one email is required if notifications are enabled and the counterparty doesn't have an
      * email.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun notificationEmailAddresses(): List<String>? =
         notificationEmailAddresses.getNullable("notification_email_addresses")
@@ -218,21 +359,41 @@ private constructor(
     /**
      * If true, the invoice will send email notifications to the invoice recipients about invoice
      * status changes.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun notificationsEnabled(): Boolean = notificationsEnabled.getRequired("notifications_enabled")
 
-    /** A unique record number assigned to each invoice that is issued. */
+    /**
+     * A unique record number assigned to each invoice that is issued.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun number(): String = number.getRequired("number")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun object_(): String = object_.getRequired("object")
 
-    /** The ID of the internal account the invoice should be paid to. */
+    /**
+     * The ID of the internal account the invoice should be paid to.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun originatingAccountId(): String = originatingAccountId.getRequired("originating_account_id")
 
     /**
      * Date transactions are to be posted to the participants' account. Defaults to the current
      * business day or the next business day if the current day is a bank holiday or weekend.
      * Format: yyyy-mm-dd.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun paymentEffectiveDate(): LocalDate? =
         paymentEffectiveDate.getNullable("payment_effective_date")
@@ -240,308 +401,492 @@ private constructor(
     /**
      * When opening an invoice, whether to show the embedded payment UI , automatically debit the
      * recipient, or rely on manual payment from the recipient.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun paymentMethod(): PaymentMethod? = paymentMethod.getNullable("payment_method")
 
-    /** The payment orders created for paying the invoice through the invoice payment UI. */
+    /**
+     * The payment orders created for paying the invoice through the invoice payment UI.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun paymentOrders(): List<PaymentOrder> = paymentOrders.getRequired("payment_orders")
 
-    /** One of `ach` or `eft`. */
+    /**
+     * One of `ach` or `eft`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun paymentType(): PaymentType? = paymentType.getNullable("payment_type")
 
-    /** The URL where the invoice PDF can be downloaded. */
+    /**
+     * The URL where the invoice PDF can be downloaded.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun pdfUrl(): String? = pdfUrl.getNullable("pdf_url")
 
-    /** The receiving account ID. Can be an `internal_account`. */
+    /**
+     * The receiving account ID. Can be an `internal_account`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun receivingAccountId(): String? = receivingAccountId.getNullable("receiving_account_id")
 
     /**
      * The email of the recipient of the invoice. Leaving this value as null will fallback to using
      * the counterparty's name.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun recipientEmail(): String? = recipientEmail.getNullable("recipient_email")
 
     /**
      * The name of the recipient of the invoice. Leaving this value as null will fallback to using
      * the counterparty's name.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun recipientName(): String? = recipientName.getNullable("recipient_name")
 
     /**
      * Number of days after due date when overdue reminder emails will be sent out to invoice
      * recipients.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
     fun remindAfterOverdueDays(): List<Long>? =
         remindAfterOverdueDays.getNullable("remind_after_overdue_days")
 
-    /** The status of the invoice. */
+    /**
+     * The status of the invoice.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
     /**
      * Total amount due in specified currency's smallest unit, e.g., $10 USD would be represented
      * as 1000.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun totalAmount(): Long = totalAmount.getRequired("total_amount")
 
-    /** IDs of transaction line items associated with an invoice. */
+    /**
+     * IDs of transaction line items associated with an invoice.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun transactionLineItemIds(): List<String> =
         transactionLineItemIds.getRequired("transaction_line_item_ids")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    /** The ID of the virtual account the invoice should be paid to. */
+    /**
+     * The ID of the virtual account the invoice should be paid to.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun virtualAccountId(): String? = virtualAccountId.getNullable("virtual_account_id")
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * Amount paid on the invoice in specified currency's smallest unit, e.g., $10 USD would be
-     * represented as 1000.
+     * Returns the raw JSON value of [amountPaid].
+     *
+     * Unlike [amountPaid], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("amount_paid") @ExcludeMissing fun _amountPaid(): JsonField<Long> = amountPaid
 
     /**
-     * Amount remaining due on the invoice in specified currency's smallest unit, e.g., $10 USD
-     * would be represented as 1000.
+     * Returns the raw JSON value of [amountRemaining].
+     *
+     * Unlike [amountRemaining], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("amount_remaining")
     @ExcludeMissing
     fun _amountRemaining(): JsonField<Long> = amountRemaining
 
-    /** The invoicer's contact details displayed at the top of the invoice. */
+    /**
+     * Returns the raw JSON value of [contactDetails].
+     *
+     * Unlike [contactDetails], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("contact_details")
     @ExcludeMissing
     fun _contactDetails(): JsonField<List<ContactDetail>> = contactDetails
 
-    /** The counterparty's billing address. */
+    /**
+     * Returns the raw JSON value of [counterpartyBillingAddress].
+     *
+     * Unlike [counterpartyBillingAddress], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("counterparty_billing_address")
     @ExcludeMissing
     fun _counterpartyBillingAddress(): JsonField<CounterpartyBillingAddress> =
         counterpartyBillingAddress
 
-    /** The ID of the counterparty receiving the invoice. */
+    /**
+     * Returns the raw JSON value of [counterpartyId].
+     *
+     * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("counterparty_id")
     @ExcludeMissing
     fun _counterpartyId(): JsonField<String> = counterpartyId
 
-    /** The counterparty's shipping address where physical goods should be delivered. */
+    /**
+     * Returns the raw JSON value of [counterpartyShippingAddress].
+     *
+     * Unlike [counterpartyShippingAddress], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("counterparty_shipping_address")
     @ExcludeMissing
     fun _counterpartyShippingAddress(): JsonField<CounterpartyShippingAddress> =
         counterpartyShippingAddress
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** Currency that the invoice is denominated in. Defaults to `USD` if not provided. */
+    /**
+     * Returns the raw JSON value of [currency].
+     *
+     * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
-    /** A free-form description of the invoice. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
-    /** A future date by when the invoice needs to be paid. */
+    /**
+     * Returns the raw JSON value of [dueDate].
+     *
+     * Unlike [dueDate], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("due_date") @ExcludeMissing fun _dueDate(): JsonField<OffsetDateTime> = dueDate
 
-    /** The expected payments created for an unpaid invoice. */
+    /**
+     * Returns the raw JSON value of [expectedPayments].
+     *
+     * Unlike [expectedPayments], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("expected_payments")
     @ExcludeMissing
     fun _expectedPayments(): JsonField<List<ExpectedPayment>> = expectedPayments
 
     /**
-     * When payment_method is automatic, the fallback payment method to use when an automatic
-     * payment fails. One of `manual` or `ui`.
+     * Returns the raw JSON value of [fallbackPaymentMethod].
+     *
+     * Unlike [fallbackPaymentMethod], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("fallback_payment_method")
     @ExcludeMissing
     fun _fallbackPaymentMethod(): JsonField<String> = fallbackPaymentMethod
 
-    /** The URL of the hosted web UI where the invoice can be viewed. */
+    /**
+     * Returns the raw JSON value of [hostedUrl].
+     *
+     * Unlike [hostedUrl], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("hosted_url") @ExcludeMissing fun _hostedUrl(): JsonField<String> = hostedUrl
 
-    /** The invoice issuer's business address. */
+    /**
+     * Returns the raw JSON value of [invoicerAddress].
+     *
+     * Unlike [invoicerAddress], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("invoicer_address")
     @ExcludeMissing
     fun _invoicerAddress(): JsonField<InvoicerAddress> = invoicerAddress
 
-    /** The ledger account settlement object linked to the invoice. */
+    /**
+     * Returns the raw JSON value of [ledgerAccountSettlementId].
+     *
+     * Unlike [ledgerAccountSettlementId], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("ledger_account_settlement_id")
     @ExcludeMissing
     fun _ledgerAccountSettlementId(): JsonField<String> = ledgerAccountSettlementId
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
     /**
-     * Emails in addition to the counterparty email to send invoice status notifications to. At
-     * least one email is required if notifications are enabled and the counterparty doesn't have an
-     * email.
+     * Returns the raw JSON value of [notificationEmailAddresses].
+     *
+     * Unlike [notificationEmailAddresses], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     @JsonProperty("notification_email_addresses")
     @ExcludeMissing
     fun _notificationEmailAddresses(): JsonField<List<String>> = notificationEmailAddresses
 
     /**
-     * If true, the invoice will send email notifications to the invoice recipients about invoice
-     * status changes.
+     * Returns the raw JSON value of [notificationsEnabled].
+     *
+     * Unlike [notificationsEnabled], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("notifications_enabled")
     @ExcludeMissing
     fun _notificationsEnabled(): JsonField<Boolean> = notificationsEnabled
 
-    /** A unique record number assigned to each invoice that is issued. */
+    /**
+     * Returns the raw JSON value of [number].
+     *
+     * Unlike [number], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("number") @ExcludeMissing fun _number(): JsonField<String> = number
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
-    /** The ID of the internal account the invoice should be paid to. */
+    /**
+     * Returns the raw JSON value of [originatingAccountId].
+     *
+     * Unlike [originatingAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("originating_account_id")
     @ExcludeMissing
     fun _originatingAccountId(): JsonField<String> = originatingAccountId
 
     /**
-     * Date transactions are to be posted to the participants' account. Defaults to the current
-     * business day or the next business day if the current day is a bank holiday or weekend.
-     * Format: yyyy-mm-dd.
+     * Returns the raw JSON value of [paymentEffectiveDate].
+     *
+     * Unlike [paymentEffectiveDate], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("payment_effective_date")
     @ExcludeMissing
     fun _paymentEffectiveDate(): JsonField<LocalDate> = paymentEffectiveDate
 
     /**
-     * When opening an invoice, whether to show the embedded payment UI , automatically debit the
-     * recipient, or rely on manual payment from the recipient.
+     * Returns the raw JSON value of [paymentMethod].
+     *
+     * Unlike [paymentMethod], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("payment_method")
     @ExcludeMissing
     fun _paymentMethod(): JsonField<PaymentMethod> = paymentMethod
 
-    /** The payment orders created for paying the invoice through the invoice payment UI. */
+    /**
+     * Returns the raw JSON value of [paymentOrders].
+     *
+     * Unlike [paymentOrders], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("payment_orders")
     @ExcludeMissing
     fun _paymentOrders(): JsonField<List<PaymentOrder>> = paymentOrders
 
-    /** One of `ach` or `eft`. */
+    /**
+     * Returns the raw JSON value of [paymentType].
+     *
+     * Unlike [paymentType], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("payment_type")
     @ExcludeMissing
     fun _paymentType(): JsonField<PaymentType> = paymentType
 
-    /** The URL where the invoice PDF can be downloaded. */
+    /**
+     * Returns the raw JSON value of [pdfUrl].
+     *
+     * Unlike [pdfUrl], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("pdf_url") @ExcludeMissing fun _pdfUrl(): JsonField<String> = pdfUrl
 
-    /** The receiving account ID. Can be an `internal_account`. */
+    /**
+     * Returns the raw JSON value of [receivingAccountId].
+     *
+     * Unlike [receivingAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("receiving_account_id")
     @ExcludeMissing
     fun _receivingAccountId(): JsonField<String> = receivingAccountId
 
     /**
-     * The email of the recipient of the invoice. Leaving this value as null will fallback to using
-     * the counterparty's name.
+     * Returns the raw JSON value of [recipientEmail].
+     *
+     * Unlike [recipientEmail], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("recipient_email")
     @ExcludeMissing
     fun _recipientEmail(): JsonField<String> = recipientEmail
 
     /**
-     * The name of the recipient of the invoice. Leaving this value as null will fallback to using
-     * the counterparty's name.
+     * Returns the raw JSON value of [recipientName].
+     *
+     * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("recipient_name")
     @ExcludeMissing
     fun _recipientName(): JsonField<String> = recipientName
 
     /**
-     * Number of days after due date when overdue reminder emails will be sent out to invoice
-     * recipients.
+     * Returns the raw JSON value of [remindAfterOverdueDays].
+     *
+     * Unlike [remindAfterOverdueDays], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     @JsonProperty("remind_after_overdue_days")
     @ExcludeMissing
     fun _remindAfterOverdueDays(): JsonField<List<Long>> = remindAfterOverdueDays
 
-    /** The status of the invoice. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
-     * Total amount due in specified currency's smallest unit, e.g., $10 USD would be represented
-     * as 1000.
+     * Returns the raw JSON value of [totalAmount].
+     *
+     * Unlike [totalAmount], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("total_amount") @ExcludeMissing fun _totalAmount(): JsonField<Long> = totalAmount
 
-    /** IDs of transaction line items associated with an invoice. */
+    /**
+     * Returns the raw JSON value of [transactionLineItemIds].
+     *
+     * Unlike [transactionLineItemIds], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("transaction_line_item_ids")
     @ExcludeMissing
     fun _transactionLineItemIds(): JsonField<List<String>> = transactionLineItemIds
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
-    /** The ID of the virtual account the invoice should be paid to. */
+    /**
+     * Returns the raw JSON value of [virtualAccountId].
+     *
+     * Unlike [virtualAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("virtual_account_id")
     @ExcludeMissing
     fun _virtualAccountId(): JsonField<String> = virtualAccountId
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): Invoice = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        amountPaid()
-        amountRemaining()
-        contactDetails().forEach { it.validate() }
-        counterpartyBillingAddress()?.validate()
-        counterpartyId()
-        counterpartyShippingAddress()?.validate()
-        createdAt()
-        currency()
-        description()
-        dueDate()
-        expectedPayments().forEach { it.validate() }
-        fallbackPaymentMethod()
-        hostedUrl()
-        invoicerAddress()?.validate()
-        ledgerAccountSettlementId()
-        liveMode()
-        metadata()?.validate()
-        notificationEmailAddresses()
-        notificationsEnabled()
-        number()
-        object_()
-        originatingAccountId()
-        paymentEffectiveDate()
-        paymentMethod()
-        paymentOrders().forEach { it.validate() }
-        paymentType()
-        pdfUrl()
-        receivingAccountId()
-        recipientEmail()
-        recipientName()
-        remindAfterOverdueDays()
-        status()
-        totalAmount()
-        transactionLineItemIds()
-        updatedAt()
-        virtualAccountId()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [Invoice].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .amountPaid()
+         * .amountRemaining()
+         * .contactDetails()
+         * .counterpartyBillingAddress()
+         * .counterpartyId()
+         * .counterpartyShippingAddress()
+         * .createdAt()
+         * .currency()
+         * .description()
+         * .dueDate()
+         * .expectedPayments()
+         * .fallbackPaymentMethod()
+         * .hostedUrl()
+         * .invoicerAddress()
+         * .ledgerAccountSettlementId()
+         * .liveMode()
+         * .metadata()
+         * .notificationEmailAddresses()
+         * .notificationsEnabled()
+         * .number()
+         * .object_()
+         * .originatingAccountId()
+         * .paymentEffectiveDate()
+         * .paymentMethod()
+         * .paymentOrders()
+         * .paymentType()
+         * .pdfUrl()
+         * .receivingAccountId()
+         * .recipientEmail()
+         * .recipientName()
+         * .remindAfterOverdueDays()
+         * .status()
+         * .totalAmount()
+         * .transactionLineItemIds()
+         * .updatedAt()
+         * .virtualAccountId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -631,6 +976,12 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
@@ -640,8 +991,10 @@ private constructor(
         fun amountPaid(amountPaid: Long) = amountPaid(JsonField.of(amountPaid))
 
         /**
-         * Amount paid on the invoice in specified currency's smallest unit, e.g., $10 USD would be
-         * represented as 1000.
+         * Sets [Builder.amountPaid] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amountPaid] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amountPaid(amountPaid: JsonField<Long>) = apply { this.amountPaid = amountPaid }
 
@@ -652,8 +1005,11 @@ private constructor(
         fun amountRemaining(amountRemaining: Long) = amountRemaining(JsonField.of(amountRemaining))
 
         /**
-         * Amount remaining due on the invoice in specified currency's smallest unit, e.g., $10 USD
-         * would be represented as 1000.
+         * Sets [Builder.amountRemaining] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amountRemaining] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun amountRemaining(amountRemaining: JsonField<Long>) = apply {
             this.amountRemaining = amountRemaining
@@ -663,20 +1019,26 @@ private constructor(
         fun contactDetails(contactDetails: List<ContactDetail>) =
             contactDetails(JsonField.of(contactDetails))
 
-        /** The invoicer's contact details displayed at the top of the invoice. */
+        /**
+         * Sets [Builder.contactDetails] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.contactDetails] with a well-typed `List<ContactDetail>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun contactDetails(contactDetails: JsonField<List<ContactDetail>>) = apply {
             this.contactDetails = contactDetails.map { it.toMutableList() }
         }
 
-        /** The invoicer's contact details displayed at the top of the invoice. */
+        /**
+         * Adds a single [ContactDetail] to [contactDetails].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addContactDetail(contactDetail: ContactDetail) = apply {
             contactDetails =
-                (contactDetails ?: JsonField.of(mutableListOf())).apply {
-                    (asKnown()
-                            ?: throw IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            ))
-                        .add(contactDetail)
+                (contactDetails ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("contactDetails", it).add(contactDetail)
                 }
         }
 
@@ -684,7 +1046,13 @@ private constructor(
         fun counterpartyBillingAddress(counterpartyBillingAddress: CounterpartyBillingAddress?) =
             counterpartyBillingAddress(JsonField.ofNullable(counterpartyBillingAddress))
 
-        /** The counterparty's billing address. */
+        /**
+         * Sets [Builder.counterpartyBillingAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.counterpartyBillingAddress] with a well-typed
+         * [CounterpartyBillingAddress] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
         fun counterpartyBillingAddress(
             counterpartyBillingAddress: JsonField<CounterpartyBillingAddress>
         ) = apply { this.counterpartyBillingAddress = counterpartyBillingAddress }
@@ -692,7 +1060,13 @@ private constructor(
         /** The ID of the counterparty receiving the invoice. */
         fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
 
-        /** The ID of the counterparty receiving the invoice. */
+        /**
+         * Sets [Builder.counterpartyId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.counterpartyId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
             this.counterpartyId = counterpartyId
         }
@@ -701,51 +1075,88 @@ private constructor(
         fun counterpartyShippingAddress(counterpartyShippingAddress: CounterpartyShippingAddress?) =
             counterpartyShippingAddress(JsonField.ofNullable(counterpartyShippingAddress))
 
-        /** The counterparty's shipping address where physical goods should be delivered. */
+        /**
+         * Sets [Builder.counterpartyShippingAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.counterpartyShippingAddress] with a well-typed
+         * [CounterpartyShippingAddress] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
         fun counterpartyShippingAddress(
             counterpartyShippingAddress: JsonField<CounterpartyShippingAddress>
         ) = apply { this.counterpartyShippingAddress = counterpartyShippingAddress }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** Currency that the invoice is denominated in. Defaults to `USD` if not provided. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
-        /** Currency that the invoice is denominated in. Defaults to `USD` if not provided. */
+        /**
+         * Sets [Builder.currency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currency] with a well-typed [Currency] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** A free-form description of the invoice. */
         fun description(description: String) = description(JsonField.of(description))
 
-        /** A free-form description of the invoice. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** A future date by when the invoice needs to be paid. */
         fun dueDate(dueDate: OffsetDateTime) = dueDate(JsonField.of(dueDate))
 
-        /** A future date by when the invoice needs to be paid. */
+        /**
+         * Sets [Builder.dueDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dueDate] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun dueDate(dueDate: JsonField<OffsetDateTime>) = apply { this.dueDate = dueDate }
 
         /** The expected payments created for an unpaid invoice. */
         fun expectedPayments(expectedPayments: List<ExpectedPayment>) =
             expectedPayments(JsonField.of(expectedPayments))
 
-        /** The expected payments created for an unpaid invoice. */
+        /**
+         * Sets [Builder.expectedPayments] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.expectedPayments] with a well-typed
+         * `List<ExpectedPayment>` value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
         fun expectedPayments(expectedPayments: JsonField<List<ExpectedPayment>>) = apply {
             this.expectedPayments = expectedPayments.map { it.toMutableList() }
         }
 
-        /** The expected payments created for an unpaid invoice. */
+        /**
+         * Adds a single [ExpectedPayment] to [expectedPayments].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addExpectedPayment(expectedPayment: ExpectedPayment) = apply {
             expectedPayments =
-                (expectedPayments ?: JsonField.of(mutableListOf())).apply {
-                    (asKnown()
-                            ?: throw IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            ))
-                        .add(expectedPayment)
+                (expectedPayments ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("expectedPayments", it).add(expectedPayment)
                 }
         }
 
@@ -757,8 +1168,11 @@ private constructor(
             fallbackPaymentMethod(JsonField.ofNullable(fallbackPaymentMethod))
 
         /**
-         * When payment_method is automatic, the fallback payment method to use when an automatic
-         * payment fails. One of `manual` or `ui`.
+         * Sets [Builder.fallbackPaymentMethod] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fallbackPaymentMethod] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun fallbackPaymentMethod(fallbackPaymentMethod: JsonField<String>) = apply {
             this.fallbackPaymentMethod = fallbackPaymentMethod
@@ -767,14 +1181,26 @@ private constructor(
         /** The URL of the hosted web UI where the invoice can be viewed. */
         fun hostedUrl(hostedUrl: String) = hostedUrl(JsonField.of(hostedUrl))
 
-        /** The URL of the hosted web UI where the invoice can be viewed. */
+        /**
+         * Sets [Builder.hostedUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.hostedUrl] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun hostedUrl(hostedUrl: JsonField<String>) = apply { this.hostedUrl = hostedUrl }
 
         /** The invoice issuer's business address. */
         fun invoicerAddress(invoicerAddress: InvoicerAddress?) =
             invoicerAddress(JsonField.ofNullable(invoicerAddress))
 
-        /** The invoice issuer's business address. */
+        /**
+         * Sets [Builder.invoicerAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.invoicerAddress] with a well-typed [InvoicerAddress]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun invoicerAddress(invoicerAddress: JsonField<InvoicerAddress>) = apply {
             this.invoicerAddress = invoicerAddress
         }
@@ -783,7 +1209,13 @@ private constructor(
         fun ledgerAccountSettlementId(ledgerAccountSettlementId: String?) =
             ledgerAccountSettlementId(JsonField.ofNullable(ledgerAccountSettlementId))
 
-        /** The ledger account settlement object linked to the invoice. */
+        /**
+         * Sets [Builder.ledgerAccountSettlementId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerAccountSettlementId] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun ledgerAccountSettlementId(ledgerAccountSettlementId: JsonField<String>) = apply {
             this.ledgerAccountSettlementId = ledgerAccountSettlementId
         }
@@ -795,8 +1227,11 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
@@ -806,7 +1241,11 @@ private constructor(
         fun metadata(metadata: Metadata?) = metadata(JsonField.ofNullable(metadata))
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
@@ -819,9 +1258,11 @@ private constructor(
             notificationEmailAddresses(JsonField.ofNullable(notificationEmailAddresses))
 
         /**
-         * Emails in addition to the counterparty email to send invoice status notifications to. At
-         * least one email is required if notifications are enabled and the counterparty doesn't
-         * have an email.
+         * Sets [Builder.notificationEmailAddresses] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.notificationEmailAddresses] with a well-typed
+         * `List<String>` value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun notificationEmailAddresses(notificationEmailAddresses: JsonField<List<String>>) =
             apply {
@@ -830,18 +1271,14 @@ private constructor(
             }
 
         /**
-         * Emails in addition to the counterparty email to send invoice status notifications to. At
-         * least one email is required if notifications are enabled and the counterparty doesn't
-         * have an email.
+         * Adds a single [String] to [notificationEmailAddresses].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addNotificationEmailAddress(notificationEmailAddress: String) = apply {
             notificationEmailAddresses =
-                (notificationEmailAddresses ?: JsonField.of(mutableListOf())).apply {
-                    (asKnown()
-                            ?: throw IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            ))
-                        .add(notificationEmailAddress)
+                (notificationEmailAddresses ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("notificationEmailAddresses", it).add(notificationEmailAddress)
                 }
         }
 
@@ -853,8 +1290,11 @@ private constructor(
             notificationsEnabled(JsonField.of(notificationsEnabled))
 
         /**
-         * If true, the invoice will send email notifications to the invoice recipients about
-         * invoice status changes.
+         * Sets [Builder.notificationsEnabled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.notificationsEnabled] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun notificationsEnabled(notificationsEnabled: JsonField<Boolean>) = apply {
             this.notificationsEnabled = notificationsEnabled
@@ -863,18 +1303,35 @@ private constructor(
         /** A unique record number assigned to each invoice that is issued. */
         fun number(number: String) = number(JsonField.of(number))
 
-        /** A unique record number assigned to each invoice that is issued. */
+        /**
+         * Sets [Builder.number] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.number] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun number(number: JsonField<String>) = apply { this.number = number }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /** The ID of the internal account the invoice should be paid to. */
         fun originatingAccountId(originatingAccountId: String) =
             originatingAccountId(JsonField.of(originatingAccountId))
 
-        /** The ID of the internal account the invoice should be paid to. */
+        /**
+         * Sets [Builder.originatingAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatingAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
             this.originatingAccountId = originatingAccountId
         }
@@ -888,9 +1345,11 @@ private constructor(
             paymentEffectiveDate(JsonField.ofNullable(paymentEffectiveDate))
 
         /**
-         * Date transactions are to be posted to the participants' account. Defaults to the current
-         * business day or the next business day if the current day is a bank holiday or weekend.
-         * Format: yyyy-mm-dd.
+         * Sets [Builder.paymentEffectiveDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.paymentEffectiveDate] with a well-typed [LocalDate]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun paymentEffectiveDate(paymentEffectiveDate: JsonField<LocalDate>) = apply {
             this.paymentEffectiveDate = paymentEffectiveDate
@@ -904,8 +1363,11 @@ private constructor(
             paymentMethod(JsonField.ofNullable(paymentMethod))
 
         /**
-         * When opening an invoice, whether to show the embedded payment UI , automatically debit
-         * the recipient, or rely on manual payment from the recipient.
+         * Sets [Builder.paymentMethod] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.paymentMethod] with a well-typed [PaymentMethod] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun paymentMethod(paymentMethod: JsonField<PaymentMethod>) = apply {
             this.paymentMethod = paymentMethod
@@ -915,27 +1377,39 @@ private constructor(
         fun paymentOrders(paymentOrders: List<PaymentOrder>) =
             paymentOrders(JsonField.of(paymentOrders))
 
-        /** The payment orders created for paying the invoice through the invoice payment UI. */
+        /**
+         * Sets [Builder.paymentOrders] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.paymentOrders] with a well-typed `List<PaymentOrder>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun paymentOrders(paymentOrders: JsonField<List<PaymentOrder>>) = apply {
             this.paymentOrders = paymentOrders.map { it.toMutableList() }
         }
 
-        /** The payment orders created for paying the invoice through the invoice payment UI. */
+        /**
+         * Adds a single [PaymentOrder] to [paymentOrders].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addPaymentOrder(paymentOrder: PaymentOrder) = apply {
             paymentOrders =
-                (paymentOrders ?: JsonField.of(mutableListOf())).apply {
-                    (asKnown()
-                            ?: throw IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            ))
-                        .add(paymentOrder)
+                (paymentOrders ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("paymentOrders", it).add(paymentOrder)
                 }
         }
 
         /** One of `ach` or `eft`. */
         fun paymentType(paymentType: PaymentType?) = paymentType(JsonField.ofNullable(paymentType))
 
-        /** One of `ach` or `eft`. */
+        /**
+         * Sets [Builder.paymentType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.paymentType] with a well-typed [PaymentType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun paymentType(paymentType: JsonField<PaymentType>) = apply {
             this.paymentType = paymentType
         }
@@ -943,14 +1417,25 @@ private constructor(
         /** The URL where the invoice PDF can be downloaded. */
         fun pdfUrl(pdfUrl: String?) = pdfUrl(JsonField.ofNullable(pdfUrl))
 
-        /** The URL where the invoice PDF can be downloaded. */
+        /**
+         * Sets [Builder.pdfUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.pdfUrl] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun pdfUrl(pdfUrl: JsonField<String>) = apply { this.pdfUrl = pdfUrl }
 
         /** The receiving account ID. Can be an `internal_account`. */
         fun receivingAccountId(receivingAccountId: String?) =
             receivingAccountId(JsonField.ofNullable(receivingAccountId))
 
-        /** The receiving account ID. Can be an `internal_account`. */
+        /**
+         * Sets [Builder.receivingAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.receivingAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun receivingAccountId(receivingAccountId: JsonField<String>) = apply {
             this.receivingAccountId = receivingAccountId
         }
@@ -963,8 +1448,11 @@ private constructor(
             recipientEmail(JsonField.ofNullable(recipientEmail))
 
         /**
-         * The email of the recipient of the invoice. Leaving this value as null will fallback to
-         * using the counterparty's name.
+         * Sets [Builder.recipientEmail] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientEmail] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun recipientEmail(recipientEmail: JsonField<String>) = apply {
             this.recipientEmail = recipientEmail
@@ -978,8 +1466,11 @@ private constructor(
             recipientName(JsonField.ofNullable(recipientName))
 
         /**
-         * The name of the recipient of the invoice. Leaving this value as null will fallback to
-         * using the counterparty's name.
+         * Sets [Builder.recipientName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun recipientName(recipientName: JsonField<String>) = apply {
             this.recipientName = recipientName
@@ -993,32 +1484,37 @@ private constructor(
             remindAfterOverdueDays(JsonField.ofNullable(remindAfterOverdueDays))
 
         /**
-         * Number of days after due date when overdue reminder emails will be sent out to invoice
-         * recipients.
+         * Sets [Builder.remindAfterOverdueDays] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.remindAfterOverdueDays] with a well-typed `List<Long>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun remindAfterOverdueDays(remindAfterOverdueDays: JsonField<List<Long>>) = apply {
             this.remindAfterOverdueDays = remindAfterOverdueDays.map { it.toMutableList() }
         }
 
         /**
-         * Number of days after due date when overdue reminder emails will be sent out to invoice
-         * recipients.
+         * Adds a single [Long] to [remindAfterOverdueDays].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addRemindAfterOverdueDay(remindAfterOverdueDay: Long) = apply {
             remindAfterOverdueDays =
-                (remindAfterOverdueDays ?: JsonField.of(mutableListOf())).apply {
-                    (asKnown()
-                            ?: throw IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            ))
-                        .add(remindAfterOverdueDay)
+                (remindAfterOverdueDays ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("remindAfterOverdueDays", it).add(remindAfterOverdueDay)
                 }
         }
 
         /** The status of the invoice. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** The status of the invoice. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -1028,8 +1524,11 @@ private constructor(
         fun totalAmount(totalAmount: Long) = totalAmount(JsonField.of(totalAmount))
 
         /**
-         * Total amount due in specified currency's smallest unit, e.g., $10 USD would be
-         * represented as 1000.
+         * Sets [Builder.totalAmount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.totalAmount] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun totalAmount(totalAmount: JsonField<Long>) = apply { this.totalAmount = totalAmount }
 
@@ -1037,32 +1536,51 @@ private constructor(
         fun transactionLineItemIds(transactionLineItemIds: List<String>) =
             transactionLineItemIds(JsonField.of(transactionLineItemIds))
 
-        /** IDs of transaction line items associated with an invoice. */
+        /**
+         * Sets [Builder.transactionLineItemIds] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.transactionLineItemIds] with a well-typed `List<String>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun transactionLineItemIds(transactionLineItemIds: JsonField<List<String>>) = apply {
             this.transactionLineItemIds = transactionLineItemIds.map { it.toMutableList() }
         }
 
-        /** IDs of transaction line items associated with an invoice. */
+        /**
+         * Adds a single [String] to [transactionLineItemIds].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addTransactionLineItemId(transactionLineItemId: String) = apply {
             transactionLineItemIds =
-                (transactionLineItemIds ?: JsonField.of(mutableListOf())).apply {
-                    (asKnown()
-                            ?: throw IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            ))
-                        .add(transactionLineItemId)
+                (transactionLineItemIds ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("transactionLineItemIds", it).add(transactionLineItemId)
                 }
         }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /** The ID of the virtual account the invoice should be paid to. */
         fun virtualAccountId(virtualAccountId: String?) =
             virtualAccountId(JsonField.ofNullable(virtualAccountId))
 
-        /** The ID of the virtual account the invoice should be paid to. */
+        /**
+         * Sets [Builder.virtualAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.virtualAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun virtualAccountId(virtualAccountId: JsonField<String>) = apply {
             this.virtualAccountId = virtualAccountId
         }
@@ -1086,6 +1604,54 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [Invoice].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .amountPaid()
+         * .amountRemaining()
+         * .contactDetails()
+         * .counterpartyBillingAddress()
+         * .counterpartyId()
+         * .counterpartyShippingAddress()
+         * .createdAt()
+         * .currency()
+         * .description()
+         * .dueDate()
+         * .expectedPayments()
+         * .fallbackPaymentMethod()
+         * .hostedUrl()
+         * .invoicerAddress()
+         * .ledgerAccountSettlementId()
+         * .liveMode()
+         * .metadata()
+         * .notificationEmailAddresses()
+         * .notificationsEnabled()
+         * .number()
+         * .object_()
+         * .originatingAccountId()
+         * .paymentEffectiveDate()
+         * .paymentMethod()
+         * .paymentOrders()
+         * .paymentType()
+         * .pdfUrl()
+         * .receivingAccountId()
+         * .recipientEmail()
+         * .recipientName()
+         * .remindAfterOverdueDays()
+         * .status()
+         * .totalAmount()
+         * .transactionLineItemIds()
+         * .updatedAt()
+         * .virtualAccountId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): Invoice =
             Invoice(
                 checkRequired("id", id),
@@ -1131,117 +1697,253 @@ private constructor(
                 },
                 checkRequired("updatedAt", updatedAt),
                 checkRequired("virtualAccountId", virtualAccountId),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
     }
 
-    @NoAutoDetect
+    private var validated: Boolean = false
+
+    fun validate(): Invoice = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        amountPaid()
+        amountRemaining()
+        contactDetails().forEach { it.validate() }
+        counterpartyBillingAddress()?.validate()
+        counterpartyId()
+        counterpartyShippingAddress()?.validate()
+        createdAt()
+        currency()
+        description()
+        dueDate()
+        expectedPayments().forEach { it.validate() }
+        fallbackPaymentMethod()
+        hostedUrl()
+        invoicerAddress()?.validate()
+        ledgerAccountSettlementId()
+        liveMode()
+        metadata()?.validate()
+        notificationEmailAddresses()
+        notificationsEnabled()
+        number()
+        object_()
+        originatingAccountId()
+        paymentEffectiveDate()
+        paymentMethod()
+        paymentOrders().forEach { it.validate() }
+        paymentType()
+        pdfUrl()
+        receivingAccountId()
+        recipientEmail()
+        recipientName()
+        remindAfterOverdueDays()
+        status()
+        totalAmount()
+        transactionLineItemIds()
+        updatedAt()
+        virtualAccountId()
+        validated = true
+    }
+
     class ContactDetail
-    @JsonCreator
     private constructor(
-        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("contact_identifier")
-        @ExcludeMissing
-        private val contactIdentifier: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("contact_identifier_type")
-        @ExcludeMissing
-        private val contactIdentifierType: JsonField<ContactIdentifierType> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("discarded_at")
-        @ExcludeMissing
-        private val discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("live_mode")
-        @ExcludeMissing
-        private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("object")
-        @ExcludeMissing
-        private val object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val id: JsonField<String>,
+        private val contactIdentifier: JsonField<String>,
+        private val contactIdentifierType: JsonField<ContactIdentifierType>,
+        private val createdAt: JsonField<OffsetDateTime>,
+        private val discardedAt: JsonField<OffsetDateTime>,
+        private val liveMode: JsonField<Boolean>,
+        private val object_: JsonField<String>,
+        private val updatedAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
+        @JsonCreator
+        private constructor(
+            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("contact_identifier")
+            @ExcludeMissing
+            contactIdentifier: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("contact_identifier_type")
+            @ExcludeMissing
+            contactIdentifierType: JsonField<ContactIdentifierType> = JsonMissing.of(),
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("discarded_at")
+            @ExcludeMissing
+            discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("live_mode")
+            @ExcludeMissing
+            liveMode: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("updated_at")
+            @ExcludeMissing
+            updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(
+            id,
+            contactIdentifier,
+            contactIdentifierType,
+            createdAt,
+            discardedAt,
+            liveMode,
+            object_,
+            updatedAt,
+            mutableMapOf(),
+        )
+
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun id(): String = id.getRequired("id")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun contactIdentifier(): String = contactIdentifier.getRequired("contact_identifier")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun contactIdentifierType(): ContactIdentifierType =
             contactIdentifierType.getRequired("contact_identifier_type")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
         /**
          * This field will be true if this object exists in the live environment or false if it
          * exists in the test environment.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun object_(): String = object_.getRequired("object")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+        /**
+         * Returns the raw JSON value of [id].
+         *
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
+        /**
+         * Returns the raw JSON value of [contactIdentifier].
+         *
+         * Unlike [contactIdentifier], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("contact_identifier")
         @ExcludeMissing
         fun _contactIdentifier(): JsonField<String> = contactIdentifier
 
+        /**
+         * Returns the raw JSON value of [contactIdentifierType].
+         *
+         * Unlike [contactIdentifierType], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("contact_identifier_type")
         @ExcludeMissing
         fun _contactIdentifierType(): JsonField<ContactIdentifierType> = contactIdentifierType
 
+        /**
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
+        /**
+         * Returns the raw JSON value of [discardedAt].
+         *
+         * Unlike [discardedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("discarded_at")
         @ExcludeMissing
         fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Returns the raw JSON value of [liveMode].
+         *
+         * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
+        /**
+         * Returns the raw JSON value of [object_].
+         *
+         * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
+        /**
+         * Returns the raw JSON value of [updatedAt].
+         *
+         * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("updated_at")
         @ExcludeMissing
         fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): ContactDetail = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            contactIdentifier()
-            contactIdentifierType()
-            createdAt()
-            discardedAt()
-            liveMode()
-            object_()
-            updatedAt()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [ContactDetail].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .contactIdentifier()
+             * .contactIdentifierType()
+             * .createdAt()
+             * .discardedAt()
+             * .liveMode()
+             * .object_()
+             * .updatedAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1272,11 +1974,25 @@ private constructor(
 
             fun id(id: String) = id(JsonField.of(id))
 
+            /**
+             * Sets [Builder.id] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             fun contactIdentifier(contactIdentifier: String) =
                 contactIdentifier(JsonField.of(contactIdentifier))
 
+            /**
+             * Sets [Builder.contactIdentifier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.contactIdentifier] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun contactIdentifier(contactIdentifier: JsonField<String>) = apply {
                 this.contactIdentifier = contactIdentifier
             }
@@ -1284,6 +2000,13 @@ private constructor(
             fun contactIdentifierType(contactIdentifierType: ContactIdentifierType) =
                 contactIdentifierType(JsonField.of(contactIdentifierType))
 
+            /**
+             * Sets [Builder.contactIdentifierType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.contactIdentifierType] with a well-typed
+             * [ContactIdentifierType] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
             fun contactIdentifierType(contactIdentifierType: JsonField<ContactIdentifierType>) =
                 apply {
                     this.contactIdentifierType = contactIdentifierType
@@ -1291,6 +2014,13 @@ private constructor(
 
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+            /**
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                 this.createdAt = createdAt
             }
@@ -1298,6 +2028,13 @@ private constructor(
             fun discardedAt(discardedAt: OffsetDateTime?) =
                 discardedAt(JsonField.ofNullable(discardedAt))
 
+            /**
+             * Sets [Builder.discardedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
                 this.discardedAt = discardedAt
             }
@@ -1309,17 +2046,34 @@ private constructor(
             fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
             /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
+             * Sets [Builder.liveMode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
             fun object_(object_: String) = object_(JsonField.of(object_))
 
+            /**
+             * Sets [Builder.object_] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.object_] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
             fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+            /**
+             * Sets [Builder.updatedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
                 this.updatedAt = updatedAt
             }
@@ -1343,6 +2097,25 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [ContactDetail].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .contactIdentifier()
+             * .contactIdentifierType()
+             * .createdAt()
+             * .discardedAt()
+             * .liveMode()
+             * .object_()
+             * .updatedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): ContactDetail =
                 ContactDetail(
                     checkRequired("id", id),
@@ -1353,8 +2126,26 @@ private constructor(
                     checkRequired("liveMode", liveMode),
                     checkRequired("object_", object_),
                     checkRequired("updatedAt", updatedAt),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): ContactDetail = apply {
+            if (validated) {
+                return@apply
+            }
+
+            id()
+            contactIdentifier()
+            contactIdentifierType()
+            createdAt()
+            discardedAt()
+            liveMode()
+            object_()
+            updatedAt()
+            validated = true
         }
 
         class ContactIdentifierType
@@ -1491,90 +2282,146 @@ private constructor(
     }
 
     /** The counterparty's billing address. */
-    @NoAutoDetect
     class CounterpartyBillingAddress
-    @JsonCreator
     private constructor(
-        @JsonProperty("country")
-        @ExcludeMissing
-        private val country: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line1")
-        @ExcludeMissing
-        private val line1: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("locality")
-        @ExcludeMissing
-        private val locality: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("postal_code")
-        @ExcludeMissing
-        private val postalCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("region")
-        @ExcludeMissing
-        private val region: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line2")
-        @ExcludeMissing
-        private val line2: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val country: JsonField<String>,
+        private val line1: JsonField<String>,
+        private val locality: JsonField<String>,
+        private val postalCode: JsonField<String>,
+        private val region: JsonField<String>,
+        private val line2: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        @JsonCreator
+        private constructor(
+            @JsonProperty("country") @ExcludeMissing country: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("locality")
+            @ExcludeMissing
+            locality: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("region") @ExcludeMissing region: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+        ) : this(country, line1, locality, postalCode, region, line2, mutableMapOf())
+
+        /**
+         * Country code conforms to [ISO 3166-1 alpha-2]
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun country(): String = country.getRequired("country")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun line1(): String = line1.getRequired("line1")
 
-        /** Locality or City. */
+        /**
+         * Locality or City.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun locality(): String = locality.getRequired("locality")
 
-        /** The postal code of the address. */
+        /**
+         * The postal code of the address.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun postalCode(): String = postalCode.getRequired("postal_code")
 
-        /** Region or State. */
+        /**
+         * Region or State.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun region(): String = region.getRequired("region")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun line2(): String? = line2.getNullable("line2")
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        /**
+         * Returns the raw JSON value of [country].
+         *
+         * Unlike [country], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
+        /**
+         * Returns the raw JSON value of [line1].
+         *
+         * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
-        /** Locality or City. */
+        /**
+         * Returns the raw JSON value of [locality].
+         *
+         * Unlike [locality], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("locality") @ExcludeMissing fun _locality(): JsonField<String> = locality
 
-        /** The postal code of the address. */
+        /**
+         * Returns the raw JSON value of [postalCode].
+         *
+         * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("postal_code")
         @ExcludeMissing
         fun _postalCode(): JsonField<String> = postalCode
 
-        /** Region or State. */
+        /**
+         * Returns the raw JSON value of [region].
+         *
+         * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
 
+        /**
+         * Returns the raw JSON value of [line2].
+         *
+         * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): CounterpartyBillingAddress = apply {
-            if (validated) {
-                return@apply
-            }
-
-            country()
-            line1()
-            locality()
-            postalCode()
-            region()
-            line2()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [CounterpartyBillingAddress].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1603,33 +2450,71 @@ private constructor(
             /** Country code conforms to [ISO 3166-1 alpha-2] */
             fun country(country: String) = country(JsonField.of(country))
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            /**
+             * Sets [Builder.country] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.country] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun country(country: JsonField<String>) = apply { this.country = country }
 
             fun line1(line1: String) = line1(JsonField.of(line1))
 
+            /**
+             * Sets [Builder.line1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line1] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
             /** Locality or City. */
             fun locality(locality: String) = locality(JsonField.of(locality))
 
-            /** Locality or City. */
+            /**
+             * Sets [Builder.locality] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.locality] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun locality(locality: JsonField<String>) = apply { this.locality = locality }
 
             /** The postal code of the address. */
             fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
-            /** The postal code of the address. */
+            /**
+             * Sets [Builder.postalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.postalCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
             /** Region or State. */
             fun region(region: String) = region(JsonField.of(region))
 
-            /** Region or State. */
+            /**
+             * Sets [Builder.region] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.region] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun region(region: JsonField<String>) = apply { this.region = region }
 
             fun line2(line2: String) = line2(JsonField.of(line2))
 
+            /**
+             * Sets [Builder.line2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line2] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1651,6 +2536,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [CounterpartyBillingAddress].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): CounterpartyBillingAddress =
                 CounterpartyBillingAddress(
                     checkRequired("country", country),
@@ -1659,8 +2560,24 @@ private constructor(
                     checkRequired("postalCode", postalCode),
                     checkRequired("region", region),
                     line2,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CounterpartyBillingAddress = apply {
+            if (validated) {
+                return@apply
+            }
+
+            country()
+            line1()
+            locality()
+            postalCode()
+            region()
+            line2()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1682,90 +2599,146 @@ private constructor(
     }
 
     /** The counterparty's shipping address where physical goods should be delivered. */
-    @NoAutoDetect
     class CounterpartyShippingAddress
-    @JsonCreator
     private constructor(
-        @JsonProperty("country")
-        @ExcludeMissing
-        private val country: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line1")
-        @ExcludeMissing
-        private val line1: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("locality")
-        @ExcludeMissing
-        private val locality: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("postal_code")
-        @ExcludeMissing
-        private val postalCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("region")
-        @ExcludeMissing
-        private val region: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line2")
-        @ExcludeMissing
-        private val line2: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val country: JsonField<String>,
+        private val line1: JsonField<String>,
+        private val locality: JsonField<String>,
+        private val postalCode: JsonField<String>,
+        private val region: JsonField<String>,
+        private val line2: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        @JsonCreator
+        private constructor(
+            @JsonProperty("country") @ExcludeMissing country: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("locality")
+            @ExcludeMissing
+            locality: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("region") @ExcludeMissing region: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+        ) : this(country, line1, locality, postalCode, region, line2, mutableMapOf())
+
+        /**
+         * Country code conforms to [ISO 3166-1 alpha-2]
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun country(): String = country.getRequired("country")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun line1(): String = line1.getRequired("line1")
 
-        /** Locality or City. */
+        /**
+         * Locality or City.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun locality(): String = locality.getRequired("locality")
 
-        /** The postal code of the address. */
+        /**
+         * The postal code of the address.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun postalCode(): String = postalCode.getRequired("postal_code")
 
-        /** Region or State. */
+        /**
+         * Region or State.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun region(): String = region.getRequired("region")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun line2(): String? = line2.getNullable("line2")
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        /**
+         * Returns the raw JSON value of [country].
+         *
+         * Unlike [country], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
+        /**
+         * Returns the raw JSON value of [line1].
+         *
+         * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
-        /** Locality or City. */
+        /**
+         * Returns the raw JSON value of [locality].
+         *
+         * Unlike [locality], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("locality") @ExcludeMissing fun _locality(): JsonField<String> = locality
 
-        /** The postal code of the address. */
+        /**
+         * Returns the raw JSON value of [postalCode].
+         *
+         * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("postal_code")
         @ExcludeMissing
         fun _postalCode(): JsonField<String> = postalCode
 
-        /** Region or State. */
+        /**
+         * Returns the raw JSON value of [region].
+         *
+         * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
 
+        /**
+         * Returns the raw JSON value of [line2].
+         *
+         * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): CounterpartyShippingAddress = apply {
-            if (validated) {
-                return@apply
-            }
-
-            country()
-            line1()
-            locality()
-            postalCode()
-            region()
-            line2()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [CounterpartyShippingAddress].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1794,33 +2767,71 @@ private constructor(
             /** Country code conforms to [ISO 3166-1 alpha-2] */
             fun country(country: String) = country(JsonField.of(country))
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            /**
+             * Sets [Builder.country] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.country] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun country(country: JsonField<String>) = apply { this.country = country }
 
             fun line1(line1: String) = line1(JsonField.of(line1))
 
+            /**
+             * Sets [Builder.line1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line1] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
             /** Locality or City. */
             fun locality(locality: String) = locality(JsonField.of(locality))
 
-            /** Locality or City. */
+            /**
+             * Sets [Builder.locality] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.locality] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun locality(locality: JsonField<String>) = apply { this.locality = locality }
 
             /** The postal code of the address. */
             fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
-            /** The postal code of the address. */
+            /**
+             * Sets [Builder.postalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.postalCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
             /** Region or State. */
             fun region(region: String) = region(JsonField.of(region))
 
-            /** Region or State. */
+            /**
+             * Sets [Builder.region] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.region] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun region(region: JsonField<String>) = apply { this.region = region }
 
             fun line2(line2: String) = line2(JsonField.of(line2))
 
+            /**
+             * Sets [Builder.line2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line2] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1842,6 +2853,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [CounterpartyShippingAddress].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): CounterpartyShippingAddress =
                 CounterpartyShippingAddress(
                     checkRequired("country", country),
@@ -1850,8 +2877,24 @@ private constructor(
                     checkRequired("postalCode", postalCode),
                     checkRequired("region", region),
                     line2,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CounterpartyShippingAddress = apply {
+            if (validated) {
+                return@apply
+            }
+
+            country()
+            line1()
+            locality()
+            postalCode()
+            region()
+            line2()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1873,90 +2916,145 @@ private constructor(
     }
 
     /** The invoice issuer's business address. */
-    @NoAutoDetect
     class InvoicerAddress
-    @JsonCreator
     private constructor(
-        @JsonProperty("country")
-        @ExcludeMissing
-        private val country: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line1")
-        @ExcludeMissing
-        private val line1: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("locality")
-        @ExcludeMissing
-        private val locality: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("postal_code")
-        @ExcludeMissing
-        private val postalCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("region")
-        @ExcludeMissing
-        private val region: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line2")
-        @ExcludeMissing
-        private val line2: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val country: JsonField<String>,
+        private val line1: JsonField<String>,
+        private val locality: JsonField<String>,
+        private val postalCode: JsonField<String>,
+        private val region: JsonField<String>,
+        private val line2: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        @JsonCreator
+        private constructor(
+            @JsonProperty("country") @ExcludeMissing country: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("locality")
+            @ExcludeMissing
+            locality: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("region") @ExcludeMissing region: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+        ) : this(country, line1, locality, postalCode, region, line2, mutableMapOf())
+
+        /**
+         * Country code conforms to [ISO 3166-1 alpha-2]
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun country(): String = country.getRequired("country")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun line1(): String = line1.getRequired("line1")
 
-        /** Locality or City. */
+        /**
+         * Locality or City.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun locality(): String = locality.getRequired("locality")
 
-        /** The postal code of the address. */
+        /**
+         * The postal code of the address.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun postalCode(): String = postalCode.getRequired("postal_code")
 
-        /** Region or State. */
+        /**
+         * Region or State.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun region(): String = region.getRequired("region")
 
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
         fun line2(): String? = line2.getNullable("line2")
 
-        /** Country code conforms to [ISO 3166-1 alpha-2] */
+        /**
+         * Returns the raw JSON value of [country].
+         *
+         * Unlike [country], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
+        /**
+         * Returns the raw JSON value of [line1].
+         *
+         * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
-        /** Locality or City. */
+        /**
+         * Returns the raw JSON value of [locality].
+         *
+         * Unlike [locality], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("locality") @ExcludeMissing fun _locality(): JsonField<String> = locality
 
-        /** The postal code of the address. */
+        /**
+         * Returns the raw JSON value of [postalCode].
+         *
+         * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("postal_code")
         @ExcludeMissing
         fun _postalCode(): JsonField<String> = postalCode
 
-        /** Region or State. */
+        /**
+         * Returns the raw JSON value of [region].
+         *
+         * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
 
+        /**
+         * Returns the raw JSON value of [line2].
+         *
+         * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): InvoicerAddress = apply {
-            if (validated) {
-                return@apply
-            }
-
-            country()
-            line1()
-            locality()
-            postalCode()
-            region()
-            line2()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [InvoicerAddress].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1984,33 +3082,71 @@ private constructor(
             /** Country code conforms to [ISO 3166-1 alpha-2] */
             fun country(country: String) = country(JsonField.of(country))
 
-            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            /**
+             * Sets [Builder.country] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.country] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun country(country: JsonField<String>) = apply { this.country = country }
 
             fun line1(line1: String) = line1(JsonField.of(line1))
 
+            /**
+             * Sets [Builder.line1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line1] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
             /** Locality or City. */
             fun locality(locality: String) = locality(JsonField.of(locality))
 
-            /** Locality or City. */
+            /**
+             * Sets [Builder.locality] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.locality] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun locality(locality: JsonField<String>) = apply { this.locality = locality }
 
             /** The postal code of the address. */
             fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
-            /** The postal code of the address. */
+            /**
+             * Sets [Builder.postalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.postalCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
             /** Region or State. */
             fun region(region: String) = region(JsonField.of(region))
 
-            /** Region or State. */
+            /**
+             * Sets [Builder.region] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.region] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun region(region: JsonField<String>) = apply { this.region = region }
 
             fun line2(line2: String) = line2(JsonField.of(line2))
 
+            /**
+             * Sets [Builder.line2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line2] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -2032,6 +3168,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [InvoicerAddress].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .country()
+             * .line1()
+             * .locality()
+             * .postalCode()
+             * .region()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): InvoicerAddress =
                 InvoicerAddress(
                     checkRequired("country", country),
@@ -2040,8 +3192,24 @@ private constructor(
                     checkRequired("postalCode", postalCode),
                     checkRequired("region", region),
                     line2,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): InvoicerAddress = apply {
+            if (validated) {
+                return@apply
+            }
+
+            country()
+            line1()
+            locality()
+            postalCode()
+            region()
+            line2()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -2063,32 +3231,22 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @NoAutoDetect
     class Metadata
     @JsonCreator
     private constructor(
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
     ) {
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        private var validated: Boolean = false
-
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -2120,7 +3278,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

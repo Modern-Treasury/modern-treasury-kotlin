@@ -8,7 +8,7 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LegalEntityAssociationCreateParamsTest {
+internal class LegalEntityAssociationCreateParamsTest {
 
     @Test
     fun create() {
@@ -261,11 +261,12 @@ class LegalEntityAssociationCreateParamsTest {
                 .ownershipPercentage(0L)
                 .title("title")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.parentLegalEntityId()).isEqualTo("parent_legal_entity_id")
         assertThat(body.relationshipTypes())
-            .isEqualTo(listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER))
+            .containsExactly(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
         assertThat(body.childLegalEntity())
             .isEqualTo(
                 LegalEntityAssociationCreateParams.ChildLegalEntityCreate.builder()
@@ -391,10 +392,11 @@ class LegalEntityAssociationCreateParamsTest {
                     LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER
                 )
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.parentLegalEntityId()).isEqualTo("parent_legal_entity_id")
         assertThat(body.relationshipTypes())
-            .isEqualTo(listOf(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER))
+            .containsExactly(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
     }
 }

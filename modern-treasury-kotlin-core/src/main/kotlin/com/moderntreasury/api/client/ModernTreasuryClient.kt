@@ -2,7 +2,9 @@
 
 package com.moderntreasury.api.client
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.ClientPingParams
 import com.moderntreasury.api.models.PingResponse
 import com.moderntreasury.api.services.blocking.AccountCollectionFlowService
@@ -67,6 +69,11 @@ interface ModernTreasuryClient {
      * this client.
      */
     fun async(): ModernTreasuryClientAsync
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     fun connections(): ConnectionService
 
@@ -148,9 +155,13 @@ interface ModernTreasuryClient {
      * A test endpoint often used to confirm credentials and headers are being passed in correctly.
      */
     fun ping(
-        params: ClientPingParams,
+        params: ClientPingParams = ClientPingParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PingResponse
+
+    /** @see [ping] */
+    fun ping(requestOptions: RequestOptions): PingResponse =
+        ping(ClientPingParams.none(), requestOptions)
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -164,4 +175,99 @@ interface ModernTreasuryClient {
      * method.
      */
     fun close()
+
+    /**
+     * A view of [ModernTreasuryClient] that provides access to raw HTTP responses for each method.
+     */
+    interface WithRawResponse {
+
+        fun connections(): ConnectionService.WithRawResponse
+
+        fun counterparties(): CounterpartyService.WithRawResponse
+
+        fun events(): EventService.WithRawResponse
+
+        fun expectedPayments(): ExpectedPaymentService.WithRawResponse
+
+        fun externalAccounts(): ExternalAccountService.WithRawResponse
+
+        fun incomingPaymentDetails(): IncomingPaymentDetailService.WithRawResponse
+
+        fun invoices(): InvoiceService.WithRawResponse
+
+        fun documents(): DocumentService.WithRawResponse
+
+        fun accountCollectionFlows(): AccountCollectionFlowService.WithRawResponse
+
+        fun accountDetails(): AccountDetailService.WithRawResponse
+
+        fun routingDetails(): RoutingDetailService.WithRawResponse
+
+        fun internalAccounts(): InternalAccountService.WithRawResponse
+
+        fun ledgers(): LedgerService.WithRawResponse
+
+        fun ledgerableEvents(): LedgerableEventService.WithRawResponse
+
+        fun ledgerAccountCategories(): LedgerAccountCategoryService.WithRawResponse
+
+        fun ledgerAccounts(): LedgerAccountService.WithRawResponse
+
+        fun ledgerAccountBalanceMonitors(): LedgerAccountBalanceMonitorService.WithRawResponse
+
+        fun ledgerAccountStatements(): LedgerAccountStatementService.WithRawResponse
+
+        fun ledgerEntries(): LedgerEntryService.WithRawResponse
+
+        fun ledgerEventHandlers(): LedgerEventHandlerService.WithRawResponse
+
+        fun ledgerTransactions(): LedgerTransactionService.WithRawResponse
+
+        fun lineItems(): LineItemService.WithRawResponse
+
+        fun paymentFlows(): PaymentFlowService.WithRawResponse
+
+        fun paymentOrders(): PaymentOrderService.WithRawResponse
+
+        fun paymentReferences(): PaymentReferenceService.WithRawResponse
+
+        fun returns(): ReturnService.WithRawResponse
+
+        fun transactions(): TransactionService.WithRawResponse
+
+        fun validations(): ValidationService.WithRawResponse
+
+        fun paperItems(): PaperItemService.WithRawResponse
+
+        fun virtualAccounts(): VirtualAccountService.WithRawResponse
+
+        fun bulkRequests(): BulkRequestService.WithRawResponse
+
+        fun bulkResults(): BulkResultService.WithRawResponse
+
+        fun ledgerAccountSettlements(): LedgerAccountSettlementService.WithRawResponse
+
+        fun foreignExchangeQuotes(): ForeignExchangeQuoteService.WithRawResponse
+
+        fun connectionLegalEntities(): ConnectionLegalEntityService.WithRawResponse
+
+        fun legalEntities(): LegalEntityService.WithRawResponse
+
+        fun legalEntityAssociations(): LegalEntityAssociationService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `get /api/ping`, but is otherwise the same as
+         * [ModernTreasuryClient.ping].
+         */
+        @MustBeClosed
+        fun ping(
+            params: ClientPingParams = ClientPingParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PingResponse>
+
+        /** @see [ping] */
+        @MustBeClosed
+        fun ping(requestOptions: RequestOptions): HttpResponseFor<PingResponse> =
+            ping(ClientPingParams.none(), requestOptions)
+    }
 }

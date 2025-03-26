@@ -6,7 +6,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class RoutingDetailListParamsTest {
+internal class RoutingDetailListParamsTest {
 
     @Test
     fun create() {
@@ -19,6 +19,20 @@ class RoutingDetailListParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            RoutingDetailListParams.builder()
+                .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
+                .accountId("account_id")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("external_accounts")
+        assertThat(params._pathParam(1)).isEqualTo("account_id")
+        // out-of-bound path param
+        assertThat(params._pathParam(2)).isEqualTo("")
+    }
+
+    @Test
     fun queryParams() {
         val params =
             RoutingDetailListParams.builder()
@@ -27,10 +41,16 @@ class RoutingDetailListParamsTest {
                 .afterCursor("after_cursor")
                 .perPage(0L)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("after_cursor", "after_cursor")
-        expected.put("per_page", "0")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("after_cursor", "after_cursor")
+                    .put("per_page", "0")
+                    .build()
+            )
     }
 
     @Test
@@ -40,23 +60,9 @@ class RoutingDetailListParamsTest {
                 .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
                 .accountId("account_id")
                 .build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
-    }
 
-    @Test
-    fun getPathParam() {
-        val params =
-            RoutingDetailListParams.builder()
-                .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("account_id")
-                .build()
-        assertThat(params).isNotNull
-        // path param "accountsType"
-        assertThat(params.getPathParam(0)).isEqualTo(AccountsType.EXTERNAL_ACCOUNTS.toString())
-        // path param "accountId"
-        assertThat(params.getPathParam(1)).isEqualTo("account_id")
-        // out-of-bound path param
-        assertThat(params.getPathParam(2)).isEqualTo("")
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

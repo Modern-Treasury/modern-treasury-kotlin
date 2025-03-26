@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class WealthAndEmploymentDetailsTest {
+internal class WealthAndEmploymentDetailsTest {
 
     @Test
-    fun createWealthAndEmploymentDetails() {
+    fun create() {
         val wealthAndEmploymentDetails =
             WealthAndEmploymentDetails.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -31,7 +31,7 @@ class WealthAndEmploymentDetailsTest {
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .wealthSource(WealthAndEmploymentDetails.WealthSource.BUSINESS_SALE)
                 .build()
-        assertThat(wealthAndEmploymentDetails).isNotNull
+
         assertThat(wealthAndEmploymentDetails.id())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(wealthAndEmploymentDetails.annualIncome()).isEqualTo(0L)

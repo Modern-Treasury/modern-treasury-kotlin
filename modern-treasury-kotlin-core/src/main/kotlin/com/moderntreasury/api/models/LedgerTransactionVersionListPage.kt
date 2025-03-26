@@ -10,10 +10,8 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.services.blocking.ledgerTransactions.VersionService
+import java.util.Collections
 import java.util.Objects
 
 /** Get a list of ledger transaction versions. */
@@ -75,17 +73,18 @@ private constructor(
         ) = LedgerTransactionVersionListPage(versionsService, params, response)
     }
 
-    @NoAutoDetect
-    class Response
-    @JsonCreator
-    constructor(
-        @JsonProperty("items")
-        private val items: JsonField<List<LedgerTransactionVersion>> = JsonMissing.of(),
+    class Response(
+        private val items: JsonField<List<LedgerTransactionVersion>>,
         private val perPage: String,
         private val afterCursor: String,
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("items")
+            items: JsonField<List<LedgerTransactionVersion>> = JsonMissing.of()
+        ) : this(items, "", "", mutableMapOf())
 
         fun items(): List<LedgerTransactionVersion> = items.getNullable("items") ?: listOf()
 
@@ -95,9 +94,15 @@ private constructor(
 
         @JsonProperty("items") fun _items(): JsonField<List<LedgerTransactionVersion>>? = items
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         private var validated: Boolean = false
 
@@ -127,6 +132,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerTransactionVersionListPage].
+             */
             fun builder() = Builder()
         }
 
@@ -158,8 +167,13 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(items, perPage!!, afterCursor!!, additionalProperties.toImmutable())
+            /**
+             * Returns an immutable instance of [Response].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Response =
+                Response(items, perPage!!, afterCursor!!, additionalProperties.toMutableMap())
         }
     }
 

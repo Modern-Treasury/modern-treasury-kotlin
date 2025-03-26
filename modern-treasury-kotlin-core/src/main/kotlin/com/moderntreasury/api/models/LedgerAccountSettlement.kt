@@ -11,249 +11,410 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class LedgerAccountSettlement
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("contra_ledger_account_id")
-    @ExcludeMissing
-    private val contraLedgerAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("currency")
-    @ExcludeMissing
-    private val currency: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("currency_exponent")
-    @ExcludeMissing
-    private val currencyExponent: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("description")
-    @ExcludeMissing
-    private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("effective_at_upper_bound")
-    @ExcludeMissing
-    private val effectiveAtUpperBound: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("ledger_id")
-    @ExcludeMissing
-    private val ledgerId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("ledger_transaction_id")
-    @ExcludeMissing
-    private val ledgerTransactionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("live_mode")
-    @ExcludeMissing
-    private val liveMode: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("metadata")
-    @ExcludeMissing
-    private val metadata: JsonField<Metadata> = JsonMissing.of(),
-    @JsonProperty("object")
-    @ExcludeMissing
-    private val object_: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("settled_ledger_account_id")
-    @ExcludeMissing
-    private val settledLedgerAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("settlement_entry_direction")
-    @ExcludeMissing
-    private val settlementEntryDirection: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val amount: JsonField<Long>,
+    private val contraLedgerAccountId: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val currency: JsonField<String>,
+    private val currencyExponent: JsonField<Long>,
+    private val description: JsonField<String>,
+    private val effectiveAtUpperBound: JsonField<OffsetDateTime>,
+    private val ledgerId: JsonField<String>,
+    private val ledgerTransactionId: JsonField<String>,
+    private val liveMode: JsonField<Boolean>,
+    private val metadata: JsonField<Metadata>,
+    private val object_: JsonField<String>,
+    private val settledLedgerAccountId: JsonField<String>,
+    private val settlementEntryDirection: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("contra_ledger_account_id")
+        @ExcludeMissing
+        contraLedgerAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("currency") @ExcludeMissing currency: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("currency_exponent")
+        @ExcludeMissing
+        currencyExponent: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("effective_at_upper_bound")
+        @ExcludeMissing
+        effectiveAtUpperBound: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("ledger_id") @ExcludeMissing ledgerId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ledger_transaction_id")
+        @ExcludeMissing
+        ledgerTransactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
+        @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("settled_ledger_account_id")
+        @ExcludeMissing
+        settledLedgerAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("settlement_entry_direction")
+        @ExcludeMissing
+        settlementEntryDirection: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(
+        id,
+        amount,
+        contraLedgerAccountId,
+        createdAt,
+        currency,
+        currencyExponent,
+        description,
+        effectiveAtUpperBound,
+        ledgerId,
+        ledgerTransactionId,
+        liveMode,
+        metadata,
+        object_,
+        settledLedgerAccountId,
+        settlementEntryDirection,
+        status,
+        updatedAt,
+        mutableMapOf(),
+    )
+
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The amount of the ledger account settlement. */
+    /**
+     * The amount of the ledger account settlement.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun amount(): Long? = amount.getNullable("amount")
 
     /**
      * The id of the contra ledger account that sends to or receives funds from the settled ledger
      * account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun contraLedgerAccountId(): String =
         contraLedgerAccountId.getRequired("contra_ledger_account_id")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The currency of the ledger account settlement. */
+    /**
+     * The currency of the ledger account settlement.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun currency(): String = currency.getRequired("currency")
 
-    /** The currency exponent of the ledger account settlement. */
+    /**
+     * The currency exponent of the ledger account settlement.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun currencyExponent(): Long? = currencyExponent.getNullable("currency_exponent")
 
-    /** The description of the ledger account settlement. */
+    /**
+     * The description of the ledger account settlement.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun description(): String? = description.getNullable("description")
 
     /**
      * The exclusive upper bound of the effective_at timestamp of the ledger entries to be included
      * in the ledger account settlement. The default value is the created_at timestamp of the ledger
      * account settlement.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun effectiveAtUpperBound(): OffsetDateTime =
         effectiveAtUpperBound.getRequired("effective_at_upper_bound")
 
-    /** The id of the ledger that this ledger account settlement belongs to. */
+    /**
+     * The id of the ledger that this ledger account settlement belongs to.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun ledgerId(): String = ledgerId.getRequired("ledger_id")
 
-    /** The id of the ledger transaction that this settlement is associated with. */
+    /**
+     * The id of the ledger transaction that this settlement is associated with.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun ledgerTransactionId(): String? = ledgerTransactionId.getNullable("ledger_transaction_id")
 
     /**
      * This field will be true if this object exists in the live environment or false if it exists
      * in the test environment.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Additional data represented as key-value pairs. Both the key and value must be strings.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun metadata(): Metadata = metadata.getRequired("metadata")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun object_(): String = object_.getRequired("object")
 
     /**
      * The id of the settled ledger account whose ledger entries are queried against, and its
      * balance is reduced as a result.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun settledLedgerAccountId(): String =
         settledLedgerAccountId.getRequired("settled_ledger_account_id")
 
-    /** The direction of the ledger entry with the settlement_ledger_account. */
+    /**
+     * The direction of the ledger entry with the settlement_ledger_account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
     fun settlementEntryDirection(): String? =
         settlementEntryDirection.getNullable("settlement_entry_direction")
 
     /**
      * The status of the ledger account settlement. One of `processing`, `pending`, `posted`,
      * `archiving` or `archived`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun status(): Status = status.getRequired("status")
 
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The amount of the ledger account settlement. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
-     * The id of the contra ledger account that sends to or receives funds from the settled ledger
-     * account.
+     * Returns the raw JSON value of [contraLedgerAccountId].
+     *
+     * Unlike [contraLedgerAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("contra_ledger_account_id")
     @ExcludeMissing
     fun _contraLedgerAccountId(): JsonField<String> = contraLedgerAccountId
 
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The currency of the ledger account settlement. */
+    /**
+     * Returns the raw JSON value of [currency].
+     *
+     * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
 
-    /** The currency exponent of the ledger account settlement. */
+    /**
+     * Returns the raw JSON value of [currencyExponent].
+     *
+     * Unlike [currencyExponent], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("currency_exponent")
     @ExcludeMissing
     fun _currencyExponent(): JsonField<Long> = currencyExponent
 
-    /** The description of the ledger account settlement. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /**
-     * The exclusive upper bound of the effective_at timestamp of the ledger entries to be included
-     * in the ledger account settlement. The default value is the created_at timestamp of the ledger
-     * account settlement.
+     * Returns the raw JSON value of [effectiveAtUpperBound].
+     *
+     * Unlike [effectiveAtUpperBound], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("effective_at_upper_bound")
     @ExcludeMissing
     fun _effectiveAtUpperBound(): JsonField<OffsetDateTime> = effectiveAtUpperBound
 
-    /** The id of the ledger that this ledger account settlement belongs to. */
+    /**
+     * Returns the raw JSON value of [ledgerId].
+     *
+     * Unlike [ledgerId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId(): JsonField<String> = ledgerId
 
-    /** The id of the ledger transaction that this settlement is associated with. */
+    /**
+     * Returns the raw JSON value of [ledgerTransactionId].
+     *
+     * Unlike [ledgerTransactionId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("ledger_transaction_id")
     @ExcludeMissing
     fun _ledgerTransactionId(): JsonField<String> = ledgerTransactionId
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * Returns the raw JSON value of [liveMode].
+     *
+     * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
 
-    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
+    /**
+     * Returns the raw JSON value of [object_].
+     *
+     * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
 
     /**
-     * The id of the settled ledger account whose ledger entries are queried against, and its
-     * balance is reduced as a result.
+     * Returns the raw JSON value of [settledLedgerAccountId].
+     *
+     * Unlike [settledLedgerAccountId], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     @JsonProperty("settled_ledger_account_id")
     @ExcludeMissing
     fun _settledLedgerAccountId(): JsonField<String> = settledLedgerAccountId
 
-    /** The direction of the ledger entry with the settlement_ledger_account. */
+    /**
+     * Returns the raw JSON value of [settlementEntryDirection].
+     *
+     * Unlike [settlementEntryDirection], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("settlement_entry_direction")
     @ExcludeMissing
     fun _settlementEntryDirection(): JsonField<String> = settlementEntryDirection
 
     /**
-     * The status of the ledger account settlement. One of `processing`, `pending`, `posted`,
-     * `archiving` or `archived`.
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): LedgerAccountSettlement = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        amount()
-        contraLedgerAccountId()
-        createdAt()
-        currency()
-        currencyExponent()
-        description()
-        effectiveAtUpperBound()
-        ledgerId()
-        ledgerTransactionId()
-        liveMode()
-        metadata().validate()
-        object_()
-        settledLedgerAccountId()
-        settlementEntryDirection()
-        status()
-        updatedAt()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [LedgerAccountSettlement].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .amount()
+         * .contraLedgerAccountId()
+         * .createdAt()
+         * .currency()
+         * .currencyExponent()
+         * .description()
+         * .effectiveAtUpperBound()
+         * .ledgerId()
+         * .ledgerTransactionId()
+         * .liveMode()
+         * .metadata()
+         * .object_()
+         * .settledLedgerAccountId()
+         * .settlementEntryDirection()
+         * .status()
+         * .updatedAt()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -302,15 +463,30 @@ private constructor(
 
         fun id(id: String) = id(JsonField.of(id))
 
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The amount of the ledger account settlement. */
         fun amount(amount: Long?) = amount(JsonField.ofNullable(amount))
 
-        /** The amount of the ledger account settlement. */
+        /**
+         * Alias for [Builder.amount].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun amount(amount: Long) = amount(amount as Long?)
 
-        /** The amount of the ledger account settlement. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
@@ -321,8 +497,11 @@ private constructor(
             contraLedgerAccountId(JsonField.of(contraLedgerAccountId))
 
         /**
-         * The id of the contra ledger account that sends to or receives funds from the settled
-         * ledger account.
+         * Sets [Builder.contraLedgerAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.contraLedgerAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun contraLedgerAccountId(contraLedgerAccountId: JsonField<String>) = apply {
             this.contraLedgerAccountId = contraLedgerAccountId
@@ -330,22 +509,44 @@ private constructor(
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The currency of the ledger account settlement. */
         fun currency(currency: String) = currency(JsonField.of(currency))
 
-        /** The currency of the ledger account settlement. */
+        /**
+         * Sets [Builder.currency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currency] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
         /** The currency exponent of the ledger account settlement. */
         fun currencyExponent(currencyExponent: Long?) =
             currencyExponent(JsonField.ofNullable(currencyExponent))
 
-        /** The currency exponent of the ledger account settlement. */
+        /**
+         * Alias for [Builder.currencyExponent].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun currencyExponent(currencyExponent: Long) = currencyExponent(currencyExponent as Long?)
 
-        /** The currency exponent of the ledger account settlement. */
+        /**
+         * Sets [Builder.currencyExponent] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currencyExponent] with a well-typed [Long] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun currencyExponent(currencyExponent: JsonField<Long>) = apply {
             this.currencyExponent = currencyExponent
         }
@@ -353,7 +554,13 @@ private constructor(
         /** The description of the ledger account settlement. */
         fun description(description: String?) = description(JsonField.ofNullable(description))
 
-        /** The description of the ledger account settlement. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         /**
@@ -365,9 +572,11 @@ private constructor(
             effectiveAtUpperBound(JsonField.of(effectiveAtUpperBound))
 
         /**
-         * The exclusive upper bound of the effective_at timestamp of the ledger entries to be
-         * included in the ledger account settlement. The default value is the created_at timestamp
-         * of the ledger account settlement.
+         * Sets [Builder.effectiveAtUpperBound] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.effectiveAtUpperBound] with a well-typed
+         * [OffsetDateTime] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun effectiveAtUpperBound(effectiveAtUpperBound: JsonField<OffsetDateTime>) = apply {
             this.effectiveAtUpperBound = effectiveAtUpperBound
@@ -376,14 +585,25 @@ private constructor(
         /** The id of the ledger that this ledger account settlement belongs to. */
         fun ledgerId(ledgerId: String) = ledgerId(JsonField.of(ledgerId))
 
-        /** The id of the ledger that this ledger account settlement belongs to. */
+        /**
+         * Sets [Builder.ledgerId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
 
         /** The id of the ledger transaction that this settlement is associated with. */
         fun ledgerTransactionId(ledgerTransactionId: String?) =
             ledgerTransactionId(JsonField.ofNullable(ledgerTransactionId))
 
-        /** The id of the ledger transaction that this settlement is associated with. */
+        /**
+         * Sets [Builder.ledgerTransactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerTransactionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
             this.ledgerTransactionId = ledgerTransactionId
         }
@@ -395,8 +615,11 @@ private constructor(
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
+         * Sets [Builder.liveMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
@@ -406,12 +629,22 @@ private constructor(
         fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
         /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
+        /**
+         * Sets [Builder.object_] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
@@ -422,8 +655,11 @@ private constructor(
             settledLedgerAccountId(JsonField.of(settledLedgerAccountId))
 
         /**
-         * The id of the settled ledger account whose ledger entries are queried against, and its
-         * balance is reduced as a result.
+         * Sets [Builder.settledLedgerAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.settledLedgerAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun settledLedgerAccountId(settledLedgerAccountId: JsonField<String>) = apply {
             this.settledLedgerAccountId = settledLedgerAccountId
@@ -433,7 +669,13 @@ private constructor(
         fun settlementEntryDirection(settlementEntryDirection: String?) =
             settlementEntryDirection(JsonField.ofNullable(settlementEntryDirection))
 
-        /** The direction of the ledger entry with the settlement_ledger_account. */
+        /**
+         * Sets [Builder.settlementEntryDirection] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.settlementEntryDirection] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun settlementEntryDirection(settlementEntryDirection: JsonField<String>) = apply {
             this.settlementEntryDirection = settlementEntryDirection
         }
@@ -445,13 +687,22 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /**
-         * The status of the ledger account settlement. One of `processing`, `pending`, `posted`,
-         * `archiving` or `archived`.
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -473,6 +724,34 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [LedgerAccountSettlement].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .amount()
+         * .contraLedgerAccountId()
+         * .createdAt()
+         * .currency()
+         * .currencyExponent()
+         * .description()
+         * .effectiveAtUpperBound()
+         * .ledgerId()
+         * .ledgerTransactionId()
+         * .liveMode()
+         * .metadata()
+         * .object_()
+         * .settledLedgerAccountId()
+         * .settlementEntryDirection()
+         * .status()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): LedgerAccountSettlement =
             LedgerAccountSettlement(
                 checkRequired("id", id),
@@ -492,37 +771,54 @@ private constructor(
                 checkRequired("settlementEntryDirection", settlementEntryDirection),
                 checkRequired("status", status),
                 checkRequired("updatedAt", updatedAt),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
     }
 
+    private var validated: Boolean = false
+
+    fun validate(): LedgerAccountSettlement = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        amount()
+        contraLedgerAccountId()
+        createdAt()
+        currency()
+        currencyExponent()
+        description()
+        effectiveAtUpperBound()
+        ledgerId()
+        ledgerTransactionId()
+        liveMode()
+        metadata().validate()
+        object_()
+        settledLedgerAccountId()
+        settlementEntryDirection()
+        status()
+        updatedAt()
+        validated = true
+    }
+
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    @NoAutoDetect
     class Metadata
     @JsonCreator
     private constructor(
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
     ) {
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        private var validated: Boolean = false
-
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -554,7 +850,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

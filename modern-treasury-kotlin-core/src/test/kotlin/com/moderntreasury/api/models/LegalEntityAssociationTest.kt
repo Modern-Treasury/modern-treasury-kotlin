@@ -8,10 +8,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LegalEntityAssociationTest {
+internal class LegalEntityAssociationTest {
 
     @Test
-    fun createLegalEntityAssociation() {
+    fun create() {
         val legalEntityAssociation =
             LegalEntityAssociation.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -144,7 +144,7 @@ class LegalEntityAssociationTest {
                 .title("title")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        assertThat(legalEntityAssociation).isNotNull
+
         assertThat(legalEntityAssociation.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(legalEntityAssociation.childLegalEntity())
             .isEqualTo(

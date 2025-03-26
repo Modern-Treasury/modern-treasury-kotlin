@@ -6,7 +6,7 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ForeignExchangeQuoteCreateParamsTest {
+internal class ForeignExchangeQuoteCreateParamsTest {
 
     @Test
     fun create() {
@@ -31,8 +31,9 @@ class ForeignExchangeQuoteCreateParamsTest {
                 .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .targetAmount(0L)
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.targetCurrency()).isEqualTo(Currency.AED)
         assertThat(body.baseAmount()).isEqualTo(0L)
@@ -48,8 +49,9 @@ class ForeignExchangeQuoteCreateParamsTest {
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .targetCurrency(Currency.AED)
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
+
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.targetCurrency()).isEqualTo(Currency.AED)
     }

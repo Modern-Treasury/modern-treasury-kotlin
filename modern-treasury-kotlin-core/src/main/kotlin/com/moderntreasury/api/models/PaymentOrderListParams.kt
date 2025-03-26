@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
@@ -94,56 +93,17 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.afterCursor?.let { queryParams.put("after_cursor", listOf(it.toString())) }
-        this.counterpartyId?.let { queryParams.put("counterparty_id", listOf(it.toString())) }
-        this.createdAtEnd?.let { queryParams.put("created_at_end", listOf(it.toString())) }
-        this.createdAtStart?.let { queryParams.put("created_at_start", listOf(it.toString())) }
-        this.direction?.let { queryParams.put("direction", listOf(it.toString())) }
-        this.effectiveDateEnd?.let { queryParams.put("effective_date_end", listOf(it.toString())) }
-        this.effectiveDateStart?.let {
-            queryParams.put("effective_date_start", listOf(it.toString()))
-        }
-        this.metadata?.forEachQueryParam { key, values ->
-            queryParams.put("metadata[$key]", values)
-        }
-        this.originatingAccountId?.let {
-            queryParams.put("originating_account_id", listOf(it.toString()))
-        }
-        this.perPage?.let { queryParams.put("per_page", listOf(it.toString())) }
-        this.priority?.let { queryParams.put("priority", listOf(it.toString())) }
-        this.processAfterEnd?.let {
-            queryParams.put(
-                "process_after_end",
-                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
-            )
-        }
-        this.processAfterStart?.let {
-            queryParams.put(
-                "process_after_start",
-                listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)),
-            )
-        }
-        this.referenceNumber?.let { queryParams.put("reference_number", listOf(it.toString())) }
-        this.status?.let { queryParams.put("status", listOf(it.toString())) }
-        this.transactionId?.let { queryParams.put("transaction_id", listOf(it.toString())) }
-        this.type?.let { queryParams.put("type", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        fun none(): PaymentOrderListParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [PaymentOrderListParams]. */
         fun builder() = Builder()
     }
 
     /** A builder for [PaymentOrderListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var afterCursor: String? = null
@@ -224,6 +184,11 @@ private constructor(
 
         fun perPage(perPage: Long?) = apply { this.perPage = perPage }
 
+        /**
+         * Alias for [Builder.perPage].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         /**
@@ -353,6 +318,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [PaymentOrderListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): PaymentOrderListParams =
             PaymentOrderListParams(
                 afterCursor,
@@ -377,6 +347,42 @@ private constructor(
             )
     }
 
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                afterCursor?.let { put("after_cursor", it) }
+                counterpartyId?.let { put("counterparty_id", it) }
+                createdAtEnd?.let { put("created_at_end", it.toString()) }
+                createdAtStart?.let { put("created_at_start", it.toString()) }
+                direction?.let { put("direction", it.toString()) }
+                effectiveDateEnd?.let { put("effective_date_end", it.toString()) }
+                effectiveDateStart?.let { put("effective_date_start", it.toString()) }
+                metadata?.let {
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("metadata[$key]", value)
+                        }
+                    }
+                }
+                originatingAccountId?.let { put("originating_account_id", it) }
+                perPage?.let { put("per_page", it.toString()) }
+                priority?.let { put("priority", it.toString()) }
+                processAfterEnd?.let {
+                    put("process_after_end", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
+                processAfterStart?.let {
+                    put("process_after_start", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
+                referenceNumber?.let { put("reference_number", it) }
+                status?.let { put("status", it.toString()) }
+                transactionId?.let { put("transaction_id", it) }
+                type?.let { put("type", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
+
     /**
      * For example, if you want to query for records with metadata key `Type` and value `Loan`, the
      * query would be `metadata%5BType%5D=Loan`. This encodes the query parameters.
@@ -385,14 +391,11 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
             fun builder() = Builder()
         }
 
@@ -454,6 +457,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Metadata = Metadata(additionalProperties.build())
         }
 

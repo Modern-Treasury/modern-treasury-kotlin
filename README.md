@@ -2,15 +2,20 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.moderntreasury.api/modern-treasury-kotlin)](https://central.sonatype.com/artifact/com.moderntreasury.api/modern-treasury-kotlin/5.0.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.moderntreasury.api/modern-treasury-kotlin)](https://central.sonatype.com/artifact/com.moderntreasury.api/modern-treasury-kotlin/6.0.0)
+[![javadoc](https://javadoc.io/badge2/com.moderntreasury.api/modern-treasury-kotlin/6.0.0/javadoc.svg)](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/6.0.0)
 
 <!-- x-release-please-end -->
 
-The Modern Treasury Kotlin SDK provides convenient access to the Modern Treasury REST API from applications written in Kotlin.
+The Modern Treasury Kotlin SDK provides convenient access to the [Modern Treasury REST API](https://docs.moderntreasury.com) from applications written in Kotlin.
 
 The Modern Treasury Kotlin SDK is similar to the Modern Treasury Java SDK but with minor differences that make it more ergonomic for use in Kotlin, such as nullable values instead of `Optional`, `Sequence` instead of `Stream`, and suspend functions instead of `CompletableFuture`.
 
-The REST API documentation can be found on [docs.moderntreasury.com](https://docs.moderntreasury.com).
+<!-- x-release-please-start-version -->
+
+The REST API documentation can be found on [docs.moderntreasury.com](https://docs.moderntreasury.com). KDocs are also available on [javadoc.io](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/6.0.0).
+
+<!-- x-release-please-end -->
 
 ## Installation
 
@@ -19,16 +24,16 @@ The REST API documentation can be found on [docs.moderntreasury.com](https://doc
 ### Gradle
 
 ```kotlin
-implementation("com.moderntreasury:modern-treasury-kotlin:5.0.0")
+implementation("com.moderntreasury:modern-treasury-kotlin:6.0.0")
 ```
 
 ### Maven
 
 ```xml
 <dependency>
-    <groupId>com.moderntreasury</groupId>
-    <artifactId>modern-treasury-kotlin</artifactId>
-    <version>5.0.0</version>
+  <groupId>com.moderntreasury</groupId>
+  <artifactId>modern-treasury-kotlin</artifactId>
+  <version>6.0.0</version>
 </dependency>
 ```
 
@@ -110,6 +115,14 @@ To send a request to the Modern Treasury API, build an instance of some `Params`
 
 For example, `client.counterparties().create(...)` should be called with an instance of `CounterpartyCreateParams`, and it will return an instance of `Counterparty`.
 
+## Immutability
+
+Each class in the SDK has an associated [builder](https://blogs.oracle.com/javamagazine/post/exploring-joshua-blochs-builder-design-pattern-in-java) or factory method for constructing it.
+
+Each class is [immutable](https://docs.oracle.com/javase/tutorial/essential/concurrency/immutable.html) once constructed. If the class has an associated builder, then it has a `toBuilder()` method, which can be used to convert it back to a builder for making a modified copy.
+
+Because each class is immutable, builder modification will _never_ affect already built class instances.
+
 ## Asynchronous execution
 
 The default client is synchronous. To switch to asynchronous execution, call the `async()` method:
@@ -148,28 +161,125 @@ val counterparty: Counterparty = client.counterparties().create(params)
 
 The asynchronous client supports the same options as the synchronous one, except most methods are [suspending](https://kotlinlang.org/docs/coroutines-guide.html).
 
+## File uploads
+
+The SDK defines methods that accept files.
+
+To upload a file, pass a [`Path`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html):
+
+```kotlin
+import com.moderntreasury.api.models.Document
+import com.moderntreasury.api.models.DocumentCreateParams
+import java.nio.file.Paths
+
+val params: DocumentCreateParams = DocumentCreateParams.builder()
+    .documentableId("24c6b7a3-02...")
+    .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
+    .file(Paths.get("my/file.txt"))
+    .build()
+val document: Document = client.documents().create(params)
+```
+
+Or an arbitrary [`InputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html):
+
+```kotlin
+import com.moderntreasury.api.models.Document
+import com.moderntreasury.api.models.DocumentCreateParams
+import java.net.URL
+
+val params: DocumentCreateParams = DocumentCreateParams.builder()
+    .documentableId("24c6b7a3-02...")
+    .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
+    .file(URL("https://example.com/my/file.txt").openStream())
+    .build()
+val document: Document = client.documents().create(params)
+```
+
+Or a `ByteArray`:
+
+```kotlin
+import com.moderntreasury.api.models.Document
+import com.moderntreasury.api.models.DocumentCreateParams
+
+val params: DocumentCreateParams = DocumentCreateParams.builder()
+    .documentableId("24c6b7a3-02...")
+    .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
+    .file("content".toByteArray())
+    .build()
+val document: Document = client.documents().create(params)
+```
+
+Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/core/Values.kt):
+
+```kotlin
+import com.moderntreasury.api.core.MultipartField
+import com.moderntreasury.api.models.Document
+import com.moderntreasury.api.models.DocumentCreateParams
+import java.io.InputStream
+import java.net.URL
+
+val params: DocumentCreateParams = DocumentCreateParams.builder()
+    .documentableId("24c6b7a3-02...")
+    .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
+    .file(MultipartField.builder<InputStream>()
+        .value(URL("https://example.com/my/file.txt").openStream())
+        .filename("my/file.txt")
+        .build())
+    .build()
+val document: Document = client.documents().create(params)
+```
+
+## Raw responses
+
+The SDK defines methods that deserialize responses into instances of Kotlin classes. However, these methods don't provide access to the response headers, status code, or the raw response body.
+
+To access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:
+
+```kotlin
+import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.core.http.HttpResponseFor
+import com.moderntreasury.api.models.Counterparty
+import com.moderntreasury.api.models.CounterpartyCreateParams
+
+val params: CounterpartyCreateParams = CounterpartyCreateParams.builder()
+    .name("my first counterparty")
+    .build()
+val counterparty: HttpResponseFor<Counterparty> = client.counterparties().withRawResponse().create(params)
+
+val statusCode: Int = counterparty.statusCode()
+val headers: Headers = counterparty.headers()
+```
+
+You can still deserialize the response into an instance of a Kotlin class if needed:
+
+```kotlin
+import com.moderntreasury.api.models.Counterparty
+
+val parsedCounterparty: Counterparty = counterparty.parse()
+```
+
 ## Error handling
 
 The SDK throws custom unchecked exception types:
 
-- `ModernTreasuryServiceException`: Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
+- [`ModernTreasuryServiceException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/ModernTreasuryServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
-  | Status | Exception                       |
-  | ------ | ------------------------------- |
-  | 400    | `BadRequestException`           |
-  | 401    | `AuthenticationException`       |
-  | 403    | `PermissionDeniedException`     |
-  | 404    | `NotFoundException`             |
-  | 422    | `UnprocessableEntityException`  |
-  | 429    | `RateLimitException`            |
-  | 5xx    | `InternalServerException`       |
-  | others | `UnexpectedStatusCodeException` |
+  | Status | Exception                                                                                                                                     |
+  | ------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+  | 400    | [`BadRequestException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/BadRequestException.kt)                     |
+  | 401    | [`UnauthorizedException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/UnauthorizedException.kt)                 |
+  | 403    | [`PermissionDeniedException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/PermissionDeniedException.kt)         |
+  | 404    | [`NotFoundException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/NotFoundException.kt)                         |
+  | 422    | [`UnprocessableEntityException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/UnprocessableEntityException.kt)   |
+  | 429    | [`RateLimitException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/RateLimitException.kt)                       |
+  | 5xx    | [`InternalServerException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/InternalServerException.kt)             |
+  | others | [`UnexpectedStatusCodeException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/UnexpectedStatusCodeException.kt) |
 
-- `ModernTreasuryIoException`: I/O networking errors.
+- [`ModernTreasuryIoException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/ModernTreasuryIoException.kt): I/O networking errors.
 
-- `ModernTreasuryInvalidDataException`: Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
+- [`ModernTreasuryInvalidDataException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/ModernTreasuryInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
-- `ModernTreasuryException`: Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
+- [`ModernTreasuryException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/ModernTreasuryException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
 
 ## Pagination
 
@@ -329,9 +439,9 @@ val params: CounterpartyCreateParams = CounterpartyCreateParams.builder()
     .build()
 ```
 
-These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods. You can also set undocumented parameters on nested headers, query params, or body classes using the `putAdditionalProperty` method. These properties can be accessed on the built object later using the `_additionalProperties()` method.
+These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.
 
-To set a documented parameter or property to an undocumented or not yet supported _value_, pass a `JsonValue` object to its setter:
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/core/Values.kt) object to its setter:
 
 ```kotlin
 import com.moderntreasury.api.core.JsonValue
@@ -340,6 +450,41 @@ import com.moderntreasury.api.models.CounterpartyCreateParams
 val params: CounterpartyCreateParams = CounterpartyCreateParams.builder()
     .name(JsonValue.from(42))
     .build()
+```
+
+The most straightforward way to create a [`JsonValue`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/core/Values.kt) is using its `from(...)` method:
+
+```kotlin
+import com.moderntreasury.api.core.JsonValue
+
+// Create primitive JSON values
+val nullValue: JsonValue = JsonValue.from(null)
+val booleanValue: JsonValue = JsonValue.from(true)
+val numberValue: JsonValue = JsonValue.from(42)
+val stringValue: JsonValue = JsonValue.from("Hello World!")
+
+// Create a JSON array value equivalent to `["Hello", "World"]`
+val arrayValue: JsonValue = JsonValue.from(listOf(
+  "Hello", "World"
+))
+
+// Create a JSON object value equivalent to `{ "a": 1, "b": 2 }`
+val objectValue: JsonValue = JsonValue.from(mapOf(
+  "a" to 1, "b" to 2
+))
+
+// Create an arbitrarily nested JSON equivalent to:
+// {
+//   "a": [1, 2],
+//   "b": [3, 4]
+// }
+val complexValue: JsonValue = JsonValue.from(mapOf(
+  "a" to listOf(
+    1, 2
+  ), "b" to listOf(
+    3, 4
+  )
+))
 ```
 
 ### Response properties
@@ -389,7 +534,7 @@ if (name.isMissing()) {
 
 In rare cases, the API may return a response that doesn't match the expected type. For example, the SDK may expect a property to contain a `String`, but the API could return something else.
 
-By default, the SDK will not throw an exception in this case. It will throw `ModernTreasuryInvalidDataException` only if you directly access the property.
+By default, the SDK will not throw an exception in this case. It will throw [`ModernTreasuryInvalidDataException`](modern-treasury-kotlin-core/src/main/kotlin/com/moderntreasury/api/errors/ModernTreasuryInvalidDataException.kt) only if you directly access the property.
 
 If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
@@ -421,6 +566,35 @@ val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.builder()
     .responseValidation(true)
     .build()
 ```
+
+## FAQ
+
+### Why don't you use plain `enum` classes?
+
+Kotlin `enum` classes are not trivially [forwards compatible](https://www.stainless.com/blog/making-java-enums-forwards-compatible). Using them in the SDK could cause runtime exceptions if the API is updated to respond with a new enum value.
+
+### Why do you represent fields using `JsonField<T>` instead of just plain `T`?
+
+Using `JsonField<T>` enables a few features:
+
+- Allowing usage of [undocumented API functionality](#undocumented-api-functionality)
+- Lazily [validating the API response against the expected shape](#response-validation)
+- Representing absent vs explicitly null values
+
+### Why don't you use [`data` classes](https://kotlinlang.org/docs/data-classes.html)?
+
+It is not [backwards compatible to add new fields to a data class](https://kotlinlang.org/docs/api-guidelines-backward-compatibility.html#avoid-using-data-classes-in-your-api) and we don't want to introduce a breaking change every time we add a field to a class.
+
+### Why don't you use checked exceptions?
+
+Checked exceptions are widely considered a mistake in the Java programming language. In fact, they were omitted from Kotlin for this reason.
+
+Checked exceptions:
+
+- Are verbose to handle
+- Encourage error handling at the wrong level of abstraction, where nothing can be done about the error
+- Are tedious to propagate due to the [function coloring problem](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function)
+- Don't play well with lambdas (also due to the function coloring problem)
 
 ## Semantic versioning
 

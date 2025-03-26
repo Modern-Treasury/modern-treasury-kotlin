@@ -7,17 +7,16 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorCreateParams
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorDeleteParams
-import com.moderntreasury.api.models.LedgerAccountBalanceMonitorListParams
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class LedgerAccountBalanceMonitorServiceTest {
+internal class LedgerAccountBalanceMonitorServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -25,6 +24,7 @@ class LedgerAccountBalanceMonitorServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountBalanceMonitorService = client.ledgerAccountBalanceMonitors()
+
         val ledgerAccountBalanceMonitor =
             ledgerAccountBalanceMonitorService.create(
                 LedgerAccountBalanceMonitorCreateParams.builder()
@@ -47,12 +47,12 @@ class LedgerAccountBalanceMonitorServiceTest {
                     )
                     .build()
             )
-        println(ledgerAccountBalanceMonitor)
+
         ledgerAccountBalanceMonitor.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -60,16 +60,17 @@ class LedgerAccountBalanceMonitorServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountBalanceMonitorService = client.ledgerAccountBalanceMonitors()
+
         val ledgerAccountBalanceMonitor =
             ledgerAccountBalanceMonitorService.retrieve(
                 LedgerAccountBalanceMonitorRetrieveParams.builder().id("id").build()
             )
-        println(ledgerAccountBalanceMonitor)
+
         ledgerAccountBalanceMonitor.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -77,6 +78,7 @@ class LedgerAccountBalanceMonitorServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountBalanceMonitorService = client.ledgerAccountBalanceMonitors()
+
         val ledgerAccountBalanceMonitor =
             ledgerAccountBalanceMonitorService.update(
                 LedgerAccountBalanceMonitorUpdateParams.builder()
@@ -91,12 +93,12 @@ class LedgerAccountBalanceMonitorServiceTest {
                     )
                     .build()
             )
-        println(ledgerAccountBalanceMonitor)
+
         ledgerAccountBalanceMonitor.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -104,16 +106,14 @@ class LedgerAccountBalanceMonitorServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountBalanceMonitorService = client.ledgerAccountBalanceMonitors()
-        val response =
-            ledgerAccountBalanceMonitorService.list(
-                LedgerAccountBalanceMonitorListParams.builder().build()
-            )
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = ledgerAccountBalanceMonitorService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -121,11 +121,12 @@ class LedgerAccountBalanceMonitorServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerAccountBalanceMonitorService = client.ledgerAccountBalanceMonitors()
+
         val ledgerAccountBalanceMonitor =
             ledgerAccountBalanceMonitorService.delete(
                 LedgerAccountBalanceMonitorDeleteParams.builder().id("id").build()
             )
-        println(ledgerAccountBalanceMonitor)
+
         ledgerAccountBalanceMonitor.validate()
     }
 }

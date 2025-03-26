@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class LedgerableEventServiceTest {
+internal class LedgerableEventServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -22,6 +22,7 @@ class LedgerableEventServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerableEventService = client.ledgerableEvents()
+
         val ledgerableEvent =
             ledgerableEventService.create(
                 LedgerableEventCreateParams.builder()
@@ -37,12 +38,12 @@ class LedgerableEventServiceTest {
                     )
                     .build()
             )
-        println(ledgerableEvent)
+
         ledgerableEvent.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -50,11 +51,12 @@ class LedgerableEventServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val ledgerableEventService = client.ledgerableEvents()
+
         val ledgerableEvent =
             ledgerableEventService.retrieve(
                 LedgerableEventRetrieveParams.builder().id("id").build()
             )
-        println(ledgerableEvent)
+
         ledgerableEvent.validate()
     }
 }

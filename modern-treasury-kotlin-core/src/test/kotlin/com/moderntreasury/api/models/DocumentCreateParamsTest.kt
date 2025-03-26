@@ -2,12 +2,12 @@
 
 package com.moderntreasury.api.models
 
-import com.moderntreasury.api.core.ContentTypes
-import com.moderntreasury.api.core.MultipartFormValue
+import com.moderntreasury.api.core.MultipartField
+import java.io.InputStream
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class DocumentCreateParamsTest {
+internal class DocumentCreateParamsTest {
 
     @Test
     fun create() {
@@ -28,30 +28,28 @@ class DocumentCreateParamsTest {
                 .file("some content".toByteArray())
                 .documentType("document_type")
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
-        assertThat(body)
-            .containsExactly(
-                MultipartFormValue.fromString(
-                    "documentableId",
-                    "documentable_id",
-                    ContentTypes.DefaultText,
-                ),
-                MultipartFormValue.fromEnum(
-                    "documentableType",
-                    DocumentCreateParams.DocumentableType.CASES,
-                    ContentTypes.DefaultText,
-                ),
-                MultipartFormValue.fromByteArray(
-                    "file",
-                    "some content".toByteArray(),
-                    ContentTypes.DefaultBinary,
-                ),
-                MultipartFormValue.fromString(
-                    "documentType",
-                    "document_type",
-                    ContentTypes.DefaultText,
-                ),
+
+        assertThat(body.filterValues { !it.value.isNull() })
+            .usingRecursiveComparison()
+            // TODO(AssertJ): Replace this and the `mapValues` below with:
+            // https://github.com/assertj/assertj/issues/3165
+            .withEqualsForType(
+                { a, b -> a.readBytes() contentEquals b.readBytes() },
+                InputStream::class.java,
+            )
+            .isEqualTo(
+                mapOf(
+                        "documentable_id" to MultipartField.of("documentable_id"),
+                        "documentable_type" to
+                            MultipartField.of(DocumentCreateParams.DocumentableType.CASES),
+                        "file" to MultipartField.of("some content".toByteArray()),
+                        "document_type" to MultipartField.of("document_type"),
+                    )
+                    .mapValues { (_, field) ->
+                        field.map { (it as? ByteArray)?.inputStream() ?: it }
+                    }
             )
     }
 
@@ -63,26 +61,27 @@ class DocumentCreateParamsTest {
                 .documentableType(DocumentCreateParams.DocumentableType.CASES)
                 .file("some content".toByteArray())
                 .build()
+
         val body = params._body()
-        assertThat(body).isNotNull
-        assertThat(body)
-            .containsExactly(
-                MultipartFormValue.fromString(
-                    "documentableId",
-                    "documentable_id",
-                    ContentTypes.DefaultText,
-                ),
-                MultipartFormValue.fromEnum(
-                    "documentableType",
-                    DocumentCreateParams.DocumentableType.CASES,
-                    ContentTypes.DefaultText,
-                ),
-                MultipartFormValue.fromByteArray(
-                    "file",
-                    "some content".toByteArray(),
-                    ContentTypes.DefaultBinary,
-                ),
-                null,
+
+        assertThat(body.filterValues { !it.value.isNull() })
+            .usingRecursiveComparison()
+            // TODO(AssertJ): Replace this and the `mapValues` below with:
+            // https://github.com/assertj/assertj/issues/3165
+            .withEqualsForType(
+                { a, b -> a.readBytes() contentEquals b.readBytes() },
+                InputStream::class.java,
+            )
+            .isEqualTo(
+                mapOf(
+                        "documentable_id" to MultipartField.of("documentable_id"),
+                        "documentable_type" to
+                            MultipartField.of(DocumentCreateParams.DocumentableType.CASES),
+                        "file" to MultipartField.of("some content".toByteArray()),
+                    )
+                    .mapValues { (_, field) ->
+                        field.map { (it as? ByteArray)?.inputStream() ?: it }
+                    }
             )
     }
 }

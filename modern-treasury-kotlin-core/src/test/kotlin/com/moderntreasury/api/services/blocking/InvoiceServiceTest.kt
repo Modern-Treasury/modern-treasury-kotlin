@@ -8,7 +8,6 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.InvoiceAddPaymentOrderParams
 import com.moderntreasury.api.models.InvoiceCreateParams
-import com.moderntreasury.api.models.InvoiceListParams
 import com.moderntreasury.api.models.InvoiceRetrieveParams
 import com.moderntreasury.api.models.InvoiceUpdateParams
 import com.moderntreasury.api.models.PaymentOrderType
@@ -18,10 +17,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class InvoiceServiceTest {
+internal class InvoiceServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -29,6 +28,7 @@ class InvoiceServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val invoiceService = client.invoices()
+
         val invoice =
             invoiceService.create(
                 InvoiceCreateParams.builder()
@@ -121,12 +121,12 @@ class InvoiceServiceTest {
                     .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
             )
-        println(invoice)
+
         invoice.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -134,13 +134,14 @@ class InvoiceServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val invoiceService = client.invoices()
+
         val invoice = invoiceService.retrieve(InvoiceRetrieveParams.builder().id("id").build())
-        println(invoice)
+
         invoice.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -148,6 +149,7 @@ class InvoiceServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val invoiceService = client.invoices()
+
         val invoice =
             invoiceService.update(
                 InvoiceUpdateParams.builder()
@@ -241,12 +243,12 @@ class InvoiceServiceTest {
                     .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
             )
-        println(invoice)
+
         invoice.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -254,13 +256,14 @@ class InvoiceServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val invoiceService = client.invoices()
-        val response = invoiceService.list(InvoiceListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = invoiceService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callAddPaymentOrder() {
+    fun addPaymentOrder() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -268,6 +271,7 @@ class InvoiceServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val invoiceService = client.invoices()
+
         invoiceService.addPaymentOrder(
             InvoiceAddPaymentOrderParams.builder()
                 .id("id")

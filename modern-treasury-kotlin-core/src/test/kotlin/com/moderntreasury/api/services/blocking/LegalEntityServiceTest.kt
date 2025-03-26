@@ -7,7 +7,6 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.BankSettings
 import com.moderntreasury.api.models.LegalEntityCreateParams
-import com.moderntreasury.api.models.LegalEntityListParams
 import com.moderntreasury.api.models.LegalEntityRetrieveParams
 import com.moderntreasury.api.models.LegalEntityUpdateParams
 import com.moderntreasury.api.models.WealthAndEmploymentDetails
@@ -17,10 +16,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class LegalEntityServiceTest {
+internal class LegalEntityServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -28,6 +27,7 @@ class LegalEntityServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val legalEntityService = client.legalEntities()
+
         val legalEntity =
             legalEntityService.create(
                 LegalEntityCreateParams.builder()
@@ -299,12 +299,12 @@ class LegalEntityServiceTest {
                     .website("website")
                     .build()
             )
-        println(legalEntity)
+
         legalEntity.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -312,14 +312,15 @@ class LegalEntityServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val legalEntityService = client.legalEntities()
+
         val legalEntity =
             legalEntityService.retrieve(LegalEntityRetrieveParams.builder().id("id").build())
-        println(legalEntity)
+
         legalEntity.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -327,6 +328,7 @@ class LegalEntityServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val legalEntityService = client.legalEntities()
+
         val legalEntity =
             legalEntityService.update(
                 LegalEntityUpdateParams.builder()
@@ -420,12 +422,12 @@ class LegalEntityServiceTest {
                     .website("website")
                     .build()
             )
-        println(legalEntity)
+
         legalEntity.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -433,8 +435,9 @@ class LegalEntityServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val legalEntityService = client.legalEntities()
-        val response = legalEntityService.list(LegalEntityListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = legalEntityService.list()
+
+        page.response().validate()
     }
 }

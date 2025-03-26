@@ -10,57 +10,81 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.checkRequired
-import com.moderntreasury.api.core.immutableEmptyMap
-import com.moderntreasury.api.core.toImmutable
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 @Deprecated("deprecated")
-@NoAutoDetect
 class LedgerEventHandlerVariable
-@JsonCreator
 private constructor(
-    @JsonProperty("query")
-    @ExcludeMissing
-    private val query: JsonField<LedgerEventHandlerConditions> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<String> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val query: JsonField<LedgerEventHandlerConditions>,
+    private val type: JsonField<String>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
+    @JsonCreator
+    private constructor(
+        @JsonProperty("query")
+        @ExcludeMissing
+        query: JsonField<LedgerEventHandlerConditions> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<String> = JsonMissing.of(),
+    ) : this(query, type, mutableMapOf())
+
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     @Deprecated("deprecated") fun query(): LedgerEventHandlerConditions = query.getRequired("query")
 
-    /** The type of object this variable is. Currently, only "ledger_account" is supported. */
+    /**
+     * The type of object this variable is. Currently, only "ledger_account" is supported.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun type(): String = type.getRequired("type")
 
+    /**
+     * Returns the raw JSON value of [query].
+     *
+     * Unlike [query], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @Deprecated("deprecated")
     @JsonProperty("query")
     @ExcludeMissing
     fun _query(): JsonField<LedgerEventHandlerConditions> = query
 
-    /** The type of object this variable is. Currently, only "ledger_account" is supported. */
+    /**
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<String> = type
+
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
 
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): LedgerEventHandlerVariable = apply {
-        if (validated) {
-            return@apply
-        }
-
-        query().validate()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [LedgerEventHandlerVariable].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .query()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -80,13 +104,25 @@ private constructor(
         @Deprecated("deprecated")
         fun query(query: LedgerEventHandlerConditions) = query(JsonField.of(query))
 
+        /**
+         * Sets [Builder.query] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.query] with a well-typed [LedgerEventHandlerConditions]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         @Deprecated("deprecated")
         fun query(query: JsonField<LedgerEventHandlerConditions>) = apply { this.query = query }
 
         /** The type of object this variable is. Currently, only "ledger_account" is supported. */
         fun type(type: String) = type(JsonField.of(type))
 
-        /** The type of object this variable is. Currently, only "ledger_account" is supported. */
+        /**
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun type(type: JsonField<String>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -108,71 +144,127 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [LedgerEventHandlerVariable].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .query()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): LedgerEventHandlerVariable =
             LedgerEventHandlerVariable(
                 checkRequired("query", query),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
     }
 
+    private var validated: Boolean = false
+
+    fun validate(): LedgerEventHandlerVariable = apply {
+        if (validated) {
+            return@apply
+        }
+
+        query().validate()
+        type()
+        validated = true
+    }
+
     @Deprecated("deprecated")
-    @NoAutoDetect
     class LedgerEventHandlerConditions
-    @JsonCreator
     private constructor(
-        @JsonProperty("field")
-        @ExcludeMissing
-        private val field: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("operator")
-        @ExcludeMissing
-        private val operator: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("value")
-        @ExcludeMissing
-        private val value: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val field: JsonField<String>,
+        private val operator: JsonField<String>,
+        private val value: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
-        /** The LHS of the conditional. */
+        @JsonCreator
+        private constructor(
+            @JsonProperty("field") @ExcludeMissing field: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("operator")
+            @ExcludeMissing
+            operator: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("value") @ExcludeMissing value: JsonField<String> = JsonMissing.of(),
+        ) : this(field, operator, value, mutableMapOf())
+
+        /**
+         * The LHS of the conditional.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun field(): String = field.getRequired("field")
 
-        /** What the operator between the `field` and `value` is. */
+        /**
+         * What the operator between the `field` and `value` is.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun operator(): String = operator.getRequired("operator")
 
-        /** The RHS of the conditional. */
+        /**
+         * The RHS of the conditional.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun value(): String = value.getRequired("value")
 
-        /** The LHS of the conditional. */
+        /**
+         * Returns the raw JSON value of [field].
+         *
+         * Unlike [field], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("field") @ExcludeMissing fun _field(): JsonField<String> = field
 
-        /** What the operator between the `field` and `value` is. */
+        /**
+         * Returns the raw JSON value of [operator].
+         *
+         * Unlike [operator], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("operator") @ExcludeMissing fun _operator(): JsonField<String> = operator
 
-        /** The RHS of the conditional. */
+        /**
+         * Returns the raw JSON value of [value].
+         *
+         * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<String> = value
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LedgerEventHandlerConditions = apply {
-            if (validated) {
-                return@apply
-            }
-
-            field()
-            operator()
-            value()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [LedgerEventHandlerConditions].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .field()
+             * .operator()
+             * .value()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -195,19 +287,37 @@ private constructor(
             /** The LHS of the conditional. */
             fun field(field: String) = field(JsonField.of(field))
 
-            /** The LHS of the conditional. */
+            /**
+             * Sets [Builder.field] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.field] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun field(field: JsonField<String>) = apply { this.field = field }
 
             /** What the operator between the `field` and `value` is. */
             fun operator(operator: String) = operator(JsonField.of(operator))
 
-            /** What the operator between the `field` and `value` is. */
+            /**
+             * Sets [Builder.operator] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.operator] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun operator(operator: JsonField<String>) = apply { this.operator = operator }
 
             /** The RHS of the conditional. */
             fun value(value: String) = value(JsonField.of(value))
 
-            /** The RHS of the conditional. */
+            /**
+             * Sets [Builder.value] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.value] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun value(value: JsonField<String>) = apply { this.value = value }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -229,13 +339,40 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [LedgerEventHandlerConditions].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .field()
+             * .operator()
+             * .value()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): LedgerEventHandlerConditions =
                 LedgerEventHandlerConditions(
                     checkRequired("field", field),
                     checkRequired("operator", operator),
                     checkRequired("value", value),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): LedgerEventHandlerConditions = apply {
+            if (validated) {
+                return@apply
+            }
+
+            field()
+            operator()
+            value()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

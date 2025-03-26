@@ -8,7 +8,6 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.ExpectedPaymentCreateParams
 import com.moderntreasury.api.models.ExpectedPaymentDeleteParams
-import com.moderntreasury.api.models.ExpectedPaymentListParams
 import com.moderntreasury.api.models.ExpectedPaymentRetrieveParams
 import com.moderntreasury.api.models.ExpectedPaymentType
 import com.moderntreasury.api.models.ExpectedPaymentUpdateParams
@@ -20,10 +19,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class ExpectedPaymentServiceTest {
+internal class ExpectedPaymentServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -31,6 +30,7 @@ class ExpectedPaymentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
+
         val expectedPayment =
             expectedPaymentService.create(
                 ExpectedPaymentCreateParams.builder()
@@ -164,12 +164,12 @@ class ExpectedPaymentServiceTest {
                     .type(ExpectedPaymentType.ACH)
                     .build()
             )
-        println(expectedPayment)
+
         expectedPayment.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -177,16 +177,17 @@ class ExpectedPaymentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
+
         val expectedPayment =
             expectedPaymentService.retrieve(
                 ExpectedPaymentRetrieveParams.builder().id("id").build()
             )
-        println(expectedPayment)
+
         expectedPayment.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -194,6 +195,7 @@ class ExpectedPaymentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
+
         val expectedPayment =
             expectedPaymentService.update(
                 ExpectedPaymentUpdateParams.builder()
@@ -240,12 +242,12 @@ class ExpectedPaymentServiceTest {
                     .type(ExpectedPaymentType.ACH)
                     .build()
             )
-        println(expectedPayment)
+
         expectedPayment.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -253,13 +255,14 @@ class ExpectedPaymentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
-        val response = expectedPaymentService.list(ExpectedPaymentListParams.builder().build())
-        println(response)
-        response.items().forEach { it.validate() }
+
+        val page = expectedPaymentService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callDelete() {
+    fun delete() {
         val client =
             ModernTreasuryOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -267,9 +270,10 @@ class ExpectedPaymentServiceTest {
                 .organizationId("my-organization-ID")
                 .build()
         val expectedPaymentService = client.expectedPayments()
+
         val expectedPayment =
             expectedPaymentService.delete(ExpectedPaymentDeleteParams.builder().id("id").build())
-        println(expectedPayment)
+
         expectedPayment.validate()
     }
 }

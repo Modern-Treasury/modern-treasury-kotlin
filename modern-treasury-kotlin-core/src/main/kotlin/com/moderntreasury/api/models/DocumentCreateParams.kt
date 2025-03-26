@@ -3,110 +3,180 @@
 package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.moderntreasury.api.core.ContentTypes
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
+import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.MultipartFormValue
-import com.moderntreasury.api.core.NoAutoDetect
+import com.moderntreasury.api.core.MultipartField
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import java.io.InputStream
+import java.nio.file.Path
 import java.util.Objects
-import org.apache.hc.core5.http.ContentType
+import kotlin.io.path.inputStream
+import kotlin.io.path.name
 
 /** Create a document. */
 class DocumentCreateParams
 private constructor(
-    private val documentableId: MultipartFormValue<String>,
-    private val documentableType: MultipartFormValue<DocumentableType>,
-    private val file: MultipartFormValue<ByteArray>,
-    private val documentType: MultipartFormValue<String>?,
+    private val body: DocumentCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The unique identifier for the associated object. */
-    fun documentableId(): MultipartFormValue<String> = documentableId
+    /**
+     * The unique identifier for the associated object.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun documentableId(): String = body.documentableId()
 
-    fun documentableType(): MultipartFormValue<DocumentableType> = documentableType
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun documentableType(): DocumentableType = body.documentableType()
 
-    fun file(): MultipartFormValue<ByteArray> = file
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun file(): InputStream = body.file()
 
-    /** A category given to the document, can be `null`. */
-    fun documentType(): MultipartFormValue<String>? = documentType
+    /**
+     * A category given to the document, can be `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun documentType(): String? = body.documentType()
+
+    /**
+     * Returns the raw multipart value of [documentableId].
+     *
+     * Unlike [documentableId], this method doesn't throw if the multipart field has an unexpected
+     * type.
+     */
+    fun _documentableId(): MultipartField<String> = body._documentableId()
+
+    /**
+     * Returns the raw multipart value of [documentableType].
+     *
+     * Unlike [documentableType], this method doesn't throw if the multipart field has an unexpected
+     * type.
+     */
+    fun _documentableType(): MultipartField<DocumentableType> = body._documentableType()
+
+    /**
+     * Returns the raw multipart value of [file].
+     *
+     * Unlike [file], this method doesn't throw if the multipart field has an unexpected type.
+     */
+    fun _file(): MultipartField<InputStream> = body._file()
+
+    /**
+     * Returns the raw multipart value of [documentType].
+     *
+     * Unlike [documentType], this method doesn't throw if the multipart field has an unexpected
+     * type.
+     */
+    fun _documentType(): MultipartField<String> = body._documentType()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): Array<MultipartFormValue<*>?> =
-        arrayOf(documentableId(), documentableType(), file(), documentType())
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [DocumentCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .documentableId()
+         * .documentableType()
+         * .file()
+         * ```
+         */
         fun builder() = Builder()
     }
 
     /** A builder for [DocumentCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
-        private var documentableId: MultipartFormValue<String>? = null
-        private var documentableType: MultipartFormValue<DocumentableType>? = null
-        private var file: MultipartFormValue<ByteArray>? = null
-        private var documentType: MultipartFormValue<String>? = null
+        private var body: DocumentCreateRequest.Builder = DocumentCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(documentCreateParams: DocumentCreateParams) = apply {
-            documentableId = documentCreateParams.documentableId
-            documentableType = documentCreateParams.documentableType
-            file = documentCreateParams.file
-            documentType = documentCreateParams.documentType
+            body = documentCreateParams.body.toBuilder()
             additionalHeaders = documentCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = documentCreateParams.additionalQueryParams.toBuilder()
         }
 
         /** The unique identifier for the associated object. */
-        fun documentableId(
-            documentableId: String,
-            contentType: ContentType = ContentTypes.DefaultText,
-        ) = apply {
-            this.documentableId =
-                MultipartFormValue.fromString("documentableId", documentableId, contentType)
+        fun documentableId(documentableId: String) = apply { body.documentableId(documentableId) }
+
+        /**
+         * Sets [Builder.documentableId] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.documentableId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun documentableId(documentableId: MultipartField<String>) = apply {
+            body.documentableId(documentableId)
         }
 
-        fun documentableType(
-            documentableType: DocumentableType,
-            contentType: ContentType = ContentTypes.DefaultText,
-        ) = apply {
-            this.documentableType =
-                MultipartFormValue.fromEnum("documentableType", documentableType, contentType)
+        fun documentableType(documentableType: DocumentableType) = apply {
+            body.documentableType(documentableType)
         }
 
-        fun file(
-            content: ByteArray,
-            filename: String? = null,
-            contentType: ContentType = ContentTypes.DefaultBinary,
-        ) = apply {
-            this.file = MultipartFormValue.fromByteArray("file", content, contentType, filename)
+        /**
+         * Sets [Builder.documentableType] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.documentableType] with a well-typed [DocumentableType]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun documentableType(documentableType: MultipartField<DocumentableType>) = apply {
+            body.documentableType(documentableType)
         }
+
+        fun file(file: InputStream) = apply { body.file(file) }
+
+        /**
+         * Sets [Builder.file] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.file] with a well-typed [InputStream] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun file(file: MultipartField<InputStream>) = apply { body.file(file) }
+
+        fun file(file: ByteArray) = apply { body.file(file) }
+
+        fun file(file: Path) = apply { body.file(file) }
 
         /** A category given to the document, can be `null`. */
-        fun documentType(
-            documentType: String,
-            contentType: ContentType = ContentTypes.DefaultText,
-        ) = apply {
-            this.documentType =
-                MultipartFormValue.fromString("documentType", documentType, contentType)
+        fun documentType(documentType: String) = apply { body.documentType(documentType) }
+
+        /**
+         * Sets [Builder.documentType] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.documentType] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun documentType(documentType: MultipartField<String>) = apply {
+            body.documentType(documentType)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -207,15 +277,264 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [DocumentCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .documentableId()
+         * .documentableType()
+         * .file()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): DocumentCreateParams =
             DocumentCreateParams(
-                checkRequired("documentableId", documentableId),
-                checkRequired("documentableType", documentableType),
-                checkRequired("file", file),
-                documentType,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    internal fun _body(): Map<String, MultipartField<*>> =
+        mapOf(
+                "documentable_id" to _documentableId(),
+                "documentable_type" to _documentableType(),
+                "file" to _file(),
+                "document_type" to _documentType(),
+            )
+            .toImmutable()
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class DocumentCreateRequest
+    private constructor(
+        private val documentableId: MultipartField<String>,
+        private val documentableType: MultipartField<DocumentableType>,
+        private val file: MultipartField<InputStream>,
+        private val documentType: MultipartField<String>,
+    ) {
+
+        /**
+         * The unique identifier for the associated object.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun documentableId(): String = documentableId.value.getRequired("documentable_id")
+
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun documentableType(): DocumentableType =
+            documentableType.value.getRequired("documentable_type")
+
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun file(): InputStream = file.value.getRequired("file")
+
+        /**
+         * A category given to the document, can be `null`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun documentType(): String? = documentType.value.getNullable("document_type")
+
+        /**
+         * Returns the raw multipart value of [documentableId].
+         *
+         * Unlike [documentableId], this method doesn't throw if the multipart field has an
+         * unexpected type.
+         */
+        @JsonProperty("documentable_id")
+        @ExcludeMissing
+        fun _documentableId(): MultipartField<String> = documentableId
+
+        /**
+         * Returns the raw multipart value of [documentableType].
+         *
+         * Unlike [documentableType], this method doesn't throw if the multipart field has an
+         * unexpected type.
+         */
+        @JsonProperty("documentable_type")
+        @ExcludeMissing
+        fun _documentableType(): MultipartField<DocumentableType> = documentableType
+
+        /**
+         * Returns the raw multipart value of [file].
+         *
+         * Unlike [file], this method doesn't throw if the multipart field has an unexpected type.
+         */
+        @JsonProperty("file") @ExcludeMissing fun _file(): MultipartField<InputStream> = file
+
+        /**
+         * Returns the raw multipart value of [documentType].
+         *
+         * Unlike [documentType], this method doesn't throw if the multipart field has an unexpected
+         * type.
+         */
+        @JsonProperty("document_type")
+        @ExcludeMissing
+        fun _documentType(): MultipartField<String> = documentType
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [DocumentCreateRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .documentableId()
+             * .documentableType()
+             * .file()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [DocumentCreateRequest]. */
+        class Builder internal constructor() {
+
+            private var documentableId: MultipartField<String>? = null
+            private var documentableType: MultipartField<DocumentableType>? = null
+            private var file: MultipartField<InputStream>? = null
+            private var documentType: MultipartField<String> = MultipartField.of(null)
+
+            internal fun from(documentCreateRequest: DocumentCreateRequest) = apply {
+                documentableId = documentCreateRequest.documentableId
+                documentableType = documentCreateRequest.documentableType
+                file = documentCreateRequest.file
+                documentType = documentCreateRequest.documentType
+            }
+
+            /** The unique identifier for the associated object. */
+            fun documentableId(documentableId: String) =
+                documentableId(MultipartField.of(documentableId))
+
+            /**
+             * Sets [Builder.documentableId] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.documentableId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun documentableId(documentableId: MultipartField<String>) = apply {
+                this.documentableId = documentableId
+            }
+
+            fun documentableType(documentableType: DocumentableType) =
+                documentableType(MultipartField.of(documentableType))
+
+            /**
+             * Sets [Builder.documentableType] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.documentableType] with a well-typed
+             * [DocumentableType] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun documentableType(documentableType: MultipartField<DocumentableType>) = apply {
+                this.documentableType = documentableType
+            }
+
+            fun file(file: InputStream) = file(MultipartField.of(file))
+
+            /**
+             * Sets [Builder.file] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.file] with a well-typed [InputStream] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun file(file: MultipartField<InputStream>) = apply { this.file = file }
+
+            fun file(file: ByteArray) = file(file.inputStream())
+
+            fun file(file: Path) =
+                file(
+                    MultipartField.builder<InputStream>()
+                        .value(file.inputStream())
+                        .filename(file.name)
+                        .build()
+                )
+
+            /** A category given to the document, can be `null`. */
+            fun documentType(documentType: String) = documentType(MultipartField.of(documentType))
+
+            /**
+             * Sets [Builder.documentType] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.documentType] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun documentType(documentType: MultipartField<String>) = apply {
+                this.documentType = documentType
+            }
+
+            /**
+             * Returns an immutable instance of [DocumentCreateRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .documentableId()
+             * .documentableType()
+             * .file()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): DocumentCreateRequest =
+                DocumentCreateRequest(
+                    checkRequired("documentableId", documentableId),
+                    checkRequired("documentableType", documentableType),
+                    checkRequired("file", file),
+                    documentType,
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): DocumentCreateRequest = apply {
+            if (validated) {
+                return@apply
+            }
+
+            documentableId()
+            documentableType()
+            file()
+            documentType()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is DocumentCreateRequest && documentableId == other.documentableId && documentableType == other.documentableType && file == other.file && documentType == other.documentType /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(documentableId, documentableType, file, documentType) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "DocumentCreateRequest{documentableId=$documentableId, documentableType=$documentableType, file=$file, documentType=$documentType}"
     }
 
     class DocumentableType @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -385,11 +704,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is DocumentCreateParams && documentableId == other.documentableId && documentableType == other.documentableType && file == other.file && documentType == other.documentType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is DocumentCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(documentableId, documentableType, file, documentType, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "DocumentCreateParams{documentableId=$documentableId, documentableType=$documentableType, file=$file, documentType=$documentType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "DocumentCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

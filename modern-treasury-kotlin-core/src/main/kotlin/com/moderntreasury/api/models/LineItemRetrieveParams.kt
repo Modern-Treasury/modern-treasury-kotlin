@@ -5,7 +5,6 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.NoAutoDetect
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
@@ -33,28 +32,24 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    fun getPathParam(index: Int): String {
-        return when (index) {
-            0 -> itemizableType.toString()
-            1 -> itemizableId
-            2 -> id
-            else -> ""
-        }
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [LineItemRetrieveParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .itemizableType()
+         * .itemizableId()
+         * .id()
+         * ```
+         */
         fun builder() = Builder()
     }
 
     /** A builder for [LineItemRetrieveParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var itemizableType: ItemizableType? = null
@@ -177,6 +172,20 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [LineItemRetrieveParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .itemizableType()
+         * .itemizableId()
+         * .id()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): LineItemRetrieveParams =
             LineItemRetrieveParams(
                 checkRequired("itemizableType", itemizableType),
@@ -186,6 +195,18 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> itemizableType.toString()
+            1 -> itemizableId
+            2 -> id
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     class ItemizableType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
