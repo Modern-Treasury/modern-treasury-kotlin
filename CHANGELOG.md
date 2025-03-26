@@ -1,5 +1,89 @@
 # Changelog
 
+## 6.0.0 (2025-03-26)
+
+Full Changelog: [v5.0.0...v6.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v5.0.0...v6.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** refactor exception structure and methods
+* **client:** refactor multipart formdata impl ([#351](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/351))
+
+### Features
+
+* **client:** accept `InputStream` and `Path` for file params ([#354](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/354)) ([c63239b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c63239b56c97b65ac4de4fba93fbd6b38337e9ff))
+* **client:** allow omitting params object when none required ([#343](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/343)) ([9ed5c6f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9ed5c6feb9c48ce830fed665b4c0d31d94cc3762))
+* **client:** detect binary incompatible jackson versions ([#356](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/356)) ([f85a4c1](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f85a4c11256bd94a20a6be4bbb9ad2867cdcca41))
+* **client:** support a lower jackson version ([#383](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/383)) ([7740c27](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7740c27aca00568c76dd0daae820d981eccfd748))
+* **client:** support raw response access ([#350](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/350)) ([47a890d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/47a890ddddb8a820d4b1db36e51f02ab72ee3cb4))
+* **client:** throw on incompatible jackson version ([7740c27](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7740c27aca00568c76dd0daae820d981eccfd748))
+* generate and publish docs ([#357](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/357)) ([98b76a2](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/98b76a2fcc03d8ab08ed82a4ea41a4ed9c753d07))
+
+
+### Bug Fixes
+
+* **client:** map deserialization bug ([8c0ac2d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8c0ac2d3c93bcf157026b4826ac27360b4f578ee))
+* **client:** mark some request bodies as optional ([#339](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/339)) ([422ed99](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/422ed9964f19bb88f3bbb7ee9bfb132ba970c68d))
+* **client:** support kotlin 1.8 runtime ([#373](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/373)) ([4b5869e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4b5869e3980d49c8d646350a4b0d4ac963d5fe20))
+* **client:** swap `PaymentOrderCreateParams` and `DocumentCreateParams` class to multipart ([#379](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/379)) ([2efcebb](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2efcebb6185272f62ff3a603ce92e0a72172bd0b))
+
+
+### Chores
+
+* add hash of OpenAPI spec/config inputs to .stats.yml ([#385](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/385)) ([a4e3881](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a4e38812021c0a5a18dd601bf5749934e179ffba))
+* **ci:** update gradle actions to v4 ([#336](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/336)) ([58674f4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/58674f42d44fb9bc61426de99949235cb1425d1d))
+* **client:** delete unused enums ([#378](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/378)) ([35084b0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/35084b0486b63dc209ab9bece01be950ba27dc2d))
+* **client:** refactor exception structure and methods ([c34f7c9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c34f7c9d8d58b378a9306b3e1d6679473b9f1b0a))
+* **client:** refactor multipart formdata impl ([#351](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/351)) ([b4b1aa3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b4b1aa35c0117f4707fd4f64bad060f70cfab57b))
+* **client:** remove checked exception related code ([#337](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/337)) ([ae99b89](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ae99b89386d95b477b6eb6ea8bbdfa99079d7fd9))
+* **client:** use deep identity methods for primitive array types ([#345](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/345)) ([e6c133e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e6c133e49e1b343da7af564c1b4287d945fd3bb2))
+* **docs:** add faq to readme ([#338](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/338)) ([5c5fb0f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5c5fb0f645ea7158e698bfbb0dd9b16abf1ee50f))
+* **internal:** add `.kotlin` to `.gitignore` ([#359](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/359)) ([43525c0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/43525c08988246c93ec60bb9348620898d6ade9e))
+* **internal:** add async service tests ([#344](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/344)) ([30ef263](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/30ef2632ffd823cfe1cb4860dc107d1cca808771))
+* **internal:** add generated comment ([#367](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/367)) ([434df14](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/434df14f91f85c4b03dd11363c6d3838530085e9))
+* **internal:** add missing release please block ([#375](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/375)) ([6aafaaf](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6aafaaf315cf9616e34a118837f7441e73fdb931))
+* **internal:** add some tests for union classes ([#372](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/372)) ([7df14cb](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7df14cb0cb0678b0ce1da372ec018fc0e46b87f9))
+* **internal:** delete duplicate tests ([800d036](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/800d03676295738e3c3d4acedd91e615861df62c))
+* **internal:** delete unused methods and annotations ([#386](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/386)) ([8c0ac2d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8c0ac2d3c93bcf157026b4826ac27360b4f578ee))
+* **internal:** generate more tests ([2a8c4f3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2a8c4f3f300c56a4fd5794387d3446b4669114b2))
+* **internal:** get rid of configuration cache ([#334](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/334)) ([5120b99](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5120b994f77fa88e26c5d91e3faf0caaca3dfdf5))
+* **internal:** improve sync service tests ([30ef263](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/30ef2632ffd823cfe1cb4860dc107d1cca808771))
+* **internal:** make multipart assertions more robust ([2efcebb](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2efcebb6185272f62ff3a603ce92e0a72172bd0b))
+* **internal:** make test classes internal ([#366](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/366)) ([5fa6cf0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5fa6cf0ad4cf0a1b8383445eca2232cf553abd30))
+* **internal:** reenable warnings as errors ([6901739](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/69017390b90ab99164cfd3bfbf3592e6163eab3c))
+* **internal:** refactor `ErrorHandlingTest` ([#349](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/349)) ([d2e278c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d2e278cc80566be508f84918e42da1995131b5d7))
+* **internal:** refactor `ServiceParamsTest` ([#347](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/347)) ([a334993](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a334993354a82e475c08b081b47431e2ad2df3f6))
+* **internal:** refactor query param serialization impl and tests ([#369](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/369)) ([e3d9051](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e3d905134fea84de67dc753a02f2e0e9ee7cc456))
+* **internal:** refactor some test assertions ([800d036](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/800d03676295738e3c3d4acedd91e615861df62c))
+* **internal:** reformat some tests ([#371](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/371)) ([2a8c4f3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2a8c4f3f300c56a4fd5794387d3446b4669114b2))
+* **internal:** remove extra empty newlines ([#364](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/364)) ([1125e64](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1125e6439e84bafefd115e0bed2fb227c49e37a8))
+* **internal:** remove unnecessary `assertNotNull` calls ([2efcebb](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2efcebb6185272f62ff3a603ce92e0a72172bd0b))
+* **internal:** remove unnecessary import ([#380](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/380)) ([d8d976b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d8d976bba0aaa45ea2011a9b468a3c0b72411856))
+* **internal:** remove unnecessary non-null asserts in tests ([422ed99](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/422ed9964f19bb88f3bbb7ee9bfb132ba970c68d))
+* **internal:** rename `getPathParam` ([#370](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/370)) ([800d036](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/800d03676295738e3c3d4acedd91e615861df62c))
+* **internal:** rename internal body classes ([7825cc9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7825cc9628a94ffc1e152ea5e6386ff839744e44))
+* **internal:** reorder some params methodsc ([800d036](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/800d03676295738e3c3d4acedd91e615861df62c))
+* **internal:** use `assertNotNull` in tests for type narrowing ([422ed99](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/422ed9964f19bb88f3bbb7ee9bfb132ba970c68d))
+
+
+### Documentation
+
+* add `build` method comments ([#368](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/368)) ([d44b1aa](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d44b1aa56499110cf27500d831bfe3a313dc54c2))
+* add immutability explanation to readme ([#341](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/341)) ([4c81dc9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4c81dc9bece117ee7c51ad2ddc1752481e89b0bd))
+* add raw response readme documentation ([#352](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/352)) ([2c228ac](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2c228ac7160d8818742edda0ee671313dcd4c804))
+* add source file links to readme ([#342](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/342)) ([69b1fa5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/69b1fa532ac46227a9ff51b61ace8a5e6f5d6f8b))
+* deduplicate and refine comments ([#365](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/365)) ([77da959](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/77da959a57c6cb74235a0dc368b11d595085c2e3))
+* document `JsonValue` construction in readme ([#363](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/363)) ([700fb0e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/700fb0e637757405590011d6382aece2d5268a64))
+* document file uploads in readme ([#355](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/355)) ([0264939](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/02649398399807bebdc440b0348b227d1af7db0b))
+* make URL purpose clearer in readme ([#361](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/361)) ([b6eac64](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b6eac643de60fc23d6b370d9dcfa56d4699c022b))
+* minor readme tweak ([#382](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/382)) ([501c95a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/501c95a310a98ba28c3832f0e696e1c0ddf131a5))
+* note required fields in `builder` javadoc ([#353](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/353)) ([5604aa5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5604aa56b7bec55e4d63155938e53245156219d4))
+* readme parameter tweaks ([30ef263](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/30ef2632ffd823cfe1cb4860dc107d1cca808771))
+* refine comments on multipart params ([2efcebb](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2efcebb6185272f62ff3a603ce92e0a72172bd0b))
+* revise readme docs about nested params ([#362](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/362)) ([b532bb5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b532bb523c8617448bd54585708c25bae162d287))
+* update readme exception docs ([#381](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/381)) ([7be6b7b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7be6b7ba4bb8aa5f670fdd4837a03279009f01d9))
+* update URLs from stainlessapi.com to stainless.com ([#348](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/348)) ([ff2c077](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ff2c07754e95b8dfe9d3361c8d9937421744ef4d))
+
 ## 5.0.0 (2025-02-19)
 
 Full Changelog: [v4.0.1...v5.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v4.0.1...v5.0.0)
