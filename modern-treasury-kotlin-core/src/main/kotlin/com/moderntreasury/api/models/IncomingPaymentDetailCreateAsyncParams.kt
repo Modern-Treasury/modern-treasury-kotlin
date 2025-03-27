@@ -52,6 +52,11 @@ private constructor(
     fun currency(): Currency? = body.currency()
 
     /**
+     * An object passed through to the simulated IPD that could reflect what a vendor would pass.
+     */
+    fun _data(): JsonValue = body._data()
+
+    /**
      * Defaults to a random description.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -219,6 +224,12 @@ private constructor(
          * value.
          */
         fun currency(currency: JsonField<Currency>) = apply { body.currency(currency) }
+
+        /**
+         * An object passed through to the simulated IPD that could reflect what a vendor would
+         * pass.
+         */
+        fun data(data: JsonValue) = apply { body.data(data) }
 
         /** Defaults to a random description. */
         fun description(description: String?) = apply { body.description(description) }
@@ -428,6 +439,7 @@ private constructor(
         private val amount: JsonField<Long>,
         private val asOfDate: JsonField<LocalDate>,
         private val currency: JsonField<Currency>,
+        private val data: JsonValue,
         private val description: JsonField<String>,
         private val direction: JsonField<Direction>,
         private val internalAccountId: JsonField<String>,
@@ -445,6 +457,7 @@ private constructor(
             @JsonProperty("currency")
             @ExcludeMissing
             currency: JsonField<Currency> = JsonMissing.of(),
+            @JsonProperty("data") @ExcludeMissing data: JsonValue = JsonMissing.of(),
             @JsonProperty("description")
             @ExcludeMissing
             description: JsonField<String> = JsonMissing.of(),
@@ -462,6 +475,7 @@ private constructor(
             amount,
             asOfDate,
             currency,
+            data,
             description,
             direction,
             internalAccountId,
@@ -493,6 +507,12 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun currency(): Currency? = currency.getNullable("currency")
+
+        /**
+         * An object passed through to the simulated IPD that could reflect what a vendor would
+         * pass.
+         */
+        @JsonProperty("data") @ExcludeMissing fun _data(): JsonValue = data
 
         /**
          * Defaults to a random description.
@@ -627,6 +647,7 @@ private constructor(
             private var amount: JsonField<Long> = JsonMissing.of()
             private var asOfDate: JsonField<LocalDate> = JsonMissing.of()
             private var currency: JsonField<Currency> = JsonMissing.of()
+            private var data: JsonValue = JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
             private var direction: JsonField<Direction> = JsonMissing.of()
             private var internalAccountId: JsonField<String> = JsonMissing.of()
@@ -640,6 +661,7 @@ private constructor(
                 amount = incomingPaymentDetailCreateRequest.amount
                 asOfDate = incomingPaymentDetailCreateRequest.asOfDate
                 currency = incomingPaymentDetailCreateRequest.currency
+                data = incomingPaymentDetailCreateRequest.data
                 description = incomingPaymentDetailCreateRequest.description
                 direction = incomingPaymentDetailCreateRequest.direction
                 internalAccountId = incomingPaymentDetailCreateRequest.internalAccountId
@@ -686,6 +708,12 @@ private constructor(
              * supported value.
              */
             fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+            /**
+             * An object passed through to the simulated IPD that could reflect what a vendor would
+             * pass.
+             */
+            fun data(data: JsonValue) = apply { this.data = data }
 
             /** Defaults to a random description. */
             fun description(description: String?) = description(JsonField.ofNullable(description))
@@ -786,6 +814,7 @@ private constructor(
                     amount,
                     asOfDate,
                     currency,
+                    data,
                     description,
                     direction,
                     internalAccountId,
@@ -818,17 +847,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is IncomingPaymentDetailCreateRequest && amount == other.amount && asOfDate == other.asOfDate && currency == other.currency && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && type == other.type && virtualAccountId == other.virtualAccountId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is IncomingPaymentDetailCreateRequest && amount == other.amount && asOfDate == other.asOfDate && currency == other.currency && data == other.data && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && type == other.type && virtualAccountId == other.virtualAccountId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, asOfDate, currency, description, direction, internalAccountId, type, virtualAccountId, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(amount, asOfDate, currency, data, description, direction, internalAccountId, type, virtualAccountId, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "IncomingPaymentDetailCreateRequest{amount=$amount, asOfDate=$asOfDate, currency=$currency, description=$description, direction=$direction, internalAccountId=$internalAccountId, type=$type, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
+            "IncomingPaymentDetailCreateRequest{amount=$amount, asOfDate=$asOfDate, currency=$currency, data=$data, description=$description, direction=$direction, internalAccountId=$internalAccountId, type=$type, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
     }
 
     /** One of `credit`, `debit`. */
@@ -949,6 +978,10 @@ private constructor(
 
             val ACH = of("ach")
 
+            val AU_BECS = of("au_becs")
+
+            val BACS = of("bacs")
+
             val BOOK = of("book")
 
             val CHECK = of("check")
@@ -956,6 +989,10 @@ private constructor(
             val EFT = of("eft")
 
             val INTERAC = of("interac")
+
+            val NEFT = of("neft")
+
+            val NZ_BECS = of("nz_becs")
 
             val RTP = of("rtp")
 
@@ -971,10 +1008,14 @@ private constructor(
         /** An enum containing [Type]'s known values. */
         enum class Known {
             ACH,
+            AU_BECS,
+            BACS,
             BOOK,
             CHECK,
             EFT,
             INTERAC,
+            NEFT,
+            NZ_BECS,
             RTP,
             SEPA,
             SIGNET,
@@ -992,10 +1033,14 @@ private constructor(
          */
         enum class Value {
             ACH,
+            AU_BECS,
+            BACS,
             BOOK,
             CHECK,
             EFT,
             INTERAC,
+            NEFT,
+            NZ_BECS,
             RTP,
             SEPA,
             SIGNET,
@@ -1014,10 +1059,14 @@ private constructor(
         fun value(): Value =
             when (this) {
                 ACH -> Value.ACH
+                AU_BECS -> Value.AU_BECS
+                BACS -> Value.BACS
                 BOOK -> Value.BOOK
                 CHECK -> Value.CHECK
                 EFT -> Value.EFT
                 INTERAC -> Value.INTERAC
+                NEFT -> Value.NEFT
+                NZ_BECS -> Value.NZ_BECS
                 RTP -> Value.RTP
                 SEPA -> Value.SEPA
                 SIGNET -> Value.SIGNET
@@ -1037,10 +1086,14 @@ private constructor(
         fun known(): Known =
             when (this) {
                 ACH -> Known.ACH
+                AU_BECS -> Known.AU_BECS
+                BACS -> Known.BACS
                 BOOK -> Known.BOOK
                 CHECK -> Known.CHECK
                 EFT -> Known.EFT
                 INTERAC -> Known.INTERAC
+                NEFT -> Known.NEFT
+                NZ_BECS -> Known.NZ_BECS
                 RTP -> Known.RTP
                 SEPA -> Known.SEPA
                 SIGNET -> Known.SIGNET

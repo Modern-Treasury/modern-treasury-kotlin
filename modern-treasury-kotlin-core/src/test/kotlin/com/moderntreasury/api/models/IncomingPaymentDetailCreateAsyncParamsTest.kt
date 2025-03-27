@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -14,6 +15,7 @@ internal class IncomingPaymentDetailCreateAsyncParamsTest {
             .amount(0L)
             .asOfDate(LocalDate.parse("2019-12-27"))
             .currency(Currency.AED)
+            .data(JsonValue.from(mapOf<String, Any>()))
             .description("description")
             .direction(IncomingPaymentDetailCreateAsyncParams.Direction.CREDIT)
             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -29,6 +31,7 @@ internal class IncomingPaymentDetailCreateAsyncParamsTest {
                 .amount(0L)
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .currency(Currency.AED)
+                .data(JsonValue.from(mapOf<String, Any>()))
                 .description("description")
                 .direction(IncomingPaymentDetailCreateAsyncParams.Direction.CREDIT)
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -41,6 +44,7 @@ internal class IncomingPaymentDetailCreateAsyncParamsTest {
         assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.currency()).isEqualTo(Currency.AED)
+        assertThat(body._data()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.direction())
             .isEqualTo(IncomingPaymentDetailCreateAsyncParams.Direction.CREDIT)

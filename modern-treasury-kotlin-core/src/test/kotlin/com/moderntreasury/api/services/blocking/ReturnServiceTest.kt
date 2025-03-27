@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.ReturnCreateParams
 import com.moderntreasury.api.models.ReturnRetrieveParams
 import java.time.LocalDate
@@ -30,6 +31,7 @@ internal class ReturnServiceTest {
                     .returnableType(ReturnCreateParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
                     .additionalInformation("additional_information")
                     .code(ReturnCreateParams.Code._901)
+                    .data(JsonValue.from(mapOf<String, Any>()))
                     .dateOfDeath(LocalDate.parse("2019-12-27"))
                     .reason("reason")
                     .build()
