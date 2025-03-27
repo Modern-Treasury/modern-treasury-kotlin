@@ -4,7 +4,6 @@ package com.moderntreasury.api.services.async.ledgerAccountSettlements
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
-import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerAccountSettlementAccountEntryDeleteParams
 import com.moderntreasury.api.models.LedgerAccountSettlementAccountEntryUpdateParams
 import org.junit.jupiter.api.Test
@@ -44,7 +43,7 @@ internal class AccountEntryServiceAsyncTest {
         accountEntryServiceAsync.delete(
             LedgerAccountSettlementAccountEntryDeleteParams.builder()
                 .id("id")
-                .addLedgerEntryId(JsonValue.from(mapOf<String, Any>()))
+                .addLedgerEntryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .build()
         )
     }

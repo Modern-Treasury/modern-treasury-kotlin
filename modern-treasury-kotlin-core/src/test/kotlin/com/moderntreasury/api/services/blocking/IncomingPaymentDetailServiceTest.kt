@@ -90,6 +90,7 @@ internal class IncomingPaymentDetailServiceTest {
                     .amount(0L)
                     .asOfDate(LocalDate.parse("2019-12-27"))
                     .currency(Currency.AED)
+                    .data(JsonValue.from(mapOf<String, Any>()))
                     .description("description")
                     .direction(IncomingPaymentDetailCreateAsyncParams.Direction.CREDIT)
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
