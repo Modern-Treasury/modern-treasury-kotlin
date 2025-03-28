@@ -748,7 +748,7 @@ private constructor(
 
             val ID_SKNBI_CODE = of("idSknbiCode")
 
-            val ZA_NATIONAL_CLEARING_CODE = of("za_national_clearing_code")
+            val ZA_NATIONAL_CLEARING_CODE = of("zaNationalClearingCode")
 
             fun of(value: String) = Field(JsonField.of(value))
         }

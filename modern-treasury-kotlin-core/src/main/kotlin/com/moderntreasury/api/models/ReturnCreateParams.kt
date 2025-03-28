@@ -61,6 +61,9 @@ private constructor(
      */
     fun code(): Code? = body.code()
 
+    /** The raw data from the return file that we get from the bank. */
+    fun _data(): JsonValue = body._data()
+
     /**
      * If the return code is `R14` or `R15` this is the date the deceased counterparty passed away.
      *
@@ -217,6 +220,9 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun code(code: JsonField<Code>) = apply { body.code(code) }
+
+        /** The raw data from the return file that we get from the bank. */
+        fun data(data: JsonValue) = apply { body.data(data) }
 
         /**
          * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
@@ -397,6 +403,7 @@ private constructor(
         private val returnableType: JsonField<ReturnableType>,
         private val additionalInformation: JsonField<String>,
         private val code: JsonField<Code>,
+        private val data: JsonValue,
         private val dateOfDeath: JsonField<LocalDate>,
         private val reason: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -414,6 +421,7 @@ private constructor(
             @ExcludeMissing
             additionalInformation: JsonField<String> = JsonMissing.of(),
             @JsonProperty("code") @ExcludeMissing code: JsonField<Code> = JsonMissing.of(),
+            @JsonProperty("data") @ExcludeMissing data: JsonValue = JsonMissing.of(),
             @JsonProperty("date_of_death")
             @ExcludeMissing
             dateOfDeath: JsonField<LocalDate> = JsonMissing.of(),
@@ -423,6 +431,7 @@ private constructor(
             returnableType,
             additionalInformation,
             code,
+            data,
             dateOfDeath,
             reason,
             mutableMapOf(),
@@ -461,6 +470,9 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun code(): Code? = code.getNullable("code")
+
+        /** The raw data from the return file that we get from the bank. */
+        @JsonProperty("data") @ExcludeMissing fun _data(): JsonValue = data
 
         /**
          * If the return code is `R14` or `R15` this is the date the deceased counterparty passed
@@ -566,6 +578,7 @@ private constructor(
             private var returnableType: JsonField<ReturnableType>? = null
             private var additionalInformation: JsonField<String> = JsonMissing.of()
             private var code: JsonField<Code> = JsonMissing.of()
+            private var data: JsonValue = JsonMissing.of()
             private var dateOfDeath: JsonField<LocalDate> = JsonMissing.of()
             private var reason: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -575,6 +588,7 @@ private constructor(
                 returnableType = returnCreateRequest.returnableType
                 additionalInformation = returnCreateRequest.additionalInformation
                 code = returnCreateRequest.code
+                data = returnCreateRequest.data
                 dateOfDeath = returnCreateRequest.dateOfDeath
                 reason = returnCreateRequest.reason
                 additionalProperties = returnCreateRequest.additionalProperties.toMutableMap()
@@ -642,6 +656,9 @@ private constructor(
              * value.
              */
             fun code(code: JsonField<Code>) = apply { this.code = code }
+
+            /** The raw data from the return file that we get from the bank. */
+            fun data(data: JsonValue) = apply { this.data = data }
 
             /**
              * If the return code is `R14` or `R15` this is the date the deceased counterparty
@@ -714,6 +731,7 @@ private constructor(
                     checkRequired("returnableType", returnableType),
                     additionalInformation,
                     code,
+                    data,
                     dateOfDeath,
                     reason,
                     additionalProperties.toMutableMap(),
@@ -741,17 +759,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ReturnCreateRequest && returnableId == other.returnableId && returnableType == other.returnableType && additionalInformation == other.additionalInformation && code == other.code && dateOfDeath == other.dateOfDeath && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ReturnCreateRequest && returnableId == other.returnableId && returnableType == other.returnableType && additionalInformation == other.additionalInformation && code == other.code && data == other.data && dateOfDeath == other.dateOfDeath && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(returnableId, returnableType, additionalInformation, code, dateOfDeath, reason, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(returnableId, returnableType, additionalInformation, code, data, dateOfDeath, reason, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ReturnCreateRequest{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, dateOfDeath=$dateOfDeath, reason=$reason, additionalProperties=$additionalProperties}"
+            "ReturnCreateRequest{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, data=$data, dateOfDeath=$dateOfDeath, reason=$reason, additionalProperties=$additionalProperties}"
     }
 
     /** The type of object being returned. Currently, this may only be incoming_payment_detail. */

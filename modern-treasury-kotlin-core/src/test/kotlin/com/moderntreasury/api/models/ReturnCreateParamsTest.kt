@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,6 +16,7 @@ internal class ReturnCreateParamsTest {
             .returnableType(ReturnCreateParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
             .additionalInformation("additional_information")
             .code(ReturnCreateParams.Code._901)
+            .data(JsonValue.from(mapOf<String, Any>()))
             .dateOfDeath(LocalDate.parse("2019-12-27"))
             .reason("reason")
             .build()
@@ -28,6 +30,7 @@ internal class ReturnCreateParamsTest {
                 .returnableType(ReturnCreateParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
                 .additionalInformation("additional_information")
                 .code(ReturnCreateParams.Code._901)
+                .data(JsonValue.from(mapOf<String, Any>()))
                 .dateOfDeath(LocalDate.parse("2019-12-27"))
                 .reason("reason")
                 .build()
@@ -39,6 +42,7 @@ internal class ReturnCreateParamsTest {
             .isEqualTo(ReturnCreateParams.ReturnableType.INCOMING_PAYMENT_DETAIL)
         assertThat(body.additionalInformation()).isEqualTo("additional_information")
         assertThat(body.code()).isEqualTo(ReturnCreateParams.Code._901)
+        assertThat(body._data()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(body.dateOfDeath()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.reason()).isEqualTo("reason")
     }

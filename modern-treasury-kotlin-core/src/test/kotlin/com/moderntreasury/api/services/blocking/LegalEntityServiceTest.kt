@@ -6,7 +6,9 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.BankSettings
+import com.moderntreasury.api.models.LegalEntityComplianceDetail
 import com.moderntreasury.api.models.LegalEntityCreateParams
+import com.moderntreasury.api.models.LegalEntityIndustryClassification
 import com.moderntreasury.api.models.LegalEntityRetrieveParams
 import com.moderntreasury.api.models.LegalEntityUpdateParams
 import com.moderntreasury.api.models.WealthAndEmploymentDetails
@@ -62,6 +64,22 @@ internal class LegalEntityServiceTest {
                     )
                     .businessName("business_name")
                     .citizenshipCountry("citizenship_country")
+                    .complianceDetails(
+                        LegalEntityComplianceDetail.builder()
+                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .issuer("issuer")
+                            .liveMode(true)
+                            .object_("object")
+                            .tokenExpiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .tokenIssuedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .tokenUrl("token_url")
+                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .entityValidated(true)
+                            .validatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .addDoingBusinessAsName("string")
@@ -74,6 +92,20 @@ internal class LegalEntityServiceTest {
                                 LegalEntityCreateParams.IdentificationCreateRequest.IdType.AR_CUIL
                             )
                             .issuingCountry("issuing_country")
+                            .build()
+                    )
+                    .addIndustryClassification(
+                        LegalEntityIndustryClassification.builder()
+                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .addClassificationCode("string")
+                            .classificationType(
+                                LegalEntityIndustryClassification.ClassificationType.ANZSIC
+                            )
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .liveMode(true)
+                            .object_("object")
+                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
                     )
                     .lastName("last_name")
@@ -132,6 +164,34 @@ internal class LegalEntityServiceTest {
                                     )
                                     .businessName("business_name")
                                     .citizenshipCountry("citizenship_country")
+                                    .complianceDetails(
+                                        LegalEntityComplianceDetail.builder()
+                                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                            .createdAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .discardedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .issuer("issuer")
+                                            .liveMode(true)
+                                            .object_("object")
+                                            .tokenExpiresAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .tokenIssuedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .tokenUrl("token_url")
+                                            .updatedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .entityValidated(true)
+                                            .validatedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .build()
+                                    )
                                     .dateFormed(LocalDate.parse("2019-12-27"))
                                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                                     .addDoingBusinessAsName("string")
@@ -153,6 +213,27 @@ internal class LegalEntityServiceTest {
                                                     .AR_CUIL
                                             )
                                             .issuingCountry("issuing_country")
+                                            .build()
+                                    )
+                                    .addIndustryClassification(
+                                        LegalEntityIndustryClassification.builder()
+                                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                            .addClassificationCode("string")
+                                            .classificationType(
+                                                LegalEntityIndustryClassification.ClassificationType
+                                                    .ANZSIC
+                                            )
+                                            .createdAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .discardedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .liveMode(true)
+                                            .object_("object")
+                                            .updatedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
                                             .build()
                                     )
                                     .lastName("last_name")
@@ -363,6 +444,22 @@ internal class LegalEntityServiceTest {
                     )
                     .businessName("business_name")
                     .citizenshipCountry("citizenship_country")
+                    .complianceDetails(
+                        LegalEntityComplianceDetail.builder()
+                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .issuer("issuer")
+                            .liveMode(true)
+                            .object_("object")
+                            .tokenExpiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .tokenIssuedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .tokenUrl("token_url")
+                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .entityValidated(true)
+                            .validatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .addDoingBusinessAsName("string")
@@ -375,6 +472,20 @@ internal class LegalEntityServiceTest {
                                 LegalEntityUpdateParams.IdentificationCreateRequest.IdType.AR_CUIL
                             )
                             .issuingCountry("issuing_country")
+                            .build()
+                    )
+                    .addIndustryClassification(
+                        LegalEntityIndustryClassification.builder()
+                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .addClassificationCode("string")
+                            .classificationType(
+                                LegalEntityIndustryClassification.ClassificationType.ANZSIC
+                            )
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .liveMode(true)
+                            .object_("object")
+                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
                     )
                     .lastName("last_name")

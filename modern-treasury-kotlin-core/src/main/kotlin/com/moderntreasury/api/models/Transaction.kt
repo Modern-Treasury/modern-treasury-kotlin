@@ -2010,6 +2010,8 @@ private constructor(
 
             val MX = of("mx")
 
+            val PAYPAL = of("paypal")
+
             val PLAID = of("plaid")
 
             val PNC = of("pnc")
@@ -2046,6 +2048,7 @@ private constructor(
             ISO20022,
             JPMC,
             MX,
+            PAYPAL,
             PLAID,
             PNC,
             RSPEC_VENDOR,
@@ -2081,6 +2084,7 @@ private constructor(
             ISO20022,
             JPMC,
             MX,
+            PAYPAL,
             PLAID,
             PNC,
             RSPEC_VENDOR,
@@ -2120,6 +2124,7 @@ private constructor(
                 ISO20022 -> Value.ISO20022
                 JPMC -> Value.JPMC
                 MX -> Value.MX
+                PAYPAL -> Value.PAYPAL
                 PLAID -> Value.PLAID
                 PNC -> Value.PNC
                 RSPEC_VENDOR -> Value.RSPEC_VENDOR
@@ -2157,6 +2162,7 @@ private constructor(
                 ISO20022 -> Known.ISO20022
                 JPMC -> Known.JPMC
                 MX -> Known.MX
+                PAYPAL -> Known.PAYPAL
                 PLAID -> Known.PLAID
                 PNC -> Known.PNC
                 RSPEC_VENDOR -> Known.RSPEC_VENDOR

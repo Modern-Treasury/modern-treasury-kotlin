@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -49,6 +50,7 @@ internal class ReturnObjectTest {
                 .type(ReturnObject.Type.ACH)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .additionalInformation("additional_information")
+                .data(JsonValue.from(mapOf<String, Any>()))
                 .build()
 
         assertThat(returnObject.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -93,5 +95,6 @@ internal class ReturnObjectTest {
         assertThat(returnObject.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(returnObject.additionalInformation()).isEqualTo("additional_information")
+        assertThat(returnObject._data()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
     }
 }
