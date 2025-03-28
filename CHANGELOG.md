@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.0.1 (2025-03-28)
+
+Full Changelog: [v6.0.0...v6.0.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v6.0.0...v6.0.1)
+
+### Bug Fixes
+
+* **client:** don't call `validate()` during deserialization if we don't have to ([#391](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/391)) ([cb367da](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/cb367dac9d2acd748dd26e7bc4524ee019a61365))
+
+
+### Chores
+
+* **api:** updates to bulk creation request, legal entity schemas and more ([#387](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/387)) ([9430d3f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9430d3f1866e7af2358b4d0557bfdacfa6dcd4dc))
+* **internal:** remove CI condition ([#390](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/390)) ([598e53c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/598e53c9e3d4e78510c9f22beab6f7829bce789c))
+
 ## 6.0.0 (2025-03-26)
 
 Full Changelog: [v5.0.0...v6.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v5.0.0...v6.0.0)
