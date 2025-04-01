@@ -2,7 +2,9 @@
 
 package com.moderntreasury.api.models
 
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.core.jsonMapper
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -126,5 +128,70 @@ internal class ExpectedPaymentTest {
         assertThat(expectedPayment.type()).isEqualTo(ExpectedPaymentType.ACH)
         assertThat(expectedPayment.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val expectedPayment =
+            ExpectedPayment.builder()
+                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .amountLowerBound(0L)
+                .amountUpperBound(0L)
+                .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .currency(Currency.AED)
+                .dateLowerBound(LocalDate.parse("2019-12-27"))
+                .dateUpperBound(LocalDate.parse("2019-12-27"))
+                .description("description")
+                .direction(ExpectedPayment.Direction.CREDIT)
+                .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .liveMode(true)
+                .metadata(
+                    ExpectedPayment.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
+                .object_("object")
+                .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
+                .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
+                .reconciliationMethod(ExpectedPayment.ReconciliationMethod.AUTOMATIC)
+                .addReconciliationRuleVariable(
+                    ReconciliationRule.builder()
+                        .amountLowerBound(0L)
+                        .amountUpperBound(0L)
+                        .direction(ReconciliationRule.Direction.CREDIT)
+                        .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .currency(Currency.AED)
+                        .customIdentifiers(
+                            ReconciliationRule.CustomIdentifiers.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
+                        .dateLowerBound(LocalDate.parse("2019-12-27"))
+                        .dateUpperBound(LocalDate.parse("2019-12-27"))
+                        .type(ReconciliationRule.Type.ACH)
+                        .build()
+                )
+                .remittanceInformation("remittance_information")
+                .statementDescriptor("statement_descriptor")
+                .status(ExpectedPayment.Status.ARCHIVED)
+                .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .type(ExpectedPaymentType.ACH)
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .build()
+
+        val roundtrippedExpectedPayment =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(expectedPayment),
+                jacksonTypeRef<ExpectedPayment>(),
+            )
+
+        assertThat(roundtrippedExpectedPayment).isEqualTo(expectedPayment)
     }
 }

@@ -797,7 +797,7 @@ private constructor(
         amount()
         checkNumber()
         createdAt()
-        currency()
+        currency().validate()
         depositDate()
         liveMode()
         lockboxNumber()
@@ -805,12 +805,45 @@ private constructor(
         object_()
         remitterName()
         routingNumber()
-        status()
+        status().validate()
         transactionId()
         transactionLineItemId()
         updatedAt()
         validated = true
     }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: ModernTreasuryInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (if (id.asKnown() == null) 0 else 1) +
+            (if (accountNumber.asKnown() == null) 0 else 1) +
+            (if (accountNumberSafe.asKnown() == null) 0 else 1) +
+            (if (amount.asKnown() == null) 0 else 1) +
+            (if (checkNumber.asKnown() == null) 0 else 1) +
+            (if (createdAt.asKnown() == null) 0 else 1) +
+            (currency.asKnown()?.validity() ?: 0) +
+            (if (depositDate.asKnown() == null) 0 else 1) +
+            (if (liveMode.asKnown() == null) 0 else 1) +
+            (if (lockboxNumber.asKnown() == null) 0 else 1) +
+            (if (memoField.asKnown() == null) 0 else 1) +
+            (if (object_.asKnown() == null) 0 else 1) +
+            (if (remitterName.asKnown() == null) 0 else 1) +
+            (if (routingNumber.asKnown() == null) 0 else 1) +
+            (status.asKnown()?.validity() ?: 0) +
+            (if (transactionId.asKnown() == null) 0 else 1) +
+            (if (transactionLineItemId.asKnown() == null) 0 else 1) +
+            (if (updatedAt.asKnown() == null) 0 else 1)
 
     /** The current status of the paper item. One of `pending`, `completed`, or `returned`. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -903,6 +936,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Status = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {

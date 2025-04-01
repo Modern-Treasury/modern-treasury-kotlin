@@ -1088,7 +1088,7 @@ private constructor(
         asOfTime()
         asOfTimezone()
         createdAt()
-        currency()
+        currency().validate()
         customIdentifiers().validate()
         direction()
         discardedAt()
@@ -1099,16 +1099,56 @@ private constructor(
         object_()
         posted()
         reconciled()
-        type()
+        type().validate()
         updatedAt()
         vendorCode()
-        vendorCodeType()
+        vendorCodeType()?.validate()
         vendorCustomerId()
         vendorId()
         details()?.validate()
         vendorDescription()
         validated = true
     }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: ModernTreasuryInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (if (id.asKnown() == null) 0 else 1) +
+            (if (amount.asKnown() == null) 0 else 1) +
+            (if (asOfDate.asKnown() == null) 0 else 1) +
+            (if (asOfTime.asKnown() == null) 0 else 1) +
+            (if (asOfTimezone.asKnown() == null) 0 else 1) +
+            (if (createdAt.asKnown() == null) 0 else 1) +
+            (currency.asKnown()?.validity() ?: 0) +
+            (customIdentifiers.asKnown()?.validity() ?: 0) +
+            (if (direction.asKnown() == null) 0 else 1) +
+            (if (discardedAt.asKnown() == null) 0 else 1) +
+            (foreignExchangeRate.asKnown()?.validity() ?: 0) +
+            (if (internalAccountId.asKnown() == null) 0 else 1) +
+            (if (liveMode.asKnown() == null) 0 else 1) +
+            (metadata.asKnown()?.validity() ?: 0) +
+            (if (object_.asKnown() == null) 0 else 1) +
+            (if (posted.asKnown() == null) 0 else 1) +
+            (if (reconciled.asKnown() == null) 0 else 1) +
+            (type.asKnown()?.validity() ?: 0) +
+            (if (updatedAt.asKnown() == null) 0 else 1) +
+            (if (vendorCode.asKnown() == null) 0 else 1) +
+            (vendorCodeType.asKnown()?.validity() ?: 0) +
+            (if (vendorCustomerId.asKnown() == null) 0 else 1) +
+            (if (vendorId.asKnown() == null) 0 else 1) +
+            (details.asKnown()?.validity() ?: 0) +
+            (if (vendorDescription.asKnown() == null) 0 else 1)
 
     /**
      * An object containing key-value pairs, each with a custom identifier as the key and a string
@@ -1178,6 +1218,23 @@ private constructor(
 
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1574,14 +1631,37 @@ private constructor(
             }
 
             baseAmount()
-            baseCurrency()
+            baseCurrency().validate()
             exponent()
             rateString()
             targetAmount()
-            targetCurrency()
+            targetCurrency().validate()
             value()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (baseAmount.asKnown() == null) 0 else 1) +
+                (baseCurrency.asKnown()?.validity() ?: 0) +
+                (if (exponent.asKnown() == null) 0 else 1) +
+                (if (rateString.asKnown() == null) 0 else 1) +
+                (if (targetAmount.asKnown() == null) 0 else 1) +
+                (targetCurrency.asKnown()?.validity() ?: 0) +
+                (if (value.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1666,6 +1746,23 @@ private constructor(
 
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1947,6 +2044,33 @@ private constructor(
         fun asString(): String =
             _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
+        private var validated: Boolean = false
+
+        fun validate(): Type = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -2186,6 +2310,33 @@ private constructor(
         fun asString(): String =
             _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
+        private var validated: Boolean = false
+
+        fun validate(): VendorCodeType = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -2271,6 +2422,23 @@ private constructor(
 
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {

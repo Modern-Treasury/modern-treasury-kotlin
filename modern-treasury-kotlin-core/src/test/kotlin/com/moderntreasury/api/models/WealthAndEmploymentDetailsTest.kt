@@ -2,6 +2,8 @@
 
 package com.moderntreasury.api.models
 
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.moderntreasury.api.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -60,5 +62,39 @@ internal class WealthAndEmploymentDetailsTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(wealthAndEmploymentDetails.wealthSource())
             .isEqualTo(WealthAndEmploymentDetails.WealthSource.BUSINESS_SALE)
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val wealthAndEmploymentDetails =
+            WealthAndEmploymentDetails.builder()
+                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .annualIncome(0L)
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .employerCountry("employer_country")
+                .employerName("employer_name")
+                .employerState("employer_state")
+                .employmentStatus(WealthAndEmploymentDetails.EmploymentStatus.EMPLOYED)
+                .incomeCountry("income_country")
+                .incomeSource(WealthAndEmploymentDetails.IncomeSource.FAMILY_SUPPORT)
+                .incomeState("income_state")
+                .industry(WealthAndEmploymentDetails.Industry.ACCOUNTING)
+                .liveMode(true)
+                .object_("object")
+                .occupation(WealthAndEmploymentDetails.Occupation.CONSULTING)
+                .sourceOfFunds(WealthAndEmploymentDetails.SourceOfFunds.ALIMONY)
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .wealthSource(WealthAndEmploymentDetails.WealthSource.BUSINESS_SALE)
+                .build()
+
+        val roundtrippedWealthAndEmploymentDetails =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(wealthAndEmploymentDetails),
+                jacksonTypeRef<WealthAndEmploymentDetails>(),
+            )
+
+        assertThat(roundtrippedWealthAndEmploymentDetails).isEqualTo(wealthAndEmploymentDetails)
     }
 }

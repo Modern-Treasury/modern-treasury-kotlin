@@ -566,6 +566,33 @@ private constructor(
         validated = true
     }
 
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: ModernTreasuryInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (if (id.asKnown() == null) 0 else 1) +
+            (if (createdAt.asKnown() == null) 0 else 1) +
+            (if (discardedAt.asKnown() == null) 0 else 1) +
+            (if (issuer.asKnown() == null) 0 else 1) +
+            (if (liveMode.asKnown() == null) 0 else 1) +
+            (if (object_.asKnown() == null) 0 else 1) +
+            (if (tokenExpiresAt.asKnown() == null) 0 else 1) +
+            (if (tokenIssuedAt.asKnown() == null) 0 else 1) +
+            (if (tokenUrl.asKnown() == null) 0 else 1) +
+            (if (updatedAt.asKnown() == null) 0 else 1) +
+            (if (entityValidated.asKnown() == null) 0 else 1) +
+            (if (validatedAt.asKnown() == null) 0 else 1)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true

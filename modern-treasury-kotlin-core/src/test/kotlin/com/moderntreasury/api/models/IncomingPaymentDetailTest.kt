@@ -2,7 +2,9 @@
 
 package com.moderntreasury.api.models
 
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.core.jsonMapper
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -236,5 +238,125 @@ internal class IncomingPaymentDetailTest {
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(incomingPaymentDetail.originatingAccountNumber())
             .isEqualTo("originating_account_number")
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val incomingPaymentDetail =
+            IncomingPaymentDetail.builder()
+                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .amount(0L)
+                .asOfDate(LocalDate.parse("2019-12-27"))
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .currency(Currency.AED)
+                .data(
+                    IncomingPaymentDetail.Data.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
+                .direction(TransactionDirection.CREDIT)
+                .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .liveMode(true)
+                .metadata(
+                    IncomingPaymentDetail.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
+                .object_("object")
+                .originatingAccountNumberSafe("originating_account_number_safe")
+                .originatingAccountNumberType(
+                    IncomingPaymentDetail.OriginatingAccountNumberType.AU_NUMBER
+                )
+                .originatingRoutingNumber("originating_routing_number")
+                .originatingRoutingNumberType(
+                    IncomingPaymentDetail.OriginatingRoutingNumberType.ABA
+                )
+                .status(IncomingPaymentDetail.Status.COMPLETED)
+                .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .type(IncomingPaymentDetail.Type.ACH)
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .vendorId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .virtualAccount(
+                    VirtualAccount.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .addAccountDetail(
+                            AccountDetail.builder()
+                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .accountNumberSafe("account_number_safe")
+                                .accountNumberType(AccountDetail.AccountNumberType.AU_NUMBER)
+                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .liveMode(true)
+                                .object_("object")
+                                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .accountNumber("account_number")
+                                .build()
+                        )
+                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .creditLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .description("description")
+                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .liveMode(true)
+                        .metadata(
+                            VirtualAccount.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .name("name")
+                        .object_("object")
+                        .addRoutingDetail(
+                            RoutingDetail.builder()
+                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .bankAddress(
+                                    RoutingDetail.Address.builder()
+                                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                        .country("country")
+                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .line1("line1")
+                                        .line2("line2")
+                                        .liveMode(true)
+                                        .locality("locality")
+                                        .object_("object")
+                                        .postalCode("postal_code")
+                                        .region("region")
+                                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .build()
+                                )
+                                .bankName("bank_name")
+                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .liveMode(true)
+                                .object_("object")
+                                .paymentType(RoutingDetail.PaymentType.ACH)
+                                .routingNumber("routing_number")
+                                .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
+                                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
+                .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .originatingAccountNumber("originating_account_number")
+                .build()
+
+        val roundtrippedIncomingPaymentDetail =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(incomingPaymentDetail),
+                jacksonTypeRef<IncomingPaymentDetail>(),
+            )
+
+        assertThat(roundtrippedIncomingPaymentDetail).isEqualTo(incomingPaymentDetail)
     }
 }
