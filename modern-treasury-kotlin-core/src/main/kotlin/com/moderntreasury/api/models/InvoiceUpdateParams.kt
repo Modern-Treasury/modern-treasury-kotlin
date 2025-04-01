@@ -2326,7 +2326,7 @@ private constructor(
             counterpartyBillingAddress()?.validate()
             counterpartyId()
             counterpartyShippingAddress()?.validate()
-            currency()
+            currency()?.validate()
             description()
             dueDate()
             fallbackPaymentMethod()
@@ -2339,8 +2339,8 @@ private constructor(
             notificationsEnabled()
             originatingAccountId()
             paymentEffectiveDate()
-            paymentMethod()
-            paymentType()
+            paymentMethod()?.validate()
+            paymentType()?.validate()
             receivingAccountId()
             recipientEmail()
             recipientName()
@@ -2349,6 +2349,47 @@ private constructor(
             virtualAccountId()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (contactDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                (counterpartyBillingAddress.asKnown()?.validity() ?: 0) +
+                (if (counterpartyId.asKnown() == null) 0 else 1) +
+                (counterpartyShippingAddress.asKnown()?.validity() ?: 0) +
+                (currency.asKnown()?.validity() ?: 0) +
+                (if (description.asKnown() == null) 0 else 1) +
+                (if (dueDate.asKnown() == null) 0 else 1) +
+                (if (fallbackPaymentMethod.asKnown() == null) 0 else 1) +
+                (if (ingestLedgerEntries.asKnown() == null) 0 else 1) +
+                (invoiceLineItems.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                (invoicerAddress.asKnown()?.validity() ?: 0) +
+                (if (ledgerAccountSettlementId.asKnown() == null) 0 else 1) +
+                (metadata.asKnown()?.validity() ?: 0) +
+                (notificationEmailAddresses.asKnown()?.size ?: 0) +
+                (if (notificationsEnabled.asKnown() == null) 0 else 1) +
+                (if (originatingAccountId.asKnown() == null) 0 else 1) +
+                (if (paymentEffectiveDate.asKnown() == null) 0 else 1) +
+                (paymentMethod.asKnown()?.validity() ?: 0) +
+                (paymentType.asKnown()?.validity() ?: 0) +
+                (if (receivingAccountId.asKnown() == null) 0 else 1) +
+                (if (recipientEmail.asKnown() == null) 0 else 1) +
+                (if (recipientName.asKnown() == null) 0 else 1) +
+                (remindAfterOverdueDays.asKnown()?.size ?: 0) +
+                (if (status.asKnown() == null) 0 else 1) +
+                (if (virtualAccountId.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -2759,7 +2800,7 @@ private constructor(
 
             id()
             contactIdentifier()
-            contactIdentifierType()
+            contactIdentifierType().validate()
             createdAt()
             discardedAt()
             liveMode()
@@ -2767,6 +2808,30 @@ private constructor(
             updatedAt()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (id.asKnown() == null) 0 else 1) +
+                (if (contactIdentifier.asKnown() == null) 0 else 1) +
+                (contactIdentifierType.asKnown()?.validity() ?: 0) +
+                (if (createdAt.asKnown() == null) 0 else 1) +
+                (if (discardedAt.asKnown() == null) 0 else 1) +
+                (if (liveMode.asKnown() == null) 0 else 1) +
+                (if (object_.asKnown() == null) 0 else 1) +
+                (if (updatedAt.asKnown() == null) 0 else 1)
 
         class ContactIdentifierType
         @JsonCreator
@@ -2869,6 +2934,33 @@ private constructor(
             fun asString(): String =
                 _value().asString()
                     ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): ContactIdentifierType = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: ModernTreasuryInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -3200,6 +3292,28 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (country.asKnown() == null) 0 else 1) +
+                (if (line1.asKnown() == null) 0 else 1) +
+                (if (locality.asKnown() == null) 0 else 1) +
+                (if (postalCode.asKnown() == null) 0 else 1) +
+                (if (region.asKnown() == null) 0 else 1) +
+                (if (line2.asKnown() == null) 0 else 1)
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -3516,6 +3630,28 @@ private constructor(
             line2()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (country.asKnown() == null) 0 else 1) +
+                (if (line1.asKnown() == null) 0 else 1) +
+                (if (locality.asKnown() == null) 0 else 1) +
+                (if (postalCode.asKnown() == null) 0 else 1) +
+                (if (region.asKnown() == null) 0 else 1) +
+                (if (line2.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -3910,6 +4046,29 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (name.asKnown() == null) 0 else 1) +
+                (if (unitAmount.asKnown() == null) 0 else 1) +
+                (if (description.asKnown() == null) 0 else 1) +
+                (if (direction.asKnown() == null) 0 else 1) +
+                (metadata.asKnown()?.validity() ?: 0) +
+                (if (quantity.asKnown() == null) 0 else 1) +
+                (if (unitAmountDecimal.asKnown() == null) 0 else 1)
+
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          */
@@ -3980,6 +4139,23 @@ private constructor(
 
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: ModernTreasuryInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -4313,6 +4489,28 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (country.asKnown() == null) 0 else 1) +
+                (if (line1.asKnown() == null) 0 else 1) +
+                (if (locality.asKnown() == null) 0 else 1) +
+                (if (postalCode.asKnown() == null) 0 else 1) +
+                (if (region.asKnown() == null) 0 else 1) +
+                (if (line2.asKnown() == null) 0 else 1)
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -4396,6 +4594,23 @@ private constructor(
 
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -4515,6 +4730,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): PaymentMethod = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {

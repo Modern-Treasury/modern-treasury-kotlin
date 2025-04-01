@@ -177,6 +177,22 @@ private constructor(
         validated = true
     }
 
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: ModernTreasuryInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (query.asKnown()?.validity() ?: 0) + (if (type.asKnown() == null) 0 else 1)
+
     @Deprecated("deprecated")
     class LedgerEventHandlerConditions
     private constructor(
@@ -374,6 +390,25 @@ private constructor(
             value()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (field.asKnown() == null) 0 else 1) +
+                (if (operator.asKnown() == null) 0 else 1) +
+                (if (value.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {

@@ -729,13 +729,35 @@ private constructor(
             }
 
             internalAccountId()
-            targetCurrency()
+            targetCurrency().validate()
             baseAmount()
-            baseCurrency()
+            baseCurrency()?.validate()
             effectiveAt()
             targetAmount()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (internalAccountId.asKnown() == null) 0 else 1) +
+                (targetCurrency.asKnown()?.validity() ?: 0) +
+                (if (baseAmount.asKnown() == null) 0 else 1) +
+                (baseCurrency.asKnown()?.validity() ?: 0) +
+                (if (effectiveAt.asKnown() == null) 0 else 1) +
+                (if (targetAmount.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {

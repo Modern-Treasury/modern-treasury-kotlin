@@ -2,6 +2,8 @@
 
 package com.moderntreasury.api.models
 
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.moderntreasury.api.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -68,5 +70,46 @@ internal class RoutingDetailTest {
         assertThat(routingDetail.routingNumberType()).isEqualTo(RoutingDetail.RoutingNumberType.ABA)
         assertThat(routingDetail.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val routingDetail =
+            RoutingDetail.builder()
+                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .bankAddress(
+                    RoutingDetail.Address.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .country("country")
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .line1("line1")
+                        .line2("line2")
+                        .liveMode(true)
+                        .locality("locality")
+                        .object_("object")
+                        .postalCode("postal_code")
+                        .region("region")
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
+                .bankName("bank_name")
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .liveMode(true)
+                .object_("object")
+                .paymentType(RoutingDetail.PaymentType.ACH)
+                .routingNumber("routing_number")
+                .routingNumberType(RoutingDetail.RoutingNumberType.ABA)
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .build()
+
+        val roundtrippedRoutingDetail =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(routingDetail),
+                jacksonTypeRef<RoutingDetail>(),
+            )
+
+        assertThat(roundtrippedRoutingDetail).isEqualTo(routingDetail)
     }
 }
