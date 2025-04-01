@@ -2,7 +2,9 @@
 
 package com.moderntreasury.api.models
 
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.core.jsonMapper
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -187,5 +189,101 @@ internal class LedgerTransactionTest {
         assertThat(ledgerTransaction.status()).isEqualTo(LedgerTransaction.Status.ARCHIVED)
         assertThat(ledgerTransaction.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val ledgerTransaction =
+            LedgerTransaction.builder()
+                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .description("description")
+                .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .effectiveDate(LocalDate.parse("2019-12-27"))
+                .externalId("external_id")
+                .addLedgerEntry(
+                    LedgerEntry.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .amount(0L)
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .direction(TransactionDirection.CREDIT)
+                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .ledgerAccountCurrency("ledger_account_currency")
+                        .ledgerAccountCurrencyExponent(0L)
+                        .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .ledgerAccountLockVersion(0L)
+                        .ledgerTransactionId("ledger_transaction_id")
+                        .liveMode(true)
+                        .metadata(
+                            LedgerEntry.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .object_("object")
+                        .resultingLedgerAccountBalances(
+                            LedgerEntry.LedgerBalances.builder()
+                                .availableBalance(
+                                    LedgerEntry.LedgerBalances.LedgerBalance.builder()
+                                        .amount(0L)
+                                        .credits(0L)
+                                        .currency("currency")
+                                        .currencyExponent(0L)
+                                        .debits(0L)
+                                        .build()
+                                )
+                                .pendingBalance(
+                                    LedgerEntry.LedgerBalances.LedgerBalance.builder()
+                                        .amount(0L)
+                                        .credits(0L)
+                                        .currency("currency")
+                                        .currencyExponent(0L)
+                                        .debits(0L)
+                                        .build()
+                                )
+                                .postedBalance(
+                                    LedgerEntry.LedgerBalances.LedgerBalance.builder()
+                                        .amount(0L)
+                                        .credits(0L)
+                                        .currency("currency")
+                                        .currencyExponent(0L)
+                                        .debits(0L)
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .status(LedgerEntry.Status.ARCHIVED)
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
+                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .ledgerableType(LedgerTransaction.LedgerableType.EXPECTED_PAYMENT)
+                .liveMode(true)
+                .metadata(
+                    LedgerTransaction.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
+                .object_("object")
+                .partiallyPostsLedgerTransactionId("partially_posts_ledger_transaction_id")
+                .postedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .reversedByLedgerTransactionId("reversed_by_ledger_transaction_id")
+                .reversesLedgerTransactionId("reverses_ledger_transaction_id")
+                .status(LedgerTransaction.Status.ARCHIVED)
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .build()
+
+        val roundtrippedLedgerTransaction =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(ledgerTransaction),
+                jacksonTypeRef<LedgerTransaction>(),
+            )
+
+        assertThat(roundtrippedLedgerTransaction).isEqualTo(ledgerTransaction)
     }
 }

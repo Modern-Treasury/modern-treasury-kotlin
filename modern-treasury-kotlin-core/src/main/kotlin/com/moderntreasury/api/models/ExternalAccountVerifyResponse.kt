@@ -20,6 +20,7 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.core.allMaxBy
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.getOrThrow
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -51,13 +52,12 @@ private constructor(
 
     fun _json(): JsonValue? = _json
 
-    fun <T> accept(visitor: Visitor<T>): T {
-        return when {
+    fun <T> accept(visitor: Visitor<T>): T =
+        when {
             externalAccount != null -> visitor.visitExternalAccount(externalAccount)
             verificationAttempt != null -> visitor.visitVerificationAttempt(verificationAttempt)
             else -> visitor.unknown(_json)
         }
-    }
 
     private var validated: Boolean = false
 
@@ -81,6 +81,33 @@ private constructor(
         )
         validated = true
     }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: ModernTreasuryInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        accept(
+            object : Visitor<Int> {
+                override fun visitExternalAccount(externalAccount: ExternalAccount) =
+                    externalAccount.validity()
+
+                override fun visitVerificationAttempt(
+                    verificationAttempt: ExternalAccountVerificationAttempt
+                ) = verificationAttempt.validity()
+
+                override fun unknown(json: JsonValue?) = 0
+            }
+        )
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -142,18 +169,31 @@ private constructor(
         override fun ObjectCodec.deserialize(node: JsonNode): ExternalAccountVerifyResponse {
             val json = JsonValue.fromJsonNode(node)
 
-            tryDeserialize(node, jacksonTypeRef<ExternalAccount>()) { it.validate() }
-                ?.let {
-                    return ExternalAccountVerifyResponse(externalAccount = it, _json = json)
-                }
-            tryDeserialize(node, jacksonTypeRef<ExternalAccountVerificationAttempt>()) {
-                    it.validate()
-                }
-                ?.let {
-                    return ExternalAccountVerifyResponse(verificationAttempt = it, _json = json)
-                }
-
-            return ExternalAccountVerifyResponse(_json = json)
+            val bestMatches =
+                sequenceOf(
+                        tryDeserialize(node, jacksonTypeRef<ExternalAccount>())?.let {
+                            ExternalAccountVerifyResponse(externalAccount = it, _json = json)
+                        },
+                        tryDeserialize(node, jacksonTypeRef<ExternalAccountVerificationAttempt>())
+                            ?.let {
+                                ExternalAccountVerifyResponse(
+                                    verificationAttempt = it,
+                                    _json = json,
+                                )
+                            },
+                    )
+                    .filterNotNull()
+                    .allMaxBy { it.validity() }
+                    .toList()
+            return when (bestMatches.size) {
+                // This can happen if what we're deserializing is completely incompatible with all
+                // the possible variants (e.g. deserializing from boolean).
+                0 -> ExternalAccountVerifyResponse(_json = json)
+                1 -> bestMatches.single()
+                // If there's more than one match with the highest validity, then use the first
+                // completely valid match, or simply the first match if none are completely valid.
+                else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+            }
         }
     }
 
@@ -659,12 +699,38 @@ private constructor(
             liveMode()
             object_()
             originatingAccountId()
-            paymentType()
-            priority()
-            status()
+            paymentType().validate()
+            priority()?.validate()
+            status().validate()
             updatedAt()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (id.asKnown() == null) 0 else 1) +
+                (if (createdAt.asKnown() == null) 0 else 1) +
+                (if (externalAccountId.asKnown() == null) 0 else 1) +
+                (if (liveMode.asKnown() == null) 0 else 1) +
+                (if (object_.asKnown() == null) 0 else 1) +
+                (if (originatingAccountId.asKnown() == null) 0 else 1) +
+                (paymentType.asKnown()?.validity() ?: 0) +
+                (priority.asKnown()?.validity() ?: 0) +
+                (status.asKnown()?.validity() ?: 0) +
+                (if (updatedAt.asKnown() == null) 0 else 1)
 
         /** The type of payment that can be made to this account. Can be `ach`, `eft`, or `rtp`. */
         class PaymentType @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -925,6 +991,33 @@ private constructor(
                 _value().asString()
                     ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
+            private var validated: Boolean = false
+
+            fun validate(): PaymentType = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: ModernTreasuryInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
@@ -1027,6 +1120,33 @@ private constructor(
             fun asString(): String =
                 _value().asString()
                     ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): Priority = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: ModernTreasuryInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -1144,6 +1264,33 @@ private constructor(
             fun asString(): String =
                 _value().asString()
                     ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): Status = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: ModernTreasuryInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {

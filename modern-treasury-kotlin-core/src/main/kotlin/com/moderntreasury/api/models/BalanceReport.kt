@@ -496,7 +496,7 @@ private constructor(
         id()
         asOfDate()
         asOfTime()
-        balanceReportType()
+        balanceReportType().validate()
         balances().forEach { it.validate() }
         createdAt()
         internalAccountId()
@@ -505,6 +505,31 @@ private constructor(
         updatedAt()
         validated = true
     }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: ModernTreasuryInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (if (id.asKnown() == null) 0 else 1) +
+            (if (asOfDate.asKnown() == null) 0 else 1) +
+            (if (asOfTime.asKnown() == null) 0 else 1) +
+            (balanceReportType.asKnown()?.validity() ?: 0) +
+            (balances.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+            (if (createdAt.asKnown() == null) 0 else 1) +
+            (if (internalAccountId.asKnown() == null) 0 else 1) +
+            (if (liveMode.asKnown() == null) 0 else 1) +
+            (if (object_.asKnown() == null) 0 else 1) +
+            (if (updatedAt.asKnown() == null) 0 else 1)
 
     /**
      * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
@@ -611,6 +636,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): BalanceReportType = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1218,9 +1270,9 @@ private constructor(
             amount()
             asOfDate()
             asOfTime()
-            balanceType()
+            balanceType().validate()
             createdAt()
-            currency()
+            currency().validate()
             liveMode()
             object_()
             updatedAt()
@@ -1229,6 +1281,35 @@ private constructor(
             vendorCodeType()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (id.asKnown() == null) 0 else 1) +
+                (if (amount.asKnown() == null) 0 else 1) +
+                (if (asOfDate.asKnown() == null) 0 else 1) +
+                (if (asOfTime.asKnown() == null) 0 else 1) +
+                (balanceType.asKnown()?.validity() ?: 0) +
+                (if (createdAt.asKnown() == null) 0 else 1) +
+                (currency.asKnown()?.validity() ?: 0) +
+                (if (liveMode.asKnown() == null) 0 else 1) +
+                (if (object_.asKnown() == null) 0 else 1) +
+                (if (updatedAt.asKnown() == null) 0 else 1) +
+                (if (valueDate.asKnown() == null) 0 else 1) +
+                (if (vendorCode.asKnown() == null) 0 else 1) +
+                (if (vendorCodeType.asKnown() == null) 0 else 1)
 
         /**
          * The specific type of balance reported. One of `opening_ledger`, `closing_ledger`,
@@ -1366,6 +1447,33 @@ private constructor(
             fun asString(): String =
                 _value().asString()
                     ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): BalanceType = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: ModernTreasuryInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {

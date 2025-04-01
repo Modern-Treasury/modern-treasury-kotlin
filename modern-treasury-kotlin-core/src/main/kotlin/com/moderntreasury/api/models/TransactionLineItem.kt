@@ -712,12 +712,42 @@ private constructor(
         object_()
         reconcilable()
         transactableId()
-        transactableType()
+        transactableType()?.validate()
         transactionId()
-        type()
+        type().validate()
         updatedAt()
         validated = true
     }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: ModernTreasuryInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (if (id.asKnown() == null) 0 else 1) +
+            (if (amount.asKnown() == null) 0 else 1) +
+            (if (counterpartyId.asKnown() == null) 0 else 1) +
+            (if (createdAt.asKnown() == null) 0 else 1) +
+            (if (description.asKnown() == null) 0 else 1) +
+            (if (discardedAt.asKnown() == null) 0 else 1) +
+            (if (expectedPaymentId.asKnown() == null) 0 else 1) +
+            (if (liveMode.asKnown() == null) 0 else 1) +
+            (if (object_.asKnown() == null) 0 else 1) +
+            (if (reconcilable.asKnown() == null) 0 else 1) +
+            (if (transactableId.asKnown() == null) 0 else 1) +
+            (transactableType.asKnown()?.validity() ?: 0) +
+            (if (transactionId.asKnown() == null) 0 else 1) +
+            (type.asKnown()?.validity() ?: 0) +
+            (if (updatedAt.asKnown() == null) 0 else 1)
 
     /**
      * If a matching object exists in Modern Treasury, the type will be populated here, otherwise
@@ -836,6 +866,33 @@ private constructor(
         fun asString(): String =
             _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
+        private var validated: Boolean = false
+
+        fun validate(): TransactableType = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -937,6 +994,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Type = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {

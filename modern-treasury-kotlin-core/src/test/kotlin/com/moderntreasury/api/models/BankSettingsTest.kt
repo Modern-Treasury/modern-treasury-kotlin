@@ -2,6 +2,8 @@
 
 package com.moderntreasury.api.models
 
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.moderntreasury.api.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -37,5 +39,31 @@ internal class BankSettingsTest {
         assertThat(bankSettings.regulationO()).isEqualTo(true)
         assertThat(bankSettings.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val bankSettings =
+            BankSettings.builder()
+                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .backupWithholdingPercentage(0L)
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .enableBackupWithholding(true)
+                .liveMode(true)
+                .object_("object")
+                .privacyOptOut(true)
+                .regulationO(true)
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .build()
+
+        val roundtrippedBankSettings =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(bankSettings),
+                jacksonTypeRef<BankSettings>(),
+            )
+
+        assertThat(roundtrippedBankSettings).isEqualTo(bankSettings)
     }
 }
