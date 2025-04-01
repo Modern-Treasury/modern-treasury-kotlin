@@ -924,7 +924,7 @@ private constructor(
             }
 
             connectionId()
-            currency()
+            currency().validate()
             name()
             partyName()
             counterpartyId()
@@ -934,6 +934,31 @@ private constructor(
             vendorAttributes()?.validate()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (connectionId.asKnown() == null) 0 else 1) +
+                (currency.asKnown()?.validity() ?: 0) +
+                (if (name.asKnown() == null) 0 else 1) +
+                (if (partyName.asKnown() == null) 0 else 1) +
+                (if (counterpartyId.asKnown() == null) 0 else 1) +
+                (if (legalEntityId.asKnown() == null) 0 else 1) +
+                (if (parentAccountId.asKnown() == null) 0 else 1) +
+                (partyAddress.asKnown()?.validity() ?: 0) +
+                (vendorAttributes.asKnown()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1038,6 +1063,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Currency = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1349,6 +1401,28 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (country.asKnown() == null) 0 else 1) +
+                (if (line1.asKnown() == null) 0 else 1) +
+                (if (locality.asKnown() == null) 0 else 1) +
+                (if (postalCode.asKnown() == null) 0 else 1) +
+                (if (region.asKnown() == null) 0 else 1) +
+                (if (line2.asKnown() == null) 0 else 1)
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -1435,6 +1509,23 @@ private constructor(
 
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {

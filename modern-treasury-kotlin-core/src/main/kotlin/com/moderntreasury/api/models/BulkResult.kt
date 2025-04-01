@@ -20,6 +20,7 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.core.allMaxBy
 import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.getOrThrow
@@ -590,16 +591,43 @@ private constructor(
         createdAt()
         entity().validate()
         entityId()
-        entityType()
+        entityType().validate()
         liveMode()
         object_()
         requestId()
         requestParams()?.validate()
-        requestType()
-        status()
+        requestType().validate()
+        status().validate()
         updatedAt()
         validated = true
     }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: ModernTreasuryInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (if (id.asKnown() == null) 0 else 1) +
+            (if (createdAt.asKnown() == null) 0 else 1) +
+            (entity.asKnown()?.validity() ?: 0) +
+            (if (entityId.asKnown() == null) 0 else 1) +
+            (entityType.asKnown()?.validity() ?: 0) +
+            (if (liveMode.asKnown() == null) 0 else 1) +
+            (if (object_.asKnown() == null) 0 else 1) +
+            (if (requestId.asKnown() == null) 0 else 1) +
+            (requestParams.asKnown()?.validity() ?: 0) +
+            (requestType.asKnown()?.validity() ?: 0) +
+            (status.asKnown()?.validity() ?: 0) +
+            (if (updatedAt.asKnown() == null) 0 else 1)
 
     /**
      * An object with type as indicated by `entity_type`. This is the result object that is
@@ -650,8 +678,8 @@ private constructor(
 
         fun _json(): JsonValue? = _json
 
-        fun <T> accept(visitor: Visitor<T>): T {
-            return when {
+        fun <T> accept(visitor: Visitor<T>): T =
+            when {
                 paymentOrder != null -> visitor.visitPaymentOrder(paymentOrder)
                 expectedPayment != null -> visitor.visitExpectedPayment(expectedPayment)
                 ledgerTransaction != null -> visitor.visitLedgerTransaction(ledgerTransaction)
@@ -659,7 +687,6 @@ private constructor(
                 bulkError != null -> visitor.visitBulkError(bulkError)
                 else -> visitor.unknown(_json)
             }
-        }
 
         private var validated: Boolean = false
 
@@ -693,6 +720,40 @@ private constructor(
             )
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            accept(
+                object : Visitor<Int> {
+                    override fun visitPaymentOrder(paymentOrder: PaymentOrder) =
+                        paymentOrder.validity()
+
+                    override fun visitExpectedPayment(expectedPayment: ExpectedPayment) =
+                        expectedPayment.validity()
+
+                    override fun visitLedgerTransaction(ledgerTransaction: LedgerTransaction) =
+                        ledgerTransaction.validity()
+
+                    override fun visitTransaction(transaction: Transaction) = transaction.validity()
+
+                    override fun visitBulkError(bulkError: BulkError) = bulkError.validity()
+
+                    override fun unknown(json: JsonValue?) = 0
+                }
+            )
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -763,28 +824,37 @@ private constructor(
             override fun ObjectCodec.deserialize(node: JsonNode): Entity {
                 val json = JsonValue.fromJsonNode(node)
 
-                tryDeserialize(node, jacksonTypeRef<PaymentOrder>()) { it.validate() }
-                    ?.let {
-                        return Entity(paymentOrder = it, _json = json)
-                    }
-                tryDeserialize(node, jacksonTypeRef<ExpectedPayment>()) { it.validate() }
-                    ?.let {
-                        return Entity(expectedPayment = it, _json = json)
-                    }
-                tryDeserialize(node, jacksonTypeRef<LedgerTransaction>()) { it.validate() }
-                    ?.let {
-                        return Entity(ledgerTransaction = it, _json = json)
-                    }
-                tryDeserialize(node, jacksonTypeRef<Transaction>()) { it.validate() }
-                    ?.let {
-                        return Entity(transaction = it, _json = json)
-                    }
-                tryDeserialize(node, jacksonTypeRef<BulkError>()) { it.validate() }
-                    ?.let {
-                        return Entity(bulkError = it, _json = json)
-                    }
-
-                return Entity(_json = json)
+                val bestMatches =
+                    sequenceOf(
+                            tryDeserialize(node, jacksonTypeRef<PaymentOrder>())?.let {
+                                Entity(paymentOrder = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<ExpectedPayment>())?.let {
+                                Entity(expectedPayment = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<LedgerTransaction>())?.let {
+                                Entity(ledgerTransaction = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<Transaction>())?.let {
+                                Entity(transaction = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<BulkError>())?.let {
+                                Entity(bulkError = it, _json = json)
+                            },
+                        )
+                        .filterNotNull()
+                        .allMaxBy { it.validity() }
+                        .toList()
+                return when (bestMatches.size) {
+                    // This can happen if what we're deserializing is completely incompatible with
+                    // all the possible variants (e.g. deserializing from boolean).
+                    0 -> Entity(_json = json)
+                    1 -> bestMatches.single()
+                    // If there's more than one match with the highest validity, then use the first
+                    // completely valid match, or simply the first match if none are completely
+                    // valid.
+                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                }
             }
         }
 
@@ -1145,6 +1215,28 @@ private constructor(
                 validated = true
             }
 
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: ModernTreasuryInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (id.asKnown() == null) 0 else 1) +
+                    (if (createdAt.asKnown() == null) 0 else 1) +
+                    (if (liveMode.asKnown() == null) 0 else 1) +
+                    (if (object_.asKnown() == null) 0 else 1) +
+                    (requestErrors.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                    (if (updatedAt.asKnown() == null) 0 else 1)
+
             class RequestError
             private constructor(
                 private val code: JsonField<String>,
@@ -1322,6 +1414,25 @@ private constructor(
                     validated = true
                 }
 
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: ModernTreasuryInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (code.asKnown() == null) 0 else 1) +
+                        (if (message.asKnown() == null) 0 else 1) +
+                        (if (parameter.asKnown() == null) 0 else 1)
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -1480,6 +1591,33 @@ private constructor(
         fun asString(): String =
             _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
+        private var validated: Boolean = false
+
+        fun validate(): EntityType = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -1561,6 +1699,23 @@ private constructor(
 
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1664,6 +1819,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): RequestType = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1769,6 +1951,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Status = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {

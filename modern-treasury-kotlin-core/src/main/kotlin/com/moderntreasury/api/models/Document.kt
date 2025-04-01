@@ -571,7 +571,7 @@ private constructor(
         documentDetails().forEach { it.validate() }
         documentType()
         documentableId()
-        documentableType()
+        documentableType().validate()
         file().validate()
         liveMode()
         object_()
@@ -579,6 +579,33 @@ private constructor(
         updatedAt()
         validated = true
     }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: ModernTreasuryInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (if (id.asKnown() == null) 0 else 1) +
+            (if (createdAt.asKnown() == null) 0 else 1) +
+            (if (discardedAt.asKnown() == null) 0 else 1) +
+            (documentDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+            (if (documentType.asKnown() == null) 0 else 1) +
+            (if (documentableId.asKnown() == null) 0 else 1) +
+            (documentableType.asKnown()?.validity() ?: 0) +
+            (file.asKnown()?.validity() ?: 0) +
+            (if (liveMode.asKnown() == null) 0 else 1) +
+            (if (object_.asKnown() == null) 0 else 1) +
+            (if (source.asKnown() == null) 0 else 1) +
+            (if (updatedAt.asKnown() == null) 0 else 1)
 
     class DocumentDetail
     private constructor(
@@ -979,6 +1006,30 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (id.asKnown() == null) 0 else 1) +
+                (if (createdAt.asKnown() == null) 0 else 1) +
+                (if (discardedAt.asKnown() == null) 0 else 1) +
+                (if (documentIdentifier.asKnown() == null) 0 else 1) +
+                (if (documentIdentifierType.asKnown() == null) 0 else 1) +
+                (if (liveMode.asKnown() == null) 0 else 1) +
+                (if (object_.asKnown() == null) 0 else 1) +
+                (if (updatedAt.asKnown() == null) 0 else 1)
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -1150,6 +1201,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): DocumentableType = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1341,6 +1419,25 @@ private constructor(
             size()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (contentType.asKnown() == null) 0 else 1) +
+                (if (filename.asKnown() == null) 0 else 1) +
+                (if (size.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {

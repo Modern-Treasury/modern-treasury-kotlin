@@ -10,6 +10,7 @@ import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.moderntreasury.api.services.blocking.internalAccounts.BalanceReportService
 import java.util.Collections
 import java.util.Objects
@@ -110,6 +111,14 @@ private constructor(
             items().map { it.validate() }
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
 
         fun toBuilder() = Builder().from(this)
 

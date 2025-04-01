@@ -2,7 +2,9 @@
 
 package com.moderntreasury.api.models
 
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -50,5 +52,38 @@ internal class ReversalTest {
         assertThat(reversal.status()).isEqualTo(Reversal.Status.COMPLETED)
         assertThat(reversal.transactionIds()).containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(reversal.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val reversal =
+            Reversal.builder()
+                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .liveMode(true)
+                .metadata(
+                    Reversal.Metadata.builder()
+                        .putAdditionalProperty("key", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                        .build()
+                )
+                .object_("object")
+                .paymentOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .reason(Reversal.Reason.DUPLICATE)
+                .status(Reversal.Status.COMPLETED)
+                .addTransactionId(JsonValue.from(mapOf<String, Any>()))
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .build()
+
+        val roundtrippedReversal =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(reversal),
+                jacksonTypeRef<Reversal>(),
+            )
+
+        assertThat(roundtrippedReversal).isEqualTo(reversal)
     }
 }

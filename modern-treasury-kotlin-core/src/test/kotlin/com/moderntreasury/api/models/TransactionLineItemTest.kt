@@ -2,6 +2,8 @@
 
 package com.moderntreasury.api.models
 
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.moderntreasury.api.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -48,5 +50,36 @@ internal class TransactionLineItemTest {
         assertThat(transactionLineItem.type()).isEqualTo(TransactionLineItem.Type.ORIGINATING)
         assertThat(transactionLineItem.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val transactionLineItem =
+            TransactionLineItem.builder()
+                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .amount(0L)
+                .counterpartyId("counterparty_id")
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .description("description")
+                .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .expectedPaymentId("expected_payment_id")
+                .liveMode(true)
+                .object_("object")
+                .reconcilable(true)
+                .transactableId("transactable_id")
+                .transactableType(TransactionLineItem.TransactableType.INCOMING_PAYMENT_DETAIL)
+                .transactionId("transaction_id")
+                .type(TransactionLineItem.Type.ORIGINATING)
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .build()
+
+        val roundtrippedTransactionLineItem =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(transactionLineItem),
+                jacksonTypeRef<TransactionLineItem>(),
+            )
+
+        assertThat(roundtrippedTransactionLineItem).isEqualTo(transactionLineItem)
     }
 }
