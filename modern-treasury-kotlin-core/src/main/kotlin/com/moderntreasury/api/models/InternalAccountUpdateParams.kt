@@ -145,6 +145,20 @@ private constructor(
 
         fun id(id: String) = apply { this.id = id }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [counterpartyId]
+         * - [ledgerAccountId]
+         * - [metadata]
+         * - [name]
+         * - [parentAccountId]
+         * - etc.
+         */
+        fun body(body: InternalAccountUpdateRequest) = apply { this.body = body.toBuilder() }
+
         /** The Counterparty associated to this account. */
         fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
@@ -355,7 +369,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): InternalAccountUpdateRequest = body
+    fun _body(): InternalAccountUpdateRequest = body
 
     fun _pathParam(index: Int): String =
         when (index) {

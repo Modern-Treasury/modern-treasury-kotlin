@@ -146,6 +146,18 @@ private constructor(
         fun id(id: String) = apply { this.id = id }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [direction]
+         * - [customRedirect]
+         * - [fields]
+         * - [sendEmail]
+         */
+        fun body(body: CounterpartyCollectAccountRequest) = apply { this.body = body.toBuilder() }
+
+        /**
          * One of `credit` or `debit`. Use `credit` when you want to pay a counterparty. Use `debit`
          * when you need to charge a counterparty. This field helps us send a more tailored email to
          * your counterparties."
@@ -361,7 +373,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): CounterpartyCollectAccountRequest = body
+    fun _body(): CounterpartyCollectAccountRequest = body
 
     fun _pathParam(index: Int): String =
         when (index) {

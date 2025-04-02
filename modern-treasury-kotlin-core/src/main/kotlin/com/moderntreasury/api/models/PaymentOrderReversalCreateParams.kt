@@ -128,6 +128,17 @@ private constructor(
         fun paymentOrderId(paymentOrderId: String) = apply { this.paymentOrderId = paymentOrderId }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [reason]
+         * - [ledgerTransaction]
+         * - [metadata]
+         */
+        fun body(body: ReversalCreateRequest) = apply { this.body = body.toBuilder() }
+
+        /**
          * The reason for the reversal. Must be one of `duplicate`, `incorrect_amount`,
          * `incorrect_receiving_account`, `date_earlier_than_intended`, `date_later_than_intended`.
          */
@@ -315,7 +326,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): ReversalCreateRequest = body
+    fun _body(): ReversalCreateRequest = body
 
     fun _pathParam(index: Int): String =
         when (index) {

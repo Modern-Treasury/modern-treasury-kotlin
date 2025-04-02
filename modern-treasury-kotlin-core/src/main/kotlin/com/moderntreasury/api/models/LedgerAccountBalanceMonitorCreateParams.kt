@@ -128,6 +128,20 @@ private constructor(
                 ledgerAccountBalanceMonitorCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [alertCondition]
+         * - [ledgerAccountId]
+         * - [description]
+         * - [metadata]
+         */
+        fun body(body: LedgerAccountBalanceMonitorCreateRequest) = apply {
+            this.body = body.toBuilder()
+        }
+
         /** Describes the condition that must be satisfied for the monitor to be triggered. */
         fun alertCondition(alertCondition: AlertConditionCreateRequest) = apply {
             body.alertCondition(alertCondition)
@@ -324,7 +338,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): LedgerAccountBalanceMonitorCreateRequest = body
+    fun _body(): LedgerAccountBalanceMonitorCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

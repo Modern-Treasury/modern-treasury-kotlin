@@ -255,6 +255,20 @@ private constructor(
             additionalQueryParams = externalAccountCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [counterpartyId]
+         * - [accountDetails]
+         * - [accountType]
+         * - [contactDetails]
+         * - [ledgerAccount]
+         * - etc.
+         */
+        fun body(body: ExternalAccountCreateRequest) = apply { this.body = body.toBuilder() }
+
         fun counterpartyId(counterpartyId: String?) = apply { body.counterpartyId(counterpartyId) }
 
         /**
@@ -613,7 +627,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): ExternalAccountCreateRequest = body
+    fun _body(): ExternalAccountCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

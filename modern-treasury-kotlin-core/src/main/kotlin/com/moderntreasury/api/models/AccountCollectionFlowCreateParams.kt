@@ -110,6 +110,17 @@ private constructor(
                     accountCollectionFlowCreateParams.additionalQueryParams.toBuilder()
             }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [counterpartyId]
+         * - [paymentTypes]
+         * - [receivingCountries]
+         */
+        fun body(body: AccountCollectionFlowCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** Required. */
         fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
@@ -306,7 +317,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): AccountCollectionFlowCreateRequest = body
+    fun _body(): AccountCollectionFlowCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

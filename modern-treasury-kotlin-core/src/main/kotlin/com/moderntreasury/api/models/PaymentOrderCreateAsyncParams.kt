@@ -659,6 +659,20 @@ private constructor(
         }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [amount]
+         * - [direction]
+         * - [originatingAccountId]
+         * - [type]
+         * - [accounting]
+         * - etc.
+         */
+        fun body(body: PaymentOrderAsyncCreateRequest) = apply { this.body = body.toBuilder() }
+
+        /**
          * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
          * (cents). For RTP, the maximum amount allowed by the network is $100,000.
          */
@@ -1416,7 +1430,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): PaymentOrderAsyncCreateRequest = body
+    fun _body(): PaymentOrderAsyncCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

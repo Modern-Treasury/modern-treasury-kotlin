@@ -203,6 +203,20 @@ private constructor(
             additionalQueryParams = internalAccountCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [connectionId]
+         * - [currency]
+         * - [name]
+         * - [partyName]
+         * - [counterpartyId]
+         * - etc.
+         */
+        fun body(body: InternalAccountCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** The identifier of the financial institution the account belongs to. */
         fun connectionId(connectionId: String) = apply { body.connectionId(connectionId) }
 
@@ -469,7 +483,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): InternalAccountCreateRequest = body
+    fun _body(): InternalAccountCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

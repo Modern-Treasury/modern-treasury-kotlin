@@ -139,6 +139,18 @@ private constructor(
             additionalQueryParams = bulkRequestCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [actionType]
+         * - [resourceType]
+         * - [resources]
+         * - [metadata]
+         */
+        fun body(body: BulkRequestCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** One of create, or update. */
         fun actionType(actionType: ActionType) = apply { body.actionType(actionType) }
 
@@ -412,7 +424,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): BulkRequestCreateRequest = body
+    fun _body(): BulkRequestCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
