@@ -163,6 +163,20 @@ private constructor(
         }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [amount]
+         * - [counterpartyId]
+         * - [currency]
+         * - [direction]
+         * - [originatingAccountId]
+         * - etc.
+         */
+        fun body(body: PaymentFlowCreateRequest) = apply { this.body = body.toBuilder() }
+
+        /**
          * Required. Value in specified currency's smallest unit. e.g. $10 would be represented
          * as 1000. Can be any integer up to 36 digits.
          */
@@ -392,7 +406,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): PaymentFlowCreateRequest = body
+    fun _body(): PaymentFlowCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

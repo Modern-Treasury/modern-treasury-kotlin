@@ -203,6 +203,22 @@ private constructor(
         }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [contraLedgerAccountId]
+         * - [settledLedgerAccountId]
+         * - [allowEitherDirection]
+         * - [description]
+         * - [effectiveAtUpperBound]
+         * - etc.
+         */
+        fun body(body: LedgerAccountSettlementCreateRequest) = apply {
+            this.body = body.toBuilder()
+        }
+
+        /**
          * The id of the contra ledger account that sends to or receives funds from the settled
          * ledger account.
          */
@@ -493,7 +509,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): LedgerAccountSettlementCreateRequest = body
+    fun _body(): LedgerAccountSettlementCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

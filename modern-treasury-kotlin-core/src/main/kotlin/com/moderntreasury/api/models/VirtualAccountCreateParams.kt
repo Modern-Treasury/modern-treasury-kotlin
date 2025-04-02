@@ -221,6 +221,20 @@ private constructor(
             additionalQueryParams = virtualAccountCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [internalAccountId]
+         * - [name]
+         * - [accountDetails]
+         * - [counterpartyId]
+         * - [creditLedgerAccountId]
+         * - etc.
+         */
+        fun body(body: VirtualAccountCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** The ID of the internal account that this virtual account is associated with. */
         fun internalAccountId(internalAccountId: String) = apply {
             body.internalAccountId(internalAccountId)
@@ -535,7 +549,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): VirtualAccountCreateRequest = body
+    fun _body(): VirtualAccountCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

@@ -158,6 +158,20 @@ private constructor(
                     foreignExchangeQuoteCreateParams.additionalQueryParams.toBuilder()
             }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [internalAccountId]
+         * - [targetCurrency]
+         * - [baseAmount]
+         * - [baseCurrency]
+         * - [effectiveAt]
+         * - etc.
+         */
+        fun body(body: ForeignExchangeQuoteCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** The ID for the `InternalAccount` this quote is associated with. */
         fun internalAccountId(internalAccountId: String) = apply {
             body.internalAccountId(internalAccountId)
@@ -383,7 +397,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): ForeignExchangeQuoteCreateRequest = body
+    fun _body(): ForeignExchangeQuoteCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 
