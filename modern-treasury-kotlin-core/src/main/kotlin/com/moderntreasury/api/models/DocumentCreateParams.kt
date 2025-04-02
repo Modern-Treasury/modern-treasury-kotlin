@@ -121,6 +121,18 @@ private constructor(
             additionalQueryParams = documentCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [documentableId]
+         * - [documentableType]
+         * - [file]
+         * - [documentType]
+         */
+        fun body(body: DocumentCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** The unique identifier for the associated object. */
         fun documentableId(documentableId: String) = apply { body.documentableId(documentableId) }
 
@@ -299,7 +311,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): Map<String, MultipartField<*>> =
+    fun _body(): Map<String, MultipartField<*>> =
         mapOf(
                 "documentable_id" to _documentableId(),
                 "documentable_type" to _documentableType(),

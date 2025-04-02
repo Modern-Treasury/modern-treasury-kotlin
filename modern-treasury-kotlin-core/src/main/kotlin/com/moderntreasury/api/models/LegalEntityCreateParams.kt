@@ -457,6 +457,20 @@ private constructor(
             additionalQueryParams = legalEntityCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [legalEntityType]
+         * - [addresses]
+         * - [bankSettings]
+         * - [businessName]
+         * - [citizenshipCountry]
+         * - etc.
+         */
+        fun body(body: LegalEntityCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** The type of legal entity. */
         fun legalEntityType(legalEntityType: LegalEntityType) = apply {
             body.legalEntityType(legalEntityType)
@@ -1014,7 +1028,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): LegalEntityCreateRequest = body
+    fun _body(): LegalEntityCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

@@ -207,6 +207,20 @@ private constructor(
             additionalQueryParams = ledgerTransactionCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [ledgerEntries]
+         * - [description]
+         * - [effectiveAt]
+         * - [effectiveDate]
+         * - [externalId]
+         * - etc.
+         */
+        fun body(body: LedgerTransactionCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** An array of ledger entry objects. */
         fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) = apply {
             body.ledgerEntries(ledgerEntries)
@@ -491,7 +505,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): LedgerTransactionCreateRequest = body
+    fun _body(): LedgerTransactionCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

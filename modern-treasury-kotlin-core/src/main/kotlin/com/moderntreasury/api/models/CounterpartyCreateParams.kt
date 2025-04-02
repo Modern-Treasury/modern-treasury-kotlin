@@ -228,6 +228,20 @@ private constructor(
             additionalQueryParams = counterpartyCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [name]
+         * - [accounting]
+         * - [accounts]
+         * - [email]
+         * - [ledgerType]
+         * - etc.
+         */
+        fun body(body: CounterpartyCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** A human friendly name for this counterparty. */
         fun name(name: String?) = apply { body.name(name) }
 
@@ -528,7 +542,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): CounterpartyCreateRequest = body
+    fun _body(): CounterpartyCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

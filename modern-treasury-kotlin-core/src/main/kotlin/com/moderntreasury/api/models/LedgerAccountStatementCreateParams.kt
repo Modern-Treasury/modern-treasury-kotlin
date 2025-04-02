@@ -149,6 +149,20 @@ private constructor(
             }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [effectiveAtLowerBound]
+         * - [effectiveAtUpperBound]
+         * - [ledgerAccountId]
+         * - [description]
+         * - [metadata]
+         * - etc.
+         */
+        fun body(body: LedgerAccountStatementCreateRequest) = apply { this.body = body.toBuilder() }
+
+        /**
          * The inclusive lower bound of the effective_at timestamp of the ledger entries to be
          * included in the ledger account statement.
          */
@@ -370,7 +384,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): LedgerAccountStatementCreateRequest = body
+    fun _body(): LedgerAccountStatementCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

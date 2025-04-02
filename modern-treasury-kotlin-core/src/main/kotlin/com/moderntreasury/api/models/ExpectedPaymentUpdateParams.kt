@@ -320,6 +320,20 @@ private constructor(
         fun id(id: String) = apply { this.id = id }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [amountLowerBound]
+         * - [amountUpperBound]
+         * - [counterpartyId]
+         * - [currency]
+         * - [dateLowerBound]
+         * - etc.
+         */
+        fun body(body: ExpectedPaymentUpdateRequest) = apply { this.body = body.toBuilder() }
+
+        /**
          * The lowest amount this expected payment may be equal to. Value in specified currency's
          * smallest unit. e.g. $10 would be represented as 1000.
          */
@@ -726,7 +740,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): ExpectedPaymentUpdateRequest = body
+    fun _body(): ExpectedPaymentUpdateRequest = body
 
     fun _pathParam(index: Int): String =
         when (index) {

@@ -190,6 +190,20 @@ private constructor(
                 incomingPaymentDetailCreateAsyncParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [amount]
+         * - [asOfDate]
+         * - [currency]
+         * - [data]
+         * - [description]
+         * - etc.
+         */
+        fun body(body: IncomingPaymentDetailCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
@@ -428,7 +442,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): IncomingPaymentDetailCreateRequest = body
+    fun _body(): IncomingPaymentDetailCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

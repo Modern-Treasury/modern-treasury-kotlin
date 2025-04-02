@@ -480,6 +480,20 @@ private constructor(
             additionalQueryParams = invoiceCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [counterpartyId]
+         * - [dueDate]
+         * - [originatingAccountId]
+         * - [autoAdvance]
+         * - [contactDetails]
+         * - etc.
+         */
+        fun body(body: InvoiceCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** The ID of the counterparty receiving the invoice. */
         fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
 
@@ -1093,7 +1107,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): InvoiceCreateRequest = body
+    fun _body(): InvoiceCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

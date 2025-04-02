@@ -94,6 +94,17 @@ private constructor(
         fun id(id: String) = apply { this.id = id }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [ledgerEntryIds]
+         */
+        fun body(body: LedgerAccountSettlementEntriesDeleteRequest) = apply {
+            this.body = body.toBuilder()
+        }
+
+        /**
          * The ids of the ledger entries that are to be added or removed from the ledger account
          * settlement.
          */
@@ -258,7 +269,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): LedgerAccountSettlementEntriesDeleteRequest = body
+    fun _body(): LedgerAccountSettlementEntriesDeleteRequest = body
 
     fun _pathParam(index: Int): String =
         when (index) {

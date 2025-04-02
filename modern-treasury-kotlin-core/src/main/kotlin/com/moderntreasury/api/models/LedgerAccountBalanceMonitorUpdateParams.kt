@@ -104,6 +104,18 @@ private constructor(
 
         fun id(id: String) = apply { this.id = id }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [description]
+         * - [metadata]
+         */
+        fun body(body: LedgerAccountBalanceMonitorUpdateRequest) = apply {
+            this.body = body.toBuilder()
+        }
+
         /** An optional, free-form description for internal use. */
         fun description(description: String) = apply { body.description(description) }
 
@@ -268,7 +280,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): LedgerAccountBalanceMonitorUpdateRequest = body
+    fun _body(): LedgerAccountBalanceMonitorUpdateRequest = body
 
     fun _pathParam(index: Int): String =
         when (index) {
