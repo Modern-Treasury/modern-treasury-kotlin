@@ -113,6 +113,17 @@ private constructor(
                     connectionLegalEntityCreateParams.additionalQueryParams.toBuilder()
             }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [connectionId]
+         * - [legalEntity]
+         * - [legalEntityId]
+         */
+        fun body(body: ConnectionLegalEntityCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** The ID of the connection. */
         fun connectionId(connectionId: String) = apply { body.connectionId(connectionId) }
 
@@ -292,7 +303,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): ConnectionLegalEntityCreateRequest = body
+    fun _body(): ConnectionLegalEntityCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

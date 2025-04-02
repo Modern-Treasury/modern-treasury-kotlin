@@ -126,6 +126,17 @@ private constructor(
 
         fun accountId(accountId: String) = apply { this.accountId = accountId }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [routingNumber]
+         * - [routingNumberType]
+         * - [paymentType]
+         */
+        fun body(body: RoutingDetailCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** The routing number of the bank. */
         fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
@@ -319,7 +330,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): RoutingDetailCreateRequest = body
+    fun _body(): RoutingDetailCreateRequest = body
 
     fun _pathParam(index: Int): String =
         when (index) {

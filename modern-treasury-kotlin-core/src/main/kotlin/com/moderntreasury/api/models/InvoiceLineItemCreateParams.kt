@@ -181,6 +181,20 @@ private constructor(
 
         fun invoiceId(invoiceId: String) = apply { this.invoiceId = invoiceId }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [name]
+         * - [unitAmount]
+         * - [description]
+         * - [direction]
+         * - [metadata]
+         * - etc.
+         */
+        fun body(body: InvoiceLineItemCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** The name of the line item, typically a product or SKU name. */
         fun name(name: String) = apply { body.name(name) }
 
@@ -421,7 +435,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): InvoiceLineItemCreateRequest = body
+    fun _body(): InvoiceLineItemCreateRequest = body
 
     fun _pathParam(index: Int): String =
         when (index) {

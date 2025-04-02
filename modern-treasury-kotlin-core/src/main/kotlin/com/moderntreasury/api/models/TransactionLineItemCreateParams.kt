@@ -114,6 +114,17 @@ private constructor(
             }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [amount]
+         * - [expectedPaymentId]
+         * - [transactionId]
+         */
+        fun body(body: TransactionLineItemCreateRequest) = apply { this.body = body.toBuilder() }
+
+        /**
          * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
          * specified currency's smallest unit (taken from parent Transaction).
          */
@@ -296,7 +307,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): TransactionLineItemCreateRequest = body
+    fun _body(): TransactionLineItemCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

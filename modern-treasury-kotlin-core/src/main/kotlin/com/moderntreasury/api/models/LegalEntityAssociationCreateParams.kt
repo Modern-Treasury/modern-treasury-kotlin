@@ -162,6 +162,20 @@ private constructor(
                     legalEntityAssociationCreateParams.additionalQueryParams.toBuilder()
             }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [parentLegalEntityId]
+         * - [relationshipTypes]
+         * - [childLegalEntity]
+         * - [childLegalEntityId]
+         * - [ownershipPercentage]
+         * - etc.
+         */
+        fun body(body: LegalEntityAssociationCreateRequest) = apply { this.body = body.toBuilder() }
+
         /** The ID of the parent legal entity. This must be a business or joint legal entity. */
         fun parentLegalEntityId(parentLegalEntityId: String) = apply {
             body.parentLegalEntityId(parentLegalEntityId)
@@ -407,7 +421,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): LegalEntityAssociationCreateRequest = body
+    fun _body(): LegalEntityAssociationCreateRequest = body
 
     override fun _headers(): Headers = additionalHeaders
 

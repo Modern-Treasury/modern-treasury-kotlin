@@ -145,6 +145,20 @@ private constructor(
         fun id(id: String) = apply { this.id = id }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [postedLedgerEntries]
+         * - [description]
+         * - [effectiveAt]
+         * - [metadata]
+         */
+        fun body(body: LedgerTransactionPartialPostCreateRequest) = apply {
+            this.body = body.toBuilder()
+        }
+
+        /**
          * An array of ledger entry objects to be set on the posted ledger transaction. There must
          * be one entry for each of the existing entries with a lesser amount than the existing
          * entry.
@@ -359,7 +373,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): LedgerTransactionPartialPostCreateRequest = body
+    fun _body(): LedgerTransactionPartialPostCreateRequest = body
 
     fun _pathParam(index: Int): String =
         when (index) {
