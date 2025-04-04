@@ -1,5 +1,48 @@
 # Changelog
 
+## 6.1.0 (2025-04-04)
+
+Full Changelog: [v6.0.0...v6.1.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v6.0.0...v6.1.0)
+
+### Features
+
+* add MCP server ([348ae09](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/348ae0968a9133ace89bfb7bae6e9abaff5eaac6))
+* **client:** add enum validation method ([4209c03](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4209c03efbb2de930989f64d3b22a6b4221f2e0f))
+* **client:** expose request body setter and getter ([#395](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/395)) ([674c6c3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/674c6c3e27c3226535bf3bf1fcf38552e2108572))
+* **client:** make union deserialization more robust ([#393](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/393)) ([4209c03](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4209c03efbb2de930989f64d3b22a6b4221f2e0f))
+
+
+### Bug Fixes
+
+* **client:** don't call `validate()` during deserialization if we don't have to ([#391](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/391)) ([cb367da](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/cb367dac9d2acd748dd26e7bc4524ee019a61365))
+* **client:** limit json deserialization coercion ([#392](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/392)) ([d89868e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d89868ecb85fa86f7bce20b53095077433a3ae10))
+
+
+### Performance Improvements
+
+* **client:** cached parsed type in `HttpResponseFor` ([#396](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/396)) ([f2e65c5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f2e65c5703a4cba40ac96499305b92ff311910e2))
+
+
+### Chores
+
+* **api:** updates to bulk creation request, legal entity schemas and more ([#387](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/387)) ([9430d3f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9430d3f1866e7af2358b4d0557bfdacfa6dcd4dc))
+* **client:** remove unnecessary json state from some query param classes ([4209c03](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4209c03efbb2de930989f64d3b22a6b4221f2e0f))
+* configure new SDK language ([1d7db20](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1d7db206704e1dec1201fd3e2920853728006367))
+* configure new SDK language ([86736ec](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/86736ecb65b1447f3dea78a66a4a8c96867b1843))
+* internal codegen changes ([17b808c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/17b808c32b8c77ed1bf142408613d6e34b93bb48))
+* **internal:** add invalid json deserialization tests ([4209c03](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4209c03efbb2de930989f64d3b22a6b4221f2e0f))
+* **internal:** add json roundtripping tests ([4209c03](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4209c03efbb2de930989f64d3b22a6b4221f2e0f))
+* **internal:** codegen related update ([#394](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/394)) ([8828084](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/882808456322d9a6d64dfdb1f7a6864a1c4c83a7))
+* **internal:** remove CI condition ([#390](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/390)) ([598e53c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/598e53c9e3d4e78510c9f22beab6f7829bce789c))
+* Remove deprecated/unused remote spec feature ([fcf2ffd](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/fcf2ffdeec0a5021f1abfeacc670612230f1e5a2))
+
+
+### Documentation
+
+* add comments to `JsonField` classes ([#397](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/397)) ([77c9559](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/77c9559bb7c1d92a1549abb5e907c15fecebacbe))
+* document how to forcibly omit required field ([8592c44](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8592c44d2cebd65e1ae30409dcb4f4b24228508f))
+* swap examples used in readme ([#398](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/398)) ([8592c44](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8592c44d2cebd65e1ae30409dcb4f4b24228508f))
+
 ## 6.0.0 (2025-03-26)
 
 Full Changelog: [v5.0.0...v6.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v5.0.0...v6.0.0)
