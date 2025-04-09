@@ -190,7 +190,7 @@ internal class LedgerTransactionServiceTest {
 
         val page = ledgerTransactionService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

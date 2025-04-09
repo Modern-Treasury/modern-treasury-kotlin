@@ -549,6 +549,6 @@ internal class LegalEntityServiceAsyncTest {
 
         val page = legalEntityServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

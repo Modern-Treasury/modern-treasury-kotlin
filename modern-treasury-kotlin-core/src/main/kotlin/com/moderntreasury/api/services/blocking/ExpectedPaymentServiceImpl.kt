@@ -180,13 +180,8 @@ class ExpectedPaymentServiceImpl internal constructor(private val clientOptions:
                         ExpectedPaymentListPage.of(
                             ExpectedPaymentServiceImpl(clientOptions),
                             params,
-                            ExpectedPaymentListPage.Response.builder()
-                                .items(it)
-                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                                .afterCursor(
-                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
-                                )
-                                .build(),
+                            response.headers(),
+                            it,
                         )
                     }
             }

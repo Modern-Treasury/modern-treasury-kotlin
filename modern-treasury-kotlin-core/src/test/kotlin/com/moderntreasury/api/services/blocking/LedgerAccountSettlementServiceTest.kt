@@ -107,6 +107,6 @@ internal class LedgerAccountSettlementServiceTest {
 
         val page = ledgerAccountSettlementService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

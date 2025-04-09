@@ -65,7 +65,7 @@ internal class LineItemServiceAsyncTest {
 
         val page = lineItemServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test
