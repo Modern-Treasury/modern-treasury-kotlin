@@ -177,12 +177,12 @@ internal constructor(private val clientOptions: ClientOptions) : VirtualAccountS
                         }
                     }
                     .let {
-                        VirtualAccountListPageAsync.of(
-                            VirtualAccountServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        VirtualAccountListPageAsync.builder()
+                            .service(VirtualAccountServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

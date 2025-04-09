@@ -144,12 +144,12 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
                         }
                     }
                     .let {
-                        TransactionLineItemListPage.of(
-                            LineItemServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        TransactionLineItemListPage.builder()
+                            .service(LineItemServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

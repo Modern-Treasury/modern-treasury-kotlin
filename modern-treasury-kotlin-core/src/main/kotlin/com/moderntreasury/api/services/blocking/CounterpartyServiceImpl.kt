@@ -185,12 +185,12 @@ class CounterpartyServiceImpl internal constructor(private val clientOptions: Cl
                         }
                     }
                     .let {
-                        CounterpartyListPage.of(
-                            CounterpartyServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        CounterpartyListPage.builder()
+                            .service(CounterpartyServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

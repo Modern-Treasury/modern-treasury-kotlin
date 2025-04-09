@@ -133,12 +133,12 @@ class ReturnServiceAsyncImpl internal constructor(private val clientOptions: Cli
                         }
                     }
                     .let {
-                        ReturnListPageAsync.of(
-                            ReturnServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        ReturnListPageAsync.builder()
+                            .service(ReturnServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

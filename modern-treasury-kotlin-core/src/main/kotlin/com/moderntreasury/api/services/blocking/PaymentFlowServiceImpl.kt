@@ -168,12 +168,12 @@ class PaymentFlowServiceImpl internal constructor(private val clientOptions: Cli
                         }
                     }
                     .let {
-                        PaymentFlowListPage.of(
-                            PaymentFlowServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        PaymentFlowListPage.builder()
+                            .service(PaymentFlowServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

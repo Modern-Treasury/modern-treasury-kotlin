@@ -133,12 +133,12 @@ class LedgerEntryServiceAsyncImpl internal constructor(private val clientOptions
                         }
                     }
                     .let {
-                        LedgerEntryListPageAsync.of(
-                            LedgerEntryServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        LedgerEntryListPageAsync.builder()
+                            .service(LedgerEntryServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

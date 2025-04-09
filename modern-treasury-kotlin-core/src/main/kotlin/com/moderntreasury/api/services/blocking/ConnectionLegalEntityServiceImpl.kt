@@ -172,12 +172,12 @@ internal constructor(private val clientOptions: ClientOptions) : ConnectionLegal
                         }
                     }
                     .let {
-                        ConnectionLegalEntityListPage.of(
-                            ConnectionLegalEntityServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        ConnectionLegalEntityListPage.builder()
+                            .service(ConnectionLegalEntityServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

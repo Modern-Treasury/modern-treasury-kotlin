@@ -139,12 +139,12 @@ class ReversalServiceAsyncImpl internal constructor(private val clientOptions: C
                         }
                     }
                     .let {
-                        PaymentOrderReversalListPageAsync.of(
-                            ReversalServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        PaymentOrderReversalListPageAsync.builder()
+                            .service(ReversalServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

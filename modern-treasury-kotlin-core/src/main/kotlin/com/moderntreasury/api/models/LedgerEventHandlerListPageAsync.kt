@@ -2,40 +2,25 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.LedgerEventHandlerServiceAsync
 import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
-/** Get a list of ledger event handlers. */
+/** @see [LedgerEventHandlerServiceAsync.list] */
 class LedgerEventHandlerListPageAsync
 private constructor(
-    private val ledgerEventHandlersService: LedgerEventHandlerServiceAsync,
+    private val service: LedgerEventHandlerServiceAsync,
     private val params: LedgerEventHandlerListParams,
     private val headers: Headers,
     private val items: List<LedgerEventHandler>,
 ) {
 
-    /** Returns the response that this page was parsed from. */
-    fun items(): List<LedgerEventHandler> = items
-
     fun perPage(): String? = headers.values("per_page").firstOrNull()
 
     fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerEventHandlerListPageAsync && ledgerEventHandlersService == other.ledgerEventHandlersService && params == other.params && items == other.items /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(ledgerEventHandlersService, params, items) /* spotless:on */
-
-    override fun toString() =
-        "LedgerEventHandlerListPageAsync{ledgerEventHandlersService=$ledgerEventHandlersService, params=$params, items=$items}"
 
     fun hasNextPage(): Boolean = items.isNotEmpty() && afterCursor() != null
 
@@ -47,20 +32,84 @@ private constructor(
         return params.toBuilder().apply { afterCursor()?.let { afterCursor(it) } }.build()
     }
 
-    suspend fun getNextPage(): LedgerEventHandlerListPageAsync? {
-        return getNextPageParams()?.let { ledgerEventHandlersService.list(it) }
-    }
+    suspend fun getNextPage(): LedgerEventHandlerListPageAsync? =
+        getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): LedgerEventHandlerListParams = params
+
+    /** The response that this page was parsed from. */
+    fun items(): List<LedgerEventHandler> = items
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            ledgerEventHandlersService: LedgerEventHandlerServiceAsync,
-            params: LedgerEventHandlerListParams,
-            headers: Headers,
-            items: List<LedgerEventHandler>,
-        ) = LedgerEventHandlerListPageAsync(ledgerEventHandlersService, params, headers, items)
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerEventHandlerListPageAsync].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [LedgerEventHandlerListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: LedgerEventHandlerServiceAsync? = null
+        private var params: LedgerEventHandlerListParams? = null
+        private var headers: Headers? = null
+        private var items: List<LedgerEventHandler>? = null
+
+        internal fun from(ledgerEventHandlerListPageAsync: LedgerEventHandlerListPageAsync) =
+            apply {
+                service = ledgerEventHandlerListPageAsync.service
+                params = ledgerEventHandlerListPageAsync.params
+                headers = ledgerEventHandlerListPageAsync.headers
+                items = ledgerEventHandlerListPageAsync.items
+            }
+
+        fun service(service: LedgerEventHandlerServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: LedgerEventHandlerListParams) = apply { this.params = params }
+
+        fun headers(headers: Headers) = apply { this.headers = headers }
+
+        /** The response that this page was parsed from. */
+        fun items(items: List<LedgerEventHandler>) = apply { this.items = items }
+
+        /**
+         * Returns an immutable instance of [LedgerEventHandlerListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): LedgerEventHandlerListPageAsync =
+            LedgerEventHandlerListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("headers", headers),
+                checkRequired("items", items),
+            )
     }
 
     class AutoPager(private val firstPage: LedgerEventHandlerListPageAsync) :
@@ -78,4 +127,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerEventHandlerListPageAsync && service == other.service && params == other.params && headers == other.headers && items == other.items /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, headers, items) /* spotless:on */
+
+    override fun toString() =
+        "LedgerEventHandlerListPageAsync{service=$service, params=$params, headers=$headers, items=$items}"
 }

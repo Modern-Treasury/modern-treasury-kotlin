@@ -147,12 +147,12 @@ class LineItemServiceAsyncImpl internal constructor(private val clientOptions: C
                         }
                     }
                     .let {
-                        TransactionLineItemListPageAsync.of(
-                            LineItemServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        TransactionLineItemListPageAsync.builder()
+                            .service(LineItemServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

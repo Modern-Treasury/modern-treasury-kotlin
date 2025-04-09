@@ -197,12 +197,12 @@ class LedgerTransactionServiceImpl internal constructor(private val clientOption
                         }
                     }
                     .let {
-                        LedgerTransactionListPage.of(
-                            LedgerTransactionServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        LedgerTransactionListPage.builder()
+                            .service(LedgerTransactionServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

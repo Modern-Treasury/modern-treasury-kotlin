@@ -172,12 +172,12 @@ internal constructor(private val clientOptions: ClientOptions) : AccountCollecti
                         }
                     }
                     .let {
-                        AccountCollectionFlowListPage.of(
-                            AccountCollectionFlowServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        AccountCollectionFlowListPage.builder()
+                            .service(AccountCollectionFlowServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

@@ -158,12 +158,12 @@ class AccountDetailServiceAsyncImpl internal constructor(private val clientOptio
                         }
                     }
                     .let {
-                        AccountDetailListPageAsync.of(
-                            AccountDetailServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        AccountDetailListPageAsync.builder()
+                            .service(AccountDetailServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

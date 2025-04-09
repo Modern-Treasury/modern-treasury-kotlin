@@ -177,12 +177,12 @@ class LedgerAccountServiceImpl internal constructor(private val clientOptions: C
                         }
                     }
                     .let {
-                        LedgerAccountListPage.of(
-                            LedgerAccountServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        LedgerAccountListPage.builder()
+                            .service(LedgerAccountServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }
