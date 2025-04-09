@@ -258,7 +258,7 @@ internal class ExpectedPaymentServiceAsyncTest {
 
         val page = expectedPaymentServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

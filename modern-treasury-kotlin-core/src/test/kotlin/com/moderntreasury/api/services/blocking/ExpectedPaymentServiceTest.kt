@@ -258,7 +258,7 @@ internal class ExpectedPaymentServiceTest {
 
         val page = expectedPaymentService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

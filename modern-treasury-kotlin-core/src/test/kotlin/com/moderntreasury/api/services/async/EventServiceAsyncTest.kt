@@ -38,6 +38,6 @@ internal class EventServiceAsyncTest {
 
         val page = eventServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

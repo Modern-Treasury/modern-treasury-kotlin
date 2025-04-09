@@ -109,7 +109,7 @@ internal class LedgerAccountBalanceMonitorServiceAsyncTest {
 
         val page = ledgerAccountBalanceMonitorServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

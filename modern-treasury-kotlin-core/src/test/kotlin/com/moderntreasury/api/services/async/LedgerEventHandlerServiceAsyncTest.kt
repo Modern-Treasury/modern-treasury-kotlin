@@ -116,7 +116,7 @@ internal class LedgerEventHandlerServiceAsyncTest {
 
         val page = ledgerEventHandlerServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test
