@@ -177,12 +177,12 @@ class ExpectedPaymentServiceImpl internal constructor(private val clientOptions:
                         }
                     }
                     .let {
-                        ExpectedPaymentListPage.of(
-                            ExpectedPaymentServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        ExpectedPaymentListPage.builder()
+                            .service(ExpectedPaymentServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

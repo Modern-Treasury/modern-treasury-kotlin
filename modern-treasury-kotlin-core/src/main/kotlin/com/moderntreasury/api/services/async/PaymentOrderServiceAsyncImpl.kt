@@ -190,12 +190,12 @@ class PaymentOrderServiceAsyncImpl internal constructor(private val clientOption
                         }
                     }
                     .let {
-                        PaymentOrderListPageAsync.of(
-                            PaymentOrderServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        PaymentOrderListPageAsync.builder()
+                            .service(PaymentOrderServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

@@ -158,12 +158,12 @@ class AccountDetailServiceImpl internal constructor(private val clientOptions: C
                         }
                     }
                     .let {
-                        AccountDetailListPage.of(
-                            AccountDetailServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        AccountDetailListPage.builder()
+                            .service(AccountDetailServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

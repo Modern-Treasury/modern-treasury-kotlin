@@ -2,38 +2,23 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.InvoiceService
 import java.util.Objects
 
-/** list invoices */
+/** @see [InvoiceService.list] */
 class InvoiceListPage
 private constructor(
-    private val invoicesService: InvoiceService,
+    private val service: InvoiceService,
     private val params: InvoiceListParams,
     private val headers: Headers,
     private val items: List<Invoice>,
 ) {
 
-    /** Returns the response that this page was parsed from. */
-    fun items(): List<Invoice> = items
-
     fun perPage(): String? = headers.values("per_page").firstOrNull()
 
     fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InvoiceListPage && invoicesService == other.invoicesService && params == other.params && items == other.items /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(invoicesService, params, items) /* spotless:on */
-
-    override fun toString() =
-        "InvoiceListPage{invoicesService=$invoicesService, params=$params, items=$items}"
 
     fun hasNextPage(): Boolean = items.isNotEmpty() && afterCursor() != null
 
@@ -45,20 +30,81 @@ private constructor(
         return params.toBuilder().apply { afterCursor()?.let { afterCursor(it) } }.build()
     }
 
-    fun getNextPage(): InvoiceListPage? {
-        return getNextPageParams()?.let { invoicesService.list(it) }
-    }
+    fun getNextPage(): InvoiceListPage? = getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): InvoiceListParams = params
+
+    /** The response that this page was parsed from. */
+    fun items(): List<Invoice> = items
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            invoicesService: InvoiceService,
-            params: InvoiceListParams,
-            headers: Headers,
-            items: List<Invoice>,
-        ) = InvoiceListPage(invoicesService, params, headers, items)
+        /**
+         * Returns a mutable builder for constructing an instance of [InvoiceListPage].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [InvoiceListPage]. */
+    class Builder internal constructor() {
+
+        private var service: InvoiceService? = null
+        private var params: InvoiceListParams? = null
+        private var headers: Headers? = null
+        private var items: List<Invoice>? = null
+
+        internal fun from(invoiceListPage: InvoiceListPage) = apply {
+            service = invoiceListPage.service
+            params = invoiceListPage.params
+            headers = invoiceListPage.headers
+            items = invoiceListPage.items
+        }
+
+        fun service(service: InvoiceService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: InvoiceListParams) = apply { this.params = params }
+
+        fun headers(headers: Headers) = apply { this.headers = headers }
+
+        /** The response that this page was parsed from. */
+        fun items(items: List<Invoice>) = apply { this.items = items }
+
+        /**
+         * Returns an immutable instance of [InvoiceListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): InvoiceListPage =
+            InvoiceListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("headers", headers),
+                checkRequired("items", items),
+            )
     }
 
     class AutoPager(private val firstPage: InvoiceListPage) : Sequence<Invoice> {
@@ -75,4 +121,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InvoiceListPage && service == other.service && params == other.params && headers == other.headers && items == other.items /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, headers, items) /* spotless:on */
+
+    override fun toString() =
+        "InvoiceListPage{service=$service, params=$params, headers=$headers, items=$items}"
 }

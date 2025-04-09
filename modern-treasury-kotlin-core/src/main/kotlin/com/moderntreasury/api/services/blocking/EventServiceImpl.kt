@@ -91,12 +91,12 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
                         }
                     }
                     .let {
-                        EventListPage.of(
-                            EventServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        EventListPage.builder()
+                            .service(EventServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

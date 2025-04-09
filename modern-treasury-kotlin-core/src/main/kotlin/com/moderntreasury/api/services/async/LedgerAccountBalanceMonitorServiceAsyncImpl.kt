@@ -182,12 +182,12 @@ internal constructor(private val clientOptions: ClientOptions) :
                         }
                     }
                     .let {
-                        LedgerAccountBalanceMonitorListPageAsync.of(
-                            LedgerAccountBalanceMonitorServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        LedgerAccountBalanceMonitorListPageAsync.builder()
+                            .service(LedgerAccountBalanceMonitorServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

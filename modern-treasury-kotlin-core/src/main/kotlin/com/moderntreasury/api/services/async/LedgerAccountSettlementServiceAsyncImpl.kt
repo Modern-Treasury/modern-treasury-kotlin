@@ -188,12 +188,12 @@ internal constructor(private val clientOptions: ClientOptions) :
                         }
                     }
                     .let {
-                        LedgerAccountSettlementListPageAsync.of(
-                            LedgerAccountSettlementServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        LedgerAccountSettlementListPageAsync.builder()
+                            .service(LedgerAccountSettlementServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

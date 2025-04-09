@@ -133,12 +133,12 @@ class BulkRequestServiceAsyncImpl internal constructor(private val clientOptions
                         }
                     }
                     .let {
-                        BulkRequestListPageAsync.of(
-                            BulkRequestServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        BulkRequestListPageAsync.builder()
+                            .service(BulkRequestServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

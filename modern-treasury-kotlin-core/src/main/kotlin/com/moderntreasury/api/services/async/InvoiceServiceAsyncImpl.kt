@@ -191,12 +191,12 @@ class InvoiceServiceAsyncImpl internal constructor(private val clientOptions: Cl
                         }
                     }
                     .let {
-                        InvoiceListPageAsync.of(
-                            InvoiceServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        InvoiceListPageAsync.builder()
+                            .service(InvoiceServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

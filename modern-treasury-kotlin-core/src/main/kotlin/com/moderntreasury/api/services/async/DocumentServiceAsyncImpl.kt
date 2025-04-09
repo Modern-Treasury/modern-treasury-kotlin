@@ -133,12 +133,12 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
                         }
                     }
                     .let {
-                        DocumentListPageAsync.of(
-                            DocumentServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        DocumentListPageAsync.builder()
+                            .service(DocumentServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

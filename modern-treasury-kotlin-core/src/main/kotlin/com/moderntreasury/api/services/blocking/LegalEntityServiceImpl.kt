@@ -168,12 +168,12 @@ class LegalEntityServiceImpl internal constructor(private val clientOptions: Cli
                         }
                     }
                     .let {
-                        LegalEntityListPage.of(
-                            LegalEntityServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        LegalEntityListPage.builder()
+                            .service(LegalEntityServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }
