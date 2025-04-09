@@ -39,6 +39,6 @@ internal class PaperItemServiceAsyncTest {
 
         val page = paperItemServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

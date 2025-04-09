@@ -63,7 +63,7 @@ internal class LineItemServiceTest {
 
         val page = lineItemService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

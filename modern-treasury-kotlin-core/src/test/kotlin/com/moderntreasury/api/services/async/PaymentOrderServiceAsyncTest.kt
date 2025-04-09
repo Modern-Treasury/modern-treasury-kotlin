@@ -488,7 +488,7 @@ internal class PaymentOrderServiceAsyncTest {
 
         val page = paymentOrderServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

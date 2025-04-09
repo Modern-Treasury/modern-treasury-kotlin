@@ -88,6 +88,6 @@ internal class PaymentFlowServiceTest {
 
         val page = paymentFlowService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

@@ -78,7 +78,7 @@ internal class AccountDetailServiceAsyncTest {
                     .build()
             )
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

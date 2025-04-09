@@ -86,6 +86,6 @@ internal class AccountCollectionFlowServiceTest {
 
         val page = accountCollectionFlowService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

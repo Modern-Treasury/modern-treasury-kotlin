@@ -150,7 +150,7 @@ internal class VirtualAccountServiceTest {
 
         val page = virtualAccountService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

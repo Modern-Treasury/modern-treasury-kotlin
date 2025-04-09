@@ -71,7 +71,7 @@ internal class IncomingPaymentDetailServiceAsyncTest {
 
         val page = incomingPaymentDetailServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

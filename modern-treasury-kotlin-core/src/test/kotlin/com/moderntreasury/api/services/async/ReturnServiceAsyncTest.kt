@@ -68,6 +68,6 @@ internal class ReturnServiceAsyncTest {
 
         val page = returnServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

@@ -116,6 +116,6 @@ internal class InternalAccountServiceAsyncTest {
 
         val page = internalAccountServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }
