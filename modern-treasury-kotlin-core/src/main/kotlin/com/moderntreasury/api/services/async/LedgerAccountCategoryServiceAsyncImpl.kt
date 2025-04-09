@@ -219,17 +219,12 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
                         }
                     }
                     .let {
-                        LedgerAccountCategoryListPageAsync.of(
-                            LedgerAccountCategoryServiceAsyncImpl(clientOptions),
-                            params,
-                            LedgerAccountCategoryListPageAsync.Response.builder()
-                                .items(it)
-                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                                .afterCursor(
-                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
-                                )
-                                .build(),
-                        )
+                        LedgerAccountCategoryListPageAsync.builder()
+                            .service(LedgerAccountCategoryServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

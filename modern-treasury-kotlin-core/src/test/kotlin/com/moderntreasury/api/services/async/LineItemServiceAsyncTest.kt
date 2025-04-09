@@ -85,6 +85,6 @@ internal class LineItemServiceAsyncTest {
                     .build()
             )
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

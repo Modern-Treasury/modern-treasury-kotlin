@@ -22,6 +22,6 @@ internal class ConnectionServiceAsyncTest {
 
         val page = connectionServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

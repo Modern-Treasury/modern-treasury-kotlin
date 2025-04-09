@@ -136,17 +136,12 @@ internal constructor(private val clientOptions: ClientOptions) : ForeignExchange
                         }
                     }
                     .let {
-                        ForeignExchangeQuoteListPage.of(
-                            ForeignExchangeQuoteServiceImpl(clientOptions),
-                            params,
-                            ForeignExchangeQuoteListPage.Response.builder()
-                                .items(it)
-                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                                .afterCursor(
-                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
-                                )
-                                .build(),
-                        )
+                        ForeignExchangeQuoteListPage.builder()
+                            .service(ForeignExchangeQuoteServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

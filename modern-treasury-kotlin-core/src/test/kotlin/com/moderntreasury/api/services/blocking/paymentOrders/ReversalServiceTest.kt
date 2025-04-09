@@ -161,6 +161,6 @@ internal class ReversalServiceTest {
                 PaymentOrderReversalListParams.builder().paymentOrderId("payment_order_id").build()
             )
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

@@ -67,6 +67,6 @@ internal class ReturnServiceTest {
 
         val page = returnService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

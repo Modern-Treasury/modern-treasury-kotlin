@@ -182,17 +182,12 @@ internal constructor(private val clientOptions: ClientOptions) :
                         }
                     }
                     .let {
-                        LedgerAccountBalanceMonitorListPage.of(
-                            LedgerAccountBalanceMonitorServiceImpl(clientOptions),
-                            params,
-                            LedgerAccountBalanceMonitorListPage.Response.builder()
-                                .items(it)
-                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                                .afterCursor(
-                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
-                                )
-                                .build(),
-                        )
+                        LedgerAccountBalanceMonitorListPage.builder()
+                            .service(LedgerAccountBalanceMonitorServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

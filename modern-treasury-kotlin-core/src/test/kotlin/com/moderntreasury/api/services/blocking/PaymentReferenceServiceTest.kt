@@ -42,7 +42,7 @@ internal class PaymentReferenceServiceTest {
 
         val page = paymentReferenceService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

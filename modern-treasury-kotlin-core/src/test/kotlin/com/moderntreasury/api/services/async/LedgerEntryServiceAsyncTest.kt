@@ -70,6 +70,6 @@ internal class LedgerEntryServiceAsyncTest {
 
         val page = ledgerEntryServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

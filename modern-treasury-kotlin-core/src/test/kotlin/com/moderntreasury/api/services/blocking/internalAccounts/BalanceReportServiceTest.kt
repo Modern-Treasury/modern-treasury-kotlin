@@ -85,7 +85,7 @@ internal class BalanceReportServiceTest {
                 BalanceReportListParams.builder().internalAccountId("internal_account_id").build()
             )
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

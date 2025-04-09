@@ -133,17 +133,12 @@ class LedgerEntryServiceImpl internal constructor(private val clientOptions: Cli
                         }
                     }
                     .let {
-                        LedgerEntryListPage.of(
-                            LedgerEntryServiceImpl(clientOptions),
-                            params,
-                            LedgerEntryListPage.Response.builder()
-                                .items(it)
-                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                                .afterCursor(
-                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
-                                )
-                                .build(),
-                        )
+                        LedgerEntryListPage.builder()
+                            .service(LedgerEntryServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

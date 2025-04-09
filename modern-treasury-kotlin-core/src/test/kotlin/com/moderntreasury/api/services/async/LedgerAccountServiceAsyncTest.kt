@@ -123,7 +123,7 @@ internal class LedgerAccountServiceAsyncTest {
 
         val page = ledgerAccountServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

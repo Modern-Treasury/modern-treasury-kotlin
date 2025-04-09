@@ -2,184 +2,112 @@
 
 package com.moderntreasury.api.models
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.moderntreasury.api.core.ExcludeMissing
-import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.JsonMissing
-import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.core.checkRequired
+import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.invoices.LineItemServiceAsync
-import java.util.Collections
 import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
-/** list invoice_line_items */
+/** @see [LineItemServiceAsync.list] */
 class InvoiceLineItemListPageAsync
 private constructor(
-    private val lineItemsService: LineItemServiceAsync,
+    private val service: LineItemServiceAsync,
     private val params: InvoiceLineItemListParams,
-    private val response: Response,
+    private val headers: Headers,
+    private val items: List<InvoiceLineItem>,
 ) {
 
-    fun response(): Response = response
+    fun perPage(): String? = headers.values("per_page").firstOrNull()
 
-    fun items(): List<InvoiceLineItem> = response().items()
+    fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
 
-    fun perPage(): String = response().perPage()
-
-    fun afterCursor(): String = response().afterCursor()
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InvoiceLineItemListPageAsync && lineItemsService == other.lineItemsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(lineItemsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "InvoiceLineItemListPageAsync{lineItemsService=$lineItemsService, params=$params, response=$response}"
-
-    fun hasNextPage(): Boolean {
-        return !items().isEmpty()
-    }
+    fun hasNextPage(): Boolean = items.isNotEmpty() && afterCursor() != null
 
     fun getNextPageParams(): InvoiceLineItemListParams? {
         if (!hasNextPage()) {
             return null
         }
 
-        return InvoiceLineItemListParams.builder().from(params).afterCursor(afterCursor()).build()
+        return params.toBuilder().apply { afterCursor()?.let { afterCursor(it) } }.build()
     }
 
-    suspend fun getNextPage(): InvoiceLineItemListPageAsync? {
-        return getNextPageParams()?.let { lineItemsService.list(it) }
-    }
+    suspend fun getNextPage(): InvoiceLineItemListPageAsync? =
+        getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): InvoiceLineItemListParams = params
+
+    /** The response that this page was parsed from. */
+    fun items(): List<InvoiceLineItem> = items
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            lineItemsService: LineItemServiceAsync,
-            params: InvoiceLineItemListParams,
-            response: Response,
-        ) = InvoiceLineItemListPageAsync(lineItemsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [InvoiceLineItemListPageAsync].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         */
+        fun builder() = Builder()
     }
 
-    class Response(
-        private val items: JsonField<List<InvoiceLineItem>>,
-        private val perPage: String,
-        private val afterCursor: String,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
+    /** A builder for [InvoiceLineItemListPageAsync]. */
+    class Builder internal constructor() {
 
-        @JsonCreator
-        private constructor(
-            @JsonProperty("items") items: JsonField<List<InvoiceLineItem>> = JsonMissing.of()
-        ) : this(items, "", "", mutableMapOf())
+        private var service: LineItemServiceAsync? = null
+        private var params: InvoiceLineItemListParams? = null
+        private var headers: Headers? = null
+        private var items: List<InvoiceLineItem>? = null
 
-        fun items(): List<InvoiceLineItem> = items.getNullable("items") ?: listOf()
-
-        fun perPage(): String = perPage
-
-        fun afterCursor(): String = afterCursor
-
-        @JsonProperty("items") fun _items(): JsonField<List<InvoiceLineItem>>? = items
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
+        internal fun from(invoiceLineItemListPageAsync: InvoiceLineItemListPageAsync) = apply {
+            service = invoiceLineItemListPageAsync.service
+            params = invoiceLineItemListPageAsync.params
+            headers = invoiceLineItemListPageAsync.headers
+            items = invoiceLineItemListPageAsync.items
         }
 
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
+        fun service(service: LineItemServiceAsync) = apply { this.service = service }
 
-        private var validated: Boolean = false
+        /** The parameters that were used to request this page. */
+        fun params(params: InvoiceLineItemListParams) = apply { this.params = params }
 
-        fun validate(): Response = apply {
-            if (validated) {
-                return@apply
-            }
+        fun headers(headers: Headers) = apply { this.headers = headers }
 
-            items().map { it.validate() }
-            validated = true
-        }
+        /** The response that this page was parsed from. */
+        fun items(items: List<InvoiceLineItem>) = apply { this.items = items }
 
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: ModernTreasuryInvalidDataException) {
-                false
-            }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Response && items == other.items && perPage == other.perPage && afterCursor == other.afterCursor && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        override fun hashCode(): Int = /* spotless:off */ Objects.hash(items, perPage, afterCursor, additionalProperties) /* spotless:on */
-
-        override fun toString() =
-            "Response{items=$items, perPage=$perPage, afterCursor=$afterCursor, additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of
-             * [InvoiceLineItemListPageAsync].
-             */
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var items: JsonField<List<InvoiceLineItem>> = JsonMissing.of()
-            private var perPage: String? = null
-            private var afterCursor: String? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(page: Response) = apply {
-                this.items = page.items
-                this.perPage = page.perPage
-                this.afterCursor = page.afterCursor
-                this.additionalProperties.putAll(page.additionalProperties)
-            }
-
-            fun items(items: List<InvoiceLineItem>) = items(JsonField.of(items))
-
-            fun items(items: JsonField<List<InvoiceLineItem>>) = apply { this.items = items }
-
-            fun perPage(perPage: String) = apply { this.perPage = perPage }
-
-            fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            /**
-             * Returns an immutable instance of [Response].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Response =
-                Response(items, perPage!!, afterCursor!!, additionalProperties.toMutableMap())
-        }
+        /**
+         * Returns an immutable instance of [InvoiceLineItemListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): InvoiceLineItemListPageAsync =
+            InvoiceLineItemListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("headers", headers),
+                checkRequired("items", items),
+            )
     }
 
     class AutoPager(private val firstPage: InvoiceLineItemListPageAsync) : Flow<InvoiceLineItem> {
@@ -196,4 +124,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InvoiceLineItemListPageAsync && service == other.service && params == other.params && headers == other.headers && items == other.items /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, headers, items) /* spotless:on */
+
+    override fun toString() =
+        "InvoiceLineItemListPageAsync{service=$service, params=$params, headers=$headers, items=$items}"
 }

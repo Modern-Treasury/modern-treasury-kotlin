@@ -190,17 +190,12 @@ class PaymentOrderServiceImpl internal constructor(private val clientOptions: Cl
                         }
                     }
                     .let {
-                        PaymentOrderListPage.of(
-                            PaymentOrderServiceImpl(clientOptions),
-                            params,
-                            PaymentOrderListPage.Response.builder()
-                                .items(it)
-                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                                .afterCursor(
-                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
-                                )
-                                .build(),
-                        )
+                        PaymentOrderListPage.builder()
+                            .service(PaymentOrderServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

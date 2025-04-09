@@ -22,6 +22,6 @@ internal class VersionServiceTest {
 
         val page = versionService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

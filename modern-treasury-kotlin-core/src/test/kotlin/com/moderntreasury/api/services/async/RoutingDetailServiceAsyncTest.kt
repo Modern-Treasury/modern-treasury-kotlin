@@ -79,7 +79,7 @@ internal class RoutingDetailServiceAsyncTest {
                     .build()
             )
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

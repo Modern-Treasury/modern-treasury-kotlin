@@ -161,17 +161,12 @@ class LedgerServiceImpl internal constructor(private val clientOptions: ClientOp
                         }
                     }
                     .let {
-                        LedgerListPage.of(
-                            LedgerServiceImpl(clientOptions),
-                            params,
-                            LedgerListPage.Response.builder()
-                                .items(it)
-                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                                .afterCursor(
-                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
-                                )
-                                .build(),
-                        )
+                        LedgerListPage.builder()
+                            .service(LedgerServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

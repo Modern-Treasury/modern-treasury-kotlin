@@ -183,17 +183,12 @@ internal constructor(private val clientOptions: ClientOptions) : InternalAccount
                         }
                     }
                     .let {
-                        InternalAccountListPageAsync.of(
-                            InternalAccountServiceAsyncImpl(clientOptions),
-                            params,
-                            InternalAccountListPageAsync.Response.builder()
-                                .items(it)
-                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                                .afterCursor(
-                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
-                                )
-                                .build(),
-                        )
+                        InternalAccountListPageAsync.builder()
+                            .service(InternalAccountServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

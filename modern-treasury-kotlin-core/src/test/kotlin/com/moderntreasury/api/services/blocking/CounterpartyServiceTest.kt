@@ -636,7 +636,7 @@ internal class CounterpartyServiceTest {
 
         val page = counterpartyService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

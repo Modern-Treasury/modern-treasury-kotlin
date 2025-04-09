@@ -97,17 +97,12 @@ class PaperItemServiceAsyncImpl internal constructor(private val clientOptions: 
                         }
                     }
                     .let {
-                        PaperItemListPageAsync.of(
-                            PaperItemServiceAsyncImpl(clientOptions),
-                            params,
-                            PaperItemListPageAsync.Response.builder()
-                                .items(it)
-                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                                .afterCursor(
-                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
-                                )
-                                .build(),
-                        )
+                        PaperItemListPageAsync.builder()
+                            .service(PaperItemServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

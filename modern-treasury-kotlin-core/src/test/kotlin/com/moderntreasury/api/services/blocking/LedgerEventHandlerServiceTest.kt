@@ -116,7 +116,7 @@ internal class LedgerEventHandlerServiceTest {
 
         val page = ledgerEventHandlerService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

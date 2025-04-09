@@ -191,17 +191,12 @@ class InvoiceServiceAsyncImpl internal constructor(private val clientOptions: Cl
                         }
                     }
                     .let {
-                        InvoiceListPageAsync.of(
-                            InvoiceServiceAsyncImpl(clientOptions),
-                            params,
-                            InvoiceListPageAsync.Response.builder()
-                                .items(it)
-                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                                .afterCursor(
-                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
-                                )
-                                .build(),
-                        )
+                        InvoiceListPageAsync.builder()
+                            .service(InvoiceServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

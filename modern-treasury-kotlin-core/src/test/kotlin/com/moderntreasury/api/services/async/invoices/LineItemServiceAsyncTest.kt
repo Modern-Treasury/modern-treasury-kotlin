@@ -116,7 +116,7 @@ internal class LineItemServiceAsyncTest {
                 InvoiceLineItemListParams.builder().invoiceId("invoice_id").build()
             )
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

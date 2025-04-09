@@ -259,7 +259,7 @@ internal class InvoiceServiceAsyncTest {
 
         val page = invoiceServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

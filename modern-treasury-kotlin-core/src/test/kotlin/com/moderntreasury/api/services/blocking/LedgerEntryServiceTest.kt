@@ -70,6 +70,6 @@ internal class LedgerEntryServiceTest {
 
         val page = ledgerEntryService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

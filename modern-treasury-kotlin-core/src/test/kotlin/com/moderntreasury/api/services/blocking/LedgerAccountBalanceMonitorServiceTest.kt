@@ -109,7 +109,7 @@ internal class LedgerAccountBalanceMonitorServiceTest {
 
         val page = ledgerAccountBalanceMonitorService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

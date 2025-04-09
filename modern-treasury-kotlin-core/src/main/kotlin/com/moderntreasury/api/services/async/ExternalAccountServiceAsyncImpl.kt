@@ -197,17 +197,12 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
                         }
                     }
                     .let {
-                        ExternalAccountListPageAsync.of(
-                            ExternalAccountServiceAsyncImpl(clientOptions),
-                            params,
-                            ExternalAccountListPageAsync.Response.builder()
-                                .items(it)
-                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                                .afterCursor(
-                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
-                                )
-                                .build(),
-                        )
+                        ExternalAccountListPageAsync.builder()
+                            .service(ExternalAccountServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

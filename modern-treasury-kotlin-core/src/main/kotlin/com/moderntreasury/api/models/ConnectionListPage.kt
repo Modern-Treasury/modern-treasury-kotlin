@@ -2,179 +2,109 @@
 
 package com.moderntreasury.api.models
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.moderntreasury.api.core.ExcludeMissing
-import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.JsonMissing
-import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.core.checkRequired
+import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.ConnectionService
-import java.util.Collections
 import java.util.Objects
 
-/** Get a list of all connections. */
+/** @see [ConnectionService.list] */
 class ConnectionListPage
 private constructor(
-    private val connectionsService: ConnectionService,
+    private val service: ConnectionService,
     private val params: ConnectionListParams,
-    private val response: Response,
+    private val headers: Headers,
+    private val items: List<Connection>,
 ) {
 
-    fun response(): Response = response
+    fun perPage(): String? = headers.values("per_page").firstOrNull()
 
-    fun items(): List<Connection> = response().items()
+    fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
 
-    fun perPage(): String = response().perPage()
-
-    fun afterCursor(): String = response().afterCursor()
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ConnectionListPage && connectionsService == other.connectionsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(connectionsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "ConnectionListPage{connectionsService=$connectionsService, params=$params, response=$response}"
-
-    fun hasNextPage(): Boolean {
-        return !items().isEmpty()
-    }
+    fun hasNextPage(): Boolean = items.isNotEmpty() && afterCursor() != null
 
     fun getNextPageParams(): ConnectionListParams? {
         if (!hasNextPage()) {
             return null
         }
 
-        return ConnectionListParams.builder().from(params).afterCursor(afterCursor()).build()
+        return params.toBuilder().apply { afterCursor()?.let { afterCursor(it) } }.build()
     }
 
-    fun getNextPage(): ConnectionListPage? {
-        return getNextPageParams()?.let { connectionsService.list(it) }
-    }
+    fun getNextPage(): ConnectionListPage? = getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): ConnectionListParams = params
+
+    /** The response that this page was parsed from. */
+    fun items(): List<Connection> = items
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            connectionsService: ConnectionService,
-            params: ConnectionListParams,
-            response: Response,
-        ) = ConnectionListPage(connectionsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [ConnectionListPage].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         */
+        fun builder() = Builder()
     }
 
-    class Response(
-        private val items: JsonField<List<Connection>>,
-        private val perPage: String,
-        private val afterCursor: String,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
+    /** A builder for [ConnectionListPage]. */
+    class Builder internal constructor() {
 
-        @JsonCreator
-        private constructor(
-            @JsonProperty("items") items: JsonField<List<Connection>> = JsonMissing.of()
-        ) : this(items, "", "", mutableMapOf())
+        private var service: ConnectionService? = null
+        private var params: ConnectionListParams? = null
+        private var headers: Headers? = null
+        private var items: List<Connection>? = null
 
-        fun items(): List<Connection> = items.getNullable("items") ?: listOf()
-
-        fun perPage(): String = perPage
-
-        fun afterCursor(): String = afterCursor
-
-        @JsonProperty("items") fun _items(): JsonField<List<Connection>>? = items
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
+        internal fun from(connectionListPage: ConnectionListPage) = apply {
+            service = connectionListPage.service
+            params = connectionListPage.params
+            headers = connectionListPage.headers
+            items = connectionListPage.items
         }
 
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
+        fun service(service: ConnectionService) = apply { this.service = service }
 
-        private var validated: Boolean = false
+        /** The parameters that were used to request this page. */
+        fun params(params: ConnectionListParams) = apply { this.params = params }
 
-        fun validate(): Response = apply {
-            if (validated) {
-                return@apply
-            }
+        fun headers(headers: Headers) = apply { this.headers = headers }
 
-            items().map { it.validate() }
-            validated = true
-        }
+        /** The response that this page was parsed from. */
+        fun items(items: List<Connection>) = apply { this.items = items }
 
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: ModernTreasuryInvalidDataException) {
-                false
-            }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Response && items == other.items && perPage == other.perPage && afterCursor == other.afterCursor && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        override fun hashCode(): Int = /* spotless:off */ Objects.hash(items, perPage, afterCursor, additionalProperties) /* spotless:on */
-
-        override fun toString() =
-            "Response{items=$items, perPage=$perPage, afterCursor=$afterCursor, additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [ConnectionListPage]. */
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var items: JsonField<List<Connection>> = JsonMissing.of()
-            private var perPage: String? = null
-            private var afterCursor: String? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(page: Response) = apply {
-                this.items = page.items
-                this.perPage = page.perPage
-                this.afterCursor = page.afterCursor
-                this.additionalProperties.putAll(page.additionalProperties)
-            }
-
-            fun items(items: List<Connection>) = items(JsonField.of(items))
-
-            fun items(items: JsonField<List<Connection>>) = apply { this.items = items }
-
-            fun perPage(perPage: String) = apply { this.perPage = perPage }
-
-            fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            /**
-             * Returns an immutable instance of [Response].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Response =
-                Response(items, perPage!!, afterCursor!!, additionalProperties.toMutableMap())
-        }
+        /**
+         * Returns an immutable instance of [ConnectionListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): ConnectionListPage =
+            ConnectionListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("headers", headers),
+                checkRequired("items", items),
+            )
     }
 
     class AutoPager(private val firstPage: ConnectionListPage) : Sequence<Connection> {
@@ -191,4 +121,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ConnectionListPage && service == other.service && params == other.params && headers == other.headers && items == other.items /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, headers, items) /* spotless:on */
+
+    override fun toString() =
+        "ConnectionListPage{service=$service, params=$params, headers=$headers, items=$items}"
 }

@@ -186,7 +186,7 @@ internal class ExternalAccountServiceTest {
 
         val page = externalAccountService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

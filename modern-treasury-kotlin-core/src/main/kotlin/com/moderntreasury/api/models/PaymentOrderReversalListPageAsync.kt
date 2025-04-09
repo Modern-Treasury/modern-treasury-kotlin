@@ -2,187 +2,114 @@
 
 package com.moderntreasury.api.models
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.moderntreasury.api.core.ExcludeMissing
-import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.JsonMissing
-import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.core.checkRequired
+import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.paymentOrders.ReversalServiceAsync
-import java.util.Collections
 import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
-/** Get a list of all reversals of a payment order. */
+/** @see [ReversalServiceAsync.list] */
 class PaymentOrderReversalListPageAsync
 private constructor(
-    private val reversalsService: ReversalServiceAsync,
+    private val service: ReversalServiceAsync,
     private val params: PaymentOrderReversalListParams,
-    private val response: Response,
+    private val headers: Headers,
+    private val items: List<Reversal>,
 ) {
 
-    fun response(): Response = response
+    fun perPage(): String? = headers.values("per_page").firstOrNull()
 
-    fun items(): List<Reversal> = response().items()
+    fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
 
-    fun perPage(): String = response().perPage()
-
-    fun afterCursor(): String = response().afterCursor()
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PaymentOrderReversalListPageAsync && reversalsService == other.reversalsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(reversalsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "PaymentOrderReversalListPageAsync{reversalsService=$reversalsService, params=$params, response=$response}"
-
-    fun hasNextPage(): Boolean {
-        return !items().isEmpty()
-    }
+    fun hasNextPage(): Boolean = items.isNotEmpty() && afterCursor() != null
 
     fun getNextPageParams(): PaymentOrderReversalListParams? {
         if (!hasNextPage()) {
             return null
         }
 
-        return PaymentOrderReversalListParams.builder()
-            .from(params)
-            .afterCursor(afterCursor())
-            .build()
+        return params.toBuilder().apply { afterCursor()?.let { afterCursor(it) } }.build()
     }
 
-    suspend fun getNextPage(): PaymentOrderReversalListPageAsync? {
-        return getNextPageParams()?.let { reversalsService.list(it) }
-    }
+    suspend fun getNextPage(): PaymentOrderReversalListPageAsync? =
+        getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): PaymentOrderReversalListParams = params
+
+    /** The response that this page was parsed from. */
+    fun items(): List<Reversal> = items
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            reversalsService: ReversalServiceAsync,
-            params: PaymentOrderReversalListParams,
-            response: Response,
-        ) = PaymentOrderReversalListPageAsync(reversalsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [PaymentOrderReversalListPageAsync].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         */
+        fun builder() = Builder()
     }
 
-    class Response(
-        private val items: JsonField<List<Reversal>>,
-        private val perPage: String,
-        private val afterCursor: String,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
+    /** A builder for [PaymentOrderReversalListPageAsync]. */
+    class Builder internal constructor() {
 
-        @JsonCreator
-        private constructor(
-            @JsonProperty("items") items: JsonField<List<Reversal>> = JsonMissing.of()
-        ) : this(items, "", "", mutableMapOf())
+        private var service: ReversalServiceAsync? = null
+        private var params: PaymentOrderReversalListParams? = null
+        private var headers: Headers? = null
+        private var items: List<Reversal>? = null
 
-        fun items(): List<Reversal> = items.getNullable("items") ?: listOf()
-
-        fun perPage(): String = perPage
-
-        fun afterCursor(): String = afterCursor
-
-        @JsonProperty("items") fun _items(): JsonField<List<Reversal>>? = items
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        private var validated: Boolean = false
-
-        fun validate(): Response = apply {
-            if (validated) {
-                return@apply
+        internal fun from(paymentOrderReversalListPageAsync: PaymentOrderReversalListPageAsync) =
+            apply {
+                service = paymentOrderReversalListPageAsync.service
+                params = paymentOrderReversalListPageAsync.params
+                headers = paymentOrderReversalListPageAsync.headers
+                items = paymentOrderReversalListPageAsync.items
             }
 
-            items().map { it.validate() }
-            validated = true
-        }
+        fun service(service: ReversalServiceAsync) = apply { this.service = service }
 
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: ModernTreasuryInvalidDataException) {
-                false
-            }
+        /** The parameters that were used to request this page. */
+        fun params(params: PaymentOrderReversalListParams) = apply { this.params = params }
 
-        fun toBuilder() = Builder().from(this)
+        fun headers(headers: Headers) = apply { this.headers = headers }
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+        /** The response that this page was parsed from. */
+        fun items(items: List<Reversal>) = apply { this.items = items }
 
-            return /* spotless:off */ other is Response && items == other.items && perPage == other.perPage && afterCursor == other.afterCursor && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        override fun hashCode(): Int = /* spotless:off */ Objects.hash(items, perPage, afterCursor, additionalProperties) /* spotless:on */
-
-        override fun toString() =
-            "Response{items=$items, perPage=$perPage, afterCursor=$afterCursor, additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of
-             * [PaymentOrderReversalListPageAsync].
-             */
-            fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var items: JsonField<List<Reversal>> = JsonMissing.of()
-            private var perPage: String? = null
-            private var afterCursor: String? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(page: Response) = apply {
-                this.items = page.items
-                this.perPage = page.perPage
-                this.afterCursor = page.afterCursor
-                this.additionalProperties.putAll(page.additionalProperties)
-            }
-
-            fun items(items: List<Reversal>) = items(JsonField.of(items))
-
-            fun items(items: JsonField<List<Reversal>>) = apply { this.items = items }
-
-            fun perPage(perPage: String) = apply { this.perPage = perPage }
-
-            fun afterCursor(afterCursor: String) = apply { this.afterCursor = afterCursor }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            /**
-             * Returns an immutable instance of [Response].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Response =
-                Response(items, perPage!!, afterCursor!!, additionalProperties.toMutableMap())
-        }
+        /**
+         * Returns an immutable instance of [PaymentOrderReversalListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): PaymentOrderReversalListPageAsync =
+            PaymentOrderReversalListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("headers", headers),
+                checkRequired("items", items),
+            )
     }
 
     class AutoPager(private val firstPage: PaymentOrderReversalListPageAsync) : Flow<Reversal> {
@@ -199,4 +126,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PaymentOrderReversalListPageAsync && service == other.service && params == other.params && headers == other.headers && items == other.items /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, headers, items) /* spotless:on */
+
+    override fun toString() =
+        "PaymentOrderReversalListPageAsync{service=$service, params=$params, headers=$headers, items=$items}"
 }

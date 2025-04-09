@@ -71,7 +71,7 @@ internal class IncomingPaymentDetailServiceTest {
 
         val page = incomingPaymentDetailService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

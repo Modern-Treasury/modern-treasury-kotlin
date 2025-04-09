@@ -65,6 +65,6 @@ internal class DocumentServiceAsyncTest {
 
         val page = documentServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }
