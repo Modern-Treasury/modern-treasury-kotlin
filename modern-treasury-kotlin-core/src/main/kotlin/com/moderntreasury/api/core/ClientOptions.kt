@@ -195,7 +195,10 @@ private constructor(
 
         fun removeAllQueryParams(keys: Set<String>) = apply { queryParams.removeAll(keys) }
 
+        fun baseUrl(): String = baseUrl
+
         fun fromEnv() = apply {
+            System.getenv("MODERN_TREASURY_BASE_URL")?.let { baseUrl(it) }
             System.getenv("MODERN_TREASURY_API_KEY")?.let { apiKey(it) }
             System.getenv("MODERN_TREASURY_ORGANIZATION_ID")?.let { organizationId(it) }
             System.getenv("MODERN_TREASURY_WEBHOOK_KEY")?.let { webhookKey(it) }
