@@ -168,12 +168,12 @@ class PaymentFlowServiceAsyncImpl internal constructor(private val clientOptions
                         }
                     }
                     .let {
-                        PaymentFlowListPageAsync.of(
-                            PaymentFlowServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        PaymentFlowListPageAsync.builder()
+                            .service(PaymentFlowServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

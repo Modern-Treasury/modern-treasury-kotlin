@@ -177,12 +177,12 @@ class VirtualAccountServiceImpl internal constructor(private val clientOptions: 
                         }
                     }
                     .let {
-                        VirtualAccountListPage.of(
-                            VirtualAccountServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        VirtualAccountListPage.builder()
+                            .service(VirtualAccountServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

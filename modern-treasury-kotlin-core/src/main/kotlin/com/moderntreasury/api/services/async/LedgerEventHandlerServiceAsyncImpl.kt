@@ -142,12 +142,12 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerEventHand
                         }
                     }
                     .let {
-                        LedgerEventHandlerListPageAsync.of(
-                            LedgerEventHandlerServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        LedgerEventHandlerListPageAsync.builder()
+                            .service(LedgerEventHandlerServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

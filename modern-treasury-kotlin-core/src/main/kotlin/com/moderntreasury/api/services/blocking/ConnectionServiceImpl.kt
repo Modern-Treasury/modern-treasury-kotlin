@@ -63,12 +63,12 @@ class ConnectionServiceImpl internal constructor(private val clientOptions: Clie
                         }
                     }
                     .let {
-                        ConnectionListPage.of(
-                            ConnectionServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        ConnectionListPage.builder()
+                            .service(ConnectionServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

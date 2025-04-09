@@ -197,12 +197,12 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerTransacti
                         }
                     }
                     .let {
-                        LedgerTransactionListPageAsync.of(
-                            LedgerTransactionServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        LedgerTransactionListPageAsync.builder()
+                            .service(LedgerTransactionServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

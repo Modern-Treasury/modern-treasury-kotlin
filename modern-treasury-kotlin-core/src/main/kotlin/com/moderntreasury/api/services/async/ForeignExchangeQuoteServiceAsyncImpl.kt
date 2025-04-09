@@ -137,12 +137,12 @@ internal constructor(private val clientOptions: ClientOptions) : ForeignExchange
                         }
                     }
                     .let {
-                        ForeignExchangeQuoteListPageAsync.of(
-                            ForeignExchangeQuoteServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        ForeignExchangeQuoteListPageAsync.builder()
+                            .service(ForeignExchangeQuoteServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

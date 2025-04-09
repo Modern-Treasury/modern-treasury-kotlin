@@ -107,12 +107,12 @@ class PaymentReferenceServiceImpl internal constructor(private val clientOptions
                         }
                     }
                     .let {
-                        PaymentReferenceListPage.of(
-                            PaymentReferenceServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        PaymentReferenceListPage.builder()
+                            .service(PaymentReferenceServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

@@ -2,40 +2,25 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.LedgerAccountCategoryServiceAsync
 import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
-/** Get a list of ledger account categories. */
+/** @see [LedgerAccountCategoryServiceAsync.list] */
 class LedgerAccountCategoryListPageAsync
 private constructor(
-    private val ledgerAccountCategoriesService: LedgerAccountCategoryServiceAsync,
+    private val service: LedgerAccountCategoryServiceAsync,
     private val params: LedgerAccountCategoryListParams,
     private val headers: Headers,
     private val items: List<LedgerAccountCategory>,
 ) {
 
-    /** Returns the response that this page was parsed from. */
-    fun items(): List<LedgerAccountCategory> = items
-
     fun perPage(): String? = headers.values("per_page").firstOrNull()
 
     fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerAccountCategoryListPageAsync && ledgerAccountCategoriesService == other.ledgerAccountCategoriesService && params == other.params && items == other.items /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(ledgerAccountCategoriesService, params, items) /* spotless:on */
-
-    override fun toString() =
-        "LedgerAccountCategoryListPageAsync{ledgerAccountCategoriesService=$ledgerAccountCategoriesService, params=$params, items=$items}"
 
     fun hasNextPage(): Boolean = items.isNotEmpty() && afterCursor() != null
 
@@ -47,25 +32,83 @@ private constructor(
         return params.toBuilder().apply { afterCursor()?.let { afterCursor(it) } }.build()
     }
 
-    suspend fun getNextPage(): LedgerAccountCategoryListPageAsync? {
-        return getNextPageParams()?.let { ledgerAccountCategoriesService.list(it) }
-    }
+    suspend fun getNextPage(): LedgerAccountCategoryListPageAsync? =
+        getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): LedgerAccountCategoryListParams = params
+
+    /** The response that this page was parsed from. */
+    fun items(): List<LedgerAccountCategory> = items
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            ledgerAccountCategoriesService: LedgerAccountCategoryServiceAsync,
-            params: LedgerAccountCategoryListParams,
-            headers: Headers,
-            items: List<LedgerAccountCategory>,
-        ) =
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [LedgerAccountCategoryListPageAsync].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [LedgerAccountCategoryListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: LedgerAccountCategoryServiceAsync? = null
+        private var params: LedgerAccountCategoryListParams? = null
+        private var headers: Headers? = null
+        private var items: List<LedgerAccountCategory>? = null
+
+        internal fun from(ledgerAccountCategoryListPageAsync: LedgerAccountCategoryListPageAsync) =
+            apply {
+                service = ledgerAccountCategoryListPageAsync.service
+                params = ledgerAccountCategoryListPageAsync.params
+                headers = ledgerAccountCategoryListPageAsync.headers
+                items = ledgerAccountCategoryListPageAsync.items
+            }
+
+        fun service(service: LedgerAccountCategoryServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: LedgerAccountCategoryListParams) = apply { this.params = params }
+
+        fun headers(headers: Headers) = apply { this.headers = headers }
+
+        /** The response that this page was parsed from. */
+        fun items(items: List<LedgerAccountCategory>) = apply { this.items = items }
+
+        /**
+         * Returns an immutable instance of [LedgerAccountCategoryListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): LedgerAccountCategoryListPageAsync =
             LedgerAccountCategoryListPageAsync(
-                ledgerAccountCategoriesService,
-                params,
-                headers,
-                items,
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("headers", headers),
+                checkRequired("items", items),
             )
     }
 
@@ -84,4 +127,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerAccountCategoryListPageAsync && service == other.service && params == other.params && headers == other.headers && items == other.items /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, headers, items) /* spotless:on */
+
+    override fun toString() =
+        "LedgerAccountCategoryListPageAsync{service=$service, params=$params, headers=$headers, items=$items}"
 }

@@ -186,12 +186,12 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountSe
                         }
                     }
                     .let {
-                        LedgerAccountSettlementListPage.of(
-                            LedgerAccountSettlementServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        LedgerAccountSettlementListPage.builder()
+                            .service(LedgerAccountSettlementServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

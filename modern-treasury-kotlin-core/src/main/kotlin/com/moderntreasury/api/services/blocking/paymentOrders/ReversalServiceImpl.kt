@@ -139,12 +139,12 @@ class ReversalServiceImpl internal constructor(private val clientOptions: Client
                         }
                     }
                     .let {
-                        PaymentOrderReversalListPage.of(
-                            ReversalServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        PaymentOrderReversalListPage.builder()
+                            .service(ReversalServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

@@ -158,12 +158,12 @@ class BalanceReportServiceImpl internal constructor(private val clientOptions: C
                         }
                     }
                     .let {
-                        BalanceReportListPage.of(
-                            BalanceReportServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        BalanceReportListPage.builder()
+                            .service(BalanceReportServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

@@ -142,12 +142,12 @@ class LedgerEventHandlerServiceImpl internal constructor(private val clientOptio
                         }
                     }
                     .let {
-                        LedgerEventHandlerListPage.of(
-                            LedgerEventHandlerServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        LedgerEventHandlerListPage.builder()
+                            .service(LedgerEventHandlerServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

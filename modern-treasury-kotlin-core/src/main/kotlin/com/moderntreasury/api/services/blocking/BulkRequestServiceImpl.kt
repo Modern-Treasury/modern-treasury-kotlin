@@ -133,12 +133,12 @@ class BulkRequestServiceImpl internal constructor(private val clientOptions: Cli
                         }
                     }
                     .let {
-                        BulkRequestListPage.of(
-                            BulkRequestServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        BulkRequestListPage.builder()
+                            .service(BulkRequestServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

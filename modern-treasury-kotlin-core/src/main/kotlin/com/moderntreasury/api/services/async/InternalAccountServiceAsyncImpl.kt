@@ -183,12 +183,12 @@ internal constructor(private val clientOptions: ClientOptions) : InternalAccount
                         }
                     }
                     .let {
-                        InternalAccountListPageAsync.of(
-                            InternalAccountServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        InternalAccountListPageAsync.builder()
+                            .service(InternalAccountServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

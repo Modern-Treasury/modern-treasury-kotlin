@@ -177,12 +177,12 @@ class LedgerAccountServiceAsyncImpl internal constructor(private val clientOptio
                         }
                     }
                     .let {
-                        LedgerAccountListPageAsync.of(
-                            LedgerAccountServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        LedgerAccountListPageAsync.builder()
+                            .service(LedgerAccountServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

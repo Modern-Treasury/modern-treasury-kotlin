@@ -64,12 +64,12 @@ class VersionServiceImpl internal constructor(private val clientOptions: ClientO
                         }
                     }
                     .let {
-                        LedgerTransactionVersionListPage.of(
-                            VersionServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        LedgerTransactionVersionListPage.builder()
+                            .service(VersionServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

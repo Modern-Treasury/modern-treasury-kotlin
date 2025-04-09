@@ -97,12 +97,12 @@ class PaperItemServiceAsyncImpl internal constructor(private val clientOptions: 
                         }
                     }
                     .let {
-                        PaperItemListPageAsync.of(
-                            PaperItemServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        PaperItemListPageAsync.builder()
+                            .service(PaperItemServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

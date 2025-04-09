@@ -127,12 +127,12 @@ class ReturnServiceImpl internal constructor(private val clientOptions: ClientOp
                         }
                     }
                     .let {
-                        ReturnListPage.of(
-                            ReturnServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        ReturnListPage.builder()
+                            .service(ReturnServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }
