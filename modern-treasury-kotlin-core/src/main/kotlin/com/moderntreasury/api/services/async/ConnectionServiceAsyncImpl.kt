@@ -63,12 +63,12 @@ class ConnectionServiceAsyncImpl internal constructor(private val clientOptions:
                         }
                     }
                     .let {
-                        ConnectionListPageAsync.of(
-                            ConnectionServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        ConnectionListPageAsync.builder()
+                            .service(ConnectionServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

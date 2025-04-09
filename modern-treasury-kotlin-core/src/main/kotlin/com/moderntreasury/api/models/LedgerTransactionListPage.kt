@@ -2,38 +2,23 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.LedgerTransactionService
 import java.util.Objects
 
-/** Get a list of ledger transactions. */
+/** @see [LedgerTransactionService.list] */
 class LedgerTransactionListPage
 private constructor(
-    private val ledgerTransactionsService: LedgerTransactionService,
+    private val service: LedgerTransactionService,
     private val params: LedgerTransactionListParams,
     private val headers: Headers,
     private val items: List<LedgerTransaction>,
 ) {
 
-    /** Returns the response that this page was parsed from. */
-    fun items(): List<LedgerTransaction> = items
-
     fun perPage(): String? = headers.values("per_page").firstOrNull()
 
     fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LedgerTransactionListPage && ledgerTransactionsService == other.ledgerTransactionsService && params == other.params && items == other.items /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(ledgerTransactionsService, params, items) /* spotless:on */
-
-    override fun toString() =
-        "LedgerTransactionListPage{ledgerTransactionsService=$ledgerTransactionsService, params=$params, items=$items}"
 
     fun hasNextPage(): Boolean = items.isNotEmpty() && afterCursor() != null
 
@@ -45,20 +30,81 @@ private constructor(
         return params.toBuilder().apply { afterCursor()?.let { afterCursor(it) } }.build()
     }
 
-    fun getNextPage(): LedgerTransactionListPage? {
-        return getNextPageParams()?.let { ledgerTransactionsService.list(it) }
-    }
+    fun getNextPage(): LedgerTransactionListPage? = getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): LedgerTransactionListParams = params
+
+    /** The response that this page was parsed from. */
+    fun items(): List<LedgerTransaction> = items
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            ledgerTransactionsService: LedgerTransactionService,
-            params: LedgerTransactionListParams,
-            headers: Headers,
-            items: List<LedgerTransaction>,
-        ) = LedgerTransactionListPage(ledgerTransactionsService, params, headers, items)
+        /**
+         * Returns a mutable builder for constructing an instance of [LedgerTransactionListPage].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [LedgerTransactionListPage]. */
+    class Builder internal constructor() {
+
+        private var service: LedgerTransactionService? = null
+        private var params: LedgerTransactionListParams? = null
+        private var headers: Headers? = null
+        private var items: List<LedgerTransaction>? = null
+
+        internal fun from(ledgerTransactionListPage: LedgerTransactionListPage) = apply {
+            service = ledgerTransactionListPage.service
+            params = ledgerTransactionListPage.params
+            headers = ledgerTransactionListPage.headers
+            items = ledgerTransactionListPage.items
+        }
+
+        fun service(service: LedgerTransactionService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: LedgerTransactionListParams) = apply { this.params = params }
+
+        fun headers(headers: Headers) = apply { this.headers = headers }
+
+        /** The response that this page was parsed from. */
+        fun items(items: List<LedgerTransaction>) = apply { this.items = items }
+
+        /**
+         * Returns an immutable instance of [LedgerTransactionListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): LedgerTransactionListPage =
+            LedgerTransactionListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("headers", headers),
+                checkRequired("items", items),
+            )
     }
 
     class AutoPager(private val firstPage: LedgerTransactionListPage) :
@@ -76,4 +122,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LedgerTransactionListPage && service == other.service && params == other.params && headers == other.headers && items == other.items /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, headers, items) /* spotless:on */
+
+    override fun toString() =
+        "LedgerTransactionListPage{service=$service, params=$params, headers=$headers, items=$items}"
 }

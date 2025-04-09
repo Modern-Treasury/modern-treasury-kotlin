@@ -188,12 +188,12 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
                         }
                     }
                     .let {
-                        TransactionListPage.of(
-                            TransactionServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        TransactionListPage.builder()
+                            .service(TransactionServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

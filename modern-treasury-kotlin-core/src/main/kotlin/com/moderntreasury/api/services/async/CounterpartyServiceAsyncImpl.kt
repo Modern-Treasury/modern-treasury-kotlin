@@ -185,12 +185,12 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
                         }
                     }
                     .let {
-                        CounterpartyListPageAsync.of(
-                            CounterpartyServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        CounterpartyListPageAsync.builder()
+                            .service(CounterpartyServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

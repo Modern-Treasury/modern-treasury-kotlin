@@ -97,12 +97,12 @@ class PaperItemServiceImpl internal constructor(private val clientOptions: Clien
                         }
                     }
                     .let {
-                        PaperItemListPage.of(
-                            PaperItemServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        PaperItemListPage.builder()
+                            .service(PaperItemServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

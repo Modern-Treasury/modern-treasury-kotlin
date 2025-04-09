@@ -2,40 +2,25 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.ConnectionServiceAsync
 import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
-/** Get a list of all connections. */
+/** @see [ConnectionServiceAsync.list] */
 class ConnectionListPageAsync
 private constructor(
-    private val connectionsService: ConnectionServiceAsync,
+    private val service: ConnectionServiceAsync,
     private val params: ConnectionListParams,
     private val headers: Headers,
     private val items: List<Connection>,
 ) {
 
-    /** Returns the response that this page was parsed from. */
-    fun items(): List<Connection> = items
-
     fun perPage(): String? = headers.values("per_page").firstOrNull()
 
     fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ConnectionListPageAsync && connectionsService == other.connectionsService && params == other.params && items == other.items /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(connectionsService, params, items) /* spotless:on */
-
-    override fun toString() =
-        "ConnectionListPageAsync{connectionsService=$connectionsService, params=$params, items=$items}"
 
     fun hasNextPage(): Boolean = items.isNotEmpty() && afterCursor() != null
 
@@ -47,20 +32,82 @@ private constructor(
         return params.toBuilder().apply { afterCursor()?.let { afterCursor(it) } }.build()
     }
 
-    suspend fun getNextPage(): ConnectionListPageAsync? {
-        return getNextPageParams()?.let { connectionsService.list(it) }
-    }
+    suspend fun getNextPage(): ConnectionListPageAsync? =
+        getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): ConnectionListParams = params
+
+    /** The response that this page was parsed from. */
+    fun items(): List<Connection> = items
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            connectionsService: ConnectionServiceAsync,
-            params: ConnectionListParams,
-            headers: Headers,
-            items: List<Connection>,
-        ) = ConnectionListPageAsync(connectionsService, params, headers, items)
+        /**
+         * Returns a mutable builder for constructing an instance of [ConnectionListPageAsync].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [ConnectionListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: ConnectionServiceAsync? = null
+        private var params: ConnectionListParams? = null
+        private var headers: Headers? = null
+        private var items: List<Connection>? = null
+
+        internal fun from(connectionListPageAsync: ConnectionListPageAsync) = apply {
+            service = connectionListPageAsync.service
+            params = connectionListPageAsync.params
+            headers = connectionListPageAsync.headers
+            items = connectionListPageAsync.items
+        }
+
+        fun service(service: ConnectionServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: ConnectionListParams) = apply { this.params = params }
+
+        fun headers(headers: Headers) = apply { this.headers = headers }
+
+        /** The response that this page was parsed from. */
+        fun items(items: List<Connection>) = apply { this.items = items }
+
+        /**
+         * Returns an immutable instance of [ConnectionListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .headers()
+         * .items()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): ConnectionListPageAsync =
+            ConnectionListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("headers", headers),
+                checkRequired("items", items),
+            )
     }
 
     class AutoPager(private val firstPage: ConnectionListPageAsync) : Flow<Connection> {
@@ -77,4 +124,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ConnectionListPageAsync && service == other.service && params == other.params && headers == other.headers && items == other.items /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, headers, items) /* spotless:on */
+
+    override fun toString() =
+        "ConnectionListPageAsync{service=$service, params=$params, headers=$headers, items=$items}"
 }

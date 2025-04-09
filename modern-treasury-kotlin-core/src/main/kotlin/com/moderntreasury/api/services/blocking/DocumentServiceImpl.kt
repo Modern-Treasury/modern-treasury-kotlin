@@ -130,12 +130,12 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
                         }
                     }
                     .let {
-                        DocumentListPage.of(
-                            DocumentServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        DocumentListPage.builder()
+                            .service(DocumentServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

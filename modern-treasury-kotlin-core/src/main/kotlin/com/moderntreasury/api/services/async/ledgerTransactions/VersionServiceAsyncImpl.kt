@@ -64,12 +64,12 @@ class VersionServiceAsyncImpl internal constructor(private val clientOptions: Cl
                         }
                     }
                     .let {
-                        LedgerTransactionVersionListPageAsync.of(
-                            VersionServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        LedgerTransactionVersionListPageAsync.builder()
+                            .service(VersionServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

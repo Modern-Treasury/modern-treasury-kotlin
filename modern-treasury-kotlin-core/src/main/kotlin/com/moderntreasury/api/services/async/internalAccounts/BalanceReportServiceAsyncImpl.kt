@@ -158,12 +158,12 @@ class BalanceReportServiceAsyncImpl internal constructor(private val clientOptio
                         }
                     }
                     .let {
-                        BalanceReportListPageAsync.of(
-                            BalanceReportServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        BalanceReportListPageAsync.builder()
+                            .service(BalanceReportServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

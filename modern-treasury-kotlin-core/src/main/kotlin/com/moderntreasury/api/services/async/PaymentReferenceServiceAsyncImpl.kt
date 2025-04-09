@@ -107,12 +107,12 @@ internal constructor(private val clientOptions: ClientOptions) : PaymentReferenc
                         }
                     }
                     .let {
-                        PaymentReferenceListPageAsync.of(
-                            PaymentReferenceServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        PaymentReferenceListPageAsync.builder()
+                            .service(PaymentReferenceServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

@@ -197,12 +197,12 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
                         }
                     }
                     .let {
-                        ExternalAccountListPageAsync.of(
-                            ExternalAccountServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        ExternalAccountListPageAsync.builder()
+                            .service(ExternalAccountServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

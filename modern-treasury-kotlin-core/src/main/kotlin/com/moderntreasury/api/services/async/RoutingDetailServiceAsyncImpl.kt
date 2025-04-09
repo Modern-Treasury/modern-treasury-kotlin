@@ -158,12 +158,12 @@ class RoutingDetailServiceAsyncImpl internal constructor(private val clientOptio
                         }
                     }
                     .let {
-                        RoutingDetailListPageAsync.of(
-                            RoutingDetailServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        RoutingDetailListPageAsync.builder()
+                            .service(RoutingDetailServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

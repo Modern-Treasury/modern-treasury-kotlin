@@ -158,12 +158,12 @@ class RoutingDetailServiceImpl internal constructor(private val clientOptions: C
                         }
                     }
                     .let {
-                        RoutingDetailListPage.of(
-                            RoutingDetailServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        RoutingDetailListPage.builder()
+                            .service(RoutingDetailServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

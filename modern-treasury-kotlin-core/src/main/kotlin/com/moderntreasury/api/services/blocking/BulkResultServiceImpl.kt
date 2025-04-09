@@ -97,12 +97,12 @@ class BulkResultServiceImpl internal constructor(private val clientOptions: Clie
                         }
                     }
                     .let {
-                        BulkResultListPage.of(
-                            BulkResultServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        BulkResultListPage.builder()
+                            .service(BulkResultServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

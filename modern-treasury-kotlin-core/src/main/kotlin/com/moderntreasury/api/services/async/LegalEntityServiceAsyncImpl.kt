@@ -168,12 +168,12 @@ class LegalEntityServiceAsyncImpl internal constructor(private val clientOptions
                         }
                     }
                     .let {
-                        LegalEntityListPageAsync.of(
-                            LegalEntityServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        LegalEntityListPageAsync.builder()
+                            .service(LegalEntityServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

@@ -194,12 +194,12 @@ class ExternalAccountServiceImpl internal constructor(private val clientOptions:
                         }
                     }
                     .let {
-                        ExternalAccountListPage.of(
-                            ExternalAccountServiceImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        ExternalAccountListPage.builder()
+                            .service(ExternalAccountServiceImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }

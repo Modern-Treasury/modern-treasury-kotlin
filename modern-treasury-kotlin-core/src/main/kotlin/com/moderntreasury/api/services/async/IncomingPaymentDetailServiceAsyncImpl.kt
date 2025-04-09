@@ -146,12 +146,12 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
                         }
                     }
                     .let {
-                        IncomingPaymentDetailListPageAsync.of(
-                            IncomingPaymentDetailServiceAsyncImpl(clientOptions),
-                            params,
-                            response.headers(),
-                            it,
-                        )
+                        IncomingPaymentDetailListPageAsync.builder()
+                            .service(IncomingPaymentDetailServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .headers(response.headers())
+                            .items(it)
+                            .build()
                     }
             }
         }
