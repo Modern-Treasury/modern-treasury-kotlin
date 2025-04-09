@@ -429,6 +429,6 @@ internal class BulkRequestServiceAsyncTest {
 
         val page = bulkRequestServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }

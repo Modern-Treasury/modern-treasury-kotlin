@@ -188,13 +188,8 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
                         CounterpartyListPageAsync.of(
                             CounterpartyServiceAsyncImpl(clientOptions),
                             params,
-                            CounterpartyListPageAsync.Response.builder()
-                                .items(it)
-                                .perPage(response.headers().values("X-Per-Page").getOrNull(0) ?: "")
-                                .afterCursor(
-                                    response.headers().values("X-After-Cursor").getOrNull(0) ?: ""
-                                )
-                                .build(),
+                            response.headers(),
+                            it,
                         )
                     }
             }

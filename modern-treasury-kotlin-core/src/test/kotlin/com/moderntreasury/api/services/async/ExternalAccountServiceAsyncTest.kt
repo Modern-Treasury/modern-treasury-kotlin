@@ -186,7 +186,7 @@ internal class ExternalAccountServiceAsyncTest {
 
         val page = externalAccountServiceAsync.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

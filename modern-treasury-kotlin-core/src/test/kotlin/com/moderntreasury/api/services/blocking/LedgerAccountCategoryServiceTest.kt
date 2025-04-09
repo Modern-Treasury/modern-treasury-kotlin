@@ -122,7 +122,7 @@ internal class LedgerAccountCategoryServiceTest {
 
         val page = ledgerAccountCategoryService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 
     @Test

@@ -64,6 +64,6 @@ internal class DocumentServiceTest {
 
         val page = documentService.list()
 
-        page.response().validate()
+        page.items().forEach { it.validate() }
     }
 }
