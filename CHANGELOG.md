@@ -1,5 +1,38 @@
 # Changelog
 
+## 6.2.0 (2025-04-15)
+
+Full Changelog: [v6.1.0...v6.2.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v6.1.0...v6.2.0)
+
+### Features
+
+* **client:** make pagination robust to missing data ([d34657d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d34657d06208be774be70afd73910ff6d37e88e6))
+* **client:** support setting base URL via env var ([#400](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/400)) ([6d5367d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6d5367daa482b38a644490cbaa8245f6e8076d65))
+
+
+### Bug Fixes
+
+* **client:** bump to better jackson version ([#403](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/403)) ([cb00977](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/cb009776650db7a65cae025b4cc868ca30c72479))
+
+
+### Chores
+
+* **internal:** expand CI branch coverage ([#402](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/402)) ([561a4e5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/561a4e5994eaaf285a5dfa655eb441c9d7249a5f))
+* **internal:** reduce CI branch coverage ([02eefa5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/02eefa52b6e6d5b15649559a412ed9c0780581d1))
+
+
+### Documentation
+
+* add comments for page methods ([d34657d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d34657d06208be774be70afd73910ff6d37e88e6))
+* **client:** update jackson compat error message ([a58933d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a58933dca11791ac4bf260f93977ce2399328cbb))
+* update documentation links to be more uniform ([128eac7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/128eac7f245a604e8bea1425c80146deb5390592))
+
+
+### Refactors
+
+* **client:** deduplicate page response classes ([#404](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/404)) ([d34657d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d34657d06208be774be70afd73910ff6d37e88e6))
+* **client:** migrate pages to builder pattern ([#405](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/405)) ([3860c13](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3860c1326498635220164d69534445cec27ab46a))
+
 ## 6.1.0 (2025-04-04)
 
 Full Changelog: [v6.0.0...v6.1.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v6.0.0...v6.1.0)
