@@ -26,8 +26,10 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.parallel.ResourceLock
 
 @WireMockTest
+@ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class ServiceParamsTest {
 
     private lateinit var client: ModernTreasuryClient
