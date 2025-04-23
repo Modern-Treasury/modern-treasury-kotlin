@@ -14,7 +14,7 @@ internal class DocumentCreateParamsTest {
         DocumentCreateParams.builder()
             .documentableId("documentable_id")
             .documentableType(DocumentCreateParams.DocumentableType.CASES)
-            .file("some content".toByteArray())
+            .file("some content".byteInputStream())
             .documentType("document_type")
             .build()
     }
@@ -25,7 +25,7 @@ internal class DocumentCreateParamsTest {
             DocumentCreateParams.builder()
                 .documentableId("documentable_id")
                 .documentableType(DocumentCreateParams.DocumentableType.CASES)
-                .file("some content".toByteArray())
+                .file("some content".byteInputStream())
                 .documentType("document_type")
                 .build()
 
@@ -44,7 +44,7 @@ internal class DocumentCreateParamsTest {
                         "documentable_id" to MultipartField.of("documentable_id"),
                         "documentable_type" to
                             MultipartField.of(DocumentCreateParams.DocumentableType.CASES),
-                        "file" to MultipartField.of("some content".toByteArray()),
+                        "file" to MultipartField.of("some content".byteInputStream()),
                         "document_type" to MultipartField.of("document_type"),
                     )
                     .mapValues { (_, field) ->
@@ -59,7 +59,7 @@ internal class DocumentCreateParamsTest {
             DocumentCreateParams.builder()
                 .documentableId("documentable_id")
                 .documentableType(DocumentCreateParams.DocumentableType.CASES)
-                .file("some content".toByteArray())
+                .file("some content".byteInputStream())
                 .build()
 
         val body = params._body()
@@ -77,7 +77,7 @@ internal class DocumentCreateParamsTest {
                         "documentable_id" to MultipartField.of("documentable_id"),
                         "documentable_type" to
                             MultipartField.of(DocumentCreateParams.DocumentableType.CASES),
-                        "file" to MultipartField.of("some content".toByteArray()),
+                        "file" to MultipartField.of("some content".byteInputStream()),
                     )
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }

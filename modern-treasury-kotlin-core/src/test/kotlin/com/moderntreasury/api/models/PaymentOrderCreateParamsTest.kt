@@ -36,7 +36,7 @@ internal class PaymentOrderCreateParamsTest {
                     .documentableType(
                         PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
                     )
-                    .file("some content".toByteArray())
+                    .file("some content".byteInputStream())
                     .documentType("document_type")
                     .build()
             )
@@ -267,7 +267,7 @@ internal class PaymentOrderCreateParamsTest {
                         .documentableType(
                             PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
                         )
-                        .file("some content".toByteArray())
+                        .file("some content".byteInputStream())
                         .documentType("document_type")
                         .build()
                 )
@@ -521,7 +521,7 @@ internal class PaymentOrderCreateParamsTest {
                                                 .DocumentableType
                                                 .CASES
                                         )
-                                        .file("some content".toByteArray())
+                                        .file("some content".byteInputStream())
                                         .documentType("document_type")
                                         .build()
                                 )
