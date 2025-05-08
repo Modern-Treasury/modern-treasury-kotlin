@@ -8,8 +8,6 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.ExternalAccountCompleteVerificationParams
 import com.moderntreasury.api.models.ExternalAccountCreateParams
-import com.moderntreasury.api.models.ExternalAccountDeleteParams
-import com.moderntreasury.api.models.ExternalAccountRetrieveParams
 import com.moderntreasury.api.models.ExternalAccountType
 import com.moderntreasury.api.models.ExternalAccountUpdateParams
 import com.moderntreasury.api.models.ExternalAccountVerifyParams
@@ -126,10 +124,7 @@ internal class ExternalAccountServiceAsyncTest {
                 .build()
         val externalAccountServiceAsync = client.externalAccounts()
 
-        val externalAccount =
-            externalAccountServiceAsync.retrieve(
-                ExternalAccountRetrieveParams.builder().id("id").build()
-            )
+        val externalAccount = externalAccountServiceAsync.retrieve("id")
 
         externalAccount.validate()
     }
@@ -199,7 +194,7 @@ internal class ExternalAccountServiceAsyncTest {
                 .build()
         val externalAccountServiceAsync = client.externalAccounts()
 
-        externalAccountServiceAsync.delete(ExternalAccountDeleteParams.builder().id("id").build())
+        externalAccountServiceAsync.delete("id")
     }
 
     @Test

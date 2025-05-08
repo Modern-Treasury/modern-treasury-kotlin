@@ -4,7 +4,6 @@ package com.moderntreasury.api.services.async
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
-import com.moderntreasury.api.models.BulkResultRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,8 +20,7 @@ internal class BulkResultServiceAsyncTest {
                 .build()
         val bulkResultServiceAsync = client.bulkResults()
 
-        val bulkResult =
-            bulkResultServiceAsync.retrieve(BulkResultRetrieveParams.builder().id("id").build())
+        val bulkResult = bulkResultServiceAsync.retrieve("id")
 
         bulkResult.validate()
     }

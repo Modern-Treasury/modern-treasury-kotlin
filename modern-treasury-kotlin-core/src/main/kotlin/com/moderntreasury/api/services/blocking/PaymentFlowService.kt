@@ -27,11 +27,29 @@ interface PaymentFlowService {
 
     /** get payment_flow */
     fun retrieve(
+        id: String,
+        params: PaymentFlowRetrieveParams = PaymentFlowRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PaymentFlow = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: PaymentFlowRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentFlow
 
+    /** @see [retrieve] */
+    fun retrieve(id: String, requestOptions: RequestOptions): PaymentFlow =
+        retrieve(id, PaymentFlowRetrieveParams.none(), requestOptions)
+
     /** update payment_flow */
+    fun update(
+        id: String,
+        params: PaymentFlowUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PaymentFlow = update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [update] */
     fun update(
         params: PaymentFlowUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -68,14 +86,36 @@ interface PaymentFlowService {
          */
         @MustBeClosed
         fun retrieve(
+            id: String,
+            params: PaymentFlowRetrieveParams = PaymentFlowRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PaymentFlow> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: PaymentFlowRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentFlow>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<PaymentFlow> =
+            retrieve(id, PaymentFlowRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /api/payment_flows/{id}`, but is otherwise the
          * same as [PaymentFlowService.update].
          */
+        @MustBeClosed
+        fun update(
+            id: String,
+            params: PaymentFlowUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PaymentFlow> = update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: PaymentFlowUpdateParams,

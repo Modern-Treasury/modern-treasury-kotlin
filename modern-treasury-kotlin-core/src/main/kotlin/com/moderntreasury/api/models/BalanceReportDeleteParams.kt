@@ -14,7 +14,7 @@ import java.util.Objects
 class BalanceReportDeleteParams
 private constructor(
     private val internalAccountId: String,
-    private val id: String,
+    private val id: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -22,7 +22,7 @@ private constructor(
 
     fun internalAccountId(): String = internalAccountId
 
-    fun id(): String = id
+    fun id(): String? = id
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -40,7 +40,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .internalAccountId()
-         * .id()
          * ```
          */
         fun builder() = Builder()
@@ -68,7 +67,7 @@ private constructor(
             this.internalAccountId = internalAccountId
         }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -198,7 +197,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .internalAccountId()
-         * .id()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -206,7 +204,7 @@ private constructor(
         fun build(): BalanceReportDeleteParams =
             BalanceReportDeleteParams(
                 checkRequired("internalAccountId", internalAccountId),
-                checkRequired("id", id),
+                id,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -218,7 +216,7 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> internalAccountId
-            1 -> id
+            1 -> id ?: ""
             else -> ""
         }
 

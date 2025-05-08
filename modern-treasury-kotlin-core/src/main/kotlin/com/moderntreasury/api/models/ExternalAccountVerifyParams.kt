@@ -22,13 +22,13 @@ import java.util.Objects
 /** verify external account */
 class ExternalAccountVerifyParams
 private constructor(
-    private val id: String,
+    private val id: String?,
     private val body: ExternalAccountVerifyRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun id(): String = id
+    fun id(): String? = id
 
     /**
      * The ID of the internal account where the micro-deposits originate from. Both credit and debit
@@ -125,7 +125,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .id()
          * .originatingAccountId()
          * .paymentType()
          * ```
@@ -149,7 +148,7 @@ private constructor(
             additionalQueryParams = externalAccountVerifyParams.additionalQueryParams.toBuilder()
         }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         /**
          * Sets the entire request body.
@@ -367,7 +366,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .id()
          * .originatingAccountId()
          * .paymentType()
          * ```
@@ -376,7 +374,7 @@ private constructor(
          */
         fun build(): ExternalAccountVerifyParams =
             ExternalAccountVerifyParams(
-                checkRequired("id", id),
+                id,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -387,7 +385,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id
+            0 -> id ?: ""
             else -> ""
         }
 

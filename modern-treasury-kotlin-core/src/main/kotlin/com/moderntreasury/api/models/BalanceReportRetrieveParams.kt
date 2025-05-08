@@ -12,14 +12,14 @@ import java.util.Objects
 class BalanceReportRetrieveParams
 private constructor(
     private val internalAccountId: String,
-    private val id: String,
+    private val id: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun internalAccountId(): String = internalAccountId
 
-    fun id(): String = id
+    fun id(): String? = id
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -35,7 +35,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .internalAccountId()
-         * .id()
          * ```
          */
         fun builder() = Builder()
@@ -60,7 +59,7 @@ private constructor(
             this.internalAccountId = internalAccountId
         }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -168,7 +167,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .internalAccountId()
-         * .id()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -176,7 +174,7 @@ private constructor(
         fun build(): BalanceReportRetrieveParams =
             BalanceReportRetrieveParams(
                 checkRequired("internalAccountId", internalAccountId),
-                checkRequired("id", id),
+                id,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -185,7 +183,7 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> internalAccountId
-            1 -> id
+            1 -> id ?: ""
             else -> ""
         }
 

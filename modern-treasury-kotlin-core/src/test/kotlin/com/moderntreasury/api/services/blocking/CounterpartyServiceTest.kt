@@ -8,8 +8,6 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.BankSettings
 import com.moderntreasury.api.models.CounterpartyCollectAccountParams
 import com.moderntreasury.api.models.CounterpartyCreateParams
-import com.moderntreasury.api.models.CounterpartyDeleteParams
-import com.moderntreasury.api.models.CounterpartyRetrieveParams
 import com.moderntreasury.api.models.CounterpartyUpdateParams
 import com.moderntreasury.api.models.ExternalAccountType
 import com.moderntreasury.api.models.LegalEntityComplianceDetail
@@ -588,8 +586,7 @@ internal class CounterpartyServiceTest {
                 .build()
         val counterpartyService = client.counterparties()
 
-        val counterparty =
-            counterpartyService.retrieve(CounterpartyRetrieveParams.builder().id("id").build())
+        val counterparty = counterpartyService.retrieve("id")
 
         counterparty.validate()
     }
@@ -649,7 +646,7 @@ internal class CounterpartyServiceTest {
                 .build()
         val counterpartyService = client.counterparties()
 
-        counterpartyService.delete(CounterpartyDeleteParams.builder().id("id").build())
+        counterpartyService.delete("id")
     }
 
     @Test

@@ -14,7 +14,7 @@ import java.util.Objects
 class LedgerAccountCategoryRemoveLedgerAccountParams
 private constructor(
     private val id: String,
-    private val ledgerAccountId: String,
+    private val ledgerAccountId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -22,7 +22,7 @@ private constructor(
 
     fun id(): String = id
 
-    fun ledgerAccountId(): String = ledgerAccountId
+    fun ledgerAccountId(): String? = ledgerAccountId
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -41,7 +41,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .id()
-         * .ledgerAccountId()
          * ```
          */
         fun builder() = Builder()
@@ -73,7 +72,7 @@ private constructor(
 
         fun id(id: String) = apply { this.id = id }
 
-        fun ledgerAccountId(ledgerAccountId: String) = apply {
+        fun ledgerAccountId(ledgerAccountId: String?) = apply {
             this.ledgerAccountId = ledgerAccountId
         }
 
@@ -205,7 +204,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .id()
-         * .ledgerAccountId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -213,7 +211,7 @@ private constructor(
         fun build(): LedgerAccountCategoryRemoveLedgerAccountParams =
             LedgerAccountCategoryRemoveLedgerAccountParams(
                 checkRequired("id", id),
-                checkRequired("ledgerAccountId", ledgerAccountId),
+                ledgerAccountId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -225,7 +223,7 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> id
-            1 -> ledgerAccountId
+            1 -> ledgerAccountId ?: ""
             else -> ""
         }
 

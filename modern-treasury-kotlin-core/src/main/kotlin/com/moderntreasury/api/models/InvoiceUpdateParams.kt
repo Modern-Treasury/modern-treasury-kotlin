@@ -26,13 +26,13 @@ import java.util.Objects
 /** update invoice */
 class InvoiceUpdateParams
 private constructor(
-    private val id: String,
+    private val id: String?,
     private val body: InvoiceUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun id(): String = id
+    fun id(): String? = id
 
     /**
      * The invoicer's contact details displayed at the top of the invoice.
@@ -457,14 +457,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [InvoiceUpdateParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
-         */
+        fun none(): InvoiceUpdateParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [InvoiceUpdateParams]. */
         fun builder() = Builder()
     }
 
@@ -483,7 +478,7 @@ private constructor(
             additionalQueryParams = invoiceUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         /**
          * Sets the entire request body.
@@ -1086,17 +1081,10 @@ private constructor(
          * Returns an immutable instance of [InvoiceUpdateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): InvoiceUpdateParams =
             InvoiceUpdateParams(
-                checkRequired("id", id),
+                id,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -1107,7 +1095,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id
+            0 -> id ?: ""
             else -> ""
         }
 

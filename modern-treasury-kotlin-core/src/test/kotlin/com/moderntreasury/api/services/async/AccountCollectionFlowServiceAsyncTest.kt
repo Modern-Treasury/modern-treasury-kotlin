@@ -5,7 +5,6 @@ package com.moderntreasury.api.services.async
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.models.AccountCollectionFlowCreateParams
-import com.moderntreasury.api.models.AccountCollectionFlowRetrieveParams
 import com.moderntreasury.api.models.AccountCollectionFlowUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -45,10 +44,7 @@ internal class AccountCollectionFlowServiceAsyncTest {
                 .build()
         val accountCollectionFlowServiceAsync = client.accountCollectionFlows()
 
-        val accountCollectionFlow =
-            accountCollectionFlowServiceAsync.retrieve(
-                AccountCollectionFlowRetrieveParams.builder().id("id").build()
-            )
+        val accountCollectionFlow = accountCollectionFlowServiceAsync.retrieve("id")
 
         accountCollectionFlow.validate()
     }

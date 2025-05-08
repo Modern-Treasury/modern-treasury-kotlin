@@ -5,7 +5,6 @@ package com.moderntreasury.api.services.async
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.models.DocumentCreateParams
-import com.moderntreasury.api.models.DocumentRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -47,8 +46,7 @@ internal class DocumentServiceAsyncTest {
                 .build()
         val documentServiceAsync = client.documents()
 
-        val document =
-            documentServiceAsync.retrieve(DocumentRetrieveParams.builder().id("id").build())
+        val document = documentServiceAsync.retrieve("id")
 
         document.validate()
     }

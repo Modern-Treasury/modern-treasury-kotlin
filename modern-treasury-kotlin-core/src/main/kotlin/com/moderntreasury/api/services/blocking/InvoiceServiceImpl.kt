@@ -5,6 +5,7 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.handlers.emptyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
@@ -109,6 +110,9 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
             params: InvoiceRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Invoice> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -135,6 +139,9 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
             params: InvoiceUpdateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Invoice> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -196,6 +203,9 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
             params: InvoiceAddPaymentOrderParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("paymentOrderId", params.paymentOrderId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)

@@ -4,7 +4,6 @@ package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.Params
-import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
@@ -13,13 +12,13 @@ import java.util.Objects
 /** Archive a ledger event handler. */
 class LedgerEventHandlerDeleteParams
 private constructor(
-    private val id: String,
+    private val id: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun id(): String = id
+    fun id(): String? = id
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -31,14 +30,11 @@ private constructor(
 
     companion object {
 
+        fun none(): LedgerEventHandlerDeleteParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [LedgerEventHandlerDeleteParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -59,7 +55,7 @@ private constructor(
                 ledgerEventHandlerDeleteParams.additionalBodyProperties.toMutableMap()
         }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -185,17 +181,10 @@ private constructor(
          * Returns an immutable instance of [LedgerEventHandlerDeleteParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): LedgerEventHandlerDeleteParams =
             LedgerEventHandlerDeleteParams(
-                checkRequired("id", id),
+                id,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -206,7 +195,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id
+            0 -> id ?: ""
             else -> ""
         }
 

@@ -6,7 +6,6 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.ReturnCreateParams
-import com.moderntreasury.api.models.ReturnRetrieveParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -50,7 +49,7 @@ internal class ReturnServiceTest {
                 .build()
         val returnService = client.returns()
 
-        val returnObject = returnService.retrieve(ReturnRetrieveParams.builder().id("id").build())
+        val returnObject = returnService.retrieve("id")
 
         returnObject.validate()
     }

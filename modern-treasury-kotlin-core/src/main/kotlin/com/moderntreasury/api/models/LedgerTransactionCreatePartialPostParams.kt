@@ -25,13 +25,13 @@ import java.util.Objects
 /** Create a ledger transaction that partially posts another ledger transaction. */
 class LedgerTransactionCreatePartialPostParams
 private constructor(
-    private val id: String,
+    private val id: String?,
     private val body: LedgerTransactionPartialPostCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun id(): String = id
+    fun id(): String? = id
 
     /**
      * An array of ledger entry objects to be set on the posted ledger transaction. There must be
@@ -115,7 +115,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .id()
          * .postedLedgerEntries()
          * ```
          */
@@ -142,7 +141,7 @@ private constructor(
                 ledgerTransactionCreatePartialPostParams.additionalQueryParams.toBuilder()
         }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         /**
          * Sets the entire request body.
@@ -358,7 +357,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .id()
          * .postedLedgerEntries()
          * ```
          *
@@ -366,7 +364,7 @@ private constructor(
          */
         fun build(): LedgerTransactionCreatePartialPostParams =
             LedgerTransactionCreatePartialPostParams(
-                checkRequired("id", id),
+                id,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -377,7 +375,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id
+            0 -> id ?: ""
             else -> ""
         }
 
