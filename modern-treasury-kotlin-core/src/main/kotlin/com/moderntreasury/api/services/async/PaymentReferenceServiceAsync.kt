@@ -20,9 +20,20 @@ interface PaymentReferenceServiceAsync {
 
     /** get payment_reference */
     suspend fun retrieve(
+        id: String,
+        params: PaymentReferenceRetrieveParams = PaymentReferenceRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PaymentReference = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: PaymentReferenceRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentReference
+
+    /** @see [retrieve] */
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): PaymentReference =
+        retrieve(id, PaymentReferenceRetrieveParams.none(), requestOptions)
 
     /** list payment_references */
     suspend fun list(
@@ -37,9 +48,22 @@ interface PaymentReferenceServiceAsync {
     /** get payment_reference */
     @Deprecated("use `retrieve` instead")
     suspend fun retireve(
+        id: String,
+        params: PaymentReferenceRetireveParams = PaymentReferenceRetireveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PaymentReference = retireve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retireve] */
+    @Deprecated("use `retrieve` instead")
+    suspend fun retireve(
         params: PaymentReferenceRetireveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentReference
+
+    /** @see [retireve] */
+    @Deprecated("use `retrieve` instead")
+    suspend fun retireve(id: String, requestOptions: RequestOptions): PaymentReference =
+        retireve(id, PaymentReferenceRetireveParams.none(), requestOptions)
 
     /**
      * A view of [PaymentReferenceServiceAsync] that provides access to raw HTTP responses for each
@@ -53,9 +77,26 @@ interface PaymentReferenceServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            id: String,
+            params: PaymentReferenceRetrieveParams = PaymentReferenceRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PaymentReference> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: PaymentReferenceRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentReference>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PaymentReference> =
+            retrieve(id, PaymentReferenceRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/payment_references`, but is otherwise the same
@@ -81,8 +122,27 @@ interface PaymentReferenceServiceAsync {
         @Deprecated("use `retrieve` instead")
         @MustBeClosed
         suspend fun retireve(
+            id: String,
+            params: PaymentReferenceRetireveParams = PaymentReferenceRetireveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PaymentReference> =
+            retireve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retireve] */
+        @Deprecated("use `retrieve` instead")
+        @MustBeClosed
+        suspend fun retireve(
             params: PaymentReferenceRetireveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentReference>
+
+        /** @see [retireve] */
+        @Deprecated("use `retrieve` instead")
+        @MustBeClosed
+        suspend fun retireve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PaymentReference> =
+            retireve(id, PaymentReferenceRetireveParams.none(), requestOptions)
     }
 }

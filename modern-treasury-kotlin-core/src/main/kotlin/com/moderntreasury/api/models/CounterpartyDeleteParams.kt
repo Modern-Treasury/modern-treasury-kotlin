@@ -4,7 +4,6 @@ package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.Params
-import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
@@ -13,13 +12,13 @@ import java.util.Objects
 /** Deletes a given counterparty. */
 class CounterpartyDeleteParams
 private constructor(
-    private val id: String,
+    private val id: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun id(): String = id
+    fun id(): String? = id
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -31,14 +30,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [CounterpartyDeleteParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
-         */
+        fun none(): CounterpartyDeleteParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [CounterpartyDeleteParams]. */
         fun builder() = Builder()
     }
 
@@ -58,7 +52,7 @@ private constructor(
                 counterpartyDeleteParams.additionalBodyProperties.toMutableMap()
         }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -184,17 +178,10 @@ private constructor(
          * Returns an immutable instance of [CounterpartyDeleteParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): CounterpartyDeleteParams =
             CounterpartyDeleteParams(
-                checkRequired("id", id),
+                id,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -205,7 +192,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id
+            0 -> id ?: ""
             else -> ""
         }
 

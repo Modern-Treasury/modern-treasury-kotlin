@@ -12,7 +12,7 @@ import java.util.Objects
 class RoutingDetailListParams
 private constructor(
     private val accountsType: AccountsType,
-    private val accountId: String,
+    private val accountId: String?,
     private val afterCursor: String?,
     private val perPage: Long?,
     private val additionalHeaders: Headers,
@@ -21,7 +21,7 @@ private constructor(
 
     fun accountsType(): AccountsType = accountsType
 
-    fun accountId(): String = accountId
+    fun accountId(): String? = accountId
 
     fun afterCursor(): String? = afterCursor
 
@@ -41,7 +41,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .accountsType()
-         * .accountId()
          * ```
          */
         fun builder() = Builder()
@@ -68,7 +67,7 @@ private constructor(
 
         fun accountsType(accountsType: AccountsType) = apply { this.accountsType = accountsType }
 
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
         fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
@@ -187,7 +186,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .accountsType()
-         * .accountId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -195,7 +193,7 @@ private constructor(
         fun build(): RoutingDetailListParams =
             RoutingDetailListParams(
                 checkRequired("accountsType", accountsType),
-                checkRequired("accountId", accountId),
+                accountId,
                 afterCursor,
                 perPage,
                 additionalHeaders.build(),
@@ -206,7 +204,7 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> accountsType.toString()
-            1 -> accountId
+            1 -> accountId ?: ""
             else -> ""
         }
 

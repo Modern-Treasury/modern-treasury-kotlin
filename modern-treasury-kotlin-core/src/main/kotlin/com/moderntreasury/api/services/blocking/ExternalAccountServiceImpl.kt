@@ -5,6 +5,7 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.handlers.emptyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
@@ -123,6 +124,9 @@ class ExternalAccountServiceImpl internal constructor(private val clientOptions:
             params: ExternalAccountRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ExternalAccount> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -149,6 +153,9 @@ class ExternalAccountServiceImpl internal constructor(private val clientOptions:
             params: ExternalAccountUpdateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ExternalAccount> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -210,6 +217,9 @@ class ExternalAccountServiceImpl internal constructor(private val clientOptions:
             params: ExternalAccountDeleteParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
@@ -229,6 +239,9 @@ class ExternalAccountServiceImpl internal constructor(private val clientOptions:
             params: ExternalAccountCompleteVerificationParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ExternalAccount> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -262,6 +275,9 @@ class ExternalAccountServiceImpl internal constructor(private val clientOptions:
             params: ExternalAccountVerifyParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ExternalAccountVerifyResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

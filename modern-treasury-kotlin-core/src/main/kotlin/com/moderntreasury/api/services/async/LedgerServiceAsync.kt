@@ -28,15 +28,37 @@ interface LedgerServiceAsync {
 
     /** Get details on a single ledger. */
     suspend fun retrieve(
+        id: String,
+        params: LedgerRetrieveParams = LedgerRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Ledger = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: LedgerRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Ledger
 
+    /** @see [retrieve] */
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): Ledger =
+        retrieve(id, LedgerRetrieveParams.none(), requestOptions)
+
     /** Update the details of a ledger. */
+    suspend fun update(
+        id: String,
+        params: LedgerUpdateParams = LedgerUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Ledger = update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [update] */
     suspend fun update(
         params: LedgerUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Ledger
+
+    /** @see [update] */
+    suspend fun update(id: String, requestOptions: RequestOptions): Ledger =
+        update(id, LedgerUpdateParams.none(), requestOptions)
 
     /** Get a list of ledgers. */
     suspend fun list(
@@ -50,9 +72,20 @@ interface LedgerServiceAsync {
 
     /** Delete a ledger. */
     suspend fun delete(
+        id: String,
+        params: LedgerDeleteParams = LedgerDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Ledger = delete(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [delete] */
+    suspend fun delete(
         params: LedgerDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Ledger
+
+    /** @see [delete] */
+    suspend fun delete(id: String, requestOptions: RequestOptions): Ledger =
+        delete(id, LedgerDeleteParams.none(), requestOptions)
 
     /**
      * A view of [LedgerServiceAsync] that provides access to raw HTTP responses for each method.
@@ -75,9 +108,22 @@ interface LedgerServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            id: String,
+            params: LedgerRetrieveParams = LedgerRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Ledger> = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: LedgerRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Ledger>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<Ledger> =
+            retrieve(id, LedgerRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /api/ledgers/{id}`, but is otherwise the same as
@@ -85,9 +131,22 @@ interface LedgerServiceAsync {
          */
         @MustBeClosed
         suspend fun update(
+            id: String,
+            params: LedgerUpdateParams = LedgerUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Ledger> = update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        suspend fun update(
             params: LedgerUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Ledger>
+
+        /** @see [update] */
+        @MustBeClosed
+        suspend fun update(id: String, requestOptions: RequestOptions): HttpResponseFor<Ledger> =
+            update(id, LedgerUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/ledgers`, but is otherwise the same as
@@ -110,8 +169,21 @@ interface LedgerServiceAsync {
          */
         @MustBeClosed
         suspend fun delete(
+            id: String,
+            params: LedgerDeleteParams = LedgerDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Ledger> = delete(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [delete] */
+        @MustBeClosed
+        suspend fun delete(
             params: LedgerDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Ledger>
+
+        /** @see [delete] */
+        @MustBeClosed
+        suspend fun delete(id: String, requestOptions: RequestOptions): HttpResponseFor<Ledger> =
+            delete(id, LedgerDeleteParams.none(), requestOptions)
     }
 }

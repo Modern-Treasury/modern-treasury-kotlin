@@ -23,7 +23,7 @@ import java.util.Objects
 class RoutingDetailCreateParams
 private constructor(
     private val accountsType: AccountsType,
-    private val accountId: String,
+    private val accountId: String?,
     private val body: RoutingDetailCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -31,7 +31,7 @@ private constructor(
 
     fun accountsType(): AccountsType = accountsType
 
-    fun accountId(): String = accountId
+    fun accountId(): String? = accountId
 
     /**
      * The routing number of the bank.
@@ -97,7 +97,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .accountsType()
-         * .accountId()
          * .routingNumber()
          * .routingNumberType()
          * ```
@@ -124,7 +123,7 @@ private constructor(
 
         fun accountsType(accountsType: AccountsType) = apply { this.accountsType = accountsType }
 
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
         /**
          * Sets the entire request body.
@@ -313,7 +312,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .accountsType()
-         * .accountId()
          * .routingNumber()
          * .routingNumberType()
          * ```
@@ -323,7 +321,7 @@ private constructor(
         fun build(): RoutingDetailCreateParams =
             RoutingDetailCreateParams(
                 checkRequired("accountsType", accountsType),
-                checkRequired("accountId", accountId),
+                accountId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -335,7 +333,7 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> accountsType.toString()
-            1 -> accountId
+            1 -> accountId ?: ""
             else -> ""
         }
 

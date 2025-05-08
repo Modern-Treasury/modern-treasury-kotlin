@@ -26,14 +26,14 @@ import java.util.Objects
 /** Create a reversal for a payment order. */
 class PaymentOrderReversalCreateParams
 private constructor(
-    private val paymentOrderId: String,
+    private val paymentOrderId: String?,
     private val body: ReversalCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The id of the payment order being reversed. */
-    fun paymentOrderId(): String = paymentOrderId
+    fun paymentOrderId(): String? = paymentOrderId
 
     /**
      * The reason for the reversal. Must be one of `duplicate`, `incorrect_amount`,
@@ -100,7 +100,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .paymentOrderId()
          * .reason()
          * ```
          */
@@ -125,7 +124,7 @@ private constructor(
             }
 
         /** The id of the payment order being reversed. */
-        fun paymentOrderId(paymentOrderId: String) = apply { this.paymentOrderId = paymentOrderId }
+        fun paymentOrderId(paymentOrderId: String?) = apply { this.paymentOrderId = paymentOrderId }
 
         /**
          * Sets the entire request body.
@@ -311,7 +310,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .paymentOrderId()
          * .reason()
          * ```
          *
@@ -319,7 +317,7 @@ private constructor(
          */
         fun build(): PaymentOrderReversalCreateParams =
             PaymentOrderReversalCreateParams(
-                checkRequired("paymentOrderId", paymentOrderId),
+                paymentOrderId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -330,7 +328,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> paymentOrderId
+            0 -> paymentOrderId ?: ""
             else -> ""
         }
 
