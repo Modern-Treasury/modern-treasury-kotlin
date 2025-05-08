@@ -2,12 +2,12 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.AutoPagerAsync
+import com.moderntreasury.api.core.PageAsync
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.ledgerTransactions.VersionServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [VersionServiceAsync.list] */
 class LedgerTransactionVersionListPageAsync
@@ -16,32 +16,27 @@ private constructor(
     private val params: LedgerTransactionVersionListParams,
     private val headers: Headers,
     private val items: List<LedgerTransactionVersion>,
-) {
+) : PageAsync<LedgerTransactionVersion> {
 
     fun perPage(): String? = headers.values("per_page").firstOrNull()
 
     fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
 
-    fun hasNextPage(): Boolean = items.isNotEmpty() && afterCursor() != null
+    override fun hasNextPage(): Boolean = items().isNotEmpty()
 
-    fun getNextPageParams(): LedgerTransactionVersionListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    fun nextPageParams(): LedgerTransactionVersionListParams =
+        throw IllegalStateException("Cannot construct next page params")
 
-        return params.toBuilder().apply { afterCursor()?.let { afterCursor(it) } }.build()
-    }
+    override suspend fun nextPage(): LedgerTransactionVersionListPageAsync =
+        service.list(nextPageParams())
 
-    suspend fun getNextPage(): LedgerTransactionVersionListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
-
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<LedgerTransactionVersion> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): LedgerTransactionVersionListParams = params
 
     /** The response that this page was parsed from. */
-    fun items(): List<LedgerTransactionVersion> = items
+    override fun items(): List<LedgerTransactionVersion> = items
 
     fun toBuilder() = Builder().from(this)
 
@@ -111,22 +106,6 @@ private constructor(
                 checkRequired("headers", headers),
                 checkRequired("items", items),
             )
-    }
-
-    class AutoPager(private val firstPage: LedgerTransactionVersionListPageAsync) :
-        Flow<LedgerTransactionVersion> {
-
-        override suspend fun collect(collector: FlowCollector<LedgerTransactionVersion>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.items().size) {
-                    collector.emit(page.items()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

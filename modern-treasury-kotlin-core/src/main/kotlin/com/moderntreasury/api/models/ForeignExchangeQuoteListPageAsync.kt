@@ -2,12 +2,12 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.AutoPagerAsync
+import com.moderntreasury.api.core.PageAsync
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.ForeignExchangeQuoteServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [ForeignExchangeQuoteServiceAsync.list] */
 class ForeignExchangeQuoteListPageAsync
@@ -16,32 +16,27 @@ private constructor(
     private val params: ForeignExchangeQuoteListParams,
     private val headers: Headers,
     private val items: List<ForeignExchangeQuote>,
-) {
+) : PageAsync<ForeignExchangeQuote> {
 
     fun perPage(): String? = headers.values("per_page").firstOrNull()
 
     fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
 
-    fun hasNextPage(): Boolean = items.isNotEmpty() && afterCursor() != null
+    override fun hasNextPage(): Boolean = items().isNotEmpty()
 
-    fun getNextPageParams(): ForeignExchangeQuoteListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    fun nextPageParams(): ForeignExchangeQuoteListParams =
+        throw IllegalStateException("Cannot construct next page params")
 
-        return params.toBuilder().apply { afterCursor()?.let { afterCursor(it) } }.build()
-    }
+    override suspend fun nextPage(): ForeignExchangeQuoteListPageAsync =
+        service.list(nextPageParams())
 
-    suspend fun getNextPage(): ForeignExchangeQuoteListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
-
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<ForeignExchangeQuote> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): ForeignExchangeQuoteListParams = params
 
     /** The response that this page was parsed from. */
-    fun items(): List<ForeignExchangeQuote> = items
+    override fun items(): List<ForeignExchangeQuote> = items
 
     fun toBuilder() = Builder().from(this)
 
@@ -110,22 +105,6 @@ private constructor(
                 checkRequired("headers", headers),
                 checkRequired("items", items),
             )
-    }
-
-    class AutoPager(private val firstPage: ForeignExchangeQuoteListPageAsync) :
-        Flow<ForeignExchangeQuote> {
-
-        override suspend fun collect(collector: FlowCollector<ForeignExchangeQuote>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.items().size) {
-                    collector.emit(page.items()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {
