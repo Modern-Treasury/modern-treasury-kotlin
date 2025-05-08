@@ -6,7 +6,6 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerAccountCreateParams
-import com.moderntreasury.api.models.LedgerAccountDeleteParams
 import com.moderntreasury.api.models.LedgerAccountRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountUpdateParams
 import com.moderntreasury.api.models.TransactionDirection
@@ -136,8 +135,7 @@ internal class LedgerAccountServiceAsyncTest {
                 .build()
         val ledgerAccountServiceAsync = client.ledgerAccounts()
 
-        val ledgerAccount =
-            ledgerAccountServiceAsync.delete(LedgerAccountDeleteParams.builder().id("id").build())
+        val ledgerAccount = ledgerAccountServiceAsync.delete("id")
 
         ledgerAccount.validate()
     }

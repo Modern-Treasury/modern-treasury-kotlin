@@ -27,15 +27,37 @@ interface ConnectionLegalEntityService {
 
     /** Get details on a single connection legal entity. */
     fun retrieve(
+        id: String,
+        params: ConnectionLegalEntityRetrieveParams = ConnectionLegalEntityRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ConnectionLegalEntity = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: ConnectionLegalEntityRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionLegalEntity
 
+    /** @see [retrieve] */
+    fun retrieve(id: String, requestOptions: RequestOptions): ConnectionLegalEntity =
+        retrieve(id, ConnectionLegalEntityRetrieveParams.none(), requestOptions)
+
     /** Update a connection legal entity. */
+    fun update(
+        id: String,
+        params: ConnectionLegalEntityUpdateParams = ConnectionLegalEntityUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ConnectionLegalEntity = update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [update] */
     fun update(
         params: ConnectionLegalEntityUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionLegalEntity
+
+    /** @see [update] */
+    fun update(id: String, requestOptions: RequestOptions): ConnectionLegalEntity =
+        update(id, ConnectionLegalEntityUpdateParams.none(), requestOptions)
 
     /** Get a list of all connection legal entities. */
     fun list(
@@ -69,9 +91,27 @@ interface ConnectionLegalEntityService {
          */
         @MustBeClosed
         fun retrieve(
+            id: String,
+            params: ConnectionLegalEntityRetrieveParams =
+                ConnectionLegalEntityRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ConnectionLegalEntity> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: ConnectionLegalEntityRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ConnectionLegalEntity>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ConnectionLegalEntity> =
+            retrieve(id, ConnectionLegalEntityRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /api/connection_legal_entities/{id}`, but is
@@ -79,9 +119,26 @@ interface ConnectionLegalEntityService {
          */
         @MustBeClosed
         fun update(
+            id: String,
+            params: ConnectionLegalEntityUpdateParams = ConnectionLegalEntityUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ConnectionLegalEntity> =
+            update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
             params: ConnectionLegalEntityUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ConnectionLegalEntity>
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ConnectionLegalEntity> =
+            update(id, ConnectionLegalEntityUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/connection_legal_entities`, but is otherwise

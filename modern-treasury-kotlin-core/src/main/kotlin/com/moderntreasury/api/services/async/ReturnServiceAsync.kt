@@ -26,9 +26,20 @@ interface ReturnServiceAsync {
 
     /** Get a single return. */
     suspend fun retrieve(
+        id: String,
+        params: ReturnRetrieveParams = ReturnRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ReturnObject = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: ReturnRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ReturnObject
+
+    /** @see [retrieve] */
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): ReturnObject =
+        retrieve(id, ReturnRetrieveParams.none(), requestOptions)
 
     /** Get a list of returns. */
     suspend fun list(
@@ -61,9 +72,25 @@ interface ReturnServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            id: String,
+            params: ReturnRetrieveParams = ReturnRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ReturnObject> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: ReturnRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ReturnObject>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ReturnObject> = retrieve(id, ReturnRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/returns`, but is otherwise the same as

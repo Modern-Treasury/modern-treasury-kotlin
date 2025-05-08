@@ -4,8 +4,6 @@ package com.moderntreasury.api.services.async
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
-import com.moderntreasury.api.models.PaymentReferenceRetireveParams
-import com.moderntreasury.api.models.PaymentReferenceRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,10 +20,7 @@ internal class PaymentReferenceServiceAsyncTest {
                 .build()
         val paymentReferenceServiceAsync = client.paymentReferences()
 
-        val paymentReference =
-            paymentReferenceServiceAsync.retrieve(
-                PaymentReferenceRetrieveParams.builder().id("id").build()
-            )
+        val paymentReference = paymentReferenceServiceAsync.retrieve("id")
 
         paymentReference.validate()
     }
@@ -55,10 +50,7 @@ internal class PaymentReferenceServiceAsyncTest {
                 .build()
         val paymentReferenceServiceAsync = client.paymentReferences()
 
-        val paymentReference =
-            paymentReferenceServiceAsync.retireve(
-                PaymentReferenceRetireveParams.builder().id("id").build()
-            )
+        val paymentReference = paymentReferenceServiceAsync.retireve("id")
 
         paymentReference.validate()
     }

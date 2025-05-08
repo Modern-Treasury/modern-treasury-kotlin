@@ -5,7 +5,6 @@ package com.moderntreasury.api.services.async
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.models.PaymentFlowCreateParams
-import com.moderntreasury.api.models.PaymentFlowRetrieveParams
 import com.moderntreasury.api.models.PaymentFlowUpdateParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
@@ -49,8 +48,7 @@ internal class PaymentFlowServiceAsyncTest {
                 .build()
         val paymentFlowServiceAsync = client.paymentFlows()
 
-        val paymentFlow =
-            paymentFlowServiceAsync.retrieve(PaymentFlowRetrieveParams.builder().id("id").build())
+        val paymentFlow = paymentFlowServiceAsync.retrieve("id")
 
         paymentFlow.validate()
     }

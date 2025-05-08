@@ -26,9 +26,20 @@ interface DocumentService {
 
     /** Get an existing document. */
     fun retrieve(
+        id: String,
+        params: DocumentRetrieveParams = DocumentRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Document = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: DocumentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
+
+    /** @see [retrieve] */
+    fun retrieve(id: String, requestOptions: RequestOptions): Document =
+        retrieve(id, DocumentRetrieveParams.none(), requestOptions)
 
     /** Get a list of documents. */
     fun list(
@@ -59,9 +70,22 @@ interface DocumentService {
          */
         @MustBeClosed
         fun retrieve(
+            id: String,
+            params: DocumentRetrieveParams = DocumentRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Document> = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: DocumentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Document>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<Document> =
+            retrieve(id, DocumentRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/documents`, but is otherwise the same as

@@ -5,7 +5,6 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.PaymentFlowCreateParams
-import com.moderntreasury.api.models.PaymentFlowRetrieveParams
 import com.moderntreasury.api.models.PaymentFlowUpdateParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
@@ -49,8 +48,7 @@ internal class PaymentFlowServiceTest {
                 .build()
         val paymentFlowService = client.paymentFlows()
 
-        val paymentFlow =
-            paymentFlowService.retrieve(PaymentFlowRetrieveParams.builder().id("id").build())
+        val paymentFlow = paymentFlowService.retrieve("id")
 
         paymentFlow.validate()
     }

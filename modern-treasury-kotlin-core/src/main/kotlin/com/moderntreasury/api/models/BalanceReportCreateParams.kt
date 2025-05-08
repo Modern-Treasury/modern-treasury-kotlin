@@ -25,13 +25,13 @@ import java.util.Objects
 /** create balance reports */
 class BalanceReportCreateParams
 private constructor(
-    private val internalAccountId: String,
+    private val internalAccountId: String?,
     private val body: BalanceReportCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun internalAccountId(): String = internalAccountId
+    fun internalAccountId(): String? = internalAccountId
 
     /**
      * The date of the balance report in local time.
@@ -110,7 +110,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .internalAccountId()
          * .asOfDate()
          * .asOfTime()
          * .balanceReportType()
@@ -135,7 +134,7 @@ private constructor(
             additionalQueryParams = balanceReportCreateParams.additionalQueryParams.toBuilder()
         }
 
-        fun internalAccountId(internalAccountId: String) = apply {
+        fun internalAccountId(internalAccountId: String?) = apply {
             this.internalAccountId = internalAccountId
         }
 
@@ -338,7 +337,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .internalAccountId()
          * .asOfDate()
          * .asOfTime()
          * .balanceReportType()
@@ -349,7 +347,7 @@ private constructor(
          */
         fun build(): BalanceReportCreateParams =
             BalanceReportCreateParams(
-                checkRequired("internalAccountId", internalAccountId),
+                internalAccountId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -360,7 +358,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> internalAccountId
+            0 -> internalAccountId ?: ""
             else -> ""
         }
 

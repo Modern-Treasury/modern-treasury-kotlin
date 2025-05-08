@@ -17,11 +17,25 @@ interface AccountEntryService {
 
     /** Add ledger entries to a draft ledger account settlement. */
     fun update(
+        id: String,
+        params: LedgerAccountSettlementAccountEntryUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [update] */
+    fun update(
         params: LedgerAccountSettlementAccountEntryUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
     /** Remove ledger entries from a draft ledger account settlement. */
+    fun delete(
+        id: String,
+        params: LedgerAccountSettlementAccountEntryDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = delete(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [delete] */
     fun delete(
         params: LedgerAccountSettlementAccountEntryDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -39,6 +53,14 @@ interface AccountEntryService {
          */
         @MustBeClosed
         fun update(
+            id: String,
+            params: LedgerAccountSettlementAccountEntryUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
             params: LedgerAccountSettlementAccountEntryUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
@@ -48,6 +70,14 @@ interface AccountEntryService {
          * /api/ledger_account_settlements/{id}/ledger_entries`, but is otherwise the same as
          * [AccountEntryService.delete].
          */
+        @MustBeClosed
+        fun delete(
+            id: String,
+            params: LedgerAccountSettlementAccountEntryDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = delete(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [delete] */
         @MustBeClosed
         fun delete(
             params: LedgerAccountSettlementAccountEntryDeleteParams,

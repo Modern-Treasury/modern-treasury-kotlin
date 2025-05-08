@@ -9,7 +9,6 @@ import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.ExternalAccountType
 import com.moderntreasury.api.models.PaymentOrderCreateAsyncParams
 import com.moderntreasury.api.models.PaymentOrderCreateParams
-import com.moderntreasury.api.models.PaymentOrderRetrieveParams
 import com.moderntreasury.api.models.PaymentOrderSubtype
 import com.moderntreasury.api.models.PaymentOrderType
 import com.moderntreasury.api.models.PaymentOrderUpdateParams
@@ -293,8 +292,7 @@ internal class PaymentOrderServiceTest {
                 .build()
         val paymentOrderService = client.paymentOrders()
 
-        val paymentOrder =
-            paymentOrderService.retrieve(PaymentOrderRetrieveParams.builder().id("id").build())
+        val paymentOrder = paymentOrderService.retrieve("id")
 
         paymentOrder.validate()
     }

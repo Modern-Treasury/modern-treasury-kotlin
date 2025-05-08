@@ -7,7 +7,6 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.IncomingPaymentDetailCreateAsyncParams
-import com.moderntreasury.api.models.IncomingPaymentDetailRetrieveParams
 import com.moderntreasury.api.models.IncomingPaymentDetailUpdateParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
@@ -26,10 +25,7 @@ internal class IncomingPaymentDetailServiceTest {
                 .build()
         val incomingPaymentDetailService = client.incomingPaymentDetails()
 
-        val incomingPaymentDetail =
-            incomingPaymentDetailService.retrieve(
-                IncomingPaymentDetailRetrieveParams.builder().id("id").build()
-            )
+        val incomingPaymentDetail = incomingPaymentDetailService.retrieve("id")
 
         incomingPaymentDetail.validate()
     }

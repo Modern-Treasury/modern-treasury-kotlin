@@ -8,7 +8,6 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerTransactionCreateParams
 import com.moderntreasury.api.models.LedgerTransactionCreatePartialPostParams
 import com.moderntreasury.api.models.LedgerTransactionCreateReversalParams
-import com.moderntreasury.api.models.LedgerTransactionRetrieveParams
 import com.moderntreasury.api.models.LedgerTransactionUpdateParams
 import com.moderntreasury.api.models.TransactionDirection
 import java.time.LocalDate
@@ -100,10 +99,7 @@ internal class LedgerTransactionServiceTest {
                 .build()
         val ledgerTransactionService = client.ledgerTransactions()
 
-        val ledgerTransaction =
-            ledgerTransactionService.retrieve(
-                LedgerTransactionRetrieveParams.builder().id("id").build()
-            )
+        val ledgerTransaction = ledgerTransactionService.retrieve("id")
 
         ledgerTransaction.validate()
     }

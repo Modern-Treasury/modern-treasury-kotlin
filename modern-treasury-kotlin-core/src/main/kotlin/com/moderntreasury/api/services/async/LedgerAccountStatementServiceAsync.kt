@@ -25,9 +25,24 @@ interface LedgerAccountStatementServiceAsync {
 
     /** Get details on a single ledger account statement. */
     suspend fun retrieve(
+        id: String,
+        params: LedgerAccountStatementRetrieveParams = LedgerAccountStatementRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LedgerAccountStatementRetrieveResponse =
+        retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: LedgerAccountStatementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountStatementRetrieveResponse
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
+        id: String,
+        requestOptions: RequestOptions,
+    ): LedgerAccountStatementRetrieveResponse =
+        retrieve(id, LedgerAccountStatementRetrieveParams.none(), requestOptions)
 
     /**
      * A view of [LedgerAccountStatementServiceAsync] that provides access to raw HTTP responses for
@@ -51,8 +66,26 @@ interface LedgerAccountStatementServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            id: String,
+            params: LedgerAccountStatementRetrieveParams =
+                LedgerAccountStatementRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: LedgerAccountStatementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountStatementRetrieveResponse>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse> =
+            retrieve(id, LedgerAccountStatementRetrieveParams.none(), requestOptions)
     }
 }

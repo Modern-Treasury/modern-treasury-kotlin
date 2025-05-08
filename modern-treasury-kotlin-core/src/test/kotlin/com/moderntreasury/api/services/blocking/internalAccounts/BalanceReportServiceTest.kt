@@ -6,7 +6,6 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.BalanceReportCreateParams
 import com.moderntreasury.api.models.BalanceReportDeleteParams
-import com.moderntreasury.api.models.BalanceReportListParams
 import com.moderntreasury.api.models.BalanceReportRetrieveParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
@@ -80,10 +79,7 @@ internal class BalanceReportServiceTest {
                 .build()
         val balanceReportService = client.internalAccounts().balanceReports()
 
-        val page =
-            balanceReportService.list(
-                BalanceReportListParams.builder().internalAccountId("internal_account_id").build()
-            )
+        val page = balanceReportService.list("internal_account_id")
 
         page.items().forEach { it.validate() }
     }
