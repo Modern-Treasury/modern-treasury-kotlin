@@ -26,9 +26,20 @@ interface ReturnService {
 
     /** Get a single return. */
     fun retrieve(
+        id: String,
+        params: ReturnRetrieveParams = ReturnRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ReturnObject = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: ReturnRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ReturnObject
+
+    /** @see [retrieve] */
+    fun retrieve(id: String, requestOptions: RequestOptions): ReturnObject =
+        retrieve(id, ReturnRetrieveParams.none(), requestOptions)
 
     /** Get a list of returns. */
     fun list(
@@ -59,9 +70,23 @@ interface ReturnService {
          */
         @MustBeClosed
         fun retrieve(
+            id: String,
+            params: ReturnRetrieveParams = ReturnRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ReturnObject> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: ReturnRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ReturnObject>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<ReturnObject> =
+            retrieve(id, ReturnRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/returns`, but is otherwise the same as

@@ -3,7 +3,6 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.Params
-import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
@@ -11,14 +10,14 @@ import java.util.Objects
 /** list invoice_line_items */
 class InvoiceLineItemListParams
 private constructor(
-    private val invoiceId: String,
+    private val invoiceId: String?,
     private val afterCursor: String?,
     private val perPage: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun invoiceId(): String = invoiceId
+    fun invoiceId(): String? = invoiceId
 
     fun afterCursor(): String? = afterCursor
 
@@ -32,13 +31,10 @@ private constructor(
 
     companion object {
 
+        fun none(): InvoiceLineItemListParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [InvoiceLineItemListParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .invoiceId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -60,7 +56,7 @@ private constructor(
             additionalQueryParams = invoiceLineItemListParams.additionalQueryParams.toBuilder()
         }
 
-        fun invoiceId(invoiceId: String) = apply { this.invoiceId = invoiceId }
+        fun invoiceId(invoiceId: String?) = apply { this.invoiceId = invoiceId }
 
         fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
@@ -175,17 +171,10 @@ private constructor(
          * Returns an immutable instance of [InvoiceLineItemListParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .invoiceId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): InvoiceLineItemListParams =
             InvoiceLineItemListParams(
-                checkRequired("invoiceId", invoiceId),
+                invoiceId,
                 afterCursor,
                 perPage,
                 additionalHeaders.build(),
@@ -195,7 +184,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> invoiceId
+            0 -> invoiceId ?: ""
             else -> ""
         }
 

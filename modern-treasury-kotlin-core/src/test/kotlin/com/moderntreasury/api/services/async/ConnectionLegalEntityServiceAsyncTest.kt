@@ -7,7 +7,6 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.BankSettings
 import com.moderntreasury.api.models.ConnectionLegalEntityCreateParams
-import com.moderntreasury.api.models.ConnectionLegalEntityRetrieveParams
 import com.moderntreasury.api.models.ConnectionLegalEntityUpdateParams
 import com.moderntreasury.api.models.LegalEntityComplianceDetail
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
@@ -472,10 +471,7 @@ internal class ConnectionLegalEntityServiceAsyncTest {
                 .build()
         val connectionLegalEntityServiceAsync = client.connectionLegalEntities()
 
-        val connectionLegalEntity =
-            connectionLegalEntityServiceAsync.retrieve(
-                ConnectionLegalEntityRetrieveParams.builder().id("id").build()
-            )
+        val connectionLegalEntity = connectionLegalEntityServiceAsync.retrieve("id")
 
         connectionLegalEntity.validate()
     }

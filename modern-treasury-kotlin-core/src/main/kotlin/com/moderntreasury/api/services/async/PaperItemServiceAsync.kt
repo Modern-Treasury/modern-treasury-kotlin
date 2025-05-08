@@ -19,9 +19,20 @@ interface PaperItemServiceAsync {
 
     /** Get details on a single paper item. */
     suspend fun retrieve(
+        id: String,
+        params: PaperItemRetrieveParams = PaperItemRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PaperItem = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: PaperItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaperItem
+
+    /** @see [retrieve] */
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): PaperItem =
+        retrieve(id, PaperItemRetrieveParams.none(), requestOptions)
 
     /** Get a list of all paper items. */
     suspend fun list(
@@ -44,9 +55,24 @@ interface PaperItemServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            id: String,
+            params: PaperItemRetrieveParams = PaperItemRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PaperItem> = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: PaperItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaperItem>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PaperItem> = retrieve(id, PaperItemRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/paper_items`, but is otherwise the same as

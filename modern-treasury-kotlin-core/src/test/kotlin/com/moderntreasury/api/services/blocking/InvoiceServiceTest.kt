@@ -8,7 +8,6 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.InvoiceAddPaymentOrderParams
 import com.moderntreasury.api.models.InvoiceCreateParams
-import com.moderntreasury.api.models.InvoiceRetrieveParams
 import com.moderntreasury.api.models.InvoiceUpdateParams
 import com.moderntreasury.api.models.PaymentOrderType
 import java.time.LocalDate
@@ -135,7 +134,7 @@ internal class InvoiceServiceTest {
                 .build()
         val invoiceService = client.invoices()
 
-        val invoice = invoiceService.retrieve(InvoiceRetrieveParams.builder().id("id").build())
+        val invoice = invoiceService.retrieve("id")
 
         invoice.validate()
     }

@@ -3,7 +3,6 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.Params
-import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
@@ -12,12 +11,12 @@ import java.util.Objects
 @Deprecated("use `retrieve` instead")
 class PaymentReferenceRetireveParams
 private constructor(
-    private val id: String,
+    private val id: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun id(): String = id
+    fun id(): String? = id
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,11 @@ private constructor(
 
     companion object {
 
+        fun none(): PaymentReferenceRetireveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [PaymentReferenceRetireveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -52,7 +48,7 @@ private constructor(
             additionalQueryParams = paymentReferenceRetireveParams.additionalQueryParams.toBuilder()
         }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -156,17 +152,10 @@ private constructor(
          * Returns an immutable instance of [PaymentReferenceRetireveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PaymentReferenceRetireveParams =
             PaymentReferenceRetireveParams(
-                checkRequired("id", id),
+                id,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -174,7 +163,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id
+            0 -> id ?: ""
             else -> ""
         }
 

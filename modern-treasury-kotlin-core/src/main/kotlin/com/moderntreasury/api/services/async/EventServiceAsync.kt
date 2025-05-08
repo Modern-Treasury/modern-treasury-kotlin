@@ -19,9 +19,20 @@ interface EventServiceAsync {
 
     /** get event */
     suspend fun retrieve(
+        id: String,
+        params: EventRetrieveParams = EventRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Event = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: EventRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Event
+
+    /** @see [retrieve] */
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): Event =
+        retrieve(id, EventRetrieveParams.none(), requestOptions)
 
     /** list events */
     suspend fun list(
@@ -42,9 +53,22 @@ interface EventServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            id: String,
+            params: EventRetrieveParams = EventRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Event> = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: EventRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Event>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<Event> =
+            retrieve(id, EventRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/events`, but is otherwise the same as

@@ -5,8 +5,6 @@ package com.moderntreasury.api.services.blocking.transactions
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.TransactionLineItemCreateParams
-import com.moderntreasury.api.models.TransactionLineItemDeleteParams
-import com.moderntreasury.api.models.TransactionLineItemRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -45,8 +43,7 @@ internal class LineItemServiceTest {
                 .build()
         val lineItemService = client.transactions().lineItems()
 
-        val transactionLineItem =
-            lineItemService.retrieve(TransactionLineItemRetrieveParams.builder().id("id").build())
+        val transactionLineItem = lineItemService.retrieve("id")
 
         transactionLineItem.validate()
     }
@@ -76,6 +73,6 @@ internal class LineItemServiceTest {
                 .build()
         val lineItemService = client.transactions().lineItems()
 
-        lineItemService.delete(TransactionLineItemDeleteParams.builder().id("id").build())
+        lineItemService.delete("id")
     }
 }

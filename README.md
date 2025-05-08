@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.moderntreasury.api/modern-treasury-kotlin)](https://central.sonatype.com/artifact/com.moderntreasury.api/modern-treasury-kotlin/6.2.0)
-[![javadoc](https://javadoc.io/badge2/com.moderntreasury.api/modern-treasury-kotlin/6.2.0/javadoc.svg)](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/6.2.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.moderntreasury.api/modern-treasury-kotlin)](https://central.sonatype.com/artifact/com.moderntreasury.api/modern-treasury-kotlin/7.0.0)
+[![javadoc](https://javadoc.io/badge2/com.moderntreasury.api/modern-treasury-kotlin/7.0.0/javadoc.svg)](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/7.0.0)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ The Modern Treasury Kotlin SDK is similar to the Modern Treasury Java SDK but wi
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [docs.moderntreasury.com](https://docs.moderntreasury.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/6.2.0).
+The REST API documentation can be found on [docs.moderntreasury.com](https://docs.moderntreasury.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/7.0.0).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ The REST API documentation can be found on [docs.moderntreasury.com](https://doc
 ### Gradle
 
 ```kotlin
-implementation("com.moderntreasury:modern-treasury-kotlin:6.2.0")
+implementation("com.moderntreasury:modern-treasury-kotlin:7.0.0")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("com.moderntreasury:modern-treasury-kotlin:6.2.0")
 <dependency>
   <groupId>com.moderntreasury</groupId>
   <artifactId>modern-treasury-kotlin</artifactId>
-  <version>6.2.0</version>
+  <version>7.0.0</version>
 </dependency>
 ```
 
@@ -284,48 +284,54 @@ The SDK throws custom unchecked exception types:
 
 ## Pagination
 
-For methods that return a paginated list of results, this library provides convenient ways access the results either one page at a time, or item-by-item across all pages.
+The SDK defines methods that return a paginated lists of results. It provides convenient ways to access the results either one page at a time or item-by-item across all pages.
 
 ### Auto-pagination
 
-To iterate through all results across all pages, you can use `autoPager`, which automatically handles fetching more pages for you:
+To iterate through all results across all pages, use the `autoPager()` method, which automatically fetches more pages as needed.
 
-### Synchronous
+When using the synchronous client, the method returns a [`Sequence`](https://kotlinlang.org/docs/sequences.html)
 
 ```kotlin
-import com.moderntreasury.api.models.Counterparty
 import com.moderntreasury.api.models.CounterpartyListPage
 
-// As a Sequence:
-client.counterparties().list(params).autoPager()
+val page: CounterpartyListPage = client.counterparties().list()
+page.autoPager()
     .take(50)
-    .forEach { counterparty -> print(counterparty) }
+    .forEach { counterparty -> println(counterparty) }
 ```
 
-### Asynchronous
+When using the asynchronous client, the method returns a [`Flow`](https://kotlinlang.org/docs/flow.html):
 
 ```kotlin
-// As a Flow:
-asyncClient.counterparties().list(params).autoPager()
+import com.moderntreasury.api.models.CounterpartyListPageAsync
+
+val page: CounterpartyListPageAsync = client.async().counterparties().list()
+page.autoPager()
     .take(50)
-    .collect { counterparty -> print(counterparty) }
+    .forEach { counterparty -> println(counterparty) }
 ```
 
 ### Manual pagination
 
-If none of the above helpers meet your needs, you can also manually request pages one-by-one. A page of results has a `data()` method to fetch the list of objects, as well as top-level `response` and other methods to fetch top-level data about the page. It also has methods `hasNextPage`, `getNextPage`, and `getNextPageParams` methods to help with pagination.
+To access individual page items and manually request the next page, use the `items()`,
+`hasNextPage()`, and `nextPage()` methods:
 
 ```kotlin
 import com.moderntreasury.api.models.Counterparty
 import com.moderntreasury.api.models.CounterpartyListPage
 
-val page = client.counterparties().list(params)
-while (page != null) {
-    for (counterparty in page.items) {
-        print(counterparty)
+val page: CounterpartyListPage = client.counterparties().list()
+while (true) {
+    for (counterparty in page.items()) {
+        println(counterparty)
     }
 
-    page = page.getNextPage()
+    if (!page.hasNextPage()) {
+        break
+    }
+
+    page = page.nextPage()
 }
 ```
 
@@ -392,7 +398,6 @@ To set a custom timeout, configure the method call using the `timeout` method:
 
 ```kotlin
 import com.moderntreasury.api.models.Counterparty
-import com.moderntreasury.api.models.CounterpartyCreateParams
 
 val counterparty: Counterparty = client.counterparties().create(
   params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
@@ -609,7 +614,6 @@ Or configure the method call to validate the response using the `responseValidat
 
 ```kotlin
 import com.moderntreasury.api.models.Counterparty
-import com.moderntreasury.api.models.CounterpartyCreateParams
 
 val counterparty: Counterparty = client.counterparties().create(
   params, RequestOptions.builder().responseValidation(true).build()

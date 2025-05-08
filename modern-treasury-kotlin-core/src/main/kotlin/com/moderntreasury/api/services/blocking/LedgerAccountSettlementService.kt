@@ -30,15 +30,38 @@ interface LedgerAccountSettlementService {
 
     /** Get details on a single ledger account settlement. */
     fun retrieve(
+        id: String,
+        params: LedgerAccountSettlementRetrieveParams =
+            LedgerAccountSettlementRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LedgerAccountSettlement = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: LedgerAccountSettlementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountSettlement
 
+    /** @see [retrieve] */
+    fun retrieve(id: String, requestOptions: RequestOptions): LedgerAccountSettlement =
+        retrieve(id, LedgerAccountSettlementRetrieveParams.none(), requestOptions)
+
     /** Update the details of a ledger account settlement. */
+    fun update(
+        id: String,
+        params: LedgerAccountSettlementUpdateParams = LedgerAccountSettlementUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LedgerAccountSettlement = update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [update] */
     fun update(
         params: LedgerAccountSettlementUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountSettlement
+
+    /** @see [update] */
+    fun update(id: String, requestOptions: RequestOptions): LedgerAccountSettlement =
+        update(id, LedgerAccountSettlementUpdateParams.none(), requestOptions)
 
     /** Get a list of ledger account settlements. */
     fun list(
@@ -74,9 +97,27 @@ interface LedgerAccountSettlementService {
          */
         @MustBeClosed
         fun retrieve(
+            id: String,
+            params: LedgerAccountSettlementRetrieveParams =
+                LedgerAccountSettlementRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerAccountSettlement> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: LedgerAccountSettlementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountSettlement>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LedgerAccountSettlement> =
+            retrieve(id, LedgerAccountSettlementRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /api/ledger_account_settlements/{id}`, but is
@@ -84,9 +125,27 @@ interface LedgerAccountSettlementService {
          */
         @MustBeClosed
         fun update(
+            id: String,
+            params: LedgerAccountSettlementUpdateParams =
+                LedgerAccountSettlementUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerAccountSettlement> =
+            update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
             params: LedgerAccountSettlementUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountSettlement>
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LedgerAccountSettlement> =
+            update(id, LedgerAccountSettlementUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/ledger_account_settlements`, but is otherwise

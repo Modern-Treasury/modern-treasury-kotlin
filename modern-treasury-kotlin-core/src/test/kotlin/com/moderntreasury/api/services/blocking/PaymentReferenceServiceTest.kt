@@ -4,8 +4,6 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.models.PaymentReferenceRetireveParams
-import com.moderntreasury.api.models.PaymentReferenceRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,10 +20,7 @@ internal class PaymentReferenceServiceTest {
                 .build()
         val paymentReferenceService = client.paymentReferences()
 
-        val paymentReference =
-            paymentReferenceService.retrieve(
-                PaymentReferenceRetrieveParams.builder().id("id").build()
-            )
+        val paymentReference = paymentReferenceService.retrieve("id")
 
         paymentReference.validate()
     }
@@ -55,10 +50,7 @@ internal class PaymentReferenceServiceTest {
                 .build()
         val paymentReferenceService = client.paymentReferences()
 
-        val paymentReference =
-            paymentReferenceService.retireve(
-                PaymentReferenceRetireveParams.builder().id("id").build()
-            )
+        val paymentReference = paymentReferenceService.retireve("id")
 
         paymentReference.validate()
     }

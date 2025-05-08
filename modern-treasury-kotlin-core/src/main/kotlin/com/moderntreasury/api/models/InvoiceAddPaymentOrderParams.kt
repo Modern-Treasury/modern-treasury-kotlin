@@ -14,7 +14,7 @@ import java.util.Objects
 class InvoiceAddPaymentOrderParams
 private constructor(
     private val id: String,
-    private val paymentOrderId: String,
+    private val paymentOrderId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -22,7 +22,7 @@ private constructor(
 
     fun id(): String = id
 
-    fun paymentOrderId(): String = paymentOrderId
+    fun paymentOrderId(): String? = paymentOrderId
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -40,7 +40,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .id()
-         * .paymentOrderId()
          * ```
          */
         fun builder() = Builder()
@@ -66,7 +65,7 @@ private constructor(
 
         fun id(id: String) = apply { this.id = id }
 
-        fun paymentOrderId(paymentOrderId: String) = apply { this.paymentOrderId = paymentOrderId }
+        fun paymentOrderId(paymentOrderId: String?) = apply { this.paymentOrderId = paymentOrderId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -196,7 +195,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .id()
-         * .paymentOrderId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -204,7 +202,7 @@ private constructor(
         fun build(): InvoiceAddPaymentOrderParams =
             InvoiceAddPaymentOrderParams(
                 checkRequired("id", id),
-                checkRequired("paymentOrderId", paymentOrderId),
+                paymentOrderId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -216,7 +214,7 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> id
-            1 -> paymentOrderId
+            1 -> paymentOrderId ?: ""
             else -> ""
         }
 

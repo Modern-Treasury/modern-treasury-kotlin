@@ -14,7 +14,7 @@ import java.util.Objects
 class LedgerAccountCategoryAddNestedCategoryParams
 private constructor(
     private val id: String,
-    private val subCategoryId: String,
+    private val subCategoryId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -22,7 +22,7 @@ private constructor(
 
     fun id(): String = id
 
-    fun subCategoryId(): String = subCategoryId
+    fun subCategoryId(): String? = subCategoryId
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -41,7 +41,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .id()
-         * .subCategoryId()
          * ```
          */
         fun builder() = Builder()
@@ -72,7 +71,7 @@ private constructor(
 
         fun id(id: String) = apply { this.id = id }
 
-        fun subCategoryId(subCategoryId: String) = apply { this.subCategoryId = subCategoryId }
+        fun subCategoryId(subCategoryId: String?) = apply { this.subCategoryId = subCategoryId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -202,7 +201,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .id()
-         * .subCategoryId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -210,7 +208,7 @@ private constructor(
         fun build(): LedgerAccountCategoryAddNestedCategoryParams =
             LedgerAccountCategoryAddNestedCategoryParams(
                 checkRequired("id", id),
-                checkRequired("subCategoryId", subCategoryId),
+                subCategoryId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -222,7 +220,7 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> id
-            1 -> subCategoryId
+            1 -> subCategoryId ?: ""
             else -> ""
         }
 

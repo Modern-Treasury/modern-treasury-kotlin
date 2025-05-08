@@ -2,12 +2,12 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.AutoPagerAsync
+import com.moderntreasury.api.core.PageAsync
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.PaymentOrderServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [PaymentOrderServiceAsync.list] */
 class PaymentOrderListPageAsync
@@ -16,32 +16,26 @@ private constructor(
     private val params: PaymentOrderListParams,
     private val headers: Headers,
     private val items: List<PaymentOrder>,
-) {
+) : PageAsync<PaymentOrder> {
 
     fun perPage(): String? = headers.values("per_page").firstOrNull()
 
     fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
 
-    fun hasNextPage(): Boolean = items.isNotEmpty() && afterCursor() != null
+    override fun hasNextPage(): Boolean = items().isNotEmpty()
 
-    fun getNextPageParams(): PaymentOrderListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    fun nextPageParams(): PaymentOrderListParams =
+        throw IllegalStateException("Cannot construct next page params")
 
-        return params.toBuilder().apply { afterCursor()?.let { afterCursor(it) } }.build()
-    }
+    override suspend fun nextPage(): PaymentOrderListPageAsync = service.list(nextPageParams())
 
-    suspend fun getNextPage(): PaymentOrderListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
-
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<PaymentOrder> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): PaymentOrderListParams = params
 
     /** The response that this page was parsed from. */
-    fun items(): List<PaymentOrder> = items
+    override fun items(): List<PaymentOrder> = items
 
     fun toBuilder() = Builder().from(this)
 
@@ -108,21 +102,6 @@ private constructor(
                 checkRequired("headers", headers),
                 checkRequired("items", items),
             )
-    }
-
-    class AutoPager(private val firstPage: PaymentOrderListPageAsync) : Flow<PaymentOrder> {
-
-        override suspend fun collect(collector: FlowCollector<PaymentOrder>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.items().size) {
-                    collector.emit(page.items()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

@@ -31,15 +31,37 @@ interface CounterpartyServiceAsync {
 
     /** Get details on a single counterparty. */
     suspend fun retrieve(
+        id: String,
+        params: CounterpartyRetrieveParams = CounterpartyRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Counterparty = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: CounterpartyRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Counterparty
 
+    /** @see [retrieve] */
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): Counterparty =
+        retrieve(id, CounterpartyRetrieveParams.none(), requestOptions)
+
     /** Updates a given counterparty with new information. */
+    suspend fun update(
+        id: String,
+        params: CounterpartyUpdateParams = CounterpartyUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Counterparty = update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [update] */
     suspend fun update(
         params: CounterpartyUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Counterparty
+
+    /** @see [update] */
+    suspend fun update(id: String, requestOptions: RequestOptions): Counterparty =
+        update(id, CounterpartyUpdateParams.none(), requestOptions)
 
     /** Get a paginated list of all counterparties. */
     suspend fun list(
@@ -53,11 +75,30 @@ interface CounterpartyServiceAsync {
 
     /** Deletes a given counterparty. */
     suspend fun delete(
+        id: String,
+        params: CounterpartyDeleteParams = CounterpartyDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = delete(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [delete] */
+    suspend fun delete(
         params: CounterpartyDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /** @see [delete] */
+    suspend fun delete(id: String, requestOptions: RequestOptions) =
+        delete(id, CounterpartyDeleteParams.none(), requestOptions)
+
     /** Send an email requesting account details. */
+    suspend fun collectAccount(
+        id: String,
+        params: CounterpartyCollectAccountParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CounterpartyCollectAccountResponse =
+        collectAccount(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [collectAccount] */
     suspend fun collectAccount(
         params: CounterpartyCollectAccountParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -85,9 +126,26 @@ interface CounterpartyServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            id: String,
+            params: CounterpartyRetrieveParams = CounterpartyRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Counterparty> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: CounterpartyRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Counterparty>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Counterparty> =
+            retrieve(id, CounterpartyRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /api/counterparties/{id}`, but is otherwise the
@@ -95,9 +153,25 @@ interface CounterpartyServiceAsync {
          */
         @MustBeClosed
         suspend fun update(
+            id: String,
+            params: CounterpartyUpdateParams = CounterpartyUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Counterparty> = update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        suspend fun update(
             params: CounterpartyUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Counterparty>
+
+        /** @see [update] */
+        @MustBeClosed
+        suspend fun update(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Counterparty> =
+            update(id, CounterpartyUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/counterparties`, but is otherwise the same as
@@ -122,14 +196,36 @@ interface CounterpartyServiceAsync {
          */
         @MustBeClosed
         suspend fun delete(
+            id: String,
+            params: CounterpartyDeleteParams = CounterpartyDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = delete(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [delete] */
+        @MustBeClosed
+        suspend fun delete(
             params: CounterpartyDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see [delete] */
+        @MustBeClosed
+        suspend fun delete(id: String, requestOptions: RequestOptions): HttpResponse =
+            delete(id, CounterpartyDeleteParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /api/counterparties/{id}/collect_account`, but is
          * otherwise the same as [CounterpartyServiceAsync.collectAccount].
          */
+        @MustBeClosed
+        suspend fun collectAccount(
+            id: String,
+            params: CounterpartyCollectAccountParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CounterpartyCollectAccountResponse> =
+            collectAccount(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [collectAccount] */
         @MustBeClosed
         suspend fun collectAccount(
             params: CounterpartyCollectAccountParams,

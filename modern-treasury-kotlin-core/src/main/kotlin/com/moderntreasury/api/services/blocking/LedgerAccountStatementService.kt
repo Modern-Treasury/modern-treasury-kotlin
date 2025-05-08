@@ -25,9 +25,24 @@ interface LedgerAccountStatementService {
 
     /** Get details on a single ledger account statement. */
     fun retrieve(
+        id: String,
+        params: LedgerAccountStatementRetrieveParams = LedgerAccountStatementRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LedgerAccountStatementRetrieveResponse =
+        retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: LedgerAccountStatementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountStatementRetrieveResponse
+
+    /** @see [retrieve] */
+    fun retrieve(
+        id: String,
+        requestOptions: RequestOptions,
+    ): LedgerAccountStatementRetrieveResponse =
+        retrieve(id, LedgerAccountStatementRetrieveParams.none(), requestOptions)
 
     /**
      * A view of [LedgerAccountStatementService] that provides access to raw HTTP responses for each
@@ -51,8 +66,26 @@ interface LedgerAccountStatementService {
          */
         @MustBeClosed
         fun retrieve(
+            id: String,
+            params: LedgerAccountStatementRetrieveParams =
+                LedgerAccountStatementRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: LedgerAccountStatementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountStatementRetrieveResponse>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse> =
+            retrieve(id, LedgerAccountStatementRetrieveParams.none(), requestOptions)
     }
 }

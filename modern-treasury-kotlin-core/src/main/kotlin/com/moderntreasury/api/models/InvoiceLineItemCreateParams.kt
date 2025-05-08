@@ -22,13 +22,13 @@ import java.util.Objects
 /** create invoice_line_item */
 class InvoiceLineItemCreateParams
 private constructor(
-    private val invoiceId: String,
+    private val invoiceId: String?,
     private val body: InvoiceLineItemCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun invoiceId(): String = invoiceId
+    fun invoiceId(): String? = invoiceId
 
     /**
      * The name of the line item, typically a product or SKU name.
@@ -155,7 +155,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .invoiceId()
          * .name()
          * .unitAmount()
          * ```
@@ -179,7 +178,7 @@ private constructor(
             additionalQueryParams = invoiceLineItemCreateParams.additionalQueryParams.toBuilder()
         }
 
-        fun invoiceId(invoiceId: String) = apply { this.invoiceId = invoiceId }
+        fun invoiceId(invoiceId: String?) = apply { this.invoiceId = invoiceId }
 
         /**
          * Sets the entire request body.
@@ -419,7 +418,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .invoiceId()
          * .name()
          * .unitAmount()
          * ```
@@ -428,7 +426,7 @@ private constructor(
          */
         fun build(): InvoiceLineItemCreateParams =
             InvoiceLineItemCreateParams(
-                checkRequired("invoiceId", invoiceId),
+                invoiceId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -439,7 +437,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> invoiceId
+            0 -> invoiceId ?: ""
             else -> ""
         }
 

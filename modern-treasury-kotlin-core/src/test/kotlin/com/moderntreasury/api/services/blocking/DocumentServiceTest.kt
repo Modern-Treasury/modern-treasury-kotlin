@@ -5,7 +5,6 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.DocumentCreateParams
-import com.moderntreasury.api.models.DocumentRetrieveParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -29,7 +28,7 @@ internal class DocumentServiceTest {
                 DocumentCreateParams.builder()
                     .documentableId("documentable_id")
                     .documentableType(DocumentCreateParams.DocumentableType.CASES)
-                    .file("some content".toByteArray())
+                    .file("some content".byteInputStream())
                     .documentType("document_type")
                     .build()
             )
@@ -47,7 +46,7 @@ internal class DocumentServiceTest {
                 .build()
         val documentService = client.documents()
 
-        val document = documentService.retrieve(DocumentRetrieveParams.builder().id("id").build())
+        val document = documentService.retrieve("id")
 
         document.validate()
     }

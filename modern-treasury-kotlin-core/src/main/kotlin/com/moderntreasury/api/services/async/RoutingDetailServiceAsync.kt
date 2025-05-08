@@ -22,11 +22,25 @@ interface RoutingDetailServiceAsync {
 
     /** Create a routing detail for a single external account. */
     suspend fun create(
+        accountId: String,
+        params: RoutingDetailCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RoutingDetail = create(params.toBuilder().accountId(accountId).build(), requestOptions)
+
+    /** @see [create] */
+    suspend fun create(
         params: RoutingDetailCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RoutingDetail
 
     /** Get a single routing detail for a single internal or external account. */
+    suspend fun retrieve(
+        id: String,
+        params: RoutingDetailRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RoutingDetail = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
     suspend fun retrieve(
         params: RoutingDetailRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -34,11 +48,26 @@ interface RoutingDetailServiceAsync {
 
     /** Get a list of routing details for a single internal or external account. */
     suspend fun list(
+        accountId: String,
+        params: RoutingDetailListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RoutingDetailListPageAsync =
+        list(params.toBuilder().accountId(accountId).build(), requestOptions)
+
+    /** @see [list] */
+    suspend fun list(
         params: RoutingDetailListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RoutingDetailListPageAsync
 
     /** Delete a routing detail for a single external account. */
+    suspend fun delete(
+        id: String,
+        params: RoutingDetailDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = delete(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [delete] */
     suspend fun delete(
         params: RoutingDetailDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -56,6 +85,15 @@ interface RoutingDetailServiceAsync {
          */
         @MustBeClosed
         suspend fun create(
+            accountId: String,
+            params: RoutingDetailCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RoutingDetail> =
+            create(params.toBuilder().accountId(accountId).build(), requestOptions)
+
+        /** @see [create] */
+        @MustBeClosed
+        suspend fun create(
             params: RoutingDetailCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RoutingDetail>
@@ -65,6 +103,15 @@ interface RoutingDetailServiceAsync {
          * /api/{accounts_type}/{account_id}/routing_details/{id}`, but is otherwise the same as
          * [RoutingDetailServiceAsync.retrieve].
          */
+        @MustBeClosed
+        suspend fun retrieve(
+            id: String,
+            params: RoutingDetailRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RoutingDetail> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
         @MustBeClosed
         suspend fun retrieve(
             params: RoutingDetailRetrieveParams,
@@ -77,6 +124,15 @@ interface RoutingDetailServiceAsync {
          */
         @MustBeClosed
         suspend fun list(
+            accountId: String,
+            params: RoutingDetailListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RoutingDetailListPageAsync> =
+            list(params.toBuilder().accountId(accountId).build(), requestOptions)
+
+        /** @see [list] */
+        @MustBeClosed
+        suspend fun list(
             params: RoutingDetailListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RoutingDetailListPageAsync>
@@ -86,6 +142,14 @@ interface RoutingDetailServiceAsync {
          * /api/{accounts_type}/{account_id}/routing_details/{id}`, but is otherwise the same as
          * [RoutingDetailServiceAsync.delete].
          */
+        @MustBeClosed
+        suspend fun delete(
+            id: String,
+            params: RoutingDetailDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = delete(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [delete] */
         @MustBeClosed
         suspend fun delete(
             params: RoutingDetailDeleteParams,

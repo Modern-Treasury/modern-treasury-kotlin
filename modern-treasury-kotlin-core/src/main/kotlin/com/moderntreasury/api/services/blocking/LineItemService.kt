@@ -20,17 +20,39 @@ interface LineItemService {
 
     /** Get a single line item */
     fun retrieve(
+        id: String,
+        params: LineItemRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LineItem = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: LineItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LineItem
 
     /** update line item */
     fun update(
+        id: String,
+        params: LineItemUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LineItem = update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [update] */
+    fun update(
         params: LineItemUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LineItem
 
     /** Get a list of line items */
+    fun list(
+        itemizableId: String,
+        params: LineItemListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LineItemListPage =
+        list(params.toBuilder().itemizableId(itemizableId).build(), requestOptions)
+
+    /** @see [list] */
     fun list(
         params: LineItemListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -46,6 +68,14 @@ interface LineItemService {
          */
         @MustBeClosed
         fun retrieve(
+            id: String,
+            params: LineItemRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LineItem> = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: LineItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LineItem>
@@ -57,6 +87,14 @@ interface LineItemService {
          */
         @MustBeClosed
         fun update(
+            id: String,
+            params: LineItemUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LineItem> = update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
             params: LineItemUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LineItem>
@@ -65,6 +103,15 @@ interface LineItemService {
          * Returns a raw HTTP response for `get /api/{itemizable_type}/{itemizable_id}/line_items`,
          * but is otherwise the same as [LineItemService.list].
          */
+        @MustBeClosed
+        fun list(
+            itemizableId: String,
+            params: LineItemListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LineItemListPage> =
+            list(params.toBuilder().itemizableId(itemizableId).build(), requestOptions)
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: LineItemListParams,

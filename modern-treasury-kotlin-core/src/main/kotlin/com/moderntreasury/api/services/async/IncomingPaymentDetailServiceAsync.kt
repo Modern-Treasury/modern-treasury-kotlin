@@ -22,15 +22,37 @@ interface IncomingPaymentDetailServiceAsync {
 
     /** Get an existing Incoming Payment Detail. */
     suspend fun retrieve(
+        id: String,
+        params: IncomingPaymentDetailRetrieveParams = IncomingPaymentDetailRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): IncomingPaymentDetail = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: IncomingPaymentDetailRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IncomingPaymentDetail
 
+    /** @see [retrieve] */
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): IncomingPaymentDetail =
+        retrieve(id, IncomingPaymentDetailRetrieveParams.none(), requestOptions)
+
     /** Update an existing Incoming Payment Detail. */
+    suspend fun update(
+        id: String,
+        params: IncomingPaymentDetailUpdateParams = IncomingPaymentDetailUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): IncomingPaymentDetail = update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [update] */
     suspend fun update(
         params: IncomingPaymentDetailUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IncomingPaymentDetail
+
+    /** @see [update] */
+    suspend fun update(id: String, requestOptions: RequestOptions): IncomingPaymentDetail =
+        update(id, IncomingPaymentDetailUpdateParams.none(), requestOptions)
 
     /** Get a list of Incoming Payment Details. */
     suspend fun list(
@@ -65,9 +87,27 @@ interface IncomingPaymentDetailServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            id: String,
+            params: IncomingPaymentDetailRetrieveParams =
+                IncomingPaymentDetailRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<IncomingPaymentDetail> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: IncomingPaymentDetailRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IncomingPaymentDetail>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IncomingPaymentDetail> =
+            retrieve(id, IncomingPaymentDetailRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /api/incoming_payment_details/{id}`, but is
@@ -75,9 +115,26 @@ interface IncomingPaymentDetailServiceAsync {
          */
         @MustBeClosed
         suspend fun update(
+            id: String,
+            params: IncomingPaymentDetailUpdateParams = IncomingPaymentDetailUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<IncomingPaymentDetail> =
+            update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        suspend fun update(
             params: IncomingPaymentDetailUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IncomingPaymentDetail>
+
+        /** @see [update] */
+        @MustBeClosed
+        suspend fun update(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IncomingPaymentDetail> =
+            update(id, IncomingPaymentDetailUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/incoming_payment_details`, but is otherwise the

@@ -6,7 +6,6 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.PaymentOrderReversalCreateParams
-import com.moderntreasury.api.models.PaymentOrderReversalListParams
 import com.moderntreasury.api.models.PaymentOrderReversalRetrieveParams
 import com.moderntreasury.api.models.TransactionDirection
 import java.time.LocalDate
@@ -156,10 +155,7 @@ internal class ReversalServiceTest {
                 .build()
         val reversalService = client.paymentOrders().reversals()
 
-        val page =
-            reversalService.list(
-                PaymentOrderReversalListParams.builder().paymentOrderId("payment_order_id").build()
-            )
+        val page = reversalService.list("payment_order_id")
 
         page.items().forEach { it.validate() }
     }

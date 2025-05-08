@@ -4,7 +4,6 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.models.BulkResultRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,8 +20,7 @@ internal class BulkResultServiceTest {
                 .build()
         val bulkResultService = client.bulkResults()
 
-        val bulkResult =
-            bulkResultService.retrieve(BulkResultRetrieveParams.builder().id("id").build())
+        val bulkResult = bulkResultService.retrieve("id")
 
         bulkResult.validate()
     }

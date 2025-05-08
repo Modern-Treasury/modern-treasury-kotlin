@@ -2,6 +2,8 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.AutoPager
+import com.moderntreasury.api.core.Page
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.internalAccounts.BalanceReportService
@@ -14,31 +16,26 @@ private constructor(
     private val params: BalanceReportListParams,
     private val headers: Headers,
     private val items: List<BalanceReport>,
-) {
+) : Page<BalanceReport> {
 
     fun perPage(): String? = headers.values("per_page").firstOrNull()
 
     fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
 
-    fun hasNextPage(): Boolean = items.isNotEmpty() && afterCursor() != null
+    override fun hasNextPage(): Boolean = items().isNotEmpty()
 
-    fun getNextPageParams(): BalanceReportListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    fun nextPageParams(): BalanceReportListParams =
+        throw IllegalStateException("Cannot construct next page params")
 
-        return params.toBuilder().apply { afterCursor()?.let { afterCursor(it) } }.build()
-    }
+    override fun nextPage(): BalanceReportListPage = service.list(nextPageParams())
 
-    fun getNextPage(): BalanceReportListPage? = getNextPageParams()?.let { service.list(it) }
-
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPager<BalanceReport> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): BalanceReportListParams = params
 
     /** The response that this page was parsed from. */
-    fun items(): List<BalanceReport> = items
+    override fun items(): List<BalanceReport> = items
 
     fun toBuilder() = Builder().from(this)
 
@@ -105,21 +102,6 @@ private constructor(
                 checkRequired("headers", headers),
                 checkRequired("items", items),
             )
-    }
-
-    class AutoPager(private val firstPage: BalanceReportListPage) : Sequence<BalanceReport> {
-
-        override fun iterator(): Iterator<BalanceReport> = iterator {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.items().size) {
-                    yield(page.items()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

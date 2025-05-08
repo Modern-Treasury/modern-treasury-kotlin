@@ -2,12 +2,12 @@
 
 package com.moderntreasury.api.models
 
+import com.moderntreasury.api.core.AutoPagerAsync
+import com.moderntreasury.api.core.PageAsync
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.IncomingPaymentDetailServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [IncomingPaymentDetailServiceAsync.list] */
 class IncomingPaymentDetailListPageAsync
@@ -16,32 +16,27 @@ private constructor(
     private val params: IncomingPaymentDetailListParams,
     private val headers: Headers,
     private val items: List<IncomingPaymentDetail>,
-) {
+) : PageAsync<IncomingPaymentDetail> {
 
     fun perPage(): String? = headers.values("per_page").firstOrNull()
 
     fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
 
-    fun hasNextPage(): Boolean = items.isNotEmpty() && afterCursor() != null
+    override fun hasNextPage(): Boolean = items().isNotEmpty()
 
-    fun getNextPageParams(): IncomingPaymentDetailListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    fun nextPageParams(): IncomingPaymentDetailListParams =
+        throw IllegalStateException("Cannot construct next page params")
 
-        return params.toBuilder().apply { afterCursor()?.let { afterCursor(it) } }.build()
-    }
+    override suspend fun nextPage(): IncomingPaymentDetailListPageAsync =
+        service.list(nextPageParams())
 
-    suspend fun getNextPage(): IncomingPaymentDetailListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
-
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<IncomingPaymentDetail> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): IncomingPaymentDetailListParams = params
 
     /** The response that this page was parsed from. */
-    fun items(): List<IncomingPaymentDetail> = items
+    override fun items(): List<IncomingPaymentDetail> = items
 
     fun toBuilder() = Builder().from(this)
 
@@ -110,22 +105,6 @@ private constructor(
                 checkRequired("headers", headers),
                 checkRequired("items", items),
             )
-    }
-
-    class AutoPager(private val firstPage: IncomingPaymentDetailListPageAsync) :
-        Flow<IncomingPaymentDetail> {
-
-        override suspend fun collect(collector: FlowCollector<IncomingPaymentDetail>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.items().size) {
-                    collector.emit(page.items()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

@@ -27,9 +27,20 @@ interface LedgerEventHandlerServiceAsync {
 
     /** Get details on a single ledger event handler. */
     suspend fun retrieve(
+        id: String,
+        params: LedgerEventHandlerRetrieveParams = LedgerEventHandlerRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LedgerEventHandler = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: LedgerEventHandlerRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEventHandler
+
+    /** @see [retrieve] */
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): LedgerEventHandler =
+        retrieve(id, LedgerEventHandlerRetrieveParams.none(), requestOptions)
 
     /** Get a list of ledger event handlers. */
     suspend fun list(
@@ -43,9 +54,20 @@ interface LedgerEventHandlerServiceAsync {
 
     /** Archive a ledger event handler. */
     suspend fun delete(
+        id: String,
+        params: LedgerEventHandlerDeleteParams = LedgerEventHandlerDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LedgerEventHandler = delete(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [delete] */
+    suspend fun delete(
         params: LedgerEventHandlerDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEventHandler
+
+    /** @see [delete] */
+    suspend fun delete(id: String, requestOptions: RequestOptions): LedgerEventHandler =
+        delete(id, LedgerEventHandlerDeleteParams.none(), requestOptions)
 
     /**
      * A view of [LedgerEventHandlerServiceAsync] that provides access to raw HTTP responses for
@@ -69,9 +91,26 @@ interface LedgerEventHandlerServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            id: String,
+            params: LedgerEventHandlerRetrieveParams = LedgerEventHandlerRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerEventHandler> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: LedgerEventHandlerRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerEventHandler>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LedgerEventHandler> =
+            retrieve(id, LedgerEventHandlerRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/ledger_event_handlers`, but is otherwise the
@@ -96,8 +135,25 @@ interface LedgerEventHandlerServiceAsync {
          */
         @MustBeClosed
         suspend fun delete(
+            id: String,
+            params: LedgerEventHandlerDeleteParams = LedgerEventHandlerDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerEventHandler> =
+            delete(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [delete] */
+        @MustBeClosed
+        suspend fun delete(
             params: LedgerEventHandlerDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerEventHandler>
+
+        /** @see [delete] */
+        @MustBeClosed
+        suspend fun delete(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LedgerEventHandler> =
+            delete(id, LedgerEventHandlerDeleteParams.none(), requestOptions)
     }
 }

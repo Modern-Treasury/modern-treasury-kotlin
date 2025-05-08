@@ -32,15 +32,37 @@ interface ExternalAccountServiceAsync {
 
     /** show external account */
     suspend fun retrieve(
+        id: String,
+        params: ExternalAccountRetrieveParams = ExternalAccountRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ExternalAccount = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: ExternalAccountRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
+    /** @see [retrieve] */
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): ExternalAccount =
+        retrieve(id, ExternalAccountRetrieveParams.none(), requestOptions)
+
     /** update external account */
+    suspend fun update(
+        id: String,
+        params: ExternalAccountUpdateParams = ExternalAccountUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ExternalAccount = update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [update] */
     suspend fun update(
         params: ExternalAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
+
+    /** @see [update] */
+    suspend fun update(id: String, requestOptions: RequestOptions): ExternalAccount =
+        update(id, ExternalAccountUpdateParams.none(), requestOptions)
 
     /** list external accounts */
     suspend fun list(
@@ -54,17 +76,47 @@ interface ExternalAccountServiceAsync {
 
     /** delete external account */
     suspend fun delete(
+        id: String,
+        params: ExternalAccountDeleteParams = ExternalAccountDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = delete(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [delete] */
+    suspend fun delete(
         params: ExternalAccountDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /** @see [delete] */
+    suspend fun delete(id: String, requestOptions: RequestOptions) =
+        delete(id, ExternalAccountDeleteParams.none(), requestOptions)
+
     /** complete verification of external account */
+    suspend fun completeVerification(
+        id: String,
+        params: ExternalAccountCompleteVerificationParams =
+            ExternalAccountCompleteVerificationParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ExternalAccount = completeVerification(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [completeVerification] */
     suspend fun completeVerification(
         params: ExternalAccountCompleteVerificationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
+    /** @see [completeVerification] */
+    suspend fun completeVerification(id: String, requestOptions: RequestOptions): ExternalAccount =
+        completeVerification(id, ExternalAccountCompleteVerificationParams.none(), requestOptions)
+
     /** verify external account */
+    suspend fun verify(
+        id: String,
+        params: ExternalAccountVerifyParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ExternalAccountVerifyResponse = verify(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [verify] */
     suspend fun verify(
         params: ExternalAccountVerifyParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -92,9 +144,26 @@ interface ExternalAccountServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            id: String,
+            params: ExternalAccountRetrieveParams = ExternalAccountRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ExternalAccount> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: ExternalAccountRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccount>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ExternalAccount> =
+            retrieve(id, ExternalAccountRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /api/external_accounts/{id}`, but is otherwise the
@@ -102,9 +171,26 @@ interface ExternalAccountServiceAsync {
          */
         @MustBeClosed
         suspend fun update(
+            id: String,
+            params: ExternalAccountUpdateParams = ExternalAccountUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ExternalAccount> =
+            update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        suspend fun update(
             params: ExternalAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccount>
+
+        /** @see [update] */
+        @MustBeClosed
+        suspend fun update(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ExternalAccount> =
+            update(id, ExternalAccountUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/external_accounts`, but is otherwise the same
@@ -129,9 +215,22 @@ interface ExternalAccountServiceAsync {
          */
         @MustBeClosed
         suspend fun delete(
+            id: String,
+            params: ExternalAccountDeleteParams = ExternalAccountDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = delete(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [delete] */
+        @MustBeClosed
+        suspend fun delete(
             params: ExternalAccountDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see [delete] */
+        @MustBeClosed
+        suspend fun delete(id: String, requestOptions: RequestOptions): HttpResponse =
+            delete(id, ExternalAccountDeleteParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /api/external_accounts/{id}/complete_verification`,
@@ -139,14 +238,45 @@ interface ExternalAccountServiceAsync {
          */
         @MustBeClosed
         suspend fun completeVerification(
+            id: String,
+            params: ExternalAccountCompleteVerificationParams =
+                ExternalAccountCompleteVerificationParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ExternalAccount> =
+            completeVerification(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [completeVerification] */
+        @MustBeClosed
+        suspend fun completeVerification(
             params: ExternalAccountCompleteVerificationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccount>
+
+        /** @see [completeVerification] */
+        @MustBeClosed
+        suspend fun completeVerification(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ExternalAccount> =
+            completeVerification(
+                id,
+                ExternalAccountCompleteVerificationParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `post /api/external_accounts/{id}/verify`, but is
          * otherwise the same as [ExternalAccountServiceAsync.verify].
          */
+        @MustBeClosed
+        suspend fun verify(
+            id: String,
+            params: ExternalAccountVerifyParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ExternalAccountVerifyResponse> =
+            verify(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [verify] */
         @MustBeClosed
         suspend fun verify(
             params: ExternalAccountVerifyParams,

@@ -19,9 +19,20 @@ interface PaperItemService {
 
     /** Get details on a single paper item. */
     fun retrieve(
+        id: String,
+        params: PaperItemRetrieveParams = PaperItemRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PaperItem = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: PaperItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaperItem
+
+    /** @see [retrieve] */
+    fun retrieve(id: String, requestOptions: RequestOptions): PaperItem =
+        retrieve(id, PaperItemRetrieveParams.none(), requestOptions)
 
     /** Get a list of all paper items. */
     fun list(
@@ -42,9 +53,22 @@ interface PaperItemService {
          */
         @MustBeClosed
         fun retrieve(
+            id: String,
+            params: PaperItemRetrieveParams = PaperItemRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PaperItem> = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: PaperItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaperItem>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<PaperItem> =
+            retrieve(id, PaperItemRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/paper_items`, but is otherwise the same as

@@ -26,9 +26,20 @@ interface ForeignExchangeQuoteServiceAsync {
 
     /** get foreign_exchange_quote */
     suspend fun retrieve(
+        id: String,
+        params: ForeignExchangeQuoteRetrieveParams = ForeignExchangeQuoteRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ForeignExchangeQuote = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: ForeignExchangeQuoteRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ForeignExchangeQuote
+
+    /** @see [retrieve] */
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): ForeignExchangeQuote =
+        retrieve(id, ForeignExchangeQuoteRetrieveParams.none(), requestOptions)
 
     /** list foreign_exchange_quotes */
     suspend fun list(
@@ -62,9 +73,26 @@ interface ForeignExchangeQuoteServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            id: String,
+            params: ForeignExchangeQuoteRetrieveParams = ForeignExchangeQuoteRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ForeignExchangeQuote> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: ForeignExchangeQuoteRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ForeignExchangeQuote>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ForeignExchangeQuote> =
+            retrieve(id, ForeignExchangeQuoteRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/foreign_exchange_quotes`, but is otherwise the

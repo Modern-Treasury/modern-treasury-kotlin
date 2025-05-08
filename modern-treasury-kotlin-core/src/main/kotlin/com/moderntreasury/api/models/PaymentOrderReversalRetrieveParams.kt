@@ -12,14 +12,14 @@ import java.util.Objects
 class PaymentOrderReversalRetrieveParams
 private constructor(
     private val paymentOrderId: String,
-    private val reversalId: String,
+    private val reversalId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun paymentOrderId(): String = paymentOrderId
 
-    fun reversalId(): String = reversalId
+    fun reversalId(): String? = reversalId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -36,7 +36,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .paymentOrderId()
-         * .reversalId()
          * ```
          */
         fun builder() = Builder()
@@ -61,7 +60,7 @@ private constructor(
 
         fun paymentOrderId(paymentOrderId: String) = apply { this.paymentOrderId = paymentOrderId }
 
-        fun reversalId(reversalId: String) = apply { this.reversalId = reversalId }
+        fun reversalId(reversalId: String?) = apply { this.reversalId = reversalId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -169,7 +168,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .paymentOrderId()
-         * .reversalId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -177,7 +175,7 @@ private constructor(
         fun build(): PaymentOrderReversalRetrieveParams =
             PaymentOrderReversalRetrieveParams(
                 checkRequired("paymentOrderId", paymentOrderId),
-                checkRequired("reversalId", reversalId),
+                reversalId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -186,7 +184,7 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> paymentOrderId
-            1 -> reversalId
+            1 -> reversalId ?: ""
             else -> ""
         }
 

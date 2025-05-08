@@ -3,7 +3,6 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.Params
-import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
@@ -11,12 +10,12 @@ import java.util.Objects
 /** get payment_reference */
 class PaymentReferenceRetrieveParams
 private constructor(
-    private val id: String,
+    private val id: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun id(): String = id
+    fun id(): String? = id
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -26,14 +25,11 @@ private constructor(
 
     companion object {
 
+        fun none(): PaymentReferenceRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [PaymentReferenceRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -51,7 +47,7 @@ private constructor(
             additionalQueryParams = paymentReferenceRetrieveParams.additionalQueryParams.toBuilder()
         }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -155,17 +151,10 @@ private constructor(
          * Returns an immutable instance of [PaymentReferenceRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PaymentReferenceRetrieveParams =
             PaymentReferenceRetrieveParams(
-                checkRequired("id", id),
+                id,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -173,7 +162,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id
+            0 -> id ?: ""
             else -> ""
         }
 

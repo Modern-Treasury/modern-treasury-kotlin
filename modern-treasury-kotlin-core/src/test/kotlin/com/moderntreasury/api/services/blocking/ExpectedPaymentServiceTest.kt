@@ -7,8 +7,6 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.ExpectedPaymentCreateParams
-import com.moderntreasury.api.models.ExpectedPaymentDeleteParams
-import com.moderntreasury.api.models.ExpectedPaymentRetrieveParams
 import com.moderntreasury.api.models.ExpectedPaymentType
 import com.moderntreasury.api.models.ExpectedPaymentUpdateParams
 import com.moderntreasury.api.models.ReconciliationRule
@@ -178,10 +176,7 @@ internal class ExpectedPaymentServiceTest {
                 .build()
         val expectedPaymentService = client.expectedPayments()
 
-        val expectedPayment =
-            expectedPaymentService.retrieve(
-                ExpectedPaymentRetrieveParams.builder().id("id").build()
-            )
+        val expectedPayment = expectedPaymentService.retrieve("id")
 
         expectedPayment.validate()
     }
@@ -271,8 +266,7 @@ internal class ExpectedPaymentServiceTest {
                 .build()
         val expectedPaymentService = client.expectedPayments()
 
-        val expectedPayment =
-            expectedPaymentService.delete(ExpectedPaymentDeleteParams.builder().id("id").build())
+        val expectedPayment = expectedPaymentService.delete("id")
 
         expectedPayment.validate()
     }

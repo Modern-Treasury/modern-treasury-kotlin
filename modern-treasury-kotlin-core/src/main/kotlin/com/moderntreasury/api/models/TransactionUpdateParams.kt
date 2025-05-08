@@ -11,7 +11,6 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.Params
-import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
@@ -22,13 +21,13 @@ import java.util.Objects
 /** Update a single transaction. */
 class TransactionUpdateParams
 private constructor(
-    private val id: String,
+    private val id: String?,
     private val body: TransactionUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun id(): String = id
+    fun id(): String? = id
 
     /**
      * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
@@ -56,14 +55,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [TransactionUpdateParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
-         */
+        fun none(): TransactionUpdateParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [TransactionUpdateParams]. */
         fun builder() = Builder()
     }
 
@@ -82,7 +76,7 @@ private constructor(
             additionalQueryParams = transactionUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         /**
          * Sets the entire request body.
@@ -229,17 +223,10 @@ private constructor(
          * Returns an immutable instance of [TransactionUpdateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): TransactionUpdateParams =
             TransactionUpdateParams(
-                checkRequired("id", id),
+                id,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -250,7 +237,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id
+            0 -> id ?: ""
             else -> ""
         }
 

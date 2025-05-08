@@ -28,15 +28,39 @@ interface LedgerAccountBalanceMonitorService {
 
     /** Get details on a single ledger account balance monitor. */
     fun retrieve(
+        id: String,
+        params: LedgerAccountBalanceMonitorRetrieveParams =
+            LedgerAccountBalanceMonitorRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LedgerAccountBalanceMonitor = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: LedgerAccountBalanceMonitorRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitor
 
+    /** @see [retrieve] */
+    fun retrieve(id: String, requestOptions: RequestOptions): LedgerAccountBalanceMonitor =
+        retrieve(id, LedgerAccountBalanceMonitorRetrieveParams.none(), requestOptions)
+
     /** Update a ledger account balance monitor. */
+    fun update(
+        id: String,
+        params: LedgerAccountBalanceMonitorUpdateParams =
+            LedgerAccountBalanceMonitorUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LedgerAccountBalanceMonitor = update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [update] */
     fun update(
         params: LedgerAccountBalanceMonitorUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitor
+
+    /** @see [update] */
+    fun update(id: String, requestOptions: RequestOptions): LedgerAccountBalanceMonitor =
+        update(id, LedgerAccountBalanceMonitorUpdateParams.none(), requestOptions)
 
     /** Get a list of ledger account balance monitors. */
     fun list(
@@ -51,9 +75,21 @@ interface LedgerAccountBalanceMonitorService {
 
     /** Delete a ledger account balance monitor. */
     fun delete(
+        id: String,
+        params: LedgerAccountBalanceMonitorDeleteParams =
+            LedgerAccountBalanceMonitorDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LedgerAccountBalanceMonitor = delete(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [delete] */
+    fun delete(
         params: LedgerAccountBalanceMonitorDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitor
+
+    /** @see [delete] */
+    fun delete(id: String, requestOptions: RequestOptions): LedgerAccountBalanceMonitor =
+        delete(id, LedgerAccountBalanceMonitorDeleteParams.none(), requestOptions)
 
     /**
      * A view of [LedgerAccountBalanceMonitorService] that provides access to raw HTTP responses for
@@ -77,9 +113,27 @@ interface LedgerAccountBalanceMonitorService {
          */
         @MustBeClosed
         fun retrieve(
+            id: String,
+            params: LedgerAccountBalanceMonitorRetrieveParams =
+                LedgerAccountBalanceMonitorRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerAccountBalanceMonitor> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: LedgerAccountBalanceMonitorRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountBalanceMonitor>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LedgerAccountBalanceMonitor> =
+            retrieve(id, LedgerAccountBalanceMonitorRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /api/ledger_account_balance_monitors/{id}`, but is
@@ -87,9 +141,27 @@ interface LedgerAccountBalanceMonitorService {
          */
         @MustBeClosed
         fun update(
+            id: String,
+            params: LedgerAccountBalanceMonitorUpdateParams =
+                LedgerAccountBalanceMonitorUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerAccountBalanceMonitor> =
+            update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
             params: LedgerAccountBalanceMonitorUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountBalanceMonitor>
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LedgerAccountBalanceMonitor> =
+            update(id, LedgerAccountBalanceMonitorUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/ledger_account_balance_monitors`, but is
@@ -115,8 +187,26 @@ interface LedgerAccountBalanceMonitorService {
          */
         @MustBeClosed
         fun delete(
+            id: String,
+            params: LedgerAccountBalanceMonitorDeleteParams =
+                LedgerAccountBalanceMonitorDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerAccountBalanceMonitor> =
+            delete(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [delete] */
+        @MustBeClosed
+        fun delete(
             params: LedgerAccountBalanceMonitorDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountBalanceMonitor>
+
+        /** @see [delete] */
+        @MustBeClosed
+        fun delete(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LedgerAccountBalanceMonitor> =
+            delete(id, LedgerAccountBalanceMonitorDeleteParams.none(), requestOptions)
     }
 }

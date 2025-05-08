@@ -27,11 +27,29 @@ interface PaymentFlowServiceAsync {
 
     /** get payment_flow */
     suspend fun retrieve(
+        id: String,
+        params: PaymentFlowRetrieveParams = PaymentFlowRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PaymentFlow = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: PaymentFlowRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentFlow
 
+    /** @see [retrieve] */
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): PaymentFlow =
+        retrieve(id, PaymentFlowRetrieveParams.none(), requestOptions)
+
     /** update payment_flow */
+    suspend fun update(
+        id: String,
+        params: PaymentFlowUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PaymentFlow = update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [update] */
     suspend fun update(
         params: PaymentFlowUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -69,14 +87,39 @@ interface PaymentFlowServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            id: String,
+            params: PaymentFlowRetrieveParams = PaymentFlowRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PaymentFlow> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: PaymentFlowRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentFlow>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PaymentFlow> =
+            retrieve(id, PaymentFlowRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /api/payment_flows/{id}`, but is otherwise the
          * same as [PaymentFlowServiceAsync.update].
          */
+        @MustBeClosed
+        suspend fun update(
+            id: String,
+            params: PaymentFlowUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PaymentFlow> = update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [update] */
         @MustBeClosed
         suspend fun update(
             params: PaymentFlowUpdateParams,

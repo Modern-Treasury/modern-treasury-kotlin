@@ -6,7 +6,6 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerAccountStatementCreateParams
-import com.moderntreasury.api.models.LedgerAccountStatementRetrieveParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -56,10 +55,7 @@ internal class LedgerAccountStatementServiceTest {
                 .build()
         val ledgerAccountStatementService = client.ledgerAccountStatements()
 
-        val ledgerAccountStatement =
-            ledgerAccountStatementService.retrieve(
-                LedgerAccountStatementRetrieveParams.builder().id("id").build()
-            )
+        val ledgerAccountStatement = ledgerAccountStatementService.retrieve("id")
 
         ledgerAccountStatement.validate()
     }

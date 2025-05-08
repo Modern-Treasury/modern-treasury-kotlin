@@ -24,9 +24,20 @@ interface LedgerableEventService {
 
     /** Get details on a single ledgerable event. */
     fun retrieve(
+        id: String,
+        params: LedgerableEventRetrieveParams = LedgerableEventRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LedgerableEvent = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: LedgerableEventRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerableEvent
+
+    /** @see [retrieve] */
+    fun retrieve(id: String, requestOptions: RequestOptions): LedgerableEvent =
+        retrieve(id, LedgerableEventRetrieveParams.none(), requestOptions)
 
     /**
      * A view of [LedgerableEventService] that provides access to raw HTTP responses for each
@@ -50,8 +61,22 @@ interface LedgerableEventService {
          */
         @MustBeClosed
         fun retrieve(
+            id: String,
+            params: LedgerableEventRetrieveParams = LedgerableEventRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerableEvent> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: LedgerableEventRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerableEvent>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<LedgerableEvent> =
+            retrieve(id, LedgerableEventRetrieveParams.none(), requestOptions)
     }
 }

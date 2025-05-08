@@ -4,7 +4,6 @@ package com.moderntreasury.api.services.async
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
-import com.moderntreasury.api.models.PaperItemRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,8 +20,7 @@ internal class PaperItemServiceAsyncTest {
                 .build()
         val paperItemServiceAsync = client.paperItems()
 
-        val paperItem =
-            paperItemServiceAsync.retrieve(PaperItemRetrieveParams.builder().id("id").build())
+        val paperItem = paperItemServiceAsync.retrieve("id")
 
         paperItem.validate()
     }

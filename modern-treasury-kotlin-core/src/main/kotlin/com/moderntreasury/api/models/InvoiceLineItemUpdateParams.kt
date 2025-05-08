@@ -23,7 +23,7 @@ import java.util.Objects
 class InvoiceLineItemUpdateParams
 private constructor(
     private val invoiceId: String,
-    private val id: String,
+    private val id: String?,
     private val body: InvoiceLineItemUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -31,7 +31,7 @@ private constructor(
 
     fun invoiceId(): String = invoiceId
 
-    fun id(): String = id
+    fun id(): String? = id
 
     /**
      * An optional free-form description of the line item.
@@ -159,7 +159,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .invoiceId()
-         * .id()
          * ```
          */
         fun builder() = Builder()
@@ -185,7 +184,7 @@ private constructor(
 
         fun invoiceId(invoiceId: String) = apply { this.invoiceId = invoiceId }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         /**
          * Sets the entire request body.
@@ -426,7 +425,6 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .invoiceId()
-         * .id()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -434,7 +432,7 @@ private constructor(
         fun build(): InvoiceLineItemUpdateParams =
             InvoiceLineItemUpdateParams(
                 checkRequired("invoiceId", invoiceId),
-                checkRequired("id", id),
+                id,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -446,7 +444,7 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> invoiceId
-            1 -> id
+            1 -> id ?: ""
             else -> ""
         }
 

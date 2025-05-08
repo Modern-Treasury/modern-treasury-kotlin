@@ -26,9 +26,20 @@ interface BulkRequestServiceAsync {
 
     /** get bulk_request */
     suspend fun retrieve(
+        id: String,
+        params: BulkRequestRetrieveParams = BulkRequestRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BulkRequest = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: BulkRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequest
+
+    /** @see [retrieve] */
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): BulkRequest =
+        retrieve(id, BulkRequestRetrieveParams.none(), requestOptions)
 
     /** list bulk_requests */
     suspend fun list(
@@ -62,9 +73,26 @@ interface BulkRequestServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            id: String,
+            params: BulkRequestRetrieveParams = BulkRequestRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BulkRequest> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: BulkRequestRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkRequest>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BulkRequest> =
+            retrieve(id, BulkRequestRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/bulk_requests`, but is otherwise the same as

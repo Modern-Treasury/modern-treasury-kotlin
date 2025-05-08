@@ -6,8 +6,6 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.TransactionCreateParams
-import com.moderntreasury.api.models.TransactionDeleteParams
-import com.moderntreasury.api.models.TransactionRetrieveParams
 import com.moderntreasury.api.models.TransactionUpdateParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
@@ -61,8 +59,7 @@ internal class TransactionServiceTest {
                 .build()
         val transactionService = client.transactions()
 
-        val transaction =
-            transactionService.retrieve(TransactionRetrieveParams.builder().id("id").build())
+        val transaction = transactionService.retrieve("id")
 
         transaction.validate()
     }
@@ -117,6 +114,6 @@ internal class TransactionServiceTest {
                 .build()
         val transactionService = client.transactions()
 
-        transactionService.delete(TransactionDeleteParams.builder().id("id").build())
+        transactionService.delete("id")
     }
 }

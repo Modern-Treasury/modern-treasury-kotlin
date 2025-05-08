@@ -3,7 +3,6 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.Params
-import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Get details on a single ledger entry. */
 class LedgerEntryRetrieveParams
 private constructor(
-    private val id: String,
+    private val id: String?,
     private val showBalances: Boolean?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun id(): String = id
+    fun id(): String? = id
 
     /**
      * If true, response will include the balances attached to the ledger entry. If there is no
@@ -33,13 +32,10 @@ private constructor(
 
     companion object {
 
+        fun none(): LedgerEntryRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [LedgerEntryRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -59,7 +55,7 @@ private constructor(
             additionalQueryParams = ledgerEntryRetrieveParams.additionalQueryParams.toBuilder()
         }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         /**
          * If true, response will include the balances attached to the ledger entry. If there is no
@@ -176,17 +172,10 @@ private constructor(
          * Returns an immutable instance of [LedgerEntryRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): LedgerEntryRetrieveParams =
             LedgerEntryRetrieveParams(
-                checkRequired("id", id),
+                id,
                 showBalances,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -195,7 +184,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id
+            0 -> id ?: ""
             else -> ""
         }
 

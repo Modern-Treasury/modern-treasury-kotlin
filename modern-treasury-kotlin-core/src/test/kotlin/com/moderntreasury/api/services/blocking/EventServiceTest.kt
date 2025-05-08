@@ -4,7 +4,6 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.models.EventRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,7 +20,7 @@ internal class EventServiceTest {
                 .build()
         val eventService = client.events()
 
-        val event = eventService.retrieve(EventRetrieveParams.builder().id("id").build())
+        val event = eventService.retrieve("id")
 
         event.validate()
     }

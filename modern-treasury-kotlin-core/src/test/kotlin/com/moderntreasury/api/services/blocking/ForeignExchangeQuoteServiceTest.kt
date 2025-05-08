@@ -6,7 +6,6 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.ForeignExchangeQuoteCreateParams
-import com.moderntreasury.api.models.ForeignExchangeQuoteRetrieveParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -49,10 +48,7 @@ internal class ForeignExchangeQuoteServiceTest {
                 .build()
         val foreignExchangeQuoteService = client.foreignExchangeQuotes()
 
-        val foreignExchangeQuote =
-            foreignExchangeQuoteService.retrieve(
-                ForeignExchangeQuoteRetrieveParams.builder().id("id").build()
-            )
+        val foreignExchangeQuote = foreignExchangeQuoteService.retrieve("id")
 
         foreignExchangeQuote.validate()
     }

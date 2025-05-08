@@ -12,7 +12,6 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.Params
-import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
@@ -22,13 +21,13 @@ import java.util.Objects
 /** Update a connection legal entity. */
 class ConnectionLegalEntityUpdateParams
 private constructor(
-    private val id: String,
+    private val id: String?,
     private val body: ConnectionLegalEntityUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun id(): String = id
+    fun id(): String? = id
 
     /**
      * The status of the connection legal entity.
@@ -55,14 +54,11 @@ private constructor(
 
     companion object {
 
+        fun none(): ConnectionLegalEntityUpdateParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [ConnectionLegalEntityUpdateParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -85,7 +81,7 @@ private constructor(
                     connectionLegalEntityUpdateParams.additionalQueryParams.toBuilder()
             }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         /**
          * Sets the entire request body.
@@ -228,17 +224,10 @@ private constructor(
          * Returns an immutable instance of [ConnectionLegalEntityUpdateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ConnectionLegalEntityUpdateParams =
             ConnectionLegalEntityUpdateParams(
-                checkRequired("id", id),
+                id,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -249,7 +238,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id
+            0 -> id ?: ""
             else -> ""
         }
 

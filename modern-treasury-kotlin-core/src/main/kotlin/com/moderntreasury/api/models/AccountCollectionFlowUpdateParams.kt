@@ -22,13 +22,13 @@ import java.util.Objects
 /** update account_collection_flow */
 class AccountCollectionFlowUpdateParams
 private constructor(
-    private val id: String,
+    private val id: String?,
     private val body: AccountCollectionFlowUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun id(): String = id
+    fun id(): String? = id
 
     /**
      * Required. The updated status of the account collection flow. Can only be used to mark a flow
@@ -62,7 +62,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .id()
          * .status()
          * ```
          */
@@ -87,7 +86,7 @@ private constructor(
                     accountCollectionFlowUpdateParams.additionalQueryParams.toBuilder()
             }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         /**
          * Sets the entire request body.
@@ -236,7 +235,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .id()
          * .status()
          * ```
          *
@@ -244,7 +242,7 @@ private constructor(
          */
         fun build(): AccountCollectionFlowUpdateParams =
             AccountCollectionFlowUpdateParams(
-                checkRequired("id", id),
+                id,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -255,7 +253,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id
+            0 -> id ?: ""
             else -> ""
         }
 

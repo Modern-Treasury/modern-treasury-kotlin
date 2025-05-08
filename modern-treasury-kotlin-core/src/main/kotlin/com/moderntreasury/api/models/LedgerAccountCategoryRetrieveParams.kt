@@ -3,7 +3,6 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.Params
-import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import java.time.LocalDate
@@ -14,13 +13,13 @@ import java.util.Objects
 /** Get the details on a single ledger account category. */
 class LedgerAccountCategoryRetrieveParams
 private constructor(
-    private val id: String,
+    private val id: String?,
     private val balances: Balances?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun id(): String = id
+    fun id(): String? = id
 
     /**
      * For example, if you want the balances as of a particular time (ISO8601), the encoded query
@@ -37,14 +36,11 @@ private constructor(
 
     companion object {
 
+        fun none(): LedgerAccountCategoryRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [LedgerAccountCategoryRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -67,7 +63,7 @@ private constructor(
                 ledgerAccountCategoryRetrieveParams.additionalQueryParams.toBuilder()
         }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         /**
          * For example, if you want the balances as of a particular time (ISO8601), the encoded
@@ -178,17 +174,10 @@ private constructor(
          * Returns an immutable instance of [LedgerAccountCategoryRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): LedgerAccountCategoryRetrieveParams =
             LedgerAccountCategoryRetrieveParams(
-                checkRequired("id", id),
+                id,
                 balances,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -197,7 +186,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id
+            0 -> id ?: ""
             else -> ""
         }
 

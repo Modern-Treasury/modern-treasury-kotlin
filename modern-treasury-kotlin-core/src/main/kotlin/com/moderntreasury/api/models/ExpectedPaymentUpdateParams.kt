@@ -13,7 +13,6 @@ import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkKnown
-import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
@@ -25,13 +24,13 @@ import java.util.Objects
 /** update expected payment */
 class ExpectedPaymentUpdateParams
 private constructor(
-    private val id: String,
+    private val id: String?,
     private val body: ExpectedPaymentUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun id(): String = id
+    fun id(): String? = id
 
     /**
      * The lowest amount this expected payment may be equal to. Value in specified currency's
@@ -290,13 +289,10 @@ private constructor(
 
     companion object {
 
+        fun none(): ExpectedPaymentUpdateParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [ExpectedPaymentUpdateParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -317,7 +313,7 @@ private constructor(
             additionalQueryParams = expectedPaymentUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun id(id: String) = apply { this.id = id }
+        fun id(id: String?) = apply { this.id = id }
 
         /**
          * Sets the entire request body.
@@ -723,17 +719,10 @@ private constructor(
          * Returns an immutable instance of [ExpectedPaymentUpdateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .id()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ExpectedPaymentUpdateParams =
             ExpectedPaymentUpdateParams(
-                checkRequired("id", id),
+                id,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -744,7 +733,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> id
+            0 -> id ?: ""
             else -> ""
         }
 

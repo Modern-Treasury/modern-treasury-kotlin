@@ -9,7 +9,6 @@ import com.moderntreasury.api.models.BankSettings
 import com.moderntreasury.api.models.LegalEntityComplianceDetail
 import com.moderntreasury.api.models.LegalEntityCreateParams
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
-import com.moderntreasury.api.models.LegalEntityRetrieveParams
 import com.moderntreasury.api.models.LegalEntityUpdateParams
 import com.moderntreasury.api.models.WealthAndEmploymentDetails
 import java.time.LocalDate
@@ -394,8 +393,7 @@ internal class LegalEntityServiceTest {
                 .build()
         val legalEntityService = client.legalEntities()
 
-        val legalEntity =
-            legalEntityService.retrieve(LegalEntityRetrieveParams.builder().id("id").build())
+        val legalEntity = legalEntityService.retrieve("id")
 
         legalEntity.validate()
     }

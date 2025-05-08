@@ -1,5 +1,39 @@
 # Changelog
 
+## 7.0.0 (2025-05-08)
+
+Full Changelog: [v6.2.0...v7.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v6.2.0...v7.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** extract auto pagination to shared classes
+* **client:** **Migration:** - If you were referencing the `AutoPager` class on a specific `*Page` or `*PageAsync` type, then you should instead reference the shared `AutoPager` and `AutoPagerAsync` types, under the `core` package
+    - If you were referencing `getNextPage` or `getNextPageParams`:
+       - Swap to `nextPage()` and `nextPageParams()`
+       - Note that these both now return non-nullable types (use `hasNextPage()` before calling these, since they will throw if it's impossible to get another page)
+
+### Features
+
+* **api:** only send idempotency headers on PUT / POST requests ([14464d6](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/14464d69cbf2b940e522bce7c4cc062c5293fd6a))
+* **client:** allow providing some params positionally ([a7f305b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a7f305b3a7c7850828dbe382479094b631f3797e))
+* **client:** extract auto pagination to shared classes ([98610c2](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/98610c298e22885c98daf1fc4c11ebefd857d3ee))
+
+
+### Bug Fixes
+
+* **client:** add missing convenience methods ([3a1457d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3a1457d2a9d07d612d683a66b1f1ad00f9248ce7))
+
+
+### Chores
+
+* **ci:** add timeout thresholds for CI jobs ([1c03454](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1c03454928f14a9af3da3582a8be12ef3567b3c0))
+* **ci:** only use depot for staging repos ([448d987](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/448d987105eede54de994539bb70a873b8d09fea))
+* **ci:** run on more branches and use depot runners ([a5c03fd](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a5c03fd5dc0315568ab60ccec951fac428675704))
+* **internal:** java 17 -&gt; 21 on ci ([2caf496](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2caf4964090867b819ea4b9f3add696aa050e54d))
+* **internal:** remove flaky `-Xbackend-threads=0` option ([e899f1b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e899f1b235798c8877c5e66bebb63df695f309d8))
+* **internal:** update java toolchain ([dcc4b16](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/dcc4b16270345a8d311f1f0541213693d69b868c))
+* **internal:** use `byteInputStream()` in tests ([3a1457d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3a1457d2a9d07d612d683a66b1f1ad00f9248ce7))
+
 ## 6.2.0 (2025-04-16)
 
 Full Changelog: [v6.1.0...v6.2.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v6.1.0...v6.2.0)

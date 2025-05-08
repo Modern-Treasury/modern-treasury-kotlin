@@ -30,15 +30,37 @@ interface InternalAccountService {
 
     /** get internal account */
     fun retrieve(
+        id: String,
+        params: InternalAccountRetrieveParams = InternalAccountRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InternalAccount = retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: InternalAccountRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccount
 
+    /** @see [retrieve] */
+    fun retrieve(id: String, requestOptions: RequestOptions): InternalAccount =
+        retrieve(id, InternalAccountRetrieveParams.none(), requestOptions)
+
     /** update internal account */
+    fun update(
+        id: String,
+        params: InternalAccountUpdateParams = InternalAccountUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InternalAccount = update(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see [update] */
     fun update(
         params: InternalAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccount
+
+    /** @see [update] */
+    fun update(id: String, requestOptions: RequestOptions): InternalAccount =
+        update(id, InternalAccountUpdateParams.none(), requestOptions)
 
     /** list internal accounts */
     fun list(
@@ -74,9 +96,23 @@ interface InternalAccountService {
          */
         @MustBeClosed
         fun retrieve(
+            id: String,
+            params: InternalAccountRetrieveParams = InternalAccountRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InternalAccount> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: InternalAccountRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InternalAccount>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<InternalAccount> =
+            retrieve(id, InternalAccountRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /api/internal_accounts/{id}`, but is otherwise the
@@ -84,9 +120,23 @@ interface InternalAccountService {
          */
         @MustBeClosed
         fun update(
+            id: String,
+            params: InternalAccountUpdateParams = InternalAccountUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InternalAccount> =
+            update(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
             params: InternalAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InternalAccount>
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(id: String, requestOptions: RequestOptions): HttpResponseFor<InternalAccount> =
+            update(id, InternalAccountUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /api/internal_accounts`, but is otherwise the same
