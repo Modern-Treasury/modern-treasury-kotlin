@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.0.1 (2025-05-15)
+
+Full Changelog: [v7.0.0...v7.0.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.0.0...v7.0.1)
+
+### Chores
+
+* **internal:** update JVM publishing method ([4ef9d82](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4ef9d825034dedb27f45e72e232cbf3c6ee5d846))
+
 ## 7.0.0 (2025-05-08)
 
 Full Changelog: [v6.2.0...v7.0.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v6.2.0...v7.0.0)
