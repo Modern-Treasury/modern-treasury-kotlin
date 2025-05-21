@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.0.2 (2025-05-21)
+
+Full Changelog: [v7.0.1...v7.0.2](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.0.1...v7.0.2)
+
+### Chores
+
+* **docs:** grammar improvements ([80ac73c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/80ac73cb24bcc748ed745e9e609ef9b6a96324da))
+
 ## 7.0.1 (2025-05-15)
 
 Full Changelog: [v7.0.0...v7.0.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.0.0...v7.0.1)
