@@ -75,6 +75,8 @@ import com.moderntreasury.api.services.blocking.LineItemService
 import com.moderntreasury.api.services.blocking.LineItemServiceImpl
 import com.moderntreasury.api.services.blocking.PaperItemService
 import com.moderntreasury.api.services.blocking.PaperItemServiceImpl
+import com.moderntreasury.api.services.blocking.PaymentActionService
+import com.moderntreasury.api.services.blocking.PaymentActionServiceImpl
 import com.moderntreasury.api.services.blocking.PaymentFlowService
 import com.moderntreasury.api.services.blocking.PaymentFlowServiceImpl
 import com.moderntreasury.api.services.blocking.PaymentOrderService
@@ -255,6 +257,10 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
         LegalEntityAssociationServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val paymentActions: PaymentActionService by lazy {
+        PaymentActionServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): ModernTreasuryClientAsync = async
 
     override fun withRawResponse(): ModernTreasuryClient.WithRawResponse = withRawResponse
@@ -336,6 +342,8 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
     override fun legalEntities(): LegalEntityService = legalEntities
 
     override fun legalEntityAssociations(): LegalEntityAssociationService = legalEntityAssociations
+
+    override fun paymentActions(): PaymentActionService = paymentActions
 
     override fun ping(params: ClientPingParams, requestOptions: RequestOptions): PingResponse =
         // get /api/ping
@@ -498,6 +506,10 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
             LegalEntityAssociationServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val paymentActions: PaymentActionService.WithRawResponse by lazy {
+            PaymentActionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun connections(): ConnectionService.WithRawResponse = connections
 
         override fun counterparties(): CounterpartyService.WithRawResponse = counterparties
@@ -583,6 +595,8 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
 
         override fun legalEntityAssociations(): LegalEntityAssociationService.WithRawResponse =
             legalEntityAssociations
+
+        override fun paymentActions(): PaymentActionService.WithRawResponse = paymentActions
 
         private val pingHandler: Handler<PingResponse> =
             jsonHandler<PingResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
