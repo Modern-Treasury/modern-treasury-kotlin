@@ -30,6 +30,7 @@ internal class InternalAccountServiceTest {
                     .currency(InternalAccountCreateParams.Currency.USD)
                     .name("name")
                     .partyName("party_name")
+                    .accountType(InternalAccountCreateParams.AccountType.CHECKING)
                     .counterpartyId("counterparty_id")
                     .legalEntityId("legal_entity_id")
                     .parentAccountId("parent_account_id")

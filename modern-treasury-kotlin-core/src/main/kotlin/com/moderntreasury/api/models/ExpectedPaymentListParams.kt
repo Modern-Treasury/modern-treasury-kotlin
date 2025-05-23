@@ -26,6 +26,8 @@ private constructor(
     private val perPage: Long?,
     private val status: Status?,
     private val type: Type?,
+    private val updatedAtLowerBound: OffsetDateTime?,
+    private val updatedAtUpperBound: OffsetDateTime?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -64,6 +66,12 @@ private constructor(
      */
     fun type(): Type? = type
 
+    /** Used to return expected payments updated after some datetime */
+    fun updatedAtLowerBound(): OffsetDateTime? = updatedAtLowerBound
+
+    /** Used to return expected payments updated before some datetime */
+    fun updatedAtUpperBound(): OffsetDateTime? = updatedAtUpperBound
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
@@ -93,6 +101,8 @@ private constructor(
         private var perPage: Long? = null
         private var status: Status? = null
         private var type: Type? = null
+        private var updatedAtLowerBound: OffsetDateTime? = null
+        private var updatedAtUpperBound: OffsetDateTime? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -107,6 +117,8 @@ private constructor(
             perPage = expectedPaymentListParams.perPage
             status = expectedPaymentListParams.status
             type = expectedPaymentListParams.type
+            updatedAtLowerBound = expectedPaymentListParams.updatedAtLowerBound
+            updatedAtUpperBound = expectedPaymentListParams.updatedAtUpperBound
             additionalHeaders = expectedPaymentListParams.additionalHeaders.toBuilder()
             additionalQueryParams = expectedPaymentListParams.additionalQueryParams.toBuilder()
         }
@@ -157,6 +169,16 @@ private constructor(
          * signet, wire
          */
         fun type(type: Type?) = apply { this.type = type }
+
+        /** Used to return expected payments updated after some datetime */
+        fun updatedAtLowerBound(updatedAtLowerBound: OffsetDateTime?) = apply {
+            this.updatedAtLowerBound = updatedAtLowerBound
+        }
+
+        /** Used to return expected payments updated before some datetime */
+        fun updatedAtUpperBound(updatedAtUpperBound: OffsetDateTime?) = apply {
+            this.updatedAtUpperBound = updatedAtUpperBound
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -273,6 +295,8 @@ private constructor(
                 perPage,
                 status,
                 type,
+                updatedAtLowerBound,
+                updatedAtUpperBound,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -303,6 +327,12 @@ private constructor(
                 perPage?.let { put("per_page", it.toString()) }
                 status?.let { put("status", it.toString()) }
                 type?.let { put("type", it.toString()) }
+                updatedAtLowerBound?.let {
+                    put("updated_at_lower_bound", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
+                updatedAtUpperBound?.let {
+                    put("updated_at_upper_bound", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -568,6 +598,8 @@ private constructor(
 
             val BACS = of("bacs")
 
+            val BASE = of("base")
+
             val BOOK = of("book")
 
             val CARD = of("card")
@@ -581,6 +613,8 @@ private constructor(
             val DK_NETS = of("dk_nets")
 
             val EFT = of("eft")
+
+            val ETHEREUM = of("ethereum")
 
             val HU_ICS = of("hu_ics")
 
@@ -597,6 +631,8 @@ private constructor(
             val NZ_BECS = of("nz_becs")
 
             val PL_ELIXIR = of("pl_elixir")
+
+            val POLYGON = of("polygon")
 
             val PROVXCHANGE = of("provxchange")
 
@@ -618,6 +654,8 @@ private constructor(
 
             val SKNBI = of("sknbi")
 
+            val SOLANA = of("solana")
+
             val WIRE = of("wire")
 
             val ZENGIN = of("zengin")
@@ -630,6 +668,7 @@ private constructor(
             ACH,
             AU_BECS,
             BACS,
+            BASE,
             BOOK,
             CARD,
             CHATS,
@@ -637,6 +676,7 @@ private constructor(
             CROSS_BORDER,
             DK_NETS,
             EFT,
+            ETHEREUM,
             HU_ICS,
             INTERAC,
             MASAV,
@@ -645,6 +685,7 @@ private constructor(
             NICS,
             NZ_BECS,
             PL_ELIXIR,
+            POLYGON,
             PROVXCHANGE,
             RO_SENT,
             RTP,
@@ -655,6 +696,7 @@ private constructor(
             SIC,
             SIGNET,
             SKNBI,
+            SOLANA,
             WIRE,
             ZENGIN,
         }
@@ -672,6 +714,7 @@ private constructor(
             ACH,
             AU_BECS,
             BACS,
+            BASE,
             BOOK,
             CARD,
             CHATS,
@@ -679,6 +722,7 @@ private constructor(
             CROSS_BORDER,
             DK_NETS,
             EFT,
+            ETHEREUM,
             HU_ICS,
             INTERAC,
             MASAV,
@@ -687,6 +731,7 @@ private constructor(
             NICS,
             NZ_BECS,
             PL_ELIXIR,
+            POLYGON,
             PROVXCHANGE,
             RO_SENT,
             RTP,
@@ -697,6 +742,7 @@ private constructor(
             SIC,
             SIGNET,
             SKNBI,
+            SOLANA,
             WIRE,
             ZENGIN,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
@@ -715,6 +761,7 @@ private constructor(
                 ACH -> Value.ACH
                 AU_BECS -> Value.AU_BECS
                 BACS -> Value.BACS
+                BASE -> Value.BASE
                 BOOK -> Value.BOOK
                 CARD -> Value.CARD
                 CHATS -> Value.CHATS
@@ -722,6 +769,7 @@ private constructor(
                 CROSS_BORDER -> Value.CROSS_BORDER
                 DK_NETS -> Value.DK_NETS
                 EFT -> Value.EFT
+                ETHEREUM -> Value.ETHEREUM
                 HU_ICS -> Value.HU_ICS
                 INTERAC -> Value.INTERAC
                 MASAV -> Value.MASAV
@@ -730,6 +778,7 @@ private constructor(
                 NICS -> Value.NICS
                 NZ_BECS -> Value.NZ_BECS
                 PL_ELIXIR -> Value.PL_ELIXIR
+                POLYGON -> Value.POLYGON
                 PROVXCHANGE -> Value.PROVXCHANGE
                 RO_SENT -> Value.RO_SENT
                 RTP -> Value.RTP
@@ -740,6 +789,7 @@ private constructor(
                 SIC -> Value.SIC
                 SIGNET -> Value.SIGNET
                 SKNBI -> Value.SKNBI
+                SOLANA -> Value.SOLANA
                 WIRE -> Value.WIRE
                 ZENGIN -> Value.ZENGIN
                 else -> Value._UNKNOWN
@@ -759,6 +809,7 @@ private constructor(
                 ACH -> Known.ACH
                 AU_BECS -> Known.AU_BECS
                 BACS -> Known.BACS
+                BASE -> Known.BASE
                 BOOK -> Known.BOOK
                 CARD -> Known.CARD
                 CHATS -> Known.CHATS
@@ -766,6 +817,7 @@ private constructor(
                 CROSS_BORDER -> Known.CROSS_BORDER
                 DK_NETS -> Known.DK_NETS
                 EFT -> Known.EFT
+                ETHEREUM -> Known.ETHEREUM
                 HU_ICS -> Known.HU_ICS
                 INTERAC -> Known.INTERAC
                 MASAV -> Known.MASAV
@@ -774,6 +826,7 @@ private constructor(
                 NICS -> Known.NICS
                 NZ_BECS -> Known.NZ_BECS
                 PL_ELIXIR -> Known.PL_ELIXIR
+                POLYGON -> Known.POLYGON
                 PROVXCHANGE -> Known.PROVXCHANGE
                 RO_SENT -> Known.RO_SENT
                 RTP -> Known.RTP
@@ -784,6 +837,7 @@ private constructor(
                 SIC -> Known.SIC
                 SIGNET -> Known.SIGNET
                 SKNBI -> Known.SKNBI
+                SOLANA -> Known.SOLANA
                 WIRE -> Known.WIRE
                 ZENGIN -> Known.ZENGIN
                 else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
@@ -846,11 +900,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExpectedPaymentListParams && afterCursor == other.afterCursor && counterpartyId == other.counterpartyId && createdAtLowerBound == other.createdAtLowerBound && createdAtUpperBound == other.createdAtUpperBound && direction == other.direction && internalAccountId == other.internalAccountId && metadata == other.metadata && perPage == other.perPage && status == other.status && type == other.type && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is ExpectedPaymentListParams && afterCursor == other.afterCursor && counterpartyId == other.counterpartyId && createdAtLowerBound == other.createdAtLowerBound && createdAtUpperBound == other.createdAtUpperBound && direction == other.direction && internalAccountId == other.internalAccountId && metadata == other.metadata && perPage == other.perPage && status == other.status && type == other.type && updatedAtLowerBound == other.updatedAtLowerBound && updatedAtUpperBound == other.updatedAtUpperBound && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, counterpartyId, createdAtLowerBound, createdAtUpperBound, direction, internalAccountId, metadata, perPage, status, type, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, counterpartyId, createdAtLowerBound, createdAtUpperBound, direction, internalAccountId, metadata, perPage, status, type, updatedAtLowerBound, updatedAtUpperBound, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "ExpectedPaymentListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, createdAtLowerBound=$createdAtLowerBound, createdAtUpperBound=$createdAtUpperBound, direction=$direction, internalAccountId=$internalAccountId, metadata=$metadata, perPage=$perPage, status=$status, type=$type, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ExpectedPaymentListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, createdAtLowerBound=$createdAtLowerBound, createdAtUpperBound=$createdAtUpperBound, direction=$direction, internalAccountId=$internalAccountId, metadata=$metadata, perPage=$perPage, status=$status, type=$type, updatedAtLowerBound=$updatedAtLowerBound, updatedAtUpperBound=$updatedAtUpperBound, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

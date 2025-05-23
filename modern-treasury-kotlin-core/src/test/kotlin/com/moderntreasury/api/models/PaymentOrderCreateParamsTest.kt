@@ -34,7 +34,8 @@ internal class PaymentOrderCreateParamsTest {
                 PaymentOrderCreateParams.DocumentCreateRequest.builder()
                     .documentableId("documentable_id")
                     .documentableType(
-                        PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
+                        PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
+                            .COUNTERPARTIES
                     )
                     .file("some content".byteInputStream())
                     .documentType("document_type")
@@ -152,7 +153,7 @@ internal class PaymentOrderCreateParamsTest {
                             )
                             .build()
                     )
-                    .accountType(ExternalAccountType.CASH)
+                    .accountType(ExternalAccountType.BASE_WALLET)
                     .addContactDetail(
                         PaymentOrderCreateParams.ReceivingAccount.ContactDetailCreateRequest
                             .builder()
@@ -265,7 +266,8 @@ internal class PaymentOrderCreateParamsTest {
                     PaymentOrderCreateParams.DocumentCreateRequest.builder()
                         .documentableId("documentable_id")
                         .documentableType(
-                            PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CASES
+                            PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
+                                .COUNTERPARTIES
                         )
                         .file("some content".byteInputStream())
                         .documentType("document_type")
@@ -386,7 +388,7 @@ internal class PaymentOrderCreateParamsTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.CASH)
+                        .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
                             PaymentOrderCreateParams.ReceivingAccount.ContactDetailCreateRequest
                                 .builder()
@@ -519,7 +521,7 @@ internal class PaymentOrderCreateParamsTest {
                                         .documentableType(
                                             PaymentOrderCreateParams.DocumentCreateRequest
                                                 .DocumentableType
-                                                .CASES
+                                                .COUNTERPARTIES
                                         )
                                         .file("some content".byteInputStream())
                                         .documentType("document_type")
@@ -682,7 +684,7 @@ internal class PaymentOrderCreateParamsTest {
                                             )
                                             .build()
                                     )
-                                    .accountType(ExternalAccountType.CASH)
+                                    .accountType(ExternalAccountType.BASE_WALLET)
                                     .addContactDetail(
                                         PaymentOrderCreateParams.ReceivingAccount
                                             .ContactDetailCreateRequest

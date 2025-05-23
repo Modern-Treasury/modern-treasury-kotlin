@@ -22,9 +22,15 @@ class ExternalAccountType @JsonCreator private constructor(private val value: Js
 
     companion object {
 
+        val BASE_WALLET = of("base_wallet")
+
         val CASH = of("cash")
 
         val CHECKING = of("checking")
+
+        val CRYPTO_WALLET = of("crypto_wallet")
+
+        val ETHEREUM_WALLET = of("ethereum_wallet")
 
         val GENERAL_LEDGER = of("general_ledger")
 
@@ -36,21 +42,30 @@ class ExternalAccountType @JsonCreator private constructor(private val value: Js
 
         val OVERDRAFT = of("overdraft")
 
+        val POLYGON_WALLET = of("polygon_wallet")
+
         val SAVINGS = of("savings")
+
+        val SOLANA_WALLET = of("solana_wallet")
 
         fun of(value: String) = ExternalAccountType(JsonField.of(value))
     }
 
     /** An enum containing [ExternalAccountType]'s known values. */
     enum class Known {
+        BASE_WALLET,
         CASH,
         CHECKING,
+        CRYPTO_WALLET,
+        ETHEREUM_WALLET,
         GENERAL_LEDGER,
         LOAN,
         NON_RESIDENT,
         OTHER,
         OVERDRAFT,
+        POLYGON_WALLET,
         SAVINGS,
+        SOLANA_WALLET,
     }
 
     /**
@@ -63,14 +78,19 @@ class ExternalAccountType @JsonCreator private constructor(private val value: Js
      * - It was constructed with an arbitrary value using the [of] method.
      */
     enum class Value {
+        BASE_WALLET,
         CASH,
         CHECKING,
+        CRYPTO_WALLET,
+        ETHEREUM_WALLET,
         GENERAL_LEDGER,
         LOAN,
         NON_RESIDENT,
         OTHER,
         OVERDRAFT,
+        POLYGON_WALLET,
         SAVINGS,
+        SOLANA_WALLET,
         /**
          * An enum member indicating that [ExternalAccountType] was instantiated with an unknown
          * value.
@@ -87,14 +107,19 @@ class ExternalAccountType @JsonCreator private constructor(private val value: Js
      */
     fun value(): Value =
         when (this) {
+            BASE_WALLET -> Value.BASE_WALLET
             CASH -> Value.CASH
             CHECKING -> Value.CHECKING
+            CRYPTO_WALLET -> Value.CRYPTO_WALLET
+            ETHEREUM_WALLET -> Value.ETHEREUM_WALLET
             GENERAL_LEDGER -> Value.GENERAL_LEDGER
             LOAN -> Value.LOAN
             NON_RESIDENT -> Value.NON_RESIDENT
             OTHER -> Value.OTHER
             OVERDRAFT -> Value.OVERDRAFT
+            POLYGON_WALLET -> Value.POLYGON_WALLET
             SAVINGS -> Value.SAVINGS
+            SOLANA_WALLET -> Value.SOLANA_WALLET
             else -> Value._UNKNOWN
         }
 
@@ -109,14 +134,19 @@ class ExternalAccountType @JsonCreator private constructor(private val value: Js
      */
     fun known(): Known =
         when (this) {
+            BASE_WALLET -> Known.BASE_WALLET
             CASH -> Known.CASH
             CHECKING -> Known.CHECKING
+            CRYPTO_WALLET -> Known.CRYPTO_WALLET
+            ETHEREUM_WALLET -> Known.ETHEREUM_WALLET
             GENERAL_LEDGER -> Known.GENERAL_LEDGER
             LOAN -> Known.LOAN
             NON_RESIDENT -> Known.NON_RESIDENT
             OTHER -> Known.OTHER
             OVERDRAFT -> Known.OVERDRAFT
+            POLYGON_WALLET -> Known.POLYGON_WALLET
             SAVINGS -> Known.SAVINGS
+            SOLANA_WALLET -> Known.SOLANA_WALLET
             else -> throw ModernTreasuryInvalidDataException("Unknown ExternalAccountType: $value")
         }
 

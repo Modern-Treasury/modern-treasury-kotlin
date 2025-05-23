@@ -290,6 +290,8 @@ private constructor(
 
             val ENTITY_LINK = of("entity_link")
 
+            val TRANSACTION_LINE_ITEM = of("transaction_line_item")
+
             val BULK_ERROR = of("bulk_error")
 
             fun of(value: String) = EntityType(JsonField.of(value))
@@ -303,6 +305,7 @@ private constructor(
             EXPECTED_PAYMENT,
             TRANSACTION,
             ENTITY_LINK,
+            TRANSACTION_LINE_ITEM,
             BULK_ERROR,
         }
 
@@ -322,6 +325,7 @@ private constructor(
             EXPECTED_PAYMENT,
             TRANSACTION,
             ENTITY_LINK,
+            TRANSACTION_LINE_ITEM,
             BULK_ERROR,
             /**
              * An enum member indicating that [EntityType] was instantiated with an unknown value.
@@ -344,6 +348,7 @@ private constructor(
                 EXPECTED_PAYMENT -> Value.EXPECTED_PAYMENT
                 TRANSACTION -> Value.TRANSACTION
                 ENTITY_LINK -> Value.ENTITY_LINK
+                TRANSACTION_LINE_ITEM -> Value.TRANSACTION_LINE_ITEM
                 BULK_ERROR -> Value.BULK_ERROR
                 else -> Value._UNKNOWN
             }
@@ -365,6 +370,7 @@ private constructor(
                 EXPECTED_PAYMENT -> Known.EXPECTED_PAYMENT
                 TRANSACTION -> Known.TRANSACTION
                 ENTITY_LINK -> Known.ENTITY_LINK
+                TRANSACTION_LINE_ITEM -> Known.TRANSACTION_LINE_ITEM
                 BULK_ERROR -> Known.BULK_ERROR
                 else -> throw ModernTreasuryInvalidDataException("Unknown EntityType: $value")
             }

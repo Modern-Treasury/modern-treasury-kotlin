@@ -29,6 +29,7 @@ private constructor(
     private val currency: JsonField<Currency>,
     private val currentReturn: JsonField<ReturnObject>,
     private val dateOfDeath: JsonField<LocalDate>,
+    private val discardedAt: JsonField<OffsetDateTime>,
     private val failureReason: JsonField<String>,
     private val internalAccountId: JsonField<String>,
     private val ledgerTransactionId: JsonField<String>,
@@ -64,6 +65,9 @@ private constructor(
         @JsonProperty("date_of_death")
         @ExcludeMissing
         dateOfDeath: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("discarded_at")
+        @ExcludeMissing
+        discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("failure_reason")
         @ExcludeMissing
         failureReason: JsonField<String> = JsonMissing.of(),
@@ -109,6 +113,7 @@ private constructor(
         currency,
         currentReturn,
         dateOfDeath,
+        discardedAt,
         failureReason,
         internalAccountId,
         ledgerTransactionId,
@@ -181,6 +186,12 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun dateOfDeath(): LocalDate? = dateOfDeath.getNullable("date_of_death")
+
+    /**
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
     /**
      * If an originating return failed to be processed by the bank, a description of the failure
@@ -373,6 +384,15 @@ private constructor(
     fun _dateOfDeath(): JsonField<LocalDate> = dateOfDeath
 
     /**
+     * Returns the raw JSON value of [discardedAt].
+     *
+     * Unlike [discardedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("discarded_at")
+    @ExcludeMissing
+    fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
+
+    /**
      * Returns the raw JSON value of [failureReason].
      *
      * Unlike [failureReason], this method doesn't throw if the JSON field has an unexpected type.
@@ -535,6 +555,7 @@ private constructor(
          * .currency()
          * .currentReturn()
          * .dateOfDeath()
+         * .discardedAt()
          * .failureReason()
          * .internalAccountId()
          * .ledgerTransactionId()
@@ -565,6 +586,7 @@ private constructor(
         private var currency: JsonField<Currency>? = null
         private var currentReturn: JsonField<ReturnObject>? = null
         private var dateOfDeath: JsonField<LocalDate>? = null
+        private var discardedAt: JsonField<OffsetDateTime>? = null
         private var failureReason: JsonField<String>? = null
         private var internalAccountId: JsonField<String>? = null
         private var ledgerTransactionId: JsonField<String>? = null
@@ -592,6 +614,7 @@ private constructor(
             currency = returnObject.currency
             currentReturn = returnObject.currentReturn
             dateOfDeath = returnObject.dateOfDeath
+            discardedAt = returnObject.discardedAt
             failureReason = returnObject.failureReason
             internalAccountId = returnObject.internalAccountId
             ledgerTransactionId = returnObject.ledgerTransactionId
@@ -700,6 +723,20 @@ private constructor(
          */
         fun dateOfDeath(dateOfDeath: JsonField<LocalDate>) = apply {
             this.dateOfDeath = dateOfDeath
+        }
+
+        fun discardedAt(discardedAt: OffsetDateTime?) =
+            discardedAt(JsonField.ofNullable(discardedAt))
+
+        /**
+         * Sets [Builder.discardedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
+            this.discardedAt = discardedAt
         }
 
         /**
@@ -976,6 +1013,7 @@ private constructor(
          * .currency()
          * .currentReturn()
          * .dateOfDeath()
+         * .discardedAt()
          * .failureReason()
          * .internalAccountId()
          * .ledgerTransactionId()
@@ -1004,6 +1042,7 @@ private constructor(
                 checkRequired("currency", currency),
                 checkRequired("currentReturn", currentReturn),
                 checkRequired("dateOfDeath", dateOfDeath),
+                checkRequired("discardedAt", discardedAt),
                 checkRequired("failureReason", failureReason),
                 checkRequired("internalAccountId", internalAccountId),
                 checkRequired("ledgerTransactionId", ledgerTransactionId),
@@ -1039,6 +1078,7 @@ private constructor(
         currency().validate()
         currentReturn()?.validate()
         dateOfDeath()
+        discardedAt()
         failureReason()
         internalAccountId()
         ledgerTransactionId()
@@ -1079,6 +1119,7 @@ private constructor(
             (currency.asKnown()?.validity() ?: 0) +
             (currentReturn.asKnown()?.validity() ?: 0) +
             (if (dateOfDeath.asKnown() == null) 0 else 1) +
+            (if (discardedAt.asKnown() == null) 0 else 1) +
             (if (failureReason.asKnown() == null) 0 else 1) +
             (if (internalAccountId.asKnown() == null) 0 else 1) +
             (if (ledgerTransactionId.asKnown() == null) 0 else 1) +
@@ -1179,6 +1220,8 @@ private constructor(
 
             val R12 = of("R12")
 
+            val R13 = of("R13")
+
             val R14 = of("R14")
 
             val R15 = of("R15")
@@ -1186,6 +1229,10 @@ private constructor(
             val R16 = of("R16")
 
             val R17 = of("R17")
+
+            val R18 = of("R18")
+
+            val R19 = of("R19")
 
             val R20 = of("R20")
 
@@ -1197,11 +1244,29 @@ private constructor(
 
             val R24 = of("R24")
 
+            val R25 = of("R25")
+
+            val R26 = of("R26")
+
+            val R27 = of("R27")
+
+            val R28 = of("R28")
+
             val R29 = of("R29")
+
+            val R30 = of("R30")
 
             val R31 = of("R31")
 
+            val R32 = of("R32")
+
             val R33 = of("R33")
+
+            val R34 = of("R34")
+
+            val R35 = of("R35")
+
+            val R36 = of("R36")
 
             val R37 = of("R37")
 
@@ -1209,11 +1274,67 @@ private constructor(
 
             val R39 = of("R39")
 
+            val R40 = of("R40")
+
+            val R41 = of("R41")
+
+            val R42 = of("R42")
+
+            val R43 = of("R43")
+
+            val R44 = of("R44")
+
+            val R45 = of("R45")
+
+            val R46 = of("R46")
+
+            val R47 = of("R47")
+
+            val R50 = of("R50")
+
             val R51 = of("R51")
 
             val R52 = of("R52")
 
             val R53 = of("R53")
+
+            val R61 = of("R61")
+
+            val R62 = of("R62")
+
+            val R67 = of("R67")
+
+            val R68 = of("R68")
+
+            val R69 = of("R69")
+
+            val R70 = of("R70")
+
+            val R71 = of("R71")
+
+            val R72 = of("R72")
+
+            val R73 = of("R73")
+
+            val R74 = of("R74")
+
+            val R75 = of("R75")
+
+            val R76 = of("R76")
+
+            val R77 = of("R77")
+
+            val R80 = of("R80")
+
+            val R81 = of("R81")
+
+            val R82 = of("R82")
+
+            val R83 = of("R83")
+
+            val R84 = of("R84")
+
+            val R85 = of("R85")
 
             val CURRENCYCLOUD = of("currencycloud")
 
@@ -1256,24 +1377,64 @@ private constructor(
             R10,
             R11,
             R12,
+            R13,
             R14,
             R15,
             R16,
             R17,
+            R18,
+            R19,
             R20,
             R21,
             R22,
             R23,
             R24,
+            R25,
+            R26,
+            R27,
+            R28,
             R29,
+            R30,
             R31,
+            R32,
             R33,
+            R34,
+            R35,
+            R36,
             R37,
             R38,
             R39,
+            R40,
+            R41,
+            R42,
+            R43,
+            R44,
+            R45,
+            R46,
+            R47,
+            R50,
             R51,
             R52,
             R53,
+            R61,
+            R62,
+            R67,
+            R68,
+            R69,
+            R70,
+            R71,
+            R72,
+            R73,
+            R74,
+            R75,
+            R76,
+            R77,
+            R80,
+            R81,
+            R82,
+            R83,
+            R84,
+            R85,
             CURRENCYCLOUD,
         }
 
@@ -1321,24 +1482,64 @@ private constructor(
             R10,
             R11,
             R12,
+            R13,
             R14,
             R15,
             R16,
             R17,
+            R18,
+            R19,
             R20,
             R21,
             R22,
             R23,
             R24,
+            R25,
+            R26,
+            R27,
+            R28,
             R29,
+            R30,
             R31,
+            R32,
             R33,
+            R34,
+            R35,
+            R36,
             R37,
             R38,
             R39,
+            R40,
+            R41,
+            R42,
+            R43,
+            R44,
+            R45,
+            R46,
+            R47,
+            R50,
             R51,
             R52,
             R53,
+            R61,
+            R62,
+            R67,
+            R68,
+            R69,
+            R70,
+            R71,
+            R72,
+            R73,
+            R74,
+            R75,
+            R76,
+            R77,
+            R80,
+            R81,
+            R82,
+            R83,
+            R84,
+            R85,
             CURRENCYCLOUD,
             /** An enum member indicating that [Code] was instantiated with an unknown value. */
             _UNKNOWN,
@@ -1387,24 +1588,64 @@ private constructor(
                 R10 -> Value.R10
                 R11 -> Value.R11
                 R12 -> Value.R12
+                R13 -> Value.R13
                 R14 -> Value.R14
                 R15 -> Value.R15
                 R16 -> Value.R16
                 R17 -> Value.R17
+                R18 -> Value.R18
+                R19 -> Value.R19
                 R20 -> Value.R20
                 R21 -> Value.R21
                 R22 -> Value.R22
                 R23 -> Value.R23
                 R24 -> Value.R24
+                R25 -> Value.R25
+                R26 -> Value.R26
+                R27 -> Value.R27
+                R28 -> Value.R28
                 R29 -> Value.R29
+                R30 -> Value.R30
                 R31 -> Value.R31
+                R32 -> Value.R32
                 R33 -> Value.R33
+                R34 -> Value.R34
+                R35 -> Value.R35
+                R36 -> Value.R36
                 R37 -> Value.R37
                 R38 -> Value.R38
                 R39 -> Value.R39
+                R40 -> Value.R40
+                R41 -> Value.R41
+                R42 -> Value.R42
+                R43 -> Value.R43
+                R44 -> Value.R44
+                R45 -> Value.R45
+                R46 -> Value.R46
+                R47 -> Value.R47
+                R50 -> Value.R50
                 R51 -> Value.R51
                 R52 -> Value.R52
                 R53 -> Value.R53
+                R61 -> Value.R61
+                R62 -> Value.R62
+                R67 -> Value.R67
+                R68 -> Value.R68
+                R69 -> Value.R69
+                R70 -> Value.R70
+                R71 -> Value.R71
+                R72 -> Value.R72
+                R73 -> Value.R73
+                R74 -> Value.R74
+                R75 -> Value.R75
+                R76 -> Value.R76
+                R77 -> Value.R77
+                R80 -> Value.R80
+                R81 -> Value.R81
+                R82 -> Value.R82
+                R83 -> Value.R83
+                R84 -> Value.R84
+                R85 -> Value.R85
                 CURRENCYCLOUD -> Value.CURRENCYCLOUD
                 else -> Value._UNKNOWN
             }
@@ -1454,24 +1695,64 @@ private constructor(
                 R10 -> Known.R10
                 R11 -> Known.R11
                 R12 -> Known.R12
+                R13 -> Known.R13
                 R14 -> Known.R14
                 R15 -> Known.R15
                 R16 -> Known.R16
                 R17 -> Known.R17
+                R18 -> Known.R18
+                R19 -> Known.R19
                 R20 -> Known.R20
                 R21 -> Known.R21
                 R22 -> Known.R22
                 R23 -> Known.R23
                 R24 -> Known.R24
+                R25 -> Known.R25
+                R26 -> Known.R26
+                R27 -> Known.R27
+                R28 -> Known.R28
                 R29 -> Known.R29
+                R30 -> Known.R30
                 R31 -> Known.R31
+                R32 -> Known.R32
                 R33 -> Known.R33
+                R34 -> Known.R34
+                R35 -> Known.R35
+                R36 -> Known.R36
                 R37 -> Known.R37
                 R38 -> Known.R38
                 R39 -> Known.R39
+                R40 -> Known.R40
+                R41 -> Known.R41
+                R42 -> Known.R42
+                R43 -> Known.R43
+                R44 -> Known.R44
+                R45 -> Known.R45
+                R46 -> Known.R46
+                R47 -> Known.R47
+                R50 -> Known.R50
                 R51 -> Known.R51
                 R52 -> Known.R52
                 R53 -> Known.R53
+                R61 -> Known.R61
+                R62 -> Known.R62
+                R67 -> Known.R67
+                R68 -> Known.R68
+                R69 -> Known.R69
+                R70 -> Known.R70
+                R71 -> Known.R71
+                R72 -> Known.R72
+                R73 -> Known.R73
+                R74 -> Known.R74
+                R75 -> Known.R75
+                R76 -> Known.R76
+                R77 -> Known.R77
+                R80 -> Known.R80
+                R81 -> Known.R81
+                R82 -> Known.R82
+                R83 -> Known.R83
+                R84 -> Known.R84
+                R85 -> Known.R85
                 CURRENCYCLOUD -> Known.CURRENCYCLOUD
                 else -> throw ModernTreasuryInvalidDataException("Unknown Code: $value")
             }
@@ -1949,6 +2230,14 @@ private constructor(
 
                 val BOFA_TRANSACTION_ID = of("bofa_transaction_id")
 
+                val BRALE_TRANSFER_ID = of("brale_transfer_id")
+
+                val BRIDGE_DESTINATION_TRANSACTION_HASH = of("bridge_destination_transaction_hash")
+
+                val BRIDGE_SOURCE_TRANSACTION_HASH = of("bridge_source_transaction_hash")
+
+                val BRIDGE_TRANSFER_ID = of("bridge_transfer_id")
+
                 val CHECK_NUMBER = of("check_number")
 
                 val CITIBANK_REFERENCE_NUMBER = of("citibank_reference_number")
@@ -2098,6 +2387,10 @@ private constructor(
                 BNK_DEV_TRANSFER_ID,
                 BOFA_END_TO_END_ID,
                 BOFA_TRANSACTION_ID,
+                BRALE_TRANSFER_ID,
+                BRIDGE_DESTINATION_TRANSACTION_HASH,
+                BRIDGE_SOURCE_TRANSACTION_HASH,
+                BRIDGE_TRANSFER_ID,
                 CHECK_NUMBER,
                 CITIBANK_REFERENCE_NUMBER,
                 CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER,
@@ -2186,6 +2479,10 @@ private constructor(
                 BNK_DEV_TRANSFER_ID,
                 BOFA_END_TO_END_ID,
                 BOFA_TRANSACTION_ID,
+                BRALE_TRANSFER_ID,
+                BRIDGE_DESTINATION_TRANSACTION_HASH,
+                BRIDGE_SOURCE_TRANSACTION_HASH,
+                BRIDGE_TRANSFER_ID,
                 CHECK_NUMBER,
                 CITIBANK_REFERENCE_NUMBER,
                 CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER,
@@ -2276,6 +2573,10 @@ private constructor(
                     BNK_DEV_TRANSFER_ID -> Value.BNK_DEV_TRANSFER_ID
                     BOFA_END_TO_END_ID -> Value.BOFA_END_TO_END_ID
                     BOFA_TRANSACTION_ID -> Value.BOFA_TRANSACTION_ID
+                    BRALE_TRANSFER_ID -> Value.BRALE_TRANSFER_ID
+                    BRIDGE_DESTINATION_TRANSACTION_HASH -> Value.BRIDGE_DESTINATION_TRANSACTION_HASH
+                    BRIDGE_SOURCE_TRANSACTION_HASH -> Value.BRIDGE_SOURCE_TRANSACTION_HASH
+                    BRIDGE_TRANSFER_ID -> Value.BRIDGE_TRANSFER_ID
                     CHECK_NUMBER -> Value.CHECK_NUMBER
                     CITIBANK_REFERENCE_NUMBER -> Value.CITIBANK_REFERENCE_NUMBER
                     CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER ->
@@ -2368,6 +2669,10 @@ private constructor(
                     BNK_DEV_TRANSFER_ID -> Known.BNK_DEV_TRANSFER_ID
                     BOFA_END_TO_END_ID -> Known.BOFA_END_TO_END_ID
                     BOFA_TRANSACTION_ID -> Known.BOFA_TRANSACTION_ID
+                    BRALE_TRANSFER_ID -> Known.BRALE_TRANSFER_ID
+                    BRIDGE_DESTINATION_TRANSACTION_HASH -> Known.BRIDGE_DESTINATION_TRANSACTION_HASH
+                    BRIDGE_SOURCE_TRANSACTION_HASH -> Known.BRIDGE_SOURCE_TRANSACTION_HASH
+                    BRIDGE_TRANSFER_ID -> Known.BRIDGE_TRANSFER_ID
                     CHECK_NUMBER -> Known.CHECK_NUMBER
                     CITIBANK_REFERENCE_NUMBER -> Known.CITIBANK_REFERENCE_NUMBER
                     CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER ->
@@ -3139,15 +3444,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ReturnObject && id == other.id && amount == other.amount && code == other.code && createdAt == other.createdAt && currency == other.currency && currentReturn == other.currentReturn && dateOfDeath == other.dateOfDeath && failureReason == other.failureReason && internalAccountId == other.internalAccountId && ledgerTransactionId == other.ledgerTransactionId && liveMode == other.liveMode && object_ == other.object_ && reason == other.reason && referenceNumbers == other.referenceNumbers && returnableId == other.returnableId && returnableType == other.returnableType && role == other.role && status == other.status && transactionId == other.transactionId && transactionLineItemId == other.transactionLineItemId && type == other.type && updatedAt == other.updatedAt && additionalInformation == other.additionalInformation && data == other.data && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ReturnObject && id == other.id && amount == other.amount && code == other.code && createdAt == other.createdAt && currency == other.currency && currentReturn == other.currentReturn && dateOfDeath == other.dateOfDeath && discardedAt == other.discardedAt && failureReason == other.failureReason && internalAccountId == other.internalAccountId && ledgerTransactionId == other.ledgerTransactionId && liveMode == other.liveMode && object_ == other.object_ && reason == other.reason && referenceNumbers == other.referenceNumbers && returnableId == other.returnableId && returnableType == other.returnableType && role == other.role && status == other.status && transactionId == other.transactionId && transactionLineItemId == other.transactionLineItemId && type == other.type && updatedAt == other.updatedAt && additionalInformation == other.additionalInformation && data == other.data && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, amount, code, createdAt, currency, currentReturn, dateOfDeath, failureReason, internalAccountId, ledgerTransactionId, liveMode, object_, reason, referenceNumbers, returnableId, returnableType, role, status, transactionId, transactionLineItemId, type, updatedAt, additionalInformation, data, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, amount, code, createdAt, currency, currentReturn, dateOfDeath, discardedAt, failureReason, internalAccountId, ledgerTransactionId, liveMode, object_, reason, referenceNumbers, returnableId, returnableType, role, status, transactionId, transactionLineItemId, type, updatedAt, additionalInformation, data, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ReturnObject{id=$id, amount=$amount, code=$code, createdAt=$createdAt, currency=$currency, currentReturn=$currentReturn, dateOfDeath=$dateOfDeath, failureReason=$failureReason, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, object_=$object_, reason=$reason, referenceNumbers=$referenceNumbers, returnableId=$returnableId, returnableType=$returnableType, role=$role, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, additionalInformation=$additionalInformation, data=$data, additionalProperties=$additionalProperties}"
+        "ReturnObject{id=$id, amount=$amount, code=$code, createdAt=$createdAt, currency=$currency, currentReturn=$currentReturn, dateOfDeath=$dateOfDeath, discardedAt=$discardedAt, failureReason=$failureReason, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, object_=$object_, reason=$reason, referenceNumbers=$referenceNumbers, returnableId=$returnableId, returnableType=$returnableType, role=$role, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, additionalInformation=$additionalInformation, data=$data, additionalProperties=$additionalProperties}"
 }

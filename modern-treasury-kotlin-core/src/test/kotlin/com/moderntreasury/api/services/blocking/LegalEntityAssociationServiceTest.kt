@@ -105,7 +105,9 @@ internal class LegalEntityAssociationServiceTest {
                                             .IdType
                                             .AR_CUIL
                                     )
+                                    .expirationDate(LocalDate.parse("2019-12-27"))
                                     .issuingCountry("issuing_country")
+                                    .issuingRegion("issuing_region")
                                     .build()
                             )
                             .addIndustryClassification(

@@ -30,7 +30,7 @@ internal class CounterpartyCreateParamsTest {
                             )
                             .build()
                     )
-                    .accountType(ExternalAccountType.CASH)
+                    .accountType(ExternalAccountType.BASE_WALLET)
                     .addContactDetail(
                         CounterpartyCreateParams.Account.ContactDetailCreateRequest.builder()
                             .contactIdentifier("contact_identifier")
@@ -174,7 +174,9 @@ internal class CounterpartyCreateParamsTest {
                                     .IdType
                                     .AR_CUIL
                             )
+                            .expirationDate(LocalDate.parse("2019-12-27"))
                             .issuingCountry("issuing_country")
+                            .issuingRegion("issuing_region")
                             .build()
                     )
                     .addIndustryClassification(
@@ -299,7 +301,9 @@ internal class CounterpartyCreateParamsTest {
                                                     .IdType
                                                     .AR_CUIL
                                             )
+                                            .expirationDate(LocalDate.parse("2019-12-27"))
                                             .issuingCountry("issuing_country")
+                                            .issuingRegion("issuing_region")
                                             .build()
                                     )
                                     .addIndustryClassification(
@@ -504,7 +508,7 @@ internal class CounterpartyCreateParamsTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.CASH)
+                        .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
                             CounterpartyCreateParams.Account.ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -651,7 +655,9 @@ internal class CounterpartyCreateParamsTest {
                                         .IdType
                                         .AR_CUIL
                                 )
+                                .expirationDate(LocalDate.parse("2019-12-27"))
                                 .issuingCountry("issuing_country")
+                                .issuingRegion("issuing_region")
                                 .build()
                         )
                         .addIndustryClassification(
@@ -778,7 +784,9 @@ internal class CounterpartyCreateParamsTest {
                                                         .IdType
                                                         .AR_CUIL
                                                 )
+                                                .expirationDate(LocalDate.parse("2019-12-27"))
                                                 .issuingCountry("issuing_country")
+                                                .issuingRegion("issuing_region")
                                                 .build()
                                         )
                                         .addIndustryClassification(
@@ -994,7 +1002,7 @@ internal class CounterpartyCreateParamsTest {
                             )
                             .build()
                     )
-                    .accountType(ExternalAccountType.CASH)
+                    .accountType(ExternalAccountType.BASE_WALLET)
                     .addContactDetail(
                         CounterpartyCreateParams.Account.ContactDetailCreateRequest.builder()
                             .contactIdentifier("contact_identifier")
@@ -1139,7 +1147,9 @@ internal class CounterpartyCreateParamsTest {
                                     .IdType
                                     .AR_CUIL
                             )
+                            .expirationDate(LocalDate.parse("2019-12-27"))
                             .issuingCountry("issuing_country")
+                            .issuingRegion("issuing_region")
                             .build()
                     )
                     .addIndustryClassification(
@@ -1264,7 +1274,9 @@ internal class CounterpartyCreateParamsTest {
                                                     .IdType
                                                     .AR_CUIL
                                             )
+                                            .expirationDate(LocalDate.parse("2019-12-27"))
                                             .issuingCountry("issuing_country")
+                                            .issuingRegion("issuing_region")
                                             .build()
                                     )
                                     .addIndustryClassification(
