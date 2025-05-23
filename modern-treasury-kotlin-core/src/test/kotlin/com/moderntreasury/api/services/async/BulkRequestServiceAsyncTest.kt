@@ -242,7 +242,7 @@ internal class BulkRequestServiceAsyncTest {
                                             )
                                             .build()
                                     )
-                                    .accountType(ExternalAccountType.CASH)
+                                    .accountType(ExternalAccountType.BASE_WALLET)
                                     .addContactDetail(
                                         BulkRequestCreateParams.Resource
                                             .PaymentOrderAsyncCreateRequest

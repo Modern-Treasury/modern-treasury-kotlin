@@ -269,7 +269,7 @@ private constructor(
     fun currency(): Currency = currency.getRequired("currency")
 
     /**
-     * A free-form description of the invoice.
+     * An optional free-form description of the invoice.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1109,7 +1109,7 @@ private constructor(
          */
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
-        /** A free-form description of the invoice. */
+        /** An optional free-form description of the invoice. */
         fun description(description: String) = description(JsonField.of(description))
 
         /**

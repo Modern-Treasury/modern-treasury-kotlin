@@ -13,7 +13,7 @@ internal class DocumentCreateParamsTest {
     fun create() {
         DocumentCreateParams.builder()
             .documentableId("documentable_id")
-            .documentableType(DocumentCreateParams.DocumentableType.CASES)
+            .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
             .file("some content".byteInputStream())
             .documentType("document_type")
             .build()
@@ -24,7 +24,7 @@ internal class DocumentCreateParamsTest {
         val params =
             DocumentCreateParams.builder()
                 .documentableId("documentable_id")
-                .documentableType(DocumentCreateParams.DocumentableType.CASES)
+                .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
                 .file("some content".byteInputStream())
                 .documentType("document_type")
                 .build()
@@ -43,7 +43,7 @@ internal class DocumentCreateParamsTest {
                 mapOf(
                         "documentable_id" to MultipartField.of("documentable_id"),
                         "documentable_type" to
-                            MultipartField.of(DocumentCreateParams.DocumentableType.CASES),
+                            MultipartField.of(DocumentCreateParams.DocumentableType.COUNTERPARTIES),
                         "file" to MultipartField.of("some content".byteInputStream()),
                         "document_type" to MultipartField.of("document_type"),
                     )
@@ -58,7 +58,7 @@ internal class DocumentCreateParamsTest {
         val params =
             DocumentCreateParams.builder()
                 .documentableId("documentable_id")
-                .documentableType(DocumentCreateParams.DocumentableType.CASES)
+                .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
                 .file("some content".byteInputStream())
                 .build()
 
@@ -76,7 +76,7 @@ internal class DocumentCreateParamsTest {
                 mapOf(
                         "documentable_id" to MultipartField.of("documentable_id"),
                         "documentable_type" to
-                            MultipartField.of(DocumentCreateParams.DocumentableType.CASES),
+                            MultipartField.of(DocumentCreateParams.DocumentableType.COUNTERPARTIES),
                         "file" to MultipartField.of("some content".byteInputStream()),
                     )
                     .mapValues { (_, field) ->

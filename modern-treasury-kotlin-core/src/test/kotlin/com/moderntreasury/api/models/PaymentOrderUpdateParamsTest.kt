@@ -74,7 +74,7 @@ internal class PaymentOrderUpdateParamsTest {
                             )
                             .build()
                     )
-                    .accountType(ExternalAccountType.CASH)
+                    .accountType(ExternalAccountType.BASE_WALLET)
                     .addContactDetail(
                         PaymentOrderUpdateParams.ReceivingAccount.ContactDetailCreateRequest
                             .builder()
@@ -239,7 +239,7 @@ internal class PaymentOrderUpdateParamsTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.CASH)
+                        .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
                             PaymentOrderUpdateParams.ReceivingAccount.ContactDetailCreateRequest
                                 .builder()
@@ -398,7 +398,7 @@ internal class PaymentOrderUpdateParamsTest {
                             )
                             .build()
                     )
-                    .accountType(ExternalAccountType.CASH)
+                    .accountType(ExternalAccountType.BASE_WALLET)
                     .addContactDetail(
                         PaymentOrderUpdateParams.ReceivingAccount.ContactDetailCreateRequest
                             .builder()

@@ -197,7 +197,7 @@ internal class BulkRequestCreateParamsTest {
                                     )
                                     .build()
                             )
-                            .accountType(ExternalAccountType.CASH)
+                            .accountType(ExternalAccountType.BASE_WALLET)
                             .addContactDetail(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .ReceivingAccount
@@ -530,7 +530,7 @@ internal class BulkRequestCreateParamsTest {
                                         )
                                         .build()
                                 )
-                                .accountType(ExternalAccountType.CASH)
+                                .accountType(ExternalAccountType.BASE_WALLET)
                                 .addContactDetail(
                                     BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .ReceivingAccount
@@ -866,7 +866,7 @@ internal class BulkRequestCreateParamsTest {
                                         )
                                         .build()
                                 )
-                                .accountType(ExternalAccountType.CASH)
+                                .accountType(ExternalAccountType.BASE_WALLET)
                                 .addContactDetail(
                                     BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                         .ReceivingAccount

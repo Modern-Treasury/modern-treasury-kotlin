@@ -13,7 +13,7 @@ internal class DocumentListParamsTest {
         DocumentListParams.builder()
             .afterCursor("after_cursor")
             .documentableId("documentable_id")
-            .documentableType(DocumentListParams.DocumentableType.CASES)
+            .documentableType(DocumentListParams.DocumentableType.COUNTERPARTIES)
             .perPage(0L)
             .build()
     }
@@ -24,7 +24,7 @@ internal class DocumentListParamsTest {
             DocumentListParams.builder()
                 .afterCursor("after_cursor")
                 .documentableId("documentable_id")
-                .documentableType(DocumentListParams.DocumentableType.CASES)
+                .documentableType(DocumentListParams.DocumentableType.COUNTERPARTIES)
                 .perPage(0L)
                 .build()
 
@@ -35,7 +35,7 @@ internal class DocumentListParamsTest {
                 QueryParams.builder()
                     .put("after_cursor", "after_cursor")
                     .put("documentable_id", "documentable_id")
-                    .put("documentable_type", "cases")
+                    .put("documentable_type", "counterparties")
                     .put("per_page", "0")
                     .build()
             )
