@@ -36,6 +36,7 @@ import com.moderntreasury.api.services.blocking.LegalEntityAssociationService
 import com.moderntreasury.api.services.blocking.LegalEntityService
 import com.moderntreasury.api.services.blocking.LineItemService
 import com.moderntreasury.api.services.blocking.PaperItemService
+import com.moderntreasury.api.services.blocking.PaymentActionService
 import com.moderntreasury.api.services.blocking.PaymentFlowService
 import com.moderntreasury.api.services.blocking.PaymentOrderService
 import com.moderntreasury.api.services.blocking.PaymentReferenceService
@@ -148,6 +149,8 @@ interface ModernTreasuryClient {
 
     fun legalEntityAssociations(): LegalEntityAssociationService
 
+    fun paymentActions(): PaymentActionService
+
     /**
      * A test endpoint often used to confirm credentials and headers are being passed in correctly.
      */
@@ -251,6 +254,8 @@ interface ModernTreasuryClient {
         fun legalEntities(): LegalEntityService.WithRawResponse
 
         fun legalEntityAssociations(): LegalEntityAssociationService.WithRawResponse
+
+        fun paymentActions(): PaymentActionService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /api/ping`, but is otherwise the same as
