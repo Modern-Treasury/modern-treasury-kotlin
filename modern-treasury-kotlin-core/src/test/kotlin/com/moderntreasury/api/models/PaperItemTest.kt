@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.jsonMapper
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -26,6 +27,7 @@ internal class PaperItemTest {
                 .liveMode(true)
                 .lockboxNumber("lockbox_number")
                 .memoField("memo_field")
+                .metadata(JsonValue.from(mapOf<String, Any>()))
                 .object_("object")
                 .remitterName("remitter_name")
                 .routingNumber("routing_number")
@@ -47,6 +49,7 @@ internal class PaperItemTest {
         assertThat(paperItem.liveMode()).isEqualTo(true)
         assertThat(paperItem.lockboxNumber()).isEqualTo("lockbox_number")
         assertThat(paperItem.memoField()).isEqualTo("memo_field")
+        assertThat(paperItem._metadata()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(paperItem.object_()).isEqualTo("object")
         assertThat(paperItem.remitterName()).isEqualTo("remitter_name")
         assertThat(paperItem.routingNumber()).isEqualTo("routing_number")
@@ -74,6 +77,7 @@ internal class PaperItemTest {
                 .liveMode(true)
                 .lockboxNumber("lockbox_number")
                 .memoField("memo_field")
+                .metadata(JsonValue.from(mapOf<String, Any>()))
                 .object_("object")
                 .remitterName("remitter_name")
                 .routingNumber("routing_number")

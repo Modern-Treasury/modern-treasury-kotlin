@@ -61,6 +61,14 @@ private constructor(
     fun partyName(): String = body.partyName()
 
     /**
+     * The account type, used to provision the appropriate account at the financial institution.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun accountType(): AccountType? = body.accountType()
+
+    /**
      * The Counterparty associated to this account.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -128,6 +136,13 @@ private constructor(
      * Unlike [partyName], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _partyName(): JsonField<String> = body._partyName()
+
+    /**
+     * Returns the raw JSON value of [accountType].
+     *
+     * Unlike [accountType], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _accountType(): JsonField<AccountType> = body._accountType()
 
     /**
      * Returns the raw JSON value of [counterpartyId].
@@ -212,7 +227,7 @@ private constructor(
          * - [currency]
          * - [name]
          * - [partyName]
-         * - [counterpartyId]
+         * - [accountType]
          * - etc.
          */
         fun body(body: InternalAccountCreateRequest) = apply { this.body = body.toBuilder() }
@@ -265,6 +280,22 @@ private constructor(
          * value.
          */
         fun partyName(partyName: JsonField<String>) = apply { body.partyName(partyName) }
+
+        /**
+         * The account type, used to provision the appropriate account at the financial institution.
+         */
+        fun accountType(accountType: AccountType) = apply { body.accountType(accountType) }
+
+        /**
+         * Sets [Builder.accountType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountType] with a well-typed [AccountType] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun accountType(accountType: JsonField<AccountType>) = apply {
+            body.accountType(accountType)
+        }
 
         /** The Counterparty associated to this account. */
         fun counterpartyId(counterpartyId: String) = apply { body.counterpartyId(counterpartyId) }
@@ -495,6 +526,7 @@ private constructor(
         private val currency: JsonField<Currency>,
         private val name: JsonField<String>,
         private val partyName: JsonField<String>,
+        private val accountType: JsonField<AccountType>,
         private val counterpartyId: JsonField<String>,
         private val legalEntityId: JsonField<String>,
         private val parentAccountId: JsonField<String>,
@@ -515,6 +547,9 @@ private constructor(
             @JsonProperty("party_name")
             @ExcludeMissing
             partyName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("account_type")
+            @ExcludeMissing
+            accountType: JsonField<AccountType> = JsonMissing.of(),
             @JsonProperty("counterparty_id")
             @ExcludeMissing
             counterpartyId: JsonField<String> = JsonMissing.of(),
@@ -535,6 +570,7 @@ private constructor(
             currency,
             name,
             partyName,
+            accountType,
             counterpartyId,
             legalEntityId,
             parentAccountId,
@@ -574,6 +610,14 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun partyName(): String = partyName.getRequired("party_name")
+
+        /**
+         * The account type, used to provision the appropriate account at the financial institution.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun accountType(): AccountType? = accountType.getNullable("account_type")
 
         /**
          * The Counterparty associated to this account.
@@ -647,6 +691,15 @@ private constructor(
          * Unlike [partyName], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("party_name") @ExcludeMissing fun _partyName(): JsonField<String> = partyName
+
+        /**
+         * Returns the raw JSON value of [accountType].
+         *
+         * Unlike [accountType], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("account_type")
+        @ExcludeMissing
+        fun _accountType(): JsonField<AccountType> = accountType
 
         /**
          * Returns the raw JSON value of [counterpartyId].
@@ -734,6 +787,7 @@ private constructor(
             private var currency: JsonField<Currency>? = null
             private var name: JsonField<String>? = null
             private var partyName: JsonField<String>? = null
+            private var accountType: JsonField<AccountType> = JsonMissing.of()
             private var counterpartyId: JsonField<String> = JsonMissing.of()
             private var legalEntityId: JsonField<String> = JsonMissing.of()
             private var parentAccountId: JsonField<String> = JsonMissing.of()
@@ -746,6 +800,7 @@ private constructor(
                 currency = internalAccountCreateRequest.currency
                 name = internalAccountCreateRequest.name
                 partyName = internalAccountCreateRequest.partyName
+                accountType = internalAccountCreateRequest.accountType
                 counterpartyId = internalAccountCreateRequest.counterpartyId
                 legalEntityId = internalAccountCreateRequest.legalEntityId
                 parentAccountId = internalAccountCreateRequest.parentAccountId
@@ -804,6 +859,23 @@ private constructor(
              * supported value.
              */
             fun partyName(partyName: JsonField<String>) = apply { this.partyName = partyName }
+
+            /**
+             * The account type, used to provision the appropriate account at the financial
+             * institution.
+             */
+            fun accountType(accountType: AccountType) = accountType(JsonField.of(accountType))
+
+            /**
+             * Sets [Builder.accountType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountType] with a well-typed [AccountType] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountType(accountType: JsonField<AccountType>) = apply {
+                this.accountType = accountType
+            }
 
             /** The Counterparty associated to this account. */
             fun counterpartyId(counterpartyId: String) =
@@ -921,6 +993,7 @@ private constructor(
                     checkRequired("currency", currency),
                     checkRequired("name", name),
                     checkRequired("partyName", partyName),
+                    accountType,
                     counterpartyId,
                     legalEntityId,
                     parentAccountId,
@@ -941,6 +1014,7 @@ private constructor(
             currency().validate()
             name()
             partyName()
+            accountType()?.validate()
             counterpartyId()
             legalEntityId()
             parentAccountId()
@@ -968,6 +1042,7 @@ private constructor(
                 (currency.asKnown()?.validity() ?: 0) +
                 (if (name.asKnown() == null) 0 else 1) +
                 (if (partyName.asKnown() == null) 0 else 1) +
+                (accountType.asKnown()?.validity() ?: 0) +
                 (if (counterpartyId.asKnown() == null) 0 else 1) +
                 (if (legalEntityId.asKnown() == null) 0 else 1) +
                 (if (parentAccountId.asKnown() == null) 0 else 1) +
@@ -979,17 +1054,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InternalAccountCreateRequest && connectionId == other.connectionId && currency == other.currency && name == other.name && partyName == other.partyName && counterpartyId == other.counterpartyId && legalEntityId == other.legalEntityId && parentAccountId == other.parentAccountId && partyAddress == other.partyAddress && vendorAttributes == other.vendorAttributes && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is InternalAccountCreateRequest && connectionId == other.connectionId && currency == other.currency && name == other.name && partyName == other.partyName && accountType == other.accountType && counterpartyId == other.counterpartyId && legalEntityId == other.legalEntityId && parentAccountId == other.parentAccountId && partyAddress == other.partyAddress && vendorAttributes == other.vendorAttributes && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(connectionId, currency, name, partyName, counterpartyId, legalEntityId, parentAccountId, partyAddress, vendorAttributes, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(connectionId, currency, name, partyName, accountType, counterpartyId, legalEntityId, parentAccountId, partyAddress, vendorAttributes, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InternalAccountCreateRequest{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, counterpartyId=$counterpartyId, legalEntityId=$legalEntityId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
+            "InternalAccountCreateRequest{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, accountType=$accountType, counterpartyId=$counterpartyId, legalEntityId=$legalEntityId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
     }
 
     /** Either "USD" or "CAD". Internal accounts created at Increase only supports "USD". */
@@ -1111,6 +1186,201 @@ private constructor(
             }
 
             return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** The account type, used to provision the appropriate account at the financial institution. */
+    class AccountType @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val BASE_WALLET = of("base_wallet")
+
+            val CASH = of("cash")
+
+            val CHECKING = of("checking")
+
+            val CRYPTO_WALLET = of("crypto_wallet")
+
+            val ETHEREUM_WALLET = of("ethereum_wallet")
+
+            val GENERAL_LEDGER = of("general_ledger")
+
+            val LOAN = of("loan")
+
+            val NON_RESIDENT = of("non_resident")
+
+            val OTHER = of("other")
+
+            val OVERDRAFT = of("overdraft")
+
+            val POLYGON_WALLET = of("polygon_wallet")
+
+            val SAVINGS = of("savings")
+
+            val SOLANA_WALLET = of("solana_wallet")
+
+            fun of(value: String) = AccountType(JsonField.of(value))
+        }
+
+        /** An enum containing [AccountType]'s known values. */
+        enum class Known {
+            BASE_WALLET,
+            CASH,
+            CHECKING,
+            CRYPTO_WALLET,
+            ETHEREUM_WALLET,
+            GENERAL_LEDGER,
+            LOAN,
+            NON_RESIDENT,
+            OTHER,
+            OVERDRAFT,
+            POLYGON_WALLET,
+            SAVINGS,
+            SOLANA_WALLET,
+        }
+
+        /**
+         * An enum containing [AccountType]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [AccountType] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            BASE_WALLET,
+            CASH,
+            CHECKING,
+            CRYPTO_WALLET,
+            ETHEREUM_WALLET,
+            GENERAL_LEDGER,
+            LOAN,
+            NON_RESIDENT,
+            OTHER,
+            OVERDRAFT,
+            POLYGON_WALLET,
+            SAVINGS,
+            SOLANA_WALLET,
+            /**
+             * An enum member indicating that [AccountType] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                BASE_WALLET -> Value.BASE_WALLET
+                CASH -> Value.CASH
+                CHECKING -> Value.CHECKING
+                CRYPTO_WALLET -> Value.CRYPTO_WALLET
+                ETHEREUM_WALLET -> Value.ETHEREUM_WALLET
+                GENERAL_LEDGER -> Value.GENERAL_LEDGER
+                LOAN -> Value.LOAN
+                NON_RESIDENT -> Value.NON_RESIDENT
+                OTHER -> Value.OTHER
+                OVERDRAFT -> Value.OVERDRAFT
+                POLYGON_WALLET -> Value.POLYGON_WALLET
+                SAVINGS -> Value.SAVINGS
+                SOLANA_WALLET -> Value.SOLANA_WALLET
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+         *   known member.
+         */
+        fun known(): Known =
+            when (this) {
+                BASE_WALLET -> Known.BASE_WALLET
+                CASH -> Known.CASH
+                CHECKING -> Known.CHECKING
+                CRYPTO_WALLET -> Known.CRYPTO_WALLET
+                ETHEREUM_WALLET -> Known.ETHEREUM_WALLET
+                GENERAL_LEDGER -> Known.GENERAL_LEDGER
+                LOAN -> Known.LOAN
+                NON_RESIDENT -> Known.NON_RESIDENT
+                OTHER -> Known.OTHER
+                OVERDRAFT -> Known.OVERDRAFT
+                POLYGON_WALLET -> Known.POLYGON_WALLET
+                SAVINGS -> Known.SAVINGS
+                SOLANA_WALLET -> Known.SOLANA_WALLET
+                else -> throw ModernTreasuryInvalidDataException("Unknown AccountType: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
+         *   the expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): AccountType = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is AccountType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

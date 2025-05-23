@@ -12,7 +12,7 @@ internal class ExternalAccountUpdateParamsTest {
     fun create() {
         ExternalAccountUpdateParams.builder()
             .id("id")
-            .accountType(ExternalAccountType.CASH)
+            .accountType(ExternalAccountType.BASE_WALLET)
             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .metadata(
                 ExternalAccountUpdateParams.Metadata.builder()
@@ -49,7 +49,7 @@ internal class ExternalAccountUpdateParamsTest {
         val params =
             ExternalAccountUpdateParams.builder()
                 .id("id")
-                .accountType(ExternalAccountType.CASH)
+                .accountType(ExternalAccountType.BASE_WALLET)
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .metadata(
                     ExternalAccountUpdateParams.Metadata.builder()
@@ -73,7 +73,7 @@ internal class ExternalAccountUpdateParamsTest {
 
         val body = params._body()
 
-        assertThat(body.accountType()).isEqualTo(ExternalAccountType.CASH)
+        assertThat(body.accountType()).isEqualTo(ExternalAccountType.BASE_WALLET)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata())
             .isEqualTo(

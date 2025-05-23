@@ -143,7 +143,7 @@ internal class PaymentOrderCreateAsyncParamsTest {
                             )
                             .build()
                     )
-                    .accountType(ExternalAccountType.CASH)
+                    .accountType(ExternalAccountType.BASE_WALLET)
                     .addContactDetail(
                         PaymentOrderCreateAsyncParams.ReceivingAccount.ContactDetailCreateRequest
                             .builder()
@@ -373,7 +373,7 @@ internal class PaymentOrderCreateAsyncParamsTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.CASH)
+                        .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
                             PaymentOrderCreateAsyncParams.ReceivingAccount
                                 .ContactDetailCreateRequest
@@ -606,7 +606,7 @@ internal class PaymentOrderCreateAsyncParamsTest {
                             )
                             .build()
                     )
-                    .accountType(ExternalAccountType.CASH)
+                    .accountType(ExternalAccountType.BASE_WALLET)
                     .addContactDetail(
                         PaymentOrderCreateAsyncParams.ReceivingAccount.ContactDetailCreateRequest
                             .builder()

@@ -20,6 +20,7 @@ internal class InvoiceLineItemTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .description("description")
                 .direction("direction")
+                .invoiceId("invoice_id")
                 .liveMode(true)
                 .metadata(
                     InvoiceLineItem.Metadata.builder()
@@ -42,6 +43,7 @@ internal class InvoiceLineItemTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(invoiceLineItem.description()).isEqualTo("description")
         assertThat(invoiceLineItem.direction()).isEqualTo("direction")
+        assertThat(invoiceLineItem.invoiceId()).isEqualTo("invoice_id")
         assertThat(invoiceLineItem.liveMode()).isEqualTo(true)
         assertThat(invoiceLineItem.metadata())
             .isEqualTo(
@@ -70,6 +72,7 @@ internal class InvoiceLineItemTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .description("description")
                 .direction("direction")
+                .invoiceId("invoice_id")
                 .liveMode(true)
                 .metadata(
                     InvoiceLineItem.Metadata.builder()

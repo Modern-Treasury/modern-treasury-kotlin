@@ -26,6 +26,8 @@ internal class ExpectedPaymentListParamsTest {
             .perPage(0L)
             .status(ExpectedPaymentListParams.Status.ARCHIVED)
             .type(ExpectedPaymentListParams.Type.ACH)
+            .updatedAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .updatedAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
     }
 
@@ -47,6 +49,8 @@ internal class ExpectedPaymentListParamsTest {
                 .perPage(0L)
                 .status(ExpectedPaymentListParams.Status.ARCHIVED)
                 .type(ExpectedPaymentListParams.Type.ACH)
+                .updatedAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .updatedAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
         val queryParams = params._queryParams()
@@ -64,6 +68,8 @@ internal class ExpectedPaymentListParamsTest {
                     .put("per_page", "0")
                     .put("status", "archived")
                     .put("type", "ach")
+                    .put("updated_at_lower_bound", "2019-12-27T18:11:19.117Z")
+                    .put("updated_at_upper_bound", "2019-12-27T18:11:19.117Z")
                     .build()
             )
     }

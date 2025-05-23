@@ -2310,8 +2310,10 @@ private constructor(
         private val id: JsonField<String>,
         private val createdAt: JsonField<OffsetDateTime>,
         private val discardedAt: JsonField<OffsetDateTime>,
+        private val expirationDate: JsonField<LocalDate>,
         private val idType: JsonField<IdType>,
         private val issuingCountry: JsonField<String>,
+        private val issuingRegion: JsonField<String>,
         private val liveMode: JsonField<Boolean>,
         private val object_: JsonField<String>,
         private val updatedAt: JsonField<OffsetDateTime>,
@@ -2327,10 +2329,16 @@ private constructor(
             @JsonProperty("discarded_at")
             @ExcludeMissing
             discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("expiration_date")
+            @ExcludeMissing
+            expirationDate: JsonField<LocalDate> = JsonMissing.of(),
             @JsonProperty("id_type") @ExcludeMissing idType: JsonField<IdType> = JsonMissing.of(),
             @JsonProperty("issuing_country")
             @ExcludeMissing
             issuingCountry: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("issuing_region")
+            @ExcludeMissing
+            issuingRegion: JsonField<String> = JsonMissing.of(),
             @JsonProperty("live_mode")
             @ExcludeMissing
             liveMode: JsonField<Boolean> = JsonMissing.of(),
@@ -2342,8 +2350,10 @@ private constructor(
             id,
             createdAt,
             discardedAt,
+            expirationDate,
             idType,
             issuingCountry,
+            issuingRegion,
             liveMode,
             object_,
             updatedAt,
@@ -2369,6 +2379,14 @@ private constructor(
         fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
         /**
+         * The date when the Identification is no longer considered valid by the issuing authority.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun expirationDate(): LocalDate? = expirationDate.getNullable("expiration_date")
+
+        /**
          * The type of ID number.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -2383,6 +2401,14 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun issuingCountry(): String? = issuingCountry.getNullable("issuing_country")
+
+        /**
+         * The region in which the identifcation was issued.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun issuingRegion(): String? = issuingRegion.getNullable("issuing_region")
 
         /**
          * This field will be true if this object exists in the live environment or false if it
@@ -2431,6 +2457,16 @@ private constructor(
         fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
         /**
+         * Returns the raw JSON value of [expirationDate].
+         *
+         * Unlike [expirationDate], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("expiration_date")
+        @ExcludeMissing
+        fun _expirationDate(): JsonField<LocalDate> = expirationDate
+
+        /**
          * Returns the raw JSON value of [idType].
          *
          * Unlike [idType], this method doesn't throw if the JSON field has an unexpected type.
@@ -2446,6 +2482,16 @@ private constructor(
         @JsonProperty("issuing_country")
         @ExcludeMissing
         fun _issuingCountry(): JsonField<String> = issuingCountry
+
+        /**
+         * Returns the raw JSON value of [issuingRegion].
+         *
+         * Unlike [issuingRegion], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("issuing_region")
+        @ExcludeMissing
+        fun _issuingRegion(): JsonField<String> = issuingRegion
 
         /**
          * Returns the raw JSON value of [liveMode].
@@ -2492,8 +2538,10 @@ private constructor(
              * .id()
              * .createdAt()
              * .discardedAt()
+             * .expirationDate()
              * .idType()
              * .issuingCountry()
+             * .issuingRegion()
              * .liveMode()
              * .object_()
              * .updatedAt()
@@ -2508,8 +2556,10 @@ private constructor(
             private var id: JsonField<String>? = null
             private var createdAt: JsonField<OffsetDateTime>? = null
             private var discardedAt: JsonField<OffsetDateTime>? = null
+            private var expirationDate: JsonField<LocalDate>? = null
             private var idType: JsonField<IdType>? = null
             private var issuingCountry: JsonField<String>? = null
+            private var issuingRegion: JsonField<String>? = null
             private var liveMode: JsonField<Boolean>? = null
             private var object_: JsonField<String>? = null
             private var updatedAt: JsonField<OffsetDateTime>? = null
@@ -2519,8 +2569,10 @@ private constructor(
                 id = identification.id
                 createdAt = identification.createdAt
                 discardedAt = identification.discardedAt
+                expirationDate = identification.expirationDate
                 idType = identification.idType
                 issuingCountry = identification.issuingCountry
+                issuingRegion = identification.issuingRegion
                 liveMode = identification.liveMode
                 object_ = identification.object_
                 updatedAt = identification.updatedAt
@@ -2565,6 +2617,24 @@ private constructor(
                 this.discardedAt = discardedAt
             }
 
+            /**
+             * The date when the Identification is no longer considered valid by the issuing
+             * authority.
+             */
+            fun expirationDate(expirationDate: LocalDate?) =
+                expirationDate(JsonField.ofNullable(expirationDate))
+
+            /**
+             * Sets [Builder.expirationDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.expirationDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
+                this.expirationDate = expirationDate
+            }
+
             /** The type of ID number. */
             fun idType(idType: IdType) = idType(JsonField.of(idType))
 
@@ -2590,6 +2660,21 @@ private constructor(
              */
             fun issuingCountry(issuingCountry: JsonField<String>) = apply {
                 this.issuingCountry = issuingCountry
+            }
+
+            /** The region in which the identifcation was issued. */
+            fun issuingRegion(issuingRegion: String?) =
+                issuingRegion(JsonField.ofNullable(issuingRegion))
+
+            /**
+             * Sets [Builder.issuingRegion] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.issuingRegion] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun issuingRegion(issuingRegion: JsonField<String>) = apply {
+                this.issuingRegion = issuingRegion
             }
 
             /**
@@ -2660,8 +2745,10 @@ private constructor(
              * .id()
              * .createdAt()
              * .discardedAt()
+             * .expirationDate()
              * .idType()
              * .issuingCountry()
+             * .issuingRegion()
              * .liveMode()
              * .object_()
              * .updatedAt()
@@ -2674,8 +2761,10 @@ private constructor(
                     checkRequired("id", id),
                     checkRequired("createdAt", createdAt),
                     checkRequired("discardedAt", discardedAt),
+                    checkRequired("expirationDate", expirationDate),
                     checkRequired("idType", idType),
                     checkRequired("issuingCountry", issuingCountry),
+                    checkRequired("issuingRegion", issuingRegion),
                     checkRequired("liveMode", liveMode),
                     checkRequired("object_", object_),
                     checkRequired("updatedAt", updatedAt),
@@ -2693,8 +2782,10 @@ private constructor(
             id()
             createdAt()
             discardedAt()
+            expirationDate()
             idType().validate()
             issuingCountry()
+            issuingRegion()
             liveMode()
             object_()
             updatedAt()
@@ -2719,8 +2810,10 @@ private constructor(
             (if (id.asKnown() == null) 0 else 1) +
                 (if (createdAt.asKnown() == null) 0 else 1) +
                 (if (discardedAt.asKnown() == null) 0 else 1) +
+                (if (expirationDate.asKnown() == null) 0 else 1) +
                 (idType.asKnown()?.validity() ?: 0) +
                 (if (issuingCountry.asKnown() == null) 0 else 1) +
+                (if (issuingRegion.asKnown() == null) 0 else 1) +
                 (if (liveMode.asKnown() == null) 0 else 1) +
                 (if (object_.asKnown() == null) 0 else 1) +
                 (if (updatedAt.asKnown() == null) 0 else 1)
@@ -2755,6 +2848,8 @@ private constructor(
                 val CO_CEDULAS = of("co_cedulas")
 
                 val CO_NIT = of("co_nit")
+
+                val DRIVERS_LICENSE = of("drivers_license")
 
                 val HN_ID = of("hn_id")
 
@@ -2795,6 +2890,7 @@ private constructor(
                 CL_RUT,
                 CO_CEDULAS,
                 CO_NIT,
+                DRIVERS_LICENSE,
                 HN_ID,
                 HN_RTN,
                 IN_LEI,
@@ -2828,6 +2924,7 @@ private constructor(
                 CL_RUT,
                 CO_CEDULAS,
                 CO_NIT,
+                DRIVERS_LICENSE,
                 HN_ID,
                 HN_RTN,
                 IN_LEI,
@@ -2864,6 +2961,7 @@ private constructor(
                     CL_RUT -> Value.CL_RUT
                     CO_CEDULAS -> Value.CO_CEDULAS
                     CO_NIT -> Value.CO_NIT
+                    DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
                     HN_ID -> Value.HN_ID
                     HN_RTN -> Value.HN_RTN
                     IN_LEI -> Value.IN_LEI
@@ -2899,6 +2997,7 @@ private constructor(
                     CL_RUT -> Known.CL_RUT
                     CO_CEDULAS -> Known.CO_CEDULAS
                     CO_NIT -> Known.CO_NIT
+                    DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
                     HN_ID -> Known.HN_ID
                     HN_RTN -> Known.HN_RTN
                     IN_LEI -> Known.IN_LEI
@@ -2973,17 +3072,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Identification && id == other.id && createdAt == other.createdAt && discardedAt == other.discardedAt && idType == other.idType && issuingCountry == other.issuingCountry && liveMode == other.liveMode && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Identification && id == other.id && createdAt == other.createdAt && discardedAt == other.discardedAt && expirationDate == other.expirationDate && idType == other.idType && issuingCountry == other.issuingCountry && issuingRegion == other.issuingRegion && liveMode == other.liveMode && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, createdAt, discardedAt, idType, issuingCountry, liveMode, object_, updatedAt, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, createdAt, discardedAt, expirationDate, idType, issuingCountry, issuingRegion, liveMode, object_, updatedAt, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Identification{id=$id, createdAt=$createdAt, discardedAt=$discardedAt, idType=$idType, issuingCountry=$issuingCountry, liveMode=$liveMode, object_=$object_, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+            "Identification{id=$id, createdAt=$createdAt, discardedAt=$discardedAt, expirationDate=$expirationDate, idType=$idType, issuingCountry=$issuingCountry, issuingRegion=$issuingRegion, liveMode=$liveMode, object_=$object_, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
     /** The type of legal entity. */
