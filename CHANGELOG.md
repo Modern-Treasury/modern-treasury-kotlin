@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.2.0 (2025-05-27)
+
+Full Changelog: [v7.1.0...v7.2.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.1.0...v7.2.0)
+
+### Features
+
+* **internal:** try out dokka gradle plugin v2 ([839b0f5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/839b0f56bbec40041e388a8bf196fa8494ad737f))
+
 ## 7.1.0 (2025-05-23)
 
 Full Changelog: [v7.0.2...v7.1.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.0.2...v7.1.0)
