@@ -20,6 +20,7 @@ internal class LedgerAccountCategoryListParamsTest {
                     .build()
             )
             .currency("currency")
+            .externalId("external_id")
             .ledgerAccountId("ledger_account_id")
             .ledgerId("ledger_id")
             .metadata(
@@ -45,6 +46,7 @@ internal class LedgerAccountCategoryListParamsTest {
                         .build()
                 )
                 .currency("currency")
+                .externalId("external_id")
                 .ledgerAccountId("ledger_account_id")
                 .ledgerId("ledger_id")
                 .metadata(
@@ -66,6 +68,7 @@ internal class LedgerAccountCategoryListParamsTest {
                     .put("after_cursor", "after_cursor")
                     .put("balances[effective_at]", "2019-12-27T18:11:19.117Z")
                     .put("currency", "currency")
+                    .put("external_id", "external_id")
                     .put("ledger_account_id", "ledger_account_id")
                     .put("ledger_id", "ledger_id")
                     .put("metadata[foo]", "string")

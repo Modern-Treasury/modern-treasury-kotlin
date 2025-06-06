@@ -62,7 +62,7 @@ internal class BalanceReportServiceTest {
             balanceReportService.retrieve(
                 BalanceReportRetrieveParams.builder()
                     .internalAccountId("internal_account_id")
-                    .id("id")
+                    .id(BalanceReportRetrieveParams.Id.LATEST)
                     .build()
             )
 
