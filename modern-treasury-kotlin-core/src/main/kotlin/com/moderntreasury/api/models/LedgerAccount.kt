@@ -25,6 +25,7 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val description: JsonField<String>,
     private val discardedAt: JsonField<OffsetDateTime>,
+    private val externalId: JsonField<String>,
     private val ledgerId: JsonField<String>,
     private val ledgerableId: JsonField<String>,
     private val ledgerableType: JsonField<LedgerableType>,
@@ -53,6 +54,9 @@ private constructor(
         @JsonProperty("discarded_at")
         @ExcludeMissing
         discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        externalId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("ledger_id") @ExcludeMissing ledgerId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("ledgerable_id")
         @ExcludeMissing
@@ -79,6 +83,7 @@ private constructor(
         createdAt,
         description,
         discardedAt,
+        externalId,
         ledgerId,
         ledgerableId,
         ledgerableType,
@@ -128,6 +133,14 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
+
+    /**
+     * An optional user-defined 180 character unique identifier.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun externalId(): String? = externalId.getNullable("external_id")
 
     /**
      * The id of the ledger that this account belongs to.
@@ -250,6 +263,13 @@ private constructor(
     fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
     /**
+     * Returns the raw JSON value of [externalId].
+     *
+     * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("external_id") @ExcludeMissing fun _externalId(): JsonField<String> = externalId
+
+    /**
      * Returns the raw JSON value of [ledgerId].
      *
      * Unlike [ledgerId], this method doesn't throw if the JSON field has an unexpected type.
@@ -351,6 +371,7 @@ private constructor(
          * .createdAt()
          * .description()
          * .discardedAt()
+         * .externalId()
          * .ledgerId()
          * .ledgerableId()
          * .ledgerableType()
@@ -374,6 +395,7 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var description: JsonField<String>? = null
         private var discardedAt: JsonField<OffsetDateTime>? = null
+        private var externalId: JsonField<String>? = null
         private var ledgerId: JsonField<String>? = null
         private var ledgerableId: JsonField<String>? = null
         private var ledgerableType: JsonField<LedgerableType>? = null
@@ -392,6 +414,7 @@ private constructor(
             createdAt = ledgerAccount.createdAt
             description = ledgerAccount.description
             discardedAt = ledgerAccount.discardedAt
+            externalId = ledgerAccount.externalId
             ledgerId = ledgerAccount.ledgerId
             ledgerableId = ledgerAccount.ledgerableId
             ledgerableType = ledgerAccount.ledgerableType
@@ -470,6 +493,18 @@ private constructor(
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
         }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+        /**
+         * Sets [Builder.externalId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
         /** The id of the ledger that this account belongs to. */
         fun ledgerId(ledgerId: String) = ledgerId(JsonField.of(ledgerId))
@@ -636,6 +671,7 @@ private constructor(
          * .createdAt()
          * .description()
          * .discardedAt()
+         * .externalId()
          * .ledgerId()
          * .ledgerableId()
          * .ledgerableType()
@@ -657,6 +693,7 @@ private constructor(
                 checkRequired("createdAt", createdAt),
                 checkRequired("description", description),
                 checkRequired("discardedAt", discardedAt),
+                checkRequired("externalId", externalId),
                 checkRequired("ledgerId", ledgerId),
                 checkRequired("ledgerableId", ledgerableId),
                 checkRequired("ledgerableType", ledgerableType),
@@ -683,6 +720,7 @@ private constructor(
         createdAt()
         description()
         discardedAt()
+        externalId()
         ledgerId()
         ledgerableId()
         ledgerableType()?.validate()
@@ -715,6 +753,7 @@ private constructor(
             (if (createdAt.asKnown() == null) 0 else 1) +
             (if (description.asKnown() == null) 0 else 1) +
             (if (discardedAt.asKnown() == null) 0 else 1) +
+            (if (externalId.asKnown() == null) 0 else 1) +
             (if (ledgerId.asKnown() == null) 0 else 1) +
             (if (ledgerableId.asKnown() == null) 0 else 1) +
             (ledgerableType.asKnown()?.validity() ?: 0) +
@@ -1665,15 +1704,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccount && id == other.id && balances == other.balances && createdAt == other.createdAt && description == other.description && discardedAt == other.discardedAt && ledgerId == other.ledgerId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && liveMode == other.liveMode && lockVersion == other.lockVersion && metadata == other.metadata && name == other.name && normalBalance == other.normalBalance && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is LedgerAccount && id == other.id && balances == other.balances && createdAt == other.createdAt && description == other.description && discardedAt == other.discardedAt && externalId == other.externalId && ledgerId == other.ledgerId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && liveMode == other.liveMode && lockVersion == other.lockVersion && metadata == other.metadata && name == other.name && normalBalance == other.normalBalance && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, balances, createdAt, description, discardedAt, ledgerId, ledgerableId, ledgerableType, liveMode, lockVersion, metadata, name, normalBalance, object_, updatedAt, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, balances, createdAt, description, discardedAt, externalId, ledgerId, ledgerableId, ledgerableType, liveMode, lockVersion, metadata, name, normalBalance, object_, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "LedgerAccount{id=$id, balances=$balances, createdAt=$createdAt, description=$description, discardedAt=$discardedAt, ledgerId=$ledgerId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, liveMode=$liveMode, lockVersion=$lockVersion, metadata=$metadata, name=$name, normalBalance=$normalBalance, object_=$object_, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "LedgerAccount{id=$id, balances=$balances, createdAt=$createdAt, description=$description, discardedAt=$discardedAt, externalId=$externalId, ledgerId=$ledgerId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, liveMode=$liveMode, lockVersion=$lockVersion, metadata=$metadata, name=$name, normalBalance=$normalBalance, object_=$object_, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

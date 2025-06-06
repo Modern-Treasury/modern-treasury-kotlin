@@ -50,6 +50,7 @@ internal class LedgerAccountCategoryTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .description("description")
                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .externalId("external_id")
                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
                 .metadata(
@@ -103,6 +104,7 @@ internal class LedgerAccountCategoryTest {
         assertThat(ledgerAccountCategory.description()).isEqualTo("description")
         assertThat(ledgerAccountCategory.discardedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(ledgerAccountCategory.externalId()).isEqualTo("external_id")
         assertThat(ledgerAccountCategory.ledgerId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(ledgerAccountCategory.liveMode()).isEqualTo(true)
@@ -161,6 +163,7 @@ internal class LedgerAccountCategoryTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .description("description")
                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .externalId("external_id")
                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
                 .metadata(
