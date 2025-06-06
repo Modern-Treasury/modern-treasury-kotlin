@@ -36,7 +36,7 @@ interface BalanceReportServiceAsync {
 
     /** Get a single balance report for a given internal account. */
     suspend fun retrieve(
-        id: String,
+        id: BalanceReportRetrieveParams.Id,
         params: BalanceReportRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BalanceReport = retrieve(params.toBuilder().id(id).build(), requestOptions)
@@ -114,7 +114,7 @@ interface BalanceReportServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
-            id: String,
+            id: BalanceReportRetrieveParams.Id,
             params: BalanceReportRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BalanceReport> =
