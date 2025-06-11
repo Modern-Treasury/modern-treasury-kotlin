@@ -629,6 +629,7 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ping")
                     .build()
                     .prepareAsync(clientOptions, params)

@@ -61,6 +61,7 @@ class PaperItemServiceImpl internal constructor(private val clientOptions: Clien
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "paper_items", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -87,6 +88,7 @@ class PaperItemServiceImpl internal constructor(private val clientOptions: Clien
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "paper_items")
                     .build()
                     .prepare(clientOptions, params)

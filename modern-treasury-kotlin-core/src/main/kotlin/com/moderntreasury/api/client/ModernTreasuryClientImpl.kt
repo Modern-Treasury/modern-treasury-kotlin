@@ -602,6 +602,7 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ping")
                     .build()
                     .prepare(clientOptions, params)
