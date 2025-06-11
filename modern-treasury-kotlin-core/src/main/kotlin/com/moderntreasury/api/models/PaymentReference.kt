@@ -546,6 +546,8 @@ private constructor(
 
             val COLUMN_TRANSFER_ID = of("column_transfer_id")
 
+            val CROSS_RIVER_CORE_TRANSACTION_ID = of("cross_river_core_transaction_id")
+
             val CROSS_RIVER_FED_BATCH_ID = of("cross_river_fed_batch_id")
 
             val CROSS_RIVER_PAYMENT_ID = of("cross_river_payment_id")
@@ -692,6 +694,7 @@ private constructor(
             COLUMN_FX_QUOTE_ID,
             COLUMN_REVERSAL_PAIR_TRANSFER_ID,
             COLUMN_TRANSFER_ID,
+            CROSS_RIVER_CORE_TRANSACTION_ID,
             CROSS_RIVER_FED_BATCH_ID,
             CROSS_RIVER_PAYMENT_ID,
             CROSS_RIVER_SERVICE_MESSAGE,
@@ -782,6 +785,7 @@ private constructor(
             COLUMN_FX_QUOTE_ID,
             COLUMN_REVERSAL_PAIR_TRANSFER_ID,
             COLUMN_TRANSFER_ID,
+            CROSS_RIVER_CORE_TRANSACTION_ID,
             CROSS_RIVER_FED_BATCH_ID,
             CROSS_RIVER_PAYMENT_ID,
             CROSS_RIVER_SERVICE_MESSAGE,
@@ -877,6 +881,7 @@ private constructor(
                 COLUMN_FX_QUOTE_ID -> Value.COLUMN_FX_QUOTE_ID
                 COLUMN_REVERSAL_PAIR_TRANSFER_ID -> Value.COLUMN_REVERSAL_PAIR_TRANSFER_ID
                 COLUMN_TRANSFER_ID -> Value.COLUMN_TRANSFER_ID
+                CROSS_RIVER_CORE_TRANSACTION_ID -> Value.CROSS_RIVER_CORE_TRANSACTION_ID
                 CROSS_RIVER_FED_BATCH_ID -> Value.CROSS_RIVER_FED_BATCH_ID
                 CROSS_RIVER_PAYMENT_ID -> Value.CROSS_RIVER_PAYMENT_ID
                 CROSS_RIVER_SERVICE_MESSAGE -> Value.CROSS_RIVER_SERVICE_MESSAGE
@@ -973,6 +978,7 @@ private constructor(
                 COLUMN_FX_QUOTE_ID -> Known.COLUMN_FX_QUOTE_ID
                 COLUMN_REVERSAL_PAIR_TRANSFER_ID -> Known.COLUMN_REVERSAL_PAIR_TRANSFER_ID
                 COLUMN_TRANSFER_ID -> Known.COLUMN_TRANSFER_ID
+                CROSS_RIVER_CORE_TRANSACTION_ID -> Known.CROSS_RIVER_CORE_TRANSACTION_ID
                 CROSS_RIVER_FED_BATCH_ID -> Known.CROSS_RIVER_FED_BATCH_ID
                 CROSS_RIVER_PAYMENT_ID -> Known.CROSS_RIVER_PAYMENT_ID
                 CROSS_RIVER_SERVICE_MESSAGE -> Known.CROSS_RIVER_SERVICE_MESSAGE

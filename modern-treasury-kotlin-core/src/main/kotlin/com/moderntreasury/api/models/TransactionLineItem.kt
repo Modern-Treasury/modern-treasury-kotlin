@@ -29,6 +29,7 @@ private constructor(
     private val liveMode: JsonField<Boolean>,
     private val object_: JsonField<String>,
     private val reconcilable: JsonField<Boolean>,
+    private val reconciliationGroupId: JsonField<String>,
     private val transactableId: JsonField<String>,
     private val transactableType: JsonField<TransactableType>,
     private val transactionId: JsonField<String>,
@@ -61,6 +62,9 @@ private constructor(
         @JsonProperty("reconcilable")
         @ExcludeMissing
         reconcilable: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("reconciliation_group_id")
+        @ExcludeMissing
+        reconciliationGroupId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("transactable_id")
         @ExcludeMissing
         transactableId: JsonField<String> = JsonMissing.of(),
@@ -85,6 +89,7 @@ private constructor(
         liveMode,
         object_,
         reconcilable,
+        reconciliationGroupId,
         transactableId,
         transactableType,
         transactionId,
@@ -170,6 +175,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun reconcilable(): Boolean = reconcilable.getRequired("reconcilable")
+
+    /**
+     * The ID of the reconciliation group this line item belongs to, otherwise `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun reconciliationGroupId(): String? =
+        reconciliationGroupId.getNullable("reconciliation_group_id")
 
     /**
      * If a matching object exists in Modern Treasury, the ID will be populated here, otherwise
@@ -294,6 +308,16 @@ private constructor(
     fun _reconcilable(): JsonField<Boolean> = reconcilable
 
     /**
+     * Returns the raw JSON value of [reconciliationGroupId].
+     *
+     * Unlike [reconciliationGroupId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("reconciliation_group_id")
+    @ExcludeMissing
+    fun _reconciliationGroupId(): JsonField<String> = reconciliationGroupId
+
+    /**
      * Returns the raw JSON value of [transactableId].
      *
      * Unlike [transactableId], this method doesn't throw if the JSON field has an unexpected type.
@@ -366,6 +390,7 @@ private constructor(
          * .liveMode()
          * .object_()
          * .reconcilable()
+         * .reconciliationGroupId()
          * .transactableId()
          * .transactableType()
          * .transactionId()
@@ -389,6 +414,7 @@ private constructor(
         private var liveMode: JsonField<Boolean>? = null
         private var object_: JsonField<String>? = null
         private var reconcilable: JsonField<Boolean>? = null
+        private var reconciliationGroupId: JsonField<String>? = null
         private var transactableId: JsonField<String>? = null
         private var transactableType: JsonField<TransactableType>? = null
         private var transactionId: JsonField<String>? = null
@@ -407,6 +433,7 @@ private constructor(
             liveMode = transactionLineItem.liveMode
             object_ = transactionLineItem.object_
             reconcilable = transactionLineItem.reconcilable
+            reconciliationGroupId = transactionLineItem.reconciliationGroupId
             transactableId = transactionLineItem.transactableId
             transactableType = transactionLineItem.transactableType
             transactionId = transactionLineItem.transactionId
@@ -553,6 +580,21 @@ private constructor(
             this.reconcilable = reconcilable
         }
 
+        /** The ID of the reconciliation group this line item belongs to, otherwise `null`. */
+        fun reconciliationGroupId(reconciliationGroupId: String?) =
+            reconciliationGroupId(JsonField.ofNullable(reconciliationGroupId))
+
+        /**
+         * Sets [Builder.reconciliationGroupId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reconciliationGroupId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun reconciliationGroupId(reconciliationGroupId: JsonField<String>) = apply {
+            this.reconciliationGroupId = reconciliationGroupId
+        }
+
         /**
          * If a matching object exists in Modern Treasury, the ID will be populated here, otherwise
          * `null`.
@@ -664,6 +706,7 @@ private constructor(
          * .liveMode()
          * .object_()
          * .reconcilable()
+         * .reconciliationGroupId()
          * .transactableId()
          * .transactableType()
          * .transactionId()
@@ -685,6 +728,7 @@ private constructor(
                 checkRequired("liveMode", liveMode),
                 checkRequired("object_", object_),
                 checkRequired("reconcilable", reconcilable),
+                checkRequired("reconciliationGroupId", reconciliationGroupId),
                 checkRequired("transactableId", transactableId),
                 checkRequired("transactableType", transactableType),
                 checkRequired("transactionId", transactionId),
@@ -711,6 +755,7 @@ private constructor(
         liveMode()
         object_()
         reconcilable()
+        reconciliationGroupId()
         transactableId()
         transactableType()?.validate()
         transactionId()
@@ -743,6 +788,7 @@ private constructor(
             (if (liveMode.asKnown() == null) 0 else 1) +
             (if (object_.asKnown() == null) 0 else 1) +
             (if (reconcilable.asKnown() == null) 0 else 1) +
+            (if (reconciliationGroupId.asKnown() == null) 0 else 1) +
             (if (transactableId.asKnown() == null) 0 else 1) +
             (transactableType.asKnown()?.validity() ?: 0) +
             (if (transactionId.asKnown() == null) 0 else 1) +
@@ -1040,15 +1086,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is TransactionLineItem && id == other.id && amount == other.amount && counterpartyId == other.counterpartyId && createdAt == other.createdAt && description == other.description && discardedAt == other.discardedAt && expectedPaymentId == other.expectedPaymentId && liveMode == other.liveMode && object_ == other.object_ && reconcilable == other.reconcilable && transactableId == other.transactableId && transactableType == other.transactableType && transactionId == other.transactionId && type == other.type && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is TransactionLineItem && id == other.id && amount == other.amount && counterpartyId == other.counterpartyId && createdAt == other.createdAt && description == other.description && discardedAt == other.discardedAt && expectedPaymentId == other.expectedPaymentId && liveMode == other.liveMode && object_ == other.object_ && reconcilable == other.reconcilable && reconciliationGroupId == other.reconciliationGroupId && transactableId == other.transactableId && transactableType == other.transactableType && transactionId == other.transactionId && type == other.type && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, amount, counterpartyId, createdAt, description, discardedAt, expectedPaymentId, liveMode, object_, reconcilable, transactableId, transactableType, transactionId, type, updatedAt, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, amount, counterpartyId, createdAt, description, discardedAt, expectedPaymentId, liveMode, object_, reconcilable, reconciliationGroupId, transactableId, transactableType, transactionId, type, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TransactionLineItem{id=$id, amount=$amount, counterpartyId=$counterpartyId, createdAt=$createdAt, description=$description, discardedAt=$discardedAt, expectedPaymentId=$expectedPaymentId, liveMode=$liveMode, object_=$object_, reconcilable=$reconcilable, transactableId=$transactableId, transactableType=$transactableType, transactionId=$transactionId, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "TransactionLineItem{id=$id, amount=$amount, counterpartyId=$counterpartyId, createdAt=$createdAt, description=$description, discardedAt=$discardedAt, expectedPaymentId=$expectedPaymentId, liveMode=$liveMode, object_=$object_, reconcilable=$reconcilable, reconciliationGroupId=$reconciliationGroupId, transactableId=$transactableId, transactableType=$transactableType, transactionId=$transactionId, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

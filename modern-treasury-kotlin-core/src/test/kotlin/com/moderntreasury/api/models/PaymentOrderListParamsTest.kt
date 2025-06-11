@@ -20,6 +20,7 @@ internal class PaymentOrderListParamsTest {
             .direction(TransactionDirection.CREDIT)
             .effectiveDateEnd(LocalDate.parse("2019-12-27"))
             .effectiveDateStart(LocalDate.parse("2019-12-27"))
+            .externalId("external_id")
             .metadata(
                 PaymentOrderListParams.Metadata.builder()
                     .putAdditionalProperty("foo", "string")
@@ -48,6 +49,7 @@ internal class PaymentOrderListParamsTest {
                 .direction(TransactionDirection.CREDIT)
                 .effectiveDateEnd(LocalDate.parse("2019-12-27"))
                 .effectiveDateStart(LocalDate.parse("2019-12-27"))
+                .externalId("external_id")
                 .metadata(
                     PaymentOrderListParams.Metadata.builder()
                         .putAdditionalProperty("foo", "string")
@@ -76,6 +78,7 @@ internal class PaymentOrderListParamsTest {
                     .put("direction", "credit")
                     .put("effective_date_end", "2019-12-27")
                     .put("effective_date_start", "2019-12-27")
+                    .put("external_id", "external_id")
                     .put("metadata[foo]", "string")
                     .put("originating_account_id", "originating_account_id")
                     .put("per_page", "0")
