@@ -49,6 +49,7 @@ class ValidationServiceImpl internal constructor(private val clientOptions: Clie
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "validations", "routing_numbers")
                     .build()
                     .prepare(clientOptions, params)

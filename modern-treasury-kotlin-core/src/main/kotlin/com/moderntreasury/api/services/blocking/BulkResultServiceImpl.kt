@@ -61,6 +61,7 @@ class BulkResultServiceImpl internal constructor(private val clientOptions: Clie
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "bulk_results", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -87,6 +88,7 @@ class BulkResultServiceImpl internal constructor(private val clientOptions: Clie
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "bulk_results")
                     .build()
                     .prepare(clientOptions, params)

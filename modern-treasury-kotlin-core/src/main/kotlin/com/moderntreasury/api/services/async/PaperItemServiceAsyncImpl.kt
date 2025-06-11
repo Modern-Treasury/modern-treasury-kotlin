@@ -61,6 +61,7 @@ class PaperItemServiceAsyncImpl internal constructor(private val clientOptions: 
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "paper_items", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -87,6 +88,7 @@ class PaperItemServiceAsyncImpl internal constructor(private val clientOptions: 
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "paper_items")
                     .build()
                     .prepareAsync(clientOptions, params)

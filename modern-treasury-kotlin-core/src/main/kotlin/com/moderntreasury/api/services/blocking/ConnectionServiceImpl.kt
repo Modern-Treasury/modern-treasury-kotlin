@@ -49,6 +49,7 @@ class ConnectionServiceImpl internal constructor(private val clientOptions: Clie
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "connections")
                     .build()
                     .prepare(clientOptions, params)

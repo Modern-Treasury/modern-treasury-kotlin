@@ -61,6 +61,7 @@ class ReturnServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "returns")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -91,6 +92,7 @@ class ReturnServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "returns", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -117,6 +119,7 @@ class ReturnServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "returns")
                     .build()
                     .prepare(clientOptions, params)

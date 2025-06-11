@@ -68,6 +68,7 @@ internal constructor(private val clientOptions: ClientOptions) : ForeignExchange
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "foreign_exchange_quotes")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -99,6 +100,7 @@ internal constructor(private val clientOptions: ClientOptions) : ForeignExchange
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "foreign_exchange_quotes", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -126,6 +128,7 @@ internal constructor(private val clientOptions: ClientOptions) : ForeignExchange
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "foreign_exchange_quotes")
                     .build()
                     .prepare(clientOptions, params)
