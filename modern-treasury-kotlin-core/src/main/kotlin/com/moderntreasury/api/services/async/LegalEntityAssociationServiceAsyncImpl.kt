@@ -52,6 +52,7 @@ internal constructor(private val clientOptions: ClientOptions) :
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "legal_entity_associations")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

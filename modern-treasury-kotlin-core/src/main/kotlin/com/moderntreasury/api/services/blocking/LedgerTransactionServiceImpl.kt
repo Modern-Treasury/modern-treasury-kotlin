@@ -103,6 +103,7 @@ class LedgerTransactionServiceImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_transactions")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -133,6 +134,7 @@ class LedgerTransactionServiceImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_transactions", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -162,6 +164,7 @@ class LedgerTransactionServiceImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_transactions", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -190,6 +193,7 @@ class LedgerTransactionServiceImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_transactions")
                     .build()
                     .prepare(clientOptions, params)
@@ -227,6 +231,7 @@ class LedgerTransactionServiceImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "ledger_transactions",
@@ -262,6 +267,7 @@ class LedgerTransactionServiceImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_transactions", params._pathParam(0), "reversal")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

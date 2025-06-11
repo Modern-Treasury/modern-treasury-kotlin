@@ -50,6 +50,7 @@ class VersionServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_transaction_versions")
                     .build()
                     .prepare(clientOptions, params)

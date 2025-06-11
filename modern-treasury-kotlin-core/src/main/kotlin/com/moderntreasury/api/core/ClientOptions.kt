@@ -18,7 +18,7 @@ private constructor(
     val checkJacksonVersionCompatibility: Boolean,
     val jsonMapper: JsonMapper,
     val clock: Clock,
-    val baseUrl: String,
+    private val baseUrl: String?,
     val headers: Headers,
     val queryParams: QueryParams,
     val responseValidation: Boolean,
@@ -34,6 +34,8 @@ private constructor(
             checkJacksonVersionCompatibility()
         }
     }
+
+    fun baseUrl(): String = baseUrl ?: PRODUCTION_URL
 
     fun toBuilder() = Builder().from(this)
 
@@ -63,7 +65,7 @@ private constructor(
         private var checkJacksonVersionCompatibility: Boolean = true
         private var jsonMapper: JsonMapper = jsonMapper()
         private var clock: Clock = Clock.systemUTC()
-        private var baseUrl: String = PRODUCTION_URL
+        private var baseUrl: String? = null
         private var headers: Headers.Builder = Headers.builder()
         private var queryParams: QueryParams.Builder = QueryParams.builder()
         private var responseValidation: Boolean = false
@@ -99,7 +101,7 @@ private constructor(
 
         fun clock(clock: Clock) = apply { this.clock = clock }
 
-        fun baseUrl(baseUrl: String) = apply { this.baseUrl = baseUrl }
+        fun baseUrl(baseUrl: String?) = apply { this.baseUrl = baseUrl }
 
         fun responseValidation(responseValidation: Boolean) = apply {
             this.responseValidation = responseValidation
@@ -194,8 +196,6 @@ private constructor(
         fun removeQueryParams(key: String) = apply { queryParams.remove(key) }
 
         fun removeAllQueryParams(keys: Set<String>) = apply { queryParams.removeAll(keys) }
-
-        fun baseUrl(): String = baseUrl
 
         fun fromEnv() = apply {
             System.getenv("MODERN_TREASURY_BASE_URL")?.let { baseUrl(it) }

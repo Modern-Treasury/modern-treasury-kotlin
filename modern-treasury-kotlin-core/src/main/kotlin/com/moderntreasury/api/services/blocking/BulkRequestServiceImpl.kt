@@ -67,6 +67,7 @@ class BulkRequestServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "bulk_requests")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -97,6 +98,7 @@ class BulkRequestServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "bulk_requests", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -123,6 +125,7 @@ class BulkRequestServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "bulk_requests")
                     .build()
                     .prepare(clientOptions, params)

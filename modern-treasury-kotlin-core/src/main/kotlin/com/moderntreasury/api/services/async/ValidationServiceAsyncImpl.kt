@@ -49,6 +49,7 @@ class ValidationServiceAsyncImpl internal constructor(private val clientOptions:
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "validations", "routing_numbers")
                     .build()
                     .prepareAsync(clientOptions, params)
