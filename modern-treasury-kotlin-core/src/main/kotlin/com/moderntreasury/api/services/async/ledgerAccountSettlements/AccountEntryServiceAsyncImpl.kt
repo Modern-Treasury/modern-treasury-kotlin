@@ -28,6 +28,9 @@ class AccountEntryServiceAsyncImpl internal constructor(private val clientOption
 
     override fun withRawResponse(): AccountEntryServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AccountEntryServiceAsync =
+        AccountEntryServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun update(
         params: LedgerAccountSettlementAccountEntryUpdateParams,
         requestOptions: RequestOptions,
@@ -49,6 +52,13 @@ class AccountEntryServiceAsyncImpl internal constructor(private val clientOption
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AccountEntryServiceAsync.WithRawResponse =
+            AccountEntryServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val updateHandler: Handler<Void?> = emptyHandler().withErrorHandler(errorHandler)
 
         override suspend fun update(
@@ -61,6 +71,7 @@ class AccountEntryServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "ledger_account_settlements",
@@ -87,6 +98,7 @@ class AccountEntryServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "ledger_account_settlements",

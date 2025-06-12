@@ -32,6 +32,11 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun withRawResponse(): LedgerAccountStatementServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): LedgerAccountStatementServiceAsync =
+        LedgerAccountStatementServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: LedgerAccountStatementCreateParams,
         requestOptions: RequestOptions,
@@ -51,6 +56,13 @@ internal constructor(private val clientOptions: ClientOptions) :
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LedgerAccountStatementServiceAsync.WithRawResponse =
+            LedgerAccountStatementServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<LedgerAccountStatementCreateResponse> =
             jsonHandler<LedgerAccountStatementCreateResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
@@ -62,6 +74,7 @@ internal constructor(private val clientOptions: ClientOptions) :
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_account_statements")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -93,6 +106,7 @@ internal constructor(private val clientOptions: ClientOptions) :
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_account_statements", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)

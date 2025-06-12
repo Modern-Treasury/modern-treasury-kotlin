@@ -3,6 +3,7 @@
 package com.moderntreasury.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.RoutingNumberLookupRequest
@@ -15,6 +16,13 @@ interface ValidationServiceAsync {
      */
     fun withRawResponse(): WithRawResponse
 
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ValidationServiceAsync
+
     /** Validates the routing number information supplied without creating a routing detail */
     suspend fun validateRoutingNumber(
         params: ValidationValidateRoutingNumberParams,
@@ -26,6 +34,15 @@ interface ValidationServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ValidationServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /api/validations/routing_numbers`, but is otherwise

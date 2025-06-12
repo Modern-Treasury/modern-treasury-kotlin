@@ -32,6 +32,9 @@ class LegalEntityServiceAsyncImpl internal constructor(private val clientOptions
 
     override fun withRawResponse(): LegalEntityServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LegalEntityServiceAsync =
+        LegalEntityServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: LegalEntityCreateParams,
         requestOptions: RequestOptions,
@@ -65,6 +68,13 @@ class LegalEntityServiceAsyncImpl internal constructor(private val clientOptions
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LegalEntityServiceAsync.WithRawResponse =
+            LegalEntityServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<LegalEntity> =
             jsonHandler<LegalEntity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -75,6 +85,7 @@ class LegalEntityServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "legal_entities")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -105,6 +116,7 @@ class LegalEntityServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "legal_entities", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -134,6 +146,7 @@ class LegalEntityServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "legal_entities", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -161,6 +174,7 @@ class LegalEntityServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "legal_entities")
                     .build()
                     .prepareAsync(clientOptions, params)

@@ -3,6 +3,7 @@
 package com.moderntreasury.api.services.async.ledgerAccountSettlements
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.models.LedgerAccountSettlementAccountEntryDeleteParams
@@ -14,6 +15,13 @@ interface AccountEntryServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AccountEntryServiceAsync
 
     /** Add ledger entries to a draft ledger account settlement. */
     suspend fun update(
@@ -46,6 +54,15 @@ interface AccountEntryServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AccountEntryServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `patch

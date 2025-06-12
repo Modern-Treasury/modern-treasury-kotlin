@@ -3,6 +3,7 @@
 package com.moderntreasury.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitor
@@ -19,6 +20,15 @@ interface LedgerAccountBalanceMonitorServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): LedgerAccountBalanceMonitorServiceAsync
 
     /** Create a ledger account balance monitor. */
     suspend fun create(
@@ -96,6 +106,15 @@ interface LedgerAccountBalanceMonitorServiceAsync {
      * responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LedgerAccountBalanceMonitorServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /api/ledger_account_balance_monitors`, but is

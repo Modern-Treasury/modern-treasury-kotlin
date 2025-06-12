@@ -3,6 +3,7 @@
 package com.moderntreasury.api.services.blocking.internalAccounts
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.http.HttpResponseFor
@@ -20,6 +21,13 @@ interface BalanceReportService {
      */
     fun withRawResponse(): WithRawResponse
 
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BalanceReportService
+
     /** create balance reports */
     fun create(
         internalAccountId: String,
@@ -36,7 +44,7 @@ interface BalanceReportService {
 
     /** Get a single balance report for a given internal account. */
     fun retrieve(
-        id: String,
+        id: BalanceReportRetrieveParams.Id,
         params: BalanceReportRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BalanceReport = retrieve(params.toBuilder().id(id).build(), requestOptions)
@@ -84,6 +92,15 @@ interface BalanceReportService {
     interface WithRawResponse {
 
         /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): BalanceReportService.WithRawResponse
+
+        /**
          * Returns a raw HTTP response for `post
          * /api/internal_accounts/{internal_account_id}/balance_reports`, but is otherwise the same
          * as [BalanceReportService.create].
@@ -110,7 +127,7 @@ interface BalanceReportService {
          */
         @MustBeClosed
         fun retrieve(
-            id: String,
+            id: BalanceReportRetrieveParams.Id,
             params: BalanceReportRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BalanceReport> =

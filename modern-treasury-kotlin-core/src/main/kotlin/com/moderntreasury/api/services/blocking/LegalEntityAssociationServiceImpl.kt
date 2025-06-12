@@ -27,6 +27,11 @@ internal constructor(private val clientOptions: ClientOptions) : LegalEntityAsso
 
     override fun withRawResponse(): LegalEntityAssociationService.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): LegalEntityAssociationService =
+        LegalEntityAssociationServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: LegalEntityAssociationCreateParams,
         requestOptions: RequestOptions,
@@ -39,6 +44,13 @@ internal constructor(private val clientOptions: ClientOptions) : LegalEntityAsso
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LegalEntityAssociationService.WithRawResponse =
+            LegalEntityAssociationServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<LegalEntityAssociation> =
             jsonHandler<LegalEntityAssociation>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
@@ -50,6 +62,7 @@ internal constructor(private val clientOptions: ClientOptions) : LegalEntityAsso
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "legal_entity_associations")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

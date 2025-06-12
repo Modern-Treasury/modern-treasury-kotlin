@@ -34,6 +34,9 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
 
     override fun withRawResponse(): LineItemService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LineItemService =
+        LineItemServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: TransactionLineItemCreateParams,
         requestOptions: RequestOptions,
@@ -65,6 +68,13 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LineItemService.WithRawResponse =
+            LineItemServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<TransactionLineItem> =
             jsonHandler<TransactionLineItem>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
@@ -76,6 +86,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "transaction_line_items")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -107,6 +118,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "transaction_line_items", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -134,6 +146,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "transaction_line_items")
                     .build()
                     .prepare(clientOptions, params)
@@ -170,6 +183,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "transaction_line_items", params._pathParam(0))
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()

@@ -39,6 +39,9 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
 
     override fun withRawResponse(): TransactionService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): TransactionService =
+        TransactionServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun lineItems(): LineItemService = lineItems
 
     override fun create(
@@ -83,6 +86,13 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
             LineItemServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): TransactionService.WithRawResponse =
+            TransactionServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         override fun lineItems(): LineItemService.WithRawResponse = lineItems
 
         private val createHandler: Handler<Transaction> =
@@ -95,6 +105,7 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "transactions")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -125,6 +136,7 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "transactions", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -154,6 +166,7 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "transactions", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -181,6 +194,7 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "transactions")
                     .build()
                     .prepare(clientOptions, params)
@@ -217,6 +231,7 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "transactions", params._pathParam(0))
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()

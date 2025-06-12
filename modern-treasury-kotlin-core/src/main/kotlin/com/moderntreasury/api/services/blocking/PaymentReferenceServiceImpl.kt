@@ -30,6 +30,9 @@ class PaymentReferenceServiceImpl internal constructor(private val clientOptions
 
     override fun withRawResponse(): PaymentReferenceService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentReferenceService =
+        PaymentReferenceServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(
         params: PaymentReferenceRetrieveParams,
         requestOptions: RequestOptions,
@@ -57,6 +60,13 @@ class PaymentReferenceServiceImpl internal constructor(private val clientOptions
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): PaymentReferenceService.WithRawResponse =
+            PaymentReferenceServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val retrieveHandler: Handler<PaymentReference> =
             jsonHandler<PaymentReference>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -70,6 +80,7 @@ class PaymentReferenceServiceImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_references", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -97,6 +108,7 @@ class PaymentReferenceServiceImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_references")
                     .build()
                     .prepare(clientOptions, params)
@@ -135,6 +147,7 @@ class PaymentReferenceServiceImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_references", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)

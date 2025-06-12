@@ -34,6 +34,11 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
     override fun withRawResponse(): IncomingPaymentDetailServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): IncomingPaymentDetailServiceAsync =
+        IncomingPaymentDetailServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun retrieve(
         params: IncomingPaymentDetailRetrieveParams,
         requestOptions: RequestOptions,
@@ -67,6 +72,13 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): IncomingPaymentDetailServiceAsync.WithRawResponse =
+            IncomingPaymentDetailServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val retrieveHandler: Handler<IncomingPaymentDetail> =
             jsonHandler<IncomingPaymentDetail>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
@@ -81,6 +93,7 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "incoming_payment_details", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -111,6 +124,7 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "incoming_payment_details", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -139,6 +153,7 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "incoming_payment_details")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -173,6 +188,7 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "simulations",

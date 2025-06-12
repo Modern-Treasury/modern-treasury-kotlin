@@ -39,6 +39,9 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
 
     override fun withRawResponse(): InvoiceService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): InvoiceService =
+        InvoiceServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun lineItems(): LineItemService = lineItems
 
     override fun create(params: InvoiceCreateParams, requestOptions: RequestOptions): Invoice =
@@ -74,6 +77,13 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
             LineItemServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InvoiceService.WithRawResponse =
+            InvoiceServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         override fun lineItems(): LineItemService.WithRawResponse = lineItems
 
         private val createHandler: Handler<Invoice> =
@@ -86,6 +96,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "invoices")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -116,6 +127,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "invoices", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -145,6 +157,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "invoices", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -172,6 +185,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "invoices")
                     .build()
                     .prepare(clientOptions, params)
@@ -209,6 +223,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "invoices",

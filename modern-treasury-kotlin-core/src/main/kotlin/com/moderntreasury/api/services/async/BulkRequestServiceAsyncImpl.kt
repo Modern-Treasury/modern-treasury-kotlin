@@ -31,6 +31,9 @@ class BulkRequestServiceAsyncImpl internal constructor(private val clientOptions
 
     override fun withRawResponse(): BulkRequestServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BulkRequestServiceAsync =
+        BulkRequestServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: BulkRequestCreateParams,
         requestOptions: RequestOptions,
@@ -57,6 +60,13 @@ class BulkRequestServiceAsyncImpl internal constructor(private val clientOptions
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): BulkRequestServiceAsync.WithRawResponse =
+            BulkRequestServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<BulkRequest> =
             jsonHandler<BulkRequest>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -67,6 +77,7 @@ class BulkRequestServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "bulk_requests")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -97,6 +108,7 @@ class BulkRequestServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "bulk_requests", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -123,6 +135,7 @@ class BulkRequestServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "bulk_requests")
                     .build()
                     .prepareAsync(clientOptions, params)

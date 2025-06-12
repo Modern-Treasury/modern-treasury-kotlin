@@ -28,6 +28,9 @@ class AccountEntryServiceImpl internal constructor(private val clientOptions: Cl
 
     override fun withRawResponse(): AccountEntryService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AccountEntryService =
+        AccountEntryServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun update(
         params: LedgerAccountSettlementAccountEntryUpdateParams,
         requestOptions: RequestOptions,
@@ -49,6 +52,13 @@ class AccountEntryServiceImpl internal constructor(private val clientOptions: Cl
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AccountEntryService.WithRawResponse =
+            AccountEntryServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val updateHandler: Handler<Void?> = emptyHandler().withErrorHandler(errorHandler)
 
         override fun update(
@@ -61,6 +71,7 @@ class AccountEntryServiceImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "ledger_account_settlements",
@@ -87,6 +98,7 @@ class AccountEntryServiceImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "ledger_account_settlements",

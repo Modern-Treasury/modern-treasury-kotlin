@@ -31,6 +31,9 @@ class LedgerEntryServiceImpl internal constructor(private val clientOptions: Cli
 
     override fun withRawResponse(): LedgerEntryService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerEntryService =
+        LedgerEntryServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(
         params: LedgerEntryRetrieveParams,
         requestOptions: RequestOptions,
@@ -57,6 +60,13 @@ class LedgerEntryServiceImpl internal constructor(private val clientOptions: Cli
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LedgerEntryService.WithRawResponse =
+            LedgerEntryServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val retrieveHandler: Handler<LedgerEntry> =
             jsonHandler<LedgerEntry>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -70,6 +80,7 @@ class LedgerEntryServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_entries", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -99,6 +110,7 @@ class LedgerEntryServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_entries", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -126,6 +138,7 @@ class LedgerEntryServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_entries")
                     .build()
                     .prepare(clientOptions, params)

@@ -35,6 +35,9 @@ class PaymentActionServiceImpl internal constructor(private val clientOptions: C
 
     override fun withRawResponse(): PaymentActionService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentActionService =
+        PaymentActionServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: PaymentActionCreateParams,
         requestOptions: RequestOptions,
@@ -68,6 +71,13 @@ class PaymentActionServiceImpl internal constructor(private val clientOptions: C
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): PaymentActionService.WithRawResponse =
+            PaymentActionServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<PaymentActionCreateResponse> =
             jsonHandler<PaymentActionCreateResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
@@ -79,6 +89,7 @@ class PaymentActionServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_actions")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -110,6 +121,7 @@ class PaymentActionServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_actions", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -140,6 +152,7 @@ class PaymentActionServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_actions", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -168,6 +181,7 @@ class PaymentActionServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_actions")
                     .build()
                     .prepare(clientOptions, params)

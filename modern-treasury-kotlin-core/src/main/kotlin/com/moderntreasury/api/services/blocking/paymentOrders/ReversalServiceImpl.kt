@@ -31,6 +31,9 @@ class ReversalServiceImpl internal constructor(private val clientOptions: Client
 
     override fun withRawResponse(): ReversalService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ReversalService =
+        ReversalServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: PaymentOrderReversalCreateParams,
         requestOptions: RequestOptions,
@@ -57,6 +60,13 @@ class ReversalServiceImpl internal constructor(private val clientOptions: Client
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ReversalService.WithRawResponse =
+            ReversalServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<Reversal> =
             jsonHandler<Reversal>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -70,6 +80,7 @@ class ReversalServiceImpl internal constructor(private val clientOptions: Client
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_orders", params._pathParam(0), "reversals")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -100,6 +111,7 @@ class ReversalServiceImpl internal constructor(private val clientOptions: Client
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "payment_orders",
@@ -135,6 +147,7 @@ class ReversalServiceImpl internal constructor(private val clientOptions: Client
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_orders", params._pathParam(0), "reversals")
                     .build()
                     .prepare(clientOptions, params)

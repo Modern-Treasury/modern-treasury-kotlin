@@ -39,6 +39,9 @@ class PaymentOrderServiceImpl internal constructor(private val clientOptions: Cl
 
     override fun withRawResponse(): PaymentOrderService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentOrderService =
+        PaymentOrderServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun reversals(): ReversalService = reversals
 
     override fun create(
@@ -85,6 +88,13 @@ class PaymentOrderServiceImpl internal constructor(private val clientOptions: Cl
             ReversalServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): PaymentOrderService.WithRawResponse =
+            PaymentOrderServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         override fun reversals(): ReversalService.WithRawResponse = reversals
 
         private val createHandler: Handler<PaymentOrder> =
@@ -97,6 +107,7 @@ class PaymentOrderServiceImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_orders")
                     .body(multipartFormData(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -127,6 +138,7 @@ class PaymentOrderServiceImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_orders", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -156,6 +168,7 @@ class PaymentOrderServiceImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_orders", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -183,6 +196,7 @@ class PaymentOrderServiceImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_orders")
                     .build()
                     .prepare(clientOptions, params)
@@ -217,6 +231,7 @@ class PaymentOrderServiceImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_orders", "create_async")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

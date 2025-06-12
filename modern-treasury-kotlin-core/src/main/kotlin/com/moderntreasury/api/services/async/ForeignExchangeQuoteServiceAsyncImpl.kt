@@ -32,6 +32,11 @@ internal constructor(private val clientOptions: ClientOptions) : ForeignExchange
     override fun withRawResponse(): ForeignExchangeQuoteServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): ForeignExchangeQuoteServiceAsync =
+        ForeignExchangeQuoteServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: ForeignExchangeQuoteCreateParams,
         requestOptions: RequestOptions,
@@ -58,6 +63,13 @@ internal constructor(private val clientOptions: ClientOptions) : ForeignExchange
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ForeignExchangeQuoteServiceAsync.WithRawResponse =
+            ForeignExchangeQuoteServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<ForeignExchangeQuote> =
             jsonHandler<ForeignExchangeQuote>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
@@ -69,6 +81,7 @@ internal constructor(private val clientOptions: ClientOptions) : ForeignExchange
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "foreign_exchange_quotes")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -100,6 +113,7 @@ internal constructor(private val clientOptions: ClientOptions) : ForeignExchange
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "foreign_exchange_quotes", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -127,6 +141,7 @@ internal constructor(private val clientOptions: ClientOptions) : ForeignExchange
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "foreign_exchange_quotes")
                     .build()
                     .prepareAsync(clientOptions, params)

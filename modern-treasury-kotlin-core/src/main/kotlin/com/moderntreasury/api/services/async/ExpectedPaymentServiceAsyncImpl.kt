@@ -33,6 +33,11 @@ internal constructor(private val clientOptions: ClientOptions) : ExpectedPayment
 
     override fun withRawResponse(): ExpectedPaymentServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): ExpectedPaymentServiceAsync =
+        ExpectedPaymentServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: ExpectedPaymentCreateParams,
         requestOptions: RequestOptions,
@@ -73,6 +78,13 @@ internal constructor(private val clientOptions: ClientOptions) : ExpectedPayment
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ExpectedPaymentServiceAsync.WithRawResponse =
+            ExpectedPaymentServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<ExpectedPayment> =
             jsonHandler<ExpectedPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -83,6 +95,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExpectedPayment
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "expected_payments")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -113,6 +126,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExpectedPayment
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "expected_payments", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -142,6 +156,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExpectedPayment
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "expected_payments", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -170,6 +185,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExpectedPayment
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "expected_payments")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -207,6 +223,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExpectedPayment
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "expected_payments", params._pathParam(0))
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()

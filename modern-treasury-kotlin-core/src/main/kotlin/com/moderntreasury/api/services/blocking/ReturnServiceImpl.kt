@@ -31,6 +31,9 @@ class ReturnServiceImpl internal constructor(private val clientOptions: ClientOp
 
     override fun withRawResponse(): ReturnService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ReturnService =
+        ReturnServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(params: ReturnCreateParams, requestOptions: RequestOptions): ReturnObject =
         // post /api/returns
         withRawResponse().create(params, requestOptions).parse()
@@ -51,6 +54,11 @@ class ReturnServiceImpl internal constructor(private val clientOptions: ClientOp
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ReturnService.WithRawResponse =
+            ReturnServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
         private val createHandler: Handler<ReturnObject> =
             jsonHandler<ReturnObject>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -61,6 +69,7 @@ class ReturnServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "returns")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -91,6 +100,7 @@ class ReturnServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "returns", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -117,6 +127,7 @@ class ReturnServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "returns")
                     .build()
                     .prepare(clientOptions, params)

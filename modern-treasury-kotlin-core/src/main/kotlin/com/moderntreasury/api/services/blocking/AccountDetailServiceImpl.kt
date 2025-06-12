@@ -34,6 +34,9 @@ class AccountDetailServiceImpl internal constructor(private val clientOptions: C
 
     override fun withRawResponse(): AccountDetailService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AccountDetailService =
+        AccountDetailServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: AccountDetailCreateParams,
         requestOptions: RequestOptions,
@@ -65,6 +68,13 @@ class AccountDetailServiceImpl internal constructor(private val clientOptions: C
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AccountDetailService.WithRawResponse =
+            AccountDetailServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<AccountDetail> =
             jsonHandler<AccountDetail>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -78,6 +88,7 @@ class AccountDetailServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         params._pathParam(0),
@@ -113,6 +124,7 @@ class AccountDetailServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         params._pathParam(0),
@@ -149,6 +161,7 @@ class AccountDetailServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         params._pathParam(0),
@@ -190,6 +203,7 @@ class AccountDetailServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         params._pathParam(0),

@@ -38,6 +38,11 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerTransacti
 
     override fun withRawResponse(): LedgerTransactionServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): LedgerTransactionServiceAsync =
+        LedgerTransactionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun versions(): VersionServiceAsync = versions
 
     override suspend fun create(
@@ -91,6 +96,13 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerTransacti
             VersionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LedgerTransactionServiceAsync.WithRawResponse =
+            LedgerTransactionServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         override fun versions(): VersionServiceAsync.WithRawResponse = versions
 
         private val createHandler: Handler<LedgerTransaction> =
@@ -103,6 +115,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerTransacti
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_transactions")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -133,6 +146,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerTransacti
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_transactions", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -162,6 +176,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerTransacti
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_transactions", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -190,6 +205,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerTransacti
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_transactions")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -227,6 +243,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerTransacti
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "ledger_transactions",
@@ -262,6 +279,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerTransacti
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_transactions", params._pathParam(0), "reversal")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

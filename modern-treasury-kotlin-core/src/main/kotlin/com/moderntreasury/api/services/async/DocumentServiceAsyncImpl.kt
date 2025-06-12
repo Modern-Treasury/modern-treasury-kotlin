@@ -31,6 +31,9 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
 
     override fun withRawResponse(): DocumentServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): DocumentServiceAsync =
+        DocumentServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: DocumentCreateParams,
         requestOptions: RequestOptions,
@@ -57,6 +60,13 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): DocumentServiceAsync.WithRawResponse =
+            DocumentServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<Document> =
             jsonHandler<Document>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -67,6 +77,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "documents")
                     .body(multipartFormData(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -97,6 +108,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "documents", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -123,6 +135,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "documents")
                     .build()
                     .prepareAsync(clientOptions, params)

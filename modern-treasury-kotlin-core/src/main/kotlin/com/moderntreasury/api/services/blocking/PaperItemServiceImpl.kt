@@ -29,6 +29,9 @@ class PaperItemServiceImpl internal constructor(private val clientOptions: Clien
 
     override fun withRawResponse(): PaperItemService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaperItemService =
+        PaperItemServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(
         params: PaperItemRetrieveParams,
         requestOptions: RequestOptions,
@@ -48,6 +51,13 @@ class PaperItemServiceImpl internal constructor(private val clientOptions: Clien
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): PaperItemService.WithRawResponse =
+            PaperItemServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val retrieveHandler: Handler<PaperItem> =
             jsonHandler<PaperItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -61,6 +71,7 @@ class PaperItemServiceImpl internal constructor(private val clientOptions: Clien
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "paper_items", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -87,6 +98,7 @@ class PaperItemServiceImpl internal constructor(private val clientOptions: Clien
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "paper_items")
                     .build()
                     .prepare(clientOptions, params)

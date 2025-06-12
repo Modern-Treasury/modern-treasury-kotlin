@@ -80,6 +80,7 @@ internal class BulkResultTest {
                         .direction(PaymentOrder.Direction.CREDIT)
                         .effectiveDate(LocalDate.parse("2019-12-27"))
                         .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .externalId("external_id")
                         .foreignExchangeContract("foreign_exchange_contract")
                         .foreignExchangeIndicator(
                             PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE
@@ -305,6 +306,7 @@ internal class BulkResultTest {
                         .direction(PaymentOrder.Direction.CREDIT)
                         .effectiveDate(LocalDate.parse("2019-12-27"))
                         .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .externalId("external_id")
                         .foreignExchangeContract("foreign_exchange_contract")
                         .foreignExchangeIndicator(
                             PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE
@@ -535,6 +537,7 @@ internal class BulkResultTest {
                         .direction(PaymentOrder.Direction.CREDIT)
                         .effectiveDate(LocalDate.parse("2019-12-27"))
                         .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .externalId("external_id")
                         .foreignExchangeContract("foreign_exchange_contract")
                         .foreignExchangeIndicator(
                             PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE

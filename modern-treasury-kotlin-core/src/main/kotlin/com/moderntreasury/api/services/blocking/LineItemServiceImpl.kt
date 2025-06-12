@@ -31,6 +31,9 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
 
     override fun withRawResponse(): LineItemService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LineItemService =
+        LineItemServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(
         params: LineItemRetrieveParams,
         requestOptions: RequestOptions,
@@ -54,6 +57,13 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LineItemService.WithRawResponse =
+            LineItemServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val retrieveHandler: Handler<LineItem> =
             jsonHandler<LineItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -67,6 +77,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         params._pathParam(0),
@@ -102,6 +113,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         params._pathParam(0),
@@ -138,6 +150,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         params._pathParam(0),

@@ -31,6 +31,9 @@ class ReturnServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     override fun withRawResponse(): ReturnServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ReturnServiceAsync =
+        ReturnServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: ReturnCreateParams,
         requestOptions: RequestOptions,
@@ -57,6 +60,13 @@ class ReturnServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ReturnServiceAsync.WithRawResponse =
+            ReturnServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<ReturnObject> =
             jsonHandler<ReturnObject>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -67,6 +77,7 @@ class ReturnServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "returns")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -97,6 +108,7 @@ class ReturnServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "returns", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -123,6 +135,7 @@ class ReturnServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "returns")
                     .build()
                     .prepareAsync(clientOptions, params)

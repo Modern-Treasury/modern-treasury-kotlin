@@ -33,6 +33,9 @@ class LedgerAccountServiceImpl internal constructor(private val clientOptions: C
 
     override fun withRawResponse(): LedgerAccountService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerAccountService =
+        LedgerAccountServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: LedgerAccountCreateParams,
         requestOptions: RequestOptions,
@@ -73,6 +76,13 @@ class LedgerAccountServiceImpl internal constructor(private val clientOptions: C
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LedgerAccountService.WithRawResponse =
+            LedgerAccountServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<LedgerAccount> =
             jsonHandler<LedgerAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -83,6 +93,7 @@ class LedgerAccountServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_accounts")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -113,6 +124,7 @@ class LedgerAccountServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_accounts", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -142,6 +154,7 @@ class LedgerAccountServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_accounts", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -170,6 +183,7 @@ class LedgerAccountServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_accounts")
                     .build()
                     .prepare(clientOptions, params)
@@ -207,6 +221,7 @@ class LedgerAccountServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_accounts", params._pathParam(0))
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()

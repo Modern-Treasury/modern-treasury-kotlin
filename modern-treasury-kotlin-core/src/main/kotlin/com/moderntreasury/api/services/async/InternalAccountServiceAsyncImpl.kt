@@ -38,6 +38,11 @@ internal constructor(private val clientOptions: ClientOptions) : InternalAccount
 
     override fun withRawResponse(): InternalAccountServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): InternalAccountServiceAsync =
+        InternalAccountServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun balanceReports(): BalanceReportServiceAsync = balanceReports
 
     override suspend fun create(
@@ -77,6 +82,13 @@ internal constructor(private val clientOptions: ClientOptions) : InternalAccount
             BalanceReportServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InternalAccountServiceAsync.WithRawResponse =
+            InternalAccountServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         override fun balanceReports(): BalanceReportServiceAsync.WithRawResponse = balanceReports
 
         private val createHandler: Handler<InternalAccount> =
@@ -89,6 +101,7 @@ internal constructor(private val clientOptions: ClientOptions) : InternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "internal_accounts")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -119,6 +132,7 @@ internal constructor(private val clientOptions: ClientOptions) : InternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "internal_accounts", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -148,6 +162,7 @@ internal constructor(private val clientOptions: ClientOptions) : InternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "internal_accounts", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -176,6 +191,7 @@ internal constructor(private val clientOptions: ClientOptions) : InternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "internal_accounts")
                     .build()
                     .prepareAsync(clientOptions, params)

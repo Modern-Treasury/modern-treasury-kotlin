@@ -33,6 +33,9 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     override fun withRawResponse(): LedgerServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerServiceAsync =
+        LedgerServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: LedgerCreateParams,
         requestOptions: RequestOptions,
@@ -73,6 +76,13 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LedgerServiceAsync.WithRawResponse =
+            LedgerServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<Ledger> =
             jsonHandler<Ledger>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -83,6 +93,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledgers")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -113,6 +124,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledgers", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -142,6 +154,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledgers", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -169,6 +182,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledgers")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -206,6 +220,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledgers", params._pathParam(0))
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()

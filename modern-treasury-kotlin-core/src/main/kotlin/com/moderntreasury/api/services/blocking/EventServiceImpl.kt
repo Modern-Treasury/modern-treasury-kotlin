@@ -29,6 +29,9 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
 
     override fun withRawResponse(): EventService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EventService =
+        EventServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(params: EventRetrieveParams, requestOptions: RequestOptions): Event =
         // get /api/events/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
@@ -41,6 +44,11 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
         EventService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): EventService.WithRawResponse =
+            EventServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
         private val retrieveHandler: Handler<Event> =
             jsonHandler<Event>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
@@ -55,6 +63,7 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "events", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -81,6 +90,7 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "events")
                     .build()
                     .prepare(clientOptions, params)

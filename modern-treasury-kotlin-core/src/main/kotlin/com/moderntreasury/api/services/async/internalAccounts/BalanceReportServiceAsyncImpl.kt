@@ -34,6 +34,9 @@ class BalanceReportServiceAsyncImpl internal constructor(private val clientOptio
 
     override fun withRawResponse(): BalanceReportServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BalanceReportServiceAsync =
+        BalanceReportServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: BalanceReportCreateParams,
         requestOptions: RequestOptions,
@@ -65,6 +68,13 @@ class BalanceReportServiceAsyncImpl internal constructor(private val clientOptio
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): BalanceReportServiceAsync.WithRawResponse =
+            BalanceReportServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<BalanceReport> =
             jsonHandler<BalanceReport>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -78,6 +88,7 @@ class BalanceReportServiceAsyncImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "internal_accounts",
@@ -113,6 +124,7 @@ class BalanceReportServiceAsyncImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "internal_accounts",
@@ -149,6 +161,7 @@ class BalanceReportServiceAsyncImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "internal_accounts",
@@ -190,6 +203,7 @@ class BalanceReportServiceAsyncImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "internal_accounts",

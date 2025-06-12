@@ -27,6 +27,9 @@ class ConnectionServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun withRawResponse(): ConnectionService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ConnectionService =
+        ConnectionServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun list(
         params: ConnectionListParams,
         requestOptions: RequestOptions,
@@ -39,6 +42,13 @@ class ConnectionServiceImpl internal constructor(private val clientOptions: Clie
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ConnectionService.WithRawResponse =
+            ConnectionServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val listHandler: Handler<List<Connection>> =
             jsonHandler<List<Connection>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -49,6 +59,7 @@ class ConnectionServiceImpl internal constructor(private val clientOptions: Clie
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "connections")
                     .build()
                     .prepare(clientOptions, params)

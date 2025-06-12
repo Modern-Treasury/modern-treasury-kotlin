@@ -37,6 +37,9 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
 
     override fun withRawResponse(): CounterpartyServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CounterpartyServiceAsync =
+        CounterpartyServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: CounterpartyCreateParams,
         requestOptions: RequestOptions,
@@ -82,6 +85,13 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CounterpartyServiceAsync.WithRawResponse =
+            CounterpartyServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<Counterparty> =
             jsonHandler<Counterparty>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -92,6 +102,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "counterparties")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -122,6 +133,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "counterparties", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -151,6 +163,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "counterparties", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -178,6 +191,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "counterparties")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -214,6 +228,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "counterparties", params._pathParam(0))
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
@@ -237,6 +252,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "counterparties",

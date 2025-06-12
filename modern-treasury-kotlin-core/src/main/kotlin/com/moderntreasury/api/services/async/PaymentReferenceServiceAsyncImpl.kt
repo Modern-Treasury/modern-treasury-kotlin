@@ -30,6 +30,11 @@ internal constructor(private val clientOptions: ClientOptions) : PaymentReferenc
 
     override fun withRawResponse(): PaymentReferenceServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): PaymentReferenceServiceAsync =
+        PaymentReferenceServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun retrieve(
         params: PaymentReferenceRetrieveParams,
         requestOptions: RequestOptions,
@@ -57,6 +62,13 @@ internal constructor(private val clientOptions: ClientOptions) : PaymentReferenc
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): PaymentReferenceServiceAsync.WithRawResponse =
+            PaymentReferenceServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val retrieveHandler: Handler<PaymentReference> =
             jsonHandler<PaymentReference>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -70,6 +82,7 @@ internal constructor(private val clientOptions: ClientOptions) : PaymentReferenc
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_references", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -97,6 +110,7 @@ internal constructor(private val clientOptions: ClientOptions) : PaymentReferenc
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_references")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -135,6 +149,7 @@ internal constructor(private val clientOptions: ClientOptions) : PaymentReferenc
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "payment_references", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)

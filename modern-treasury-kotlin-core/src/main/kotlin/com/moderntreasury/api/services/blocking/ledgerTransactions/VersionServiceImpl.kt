@@ -27,6 +27,9 @@ class VersionServiceImpl internal constructor(private val clientOptions: ClientO
 
     override fun withRawResponse(): VersionService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): VersionService =
+        VersionServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun list(
         params: LedgerTransactionVersionListParams,
         requestOptions: RequestOptions,
@@ -39,6 +42,13 @@ class VersionServiceImpl internal constructor(private val clientOptions: ClientO
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): VersionService.WithRawResponse =
+            VersionServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val listHandler: Handler<List<LedgerTransactionVersion>> =
             jsonHandler<List<LedgerTransactionVersion>>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
@@ -50,6 +60,7 @@ class VersionServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ledger_transaction_versions")
                     .build()
                     .prepare(clientOptions, params)

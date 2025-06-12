@@ -265,6 +265,9 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
 
     override fun withRawResponse(): ModernTreasuryClient.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ModernTreasuryClient =
+        ModernTreasuryClientImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun connections(): ConnectionService = connections
 
     override fun counterparties(): CounterpartyService = counterparties
@@ -510,6 +513,13 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
             PaymentActionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ModernTreasuryClient.WithRawResponse =
+            ModernTreasuryClientImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         override fun connections(): ConnectionService.WithRawResponse = connections
 
         override fun counterparties(): CounterpartyService.WithRawResponse = counterparties
@@ -608,6 +618,7 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ping")
                     .build()
                     .prepare(clientOptions, params)

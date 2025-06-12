@@ -33,6 +33,9 @@ class LineItemServiceAsyncImpl internal constructor(private val clientOptions: C
 
     override fun withRawResponse(): LineItemServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LineItemServiceAsync =
+        LineItemServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: InvoiceLineItemCreateParams,
         requestOptions: RequestOptions,
@@ -73,6 +76,13 @@ class LineItemServiceAsyncImpl internal constructor(private val clientOptions: C
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LineItemServiceAsync.WithRawResponse =
+            LineItemServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<InvoiceLineItem> =
             jsonHandler<InvoiceLineItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -86,6 +96,7 @@ class LineItemServiceAsyncImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "invoices", params._pathParam(0), "invoice_line_items")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -116,6 +127,7 @@ class LineItemServiceAsyncImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "invoices",
@@ -151,6 +163,7 @@ class LineItemServiceAsyncImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "invoices",
@@ -188,6 +201,7 @@ class LineItemServiceAsyncImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "invoices", params._pathParam(0), "invoice_line_items")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -225,6 +239,7 @@ class LineItemServiceAsyncImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "invoices",

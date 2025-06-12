@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.moderntreasury.api/modern-treasury-kotlin)](https://central.sonatype.com/artifact/com.moderntreasury.api/modern-treasury-kotlin/7.2.0)
-[![javadoc](https://javadoc.io/badge2/com.moderntreasury.api/modern-treasury-kotlin/7.2.0/javadoc.svg)](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/7.2.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.moderntreasury.api/modern-treasury-kotlin)](https://central.sonatype.com/artifact/com.moderntreasury.api/modern-treasury-kotlin/7.3.0)
+[![javadoc](https://javadoc.io/badge2/com.moderntreasury.api/modern-treasury-kotlin/7.3.0/javadoc.svg)](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/7.3.0)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ The Modern Treasury Kotlin SDK is similar to the Modern Treasury Java SDK but wi
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [docs.moderntreasury.com](https://docs.moderntreasury.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/7.2.0).
+The REST API documentation can be found on [docs.moderntreasury.com](https://docs.moderntreasury.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/7.3.0).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ The REST API documentation can be found on [docs.moderntreasury.com](https://doc
 ### Gradle
 
 ```kotlin
-implementation("com.moderntreasury:modern-treasury-kotlin:7.2.0")
+implementation("com.moderntreasury:modern-treasury-kotlin:7.3.0")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("com.moderntreasury:modern-treasury-kotlin:7.2.0")
 <dependency>
   <groupId>com.moderntreasury</groupId>
   <artifactId>modern-treasury-kotlin</artifactId>
-  <version>7.2.0</version>
+  <version>7.3.0</version>
 </dependency>
 ```
 
@@ -109,6 +109,21 @@ See this table for the available options:
 > [!TIP]
 > Don't create more than one client in the same application. Each client has a connection pool and
 > thread pools, which are more efficient to share between requests.
+
+### Modifying configuration
+
+To temporarily use a modified client configuration, while reusing the same connection and thread pools, call `withOptions()` on any client or service:
+
+```kotlin
+import com.moderntreasury.api.client.ModernTreasuryClient
+
+val clientWithOptions: ModernTreasuryClient = client.withOptions {
+    it.baseUrl("https://example.com")
+    it.maxRetries(42)
+}
+```
+
+The `withOptions()` method does not affect the original client or service.
 
 ## Requests and responses
 

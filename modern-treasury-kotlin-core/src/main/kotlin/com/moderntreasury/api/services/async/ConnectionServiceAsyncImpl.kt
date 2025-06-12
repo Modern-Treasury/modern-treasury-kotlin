@@ -27,6 +27,9 @@ class ConnectionServiceAsyncImpl internal constructor(private val clientOptions:
 
     override fun withRawResponse(): ConnectionServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ConnectionServiceAsync =
+        ConnectionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun list(
         params: ConnectionListParams,
         requestOptions: RequestOptions,
@@ -39,6 +42,13 @@ class ConnectionServiceAsyncImpl internal constructor(private val clientOptions:
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ConnectionServiceAsync.WithRawResponse =
+            ConnectionServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val listHandler: Handler<List<Connection>> =
             jsonHandler<List<Connection>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -49,6 +59,7 @@ class ConnectionServiceAsyncImpl internal constructor(private val clientOptions:
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "connections")
                     .build()
                     .prepareAsync(clientOptions, params)

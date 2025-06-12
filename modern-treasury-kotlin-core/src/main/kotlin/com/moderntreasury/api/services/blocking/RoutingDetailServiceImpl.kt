@@ -34,6 +34,9 @@ class RoutingDetailServiceImpl internal constructor(private val clientOptions: C
 
     override fun withRawResponse(): RoutingDetailService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): RoutingDetailService =
+        RoutingDetailServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: RoutingDetailCreateParams,
         requestOptions: RequestOptions,
@@ -65,6 +68,13 @@ class RoutingDetailServiceImpl internal constructor(private val clientOptions: C
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): RoutingDetailService.WithRawResponse =
+            RoutingDetailServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<RoutingDetail> =
             jsonHandler<RoutingDetail>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -78,6 +88,7 @@ class RoutingDetailServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         params._pathParam(0),
@@ -113,6 +124,7 @@ class RoutingDetailServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         params._pathParam(0),
@@ -149,6 +161,7 @@ class RoutingDetailServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         params._pathParam(0),
@@ -190,6 +203,7 @@ class RoutingDetailServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         params._pathParam(0),

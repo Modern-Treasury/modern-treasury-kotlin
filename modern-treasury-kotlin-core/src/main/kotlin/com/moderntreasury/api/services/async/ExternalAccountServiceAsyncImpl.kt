@@ -38,6 +38,11 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
 
     override fun withRawResponse(): ExternalAccountServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): ExternalAccountServiceAsync =
+        ExternalAccountServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: ExternalAccountCreateParams,
         requestOptions: RequestOptions,
@@ -93,6 +98,13 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ExternalAccountServiceAsync.WithRawResponse =
+            ExternalAccountServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         private val createHandler: Handler<ExternalAccount> =
             jsonHandler<ExternalAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -103,6 +115,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "external_accounts")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -133,6 +146,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "external_accounts", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -162,6 +176,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "external_accounts", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -190,6 +205,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "external_accounts")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -226,6 +242,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "external_accounts", params._pathParam(0))
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
@@ -248,6 +265,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "api",
                         "external_accounts",
@@ -284,6 +302,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "external_accounts", params._pathParam(0), "verify")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

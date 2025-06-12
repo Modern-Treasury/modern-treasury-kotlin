@@ -272,6 +272,9 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
 
     override fun withRawResponse(): ModernTreasuryClientAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ModernTreasuryClientAsync =
+        ModernTreasuryClientAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun connections(): ConnectionServiceAsync = connections
 
     override fun counterparties(): CounterpartyServiceAsync = counterparties
@@ -533,6 +536,13 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
             PaymentActionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ModernTreasuryClientAsync.WithRawResponse =
+            ModernTreasuryClientAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
         override fun connections(): ConnectionServiceAsync.WithRawResponse = connections
 
         override fun counterparties(): CounterpartyServiceAsync.WithRawResponse = counterparties
@@ -635,6 +645,7 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "ping")
                     .build()
                     .prepareAsync(clientOptions, params)
