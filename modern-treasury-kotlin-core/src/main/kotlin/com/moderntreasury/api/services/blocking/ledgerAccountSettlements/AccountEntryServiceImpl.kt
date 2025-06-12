@@ -28,6 +28,9 @@ class AccountEntryServiceImpl internal constructor(private val clientOptions: Cl
 
     override fun withRawResponse(): AccountEntryService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AccountEntryService =
+        AccountEntryServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun update(
         params: LedgerAccountSettlementAccountEntryUpdateParams,
         requestOptions: RequestOptions,
@@ -48,6 +51,13 @@ class AccountEntryServiceImpl internal constructor(private val clientOptions: Cl
         AccountEntryService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AccountEntryService.WithRawResponse =
+            AccountEntryServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val updateHandler: Handler<Void?> = emptyHandler().withErrorHandler(errorHandler)
 

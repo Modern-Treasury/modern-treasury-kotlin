@@ -29,6 +29,9 @@ class PaperItemServiceImpl internal constructor(private val clientOptions: Clien
 
     override fun withRawResponse(): PaperItemService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaperItemService =
+        PaperItemServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(
         params: PaperItemRetrieveParams,
         requestOptions: RequestOptions,
@@ -47,6 +50,13 @@ class PaperItemServiceImpl internal constructor(private val clientOptions: Clien
         PaperItemService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): PaperItemService.WithRawResponse =
+            PaperItemServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<PaperItem> =
             jsonHandler<PaperItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

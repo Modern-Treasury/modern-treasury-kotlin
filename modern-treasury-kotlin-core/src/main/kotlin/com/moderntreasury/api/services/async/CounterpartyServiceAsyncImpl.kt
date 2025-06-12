@@ -37,6 +37,9 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
 
     override fun withRawResponse(): CounterpartyServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CounterpartyServiceAsync =
+        CounterpartyServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: CounterpartyCreateParams,
         requestOptions: RequestOptions,
@@ -81,6 +84,13 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
         CounterpartyServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CounterpartyServiceAsync.WithRawResponse =
+            CounterpartyServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<Counterparty> =
             jsonHandler<Counterparty>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

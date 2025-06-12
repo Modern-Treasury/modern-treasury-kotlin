@@ -32,6 +32,11 @@ internal constructor(private val clientOptions: ClientOptions) : AccountCollecti
 
     override fun withRawResponse(): AccountCollectionFlowService.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): AccountCollectionFlowService =
+        AccountCollectionFlowServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: AccountCollectionFlowCreateParams,
         requestOptions: RequestOptions,
@@ -64,6 +69,13 @@ internal constructor(private val clientOptions: ClientOptions) : AccountCollecti
         AccountCollectionFlowService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AccountCollectionFlowService.WithRawResponse =
+            AccountCollectionFlowServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<AccountCollectionFlow> =
             jsonHandler<AccountCollectionFlow>(clientOptions.jsonMapper)

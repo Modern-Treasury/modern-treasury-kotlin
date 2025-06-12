@@ -34,6 +34,9 @@ class RoutingDetailServiceImpl internal constructor(private val clientOptions: C
 
     override fun withRawResponse(): RoutingDetailService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): RoutingDetailService =
+        RoutingDetailServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: RoutingDetailCreateParams,
         requestOptions: RequestOptions,
@@ -64,6 +67,13 @@ class RoutingDetailServiceImpl internal constructor(private val clientOptions: C
         RoutingDetailService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): RoutingDetailService.WithRawResponse =
+            RoutingDetailServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<RoutingDetail> =
             jsonHandler<RoutingDetail>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

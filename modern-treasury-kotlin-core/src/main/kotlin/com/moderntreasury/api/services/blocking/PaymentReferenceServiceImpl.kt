@@ -30,6 +30,9 @@ class PaymentReferenceServiceImpl internal constructor(private val clientOptions
 
     override fun withRawResponse(): PaymentReferenceService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentReferenceService =
+        PaymentReferenceServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(
         params: PaymentReferenceRetrieveParams,
         requestOptions: RequestOptions,
@@ -56,6 +59,13 @@ class PaymentReferenceServiceImpl internal constructor(private val clientOptions
         PaymentReferenceService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): PaymentReferenceService.WithRawResponse =
+            PaymentReferenceServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<PaymentReference> =
             jsonHandler<PaymentReference>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -31,6 +31,9 @@ class BulkRequestServiceImpl internal constructor(private val clientOptions: Cli
 
     override fun withRawResponse(): BulkRequestService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BulkRequestService =
+        BulkRequestServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: BulkRequestCreateParams,
         requestOptions: RequestOptions,
@@ -56,6 +59,13 @@ class BulkRequestServiceImpl internal constructor(private val clientOptions: Cli
         BulkRequestService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): BulkRequestService.WithRawResponse =
+            BulkRequestServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<BulkRequest> =
             jsonHandler<BulkRequest>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

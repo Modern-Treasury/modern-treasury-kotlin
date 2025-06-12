@@ -33,6 +33,9 @@ class ExpectedPaymentServiceImpl internal constructor(private val clientOptions:
 
     override fun withRawResponse(): ExpectedPaymentService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ExpectedPaymentService =
+        ExpectedPaymentServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: ExpectedPaymentCreateParams,
         requestOptions: RequestOptions,
@@ -72,6 +75,13 @@ class ExpectedPaymentServiceImpl internal constructor(private val clientOptions:
         ExpectedPaymentService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ExpectedPaymentService.WithRawResponse =
+            ExpectedPaymentServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<ExpectedPayment> =
             jsonHandler<ExpectedPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

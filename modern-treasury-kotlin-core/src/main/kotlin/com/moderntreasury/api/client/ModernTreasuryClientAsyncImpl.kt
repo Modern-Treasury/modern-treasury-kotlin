@@ -268,6 +268,9 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
 
     override fun withRawResponse(): ModernTreasuryClientAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ModernTreasuryClientAsync =
+        ModernTreasuryClientAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun connections(): ConnectionServiceAsync = connections
 
     override fun counterparties(): CounterpartyServiceAsync = counterparties
@@ -526,6 +529,13 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
         private val paymentActions: PaymentActionServiceAsync.WithRawResponse by lazy {
             PaymentActionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ModernTreasuryClientAsync.WithRawResponse =
+            ModernTreasuryClientAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         override fun connections(): ConnectionServiceAsync.WithRawResponse = connections
 
