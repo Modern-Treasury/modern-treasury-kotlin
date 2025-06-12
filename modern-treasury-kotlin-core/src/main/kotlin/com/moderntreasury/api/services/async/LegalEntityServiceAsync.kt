@@ -3,6 +3,7 @@
 package com.moderntreasury.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.LegalEntity
@@ -18,6 +19,13 @@ interface LegalEntityServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LegalEntityServiceAsync
 
     /** create legal_entity */
     suspend fun create(
@@ -74,6 +82,15 @@ interface LegalEntityServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LegalEntityServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /api/legal_entities`, but is otherwise the same as

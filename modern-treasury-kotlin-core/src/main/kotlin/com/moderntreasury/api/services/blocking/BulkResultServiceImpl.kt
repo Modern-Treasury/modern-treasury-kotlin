@@ -29,6 +29,9 @@ class BulkResultServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun withRawResponse(): BulkResultService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BulkResultService =
+        BulkResultServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(
         params: BulkResultRetrieveParams,
         requestOptions: RequestOptions,
@@ -47,6 +50,13 @@ class BulkResultServiceImpl internal constructor(private val clientOptions: Clie
         BulkResultService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): BulkResultService.WithRawResponse =
+            BulkResultServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<BulkResult> =
             jsonHandler<BulkResult>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

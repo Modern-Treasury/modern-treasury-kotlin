@@ -29,6 +29,9 @@ class BulkResultServiceAsyncImpl internal constructor(private val clientOptions:
 
     override fun withRawResponse(): BulkResultServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BulkResultServiceAsync =
+        BulkResultServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun retrieve(
         params: BulkResultRetrieveParams,
         requestOptions: RequestOptions,
@@ -47,6 +50,13 @@ class BulkResultServiceAsyncImpl internal constructor(private val clientOptions:
         BulkResultServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): BulkResultServiceAsync.WithRawResponse =
+            BulkResultServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<BulkResult> =
             jsonHandler<BulkResult>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

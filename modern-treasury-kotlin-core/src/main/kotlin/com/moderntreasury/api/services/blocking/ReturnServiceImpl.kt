@@ -31,6 +31,9 @@ class ReturnServiceImpl internal constructor(private val clientOptions: ClientOp
 
     override fun withRawResponse(): ReturnService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ReturnService =
+        ReturnServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(params: ReturnCreateParams, requestOptions: RequestOptions): ReturnObject =
         // post /api/returns
         withRawResponse().create(params, requestOptions).parse()
@@ -50,6 +53,11 @@ class ReturnServiceImpl internal constructor(private val clientOptions: ClientOp
         ReturnService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ReturnService.WithRawResponse =
+            ReturnServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
         private val createHandler: Handler<ReturnObject> =
             jsonHandler<ReturnObject>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

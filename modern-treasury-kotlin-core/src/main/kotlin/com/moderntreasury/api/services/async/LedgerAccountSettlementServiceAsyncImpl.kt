@@ -40,6 +40,11 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun withRawResponse(): LedgerAccountSettlementServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): LedgerAccountSettlementServiceAsync =
+        LedgerAccountSettlementServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun accountEntries(): AccountEntryServiceAsync = accountEntries
 
     override suspend fun create(
@@ -78,6 +83,13 @@ internal constructor(private val clientOptions: ClientOptions) :
         private val accountEntries: AccountEntryServiceAsync.WithRawResponse by lazy {
             AccountEntryServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LedgerAccountSettlementServiceAsync.WithRawResponse =
+            LedgerAccountSettlementServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         override fun accountEntries(): AccountEntryServiceAsync.WithRawResponse = accountEntries
 

@@ -32,6 +32,11 @@ internal constructor(private val clientOptions: ClientOptions) : ConnectionLegal
 
     override fun withRawResponse(): ConnectionLegalEntityService.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): ConnectionLegalEntityService =
+        ConnectionLegalEntityServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: ConnectionLegalEntityCreateParams,
         requestOptions: RequestOptions,
@@ -64,6 +69,13 @@ internal constructor(private val clientOptions: ClientOptions) : ConnectionLegal
         ConnectionLegalEntityService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ConnectionLegalEntityService.WithRawResponse =
+            ConnectionLegalEntityServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<ConnectionLegalEntity> =
             jsonHandler<ConnectionLegalEntity>(clientOptions.jsonMapper)

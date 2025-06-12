@@ -3,6 +3,7 @@
 package com.moderntreasury.api.services.blocking.internalAccounts
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.http.HttpResponseFor
@@ -19,6 +20,13 @@ interface BalanceReportService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BalanceReportService
 
     /** create balance reports */
     fun create(
@@ -82,6 +90,15 @@ interface BalanceReportService {
      * A view of [BalanceReportService] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): BalanceReportService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post

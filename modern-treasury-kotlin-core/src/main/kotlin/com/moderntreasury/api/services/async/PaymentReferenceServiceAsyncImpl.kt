@@ -30,6 +30,11 @@ internal constructor(private val clientOptions: ClientOptions) : PaymentReferenc
 
     override fun withRawResponse(): PaymentReferenceServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): PaymentReferenceServiceAsync =
+        PaymentReferenceServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun retrieve(
         params: PaymentReferenceRetrieveParams,
         requestOptions: RequestOptions,
@@ -56,6 +61,13 @@ internal constructor(private val clientOptions: ClientOptions) : PaymentReferenc
         PaymentReferenceServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): PaymentReferenceServiceAsync.WithRawResponse =
+            PaymentReferenceServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<PaymentReference> =
             jsonHandler<PaymentReference>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

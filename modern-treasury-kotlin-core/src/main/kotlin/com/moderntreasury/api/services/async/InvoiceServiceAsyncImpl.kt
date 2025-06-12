@@ -39,6 +39,9 @@ class InvoiceServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     override fun withRawResponse(): InvoiceServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): InvoiceServiceAsync =
+        InvoiceServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun lineItems(): LineItemServiceAsync = lineItems
 
     override suspend fun create(
@@ -85,6 +88,13 @@ class InvoiceServiceAsyncImpl internal constructor(private val clientOptions: Cl
         private val lineItems: LineItemServiceAsync.WithRawResponse by lazy {
             LineItemServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InvoiceServiceAsync.WithRawResponse =
+            InvoiceServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         override fun lineItems(): LineItemServiceAsync.WithRawResponse = lineItems
 

@@ -32,6 +32,9 @@ class LegalEntityServiceAsyncImpl internal constructor(private val clientOptions
 
     override fun withRawResponse(): LegalEntityServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LegalEntityServiceAsync =
+        LegalEntityServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: LegalEntityCreateParams,
         requestOptions: RequestOptions,
@@ -64,6 +67,13 @@ class LegalEntityServiceAsyncImpl internal constructor(private val clientOptions
         LegalEntityServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LegalEntityServiceAsync.WithRawResponse =
+            LegalEntityServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<LegalEntity> =
             jsonHandler<LegalEntity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

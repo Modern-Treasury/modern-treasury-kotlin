@@ -33,6 +33,9 @@ class VirtualAccountServiceImpl internal constructor(private val clientOptions: 
 
     override fun withRawResponse(): VirtualAccountService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): VirtualAccountService =
+        VirtualAccountServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: VirtualAccountCreateParams,
         requestOptions: RequestOptions,
@@ -72,6 +75,13 @@ class VirtualAccountServiceImpl internal constructor(private val clientOptions: 
         VirtualAccountService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): VirtualAccountService.WithRawResponse =
+            VirtualAccountServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<VirtualAccount> =
             jsonHandler<VirtualAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

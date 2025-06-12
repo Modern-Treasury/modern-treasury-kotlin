@@ -32,6 +32,9 @@ class PaymentFlowServiceAsyncImpl internal constructor(private val clientOptions
 
     override fun withRawResponse(): PaymentFlowServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentFlowServiceAsync =
+        PaymentFlowServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: PaymentFlowCreateParams,
         requestOptions: RequestOptions,
@@ -64,6 +67,13 @@ class PaymentFlowServiceAsyncImpl internal constructor(private val clientOptions
         PaymentFlowServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): PaymentFlowServiceAsync.WithRawResponse =
+            PaymentFlowServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<PaymentFlow> =
             jsonHandler<PaymentFlow>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -37,6 +37,9 @@ class CounterpartyServiceImpl internal constructor(private val clientOptions: Cl
 
     override fun withRawResponse(): CounterpartyService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CounterpartyService =
+        CounterpartyServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: CounterpartyCreateParams,
         requestOptions: RequestOptions,
@@ -81,6 +84,13 @@ class CounterpartyServiceImpl internal constructor(private val clientOptions: Cl
         CounterpartyService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CounterpartyService.WithRawResponse =
+            CounterpartyServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<Counterparty> =
             jsonHandler<Counterparty>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

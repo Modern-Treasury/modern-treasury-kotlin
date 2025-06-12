@@ -33,6 +33,11 @@ internal constructor(private val clientOptions: ClientOptions) : ExpectedPayment
 
     override fun withRawResponse(): ExpectedPaymentServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): ExpectedPaymentServiceAsync =
+        ExpectedPaymentServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: ExpectedPaymentCreateParams,
         requestOptions: RequestOptions,
@@ -72,6 +77,13 @@ internal constructor(private val clientOptions: ClientOptions) : ExpectedPayment
         ExpectedPaymentServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ExpectedPaymentServiceAsync.WithRawResponse =
+            ExpectedPaymentServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<ExpectedPayment> =
             jsonHandler<ExpectedPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

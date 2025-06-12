@@ -39,6 +39,9 @@ class PaymentOrderServiceImpl internal constructor(private val clientOptions: Cl
 
     override fun withRawResponse(): PaymentOrderService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentOrderService =
+        PaymentOrderServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun reversals(): ReversalService = reversals
 
     override fun create(
@@ -84,6 +87,13 @@ class PaymentOrderServiceImpl internal constructor(private val clientOptions: Cl
         private val reversals: ReversalService.WithRawResponse by lazy {
             ReversalServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): PaymentOrderService.WithRawResponse =
+            PaymentOrderServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         override fun reversals(): ReversalService.WithRawResponse = reversals
 

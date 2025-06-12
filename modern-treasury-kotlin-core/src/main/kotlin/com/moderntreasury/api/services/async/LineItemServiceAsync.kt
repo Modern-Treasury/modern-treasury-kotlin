@@ -3,6 +3,7 @@
 package com.moderntreasury.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.LineItem
@@ -17,6 +18,13 @@ interface LineItemServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LineItemServiceAsync
 
     /** Get a single line item */
     suspend fun retrieve(
@@ -62,6 +70,15 @@ interface LineItemServiceAsync {
      * A view of [LineItemServiceAsync] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LineItemServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get

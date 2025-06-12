@@ -39,6 +39,11 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
 
     override fun withRawResponse(): LedgerAccountCategoryService.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): LedgerAccountCategoryService =
+        LedgerAccountCategoryServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: LedgerAccountCategoryCreateParams,
         requestOptions: RequestOptions,
@@ -110,6 +115,13 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
         LedgerAccountCategoryService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LedgerAccountCategoryService.WithRawResponse =
+            LedgerAccountCategoryServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<LedgerAccountCategory> =
             jsonHandler<LedgerAccountCategory>(clientOptions.jsonMapper)
