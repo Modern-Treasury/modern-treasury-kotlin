@@ -38,6 +38,11 @@ internal constructor(private val clientOptions: ClientOptions) : InternalAccount
 
     override fun withRawResponse(): InternalAccountServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): InternalAccountServiceAsync =
+        InternalAccountServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun balanceReports(): BalanceReportServiceAsync = balanceReports
 
     override suspend fun create(
@@ -76,6 +81,13 @@ internal constructor(private val clientOptions: ClientOptions) : InternalAccount
         private val balanceReports: BalanceReportServiceAsync.WithRawResponse by lazy {
             BalanceReportServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InternalAccountServiceAsync.WithRawResponse =
+            InternalAccountServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         override fun balanceReports(): BalanceReportServiceAsync.WithRawResponse = balanceReports
 

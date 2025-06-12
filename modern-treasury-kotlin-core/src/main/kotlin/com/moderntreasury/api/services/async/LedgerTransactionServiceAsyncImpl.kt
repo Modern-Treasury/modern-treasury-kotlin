@@ -38,6 +38,11 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerTransacti
 
     override fun withRawResponse(): LedgerTransactionServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): LedgerTransactionServiceAsync =
+        LedgerTransactionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun versions(): VersionServiceAsync = versions
 
     override suspend fun create(
@@ -90,6 +95,13 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerTransacti
         private val versions: VersionServiceAsync.WithRawResponse by lazy {
             VersionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LedgerTransactionServiceAsync.WithRawResponse =
+            LedgerTransactionServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         override fun versions(): VersionServiceAsync.WithRawResponse = versions
 

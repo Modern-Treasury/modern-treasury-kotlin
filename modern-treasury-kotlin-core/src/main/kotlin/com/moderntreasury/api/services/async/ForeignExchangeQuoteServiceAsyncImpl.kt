@@ -32,6 +32,11 @@ internal constructor(private val clientOptions: ClientOptions) : ForeignExchange
     override fun withRawResponse(): ForeignExchangeQuoteServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): ForeignExchangeQuoteServiceAsync =
+        ForeignExchangeQuoteServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: ForeignExchangeQuoteCreateParams,
         requestOptions: RequestOptions,
@@ -57,6 +62,13 @@ internal constructor(private val clientOptions: ClientOptions) : ForeignExchange
         ForeignExchangeQuoteServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ForeignExchangeQuoteServiceAsync.WithRawResponse =
+            ForeignExchangeQuoteServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<ForeignExchangeQuote> =
             jsonHandler<ForeignExchangeQuote>(clientOptions.jsonMapper)

@@ -32,6 +32,9 @@ class LegalEntityServiceImpl internal constructor(private val clientOptions: Cli
 
     override fun withRawResponse(): LegalEntityService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LegalEntityService =
+        LegalEntityServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: LegalEntityCreateParams,
         requestOptions: RequestOptions,
@@ -64,6 +67,13 @@ class LegalEntityServiceImpl internal constructor(private val clientOptions: Cli
         LegalEntityService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LegalEntityService.WithRawResponse =
+            LegalEntityServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<LegalEntity> =
             jsonHandler<LegalEntity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

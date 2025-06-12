@@ -39,6 +39,9 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
 
     override fun withRawResponse(): TransactionService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): TransactionService =
+        TransactionServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun lineItems(): LineItemService = lineItems
 
     override fun create(
@@ -82,6 +85,13 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
         private val lineItems: LineItemService.WithRawResponse by lazy {
             LineItemServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): TransactionService.WithRawResponse =
+            TransactionServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         override fun lineItems(): LineItemService.WithRawResponse = lineItems
 

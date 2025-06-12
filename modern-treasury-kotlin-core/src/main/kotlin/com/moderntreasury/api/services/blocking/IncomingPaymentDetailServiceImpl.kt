@@ -33,6 +33,11 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
 
     override fun withRawResponse(): IncomingPaymentDetailService.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): IncomingPaymentDetailService =
+        IncomingPaymentDetailServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(
         params: IncomingPaymentDetailRetrieveParams,
         requestOptions: RequestOptions,
@@ -65,6 +70,13 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
         IncomingPaymentDetailService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): IncomingPaymentDetailService.WithRawResponse =
+            IncomingPaymentDetailServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<IncomingPaymentDetail> =
             jsonHandler<IncomingPaymentDetail>(clientOptions.jsonMapper)

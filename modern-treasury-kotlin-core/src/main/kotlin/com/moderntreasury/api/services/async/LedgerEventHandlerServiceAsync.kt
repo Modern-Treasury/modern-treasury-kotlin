@@ -2,6 +2,8 @@
 
 package com.moderntreasury.api.services.async
 
+import com.moderntreasury.api.core.ClientOptions
+
 interface LedgerEventHandlerServiceAsync {
 
     /**
@@ -10,8 +12,25 @@ interface LedgerEventHandlerServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerEventHandlerServiceAsync
+
+    /**
      * A view of [LedgerEventHandlerServiceAsync] that provides access to raw HTTP responses for
      * each method.
      */
-    interface WithRawResponse
+    interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LedgerEventHandlerServiceAsync.WithRawResponse
+    }
 }

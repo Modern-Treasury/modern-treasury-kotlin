@@ -13,6 +13,17 @@ class LedgerEventHandlerServiceImpl internal constructor(private val clientOptio
 
     override fun withRawResponse(): LedgerEventHandlerService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerEventHandlerService =
+        LedgerEventHandlerServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        LedgerEventHandlerService.WithRawResponse
+        LedgerEventHandlerService.WithRawResponse {
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LedgerEventHandlerService.WithRawResponse =
+            LedgerEventHandlerServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+    }
 }

@@ -13,6 +13,19 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerEventHand
 
     override fun withRawResponse(): LedgerEventHandlerServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): LedgerEventHandlerServiceAsync =
+        LedgerEventHandlerServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        LedgerEventHandlerServiceAsync.WithRawResponse
+        LedgerEventHandlerServiceAsync.WithRawResponse {
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LedgerEventHandlerServiceAsync.WithRawResponse =
+            LedgerEventHandlerServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+    }
 }

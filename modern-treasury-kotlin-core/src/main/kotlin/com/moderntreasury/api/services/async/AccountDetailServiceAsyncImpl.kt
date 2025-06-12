@@ -34,6 +34,9 @@ class AccountDetailServiceAsyncImpl internal constructor(private val clientOptio
 
     override fun withRawResponse(): AccountDetailServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AccountDetailServiceAsync =
+        AccountDetailServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: AccountDetailCreateParams,
         requestOptions: RequestOptions,
@@ -64,6 +67,13 @@ class AccountDetailServiceAsyncImpl internal constructor(private val clientOptio
         AccountDetailServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AccountDetailServiceAsync.WithRawResponse =
+            AccountDetailServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<AccountDetail> =
             jsonHandler<AccountDetail>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

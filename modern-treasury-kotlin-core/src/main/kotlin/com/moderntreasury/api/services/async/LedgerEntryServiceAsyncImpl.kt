@@ -31,6 +31,9 @@ class LedgerEntryServiceAsyncImpl internal constructor(private val clientOptions
 
     override fun withRawResponse(): LedgerEntryServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerEntryServiceAsync =
+        LedgerEntryServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun retrieve(
         params: LedgerEntryRetrieveParams,
         requestOptions: RequestOptions,
@@ -56,6 +59,13 @@ class LedgerEntryServiceAsyncImpl internal constructor(private val clientOptions
         LedgerEntryServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LedgerEntryServiceAsync.WithRawResponse =
+            LedgerEntryServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<LedgerEntry> =
             jsonHandler<LedgerEntry>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

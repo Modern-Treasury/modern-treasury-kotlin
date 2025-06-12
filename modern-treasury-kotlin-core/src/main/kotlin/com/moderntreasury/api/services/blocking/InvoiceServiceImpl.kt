@@ -39,6 +39,9 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
 
     override fun withRawResponse(): InvoiceService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): InvoiceService =
+        InvoiceServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun lineItems(): LineItemService = lineItems
 
     override fun create(params: InvoiceCreateParams, requestOptions: RequestOptions): Invoice =
@@ -73,6 +76,13 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
         private val lineItems: LineItemService.WithRawResponse by lazy {
             LineItemServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InvoiceService.WithRawResponse =
+            InvoiceServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         override fun lineItems(): LineItemService.WithRawResponse = lineItems
 

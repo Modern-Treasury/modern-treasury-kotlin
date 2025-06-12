@@ -35,6 +35,13 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun withRawResponse(): LedgerAccountBalanceMonitorServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): LedgerAccountBalanceMonitorServiceAsync =
+        LedgerAccountBalanceMonitorServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier).build()
+        )
+
     override suspend fun create(
         params: LedgerAccountBalanceMonitorCreateParams,
         requestOptions: RequestOptions,
@@ -74,6 +81,13 @@ internal constructor(private val clientOptions: ClientOptions) :
         LedgerAccountBalanceMonitorServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LedgerAccountBalanceMonitorServiceAsync.WithRawResponse =
+            LedgerAccountBalanceMonitorServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<LedgerAccountBalanceMonitor> =
             jsonHandler<LedgerAccountBalanceMonitor>(clientOptions.jsonMapper)

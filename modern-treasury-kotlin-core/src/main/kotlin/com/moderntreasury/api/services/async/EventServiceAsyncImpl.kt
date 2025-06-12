@@ -29,6 +29,9 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
 
     override fun withRawResponse(): EventServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EventServiceAsync =
+        EventServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun retrieve(
         params: EventRetrieveParams,
         requestOptions: RequestOptions,
@@ -47,6 +50,13 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
         EventServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): EventServiceAsync.WithRawResponse =
+            EventServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<Event> =
             jsonHandler<Event>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

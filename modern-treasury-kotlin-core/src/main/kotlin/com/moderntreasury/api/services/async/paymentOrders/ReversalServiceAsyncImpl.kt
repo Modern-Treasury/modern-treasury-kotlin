@@ -31,6 +31,9 @@ class ReversalServiceAsyncImpl internal constructor(private val clientOptions: C
 
     override fun withRawResponse(): ReversalServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ReversalServiceAsync =
+        ReversalServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: PaymentOrderReversalCreateParams,
         requestOptions: RequestOptions,
@@ -56,6 +59,13 @@ class ReversalServiceAsyncImpl internal constructor(private val clientOptions: C
         ReversalServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ReversalServiceAsync.WithRawResponse =
+            ReversalServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<Reversal> =
             jsonHandler<Reversal>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

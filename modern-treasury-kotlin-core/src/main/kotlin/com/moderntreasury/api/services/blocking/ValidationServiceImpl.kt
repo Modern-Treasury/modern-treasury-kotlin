@@ -26,6 +26,9 @@ class ValidationServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun withRawResponse(): ValidationService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ValidationService =
+        ValidationServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun validateRoutingNumber(
         params: ValidationValidateRoutingNumberParams,
         requestOptions: RequestOptions,
@@ -37,6 +40,13 @@ class ValidationServiceImpl internal constructor(private val clientOptions: Clie
         ValidationService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ValidationService.WithRawResponse =
+            ValidationServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val validateRoutingNumberHandler: Handler<RoutingNumberLookupRequest> =
             jsonHandler<RoutingNumberLookupRequest>(clientOptions.jsonMapper)

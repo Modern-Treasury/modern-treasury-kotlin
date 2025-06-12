@@ -26,6 +26,9 @@ class ValidationServiceAsyncImpl internal constructor(private val clientOptions:
 
     override fun withRawResponse(): ValidationServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ValidationServiceAsync =
+        ValidationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun validateRoutingNumber(
         params: ValidationValidateRoutingNumberParams,
         requestOptions: RequestOptions,
@@ -37,6 +40,13 @@ class ValidationServiceAsyncImpl internal constructor(private val clientOptions:
         ValidationServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ValidationServiceAsync.WithRawResponse =
+            ValidationServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val validateRoutingNumberHandler: Handler<RoutingNumberLookupRequest> =
             jsonHandler<RoutingNumberLookupRequest>(clientOptions.jsonMapper)
