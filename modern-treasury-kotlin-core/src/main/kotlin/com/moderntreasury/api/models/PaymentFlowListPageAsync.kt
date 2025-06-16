@@ -22,10 +22,13 @@ private constructor(
 
     fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
 
-    override fun hasNextPage(): Boolean = items().isNotEmpty()
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && afterCursor() != null
 
-    fun nextPageParams(): PaymentFlowListParams =
-        throw IllegalStateException("Cannot construct next page params")
+    fun nextPageParams(): PaymentFlowListParams {
+        val nextCursor =
+            afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().afterCursor(nextCursor).build()
+    }
 
     override suspend fun nextPage(): PaymentFlowListPageAsync = service.list(nextPageParams())
 
