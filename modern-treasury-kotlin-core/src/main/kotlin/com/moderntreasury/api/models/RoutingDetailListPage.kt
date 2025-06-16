@@ -22,10 +22,13 @@ private constructor(
 
     fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
 
-    override fun hasNextPage(): Boolean = items().isNotEmpty()
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && afterCursor() != null
 
-    fun nextPageParams(): RoutingDetailListParams =
-        throw IllegalStateException("Cannot construct next page params")
+    fun nextPageParams(): RoutingDetailListParams {
+        val nextCursor =
+            afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().afterCursor(nextCursor).build()
+    }
 
     override fun nextPage(): RoutingDetailListPage = service.list(nextPageParams())
 
