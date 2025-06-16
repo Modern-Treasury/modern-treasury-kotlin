@@ -1,5 +1,22 @@
 # Changelog
 
+## 7.3.0 (2025-06-16)
+
+Full Changelog: [v7.2.0...v7.3.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.2.0...v7.3.0)
+
+### Features
+
+* **api:** api update ([87b454b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/87b454b73aa4c96a99be341a9f441346820b68a5))
+* **api:** api update ([cbf9b6d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/cbf9b6d39a5f5310ffdbc984ebf8659ef7ca8c32))
+* **client:** add a `withOptions` method ([2bfa668](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2bfa6687059fa14152f288baa8b8bbdaf6e2d7ef))
+* **client:** implement per-endpoint base URL support ([c9c48b0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c9c48b07d050f1ba65654386ee2abbb72e517be8))
+
+
+### Bug Fixes
+
+* **client:** header pagination bug ([d08f4d2](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d08f4d274873b8a0284fa006254986f42efadb82))
+* **tests:** fix test value ([1cbd5a3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1cbd5a3a094b65162713da5b1ed4251289e2816c))
+
 ## 7.2.0 (2025-05-27)
 
 Full Changelog: [v7.1.0...v7.2.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.1.0...v7.2.0)
