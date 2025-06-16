@@ -18,9 +18,9 @@ private constructor(
     private val items: List<LedgerAccountCategory>,
 ) : PageAsync<LedgerAccountCategory> {
 
-    fun perPage(): String? = headers.values("per_page").firstOrNull()
+    fun perPage(): String? = headers.values("X-Per-Page").firstOrNull()
 
-    fun afterCursor(): String? = headers.values("after_cursor").firstOrNull()
+    fun afterCursor(): String? = headers.values("X-After-Cursor").firstOrNull()
 
     override fun hasNextPage(): Boolean = items().isNotEmpty() && afterCursor() != null
 
