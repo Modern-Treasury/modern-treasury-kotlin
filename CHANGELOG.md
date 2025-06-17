@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.3.2 (2025-06-17)
+
+Full Changelog: [v7.3.1...v7.3.2](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.3.1...v7.3.2)
+
+### Chores
+
+* **ci:** enable for pull requests ([ac05bd7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ac05bd7c72cb951ad5293062d4bea485ada4ba42))
+
 ## 7.3.1 (2025-06-16)
 
 Full Changelog: [v7.3.0...v7.3.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.3.0...v7.3.1)
