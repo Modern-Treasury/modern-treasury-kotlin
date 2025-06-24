@@ -306,9 +306,9 @@ private constructor(
     fun amount(): Long = amount.getRequired("amount")
 
     /**
-     * The party that will pay the fees for the payment order. Only applies to wire payment orders.
-     * Can be one of shared, sender, or receiver, which correspond respectively with the SWIFT 71A
-     * values `SHA`, `OUR`, `BEN`.
+     * The party that will pay the fees for the payment order. See
+     * https://docs.moderntreasury.com/payments/docs/charge-bearer to understand the differences
+     * between the options.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -1362,9 +1362,9 @@ private constructor(
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
-         * The party that will pay the fees for the payment order. Only applies to wire payment
-         * orders. Can be one of shared, sender, or receiver, which correspond respectively with the
-         * SWIFT 71A values `SHA`, `OUR`, `BEN`.
+         * The party that will pay the fees for the payment order. See
+         * https://docs.moderntreasury.com/payments/docs/charge-bearer to understand the differences
+         * between the options.
          */
         fun chargeBearer(chargeBearer: ChargeBearer?) =
             chargeBearer(JsonField.ofNullable(chargeBearer))
@@ -2517,9 +2517,9 @@ private constructor(
     }
 
     /**
-     * The party that will pay the fees for the payment order. Only applies to wire payment orders.
-     * Can be one of shared, sender, or receiver, which correspond respectively with the SWIFT 71A
-     * values `SHA`, `OUR`, `BEN`.
+     * The party that will pay the fees for the payment order. See
+     * https://docs.moderntreasury.com/payments/docs/charge-bearer to understand the differences
+     * between the options.
      */
     class ChargeBearer @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {

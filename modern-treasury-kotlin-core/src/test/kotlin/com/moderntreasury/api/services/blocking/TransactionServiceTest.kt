@@ -42,6 +42,7 @@ internal class TransactionServiceTest {
                     )
                     .posted(true)
                     .type(TransactionCreateParams.Type.ACH)
+                    .vendorCustomerId("vendor_customer_id")
                     .vendorDescription("vendor_description")
                     .build()
             )

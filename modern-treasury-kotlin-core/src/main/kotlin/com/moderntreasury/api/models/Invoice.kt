@@ -37,6 +37,7 @@ private constructor(
     private val fallbackPaymentMethod: JsonField<String>,
     private val hostedUrl: JsonField<String>,
     private val invoicerAddress: JsonField<InvoicerAddress>,
+    private val invoicerName: JsonField<String>,
     private val ledgerAccountSettlementId: JsonField<String>,
     private val liveMode: JsonField<Boolean>,
     private val metadata: JsonField<Metadata>,
@@ -101,6 +102,9 @@ private constructor(
         @JsonProperty("invoicer_address")
         @ExcludeMissing
         invoicerAddress: JsonField<InvoicerAddress> = JsonMissing.of(),
+        @JsonProperty("invoicer_name")
+        @ExcludeMissing
+        invoicerName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("ledger_account_settlement_id")
         @ExcludeMissing
         ledgerAccountSettlementId: JsonField<String> = JsonMissing.of(),
@@ -171,6 +175,7 @@ private constructor(
         fallbackPaymentMethod,
         hostedUrl,
         invoicerAddress,
+        invoicerName,
         ledgerAccountSettlementId,
         liveMode,
         metadata,
@@ -318,6 +323,14 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun invoicerAddress(): InvoicerAddress? = invoicerAddress.getNullable("invoicer_address")
+
+    /**
+     * The name of the issuer for the invoice. Defaults to the name of the Organization.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun invoicerName(): String? = invoicerName.getNullable("invoicer_name")
 
     /**
      * The ledger account settlement object linked to the invoice.
@@ -637,6 +650,15 @@ private constructor(
     fun _invoicerAddress(): JsonField<InvoicerAddress> = invoicerAddress
 
     /**
+     * Returns the raw JSON value of [invoicerName].
+     *
+     * Unlike [invoicerName], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("invoicer_name")
+    @ExcludeMissing
+    fun _invoicerName(): JsonField<String> = invoicerName
+
+    /**
      * Returns the raw JSON value of [ledgerAccountSettlementId].
      *
      * Unlike [ledgerAccountSettlementId], this method doesn't throw if the JSON field has an
@@ -863,6 +885,7 @@ private constructor(
          * .fallbackPaymentMethod()
          * .hostedUrl()
          * .invoicerAddress()
+         * .invoicerName()
          * .ledgerAccountSettlementId()
          * .liveMode()
          * .metadata()
@@ -908,6 +931,7 @@ private constructor(
         private var fallbackPaymentMethod: JsonField<String>? = null
         private var hostedUrl: JsonField<String>? = null
         private var invoicerAddress: JsonField<InvoicerAddress>? = null
+        private var invoicerName: JsonField<String>? = null
         private var ledgerAccountSettlementId: JsonField<String>? = null
         private var liveMode: JsonField<Boolean>? = null
         private var metadata: JsonField<Metadata>? = null
@@ -948,6 +972,7 @@ private constructor(
             fallbackPaymentMethod = invoice.fallbackPaymentMethod
             hostedUrl = invoice.hostedUrl
             invoicerAddress = invoice.invoicerAddress
+            invoicerName = invoice.invoicerName
             ledgerAccountSettlementId = invoice.ledgerAccountSettlementId
             liveMode = invoice.liveMode
             metadata = invoice.metadata
@@ -1203,6 +1228,20 @@ private constructor(
          */
         fun invoicerAddress(invoicerAddress: JsonField<InvoicerAddress>) = apply {
             this.invoicerAddress = invoicerAddress
+        }
+
+        /** The name of the issuer for the invoice. Defaults to the name of the Organization. */
+        fun invoicerName(invoicerName: String?) = invoicerName(JsonField.ofNullable(invoicerName))
+
+        /**
+         * Sets [Builder.invoicerName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.invoicerName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun invoicerName(invoicerName: JsonField<String>) = apply {
+            this.invoicerName = invoicerName
         }
 
         /** The ledger account settlement object linked to the invoice. */
@@ -1626,6 +1665,7 @@ private constructor(
          * .fallbackPaymentMethod()
          * .hostedUrl()
          * .invoicerAddress()
+         * .invoicerName()
          * .ledgerAccountSettlementId()
          * .liveMode()
          * .metadata()
@@ -1669,6 +1709,7 @@ private constructor(
                 checkRequired("fallbackPaymentMethod", fallbackPaymentMethod),
                 checkRequired("hostedUrl", hostedUrl),
                 checkRequired("invoicerAddress", invoicerAddress),
+                checkRequired("invoicerName", invoicerName),
                 checkRequired("ledgerAccountSettlementId", ledgerAccountSettlementId),
                 checkRequired("liveMode", liveMode),
                 checkRequired("metadata", metadata),
@@ -1723,6 +1764,7 @@ private constructor(
         fallbackPaymentMethod()
         hostedUrl()
         invoicerAddress()?.validate()
+        invoicerName()
         ledgerAccountSettlementId()
         liveMode()
         metadata()?.validate()
@@ -1777,6 +1819,7 @@ private constructor(
             (if (fallbackPaymentMethod.asKnown() == null) 0 else 1) +
             (if (hostedUrl.asKnown() == null) 0 else 1) +
             (invoicerAddress.asKnown()?.validity() ?: 0) +
+            (if (invoicerName.asKnown() == null) 0 else 1) +
             (if (ledgerAccountSettlementId.asKnown() == null) 0 else 1) +
             (if (liveMode.asKnown() == null) 0 else 1) +
             (metadata.asKnown()?.validity() ?: 0) +
@@ -3922,15 +3965,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Invoice && id == other.id && amountPaid == other.amountPaid && amountRemaining == other.amountRemaining && contactDetails == other.contactDetails && counterpartyBillingAddress == other.counterpartyBillingAddress && counterpartyId == other.counterpartyId && counterpartyShippingAddress == other.counterpartyShippingAddress && createdAt == other.createdAt && currency == other.currency && description == other.description && dueDate == other.dueDate && expectedPayments == other.expectedPayments && fallbackPaymentMethod == other.fallbackPaymentMethod && hostedUrl == other.hostedUrl && invoicerAddress == other.invoicerAddress && ledgerAccountSettlementId == other.ledgerAccountSettlementId && liveMode == other.liveMode && metadata == other.metadata && notificationEmailAddresses == other.notificationEmailAddresses && notificationsEnabled == other.notificationsEnabled && number == other.number && object_ == other.object_ && originatingAccountId == other.originatingAccountId && paymentEffectiveDate == other.paymentEffectiveDate && paymentMethod == other.paymentMethod && paymentOrders == other.paymentOrders && paymentType == other.paymentType && pdfUrl == other.pdfUrl && receivingAccountId == other.receivingAccountId && recipientEmail == other.recipientEmail && recipientName == other.recipientName && remindAfterOverdueDays == other.remindAfterOverdueDays && status == other.status && totalAmount == other.totalAmount && transactionLineItemIds == other.transactionLineItemIds && updatedAt == other.updatedAt && virtualAccountId == other.virtualAccountId && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Invoice && id == other.id && amountPaid == other.amountPaid && amountRemaining == other.amountRemaining && contactDetails == other.contactDetails && counterpartyBillingAddress == other.counterpartyBillingAddress && counterpartyId == other.counterpartyId && counterpartyShippingAddress == other.counterpartyShippingAddress && createdAt == other.createdAt && currency == other.currency && description == other.description && dueDate == other.dueDate && expectedPayments == other.expectedPayments && fallbackPaymentMethod == other.fallbackPaymentMethod && hostedUrl == other.hostedUrl && invoicerAddress == other.invoicerAddress && invoicerName == other.invoicerName && ledgerAccountSettlementId == other.ledgerAccountSettlementId && liveMode == other.liveMode && metadata == other.metadata && notificationEmailAddresses == other.notificationEmailAddresses && notificationsEnabled == other.notificationsEnabled && number == other.number && object_ == other.object_ && originatingAccountId == other.originatingAccountId && paymentEffectiveDate == other.paymentEffectiveDate && paymentMethod == other.paymentMethod && paymentOrders == other.paymentOrders && paymentType == other.paymentType && pdfUrl == other.pdfUrl && receivingAccountId == other.receivingAccountId && recipientEmail == other.recipientEmail && recipientName == other.recipientName && remindAfterOverdueDays == other.remindAfterOverdueDays && status == other.status && totalAmount == other.totalAmount && transactionLineItemIds == other.transactionLineItemIds && updatedAt == other.updatedAt && virtualAccountId == other.virtualAccountId && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, amountPaid, amountRemaining, contactDetails, counterpartyBillingAddress, counterpartyId, counterpartyShippingAddress, createdAt, currency, description, dueDate, expectedPayments, fallbackPaymentMethod, hostedUrl, invoicerAddress, ledgerAccountSettlementId, liveMode, metadata, notificationEmailAddresses, notificationsEnabled, number, object_, originatingAccountId, paymentEffectiveDate, paymentMethod, paymentOrders, paymentType, pdfUrl, receivingAccountId, recipientEmail, recipientName, remindAfterOverdueDays, status, totalAmount, transactionLineItemIds, updatedAt, virtualAccountId, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, amountPaid, amountRemaining, contactDetails, counterpartyBillingAddress, counterpartyId, counterpartyShippingAddress, createdAt, currency, description, dueDate, expectedPayments, fallbackPaymentMethod, hostedUrl, invoicerAddress, invoicerName, ledgerAccountSettlementId, liveMode, metadata, notificationEmailAddresses, notificationsEnabled, number, object_, originatingAccountId, paymentEffectiveDate, paymentMethod, paymentOrders, paymentType, pdfUrl, receivingAccountId, recipientEmail, recipientName, remindAfterOverdueDays, status, totalAmount, transactionLineItemIds, updatedAt, virtualAccountId, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Invoice{id=$id, amountPaid=$amountPaid, amountRemaining=$amountRemaining, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, createdAt=$createdAt, currency=$currency, description=$description, dueDate=$dueDate, expectedPayments=$expectedPayments, fallbackPaymentMethod=$fallbackPaymentMethod, hostedUrl=$hostedUrl, invoicerAddress=$invoicerAddress, ledgerAccountSettlementId=$ledgerAccountSettlementId, liveMode=$liveMode, metadata=$metadata, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, number=$number, object_=$object_, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentOrders=$paymentOrders, paymentType=$paymentType, pdfUrl=$pdfUrl, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, status=$status, totalAmount=$totalAmount, transactionLineItemIds=$transactionLineItemIds, updatedAt=$updatedAt, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
+        "Invoice{id=$id, amountPaid=$amountPaid, amountRemaining=$amountRemaining, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, createdAt=$createdAt, currency=$currency, description=$description, dueDate=$dueDate, expectedPayments=$expectedPayments, fallbackPaymentMethod=$fallbackPaymentMethod, hostedUrl=$hostedUrl, invoicerAddress=$invoicerAddress, invoicerName=$invoicerName, ledgerAccountSettlementId=$ledgerAccountSettlementId, liveMode=$liveMode, metadata=$metadata, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, number=$number, object_=$object_, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentOrders=$paymentOrders, paymentType=$paymentType, pdfUrl=$pdfUrl, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, status=$status, totalAmount=$totalAmount, transactionLineItemIds=$transactionLineItemIds, updatedAt=$updatedAt, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
 }
