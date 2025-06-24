@@ -7,6 +7,8 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.InternalAccountCreateParams
 import com.moderntreasury.api.models.InternalAccountUpdateParams
+import com.moderntreasury.api.models.TransactionDirection
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -30,6 +32,21 @@ internal class InternalAccountServiceTest {
                     .currency(InternalAccountCreateParams.Currency.USD)
                     .name("name")
                     .partyName("party_name")
+                    .addAccountCapability(
+                        InternalAccountCreateParams.AccountCapability.builder()
+                            .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .direction(TransactionDirection.CREDIT)
+                            .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .identifier("identifier")
+                            .liveMode(true)
+                            .object_("object")
+                            .paymentType(
+                                InternalAccountCreateParams.AccountCapability.PaymentType.ACH
+                            )
+                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
                     .accountType(InternalAccountCreateParams.AccountType.CHECKING)
                     .counterpartyId("counterparty_id")
                     .legalEntityId("legal_entity_id")

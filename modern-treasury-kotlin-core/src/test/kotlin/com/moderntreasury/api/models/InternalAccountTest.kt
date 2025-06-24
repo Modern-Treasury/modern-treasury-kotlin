@@ -16,6 +16,19 @@ internal class InternalAccountTest {
         val internalAccount =
             InternalAccount.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .addAccountCapability(
+                    InternalAccount.AccountCapability.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .direction(TransactionDirection.CREDIT)
+                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .identifier("identifier")
+                        .liveMode(true)
+                        .object_("object")
+                        .paymentType(InternalAccount.AccountCapability.PaymentType.ACH)
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
                 .addAccountDetail(
                     AccountDetail.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -109,6 +122,20 @@ internal class InternalAccountTest {
                 .build()
 
         assertThat(internalAccount.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(internalAccount.accountCapabilities())
+            .containsExactly(
+                InternalAccount.AccountCapability.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .direction(TransactionDirection.CREDIT)
+                    .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .identifier("identifier")
+                    .liveMode(true)
+                    .object_("object")
+                    .paymentType(InternalAccount.AccountCapability.PaymentType.ACH)
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
         assertThat(internalAccount.accountDetails())
             .containsExactly(
                 AccountDetail.builder()
@@ -218,6 +245,19 @@ internal class InternalAccountTest {
         val internalAccount =
             InternalAccount.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .addAccountCapability(
+                    InternalAccount.AccountCapability.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .direction(TransactionDirection.CREDIT)
+                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .identifier("identifier")
+                        .liveMode(true)
+                        .object_("object")
+                        .paymentType(InternalAccount.AccountCapability.PaymentType.ACH)
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
                 .addAccountDetail(
                     AccountDetail.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
