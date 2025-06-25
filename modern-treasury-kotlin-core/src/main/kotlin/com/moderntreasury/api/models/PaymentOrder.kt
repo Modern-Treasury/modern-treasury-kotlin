@@ -4195,6 +4195,10 @@ private constructor(
 
                 val GOLDMAN_SACHS_UNIQUE_PAYMENT_ID = of("goldman_sachs_unique_payment_id")
 
+                val HIFI_OFFRAMP_ID = of("hifi_offramp_id")
+
+                val HIFI_TRANSFER_ID = of("hifi_transfer_id")
+
                 val INTERAC_MESSAGE_ID = of("interac_message_id")
 
                 val JPMC_CCN = of("jpmc_ccn")
@@ -4325,6 +4329,8 @@ private constructor(
                 GOLDMAN_SACHS_PAYMENT_REQUEST_ID,
                 GOLDMAN_SACHS_REQUEST_ID,
                 GOLDMAN_SACHS_UNIQUE_PAYMENT_ID,
+                HIFI_OFFRAMP_ID,
+                HIFI_TRANSFER_ID,
                 INTERAC_MESSAGE_ID,
                 JPMC_CCN,
                 JPMC_CLEARING_SYSTEM_REFERENCE,
@@ -4418,6 +4424,8 @@ private constructor(
                 GOLDMAN_SACHS_PAYMENT_REQUEST_ID,
                 GOLDMAN_SACHS_REQUEST_ID,
                 GOLDMAN_SACHS_UNIQUE_PAYMENT_ID,
+                HIFI_OFFRAMP_ID,
+                HIFI_TRANSFER_ID,
                 INTERAC_MESSAGE_ID,
                 JPMC_CCN,
                 JPMC_CLEARING_SYSTEM_REFERENCE,
@@ -4514,6 +4522,8 @@ private constructor(
                     GOLDMAN_SACHS_PAYMENT_REQUEST_ID -> Value.GOLDMAN_SACHS_PAYMENT_REQUEST_ID
                     GOLDMAN_SACHS_REQUEST_ID -> Value.GOLDMAN_SACHS_REQUEST_ID
                     GOLDMAN_SACHS_UNIQUE_PAYMENT_ID -> Value.GOLDMAN_SACHS_UNIQUE_PAYMENT_ID
+                    HIFI_OFFRAMP_ID -> Value.HIFI_OFFRAMP_ID
+                    HIFI_TRANSFER_ID -> Value.HIFI_TRANSFER_ID
                     INTERAC_MESSAGE_ID -> Value.INTERAC_MESSAGE_ID
                     JPMC_CCN -> Value.JPMC_CCN
                     JPMC_CLEARING_SYSTEM_REFERENCE -> Value.JPMC_CLEARING_SYSTEM_REFERENCE
@@ -4611,6 +4621,8 @@ private constructor(
                     GOLDMAN_SACHS_PAYMENT_REQUEST_ID -> Known.GOLDMAN_SACHS_PAYMENT_REQUEST_ID
                     GOLDMAN_SACHS_REQUEST_ID -> Known.GOLDMAN_SACHS_REQUEST_ID
                     GOLDMAN_SACHS_UNIQUE_PAYMENT_ID -> Known.GOLDMAN_SACHS_UNIQUE_PAYMENT_ID
+                    HIFI_OFFRAMP_ID -> Known.HIFI_OFFRAMP_ID
+                    HIFI_TRANSFER_ID -> Known.HIFI_TRANSFER_ID
                     INTERAC_MESSAGE_ID -> Known.INTERAC_MESSAGE_ID
                     JPMC_CCN -> Known.JPMC_CCN
                     JPMC_CLEARING_SYSTEM_REFERENCE -> Known.JPMC_CLEARING_SYSTEM_REFERENCE
