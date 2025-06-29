@@ -27,6 +27,7 @@ internal class TransactionCreateParamsTest {
             )
             .posted(true)
             .type(TransactionCreateParams.Type.ACH)
+            .vendorCustomerId("vendor_customer_id")
             .vendorDescription("vendor_description")
             .build()
     }
@@ -50,6 +51,7 @@ internal class TransactionCreateParamsTest {
                 )
                 .posted(true)
                 .type(TransactionCreateParams.Type.ACH)
+                .vendorCustomerId("vendor_customer_id")
                 .vendorDescription("vendor_description")
                 .build()
 
@@ -71,6 +73,7 @@ internal class TransactionCreateParamsTest {
             )
         assertThat(body.posted()).isEqualTo(true)
         assertThat(body.type()).isEqualTo(TransactionCreateParams.Type.ACH)
+        assertThat(body.vendorCustomerId()).isEqualTo("vendor_customer_id")
         assertThat(body.vendorDescription()).isEqualTo("vendor_description")
     }
 
