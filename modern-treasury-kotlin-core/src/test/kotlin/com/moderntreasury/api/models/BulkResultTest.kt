@@ -39,6 +39,18 @@ internal class BulkResultTest {
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .amount(0L)
                                 .code(ReturnObject.Code._901)
+                                .corrections(
+                                    ReturnObject.Corrections.builder()
+                                        .accountNumber("account_number")
+                                        .companyId("company_id")
+                                        .companyName("company_name")
+                                        .individualIdentificationNumber(
+                                            "individual_identification_number"
+                                        )
+                                        .routingNumber("routing_number")
+                                        .transactionCode("transaction_code")
+                                        .build()
+                                )
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .currency(Currency.AED)
                                 .currentReturn(null)
@@ -265,6 +277,18 @@ internal class BulkResultTest {
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .amount(0L)
                                 .code(ReturnObject.Code._901)
+                                .corrections(
+                                    ReturnObject.Corrections.builder()
+                                        .accountNumber("account_number")
+                                        .companyId("company_id")
+                                        .companyName("company_name")
+                                        .individualIdentificationNumber(
+                                            "individual_identification_number"
+                                        )
+                                        .routingNumber("routing_number")
+                                        .transactionCode("transaction_code")
+                                        .build()
+                                )
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .currency(Currency.AED)
                                 .currentReturn(null)
@@ -496,6 +520,18 @@ internal class BulkResultTest {
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .amount(0L)
                                 .code(ReturnObject.Code._901)
+                                .corrections(
+                                    ReturnObject.Corrections.builder()
+                                        .accountNumber("account_number")
+                                        .companyId("company_id")
+                                        .companyName("company_name")
+                                        .individualIdentificationNumber(
+                                            "individual_identification_number"
+                                        )
+                                        .routingNumber("routing_number")
+                                        .transactionCode("transaction_code")
+                                        .build()
+                                )
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .currency(Currency.AED)
                                 .currentReturn(null)

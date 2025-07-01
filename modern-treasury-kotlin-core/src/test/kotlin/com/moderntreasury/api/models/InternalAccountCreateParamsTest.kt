@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -15,6 +16,19 @@ internal class InternalAccountCreateParamsTest {
             .currency(InternalAccountCreateParams.Currency.USD)
             .name("name")
             .partyName("party_name")
+            .addAccountCapability(
+                InternalAccountCreateParams.AccountCapability.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .direction(TransactionDirection.CREDIT)
+                    .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .identifier("identifier")
+                    .liveMode(true)
+                    .object_("object")
+                    .paymentType(InternalAccountCreateParams.AccountCapability.PaymentType.ACH)
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
             .accountType(InternalAccountCreateParams.AccountType.CHECKING)
             .counterpartyId("counterparty_id")
             .legalEntityId("legal_entity_id")
@@ -47,6 +61,19 @@ internal class InternalAccountCreateParamsTest {
                 .currency(InternalAccountCreateParams.Currency.USD)
                 .name("name")
                 .partyName("party_name")
+                .addAccountCapability(
+                    InternalAccountCreateParams.AccountCapability.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .direction(TransactionDirection.CREDIT)
+                        .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .identifier("identifier")
+                        .liveMode(true)
+                        .object_("object")
+                        .paymentType(InternalAccountCreateParams.AccountCapability.PaymentType.ACH)
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
                 .accountType(InternalAccountCreateParams.AccountType.CHECKING)
                 .counterpartyId("counterparty_id")
                 .legalEntityId("legal_entity_id")
@@ -76,6 +103,20 @@ internal class InternalAccountCreateParamsTest {
         assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.partyName()).isEqualTo("party_name")
+        assertThat(body.accountCapabilities())
+            .containsExactly(
+                InternalAccountCreateParams.AccountCapability.builder()
+                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .direction(TransactionDirection.CREDIT)
+                    .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .identifier("identifier")
+                    .liveMode(true)
+                    .object_("object")
+                    .paymentType(InternalAccountCreateParams.AccountCapability.PaymentType.ACH)
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
         assertThat(body.accountType()).isEqualTo(InternalAccountCreateParams.AccountType.CHECKING)
         assertThat(body.counterpartyId()).isEqualTo("counterparty_id")
         assertThat(body.legalEntityId()).isEqualTo("legal_entity_id")

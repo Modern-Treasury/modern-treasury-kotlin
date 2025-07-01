@@ -48,6 +48,7 @@ internal class LedgerAccountListParamsTest {
                     .build()
             )
             .addName("string")
+            .normalBalance(TransactionDirection.CREDIT)
             .pendingBalanceAmount(
                 LedgerAccountListParams.PendingBalanceAmount.builder()
                     .eq(0L)
@@ -116,6 +117,7 @@ internal class LedgerAccountListParamsTest {
                         .build()
                 )
                 .addName("string")
+                .normalBalance(TransactionDirection.CREDIT)
                 .pendingBalanceAmount(
                     LedgerAccountListParams.PendingBalanceAmount.builder()
                         .eq(0L)
@@ -168,6 +170,7 @@ internal class LedgerAccountListParamsTest {
                     .put("ledger_id", "ledger_id")
                     .put("metadata[foo]", "string")
                     .put("name[]", "string")
+                    .put("normal_balance", "credit")
                     .put("pending_balance_amount[eq]", "0")
                     .put("pending_balance_amount[gt]", "0")
                     .put("pending_balance_amount[gte]", "0")

@@ -121,6 +121,7 @@ internal class InvoiceTest {
                         .line2("line2")
                         .build()
                 )
+                .invoicerName("invoicer_name")
                 .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
                 .metadata(
@@ -158,6 +159,18 @@ internal class InvoiceTest {
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .amount(0L)
                                 .code(ReturnObject.Code._901)
+                                .corrections(
+                                    ReturnObject.Corrections.builder()
+                                        .accountNumber("account_number")
+                                        .companyId("company_id")
+                                        .companyName("company_name")
+                                        .individualIdentificationNumber(
+                                            "individual_identification_number"
+                                        )
+                                        .routingNumber("routing_number")
+                                        .transactionCode("transaction_code")
+                                        .build()
+                                )
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .currency(Currency.AED)
                                 .currentReturn(null)
@@ -466,6 +479,7 @@ internal class InvoiceTest {
                     .line2("line2")
                     .build()
             )
+        assertThat(invoice.invoicerName()).isEqualTo("invoicer_name")
         assertThat(invoice.ledgerAccountSettlementId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(invoice.liveMode()).isEqualTo(true)
@@ -506,6 +520,18 @@ internal class InvoiceTest {
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .amount(0L)
                             .code(ReturnObject.Code._901)
+                            .corrections(
+                                ReturnObject.Corrections.builder()
+                                    .accountNumber("account_number")
+                                    .companyId("company_id")
+                                    .companyName("company_name")
+                                    .individualIdentificationNumber(
+                                        "individual_identification_number"
+                                    )
+                                    .routingNumber("routing_number")
+                                    .transactionCode("transaction_code")
+                                    .build()
+                            )
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .currency(Currency.AED)
                             .currentReturn(null)
@@ -809,6 +835,7 @@ internal class InvoiceTest {
                         .line2("line2")
                         .build()
                 )
+                .invoicerName("invoicer_name")
                 .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
                 .metadata(
@@ -846,6 +873,18 @@ internal class InvoiceTest {
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .amount(0L)
                                 .code(ReturnObject.Code._901)
+                                .corrections(
+                                    ReturnObject.Corrections.builder()
+                                        .accountNumber("account_number")
+                                        .companyId("company_id")
+                                        .companyName("company_name")
+                                        .individualIdentificationNumber(
+                                            "individual_identification_number"
+                                        )
+                                        .routingNumber("routing_number")
+                                        .transactionCode("transaction_code")
+                                        .build()
+                                )
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .currency(Currency.AED)
                                 .currentReturn(null)
