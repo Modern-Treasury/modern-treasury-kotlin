@@ -6,6 +6,7 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.InternalAccountCreateParams
+import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityParams
 import com.moderntreasury.api.models.InternalAccountUpdateParams
 import com.moderntreasury.api.models.TransactionDirection
 import java.time.OffsetDateTime
@@ -131,5 +132,27 @@ internal class InternalAccountServiceTest {
         val page = internalAccountService.list()
 
         page.items().forEach { it.validate() }
+    }
+
+    @Test
+    fun updateAccountCapability() {
+        val client =
+            ModernTreasuryOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .organizationId("my-organization-ID")
+                .build()
+        val internalAccountService = client.internalAccounts()
+
+        val response =
+            internalAccountService.updateAccountCapability(
+                InternalAccountUpdateAccountCapabilityParams.builder()
+                    .internalAccountId("internal_account_id")
+                    .id("id")
+                    .identifier("identifier")
+                    .build()
+            )
+
+        response.validate()
     }
 }
