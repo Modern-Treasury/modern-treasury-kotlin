@@ -65,8 +65,6 @@ import com.moderntreasury.api.services.async.LedgerServiceAsync
 import com.moderntreasury.api.services.async.LedgerServiceAsyncImpl
 import com.moderntreasury.api.services.async.LedgerTransactionServiceAsync
 import com.moderntreasury.api.services.async.LedgerTransactionServiceAsyncImpl
-import com.moderntreasury.api.services.async.LedgerableEventServiceAsync
-import com.moderntreasury.api.services.async.LedgerableEventServiceAsyncImpl
 import com.moderntreasury.api.services.async.LegalEntityAssociationServiceAsync
 import com.moderntreasury.api.services.async.LegalEntityAssociationServiceAsyncImpl
 import com.moderntreasury.api.services.async.LegalEntityServiceAsync
@@ -162,10 +160,6 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
 
     private val ledgers: LedgerServiceAsync by lazy {
         LedgerServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
-    private val ledgerableEvents: LedgerableEventServiceAsync by lazy {
-        LedgerableEventServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     private val ledgerAccountCategories: LedgerAccountCategoryServiceAsync by lazy {
@@ -299,8 +293,6 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
 
     override fun ledgers(): LedgerServiceAsync = ledgers
 
-    override fun ledgerableEvents(): LedgerableEventServiceAsync = ledgerableEvents
-
     override fun ledgerAccountCategories(): LedgerAccountCategoryServiceAsync =
         ledgerAccountCategories
 
@@ -421,10 +413,6 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
 
         private val ledgers: LedgerServiceAsync.WithRawResponse by lazy {
             LedgerServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val ledgerableEvents: LedgerableEventServiceAsync.WithRawResponse by lazy {
-            LedgerableEventServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val ledgerAccountCategories:
@@ -567,9 +555,6 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
             internalAccounts
 
         override fun ledgers(): LedgerServiceAsync.WithRawResponse = ledgers
-
-        override fun ledgerableEvents(): LedgerableEventServiceAsync.WithRawResponse =
-            ledgerableEvents
 
         override fun ledgerAccountCategories(): LedgerAccountCategoryServiceAsync.WithRawResponse =
             ledgerAccountCategories
