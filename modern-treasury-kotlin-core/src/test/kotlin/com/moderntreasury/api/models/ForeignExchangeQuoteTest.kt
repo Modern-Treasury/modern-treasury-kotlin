@@ -21,7 +21,7 @@ internal class ForeignExchangeQuoteTest {
                 .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .foreignExchangeIndicator("foreign_exchange_indicator")
                 .foreignExchangeRate(
-                    ForeignExchangeQuote.ForeignExchangeRate.builder()
+                    ForeignExchangeRate.builder()
                         .baseAmount(0L)
                         .baseCurrency(Currency.AED)
                         .exponent(0L)
@@ -56,7 +56,7 @@ internal class ForeignExchangeQuoteTest {
             .isEqualTo("foreign_exchange_indicator")
         assertThat(foreignExchangeQuote.foreignExchangeRate())
             .isEqualTo(
-                ForeignExchangeQuote.ForeignExchangeRate.builder()
+                ForeignExchangeRate.builder()
                     .baseAmount(0L)
                     .baseCurrency(Currency.AED)
                     .exponent(0L)
@@ -94,7 +94,7 @@ internal class ForeignExchangeQuoteTest {
                 .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .foreignExchangeIndicator("foreign_exchange_indicator")
                 .foreignExchangeRate(
-                    ForeignExchangeQuote.ForeignExchangeRate.builder()
+                    ForeignExchangeRate.builder()
                         .baseAmount(0L)
                         .baseCurrency(Currency.AED)
                         .exponent(0L)

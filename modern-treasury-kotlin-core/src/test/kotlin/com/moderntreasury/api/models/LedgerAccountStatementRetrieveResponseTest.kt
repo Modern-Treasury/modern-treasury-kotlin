@@ -21,10 +21,9 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                 .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .endingBalance(
-                    LedgerAccountStatementRetrieveResponse.LedgerBalances.builder()
+                    LedgerBalances.builder()
                         .availableBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -33,8 +32,7 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                                 .build()
                         )
                         .pendingBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -43,8 +41,7 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                                 .build()
                         )
                         .postedBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -68,10 +65,9 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                 )
                 .object_("object")
                 .startingBalance(
-                    LedgerAccountStatementRetrieveResponse.LedgerBalances.builder()
+                    LedgerBalances.builder()
                         .availableBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -80,8 +76,7 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                                 .build()
                         )
                         .pendingBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -90,8 +85,7 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                                 .build()
                         )
                         .postedBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -115,10 +109,9 @@ internal class LedgerAccountStatementRetrieveResponseTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(ledgerAccountStatementRetrieveResponse.endingBalance())
             .isEqualTo(
-                LedgerAccountStatementRetrieveResponse.LedgerBalances.builder()
+                LedgerBalances.builder()
                     .availableBalance(
-                        LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                            .builder()
+                        LedgerBalance.builder()
                             .amount(0L)
                             .credits(0L)
                             .currency("currency")
@@ -127,8 +120,7 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                             .build()
                     )
                     .pendingBalance(
-                        LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                            .builder()
+                        LedgerBalance.builder()
                             .amount(0L)
                             .credits(0L)
                             .currency("currency")
@@ -137,8 +129,7 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                             .build()
                     )
                     .postedBalance(
-                        LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                            .builder()
+                        LedgerBalance.builder()
                             .amount(0L)
                             .credits(0L)
                             .currency("currency")
@@ -167,10 +158,9 @@ internal class LedgerAccountStatementRetrieveResponseTest {
         assertThat(ledgerAccountStatementRetrieveResponse.object_()).isEqualTo("object")
         assertThat(ledgerAccountStatementRetrieveResponse.startingBalance())
             .isEqualTo(
-                LedgerAccountStatementRetrieveResponse.LedgerBalances.builder()
+                LedgerBalances.builder()
                     .availableBalance(
-                        LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                            .builder()
+                        LedgerBalance.builder()
                             .amount(0L)
                             .credits(0L)
                             .currency("currency")
@@ -179,8 +169,7 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                             .build()
                     )
                     .pendingBalance(
-                        LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                            .builder()
+                        LedgerBalance.builder()
                             .amount(0L)
                             .credits(0L)
                             .currency("currency")
@@ -189,8 +178,7 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                             .build()
                     )
                     .postedBalance(
-                        LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                            .builder()
+                        LedgerBalance.builder()
                             .amount(0L)
                             .credits(0L)
                             .currency("currency")
@@ -215,10 +203,9 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                 .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .endingBalance(
-                    LedgerAccountStatementRetrieveResponse.LedgerBalances.builder()
+                    LedgerBalances.builder()
                         .availableBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -227,8 +214,7 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                                 .build()
                         )
                         .pendingBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -237,8 +223,7 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                                 .build()
                         )
                         .postedBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -262,10 +247,9 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                 )
                 .object_("object")
                 .startingBalance(
-                    LedgerAccountStatementRetrieveResponse.LedgerBalances.builder()
+                    LedgerBalances.builder()
                         .availableBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -274,8 +258,7 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                                 .build()
                         )
                         .pendingBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -284,8 +267,7 @@ internal class LedgerAccountStatementRetrieveResponseTest {
                                 .build()
                         )
                         .postedBalance(
-                            LedgerAccountStatementRetrieveResponse.LedgerBalances.LedgerBalance
-                                .builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")

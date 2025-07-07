@@ -22,8 +22,11 @@ import com.moderntreasury.api.errors.RateLimitException
 import com.moderntreasury.api.errors.UnauthorizedException
 import com.moderntreasury.api.errors.UnexpectedStatusCodeException
 import com.moderntreasury.api.errors.UnprocessableEntityException
+import com.moderntreasury.api.models.AddressRequest
+import com.moderntreasury.api.models.ContactDetailCreateRequest
 import com.moderntreasury.api.models.ExternalAccountCreateParams
 import com.moderntreasury.api.models.ExternalAccountType
+import com.moderntreasury.api.models.LedgerAccountCreateRequest
 import com.moderntreasury.api.models.TransactionDirection
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.entry
@@ -87,17 +90,15 @@ internal class ErrorHandlingTest {
                         )
                         .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
-                            ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                            ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
                                 .contactIdentifierType(
-                                    ExternalAccountCreateParams.ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                                 )
                                 .build()
                         )
                         .ledgerAccount(
-                            ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
+                            LedgerAccountCreateRequest.builder()
                                 .currency("currency")
                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
@@ -107,13 +108,10 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest
-                                        .LedgerableType
-                                        .COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
                                 )
                                 .metadata(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
-                                        .builder()
+                                    LedgerAccountCreateRequest.Metadata.builder()
                                         .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -130,7 +128,7 @@ internal class ErrorHandlingTest {
                         )
                         .name("name")
                         .partyAddress(
-                            ExternalAccountCreateParams.AddressRequest.builder()
+                            AddressRequest.builder()
                                 .country("country")
                                 .line1("line1")
                                 .line2("line2")
@@ -189,17 +187,15 @@ internal class ErrorHandlingTest {
                         )
                         .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
-                            ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                            ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
                                 .contactIdentifierType(
-                                    ExternalAccountCreateParams.ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                                 )
                                 .build()
                         )
                         .ledgerAccount(
-                            ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
+                            LedgerAccountCreateRequest.builder()
                                 .currency("currency")
                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
@@ -209,13 +205,10 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest
-                                        .LedgerableType
-                                        .COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
                                 )
                                 .metadata(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
-                                        .builder()
+                                    LedgerAccountCreateRequest.Metadata.builder()
                                         .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -232,7 +225,7 @@ internal class ErrorHandlingTest {
                         )
                         .name("name")
                         .partyAddress(
-                            ExternalAccountCreateParams.AddressRequest.builder()
+                            AddressRequest.builder()
                                 .country("country")
                                 .line1("line1")
                                 .line2("line2")
@@ -291,17 +284,15 @@ internal class ErrorHandlingTest {
                         )
                         .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
-                            ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                            ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
                                 .contactIdentifierType(
-                                    ExternalAccountCreateParams.ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                                 )
                                 .build()
                         )
                         .ledgerAccount(
-                            ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
+                            LedgerAccountCreateRequest.builder()
                                 .currency("currency")
                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
@@ -311,13 +302,10 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest
-                                        .LedgerableType
-                                        .COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
                                 )
                                 .metadata(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
-                                        .builder()
+                                    LedgerAccountCreateRequest.Metadata.builder()
                                         .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -334,7 +322,7 @@ internal class ErrorHandlingTest {
                         )
                         .name("name")
                         .partyAddress(
-                            ExternalAccountCreateParams.AddressRequest.builder()
+                            AddressRequest.builder()
                                 .country("country")
                                 .line1("line1")
                                 .line2("line2")
@@ -393,17 +381,15 @@ internal class ErrorHandlingTest {
                         )
                         .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
-                            ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                            ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
                                 .contactIdentifierType(
-                                    ExternalAccountCreateParams.ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                                 )
                                 .build()
                         )
                         .ledgerAccount(
-                            ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
+                            LedgerAccountCreateRequest.builder()
                                 .currency("currency")
                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
@@ -413,13 +399,10 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest
-                                        .LedgerableType
-                                        .COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
                                 )
                                 .metadata(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
-                                        .builder()
+                                    LedgerAccountCreateRequest.Metadata.builder()
                                         .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -436,7 +419,7 @@ internal class ErrorHandlingTest {
                         )
                         .name("name")
                         .partyAddress(
-                            ExternalAccountCreateParams.AddressRequest.builder()
+                            AddressRequest.builder()
                                 .country("country")
                                 .line1("line1")
                                 .line2("line2")
@@ -495,17 +478,15 @@ internal class ErrorHandlingTest {
                         )
                         .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
-                            ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                            ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
                                 .contactIdentifierType(
-                                    ExternalAccountCreateParams.ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                                 )
                                 .build()
                         )
                         .ledgerAccount(
-                            ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
+                            LedgerAccountCreateRequest.builder()
                                 .currency("currency")
                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
@@ -515,13 +496,10 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest
-                                        .LedgerableType
-                                        .COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
                                 )
                                 .metadata(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
-                                        .builder()
+                                    LedgerAccountCreateRequest.Metadata.builder()
                                         .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -538,7 +516,7 @@ internal class ErrorHandlingTest {
                         )
                         .name("name")
                         .partyAddress(
-                            ExternalAccountCreateParams.AddressRequest.builder()
+                            AddressRequest.builder()
                                 .country("country")
                                 .line1("line1")
                                 .line2("line2")
@@ -597,17 +575,15 @@ internal class ErrorHandlingTest {
                         )
                         .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
-                            ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                            ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
                                 .contactIdentifierType(
-                                    ExternalAccountCreateParams.ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                                 )
                                 .build()
                         )
                         .ledgerAccount(
-                            ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
+                            LedgerAccountCreateRequest.builder()
                                 .currency("currency")
                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
@@ -617,13 +593,10 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest
-                                        .LedgerableType
-                                        .COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
                                 )
                                 .metadata(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
-                                        .builder()
+                                    LedgerAccountCreateRequest.Metadata.builder()
                                         .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -640,7 +613,7 @@ internal class ErrorHandlingTest {
                         )
                         .name("name")
                         .partyAddress(
-                            ExternalAccountCreateParams.AddressRequest.builder()
+                            AddressRequest.builder()
                                 .country("country")
                                 .line1("line1")
                                 .line2("line2")
@@ -699,17 +672,15 @@ internal class ErrorHandlingTest {
                         )
                         .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
-                            ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                            ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
                                 .contactIdentifierType(
-                                    ExternalAccountCreateParams.ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                                 )
                                 .build()
                         )
                         .ledgerAccount(
-                            ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
+                            LedgerAccountCreateRequest.builder()
                                 .currency("currency")
                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
@@ -719,13 +690,10 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest
-                                        .LedgerableType
-                                        .COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
                                 )
                                 .metadata(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
-                                        .builder()
+                                    LedgerAccountCreateRequest.Metadata.builder()
                                         .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -742,7 +710,7 @@ internal class ErrorHandlingTest {
                         )
                         .name("name")
                         .partyAddress(
-                            ExternalAccountCreateParams.AddressRequest.builder()
+                            AddressRequest.builder()
                                 .country("country")
                                 .line1("line1")
                                 .line2("line2")
@@ -801,17 +769,15 @@ internal class ErrorHandlingTest {
                         )
                         .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
-                            ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                            ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
                                 .contactIdentifierType(
-                                    ExternalAccountCreateParams.ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                                 )
                                 .build()
                         )
                         .ledgerAccount(
-                            ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
+                            LedgerAccountCreateRequest.builder()
                                 .currency("currency")
                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
@@ -821,13 +787,10 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest
-                                        .LedgerableType
-                                        .COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
                                 )
                                 .metadata(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
-                                        .builder()
+                                    LedgerAccountCreateRequest.Metadata.builder()
                                         .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -844,7 +807,7 @@ internal class ErrorHandlingTest {
                         )
                         .name("name")
                         .partyAddress(
-                            ExternalAccountCreateParams.AddressRequest.builder()
+                            AddressRequest.builder()
                                 .country("country")
                                 .line1("line1")
                                 .line2("line2")
@@ -901,17 +864,15 @@ internal class ErrorHandlingTest {
                         )
                         .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
-                            ExternalAccountCreateParams.ContactDetailCreateRequest.builder()
+                            ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
                                 .contactIdentifierType(
-                                    ExternalAccountCreateParams.ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                                 )
                                 .build()
                         )
                         .ledgerAccount(
-                            ExternalAccountCreateParams.LedgerAccountCreateRequest.builder()
+                            LedgerAccountCreateRequest.builder()
                                 .currency("currency")
                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
@@ -921,13 +882,10 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest
-                                        .LedgerableType
-                                        .COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
                                 )
                                 .metadata(
-                                    ExternalAccountCreateParams.LedgerAccountCreateRequest.Metadata
-                                        .builder()
+                                    LedgerAccountCreateRequest.Metadata.builder()
                                         .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -944,7 +902,7 @@ internal class ErrorHandlingTest {
                         )
                         .name("name")
                         .partyAddress(
-                            ExternalAccountCreateParams.AddressRequest.builder()
+                            AddressRequest.builder()
                                 .country("country")
                                 .line1("line1")
                                 .line2("line2")

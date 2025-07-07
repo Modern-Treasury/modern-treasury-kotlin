@@ -27,14 +27,9 @@ internal class LedgerAccountBalanceMonitorTest {
                 .currentLedgerAccountBalanceState(
                     LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState.builder()
                         .balances(
-                            LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState
-                                .LedgerBalances
-                                .builder()
+                            LedgerBalances.builder()
                                 .availableBalance(
-                                    LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState
-                                        .LedgerBalances
-                                        .LedgerBalance
-                                        .builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -43,10 +38,7 @@ internal class LedgerAccountBalanceMonitorTest {
                                         .build()
                                 )
                                 .pendingBalance(
-                                    LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState
-                                        .LedgerBalances
-                                        .LedgerBalance
-                                        .builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -55,10 +47,7 @@ internal class LedgerAccountBalanceMonitorTest {
                                         .build()
                                 )
                                 .postedBalance(
-                                    LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState
-                                        .LedgerBalances
-                                        .LedgerBalance
-                                        .builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -103,13 +92,9 @@ internal class LedgerAccountBalanceMonitorTest {
             .isEqualTo(
                 LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState.builder()
                     .balances(
-                        LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState.LedgerBalances
-                            .builder()
+                        LedgerBalances.builder()
                             .availableBalance(
-                                LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState
-                                    .LedgerBalances
-                                    .LedgerBalance
-                                    .builder()
+                                LedgerBalance.builder()
                                     .amount(0L)
                                     .credits(0L)
                                     .currency("currency")
@@ -118,10 +103,7 @@ internal class LedgerAccountBalanceMonitorTest {
                                     .build()
                             )
                             .pendingBalance(
-                                LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState
-                                    .LedgerBalances
-                                    .LedgerBalance
-                                    .builder()
+                                LedgerBalance.builder()
                                     .amount(0L)
                                     .credits(0L)
                                     .currency("currency")
@@ -130,10 +112,7 @@ internal class LedgerAccountBalanceMonitorTest {
                                     .build()
                             )
                             .postedBalance(
-                                LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState
-                                    .LedgerBalances
-                                    .LedgerBalance
-                                    .builder()
+                                LedgerBalance.builder()
                                     .amount(0L)
                                     .credits(0L)
                                     .currency("currency")
@@ -182,14 +161,9 @@ internal class LedgerAccountBalanceMonitorTest {
                 .currentLedgerAccountBalanceState(
                     LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState.builder()
                         .balances(
-                            LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState
-                                .LedgerBalances
-                                .builder()
+                            LedgerBalances.builder()
                                 .availableBalance(
-                                    LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState
-                                        .LedgerBalances
-                                        .LedgerBalance
-                                        .builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -198,10 +172,7 @@ internal class LedgerAccountBalanceMonitorTest {
                                         .build()
                                 )
                                 .pendingBalance(
-                                    LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState
-                                        .LedgerBalances
-                                        .LedgerBalance
-                                        .builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -210,10 +181,7 @@ internal class LedgerAccountBalanceMonitorTest {
                                         .build()
                                 )
                                 .postedBalance(
-                                    LedgerAccountBalanceMonitor.CurrentLedgerAccountBalanceState
-                                        .LedgerBalances
-                                        .LedgerBalance
-                                        .builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")

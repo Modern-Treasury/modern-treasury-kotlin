@@ -19,7 +19,7 @@ internal class LedgerAccountTest {
                 .balances(
                     LedgerAccount.LedgerBalancesWithEffectiveAt.builder()
                         .availableBalance(
-                            LedgerAccount.LedgerBalancesWithEffectiveAt.LedgerBalance.builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -30,7 +30,7 @@ internal class LedgerAccountTest {
                         .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .pendingBalance(
-                            LedgerAccount.LedgerBalancesWithEffectiveAt.LedgerBalance.builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -39,7 +39,7 @@ internal class LedgerAccountTest {
                                 .build()
                         )
                         .postedBalance(
-                            LedgerAccount.LedgerBalancesWithEffectiveAt.LedgerBalance.builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -76,7 +76,7 @@ internal class LedgerAccountTest {
             .isEqualTo(
                 LedgerAccount.LedgerBalancesWithEffectiveAt.builder()
                     .availableBalance(
-                        LedgerAccount.LedgerBalancesWithEffectiveAt.LedgerBalance.builder()
+                        LedgerBalance.builder()
                             .amount(0L)
                             .credits(0L)
                             .currency("currency")
@@ -87,7 +87,7 @@ internal class LedgerAccountTest {
                     .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .pendingBalance(
-                        LedgerAccount.LedgerBalancesWithEffectiveAt.LedgerBalance.builder()
+                        LedgerBalance.builder()
                             .amount(0L)
                             .credits(0L)
                             .currency("currency")
@@ -96,7 +96,7 @@ internal class LedgerAccountTest {
                             .build()
                     )
                     .postedBalance(
-                        LedgerAccount.LedgerBalancesWithEffectiveAt.LedgerBalance.builder()
+                        LedgerBalance.builder()
                             .amount(0L)
                             .credits(0L)
                             .currency("currency")
@@ -142,7 +142,7 @@ internal class LedgerAccountTest {
                 .balances(
                     LedgerAccount.LedgerBalancesWithEffectiveAt.builder()
                         .availableBalance(
-                            LedgerAccount.LedgerBalancesWithEffectiveAt.LedgerBalance.builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -153,7 +153,7 @@ internal class LedgerAccountTest {
                         .effectiveAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .effectiveAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .pendingBalance(
-                            LedgerAccount.LedgerBalancesWithEffectiveAt.LedgerBalance.builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -162,7 +162,7 @@ internal class LedgerAccountTest {
                                 .build()
                         )
                         .postedBalance(
-                            LedgerAccount.LedgerBalancesWithEffectiveAt.LedgerBalance.builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")

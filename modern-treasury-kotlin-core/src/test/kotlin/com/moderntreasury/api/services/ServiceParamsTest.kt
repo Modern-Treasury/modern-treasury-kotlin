@@ -15,9 +15,15 @@ import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.moderntreasury.api.client.ModernTreasuryClient
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.models.AddressRequest
 import com.moderntreasury.api.models.BankSettings
+import com.moderntreasury.api.models.ChildLegalEntityCreate
+import com.moderntreasury.api.models.ContactDetailCreateRequest
 import com.moderntreasury.api.models.CounterpartyCreateParams
 import com.moderntreasury.api.models.ExternalAccountType
+import com.moderntreasury.api.models.IdentificationCreateRequest
+import com.moderntreasury.api.models.LedgerAccountCreateRequest
+import com.moderntreasury.api.models.LegalEntityAddressCreateRequest
 import com.moderntreasury.api.models.LegalEntityComplianceDetail
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
 import com.moderntreasury.api.models.TransactionDirection
@@ -70,17 +76,15 @@ internal class ServiceParamsTest {
                         )
                         .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
-                            CounterpartyCreateParams.Account.ContactDetailCreateRequest.builder()
+                            ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
                                 .contactIdentifierType(
-                                    CounterpartyCreateParams.Account.ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                                 )
                                 .build()
                         )
                         .ledgerAccount(
-                            CounterpartyCreateParams.Account.LedgerAccountCreateRequest.builder()
+                            LedgerAccountCreateRequest.builder()
                                 .currency("currency")
                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
@@ -90,14 +94,10 @@ internal class ServiceParamsTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    CounterpartyCreateParams.Account.LedgerAccountCreateRequest
-                                        .LedgerableType
-                                        .COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
                                 )
                                 .metadata(
-                                    CounterpartyCreateParams.Account.LedgerAccountCreateRequest
-                                        .Metadata
-                                        .builder()
+                                    LedgerAccountCreateRequest.Metadata.builder()
                                         .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -114,7 +114,7 @@ internal class ServiceParamsTest {
                         )
                         .name("name")
                         .partyAddress(
-                            CounterpartyCreateParams.Account.AddressRequest.builder()
+                            AddressRequest.builder()
                                 .country("country")
                                 .line1("line1")
                                 .line2("line2")
@@ -150,19 +150,14 @@ internal class ServiceParamsTest {
                                 .BUSINESS
                         )
                         .addAddress(
-                            CounterpartyCreateParams.LegalEntityCreateRequest
-                                .LegalEntityAddressCreateRequest
-                                .builder()
+                            LegalEntityAddressCreateRequest.builder()
                                 .country("country")
                                 .line1("line1")
                                 .locality("locality")
                                 .postalCode("postal_code")
                                 .region("region")
                                 .addAddressType(
-                                    CounterpartyCreateParams.LegalEntityCreateRequest
-                                        .LegalEntityAddressCreateRequest
-                                        .AddressType
-                                        .BUSINESS
+                                    LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                 )
                                 .line2("line2")
                                 .build()
@@ -205,16 +200,9 @@ internal class ServiceParamsTest {
                         .email("email")
                         .firstName("first_name")
                         .addIdentification(
-                            CounterpartyCreateParams.LegalEntityCreateRequest
-                                .IdentificationCreateRequest
-                                .builder()
+                            IdentificationCreateRequest.builder()
                                 .idNumber("id_number")
-                                .idType(
-                                    CounterpartyCreateParams.LegalEntityCreateRequest
-                                        .IdentificationCreateRequest
-                                        .IdType
-                                        .AR_CUIL
-                                )
+                                .idType(IdentificationCreateRequest.IdType.AR_CUIL)
                                 .expirationDate(LocalDate.parse("2019-12-27"))
                                 .issuingCountry("issuing_country")
                                 .issuingRegion("issuing_region")
@@ -246,28 +234,16 @@ internal class ServiceParamsTest {
                                         .BENEFICIAL_OWNER
                                 )
                                 .childLegalEntity(
-                                    CounterpartyCreateParams.LegalEntityCreateRequest
-                                        .LegalEntityAssociationInlineCreateRequest
-                                        .ChildLegalEntityCreate
-                                        .builder()
+                                    ChildLegalEntityCreate.builder()
                                         .addAddress(
-                                            CounterpartyCreateParams.LegalEntityCreateRequest
-                                                .LegalEntityAssociationInlineCreateRequest
-                                                .ChildLegalEntityCreate
-                                                .LegalEntityAddressCreateRequest
-                                                .builder()
+                                            LegalEntityAddressCreateRequest.builder()
                                                 .country("country")
                                                 .line1("line1")
                                                 .locality("locality")
                                                 .postalCode("postal_code")
                                                 .region("region")
                                                 .addAddressType(
-                                                    CounterpartyCreateParams
-                                                        .LegalEntityCreateRequest
-                                                        .LegalEntityAssociationInlineCreateRequest
-                                                        .ChildLegalEntityCreate
-                                                        .LegalEntityAddressCreateRequest
-                                                        .AddressType
+                                                    LegalEntityAddressCreateRequest.AddressType
                                                         .BUSINESS
                                                 )
                                                 .line2("line2")
@@ -329,21 +305,9 @@ internal class ServiceParamsTest {
                                         .email("email")
                                         .firstName("first_name")
                                         .addIdentification(
-                                            CounterpartyCreateParams.LegalEntityCreateRequest
-                                                .LegalEntityAssociationInlineCreateRequest
-                                                .ChildLegalEntityCreate
-                                                .IdentificationCreateRequest
-                                                .builder()
+                                            IdentificationCreateRequest.builder()
                                                 .idNumber("id_number")
-                                                .idType(
-                                                    CounterpartyCreateParams
-                                                        .LegalEntityCreateRequest
-                                                        .LegalEntityAssociationInlineCreateRequest
-                                                        .ChildLegalEntityCreate
-                                                        .IdentificationCreateRequest
-                                                        .IdType
-                                                        .AR_CUIL
-                                                )
+                                                .idType(IdentificationCreateRequest.IdType.AR_CUIL)
                                                 .expirationDate(LocalDate.parse("2019-12-27"))
                                                 .issuingCountry("issuing_country")
                                                 .issuingRegion("issuing_region")
@@ -373,25 +337,13 @@ internal class ServiceParamsTest {
                                         )
                                         .lastName("last_name")
                                         .legalEntityType(
-                                            CounterpartyCreateParams.LegalEntityCreateRequest
-                                                .LegalEntityAssociationInlineCreateRequest
-                                                .ChildLegalEntityCreate
-                                                .LegalEntityType
-                                                .BUSINESS
+                                            ChildLegalEntityCreate.LegalEntityType.BUSINESS
                                         )
                                         .legalStructure(
-                                            CounterpartyCreateParams.LegalEntityCreateRequest
-                                                .LegalEntityAssociationInlineCreateRequest
-                                                .ChildLegalEntityCreate
-                                                .LegalStructure
-                                                .CORPORATION
+                                            ChildLegalEntityCreate.LegalStructure.CORPORATION
                                         )
                                         .metadata(
-                                            CounterpartyCreateParams.LegalEntityCreateRequest
-                                                .LegalEntityAssociationInlineCreateRequest
-                                                .ChildLegalEntityCreate
-                                                .Metadata
-                                                .builder()
+                                            ChildLegalEntityCreate.Metadata.builder()
                                                 .putAdditionalProperty(
                                                     "key",
                                                     JsonValue.from("value"),
@@ -405,24 +357,14 @@ internal class ServiceParamsTest {
                                         )
                                         .middleName("middle_name")
                                         .addPhoneNumber(
-                                            CounterpartyCreateParams.LegalEntityCreateRequest
-                                                .LegalEntityAssociationInlineCreateRequest
-                                                .ChildLegalEntityCreate
-                                                .PhoneNumber
-                                                .builder()
+                                            ChildLegalEntityCreate.PhoneNumber.builder()
                                                 .phoneNumber("phone_number")
                                                 .build()
                                         )
                                         .politicallyExposedPerson(true)
                                         .preferredName("preferred_name")
                                         .prefix("prefix")
-                                        .riskRating(
-                                            CounterpartyCreateParams.LegalEntityCreateRequest
-                                                .LegalEntityAssociationInlineCreateRequest
-                                                .ChildLegalEntityCreate
-                                                .RiskRating
-                                                .LOW
-                                        )
+                                        .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
                                         .suffix("suffix")
                                         .wealthAndEmploymentDetails(
                                             WealthAndEmploymentDetails.builder()

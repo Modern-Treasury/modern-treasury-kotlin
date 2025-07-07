@@ -44,13 +44,9 @@ internal class LedgerTransactionVersionTest {
                         )
                         .object_("object")
                         .resultingLedgerAccountBalances(
-                            LedgerTransactionVersion.LedgerEntryOfTransactionVersion.LedgerBalances
-                                .builder()
+                            LedgerBalances.builder()
                                 .availableBalance(
-                                    LedgerTransactionVersion.LedgerEntryOfTransactionVersion
-                                        .LedgerBalances
-                                        .LedgerBalance
-                                        .builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -59,10 +55,7 @@ internal class LedgerTransactionVersionTest {
                                         .build()
                                 )
                                 .pendingBalance(
-                                    LedgerTransactionVersion.LedgerEntryOfTransactionVersion
-                                        .LedgerBalances
-                                        .LedgerBalance
-                                        .builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -71,10 +64,7 @@ internal class LedgerTransactionVersionTest {
                                         .build()
                                 )
                                 .postedBalance(
-                                    LedgerTransactionVersion.LedgerEntryOfTransactionVersion
-                                        .LedgerBalances
-                                        .LedgerBalance
-                                        .builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -141,13 +131,9 @@ internal class LedgerTransactionVersionTest {
                     )
                     .object_("object")
                     .resultingLedgerAccountBalances(
-                        LedgerTransactionVersion.LedgerEntryOfTransactionVersion.LedgerBalances
-                            .builder()
+                        LedgerBalances.builder()
                             .availableBalance(
-                                LedgerTransactionVersion.LedgerEntryOfTransactionVersion
-                                    .LedgerBalances
-                                    .LedgerBalance
-                                    .builder()
+                                LedgerBalance.builder()
                                     .amount(0L)
                                     .credits(0L)
                                     .currency("currency")
@@ -156,10 +142,7 @@ internal class LedgerTransactionVersionTest {
                                     .build()
                             )
                             .pendingBalance(
-                                LedgerTransactionVersion.LedgerEntryOfTransactionVersion
-                                    .LedgerBalances
-                                    .LedgerBalance
-                                    .builder()
+                                LedgerBalance.builder()
                                     .amount(0L)
                                     .credits(0L)
                                     .currency("currency")
@@ -168,10 +151,7 @@ internal class LedgerTransactionVersionTest {
                                     .build()
                             )
                             .postedBalance(
-                                LedgerTransactionVersion.LedgerEntryOfTransactionVersion
-                                    .LedgerBalances
-                                    .LedgerBalance
-                                    .builder()
+                                LedgerBalance.builder()
                                     .amount(0L)
                                     .credits(0L)
                                     .currency("currency")
@@ -250,13 +230,9 @@ internal class LedgerTransactionVersionTest {
                         )
                         .object_("object")
                         .resultingLedgerAccountBalances(
-                            LedgerTransactionVersion.LedgerEntryOfTransactionVersion.LedgerBalances
-                                .builder()
+                            LedgerBalances.builder()
                                 .availableBalance(
-                                    LedgerTransactionVersion.LedgerEntryOfTransactionVersion
-                                        .LedgerBalances
-                                        .LedgerBalance
-                                        .builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -265,10 +241,7 @@ internal class LedgerTransactionVersionTest {
                                         .build()
                                 )
                                 .pendingBalance(
-                                    LedgerTransactionVersion.LedgerEntryOfTransactionVersion
-                                        .LedgerBalances
-                                        .LedgerBalance
-                                        .builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -277,10 +250,7 @@ internal class LedgerTransactionVersionTest {
                                         .build()
                                 )
                                 .postedBalance(
-                                    LedgerTransactionVersion.LedgerEntryOfTransactionVersion
-                                        .LedgerBalances
-                                        .LedgerBalance
-                                        .builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")

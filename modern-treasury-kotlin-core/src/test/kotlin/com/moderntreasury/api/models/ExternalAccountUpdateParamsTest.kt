@@ -21,7 +21,7 @@ internal class ExternalAccountUpdateParamsTest {
             )
             .name("name")
             .partyAddress(
-                ExternalAccountUpdateParams.AddressRequest.builder()
+                AddressRequest.builder()
                     .country("country")
                     .line1("line1")
                     .line2("line2")
@@ -58,7 +58,7 @@ internal class ExternalAccountUpdateParamsTest {
                 )
                 .name("name")
                 .partyAddress(
-                    ExternalAccountUpdateParams.AddressRequest.builder()
+                    AddressRequest.builder()
                         .country("country")
                         .line1("line1")
                         .line2("line2")
@@ -84,7 +84,7 @@ internal class ExternalAccountUpdateParamsTest {
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.partyAddress())
             .isEqualTo(
-                ExternalAccountUpdateParams.AddressRequest.builder()
+                AddressRequest.builder()
                     .country("country")
                     .line1("line1")
                     .line2("line2")

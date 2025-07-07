@@ -6,6 +6,9 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.BankSettings
+import com.moderntreasury.api.models.ChildLegalEntityCreate
+import com.moderntreasury.api.models.IdentificationCreateRequest
+import com.moderntreasury.api.models.LegalEntityAddressCreateRequest
 import com.moderntreasury.api.models.LegalEntityAssociationCreateParams
 import com.moderntreasury.api.models.LegalEntityComplianceDetail
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
@@ -36,21 +39,16 @@ internal class LegalEntityAssociationServiceAsyncTest {
                         LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER
                     )
                     .childLegalEntity(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate.builder()
+                        ChildLegalEntityCreate.builder()
                             .addAddress(
-                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                    .LegalEntityAddressCreateRequest
-                                    .builder()
+                                LegalEntityAddressCreateRequest.builder()
                                     .country("country")
                                     .line1("line1")
                                     .locality("locality")
                                     .postalCode("postal_code")
                                     .region("region")
                                     .addAddressType(
-                                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                            .LegalEntityAddressCreateRequest
-                                            .AddressType
-                                            .BUSINESS
+                                        LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                     )
                                     .line2("line2")
                                     .build()
@@ -95,16 +93,9 @@ internal class LegalEntityAssociationServiceAsyncTest {
                             .email("email")
                             .firstName("first_name")
                             .addIdentification(
-                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                    .IdentificationCreateRequest
-                                    .builder()
+                                IdentificationCreateRequest.builder()
                                     .idNumber("id_number")
-                                    .idType(
-                                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                            .IdentificationCreateRequest
-                                            .IdType
-                                            .AR_CUIL
-                                    )
+                                    .idType(IdentificationCreateRequest.IdType.AR_CUIL)
                                     .expirationDate(LocalDate.parse("2019-12-27"))
                                     .issuingCountry("issuing_country")
                                     .issuingRegion("issuing_region")
@@ -125,19 +116,10 @@ internal class LegalEntityAssociationServiceAsyncTest {
                                     .build()
                             )
                             .lastName("last_name")
-                            .legalEntityType(
-                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                    .LegalEntityType
-                                    .BUSINESS
-                            )
-                            .legalStructure(
-                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                    .LegalStructure
-                                    .CORPORATION
-                            )
+                            .legalEntityType(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
+                            .legalStructure(ChildLegalEntityCreate.LegalStructure.CORPORATION)
                             .metadata(
-                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate.Metadata
-                                    .builder()
+                                ChildLegalEntityCreate.Metadata.builder()
                                     .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -145,19 +127,14 @@ internal class LegalEntityAssociationServiceAsyncTest {
                             )
                             .middleName("middle_name")
                             .addPhoneNumber(
-                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                    .PhoneNumber
-                                    .builder()
+                                ChildLegalEntityCreate.PhoneNumber.builder()
                                     .phoneNumber("phone_number")
                                     .build()
                             )
                             .politicallyExposedPerson(true)
                             .preferredName("preferred_name")
                             .prefix("prefix")
-                            .riskRating(
-                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate.RiskRating
-                                    .LOW
-                            )
+                            .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
                             .suffix("suffix")
                             .wealthAndEmploymentDetails(
                                 WealthAndEmploymentDetails.builder()

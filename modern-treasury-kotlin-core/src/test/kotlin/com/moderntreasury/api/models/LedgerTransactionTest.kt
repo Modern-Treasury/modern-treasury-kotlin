@@ -44,9 +44,9 @@ internal class LedgerTransactionTest {
                         )
                         .object_("object")
                         .resultingLedgerAccountBalances(
-                            LedgerEntry.LedgerBalances.builder()
+                            LedgerBalances.builder()
                                 .availableBalance(
-                                    LedgerEntry.LedgerBalances.LedgerBalance.builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -55,7 +55,7 @@ internal class LedgerTransactionTest {
                                         .build()
                                 )
                                 .pendingBalance(
-                                    LedgerEntry.LedgerBalances.LedgerBalance.builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -64,7 +64,7 @@ internal class LedgerTransactionTest {
                                         .build()
                                 )
                                 .postedBalance(
-                                    LedgerEntry.LedgerBalances.LedgerBalance.builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -129,9 +129,9 @@ internal class LedgerTransactionTest {
                     )
                     .object_("object")
                     .resultingLedgerAccountBalances(
-                        LedgerEntry.LedgerBalances.builder()
+                        LedgerBalances.builder()
                             .availableBalance(
-                                LedgerEntry.LedgerBalances.LedgerBalance.builder()
+                                LedgerBalance.builder()
                                     .amount(0L)
                                     .credits(0L)
                                     .currency("currency")
@@ -140,7 +140,7 @@ internal class LedgerTransactionTest {
                                     .build()
                             )
                             .pendingBalance(
-                                LedgerEntry.LedgerBalances.LedgerBalance.builder()
+                                LedgerBalance.builder()
                                     .amount(0L)
                                     .credits(0L)
                                     .currency("currency")
@@ -149,7 +149,7 @@ internal class LedgerTransactionTest {
                                     .build()
                             )
                             .postedBalance(
-                                LedgerEntry.LedgerBalances.LedgerBalance.builder()
+                                LedgerBalance.builder()
                                     .amount(0L)
                                     .credits(0L)
                                     .currency("currency")
@@ -224,9 +224,9 @@ internal class LedgerTransactionTest {
                         )
                         .object_("object")
                         .resultingLedgerAccountBalances(
-                            LedgerEntry.LedgerBalances.builder()
+                            LedgerBalances.builder()
                                 .availableBalance(
-                                    LedgerEntry.LedgerBalances.LedgerBalance.builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -235,7 +235,7 @@ internal class LedgerTransactionTest {
                                         .build()
                                 )
                                 .pendingBalance(
-                                    LedgerEntry.LedgerBalances.LedgerBalance.builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")
@@ -244,7 +244,7 @@ internal class LedgerTransactionTest {
                                         .build()
                                 )
                                 .postedBalance(
-                                    LedgerEntry.LedgerBalances.LedgerBalance.builder()
+                                    LedgerBalance.builder()
                                         .amount(0L)
                                         .credits(0L)
                                         .currency("currency")

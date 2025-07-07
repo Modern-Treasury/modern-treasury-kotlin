@@ -20,10 +20,10 @@ internal class InvoiceTest {
                 .amountPaid(0L)
                 .amountRemaining(0L)
                 .addContactDetail(
-                    Invoice.ContactDetail.builder()
+                    ContactDetail.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .contactIdentifier("contact_identifier")
-                        .contactIdentifierType(Invoice.ContactDetail.ContactIdentifierType.EMAIL)
+                        .contactIdentifierType(ContactDetail.ContactIdentifierType.EMAIL)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .liveMode(true)
@@ -142,7 +142,7 @@ internal class InvoiceTest {
                     PaymentOrder.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .accounting(
-                            PaymentOrder.Accounting.builder()
+                            Accounting.builder()
                                 .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .build()
@@ -218,7 +218,7 @@ internal class InvoiceTest {
                             PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                         )
                         .foreignExchangeRate(
-                            PaymentOrder.ForeignExchangeRate.builder()
+                            ForeignExchangeRate.builder()
                                 .baseAmount(0L)
                                 .baseCurrency(Currency.AED)
                                 .exponent(0L)
@@ -309,7 +309,7 @@ internal class InvoiceTest {
                                     RoutingDetail.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .bankAddress(
-                                            RoutingDetail.Address.builder()
+                                            Address.builder()
                                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                                 .country("country")
                                                 .createdAt(
@@ -374,10 +374,10 @@ internal class InvoiceTest {
         assertThat(invoice.amountRemaining()).isEqualTo(0L)
         assertThat(invoice.contactDetails())
             .containsExactly(
-                Invoice.ContactDetail.builder()
+                ContactDetail.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .contactIdentifier("contact_identifier")
-                    .contactIdentifierType(Invoice.ContactDetail.ContactIdentifierType.EMAIL)
+                    .contactIdentifierType(ContactDetail.ContactIdentifierType.EMAIL)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .liveMode(true)
@@ -503,7 +503,7 @@ internal class InvoiceTest {
                 PaymentOrder.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .accounting(
-                        PaymentOrder.Accounting.builder()
+                        Accounting.builder()
                             .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .build()
@@ -579,7 +579,7 @@ internal class InvoiceTest {
                         PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                     )
                     .foreignExchangeRate(
-                        PaymentOrder.ForeignExchangeRate.builder()
+                        ForeignExchangeRate.builder()
                             .baseAmount(0L)
                             .baseCurrency(Currency.AED)
                             .exponent(0L)
@@ -666,7 +666,7 @@ internal class InvoiceTest {
                                 RoutingDetail.builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .bankAddress(
-                                        RoutingDetail.Address.builder()
+                                        Address.builder()
                                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                             .country("country")
                                             .createdAt(
@@ -734,10 +734,10 @@ internal class InvoiceTest {
                 .amountPaid(0L)
                 .amountRemaining(0L)
                 .addContactDetail(
-                    Invoice.ContactDetail.builder()
+                    ContactDetail.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .contactIdentifier("contact_identifier")
-                        .contactIdentifierType(Invoice.ContactDetail.ContactIdentifierType.EMAIL)
+                        .contactIdentifierType(ContactDetail.ContactIdentifierType.EMAIL)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .liveMode(true)
@@ -856,7 +856,7 @@ internal class InvoiceTest {
                     PaymentOrder.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .accounting(
-                            PaymentOrder.Accounting.builder()
+                            Accounting.builder()
                                 .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .build()
@@ -932,7 +932,7 @@ internal class InvoiceTest {
                             PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                         )
                         .foreignExchangeRate(
-                            PaymentOrder.ForeignExchangeRate.builder()
+                            ForeignExchangeRate.builder()
                                 .baseAmount(0L)
                                 .baseCurrency(Currency.AED)
                                 .exponent(0L)
@@ -1023,7 +1023,7 @@ internal class InvoiceTest {
                                     RoutingDetail.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .bankAddress(
-                                            RoutingDetail.Address.builder()
+                                            Address.builder()
                                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                                 .country("country")
                                                 .createdAt(
