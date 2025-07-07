@@ -27,7 +27,7 @@ internal class VirtualAccountCreateParamsTest {
             .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .description("description")
             .ledgerAccount(
-                VirtualAccountCreateParams.LedgerAccountCreateRequest.builder()
+                LedgerAccountCreateRequest.builder()
                     .currency("currency")
                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .name("name")
@@ -36,12 +36,9 @@ internal class VirtualAccountCreateParamsTest {
                     .description("description")
                     .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .ledgerableType(
-                        VirtualAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
-                            .COUNTERPARTY
-                    )
+                    .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
                     .metadata(
-                        VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata.builder()
+                        LedgerAccountCreateRequest.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -88,7 +85,7 @@ internal class VirtualAccountCreateParamsTest {
                 .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .description("description")
                 .ledgerAccount(
-                    VirtualAccountCreateParams.LedgerAccountCreateRequest.builder()
+                    LedgerAccountCreateRequest.builder()
                         .currency("currency")
                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .name("name")
@@ -97,12 +94,9 @@ internal class VirtualAccountCreateParamsTest {
                         .description("description")
                         .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .ledgerableType(
-                            VirtualAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
-                                .COUNTERPARTY
-                        )
+                        .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
                         .metadata(
-                            VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata.builder()
+                            LedgerAccountCreateRequest.Metadata.builder()
                                 .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -149,7 +143,7 @@ internal class VirtualAccountCreateParamsTest {
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.ledgerAccount())
             .isEqualTo(
-                VirtualAccountCreateParams.LedgerAccountCreateRequest.builder()
+                LedgerAccountCreateRequest.builder()
                     .currency("currency")
                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .name("name")
@@ -158,12 +152,9 @@ internal class VirtualAccountCreateParamsTest {
                     .description("description")
                     .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .ledgerableType(
-                        VirtualAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
-                            .COUNTERPARTY
-                    )
+                    .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
                     .metadata(
-                        VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata.builder()
+                        LedgerAccountCreateRequest.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))

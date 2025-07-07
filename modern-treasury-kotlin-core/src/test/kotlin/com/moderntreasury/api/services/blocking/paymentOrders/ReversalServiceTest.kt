@@ -5,6 +5,8 @@ package com.moderntreasury.api.services.blocking.paymentOrders
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.models.LedgerEntryCreateRequest
+import com.moderntreasury.api.models.LedgerTransactionCreateRequest
 import com.moderntreasury.api.models.PaymentOrderReversalCreateParams
 import com.moderntreasury.api.models.PaymentOrderReversalRetrieveParams
 import com.moderntreasury.api.models.TransactionDirection
@@ -32,30 +34,20 @@ internal class ReversalServiceTest {
                     .paymentOrderId("payment_order_id")
                     .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
                     .ledgerTransaction(
-                        PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest.builder()
+                        LedgerTransactionCreateRequest.builder()
                             .addLedgerEntry(
-                                PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
-                                    .LedgerEntryCreateRequest
-                                    .builder()
+                                LedgerEntryCreateRequest.builder()
                                     .amount(0L)
                                     .direction(TransactionDirection.CREDIT)
                                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .availableBalanceAmount(
-                                        PaymentOrderReversalCreateParams
-                                            .LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .AvailableBalanceAmount
-                                            .builder()
+                                        LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                                             .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
                                     .lockVersion(0L)
                                     .metadata(
-                                        PaymentOrderReversalCreateParams
-                                            .LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .Metadata
-                                            .builder()
+                                        LedgerEntryCreateRequest.Metadata.builder()
                                             .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
@@ -65,20 +57,12 @@ internal class ReversalServiceTest {
                                             .build()
                                     )
                                     .pendingBalanceAmount(
-                                        PaymentOrderReversalCreateParams
-                                            .LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .PendingBalanceAmount
-                                            .builder()
+                                        LedgerEntryCreateRequest.PendingBalanceAmount.builder()
                                             .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
                                     .postedBalanceAmount(
-                                        PaymentOrderReversalCreateParams
-                                            .LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .PostedBalanceAmount
-                                            .builder()
+                                        LedgerEntryCreateRequest.PostedBalanceAmount.builder()
                                             .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
@@ -91,24 +75,16 @@ internal class ReversalServiceTest {
                             .externalId("external_id")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(
-                                PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
-                                    .LedgerableType
-                                    .EXPECTED_PAYMENT
+                                LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT
                             )
                             .metadata(
-                                PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
-                                    .Metadata
-                                    .builder()
+                                LedgerTransactionCreateRequest.Metadata.builder()
                                     .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
-                            .status(
-                                PaymentOrderReversalCreateParams.LedgerTransactionCreateRequest
-                                    .Status
-                                    .ARCHIVED
-                            )
+                            .status(LedgerTransactionCreateRequest.Status.ARCHIVED)
                             .build()
                     )
                     .metadata(

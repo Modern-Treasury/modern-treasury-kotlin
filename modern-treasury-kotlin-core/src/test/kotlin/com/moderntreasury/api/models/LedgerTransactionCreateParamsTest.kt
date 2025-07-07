@@ -13,55 +13,55 @@ internal class LedgerTransactionCreateParamsTest {
     @Test
     fun create() {
         LedgerTransactionCreateParams.builder()
-            .addLedgerEntry(
-                LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
-                    .amount(0L)
-                    .direction(TransactionDirection.CREDIT)
-                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .availableBalanceAmount(
-                        LedgerTransactionCreateParams.LedgerEntryCreateRequest
-                            .AvailableBalanceAmount
-                            .builder()
-                            .putAdditionalProperty("foo", JsonValue.from(0))
+            .ledgerTransactionCreateRequest(
+                LedgerTransactionCreateRequest.builder()
+                    .addLedgerEntry(
+                        LedgerEntryCreateRequest.builder()
+                            .amount(0L)
+                            .direction(TransactionDirection.CREDIT)
+                            .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .availableBalanceAmount(
+                                LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
+                                    .build()
+                            )
+                            .lockVersion(0L)
+                            .metadata(
+                                LedgerEntryCreateRequest.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
+                            .pendingBalanceAmount(
+                                LedgerEntryCreateRequest.PendingBalanceAmount.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
+                                    .build()
+                            )
+                            .postedBalanceAmount(
+                                LedgerEntryCreateRequest.PostedBalanceAmount.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
+                                    .build()
+                            )
+                            .showResultingLedgerAccountBalances(true)
                             .build()
                     )
-                    .lockVersion(0L)
+                    .description("description")
+                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .effectiveDate(LocalDate.parse("2019-12-27"))
+                    .externalId("external_id")
+                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .ledgerableType(LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT)
                     .metadata(
-                        LedgerTransactionCreateParams.LedgerEntryCreateRequest.Metadata.builder()
+                        LedgerTransactionCreateRequest.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
-                    .pendingBalanceAmount(
-                        LedgerTransactionCreateParams.LedgerEntryCreateRequest.PendingBalanceAmount
-                            .builder()
-                            .putAdditionalProperty("foo", JsonValue.from(0))
-                            .build()
-                    )
-                    .postedBalanceAmount(
-                        LedgerTransactionCreateParams.LedgerEntryCreateRequest.PostedBalanceAmount
-                            .builder()
-                            .putAdditionalProperty("foo", JsonValue.from(0))
-                            .build()
-                    )
-                    .showResultingLedgerAccountBalances(true)
+                    .status(LedgerTransactionCreateRequest.Status.ARCHIVED)
                     .build()
             )
-            .description("description")
-            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .effectiveDate(LocalDate.parse("2019-12-27"))
-            .externalId("external_id")
-            .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .ledgerableType(LedgerTransactionCreateParams.LedgerableType.EXPECTED_PAYMENT)
-            .metadata(
-                LedgerTransactionCreateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                    .build()
-            )
-            .status(LedgerTransactionCreateParams.Status.ARCHIVED)
             .build()
     }
 
@@ -69,137 +69,142 @@ internal class LedgerTransactionCreateParamsTest {
     fun body() {
         val params =
             LedgerTransactionCreateParams.builder()
-                .addLedgerEntry(
-                    LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
-                        .amount(0L)
-                        .direction(TransactionDirection.CREDIT)
-                        .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .availableBalanceAmount(
-                            LedgerTransactionCreateParams.LedgerEntryCreateRequest
-                                .AvailableBalanceAmount
-                                .builder()
-                                .putAdditionalProperty("foo", JsonValue.from(0))
+                .ledgerTransactionCreateRequest(
+                    LedgerTransactionCreateRequest.builder()
+                        .addLedgerEntry(
+                            LedgerEntryCreateRequest.builder()
+                                .amount(0L)
+                                .direction(TransactionDirection.CREDIT)
+                                .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .availableBalanceAmount(
+                                    LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
+                                        .build()
+                                )
+                                .lockVersion(0L)
+                                .metadata(
+                                    LedgerEntryCreateRequest.Metadata.builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                        .build()
+                                )
+                                .pendingBalanceAmount(
+                                    LedgerEntryCreateRequest.PendingBalanceAmount.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
+                                        .build()
+                                )
+                                .postedBalanceAmount(
+                                    LedgerEntryCreateRequest.PostedBalanceAmount.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from(0))
+                                        .build()
+                                )
+                                .showResultingLedgerAccountBalances(true)
                                 .build()
                         )
-                        .lockVersion(0L)
+                        .description("description")
+                        .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .effectiveDate(LocalDate.parse("2019-12-27"))
+                        .externalId("external_id")
+                        .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .ledgerableType(
+                            LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT
+                        )
                         .metadata(
-                            LedgerTransactionCreateParams.LedgerEntryCreateRequest.Metadata
-                                .builder()
+                            LedgerTransactionCreateRequest.Metadata.builder()
                                 .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
-                        .pendingBalanceAmount(
-                            LedgerTransactionCreateParams.LedgerEntryCreateRequest
-                                .PendingBalanceAmount
-                                .builder()
-                                .putAdditionalProperty("foo", JsonValue.from(0))
-                                .build()
-                        )
-                        .postedBalanceAmount(
-                            LedgerTransactionCreateParams.LedgerEntryCreateRequest
-                                .PostedBalanceAmount
-                                .builder()
-                                .putAdditionalProperty("foo", JsonValue.from(0))
-                                .build()
-                        )
-                        .showResultingLedgerAccountBalances(true)
+                        .status(LedgerTransactionCreateRequest.Status.ARCHIVED)
                         .build()
                 )
-                .description("description")
-                .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .effectiveDate(LocalDate.parse("2019-12-27"))
-                .externalId("external_id")
-                .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .ledgerableType(LedgerTransactionCreateParams.LedgerableType.EXPECTED_PAYMENT)
-                .metadata(
-                    LedgerTransactionCreateParams.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                        .build()
-                )
-                .status(LedgerTransactionCreateParams.Status.ARCHIVED)
                 .build()
 
         val body = params._body()
 
-        assertThat(body.ledgerEntries())
-            .containsExactly(
-                LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
-                    .amount(0L)
-                    .direction(TransactionDirection.CREDIT)
-                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .availableBalanceAmount(
-                        LedgerTransactionCreateParams.LedgerEntryCreateRequest
-                            .AvailableBalanceAmount
-                            .builder()
-                            .putAdditionalProperty("foo", JsonValue.from(0))
+        assertThat(body)
+            .isEqualTo(
+                LedgerTransactionCreateRequest.builder()
+                    .addLedgerEntry(
+                        LedgerEntryCreateRequest.builder()
+                            .amount(0L)
+                            .direction(TransactionDirection.CREDIT)
+                            .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .availableBalanceAmount(
+                                LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
+                                    .build()
+                            )
+                            .lockVersion(0L)
+                            .metadata(
+                                LedgerEntryCreateRequest.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
+                            .pendingBalanceAmount(
+                                LedgerEntryCreateRequest.PendingBalanceAmount.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
+                                    .build()
+                            )
+                            .postedBalanceAmount(
+                                LedgerEntryCreateRequest.PostedBalanceAmount.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
+                                    .build()
+                            )
+                            .showResultingLedgerAccountBalances(true)
                             .build()
                     )
-                    .lockVersion(0L)
+                    .description("description")
+                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .effectiveDate(LocalDate.parse("2019-12-27"))
+                    .externalId("external_id")
+                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .ledgerableType(LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT)
                     .metadata(
-                        LedgerTransactionCreateParams.LedgerEntryCreateRequest.Metadata.builder()
+                        LedgerTransactionCreateRequest.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
-                    .pendingBalanceAmount(
-                        LedgerTransactionCreateParams.LedgerEntryCreateRequest.PendingBalanceAmount
-                            .builder()
-                            .putAdditionalProperty("foo", JsonValue.from(0))
-                            .build()
-                    )
-                    .postedBalanceAmount(
-                        LedgerTransactionCreateParams.LedgerEntryCreateRequest.PostedBalanceAmount
-                            .builder()
-                            .putAdditionalProperty("foo", JsonValue.from(0))
-                            .build()
-                    )
-                    .showResultingLedgerAccountBalances(true)
+                    .status(LedgerTransactionCreateRequest.Status.ARCHIVED)
                     .build()
             )
-        assertThat(body.description()).isEqualTo("description")
-        assertThat(body.effectiveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(body.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
-        assertThat(body.externalId()).isEqualTo("external_id")
-        assertThat(body.ledgerableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.ledgerableType())
-            .isEqualTo(LedgerTransactionCreateParams.LedgerableType.EXPECTED_PAYMENT)
-        assertThat(body.metadata())
-            .isEqualTo(
-                LedgerTransactionCreateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                    .build()
-            )
-        assertThat(body.status()).isEqualTo(LedgerTransactionCreateParams.Status.ARCHIVED)
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
             LedgerTransactionCreateParams.builder()
-                .addLedgerEntry(
-                    LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
-                        .amount(0L)
-                        .direction(TransactionDirection.CREDIT)
-                        .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .ledgerTransactionCreateRequest(
+                    LedgerTransactionCreateRequest.builder()
+                        .addLedgerEntry(
+                            LedgerEntryCreateRequest.builder()
+                                .amount(0L)
+                                .direction(TransactionDirection.CREDIT)
+                                .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .build()
+                        )
                         .build()
                 )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.ledgerEntries())
-            .containsExactly(
-                LedgerTransactionCreateParams.LedgerEntryCreateRequest.builder()
-                    .amount(0L)
-                    .direction(TransactionDirection.CREDIT)
-                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(body)
+            .isEqualTo(
+                LedgerTransactionCreateRequest.builder()
+                    .addLedgerEntry(
+                        LedgerEntryCreateRequest.builder()
+                            .amount(0L)
+                            .direction(TransactionDirection.CREDIT)
+                            .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .build()
+                    )
                     .build()
             )
     }

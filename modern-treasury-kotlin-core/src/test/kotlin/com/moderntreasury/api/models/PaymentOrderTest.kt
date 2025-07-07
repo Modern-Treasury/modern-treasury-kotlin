@@ -18,7 +18,7 @@ internal class PaymentOrderTest {
             PaymentOrder.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .accounting(
-                    PaymentOrder.Accounting.builder()
+                    Accounting.builder()
                         .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
@@ -90,7 +90,7 @@ internal class PaymentOrderTest {
                 .foreignExchangeContract("foreign_exchange_contract")
                 .foreignExchangeIndicator(PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE)
                 .foreignExchangeRate(
-                    PaymentOrder.ForeignExchangeRate.builder()
+                    ForeignExchangeRate.builder()
                         .baseAmount(0L)
                         .baseCurrency(Currency.AED)
                         .exponent(0L)
@@ -177,7 +177,7 @@ internal class PaymentOrderTest {
                             RoutingDetail.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .bankAddress(
-                                    RoutingDetail.Address.builder()
+                                    Address.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .country("country")
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -221,7 +221,7 @@ internal class PaymentOrderTest {
         assertThat(paymentOrder.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(paymentOrder.accounting())
             .isEqualTo(
-                PaymentOrder.Accounting.builder()
+                Accounting.builder()
                     .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
@@ -300,7 +300,7 @@ internal class PaymentOrderTest {
             .isEqualTo(PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE)
         assertThat(paymentOrder.foreignExchangeRate())
             .isEqualTo(
-                PaymentOrder.ForeignExchangeRate.builder()
+                ForeignExchangeRate.builder()
                     .baseAmount(0L)
                     .baseCurrency(Currency.AED)
                     .exponent(0L)
@@ -396,7 +396,7 @@ internal class PaymentOrderTest {
                             RoutingDetail.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .bankAddress(
-                                    RoutingDetail.Address.builder()
+                                    Address.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .country("country")
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -450,7 +450,7 @@ internal class PaymentOrderTest {
             PaymentOrder.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .accounting(
-                    PaymentOrder.Accounting.builder()
+                    Accounting.builder()
                         .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
@@ -522,7 +522,7 @@ internal class PaymentOrderTest {
                 .foreignExchangeContract("foreign_exchange_contract")
                 .foreignExchangeIndicator(PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE)
                 .foreignExchangeRate(
-                    PaymentOrder.ForeignExchangeRate.builder()
+                    ForeignExchangeRate.builder()
                         .baseAmount(0L)
                         .baseCurrency(Currency.AED)
                         .exponent(0L)
@@ -609,7 +609,7 @@ internal class PaymentOrderTest {
                             RoutingDetail.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .bankAddress(
-                                    RoutingDetail.Address.builder()
+                                    Address.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .country("country")
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

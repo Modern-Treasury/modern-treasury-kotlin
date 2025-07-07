@@ -16,34 +16,30 @@ internal class LedgerTransactionUpdateParamsTest {
             .description("description")
             .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .addLedgerEntry(
-                LedgerTransactionUpdateParams.LedgerEntryCreateRequest.builder()
+                LedgerEntryCreateRequest.builder()
                     .amount(0L)
                     .direction(TransactionDirection.CREDIT)
                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .availableBalanceAmount(
-                        LedgerTransactionUpdateParams.LedgerEntryCreateRequest
-                            .AvailableBalanceAmount
-                            .builder()
+                        LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                             .putAdditionalProperty("foo", JsonValue.from(0))
                             .build()
                     )
                     .lockVersion(0L)
                     .metadata(
-                        LedgerTransactionUpdateParams.LedgerEntryCreateRequest.Metadata.builder()
+                        LedgerEntryCreateRequest.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
                     .pendingBalanceAmount(
-                        LedgerTransactionUpdateParams.LedgerEntryCreateRequest.PendingBalanceAmount
-                            .builder()
+                        LedgerEntryCreateRequest.PendingBalanceAmount.builder()
                             .putAdditionalProperty("foo", JsonValue.from(0))
                             .build()
                     )
                     .postedBalanceAmount(
-                        LedgerTransactionUpdateParams.LedgerEntryCreateRequest.PostedBalanceAmount
-                            .builder()
+                        LedgerEntryCreateRequest.PostedBalanceAmount.builder()
                             .putAdditionalProperty("foo", JsonValue.from(0))
                             .build()
                     )
@@ -80,37 +76,30 @@ internal class LedgerTransactionUpdateParamsTest {
                 .description("description")
                 .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addLedgerEntry(
-                    LedgerTransactionUpdateParams.LedgerEntryCreateRequest.builder()
+                    LedgerEntryCreateRequest.builder()
                         .amount(0L)
                         .direction(TransactionDirection.CREDIT)
                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .availableBalanceAmount(
-                            LedgerTransactionUpdateParams.LedgerEntryCreateRequest
-                                .AvailableBalanceAmount
-                                .builder()
+                            LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(0))
                                 .build()
                         )
                         .lockVersion(0L)
                         .metadata(
-                            LedgerTransactionUpdateParams.LedgerEntryCreateRequest.Metadata
-                                .builder()
+                            LedgerEntryCreateRequest.Metadata.builder()
                                 .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
                         .pendingBalanceAmount(
-                            LedgerTransactionUpdateParams.LedgerEntryCreateRequest
-                                .PendingBalanceAmount
-                                .builder()
+                            LedgerEntryCreateRequest.PendingBalanceAmount.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(0))
                                 .build()
                         )
                         .postedBalanceAmount(
-                            LedgerTransactionUpdateParams.LedgerEntryCreateRequest
-                                .PostedBalanceAmount
-                                .builder()
+                            LedgerEntryCreateRequest.PostedBalanceAmount.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(0))
                                 .build()
                         )
@@ -135,34 +124,30 @@ internal class LedgerTransactionUpdateParamsTest {
         assertThat(body.effectiveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.ledgerEntries())
             .containsExactly(
-                LedgerTransactionUpdateParams.LedgerEntryCreateRequest.builder()
+                LedgerEntryCreateRequest.builder()
                     .amount(0L)
                     .direction(TransactionDirection.CREDIT)
                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .availableBalanceAmount(
-                        LedgerTransactionUpdateParams.LedgerEntryCreateRequest
-                            .AvailableBalanceAmount
-                            .builder()
+                        LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                             .putAdditionalProperty("foo", JsonValue.from(0))
                             .build()
                     )
                     .lockVersion(0L)
                     .metadata(
-                        LedgerTransactionUpdateParams.LedgerEntryCreateRequest.Metadata.builder()
+                        LedgerEntryCreateRequest.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
                     .pendingBalanceAmount(
-                        LedgerTransactionUpdateParams.LedgerEntryCreateRequest.PendingBalanceAmount
-                            .builder()
+                        LedgerEntryCreateRequest.PendingBalanceAmount.builder()
                             .putAdditionalProperty("foo", JsonValue.from(0))
                             .build()
                     )
                     .postedBalanceAmount(
-                        LedgerTransactionUpdateParams.LedgerEntryCreateRequest.PostedBalanceAmount
-                            .builder()
+                        LedgerEntryCreateRequest.PostedBalanceAmount.builder()
                             .putAdditionalProperty("foo", JsonValue.from(0))
                             .build()
                     )

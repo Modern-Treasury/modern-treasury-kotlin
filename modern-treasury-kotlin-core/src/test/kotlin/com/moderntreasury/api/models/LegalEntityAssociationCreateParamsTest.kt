@@ -18,22 +18,15 @@ internal class LegalEntityAssociationCreateParamsTest {
                 LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER
             )
             .childLegalEntity(
-                LegalEntityAssociationCreateParams.ChildLegalEntityCreate.builder()
+                ChildLegalEntityCreate.builder()
                     .addAddress(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                            .LegalEntityAddressCreateRequest
-                            .builder()
+                        LegalEntityAddressCreateRequest.builder()
                             .country("country")
                             .line1("line1")
                             .locality("locality")
                             .postalCode("postal_code")
                             .region("region")
-                            .addAddressType(
-                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                    .LegalEntityAddressCreateRequest
-                                    .AddressType
-                                    .BUSINESS
-                            )
+                            .addAddressType(LegalEntityAddressCreateRequest.AddressType.BUSINESS)
                             .line2("line2")
                             .build()
                     )
@@ -75,16 +68,9 @@ internal class LegalEntityAssociationCreateParamsTest {
                     .email("email")
                     .firstName("first_name")
                     .addIdentification(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                            .IdentificationCreateRequest
-                            .builder()
+                        IdentificationCreateRequest.builder()
                             .idNumber("id_number")
-                            .idType(
-                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                    .IdentificationCreateRequest
-                                    .IdType
-                                    .AR_CUIL
-                            )
+                            .idType(IdentificationCreateRequest.IdType.AR_CUIL)
                             .expirationDate(LocalDate.parse("2019-12-27"))
                             .issuingCountry("issuing_country")
                             .issuingRegion("issuing_region")
@@ -105,16 +91,10 @@ internal class LegalEntityAssociationCreateParamsTest {
                             .build()
                     )
                     .lastName("last_name")
-                    .legalEntityType(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate.LegalEntityType
-                            .BUSINESS
-                    )
-                    .legalStructure(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate.LegalStructure
-                            .CORPORATION
-                    )
+                    .legalEntityType(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
+                    .legalStructure(ChildLegalEntityCreate.LegalStructure.CORPORATION)
                     .metadata(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate.Metadata.builder()
+                        ChildLegalEntityCreate.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -122,17 +102,14 @@ internal class LegalEntityAssociationCreateParamsTest {
                     )
                     .middleName("middle_name")
                     .addPhoneNumber(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate.PhoneNumber
-                            .builder()
+                        ChildLegalEntityCreate.PhoneNumber.builder()
                             .phoneNumber("phone_number")
                             .build()
                     )
                     .politicallyExposedPerson(true)
                     .preferredName("preferred_name")
                     .prefix("prefix")
-                    .riskRating(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate.RiskRating.LOW
-                    )
+                    .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
                     .suffix("suffix")
                     .wealthAndEmploymentDetails(
                         WealthAndEmploymentDetails.builder()
@@ -174,21 +151,16 @@ internal class LegalEntityAssociationCreateParamsTest {
                     LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER
                 )
                 .childLegalEntity(
-                    LegalEntityAssociationCreateParams.ChildLegalEntityCreate.builder()
+                    ChildLegalEntityCreate.builder()
                         .addAddress(
-                            LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                .LegalEntityAddressCreateRequest
-                                .builder()
+                            LegalEntityAddressCreateRequest.builder()
                                 .country("country")
                                 .line1("line1")
                                 .locality("locality")
                                 .postalCode("postal_code")
                                 .region("region")
                                 .addAddressType(
-                                    LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                        .LegalEntityAddressCreateRequest
-                                        .AddressType
-                                        .BUSINESS
+                                    LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                 )
                                 .line2("line2")
                                 .build()
@@ -231,16 +203,9 @@ internal class LegalEntityAssociationCreateParamsTest {
                         .email("email")
                         .firstName("first_name")
                         .addIdentification(
-                            LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                .IdentificationCreateRequest
-                                .builder()
+                            IdentificationCreateRequest.builder()
                                 .idNumber("id_number")
-                                .idType(
-                                    LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                        .IdentificationCreateRequest
-                                        .IdType
-                                        .AR_CUIL
-                                )
+                                .idType(IdentificationCreateRequest.IdType.AR_CUIL)
                                 .expirationDate(LocalDate.parse("2019-12-27"))
                                 .issuingCountry("issuing_country")
                                 .issuingRegion("issuing_region")
@@ -261,18 +226,10 @@ internal class LegalEntityAssociationCreateParamsTest {
                                 .build()
                         )
                         .lastName("last_name")
-                        .legalEntityType(
-                            LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                .LegalEntityType
-                                .BUSINESS
-                        )
-                        .legalStructure(
-                            LegalEntityAssociationCreateParams.ChildLegalEntityCreate.LegalStructure
-                                .CORPORATION
-                        )
+                        .legalEntityType(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
+                        .legalStructure(ChildLegalEntityCreate.LegalStructure.CORPORATION)
                         .metadata(
-                            LegalEntityAssociationCreateParams.ChildLegalEntityCreate.Metadata
-                                .builder()
+                            ChildLegalEntityCreate.Metadata.builder()
                                 .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -280,17 +237,14 @@ internal class LegalEntityAssociationCreateParamsTest {
                         )
                         .middleName("middle_name")
                         .addPhoneNumber(
-                            LegalEntityAssociationCreateParams.ChildLegalEntityCreate.PhoneNumber
-                                .builder()
+                            ChildLegalEntityCreate.PhoneNumber.builder()
                                 .phoneNumber("phone_number")
                                 .build()
                         )
                         .politicallyExposedPerson(true)
                         .preferredName("preferred_name")
                         .prefix("prefix")
-                        .riskRating(
-                            LegalEntityAssociationCreateParams.ChildLegalEntityCreate.RiskRating.LOW
-                        )
+                        .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
                         .suffix("suffix")
                         .wealthAndEmploymentDetails(
                             WealthAndEmploymentDetails.builder()
@@ -333,22 +287,15 @@ internal class LegalEntityAssociationCreateParamsTest {
             .containsExactly(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
         assertThat(body.childLegalEntity())
             .isEqualTo(
-                LegalEntityAssociationCreateParams.ChildLegalEntityCreate.builder()
+                ChildLegalEntityCreate.builder()
                     .addAddress(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                            .LegalEntityAddressCreateRequest
-                            .builder()
+                        LegalEntityAddressCreateRequest.builder()
                             .country("country")
                             .line1("line1")
                             .locality("locality")
                             .postalCode("postal_code")
                             .region("region")
-                            .addAddressType(
-                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                    .LegalEntityAddressCreateRequest
-                                    .AddressType
-                                    .BUSINESS
-                            )
+                            .addAddressType(LegalEntityAddressCreateRequest.AddressType.BUSINESS)
                             .line2("line2")
                             .build()
                     )
@@ -390,16 +337,9 @@ internal class LegalEntityAssociationCreateParamsTest {
                     .email("email")
                     .firstName("first_name")
                     .addIdentification(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                            .IdentificationCreateRequest
-                            .builder()
+                        IdentificationCreateRequest.builder()
                             .idNumber("id_number")
-                            .idType(
-                                LegalEntityAssociationCreateParams.ChildLegalEntityCreate
-                                    .IdentificationCreateRequest
-                                    .IdType
-                                    .AR_CUIL
-                            )
+                            .idType(IdentificationCreateRequest.IdType.AR_CUIL)
                             .expirationDate(LocalDate.parse("2019-12-27"))
                             .issuingCountry("issuing_country")
                             .issuingRegion("issuing_region")
@@ -420,16 +360,10 @@ internal class LegalEntityAssociationCreateParamsTest {
                             .build()
                     )
                     .lastName("last_name")
-                    .legalEntityType(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate.LegalEntityType
-                            .BUSINESS
-                    )
-                    .legalStructure(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate.LegalStructure
-                            .CORPORATION
-                    )
+                    .legalEntityType(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
+                    .legalStructure(ChildLegalEntityCreate.LegalStructure.CORPORATION)
                     .metadata(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate.Metadata.builder()
+                        ChildLegalEntityCreate.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -437,17 +371,14 @@ internal class LegalEntityAssociationCreateParamsTest {
                     )
                     .middleName("middle_name")
                     .addPhoneNumber(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate.PhoneNumber
-                            .builder()
+                        ChildLegalEntityCreate.PhoneNumber.builder()
                             .phoneNumber("phone_number")
                             .build()
                     )
                     .politicallyExposedPerson(true)
                     .preferredName("preferred_name")
                     .prefix("prefix")
-                    .riskRating(
-                        LegalEntityAssociationCreateParams.ChildLegalEntityCreate.RiskRating.LOW
-                    )
+                    .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
                     .suffix("suffix")
                     .wealthAndEmploymentDetails(
                         WealthAndEmploymentDetails.builder()
