@@ -59,8 +59,6 @@ import com.moderntreasury.api.services.async.LedgerAccountStatementServiceAsync
 import com.moderntreasury.api.services.async.LedgerAccountStatementServiceAsyncImpl
 import com.moderntreasury.api.services.async.LedgerEntryServiceAsync
 import com.moderntreasury.api.services.async.LedgerEntryServiceAsyncImpl
-import com.moderntreasury.api.services.async.LedgerEventHandlerServiceAsync
-import com.moderntreasury.api.services.async.LedgerEventHandlerServiceAsyncImpl
 import com.moderntreasury.api.services.async.LedgerServiceAsync
 import com.moderntreasury.api.services.async.LedgerServiceAsyncImpl
 import com.moderntreasury.api.services.async.LedgerTransactionServiceAsync
@@ -182,10 +180,6 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
         LedgerEntryServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val ledgerEventHandlers: LedgerEventHandlerServiceAsync by lazy {
-        LedgerEventHandlerServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val ledgerTransactions: LedgerTransactionServiceAsync by lazy {
         LedgerTransactionServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -305,8 +299,6 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
         ledgerAccountStatements
 
     override fun ledgerEntries(): LedgerEntryServiceAsync = ledgerEntries
-
-    override fun ledgerEventHandlers(): LedgerEventHandlerServiceAsync = ledgerEventHandlers
 
     override fun ledgerTransactions(): LedgerTransactionServiceAsync = ledgerTransactions
 
@@ -438,10 +430,6 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
             LedgerEntryServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val ledgerEventHandlers: LedgerEventHandlerServiceAsync.WithRawResponse by lazy {
-            LedgerEventHandlerServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val ledgerTransactions: LedgerTransactionServiceAsync.WithRawResponse by lazy {
             LedgerTransactionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -568,9 +556,6 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
             ledgerAccountStatements
 
         override fun ledgerEntries(): LedgerEntryServiceAsync.WithRawResponse = ledgerEntries
-
-        override fun ledgerEventHandlers(): LedgerEventHandlerServiceAsync.WithRawResponse =
-            ledgerEventHandlers
 
         override fun ledgerTransactions(): LedgerTransactionServiceAsync.WithRawResponse =
             ledgerTransactions

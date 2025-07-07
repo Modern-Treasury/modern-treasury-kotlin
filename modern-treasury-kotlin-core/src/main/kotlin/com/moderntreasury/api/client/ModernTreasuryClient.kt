@@ -29,7 +29,6 @@ import com.moderntreasury.api.services.blocking.LedgerAccountService
 import com.moderntreasury.api.services.blocking.LedgerAccountSettlementService
 import com.moderntreasury.api.services.blocking.LedgerAccountStatementService
 import com.moderntreasury.api.services.blocking.LedgerEntryService
-import com.moderntreasury.api.services.blocking.LedgerEventHandlerService
 import com.moderntreasury.api.services.blocking.LedgerService
 import com.moderntreasury.api.services.blocking.LedgerTransactionService
 import com.moderntreasury.api.services.blocking.LegalEntityAssociationService
@@ -117,8 +116,6 @@ interface ModernTreasuryClient {
     fun ledgerAccountStatements(): LedgerAccountStatementService
 
     fun ledgerEntries(): LedgerEntryService
-
-    fun ledgerEventHandlers(): LedgerEventHandlerService
 
     fun ledgerTransactions(): LedgerTransactionService
 
@@ -230,8 +227,6 @@ interface ModernTreasuryClient {
         fun ledgerAccountStatements(): LedgerAccountStatementService.WithRawResponse
 
         fun ledgerEntries(): LedgerEntryService.WithRawResponse
-
-        fun ledgerEventHandlers(): LedgerEventHandlerService.WithRawResponse
 
         fun ledgerTransactions(): LedgerTransactionService.WithRawResponse
 
