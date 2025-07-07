@@ -20,7 +20,7 @@ internal class PaymentOrderCreateParamsTest {
             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .type(PaymentOrderType.ACH)
             .accounting(
-                PaymentOrderCreateParams.Accounting.builder()
+                Accounting.builder()
                     .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
@@ -49,46 +49,32 @@ internal class PaymentOrderCreateParamsTest {
                 PaymentOrderCreateParams.ForeignExchangeIndicator.FIXED_TO_VARIABLE
             )
             .ledgerTransaction(
-                PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
+                LedgerTransactionCreateRequest.builder()
                     .addLedgerEntry(
-                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                            .LedgerEntryCreateRequest
-                            .builder()
+                        LedgerEntryCreateRequest.builder()
                             .amount(0L)
                             .direction(TransactionDirection.CREDIT)
                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .availableBalanceAmount(
-                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                    .LedgerEntryCreateRequest
-                                    .AvailableBalanceAmount
-                                    .builder()
+                                LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                                     .putAdditionalProperty("foo", JsonValue.from(0))
                                     .build()
                             )
                             .lockVersion(0L)
                             .metadata(
-                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                    .LedgerEntryCreateRequest
-                                    .Metadata
-                                    .builder()
+                                LedgerEntryCreateRequest.Metadata.builder()
                                     .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
                             .pendingBalanceAmount(
-                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                    .LedgerEntryCreateRequest
-                                    .PendingBalanceAmount
-                                    .builder()
+                                LedgerEntryCreateRequest.PendingBalanceAmount.builder()
                                     .putAdditionalProperty("foo", JsonValue.from(0))
                                     .build()
                             )
                             .postedBalanceAmount(
-                                PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                    .LedgerEntryCreateRequest
-                                    .PostedBalanceAmount
-                                    .builder()
+                                LedgerEntryCreateRequest.PostedBalanceAmount.builder()
                                     .putAdditionalProperty("foo", JsonValue.from(0))
                                     .build()
                             )
@@ -100,18 +86,15 @@ internal class PaymentOrderCreateParamsTest {
                     .effectiveDate(LocalDate.parse("2019-12-27"))
                     .externalId("external_id")
                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .ledgerableType(
-                        PaymentOrderCreateParams.LedgerTransactionCreateRequest.LedgerableType
-                            .EXPECTED_PAYMENT
-                    )
+                    .ledgerableType(LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT)
                     .metadata(
-                        PaymentOrderCreateParams.LedgerTransactionCreateRequest.Metadata.builder()
+                        LedgerTransactionCreateRequest.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
-                    .status(PaymentOrderCreateParams.LedgerTransactionCreateRequest.Status.ARCHIVED)
+                    .status(LedgerTransactionCreateRequest.Status.ARCHIVED)
                     .build()
             )
             .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -155,19 +138,15 @@ internal class PaymentOrderCreateParamsTest {
                     )
                     .accountType(ExternalAccountType.BASE_WALLET)
                     .addContactDetail(
-                        PaymentOrderCreateParams.ReceivingAccount.ContactDetailCreateRequest
-                            .builder()
+                        ContactDetailCreateRequest.builder()
                             .contactIdentifier("contact_identifier")
                             .contactIdentifierType(
-                                PaymentOrderCreateParams.ReceivingAccount.ContactDetailCreateRequest
-                                    .ContactIdentifierType
-                                    .EMAIL
+                                ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                             )
                             .build()
                     )
                     .ledgerAccount(
-                        PaymentOrderCreateParams.ReceivingAccount.LedgerAccountCreateRequest
-                            .builder()
+                        LedgerAccountCreateRequest.builder()
                             .currency("currency")
                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .name("name")
@@ -176,15 +155,9 @@ internal class PaymentOrderCreateParamsTest {
                             .description("description")
                             .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .ledgerableType(
-                                PaymentOrderCreateParams.ReceivingAccount.LedgerAccountCreateRequest
-                                    .LedgerableType
-                                    .COUNTERPARTY
-                            )
+                            .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
                             .metadata(
-                                PaymentOrderCreateParams.ReceivingAccount.LedgerAccountCreateRequest
-                                    .Metadata
-                                    .builder()
+                                LedgerAccountCreateRequest.Metadata.builder()
                                     .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -201,7 +174,7 @@ internal class PaymentOrderCreateParamsTest {
                     )
                     .name("name")
                     .partyAddress(
-                        PaymentOrderCreateParams.ReceivingAccount.AddressRequest.builder()
+                        AddressRequest.builder()
                             .country("country")
                             .line1("line1")
                             .line2("line2")
@@ -252,7 +225,7 @@ internal class PaymentOrderCreateParamsTest {
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .type(PaymentOrderType.ACH)
                 .accounting(
-                    PaymentOrderCreateParams.Accounting.builder()
+                    Accounting.builder()
                         .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
@@ -281,46 +254,32 @@ internal class PaymentOrderCreateParamsTest {
                     PaymentOrderCreateParams.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                 )
                 .ledgerTransaction(
-                    PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
+                    LedgerTransactionCreateRequest.builder()
                         .addLedgerEntry(
-                            PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                .LedgerEntryCreateRequest
-                                .builder()
+                            LedgerEntryCreateRequest.builder()
                                 .amount(0L)
                                 .direction(TransactionDirection.CREDIT)
                                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .availableBalanceAmount(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .AvailableBalanceAmount
-                                        .builder()
+                                    LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                                         .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .lockVersion(0L)
                                 .metadata(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .Metadata
-                                        .builder()
+                                    LedgerEntryCreateRequest.Metadata.builder()
                                         .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
                                 .pendingBalanceAmount(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .PendingBalanceAmount
-                                        .builder()
+                                    LedgerEntryCreateRequest.PendingBalanceAmount.builder()
                                         .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
                                 .postedBalanceAmount(
-                                    PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .PostedBalanceAmount
-                                        .builder()
+                                    LedgerEntryCreateRequest.PostedBalanceAmount.builder()
                                         .putAdditionalProperty("foo", JsonValue.from(0))
                                         .build()
                                 )
@@ -333,20 +292,16 @@ internal class PaymentOrderCreateParamsTest {
                         .externalId("external_id")
                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .ledgerableType(
-                            PaymentOrderCreateParams.LedgerTransactionCreateRequest.LedgerableType
-                                .EXPECTED_PAYMENT
+                            LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT
                         )
                         .metadata(
-                            PaymentOrderCreateParams.LedgerTransactionCreateRequest.Metadata
-                                .builder()
+                            LedgerTransactionCreateRequest.Metadata.builder()
                                 .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
-                        .status(
-                            PaymentOrderCreateParams.LedgerTransactionCreateRequest.Status.ARCHIVED
-                        )
+                        .status(LedgerTransactionCreateRequest.Status.ARCHIVED)
                         .build()
                 )
                 .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -390,20 +345,15 @@ internal class PaymentOrderCreateParamsTest {
                         )
                         .accountType(ExternalAccountType.BASE_WALLET)
                         .addContactDetail(
-                            PaymentOrderCreateParams.ReceivingAccount.ContactDetailCreateRequest
-                                .builder()
+                            ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
                                 .contactIdentifierType(
-                                    PaymentOrderCreateParams.ReceivingAccount
-                                        .ContactDetailCreateRequest
-                                        .ContactIdentifierType
-                                        .EMAIL
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                                 )
                                 .build()
                         )
                         .ledgerAccount(
-                            PaymentOrderCreateParams.ReceivingAccount.LedgerAccountCreateRequest
-                                .builder()
+                            LedgerAccountCreateRequest.builder()
                                 .currency("currency")
                                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
@@ -413,16 +363,10 @@ internal class PaymentOrderCreateParamsTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    PaymentOrderCreateParams.ReceivingAccount
-                                        .LedgerAccountCreateRequest
-                                        .LedgerableType
-                                        .COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
                                 )
                                 .metadata(
-                                    PaymentOrderCreateParams.ReceivingAccount
-                                        .LedgerAccountCreateRequest
-                                        .Metadata
-                                        .builder()
+                                    LedgerAccountCreateRequest.Metadata.builder()
                                         .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -439,7 +383,7 @@ internal class PaymentOrderCreateParamsTest {
                         )
                         .name("name")
                         .partyAddress(
-                            PaymentOrderCreateParams.ReceivingAccount.AddressRequest.builder()
+                            AddressRequest.builder()
                                 .country("country")
                                 .line1("line1")
                                 .line2("line2")
@@ -500,7 +444,7 @@ internal class PaymentOrderCreateParamsTest {
                         "type" to MultipartField.of(PaymentOrderType.ACH),
                         "accounting" to
                             MultipartField.of(
-                                PaymentOrderCreateParams.Accounting.builder()
+                                Accounting.builder()
                                     .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .build()
@@ -541,30 +485,21 @@ internal class PaymentOrderCreateParamsTest {
                             ),
                         "ledger_transaction" to
                             MultipartField.of(
-                                PaymentOrderCreateParams.LedgerTransactionCreateRequest.builder()
+                                LedgerTransactionCreateRequest.builder()
                                     .addLedgerEntry(
-                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .builder()
+                                        LedgerEntryCreateRequest.builder()
                                             .amount(0L)
                                             .direction(TransactionDirection.CREDIT)
                                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                             .availableBalanceAmount(
-                                                PaymentOrderCreateParams
-                                                    .LedgerTransactionCreateRequest
-                                                    .LedgerEntryCreateRequest
-                                                    .AvailableBalanceAmount
+                                                LedgerEntryCreateRequest.AvailableBalanceAmount
                                                     .builder()
                                                     .putAdditionalProperty("foo", JsonValue.from(0))
                                                     .build()
                                             )
                                             .lockVersion(0L)
                                             .metadata(
-                                                PaymentOrderCreateParams
-                                                    .LedgerTransactionCreateRequest
-                                                    .LedgerEntryCreateRequest
-                                                    .Metadata
-                                                    .builder()
+                                                LedgerEntryCreateRequest.Metadata.builder()
                                                     .putAdditionalProperty(
                                                         "key",
                                                         JsonValue.from("value"),
@@ -580,19 +515,13 @@ internal class PaymentOrderCreateParamsTest {
                                                     .build()
                                             )
                                             .pendingBalanceAmount(
-                                                PaymentOrderCreateParams
-                                                    .LedgerTransactionCreateRequest
-                                                    .LedgerEntryCreateRequest
-                                                    .PendingBalanceAmount
+                                                LedgerEntryCreateRequest.PendingBalanceAmount
                                                     .builder()
                                                     .putAdditionalProperty("foo", JsonValue.from(0))
                                                     .build()
                                             )
                                             .postedBalanceAmount(
-                                                PaymentOrderCreateParams
-                                                    .LedgerTransactionCreateRequest
-                                                    .LedgerEntryCreateRequest
-                                                    .PostedBalanceAmount
+                                                LedgerEntryCreateRequest.PostedBalanceAmount
                                                     .builder()
                                                     .putAdditionalProperty("foo", JsonValue.from(0))
                                                     .build()
@@ -606,14 +535,11 @@ internal class PaymentOrderCreateParamsTest {
                                     .externalId("external_id")
                                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .ledgerableType(
-                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                            .LedgerableType
+                                        LedgerTransactionCreateRequest.LedgerableType
                                             .EXPECTED_PAYMENT
                                     )
                                     .metadata(
-                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                            .Metadata
-                                            .builder()
+                                        LedgerTransactionCreateRequest.Metadata.builder()
                                             .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
@@ -622,11 +548,7 @@ internal class PaymentOrderCreateParamsTest {
                                             )
                                             .build()
                                     )
-                                    .status(
-                                        PaymentOrderCreateParams.LedgerTransactionCreateRequest
-                                            .Status
-                                            .ARCHIVED
-                                    )
+                                    .status(LedgerTransactionCreateRequest.Status.ARCHIVED)
                                     .build()
                             ),
                         "ledger_transaction_id" to
@@ -686,22 +608,16 @@ internal class PaymentOrderCreateParamsTest {
                                     )
                                     .accountType(ExternalAccountType.BASE_WALLET)
                                     .addContactDetail(
-                                        PaymentOrderCreateParams.ReceivingAccount
-                                            .ContactDetailCreateRequest
-                                            .builder()
+                                        ContactDetailCreateRequest.builder()
                                             .contactIdentifier("contact_identifier")
                                             .contactIdentifierType(
-                                                PaymentOrderCreateParams.ReceivingAccount
-                                                    .ContactDetailCreateRequest
-                                                    .ContactIdentifierType
+                                                ContactDetailCreateRequest.ContactIdentifierType
                                                     .EMAIL
                                             )
                                             .build()
                                     )
                                     .ledgerAccount(
-                                        PaymentOrderCreateParams.ReceivingAccount
-                                            .LedgerAccountCreateRequest
-                                            .builder()
+                                        LedgerAccountCreateRequest.builder()
                                             .currency("currency")
                                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                             .name("name")
@@ -713,16 +629,11 @@ internal class PaymentOrderCreateParamsTest {
                                             )
                                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                             .ledgerableType(
-                                                PaymentOrderCreateParams.ReceivingAccount
-                                                    .LedgerAccountCreateRequest
-                                                    .LedgerableType
+                                                LedgerAccountCreateRequest.LedgerableType
                                                     .COUNTERPARTY
                                             )
                                             .metadata(
-                                                PaymentOrderCreateParams.ReceivingAccount
-                                                    .LedgerAccountCreateRequest
-                                                    .Metadata
-                                                    .builder()
+                                                LedgerAccountCreateRequest.Metadata.builder()
                                                     .putAdditionalProperty(
                                                         "key",
                                                         JsonValue.from("value"),
@@ -751,8 +662,7 @@ internal class PaymentOrderCreateParamsTest {
                                     )
                                     .name("name")
                                     .partyAddress(
-                                        PaymentOrderCreateParams.ReceivingAccount.AddressRequest
-                                            .builder()
+                                        AddressRequest.builder()
                                             .country("country")
                                             .line1("line1")
                                             .line2("line2")

@@ -17,9 +17,9 @@ internal class LedgerAccountCategoryTest {
             LedgerAccountCategory.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .balances(
-                    LedgerAccountCategory.LedgerBalances.builder()
+                    LedgerBalances.builder()
                         .availableBalance(
-                            LedgerAccountCategory.LedgerBalances.LedgerBalance.builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -28,7 +28,7 @@ internal class LedgerAccountCategoryTest {
                                 .build()
                         )
                         .pendingBalance(
-                            LedgerAccountCategory.LedgerBalances.LedgerBalance.builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -37,7 +37,7 @@ internal class LedgerAccountCategoryTest {
                                 .build()
                         )
                         .postedBalance(
-                            LedgerAccountCategory.LedgerBalances.LedgerBalance.builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -69,9 +69,9 @@ internal class LedgerAccountCategoryTest {
         assertThat(ledgerAccountCategory.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(ledgerAccountCategory.balances())
             .isEqualTo(
-                LedgerAccountCategory.LedgerBalances.builder()
+                LedgerBalances.builder()
                     .availableBalance(
-                        LedgerAccountCategory.LedgerBalances.LedgerBalance.builder()
+                        LedgerBalance.builder()
                             .amount(0L)
                             .credits(0L)
                             .currency("currency")
@@ -80,7 +80,7 @@ internal class LedgerAccountCategoryTest {
                             .build()
                     )
                     .pendingBalance(
-                        LedgerAccountCategory.LedgerBalances.LedgerBalance.builder()
+                        LedgerBalance.builder()
                             .amount(0L)
                             .credits(0L)
                             .currency("currency")
@@ -89,7 +89,7 @@ internal class LedgerAccountCategoryTest {
                             .build()
                     )
                     .postedBalance(
-                        LedgerAccountCategory.LedgerBalances.LedgerBalance.builder()
+                        LedgerBalance.builder()
                             .amount(0L)
                             .credits(0L)
                             .currency("currency")
@@ -130,9 +130,9 @@ internal class LedgerAccountCategoryTest {
             LedgerAccountCategory.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .balances(
-                    LedgerAccountCategory.LedgerBalances.builder()
+                    LedgerBalances.builder()
                         .availableBalance(
-                            LedgerAccountCategory.LedgerBalances.LedgerBalance.builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -141,7 +141,7 @@ internal class LedgerAccountCategoryTest {
                                 .build()
                         )
                         .pendingBalance(
-                            LedgerAccountCategory.LedgerBalances.LedgerBalance.builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")
@@ -150,7 +150,7 @@ internal class LedgerAccountCategoryTest {
                                 .build()
                         )
                         .postedBalance(
-                            LedgerAccountCategory.LedgerBalances.LedgerBalance.builder()
+                            LedgerBalance.builder()
                                 .amount(0L)
                                 .credits(0L)
                                 .currency("currency")

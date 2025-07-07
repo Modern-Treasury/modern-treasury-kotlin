@@ -5,6 +5,7 @@ package com.moderntreasury.api.services.async
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.models.LedgerAccountCreateRequest
 import com.moderntreasury.api.models.TransactionDirection
 import com.moderntreasury.api.models.VirtualAccountCreateParams
 import com.moderntreasury.api.models.VirtualAccountUpdateParams
@@ -44,7 +45,7 @@ internal class VirtualAccountServiceAsyncTest {
                     .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .description("description")
                     .ledgerAccount(
-                        VirtualAccountCreateParams.LedgerAccountCreateRequest.builder()
+                        LedgerAccountCreateRequest.builder()
                             .currency("currency")
                             .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .name("name")
@@ -53,13 +54,9 @@ internal class VirtualAccountServiceAsyncTest {
                             .description("description")
                             .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .ledgerableType(
-                                VirtualAccountCreateParams.LedgerAccountCreateRequest.LedgerableType
-                                    .COUNTERPARTY
-                            )
+                            .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
                             .metadata(
-                                VirtualAccountCreateParams.LedgerAccountCreateRequest.Metadata
-                                    .builder()
+                                LedgerAccountCreateRequest.Metadata.builder()
                                     .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))

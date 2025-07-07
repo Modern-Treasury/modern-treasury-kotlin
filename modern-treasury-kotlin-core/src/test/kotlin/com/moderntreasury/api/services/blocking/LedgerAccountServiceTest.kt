@@ -6,6 +6,7 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerAccountCreateParams
+import com.moderntreasury.api.models.LedgerAccountCreateRequest
 import com.moderntreasury.api.models.LedgerAccountRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountUpdateParams
 import com.moderntreasury.api.models.TransactionDirection
@@ -30,20 +31,24 @@ internal class LedgerAccountServiceTest {
         val ledgerAccount =
             ledgerAccountService.create(
                 LedgerAccountCreateParams.builder()
-                    .currency("currency")
-                    .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .name("name")
-                    .normalBalance(TransactionDirection.CREDIT)
-                    .currencyExponent(0L)
-                    .description("description")
-                    .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .ledgerableType(LedgerAccountCreateParams.LedgerableType.COUNTERPARTY)
-                    .metadata(
-                        LedgerAccountCreateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .ledgerAccountCreateRequest(
+                        LedgerAccountCreateRequest.builder()
+                            .currency("currency")
+                            .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .name("name")
+                            .normalBalance(TransactionDirection.CREDIT)
+                            .currencyExponent(0L)
+                            .description("description")
+                            .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
+                            .metadata(
+                                LedgerAccountCreateRequest.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
                             .build()
                     )
                     .build()

@@ -15,7 +15,7 @@ internal class RoutingNumberLookupRequestTest {
         val routingNumberLookupRequest =
             RoutingNumberLookupRequest.builder()
                 .bankAddress(
-                    RoutingNumberLookupRequest.AddressRequest.builder()
+                    AddressRequest.builder()
                         .country("country")
                         .line1("line1")
                         .line2("line2")
@@ -74,7 +74,7 @@ internal class RoutingNumberLookupRequestTest {
 
         assertThat(routingNumberLookupRequest.bankAddress())
             .isEqualTo(
-                RoutingNumberLookupRequest.AddressRequest.builder()
+                AddressRequest.builder()
                     .country("country")
                     .line1("line1")
                     .line2("line2")
@@ -138,7 +138,7 @@ internal class RoutingNumberLookupRequestTest {
         val routingNumberLookupRequest =
             RoutingNumberLookupRequest.builder()
                 .bankAddress(
-                    RoutingNumberLookupRequest.AddressRequest.builder()
+                    AddressRequest.builder()
                         .country("country")
                         .line1("line1")
                         .line2("line2")

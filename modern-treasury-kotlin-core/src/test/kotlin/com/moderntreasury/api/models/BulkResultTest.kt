@@ -22,7 +22,7 @@ internal class BulkResultTest {
                     PaymentOrder.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .accounting(
-                            PaymentOrder.Accounting.builder()
+                            Accounting.builder()
                                 .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .build()
@@ -98,7 +98,7 @@ internal class BulkResultTest {
                             PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                         )
                         .foreignExchangeRate(
-                            PaymentOrder.ForeignExchangeRate.builder()
+                            ForeignExchangeRate.builder()
                                 .baseAmount(0L)
                                 .baseCurrency(Currency.AED)
                                 .exponent(0L)
@@ -189,7 +189,7 @@ internal class BulkResultTest {
                                     RoutingDetail.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .bankAddress(
-                                            RoutingDetail.Address.builder()
+                                            Address.builder()
                                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                                 .country("country")
                                                 .createdAt(
@@ -260,7 +260,7 @@ internal class BulkResultTest {
                     PaymentOrder.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .accounting(
-                            PaymentOrder.Accounting.builder()
+                            Accounting.builder()
                                 .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .build()
@@ -336,7 +336,7 @@ internal class BulkResultTest {
                             PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                         )
                         .foreignExchangeRate(
-                            PaymentOrder.ForeignExchangeRate.builder()
+                            ForeignExchangeRate.builder()
                                 .baseAmount(0L)
                                 .baseCurrency(Currency.AED)
                                 .exponent(0L)
@@ -427,7 +427,7 @@ internal class BulkResultTest {
                                     RoutingDetail.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .bankAddress(
-                                            RoutingDetail.Address.builder()
+                                            Address.builder()
                                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                                 .country("country")
                                                 .createdAt(
@@ -503,7 +503,7 @@ internal class BulkResultTest {
                     PaymentOrder.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .accounting(
-                            PaymentOrder.Accounting.builder()
+                            Accounting.builder()
                                 .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .build()
@@ -579,7 +579,7 @@ internal class BulkResultTest {
                             PaymentOrder.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                         )
                         .foreignExchangeRate(
-                            PaymentOrder.ForeignExchangeRate.builder()
+                            ForeignExchangeRate.builder()
                                 .baseAmount(0L)
                                 .baseCurrency(Currency.AED)
                                 .exponent(0L)
@@ -670,7 +670,7 @@ internal class BulkResultTest {
                                     RoutingDetail.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .bankAddress(
-                                            RoutingDetail.Address.builder()
+                                            Address.builder()
                                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                                 .country("country")
                                                 .createdAt(

@@ -25,8 +25,7 @@ internal class BulkRequestCreateParamsTest {
                     .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .type(PaymentOrderType.ACH)
                     .accounting(
-                        BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.Accounting
-                            .builder()
+                        Accounting.builder()
                             .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .build()
@@ -52,35 +51,20 @@ internal class BulkRequestCreateParamsTest {
                             .FIXED_TO_VARIABLE
                     )
                     .ledgerTransaction(
-                        BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                            .LedgerTransactionCreateRequest
-                            .builder()
+                        LedgerTransactionCreateRequest.builder()
                             .addLedgerEntry(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .LedgerTransactionCreateRequest
-                                    .LedgerEntryCreateRequest
-                                    .builder()
+                                LedgerEntryCreateRequest.builder()
                                     .amount(0L)
                                     .direction(TransactionDirection.CREDIT)
                                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .availableBalanceAmount(
-                                        BulkRequestCreateParams.Resource
-                                            .PaymentOrderAsyncCreateRequest
-                                            .LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .AvailableBalanceAmount
-                                            .builder()
+                                        LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                                             .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
                                     .lockVersion(0L)
                                     .metadata(
-                                        BulkRequestCreateParams.Resource
-                                            .PaymentOrderAsyncCreateRequest
-                                            .LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .Metadata
-                                            .builder()
+                                        LedgerEntryCreateRequest.Metadata.builder()
                                             .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
@@ -90,22 +74,12 @@ internal class BulkRequestCreateParamsTest {
                                             .build()
                                     )
                                     .pendingBalanceAmount(
-                                        BulkRequestCreateParams.Resource
-                                            .PaymentOrderAsyncCreateRequest
-                                            .LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .PendingBalanceAmount
-                                            .builder()
+                                        LedgerEntryCreateRequest.PendingBalanceAmount.builder()
                                             .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
                                     .postedBalanceAmount(
-                                        BulkRequestCreateParams.Resource
-                                            .PaymentOrderAsyncCreateRequest
-                                            .LedgerTransactionCreateRequest
-                                            .LedgerEntryCreateRequest
-                                            .PostedBalanceAmount
-                                            .builder()
+                                        LedgerEntryCreateRequest.PostedBalanceAmount.builder()
                                             .putAdditionalProperty("foo", JsonValue.from(0))
                                             .build()
                                     )
@@ -118,27 +92,16 @@ internal class BulkRequestCreateParamsTest {
                             .externalId("external_id")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .LedgerTransactionCreateRequest
-                                    .LedgerableType
-                                    .EXPECTED_PAYMENT
+                                LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT
                             )
                             .metadata(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .LedgerTransactionCreateRequest
-                                    .Metadata
-                                    .builder()
+                                LedgerTransactionCreateRequest.Metadata.builder()
                                     .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
-                            .status(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .LedgerTransactionCreateRequest
-                                    .Status
-                                    .ARCHIVED
-                            )
+                            .status(LedgerTransactionCreateRequest.Status.ARCHIVED)
                             .build()
                     )
                     .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -199,26 +162,15 @@ internal class BulkRequestCreateParamsTest {
                             )
                             .accountType(ExternalAccountType.BASE_WALLET)
                             .addContactDetail(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .ReceivingAccount
-                                    .ContactDetailCreateRequest
-                                    .builder()
+                                ContactDetailCreateRequest.builder()
                                     .contactIdentifier("contact_identifier")
                                     .contactIdentifierType(
-                                        BulkRequestCreateParams.Resource
-                                            .PaymentOrderAsyncCreateRequest
-                                            .ReceivingAccount
-                                            .ContactDetailCreateRequest
-                                            .ContactIdentifierType
-                                            .EMAIL
+                                        ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                                     )
                                     .build()
                             )
                             .ledgerAccount(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .ReceivingAccount
-                                    .LedgerAccountCreateRequest
-                                    .builder()
+                                LedgerAccountCreateRequest.builder()
                                     .currency("currency")
                                     .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .name("name")
@@ -230,20 +182,10 @@ internal class BulkRequestCreateParamsTest {
                                     )
                                     .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .ledgerableType(
-                                        BulkRequestCreateParams.Resource
-                                            .PaymentOrderAsyncCreateRequest
-                                            .ReceivingAccount
-                                            .LedgerAccountCreateRequest
-                                            .LedgerableType
-                                            .COUNTERPARTY
+                                        LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
                                     )
                                     .metadata(
-                                        BulkRequestCreateParams.Resource
-                                            .PaymentOrderAsyncCreateRequest
-                                            .ReceivingAccount
-                                            .LedgerAccountCreateRequest
-                                            .Metadata
-                                            .builder()
+                                        LedgerAccountCreateRequest.Metadata.builder()
                                             .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
@@ -266,10 +208,7 @@ internal class BulkRequestCreateParamsTest {
                             )
                             .name("name")
                             .partyAddress(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .ReceivingAccount
-                                    .AddressRequest
-                                    .builder()
+                                AddressRequest.builder()
                                     .country("country")
                                     .line1("line1")
                                     .line2("line2")
@@ -352,9 +291,7 @@ internal class BulkRequestCreateParamsTest {
                         .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .type(PaymentOrderType.ACH)
                         .accounting(
-                            BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                .Accounting
-                                .builder()
+                            Accounting.builder()
                                 .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .build()
@@ -382,35 +319,21 @@ internal class BulkRequestCreateParamsTest {
                                 .FIXED_TO_VARIABLE
                         )
                         .ledgerTransaction(
-                            BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                .LedgerTransactionCreateRequest
-                                .builder()
+                            LedgerTransactionCreateRequest.builder()
                                 .addLedgerEntry(
-                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                        .LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .builder()
+                                    LedgerEntryCreateRequest.builder()
                                         .amount(0L)
                                         .direction(TransactionDirection.CREDIT)
                                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .availableBalanceAmount(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderAsyncCreateRequest
-                                                .LedgerTransactionCreateRequest
-                                                .LedgerEntryCreateRequest
-                                                .AvailableBalanceAmount
+                                            LedgerEntryCreateRequest.AvailableBalanceAmount
                                                 .builder()
                                                 .putAdditionalProperty("foo", JsonValue.from(0))
                                                 .build()
                                         )
                                         .lockVersion(0L)
                                         .metadata(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderAsyncCreateRequest
-                                                .LedgerTransactionCreateRequest
-                                                .LedgerEntryCreateRequest
-                                                .Metadata
-                                                .builder()
+                                            LedgerEntryCreateRequest.Metadata.builder()
                                                 .putAdditionalProperty(
                                                     "key",
                                                     JsonValue.from("value"),
@@ -423,22 +346,12 @@ internal class BulkRequestCreateParamsTest {
                                                 .build()
                                         )
                                         .pendingBalanceAmount(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderAsyncCreateRequest
-                                                .LedgerTransactionCreateRequest
-                                                .LedgerEntryCreateRequest
-                                                .PendingBalanceAmount
-                                                .builder()
+                                            LedgerEntryCreateRequest.PendingBalanceAmount.builder()
                                                 .putAdditionalProperty("foo", JsonValue.from(0))
                                                 .build()
                                         )
                                         .postedBalanceAmount(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderAsyncCreateRequest
-                                                .LedgerTransactionCreateRequest
-                                                .LedgerEntryCreateRequest
-                                                .PostedBalanceAmount
-                                                .builder()
+                                            LedgerEntryCreateRequest.PostedBalanceAmount.builder()
                                                 .putAdditionalProperty("foo", JsonValue.from(0))
                                                 .build()
                                         )
@@ -451,27 +364,16 @@ internal class BulkRequestCreateParamsTest {
                                 .externalId("external_id")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                        .LedgerTransactionCreateRequest
-                                        .LedgerableType
-                                        .EXPECTED_PAYMENT
+                                    LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT
                                 )
                                 .metadata(
-                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                        .LedgerTransactionCreateRequest
-                                        .Metadata
-                                        .builder()
+                                    LedgerTransactionCreateRequest.Metadata.builder()
                                         .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
-                                .status(
-                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                        .LedgerTransactionCreateRequest
-                                        .Status
-                                        .ARCHIVED
-                                )
+                                .status(LedgerTransactionCreateRequest.Status.ARCHIVED)
                                 .build()
                         )
                         .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -532,26 +434,15 @@ internal class BulkRequestCreateParamsTest {
                                 )
                                 .accountType(ExternalAccountType.BASE_WALLET)
                                 .addContactDetail(
-                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                        .ReceivingAccount
-                                        .ContactDetailCreateRequest
-                                        .builder()
+                                    ContactDetailCreateRequest.builder()
                                         .contactIdentifier("contact_identifier")
                                         .contactIdentifierType(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderAsyncCreateRequest
-                                                .ReceivingAccount
-                                                .ContactDetailCreateRequest
-                                                .ContactIdentifierType
-                                                .EMAIL
+                                            ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                                         )
                                         .build()
                                 )
                                 .ledgerAccount(
-                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                        .ReceivingAccount
-                                        .LedgerAccountCreateRequest
-                                        .builder()
+                                    LedgerAccountCreateRequest.builder()
                                         .currency("currency")
                                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .name("name")
@@ -563,20 +454,10 @@ internal class BulkRequestCreateParamsTest {
                                         )
                                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .ledgerableType(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderAsyncCreateRequest
-                                                .ReceivingAccount
-                                                .LedgerAccountCreateRequest
-                                                .LedgerableType
-                                                .COUNTERPARTY
+                                            LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
                                         )
                                         .metadata(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderAsyncCreateRequest
-                                                .ReceivingAccount
-                                                .LedgerAccountCreateRequest
-                                                .Metadata
-                                                .builder()
+                                            LedgerAccountCreateRequest.Metadata.builder()
                                                 .putAdditionalProperty(
                                                     "key",
                                                     JsonValue.from("value"),
@@ -602,10 +483,7 @@ internal class BulkRequestCreateParamsTest {
                                 )
                                 .name("name")
                                 .partyAddress(
-                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                        .ReceivingAccount
-                                        .AddressRequest
-                                        .builder()
+                                    AddressRequest.builder()
                                         .country("country")
                                         .line1("line1")
                                         .line2("line2")
@@ -688,9 +566,7 @@ internal class BulkRequestCreateParamsTest {
                         .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .type(PaymentOrderType.ACH)
                         .accounting(
-                            BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                .Accounting
-                                .builder()
+                            Accounting.builder()
                                 .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .build()
@@ -718,35 +594,21 @@ internal class BulkRequestCreateParamsTest {
                                 .FIXED_TO_VARIABLE
                         )
                         .ledgerTransaction(
-                            BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                .LedgerTransactionCreateRequest
-                                .builder()
+                            LedgerTransactionCreateRequest.builder()
                                 .addLedgerEntry(
-                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                        .LedgerTransactionCreateRequest
-                                        .LedgerEntryCreateRequest
-                                        .builder()
+                                    LedgerEntryCreateRequest.builder()
                                         .amount(0L)
                                         .direction(TransactionDirection.CREDIT)
                                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .availableBalanceAmount(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderAsyncCreateRequest
-                                                .LedgerTransactionCreateRequest
-                                                .LedgerEntryCreateRequest
-                                                .AvailableBalanceAmount
+                                            LedgerEntryCreateRequest.AvailableBalanceAmount
                                                 .builder()
                                                 .putAdditionalProperty("foo", JsonValue.from(0))
                                                 .build()
                                         )
                                         .lockVersion(0L)
                                         .metadata(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderAsyncCreateRequest
-                                                .LedgerTransactionCreateRequest
-                                                .LedgerEntryCreateRequest
-                                                .Metadata
-                                                .builder()
+                                            LedgerEntryCreateRequest.Metadata.builder()
                                                 .putAdditionalProperty(
                                                     "key",
                                                     JsonValue.from("value"),
@@ -759,22 +621,12 @@ internal class BulkRequestCreateParamsTest {
                                                 .build()
                                         )
                                         .pendingBalanceAmount(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderAsyncCreateRequest
-                                                .LedgerTransactionCreateRequest
-                                                .LedgerEntryCreateRequest
-                                                .PendingBalanceAmount
-                                                .builder()
+                                            LedgerEntryCreateRequest.PendingBalanceAmount.builder()
                                                 .putAdditionalProperty("foo", JsonValue.from(0))
                                                 .build()
                                         )
                                         .postedBalanceAmount(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderAsyncCreateRequest
-                                                .LedgerTransactionCreateRequest
-                                                .LedgerEntryCreateRequest
-                                                .PostedBalanceAmount
-                                                .builder()
+                                            LedgerEntryCreateRequest.PostedBalanceAmount.builder()
                                                 .putAdditionalProperty("foo", JsonValue.from(0))
                                                 .build()
                                         )
@@ -787,27 +639,16 @@ internal class BulkRequestCreateParamsTest {
                                 .externalId("external_id")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                        .LedgerTransactionCreateRequest
-                                        .LedgerableType
-                                        .EXPECTED_PAYMENT
+                                    LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT
                                 )
                                 .metadata(
-                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                        .LedgerTransactionCreateRequest
-                                        .Metadata
-                                        .builder()
+                                    LedgerTransactionCreateRequest.Metadata.builder()
                                         .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
-                                .status(
-                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                        .LedgerTransactionCreateRequest
-                                        .Status
-                                        .ARCHIVED
-                                )
+                                .status(LedgerTransactionCreateRequest.Status.ARCHIVED)
                                 .build()
                         )
                         .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -868,26 +709,15 @@ internal class BulkRequestCreateParamsTest {
                                 )
                                 .accountType(ExternalAccountType.BASE_WALLET)
                                 .addContactDetail(
-                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                        .ReceivingAccount
-                                        .ContactDetailCreateRequest
-                                        .builder()
+                                    ContactDetailCreateRequest.builder()
                                         .contactIdentifier("contact_identifier")
                                         .contactIdentifierType(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderAsyncCreateRequest
-                                                .ReceivingAccount
-                                                .ContactDetailCreateRequest
-                                                .ContactIdentifierType
-                                                .EMAIL
+                                            ContactDetailCreateRequest.ContactIdentifierType.EMAIL
                                         )
                                         .build()
                                 )
                                 .ledgerAccount(
-                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                        .ReceivingAccount
-                                        .LedgerAccountCreateRequest
-                                        .builder()
+                                    LedgerAccountCreateRequest.builder()
                                         .currency("currency")
                                         .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .name("name")
@@ -899,20 +729,10 @@ internal class BulkRequestCreateParamsTest {
                                         )
                                         .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .ledgerableType(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderAsyncCreateRequest
-                                                .ReceivingAccount
-                                                .LedgerAccountCreateRequest
-                                                .LedgerableType
-                                                .COUNTERPARTY
+                                            LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
                                         )
                                         .metadata(
-                                            BulkRequestCreateParams.Resource
-                                                .PaymentOrderAsyncCreateRequest
-                                                .ReceivingAccount
-                                                .LedgerAccountCreateRequest
-                                                .Metadata
-                                                .builder()
+                                            LedgerAccountCreateRequest.Metadata.builder()
                                                 .putAdditionalProperty(
                                                     "key",
                                                     JsonValue.from("value"),
@@ -938,10 +758,7 @@ internal class BulkRequestCreateParamsTest {
                                 )
                                 .name("name")
                                 .partyAddress(
-                                    BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                        .ReceivingAccount
-                                        .AddressRequest
-                                        .builder()
+                                    AddressRequest.builder()
                                         .country("country")
                                         .line1("line1")
                                         .line2("line2")

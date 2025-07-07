@@ -17,7 +17,7 @@ internal class LineItemTest {
             LineItem.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .accounting(
-                    LineItem.Accounting.builder()
+                    Accounting.builder()
                         .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
@@ -44,7 +44,7 @@ internal class LineItemTest {
         assertThat(lineItem.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(lineItem.accounting())
             .isEqualTo(
-                LineItem.Accounting.builder()
+                Accounting.builder()
                     .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
@@ -78,7 +78,7 @@ internal class LineItemTest {
             LineItem.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .accounting(
-                    LineItem.Accounting.builder()
+                    Accounting.builder()
                         .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()

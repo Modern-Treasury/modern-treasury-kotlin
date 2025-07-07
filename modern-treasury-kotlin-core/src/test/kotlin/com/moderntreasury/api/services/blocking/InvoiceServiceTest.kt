@@ -5,6 +5,7 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.models.ContactDetail
 import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.InvoiceAddPaymentOrderParams
 import com.moderntreasury.api.models.InvoiceCreateParams
@@ -36,12 +37,10 @@ internal class InvoiceServiceTest {
                     .originatingAccountId("originating_account_id")
                     .autoAdvance(true)
                     .addContactDetail(
-                        InvoiceCreateParams.ContactDetail.builder()
+                        ContactDetail.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                InvoiceCreateParams.ContactDetail.ContactIdentifierType.EMAIL
-                            )
+                            .contactIdentifierType(ContactDetail.ContactIdentifierType.EMAIL)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .liveMode(true)
@@ -154,12 +153,10 @@ internal class InvoiceServiceTest {
                 InvoiceUpdateParams.builder()
                     .id("id")
                     .addContactDetail(
-                        InvoiceUpdateParams.ContactDetail.builder()
+                        ContactDetail.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .contactIdentifier("contact_identifier")
-                            .contactIdentifierType(
-                                InvoiceUpdateParams.ContactDetail.ContactIdentifierType.EMAIL
-                            )
+                            .contactIdentifierType(ContactDetail.ContactIdentifierType.EMAIL)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .liveMode(true)
