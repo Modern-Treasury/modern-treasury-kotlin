@@ -1,5 +1,34 @@
 # Changelog
 
+## 7.4.0 (2025-07-07)
+
+Full Changelog: [v7.3.1...v7.4.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.3.1...v7.4.0)
+
+### Features
+
+* **api:** api update ([607b024](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/607b0242c6d91ef7fb84e9b0c6aa25b3d4aa408c))
+* **api:** api update ([a063133](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a0631333c68c8308eb5155d454bb56edc2c0dc0e))
+* **api:** api update ([7dd7a73](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7dd7a739161b604a670cff05c87a2b477755ef65))
+* **api:** api update ([5682202](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/568220214c9d8133d8f06fc53108ca1315e47d28))
+
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([cb59a1c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/cb59a1ca0ba3a429f9d34f87052b069333e10599))
+* **client:** bump max requests per host to max requests (5 -&gt; 64) ([be65f68](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/be65f68b7f261298c4501087ba74de38289a8ebd))
+* **client:** don't close client on `withOptions` usage when original is gc'd ([8655fa4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8655fa46c85d184683ca148920e56f335ca5f3a1))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([ac05bd7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ac05bd7c72cb951ad5293062d4bea485ada4ba42))
+* **ci:** only run for pushes and fork pull requests ([f5f8fd6](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f5f8fd690ac7773cd3cb2a08d1c15ba6e8d99080))
+
+
+### Refactors
+
+* **internal:** minor `ClientOptionsTest` change ([c805e84](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c805e8489b34ccdf6a520ea132c93f67c111c6e4))
+
 ## 7.3.1 (2025-06-16)
 
 Full Changelog: [v7.3.0...v7.3.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.3.0...v7.3.1)
