@@ -21,6 +21,8 @@ import com.moderntreasury.api.models.InternalAccountCreateParams
 import com.moderntreasury.api.models.InternalAccountListPage
 import com.moderntreasury.api.models.InternalAccountListParams
 import com.moderntreasury.api.models.InternalAccountRetrieveParams
+import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityParams
+import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityResponse
 import com.moderntreasury.api.models.InternalAccountUpdateParams
 import com.moderntreasury.api.services.blocking.internalAccounts.BalanceReportService
 import com.moderntreasury.api.services.blocking.internalAccounts.BalanceReportServiceImpl
@@ -70,6 +72,13 @@ class InternalAccountServiceImpl internal constructor(private val clientOptions:
     ): InternalAccountListPage =
         // get /api/internal_accounts
         withRawResponse().list(params, requestOptions).parse()
+
+    override fun updateAccountCapability(
+        params: InternalAccountUpdateAccountCapabilityParams,
+        requestOptions: RequestOptions,
+    ): InternalAccountUpdateAccountCapabilityResponse =
+        // patch /api/internal_accounts/{internal_account_id}/account_capabilities/{id}
+        withRawResponse().updateAccountCapability(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         InternalAccountService.WithRawResponse {
@@ -210,6 +219,45 @@ class InternalAccountServiceImpl internal constructor(private val clientOptions:
                             .headers(response.headers())
                             .items(it)
                             .build()
+                    }
+            }
+        }
+
+        private val updateAccountCapabilityHandler:
+            Handler<InternalAccountUpdateAccountCapabilityResponse> =
+            jsonHandler<InternalAccountUpdateAccountCapabilityResponse>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun updateAccountCapability(
+            params: InternalAccountUpdateAccountCapabilityParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InternalAccountUpdateAccountCapabilityResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "api",
+                        "internal_accounts",
+                        params._pathParam(0),
+                        "account_capabilities",
+                        params._pathParam(1),
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { updateAccountCapabilityHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }
