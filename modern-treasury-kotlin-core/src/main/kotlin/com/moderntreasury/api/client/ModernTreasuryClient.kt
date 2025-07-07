@@ -32,7 +32,6 @@ import com.moderntreasury.api.services.blocking.LedgerEntryService
 import com.moderntreasury.api.services.blocking.LedgerEventHandlerService
 import com.moderntreasury.api.services.blocking.LedgerService
 import com.moderntreasury.api.services.blocking.LedgerTransactionService
-import com.moderntreasury.api.services.blocking.LedgerableEventService
 import com.moderntreasury.api.services.blocking.LegalEntityAssociationService
 import com.moderntreasury.api.services.blocking.LegalEntityService
 import com.moderntreasury.api.services.blocking.LineItemService
@@ -109,8 +108,6 @@ interface ModernTreasuryClient {
     fun internalAccounts(): InternalAccountService
 
     fun ledgers(): LedgerService
-
-    fun ledgerableEvents(): LedgerableEventService
 
     fun ledgerAccountCategories(): LedgerAccountCategoryService
 
@@ -226,8 +223,6 @@ interface ModernTreasuryClient {
         fun internalAccounts(): InternalAccountService.WithRawResponse
 
         fun ledgers(): LedgerService.WithRawResponse
-
-        fun ledgerableEvents(): LedgerableEventService.WithRawResponse
 
         fun ledgerAccountCategories(): LedgerAccountCategoryService.WithRawResponse
 

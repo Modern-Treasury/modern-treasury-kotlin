@@ -65,8 +65,6 @@ import com.moderntreasury.api.services.blocking.LedgerService
 import com.moderntreasury.api.services.blocking.LedgerServiceImpl
 import com.moderntreasury.api.services.blocking.LedgerTransactionService
 import com.moderntreasury.api.services.blocking.LedgerTransactionServiceImpl
-import com.moderntreasury.api.services.blocking.LedgerableEventService
-import com.moderntreasury.api.services.blocking.LedgerableEventServiceImpl
 import com.moderntreasury.api.services.blocking.LegalEntityAssociationService
 import com.moderntreasury.api.services.blocking.LegalEntityAssociationServiceImpl
 import com.moderntreasury.api.services.blocking.LegalEntityService
@@ -160,10 +158,6 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
     }
 
     private val ledgers: LedgerService by lazy { LedgerServiceImpl(clientOptionsWithUserAgent) }
-
-    private val ledgerableEvents: LedgerableEventService by lazy {
-        LedgerableEventServiceImpl(clientOptionsWithUserAgent)
-    }
 
     private val ledgerAccountCategories: LedgerAccountCategoryService by lazy {
         LedgerAccountCategoryServiceImpl(clientOptionsWithUserAgent)
@@ -294,8 +288,6 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
 
     override fun ledgers(): LedgerService = ledgers
 
-    override fun ledgerableEvents(): LedgerableEventService = ledgerableEvents
-
     override fun ledgerAccountCategories(): LedgerAccountCategoryService = ledgerAccountCategories
 
     override fun ledgerAccounts(): LedgerAccountService = ledgerAccounts
@@ -409,10 +401,6 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
 
         private val ledgers: LedgerService.WithRawResponse by lazy {
             LedgerServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val ledgerableEvents: LedgerableEventService.WithRawResponse by lazy {
-            LedgerableEventServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val ledgerAccountCategories: LedgerAccountCategoryService.WithRawResponse by lazy {
@@ -547,8 +535,6 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
         override fun internalAccounts(): InternalAccountService.WithRawResponse = internalAccounts
 
         override fun ledgers(): LedgerService.WithRawResponse = ledgers
-
-        override fun ledgerableEvents(): LedgerableEventService.WithRawResponse = ledgerableEvents
 
         override fun ledgerAccountCategories(): LedgerAccountCategoryService.WithRawResponse =
             ledgerAccountCategories
