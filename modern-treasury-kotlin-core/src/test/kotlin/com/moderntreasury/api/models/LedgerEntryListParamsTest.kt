@@ -50,7 +50,7 @@ internal class LedgerEntryListParamsTest {
             .perPage(0L)
             .showBalances(true)
             .showDeleted(true)
-            .status(LedgerEntryListParams.Status.PENDING)
+            .status(LedgerEntryListParams.Status.UnionMember0.PENDING)
             .updatedAt(
                 LedgerEntryListParams.UpdatedAt.builder()
                     .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
@@ -102,7 +102,7 @@ internal class LedgerEntryListParamsTest {
                 .perPage(0L)
                 .showBalances(true)
                 .showDeleted(true)
-                .status(LedgerEntryListParams.Status.PENDING)
+                .status(LedgerEntryListParams.Status.UnionMember0.PENDING)
                 .updatedAt(
                     LedgerEntryListParams.UpdatedAt.builder()
                         .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
