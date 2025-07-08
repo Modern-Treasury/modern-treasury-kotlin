@@ -49,7 +49,7 @@ internal class LedgerTransactionListParamsTest {
                     .build()
             )
             .reversesLedgerTransactionId("reverses_ledger_transaction_id")
-            .status(LedgerTransactionListParams.Status.PENDING)
+            .status(LedgerTransactionListParams.Status.UnionMember0.PENDING)
             .updatedAt(
                 LedgerTransactionListParams.UpdatedAt.builder()
                     .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
@@ -100,7 +100,7 @@ internal class LedgerTransactionListParamsTest {
                         .build()
                 )
                 .reversesLedgerTransactionId("reverses_ledger_transaction_id")
-                .status(LedgerTransactionListParams.Status.PENDING)
+                .status(LedgerTransactionListParams.Status.UnionMember0.PENDING)
                 .updatedAt(
                     LedgerTransactionListParams.UpdatedAt.builder()
                         .putAdditionalProperty("foo", "2019-12-27T18:11:19.117Z")
