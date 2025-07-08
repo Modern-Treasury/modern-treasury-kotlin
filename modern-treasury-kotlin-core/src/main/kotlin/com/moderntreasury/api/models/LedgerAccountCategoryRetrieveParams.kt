@@ -24,7 +24,8 @@ private constructor(
     /**
      * For example, if you want the balances as of a particular time (ISO8601), the encoded query
      * string would be `balances%5Beffective_at%5D=2000-12-31T12:00:00Z`. The balances as of a time
-     * are inclusive of entries with that exact time.
+     * are inclusive of entries with that exact time, but with respect to the ledger accounts that
+     * are currently present in the category.
      */
     fun balances(): Balances? = balances
 
@@ -68,7 +69,8 @@ private constructor(
         /**
          * For example, if you want the balances as of a particular time (ISO8601), the encoded
          * query string would be `balances%5Beffective_at%5D=2000-12-31T12:00:00Z`. The balances as
-         * of a time are inclusive of entries with that exact time.
+         * of a time are inclusive of entries with that exact time, but with respect to the ledger
+         * accounts that are currently present in the category.
          */
         fun balances(balances: Balances?) = apply { this.balances = balances }
 
@@ -216,7 +218,8 @@ private constructor(
     /**
      * For example, if you want the balances as of a particular time (ISO8601), the encoded query
      * string would be `balances%5Beffective_at%5D=2000-12-31T12:00:00Z`. The balances as of a time
-     * are inclusive of entries with that exact time.
+     * are inclusive of entries with that exact time, but with respect to the ledger accounts that
+     * are currently present in the category.
      */
     class Balances
     private constructor(
