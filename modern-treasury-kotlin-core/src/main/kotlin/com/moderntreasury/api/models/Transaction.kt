@@ -1726,6 +1726,8 @@ private constructor(
 
             val EVOLVE = of("evolve")
 
+            val FAKE_VENDOR = of("fake_vendor")
+
             val GOLDMAN_SACHS = of("goldman_sachs")
 
             val HIFI = of("hifi")
@@ -1742,8 +1744,6 @@ private constructor(
 
             val PNC = of("pnc")
 
-            val RSPEC_VENDOR = of("rspec_vendor")
-
             val SIGNET = of("signet")
 
             val SILVERGATE = of("silvergate")
@@ -1753,6 +1753,8 @@ private constructor(
             val US_BANK = of("us_bank")
 
             val USER = of("user")
+
+            val WESTERN_ALLIANCE = of("western_alliance")
 
             fun of(value: String) = VendorCodeType(JsonField.of(value))
         }
@@ -1772,6 +1774,7 @@ private constructor(
             DC_BANK,
             DWOLLA,
             EVOLVE,
+            FAKE_VENDOR,
             GOLDMAN_SACHS,
             HIFI,
             ISO20022,
@@ -1780,12 +1783,12 @@ private constructor(
             PAYPAL,
             PLAID,
             PNC,
-            RSPEC_VENDOR,
             SIGNET,
             SILVERGATE,
             SWIFT,
             US_BANK,
             USER,
+            WESTERN_ALLIANCE,
         }
 
         /**
@@ -1811,6 +1814,7 @@ private constructor(
             DC_BANK,
             DWOLLA,
             EVOLVE,
+            FAKE_VENDOR,
             GOLDMAN_SACHS,
             HIFI,
             ISO20022,
@@ -1819,12 +1823,12 @@ private constructor(
             PAYPAL,
             PLAID,
             PNC,
-            RSPEC_VENDOR,
             SIGNET,
             SILVERGATE,
             SWIFT,
             US_BANK,
             USER,
+            WESTERN_ALLIANCE,
             /**
              * An enum member indicating that [VendorCodeType] was instantiated with an unknown
              * value.
@@ -1854,6 +1858,7 @@ private constructor(
                 DC_BANK -> Value.DC_BANK
                 DWOLLA -> Value.DWOLLA
                 EVOLVE -> Value.EVOLVE
+                FAKE_VENDOR -> Value.FAKE_VENDOR
                 GOLDMAN_SACHS -> Value.GOLDMAN_SACHS
                 HIFI -> Value.HIFI
                 ISO20022 -> Value.ISO20022
@@ -1862,12 +1867,12 @@ private constructor(
                 PAYPAL -> Value.PAYPAL
                 PLAID -> Value.PLAID
                 PNC -> Value.PNC
-                RSPEC_VENDOR -> Value.RSPEC_VENDOR
                 SIGNET -> Value.SIGNET
                 SILVERGATE -> Value.SILVERGATE
                 SWIFT -> Value.SWIFT
                 US_BANK -> Value.US_BANK
                 USER -> Value.USER
+                WESTERN_ALLIANCE -> Value.WESTERN_ALLIANCE
                 else -> Value._UNKNOWN
             }
 
@@ -1895,6 +1900,7 @@ private constructor(
                 DC_BANK -> Known.DC_BANK
                 DWOLLA -> Known.DWOLLA
                 EVOLVE -> Known.EVOLVE
+                FAKE_VENDOR -> Known.FAKE_VENDOR
                 GOLDMAN_SACHS -> Known.GOLDMAN_SACHS
                 HIFI -> Known.HIFI
                 ISO20022 -> Known.ISO20022
@@ -1903,12 +1909,12 @@ private constructor(
                 PAYPAL -> Known.PAYPAL
                 PLAID -> Known.PLAID
                 PNC -> Known.PNC
-                RSPEC_VENDOR -> Known.RSPEC_VENDOR
                 SIGNET -> Known.SIGNET
                 SILVERGATE -> Known.SILVERGATE
                 SWIFT -> Known.SWIFT
                 US_BANK -> Known.US_BANK
                 USER -> Known.USER
+                WESTERN_ALLIANCE -> Known.WESTERN_ALLIANCE
                 else -> throw ModernTreasuryInvalidDataException("Unknown VendorCodeType: $value")
             }
 

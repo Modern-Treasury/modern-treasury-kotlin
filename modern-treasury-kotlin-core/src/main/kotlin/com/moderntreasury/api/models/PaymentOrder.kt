@@ -3564,7 +3564,15 @@ private constructor(
 
                 val EFT_TRACE_NUMBER = of("eft_trace_number")
 
+                val EVOLVE_CORE_BATCH = of("evolve_core_batch")
+
+                val EVOLVE_CORE_FILE_KEY = of("evolve_core_file_key")
+
+                val EVOLVE_CORE_SEQ = of("evolve_core_seq")
+
                 val EVOLVE_TRANSACTION_ID = of("evolve_transaction_id")
+
+                val FAKE_VENDOR_PAYMENT_ID = of("fake_vendor_payment_id")
 
                 val FEDWIRE_IMAD = of("fedwire_imad")
 
@@ -3630,8 +3638,6 @@ private constructor(
 
                 val RBC_WIRE_REFERENCE_ID = of("rbc_wire_reference_id")
 
-                val RSPEC_VENDOR_PAYMENT_ID = of("rspec_vendor_payment_id")
-
                 val RTP_INSTRUCTION_ID = of("rtp_instruction_id")
 
                 val SIGNET_API_REFERENCE_ID = of("signet_api_reference_id")
@@ -3675,6 +3681,13 @@ private constructor(
 
                 val WELLS_FARGO_UETR = of("wells_fargo_uetr")
 
+                val WESTERN_ALLIANCE_PAYMENT_ID = of("western_alliance_payment_id")
+
+                val WESTERN_ALLIANCE_TRANSACTION_ID = of("western_alliance_transaction_id")
+
+                val WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER =
+                    of("western_alliance_wire_confirmation_number")
+
                 fun of(value: String) = ReferenceNumberType(JsonField.of(value))
             }
 
@@ -3707,7 +3720,11 @@ private constructor(
                 CURRENCYCLOUD_PAYMENT_ID,
                 DC_BANK_TRANSACTION_ID,
                 EFT_TRACE_NUMBER,
+                EVOLVE_CORE_BATCH,
+                EVOLVE_CORE_FILE_KEY,
+                EVOLVE_CORE_SEQ,
                 EVOLVE_TRANSACTION_ID,
+                FAKE_VENDOR_PAYMENT_ID,
                 FEDWIRE_IMAD,
                 FEDWIRE_OMAD,
                 FIRST_REPUBLIC_INTERNAL_ID,
@@ -3740,7 +3757,6 @@ private constructor(
                 PNC_REQUEST_FOR_PAYMENT_ID,
                 PNC_TRANSACTION_REFERENCE_NUMBER,
                 RBC_WIRE_REFERENCE_ID,
-                RSPEC_VENDOR_PAYMENT_ID,
                 RTP_INSTRUCTION_ID,
                 SIGNET_API_REFERENCE_ID,
                 SIGNET_CONFIRMATION_ID,
@@ -3761,6 +3777,9 @@ private constructor(
                 WELLS_FARGO_PAYMENT_ID,
                 WELLS_FARGO_TRACE_NUMBER,
                 WELLS_FARGO_UETR,
+                WESTERN_ALLIANCE_PAYMENT_ID,
+                WESTERN_ALLIANCE_TRANSACTION_ID,
+                WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER,
             }
 
             /**
@@ -3802,7 +3821,11 @@ private constructor(
                 CURRENCYCLOUD_PAYMENT_ID,
                 DC_BANK_TRANSACTION_ID,
                 EFT_TRACE_NUMBER,
+                EVOLVE_CORE_BATCH,
+                EVOLVE_CORE_FILE_KEY,
+                EVOLVE_CORE_SEQ,
                 EVOLVE_TRANSACTION_ID,
+                FAKE_VENDOR_PAYMENT_ID,
                 FEDWIRE_IMAD,
                 FEDWIRE_OMAD,
                 FIRST_REPUBLIC_INTERNAL_ID,
@@ -3835,7 +3858,6 @@ private constructor(
                 PNC_REQUEST_FOR_PAYMENT_ID,
                 PNC_TRANSACTION_REFERENCE_NUMBER,
                 RBC_WIRE_REFERENCE_ID,
-                RSPEC_VENDOR_PAYMENT_ID,
                 RTP_INSTRUCTION_ID,
                 SIGNET_API_REFERENCE_ID,
                 SIGNET_CONFIRMATION_ID,
@@ -3856,6 +3878,9 @@ private constructor(
                 WELLS_FARGO_PAYMENT_ID,
                 WELLS_FARGO_TRACE_NUMBER,
                 WELLS_FARGO_UETR,
+                WESTERN_ALLIANCE_PAYMENT_ID,
+                WESTERN_ALLIANCE_TRANSACTION_ID,
+                WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER,
                 /**
                  * An enum member indicating that [ReferenceNumberType] was instantiated with an
                  * unknown value.
@@ -3900,7 +3925,11 @@ private constructor(
                     CURRENCYCLOUD_PAYMENT_ID -> Value.CURRENCYCLOUD_PAYMENT_ID
                     DC_BANK_TRANSACTION_ID -> Value.DC_BANK_TRANSACTION_ID
                     EFT_TRACE_NUMBER -> Value.EFT_TRACE_NUMBER
+                    EVOLVE_CORE_BATCH -> Value.EVOLVE_CORE_BATCH
+                    EVOLVE_CORE_FILE_KEY -> Value.EVOLVE_CORE_FILE_KEY
+                    EVOLVE_CORE_SEQ -> Value.EVOLVE_CORE_SEQ
                     EVOLVE_TRANSACTION_ID -> Value.EVOLVE_TRANSACTION_ID
+                    FAKE_VENDOR_PAYMENT_ID -> Value.FAKE_VENDOR_PAYMENT_ID
                     FEDWIRE_IMAD -> Value.FEDWIRE_IMAD
                     FEDWIRE_OMAD -> Value.FEDWIRE_OMAD
                     FIRST_REPUBLIC_INTERNAL_ID -> Value.FIRST_REPUBLIC_INTERNAL_ID
@@ -3933,7 +3962,6 @@ private constructor(
                     PNC_REQUEST_FOR_PAYMENT_ID -> Value.PNC_REQUEST_FOR_PAYMENT_ID
                     PNC_TRANSACTION_REFERENCE_NUMBER -> Value.PNC_TRANSACTION_REFERENCE_NUMBER
                     RBC_WIRE_REFERENCE_ID -> Value.RBC_WIRE_REFERENCE_ID
-                    RSPEC_VENDOR_PAYMENT_ID -> Value.RSPEC_VENDOR_PAYMENT_ID
                     RTP_INSTRUCTION_ID -> Value.RTP_INSTRUCTION_ID
                     SIGNET_API_REFERENCE_ID -> Value.SIGNET_API_REFERENCE_ID
                     SIGNET_CONFIRMATION_ID -> Value.SIGNET_CONFIRMATION_ID
@@ -3957,6 +3985,10 @@ private constructor(
                     WELLS_FARGO_PAYMENT_ID -> Value.WELLS_FARGO_PAYMENT_ID
                     WELLS_FARGO_TRACE_NUMBER -> Value.WELLS_FARGO_TRACE_NUMBER
                     WELLS_FARGO_UETR -> Value.WELLS_FARGO_UETR
+                    WESTERN_ALLIANCE_PAYMENT_ID -> Value.WESTERN_ALLIANCE_PAYMENT_ID
+                    WESTERN_ALLIANCE_TRANSACTION_ID -> Value.WESTERN_ALLIANCE_TRANSACTION_ID
+                    WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER ->
+                        Value.WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER
                     else -> Value._UNKNOWN
                 }
 
@@ -3999,7 +4031,11 @@ private constructor(
                     CURRENCYCLOUD_PAYMENT_ID -> Known.CURRENCYCLOUD_PAYMENT_ID
                     DC_BANK_TRANSACTION_ID -> Known.DC_BANK_TRANSACTION_ID
                     EFT_TRACE_NUMBER -> Known.EFT_TRACE_NUMBER
+                    EVOLVE_CORE_BATCH -> Known.EVOLVE_CORE_BATCH
+                    EVOLVE_CORE_FILE_KEY -> Known.EVOLVE_CORE_FILE_KEY
+                    EVOLVE_CORE_SEQ -> Known.EVOLVE_CORE_SEQ
                     EVOLVE_TRANSACTION_ID -> Known.EVOLVE_TRANSACTION_ID
+                    FAKE_VENDOR_PAYMENT_ID -> Known.FAKE_VENDOR_PAYMENT_ID
                     FEDWIRE_IMAD -> Known.FEDWIRE_IMAD
                     FEDWIRE_OMAD -> Known.FEDWIRE_OMAD
                     FIRST_REPUBLIC_INTERNAL_ID -> Known.FIRST_REPUBLIC_INTERNAL_ID
@@ -4032,7 +4068,6 @@ private constructor(
                     PNC_REQUEST_FOR_PAYMENT_ID -> Known.PNC_REQUEST_FOR_PAYMENT_ID
                     PNC_TRANSACTION_REFERENCE_NUMBER -> Known.PNC_TRANSACTION_REFERENCE_NUMBER
                     RBC_WIRE_REFERENCE_ID -> Known.RBC_WIRE_REFERENCE_ID
-                    RSPEC_VENDOR_PAYMENT_ID -> Known.RSPEC_VENDOR_PAYMENT_ID
                     RTP_INSTRUCTION_ID -> Known.RTP_INSTRUCTION_ID
                     SIGNET_API_REFERENCE_ID -> Known.SIGNET_API_REFERENCE_ID
                     SIGNET_CONFIRMATION_ID -> Known.SIGNET_CONFIRMATION_ID
@@ -4056,6 +4091,10 @@ private constructor(
                     WELLS_FARGO_PAYMENT_ID -> Known.WELLS_FARGO_PAYMENT_ID
                     WELLS_FARGO_TRACE_NUMBER -> Known.WELLS_FARGO_TRACE_NUMBER
                     WELLS_FARGO_UETR -> Known.WELLS_FARGO_UETR
+                    WESTERN_ALLIANCE_PAYMENT_ID -> Known.WESTERN_ALLIANCE_PAYMENT_ID
+                    WESTERN_ALLIANCE_TRANSACTION_ID -> Known.WESTERN_ALLIANCE_TRANSACTION_ID
+                    WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER ->
+                        Known.WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER
                     else ->
                         throw ModernTreasuryInvalidDataException(
                             "Unknown ReferenceNumberType: $value"
