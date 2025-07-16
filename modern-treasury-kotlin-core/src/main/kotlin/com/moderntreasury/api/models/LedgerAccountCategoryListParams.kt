@@ -21,7 +21,7 @@ private constructor(
     private val ledgerAccountId: String?,
     private val ledgerId: String?,
     private val metadata: Metadata?,
-    private val name: String?,
+    private val name: List<String>?,
     private val parentLedgerAccountCategoryId: String?,
     private val perPage: Long?,
     private val additionalHeaders: Headers,
@@ -59,7 +59,11 @@ private constructor(
      */
     fun metadata(): Metadata? = metadata
 
-    fun name(): String? = name
+    /**
+     * If you have specific names to retrieve in bulk, you can pass them as query parameters
+     * delimited with `name[]=`, for example `?name[]=123&name[]=abc`.
+     */
+    fun name(): List<String>? = name
 
     /** Query categories that are nested underneath a parent category */
     fun parentLedgerAccountCategoryId(): String? = parentLedgerAccountCategoryId
@@ -94,7 +98,7 @@ private constructor(
         private var ledgerAccountId: String? = null
         private var ledgerId: String? = null
         private var metadata: Metadata? = null
-        private var name: String? = null
+        private var name: MutableList<String>? = null
         private var parentLedgerAccountCategoryId: String? = null
         private var perPage: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -110,7 +114,7 @@ private constructor(
                 ledgerAccountId = ledgerAccountCategoryListParams.ledgerAccountId
                 ledgerId = ledgerAccountCategoryListParams.ledgerId
                 metadata = ledgerAccountCategoryListParams.metadata
-                name = ledgerAccountCategoryListParams.name
+                name = ledgerAccountCategoryListParams.name?.toMutableList()
                 parentLedgerAccountCategoryId =
                     ledgerAccountCategoryListParams.parentLedgerAccountCategoryId
                 perPage = ledgerAccountCategoryListParams.perPage
@@ -159,7 +163,20 @@ private constructor(
          */
         fun metadata(metadata: Metadata?) = apply { this.metadata = metadata }
 
-        fun name(name: String?) = apply { this.name = name }
+        /**
+         * If you have specific names to retrieve in bulk, you can pass them as query parameters
+         * delimited with `name[]=`, for example `?name[]=123&name[]=abc`.
+         */
+        fun name(name: List<String>?) = apply { this.name = name?.toMutableList() }
+
+        /**
+         * Adds a single [String] to [Builder.name].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addName(name: String) = apply {
+            this.name = (this.name ?: mutableListOf()).apply { add(name) }
+        }
 
         /** Query categories that are nested underneath a parent category */
         fun parentLedgerAccountCategoryId(parentLedgerAccountCategoryId: String?) = apply {
@@ -288,7 +305,7 @@ private constructor(
                 ledgerAccountId,
                 ledgerId,
                 metadata,
-                name,
+                name?.toImmutable(),
                 parentLedgerAccountCategoryId,
                 perPage,
                 additionalHeaders.build(),
@@ -327,7 +344,7 @@ private constructor(
                         }
                     }
                 }
-                name?.let { put("name", it) }
+                name?.forEach { put("name[]", it) }
                 parentLedgerAccountCategoryId?.let { put("parent_ledger_account_category_id", it) }
                 perPage?.let { put("per_page", it.toString()) }
                 putAll(additionalQueryParams)
