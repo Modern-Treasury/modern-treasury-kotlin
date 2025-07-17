@@ -36,7 +36,7 @@ internal class LegalEntityAssociationServiceTest {
                 LegalEntityAssociationCreateParams.builder()
                     .parentLegalEntityId("parent_legal_entity_id")
                     .addRelationshipType(
-                        LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER
+                        LegalEntityAssociationCreateParams.RelationshipType.AUTHORIZED_SIGNER
                     )
                     .childLegalEntity(
                         ChildLegalEntityCreate.builder()
