@@ -3,14 +3,14 @@
 package com.moderntreasury.api.services.async
 
 import com.moderntreasury.api.core.ClientOptions
-import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.checkRequired
+import com.moderntreasury.api.core.handlers.errorBodyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
-import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
+import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.json
@@ -78,7 +78,8 @@ internal constructor(private val clientOptions: ClientOptions) :
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         LedgerAccountSettlementServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         private val accountEntries: AccountEntryServiceAsync.WithRawResponse by lazy {
             AccountEntryServiceAsyncImpl.WithRawResponseImpl(clientOptions)
@@ -95,7 +96,6 @@ internal constructor(private val clientOptions: ClientOptions) :
 
         private val createHandler: Handler<LedgerAccountSettlement> =
             jsonHandler<LedgerAccountSettlement>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun create(
             params: LedgerAccountSettlementCreateParams,
@@ -111,7 +111,7 @@ internal constructor(private val clientOptions: ClientOptions) :
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -124,7 +124,6 @@ internal constructor(private val clientOptions: ClientOptions) :
 
         private val retrieveHandler: Handler<LedgerAccountSettlement> =
             jsonHandler<LedgerAccountSettlement>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun retrieve(
             params: LedgerAccountSettlementRetrieveParams,
@@ -142,7 +141,7 @@ internal constructor(private val clientOptions: ClientOptions) :
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -155,7 +154,6 @@ internal constructor(private val clientOptions: ClientOptions) :
 
         private val updateHandler: Handler<LedgerAccountSettlement> =
             jsonHandler<LedgerAccountSettlement>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun update(
             params: LedgerAccountSettlementUpdateParams,
@@ -174,7 +172,7 @@ internal constructor(private val clientOptions: ClientOptions) :
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { updateHandler.handle(it) }
                     .also {
@@ -187,7 +185,6 @@ internal constructor(private val clientOptions: ClientOptions) :
 
         private val listHandler: Handler<List<LedgerAccountSettlement>> =
             jsonHandler<List<LedgerAccountSettlement>>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun list(
             params: LedgerAccountSettlementListParams,
@@ -202,7 +199,7 @@ internal constructor(private val clientOptions: ClientOptions) :
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {

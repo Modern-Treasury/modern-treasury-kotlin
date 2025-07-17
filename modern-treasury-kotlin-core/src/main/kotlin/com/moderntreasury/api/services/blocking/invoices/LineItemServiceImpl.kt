@@ -3,14 +3,14 @@
 package com.moderntreasury.api.services.blocking.invoices
 
 import com.moderntreasury.api.core.ClientOptions
-import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.checkRequired
+import com.moderntreasury.api.core.handlers.errorBodyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
-import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
+import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.json
@@ -74,7 +74,8 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         LineItemService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -84,7 +85,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
             )
 
         private val createHandler: Handler<InvoiceLineItem> =
-            jsonHandler<InvoiceLineItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<InvoiceLineItem>(clientOptions.jsonMapper)
 
         override fun create(
             params: InvoiceLineItemCreateParams,
@@ -103,7 +104,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -115,7 +116,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
         }
 
         private val retrieveHandler: Handler<InvoiceLineItem> =
-            jsonHandler<InvoiceLineItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<InvoiceLineItem>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: InvoiceLineItemRetrieveParams,
@@ -139,7 +140,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -151,7 +152,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
         }
 
         private val updateHandler: Handler<InvoiceLineItem> =
-            jsonHandler<InvoiceLineItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<InvoiceLineItem>(clientOptions.jsonMapper)
 
         override fun update(
             params: InvoiceLineItemUpdateParams,
@@ -176,7 +177,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { updateHandler.handle(it) }
                     .also {
@@ -189,7 +190,6 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
 
         private val listHandler: Handler<List<InvoiceLineItem>> =
             jsonHandler<List<InvoiceLineItem>>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: InvoiceLineItemListParams,
@@ -207,7 +207,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
@@ -227,7 +227,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
         }
 
         private val deleteHandler: Handler<InvoiceLineItem> =
-            jsonHandler<InvoiceLineItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<InvoiceLineItem>(clientOptions.jsonMapper)
 
         override fun delete(
             params: InvoiceLineItemDeleteParams,
@@ -252,7 +252,7 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { deleteHandler.handle(it) }
                     .also {

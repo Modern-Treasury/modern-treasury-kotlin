@@ -162,8 +162,202 @@ internal class ErrorHandlingTest {
     }
 
     @Test
+    fun externalAccountsCreate400WithRawResponse() {
+        val externalAccountService = client.externalAccounts().withRawResponse()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(400).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<BadRequestException> {
+                externalAccountService.create(
+                    ExternalAccountCreateParams.builder()
+                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .addAccountDetail(
+                            ExternalAccountCreateParams.AccountDetail.builder()
+                                .accountNumber("account_number")
+                                .accountNumberType(
+                                    ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                        .AU_NUMBER
+                                )
+                                .build()
+                        )
+                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .addContactDetail(
+                            ContactDetailCreateRequest.builder()
+                                .contactIdentifier("contact_identifier")
+                                .contactIdentifierType(
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
+                                )
+                                .build()
+                        )
+                        .ledgerAccount(
+                            LedgerAccountCreateRequest.builder()
+                                .currency("currency")
+                                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .name("name")
+                                .normalBalance(TransactionDirection.CREDIT)
+                                .currencyExponent(0L)
+                                .description("description")
+                                .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableType(
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                )
+                                .metadata(
+                                    LedgerAccountCreateRequest.Metadata.builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .metadata(
+                            ExternalAccountCreateParams.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .name("name")
+                        .partyAddress(
+                            AddressRequest.builder()
+                                .country("country")
+                                .line1("line1")
+                                .line2("line2")
+                                .locality("locality")
+                                .postalCode("postal_code")
+                                .region("region")
+                                .build()
+                        )
+                        .partyIdentifier("party_identifier")
+                        .partyName("party_name")
+                        .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
+                        .plaidProcessorToken("plaid_processor_token")
+                        .addRoutingDetail(
+                            ExternalAccountCreateParams.RoutingDetail.builder()
+                                .routingNumber("routing_number")
+                                .routingNumberType(
+                                    ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                                )
+                                .paymentType(
+                                    ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(400)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
     fun externalAccountsCreate401() {
         val externalAccountService = client.externalAccounts()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(401).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<UnauthorizedException> {
+                externalAccountService.create(
+                    ExternalAccountCreateParams.builder()
+                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .addAccountDetail(
+                            ExternalAccountCreateParams.AccountDetail.builder()
+                                .accountNumber("account_number")
+                                .accountNumberType(
+                                    ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                        .AU_NUMBER
+                                )
+                                .build()
+                        )
+                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .addContactDetail(
+                            ContactDetailCreateRequest.builder()
+                                .contactIdentifier("contact_identifier")
+                                .contactIdentifierType(
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
+                                )
+                                .build()
+                        )
+                        .ledgerAccount(
+                            LedgerAccountCreateRequest.builder()
+                                .currency("currency")
+                                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .name("name")
+                                .normalBalance(TransactionDirection.CREDIT)
+                                .currencyExponent(0L)
+                                .description("description")
+                                .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableType(
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                )
+                                .metadata(
+                                    LedgerAccountCreateRequest.Metadata.builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .metadata(
+                            ExternalAccountCreateParams.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .name("name")
+                        .partyAddress(
+                            AddressRequest.builder()
+                                .country("country")
+                                .line1("line1")
+                                .line2("line2")
+                                .locality("locality")
+                                .postalCode("postal_code")
+                                .region("region")
+                                .build()
+                        )
+                        .partyIdentifier("party_identifier")
+                        .partyName("party_name")
+                        .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
+                        .plaidProcessorToken("plaid_processor_token")
+                        .addRoutingDetail(
+                            ExternalAccountCreateParams.RoutingDetail.builder()
+                                .routingNumber("routing_number")
+                                .routingNumberType(
+                                    ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                                )
+                                .paymentType(
+                                    ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(401)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
+    fun externalAccountsCreate401WithRawResponse() {
+        val externalAccountService = client.externalAccounts().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -356,8 +550,202 @@ internal class ErrorHandlingTest {
     }
 
     @Test
+    fun externalAccountsCreate403WithRawResponse() {
+        val externalAccountService = client.externalAccounts().withRawResponse()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(403).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<PermissionDeniedException> {
+                externalAccountService.create(
+                    ExternalAccountCreateParams.builder()
+                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .addAccountDetail(
+                            ExternalAccountCreateParams.AccountDetail.builder()
+                                .accountNumber("account_number")
+                                .accountNumberType(
+                                    ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                        .AU_NUMBER
+                                )
+                                .build()
+                        )
+                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .addContactDetail(
+                            ContactDetailCreateRequest.builder()
+                                .contactIdentifier("contact_identifier")
+                                .contactIdentifierType(
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
+                                )
+                                .build()
+                        )
+                        .ledgerAccount(
+                            LedgerAccountCreateRequest.builder()
+                                .currency("currency")
+                                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .name("name")
+                                .normalBalance(TransactionDirection.CREDIT)
+                                .currencyExponent(0L)
+                                .description("description")
+                                .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableType(
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                )
+                                .metadata(
+                                    LedgerAccountCreateRequest.Metadata.builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .metadata(
+                            ExternalAccountCreateParams.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .name("name")
+                        .partyAddress(
+                            AddressRequest.builder()
+                                .country("country")
+                                .line1("line1")
+                                .line2("line2")
+                                .locality("locality")
+                                .postalCode("postal_code")
+                                .region("region")
+                                .build()
+                        )
+                        .partyIdentifier("party_identifier")
+                        .partyName("party_name")
+                        .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
+                        .plaidProcessorToken("plaid_processor_token")
+                        .addRoutingDetail(
+                            ExternalAccountCreateParams.RoutingDetail.builder()
+                                .routingNumber("routing_number")
+                                .routingNumberType(
+                                    ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                                )
+                                .paymentType(
+                                    ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(403)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
     fun externalAccountsCreate404() {
         val externalAccountService = client.externalAccounts()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(404).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<NotFoundException> {
+                externalAccountService.create(
+                    ExternalAccountCreateParams.builder()
+                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .addAccountDetail(
+                            ExternalAccountCreateParams.AccountDetail.builder()
+                                .accountNumber("account_number")
+                                .accountNumberType(
+                                    ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                        .AU_NUMBER
+                                )
+                                .build()
+                        )
+                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .addContactDetail(
+                            ContactDetailCreateRequest.builder()
+                                .contactIdentifier("contact_identifier")
+                                .contactIdentifierType(
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
+                                )
+                                .build()
+                        )
+                        .ledgerAccount(
+                            LedgerAccountCreateRequest.builder()
+                                .currency("currency")
+                                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .name("name")
+                                .normalBalance(TransactionDirection.CREDIT)
+                                .currencyExponent(0L)
+                                .description("description")
+                                .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableType(
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                )
+                                .metadata(
+                                    LedgerAccountCreateRequest.Metadata.builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .metadata(
+                            ExternalAccountCreateParams.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .name("name")
+                        .partyAddress(
+                            AddressRequest.builder()
+                                .country("country")
+                                .line1("line1")
+                                .line2("line2")
+                                .locality("locality")
+                                .postalCode("postal_code")
+                                .region("region")
+                                .build()
+                        )
+                        .partyIdentifier("party_identifier")
+                        .partyName("party_name")
+                        .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
+                        .plaidProcessorToken("plaid_processor_token")
+                        .addRoutingDetail(
+                            ExternalAccountCreateParams.RoutingDetail.builder()
+                                .routingNumber("routing_number")
+                                .routingNumberType(
+                                    ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                                )
+                                .paymentType(
+                                    ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(404)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
+    fun externalAccountsCreate404WithRawResponse() {
+        val externalAccountService = client.externalAccounts().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -550,8 +938,202 @@ internal class ErrorHandlingTest {
     }
 
     @Test
+    fun externalAccountsCreate422WithRawResponse() {
+        val externalAccountService = client.externalAccounts().withRawResponse()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(422).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<UnprocessableEntityException> {
+                externalAccountService.create(
+                    ExternalAccountCreateParams.builder()
+                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .addAccountDetail(
+                            ExternalAccountCreateParams.AccountDetail.builder()
+                                .accountNumber("account_number")
+                                .accountNumberType(
+                                    ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                        .AU_NUMBER
+                                )
+                                .build()
+                        )
+                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .addContactDetail(
+                            ContactDetailCreateRequest.builder()
+                                .contactIdentifier("contact_identifier")
+                                .contactIdentifierType(
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
+                                )
+                                .build()
+                        )
+                        .ledgerAccount(
+                            LedgerAccountCreateRequest.builder()
+                                .currency("currency")
+                                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .name("name")
+                                .normalBalance(TransactionDirection.CREDIT)
+                                .currencyExponent(0L)
+                                .description("description")
+                                .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableType(
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                )
+                                .metadata(
+                                    LedgerAccountCreateRequest.Metadata.builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .metadata(
+                            ExternalAccountCreateParams.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .name("name")
+                        .partyAddress(
+                            AddressRequest.builder()
+                                .country("country")
+                                .line1("line1")
+                                .line2("line2")
+                                .locality("locality")
+                                .postalCode("postal_code")
+                                .region("region")
+                                .build()
+                        )
+                        .partyIdentifier("party_identifier")
+                        .partyName("party_name")
+                        .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
+                        .plaidProcessorToken("plaid_processor_token")
+                        .addRoutingDetail(
+                            ExternalAccountCreateParams.RoutingDetail.builder()
+                                .routingNumber("routing_number")
+                                .routingNumberType(
+                                    ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                                )
+                                .paymentType(
+                                    ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(422)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
     fun externalAccountsCreate429() {
         val externalAccountService = client.externalAccounts()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(429).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<RateLimitException> {
+                externalAccountService.create(
+                    ExternalAccountCreateParams.builder()
+                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .addAccountDetail(
+                            ExternalAccountCreateParams.AccountDetail.builder()
+                                .accountNumber("account_number")
+                                .accountNumberType(
+                                    ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                        .AU_NUMBER
+                                )
+                                .build()
+                        )
+                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .addContactDetail(
+                            ContactDetailCreateRequest.builder()
+                                .contactIdentifier("contact_identifier")
+                                .contactIdentifierType(
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
+                                )
+                                .build()
+                        )
+                        .ledgerAccount(
+                            LedgerAccountCreateRequest.builder()
+                                .currency("currency")
+                                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .name("name")
+                                .normalBalance(TransactionDirection.CREDIT)
+                                .currencyExponent(0L)
+                                .description("description")
+                                .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableType(
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                )
+                                .metadata(
+                                    LedgerAccountCreateRequest.Metadata.builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .metadata(
+                            ExternalAccountCreateParams.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .name("name")
+                        .partyAddress(
+                            AddressRequest.builder()
+                                .country("country")
+                                .line1("line1")
+                                .line2("line2")
+                                .locality("locality")
+                                .postalCode("postal_code")
+                                .region("region")
+                                .build()
+                        )
+                        .partyIdentifier("party_identifier")
+                        .partyName("party_name")
+                        .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
+                        .plaidProcessorToken("plaid_processor_token")
+                        .addRoutingDetail(
+                            ExternalAccountCreateParams.RoutingDetail.builder()
+                                .routingNumber("routing_number")
+                                .routingNumberType(
+                                    ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                                )
+                                .paymentType(
+                                    ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(429)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
+    fun externalAccountsCreate429WithRawResponse() {
+        val externalAccountService = client.externalAccounts().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -744,8 +1326,202 @@ internal class ErrorHandlingTest {
     }
 
     @Test
+    fun externalAccountsCreate500WithRawResponse() {
+        val externalAccountService = client.externalAccounts().withRawResponse()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(500).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<InternalServerException> {
+                externalAccountService.create(
+                    ExternalAccountCreateParams.builder()
+                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .addAccountDetail(
+                            ExternalAccountCreateParams.AccountDetail.builder()
+                                .accountNumber("account_number")
+                                .accountNumberType(
+                                    ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                        .AU_NUMBER
+                                )
+                                .build()
+                        )
+                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .addContactDetail(
+                            ContactDetailCreateRequest.builder()
+                                .contactIdentifier("contact_identifier")
+                                .contactIdentifierType(
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
+                                )
+                                .build()
+                        )
+                        .ledgerAccount(
+                            LedgerAccountCreateRequest.builder()
+                                .currency("currency")
+                                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .name("name")
+                                .normalBalance(TransactionDirection.CREDIT)
+                                .currencyExponent(0L)
+                                .description("description")
+                                .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableType(
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                )
+                                .metadata(
+                                    LedgerAccountCreateRequest.Metadata.builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .metadata(
+                            ExternalAccountCreateParams.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .name("name")
+                        .partyAddress(
+                            AddressRequest.builder()
+                                .country("country")
+                                .line1("line1")
+                                .line2("line2")
+                                .locality("locality")
+                                .postalCode("postal_code")
+                                .region("region")
+                                .build()
+                        )
+                        .partyIdentifier("party_identifier")
+                        .partyName("party_name")
+                        .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
+                        .plaidProcessorToken("plaid_processor_token")
+                        .addRoutingDetail(
+                            ExternalAccountCreateParams.RoutingDetail.builder()
+                                .routingNumber("routing_number")
+                                .routingNumberType(
+                                    ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                                )
+                                .paymentType(
+                                    ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(500)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
     fun externalAccountsCreate999() {
         val externalAccountService = client.externalAccounts()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(999).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<UnexpectedStatusCodeException> {
+                externalAccountService.create(
+                    ExternalAccountCreateParams.builder()
+                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .addAccountDetail(
+                            ExternalAccountCreateParams.AccountDetail.builder()
+                                .accountNumber("account_number")
+                                .accountNumberType(
+                                    ExternalAccountCreateParams.AccountDetail.AccountNumberType
+                                        .AU_NUMBER
+                                )
+                                .build()
+                        )
+                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .addContactDetail(
+                            ContactDetailCreateRequest.builder()
+                                .contactIdentifier("contact_identifier")
+                                .contactIdentifierType(
+                                    ContactDetailCreateRequest.ContactIdentifierType.EMAIL
+                                )
+                                .build()
+                        )
+                        .ledgerAccount(
+                            LedgerAccountCreateRequest.builder()
+                                .currency("currency")
+                                .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .name("name")
+                                .normalBalance(TransactionDirection.CREDIT)
+                                .currencyExponent(0L)
+                                .description("description")
+                                .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                .ledgerableType(
+                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                )
+                                .metadata(
+                                    LedgerAccountCreateRequest.Metadata.builder()
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .metadata(
+                            ExternalAccountCreateParams.Metadata.builder()
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .name("name")
+                        .partyAddress(
+                            AddressRequest.builder()
+                                .country("country")
+                                .line1("line1")
+                                .line2("line2")
+                                .locality("locality")
+                                .postalCode("postal_code")
+                                .region("region")
+                                .build()
+                        )
+                        .partyIdentifier("party_identifier")
+                        .partyName("party_name")
+                        .partyType(ExternalAccountCreateParams.PartyType.BUSINESS)
+                        .plaidProcessorToken("plaid_processor_token")
+                        .addRoutingDetail(
+                            ExternalAccountCreateParams.RoutingDetail.builder()
+                                .routingNumber("routing_number")
+                                .routingNumberType(
+                                    ExternalAccountCreateParams.RoutingDetail.RoutingNumberType.ABA
+                                )
+                                .paymentType(
+                                    ExternalAccountCreateParams.RoutingDetail.PaymentType.ACH
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(999)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
+    fun externalAccountsCreate999WithRawResponse() {
+        val externalAccountService = client.externalAccounts().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(

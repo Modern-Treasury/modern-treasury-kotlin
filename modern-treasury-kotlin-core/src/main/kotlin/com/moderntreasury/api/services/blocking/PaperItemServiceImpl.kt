@@ -3,14 +3,14 @@
 package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.core.ClientOptions
-import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.checkRequired
+import com.moderntreasury.api.core.handlers.errorBodyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
-import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
+import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.parseable
@@ -49,7 +49,8 @@ class PaperItemServiceImpl internal constructor(private val clientOptions: Clien
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         PaperItemService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -59,7 +60,7 @@ class PaperItemServiceImpl internal constructor(private val clientOptions: Clien
             )
 
         private val retrieveHandler: Handler<PaperItem> =
-            jsonHandler<PaperItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<PaperItem>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: PaperItemRetrieveParams,
@@ -77,7 +78,7 @@ class PaperItemServiceImpl internal constructor(private val clientOptions: Clien
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -89,7 +90,7 @@ class PaperItemServiceImpl internal constructor(private val clientOptions: Clien
         }
 
         private val listHandler: Handler<List<PaperItem>> =
-            jsonHandler<List<PaperItem>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<List<PaperItem>>(clientOptions.jsonMapper)
 
         override fun list(
             params: PaperItemListParams,
@@ -104,7 +105,7 @@ class PaperItemServiceImpl internal constructor(private val clientOptions: Clien
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
