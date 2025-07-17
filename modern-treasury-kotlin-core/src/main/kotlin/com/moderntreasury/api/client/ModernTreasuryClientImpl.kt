@@ -3,14 +3,14 @@
 package com.moderntreasury.api.client
 
 import com.moderntreasury.api.core.ClientOptions
-import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.getPackageVersion
+import com.moderntreasury.api.core.handlers.errorBodyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
-import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
+import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.parseable
@@ -341,7 +341,8 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ModernTreasuryClient.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         private val connections: ConnectionService.WithRawResponse by lazy {
             ConnectionServiceImpl.WithRawResponseImpl(clientOptions)
@@ -580,7 +581,7 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
         override fun paymentActions(): PaymentActionService.WithRawResponse = paymentActions
 
         private val pingHandler: Handler<PingResponse> =
-            jsonHandler<PingResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<PingResponse>(clientOptions.jsonMapper)
 
         override fun ping(
             params: ClientPingParams,
@@ -595,7 +596,7 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { pingHandler.handle(it) }
                     .also {

@@ -3,14 +3,14 @@
 package com.moderntreasury.api.services.async
 
 import com.moderntreasury.api.core.ClientOptions
-import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.checkRequired
+import com.moderntreasury.api.core.handlers.errorBodyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
-import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
+import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.json
@@ -58,7 +58,8 @@ class BulkRequestServiceAsyncImpl internal constructor(private val clientOptions
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BulkRequestServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -68,7 +69,7 @@ class BulkRequestServiceAsyncImpl internal constructor(private val clientOptions
             )
 
         private val createHandler: Handler<BulkRequest> =
-            jsonHandler<BulkRequest>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<BulkRequest>(clientOptions.jsonMapper)
 
         override suspend fun create(
             params: BulkRequestCreateParams,
@@ -84,7 +85,7 @@ class BulkRequestServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -96,7 +97,7 @@ class BulkRequestServiceAsyncImpl internal constructor(private val clientOptions
         }
 
         private val retrieveHandler: Handler<BulkRequest> =
-            jsonHandler<BulkRequest>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<BulkRequest>(clientOptions.jsonMapper)
 
         override suspend fun retrieve(
             params: BulkRequestRetrieveParams,
@@ -114,7 +115,7 @@ class BulkRequestServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -126,7 +127,7 @@ class BulkRequestServiceAsyncImpl internal constructor(private val clientOptions
         }
 
         private val listHandler: Handler<List<BulkRequest>> =
-            jsonHandler<List<BulkRequest>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<List<BulkRequest>>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: BulkRequestListParams,
@@ -141,7 +142,7 @@ class BulkRequestServiceAsyncImpl internal constructor(private val clientOptions
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {

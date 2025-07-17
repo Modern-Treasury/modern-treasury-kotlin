@@ -3,13 +3,12 @@
 package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.core.ClientOptions
-import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.handlers.emptyHandler
+import com.moderntreasury.api.core.handlers.errorBodyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
-import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse
@@ -71,7 +70,8 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         InvoiceService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         private val lineItems: LineItemService.WithRawResponse by lazy {
             LineItemServiceImpl.WithRawResponseImpl(clientOptions)
@@ -86,8 +86,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
 
         override fun lineItems(): LineItemService.WithRawResponse = lineItems
 
-        private val createHandler: Handler<Invoice> =
-            jsonHandler<Invoice>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<Invoice> = jsonHandler<Invoice>(clientOptions.jsonMapper)
 
         override fun create(
             params: InvoiceCreateParams,
@@ -103,7 +102,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -115,7 +114,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
         }
 
         private val retrieveHandler: Handler<Invoice> =
-            jsonHandler<Invoice>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<Invoice>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: InvoiceRetrieveParams,
@@ -133,7 +132,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -144,8 +143,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val updateHandler: Handler<Invoice> =
-            jsonHandler<Invoice>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val updateHandler: Handler<Invoice> = jsonHandler<Invoice>(clientOptions.jsonMapper)
 
         override fun update(
             params: InvoiceUpdateParams,
@@ -164,7 +162,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { updateHandler.handle(it) }
                     .also {
@@ -176,7 +174,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
         }
 
         private val listHandler: Handler<List<Invoice>> =
-            jsonHandler<List<Invoice>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<List<Invoice>>(clientOptions.jsonMapper)
 
         override fun list(
             params: InvoiceListParams,
@@ -191,7 +189,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
@@ -210,8 +208,7 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val addPaymentOrderHandler: Handler<Void?> =
-            emptyHandler().withErrorHandler(errorHandler)
+        private val addPaymentOrderHandler: Handler<Void?> = emptyHandler()
 
         override fun addPaymentOrder(
             params: InvoiceAddPaymentOrderParams,
@@ -236,7 +233,9 @@ class InvoiceServiceImpl internal constructor(private val clientOptions: ClientO
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable { response.use { addPaymentOrderHandler.handle(it) } }
+            return errorHandler.handle(response).parseable {
+                response.use { addPaymentOrderHandler.handle(it) }
+            }
         }
     }
 }
