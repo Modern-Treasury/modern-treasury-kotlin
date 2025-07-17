@@ -3,13 +3,12 @@
 package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.core.ClientOptions
-import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.handlers.emptyHandler
+import com.moderntreasury.api.core.handlers.errorBodyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
-import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse
@@ -114,7 +113,8 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         LedgerAccountCategoryService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -125,7 +125,6 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
 
         private val createHandler: Handler<LedgerAccountCategory> =
             jsonHandler<LedgerAccountCategory>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun create(
             params: LedgerAccountCategoryCreateParams,
@@ -141,7 +140,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -154,7 +153,6 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
 
         private val retrieveHandler: Handler<LedgerAccountCategory> =
             jsonHandler<LedgerAccountCategory>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun retrieve(
             params: LedgerAccountCategoryRetrieveParams,
@@ -172,7 +170,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -185,7 +183,6 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
 
         private val updateHandler: Handler<LedgerAccountCategory> =
             jsonHandler<LedgerAccountCategory>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun update(
             params: LedgerAccountCategoryUpdateParams,
@@ -204,7 +201,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { updateHandler.handle(it) }
                     .also {
@@ -217,7 +214,6 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
 
         private val listHandler: Handler<List<LedgerAccountCategory>> =
             jsonHandler<List<LedgerAccountCategory>>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: LedgerAccountCategoryListParams,
@@ -232,7 +228,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
@@ -253,7 +249,6 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
 
         private val deleteHandler: Handler<LedgerAccountCategory> =
             jsonHandler<LedgerAccountCategory>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun delete(
             params: LedgerAccountCategoryDeleteParams,
@@ -272,7 +267,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { deleteHandler.handle(it) }
                     .also {
@@ -283,8 +278,7 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
             }
         }
 
-        private val addLedgerAccountHandler: Handler<Void?> =
-            emptyHandler().withErrorHandler(errorHandler)
+        private val addLedgerAccountHandler: Handler<Void?> = emptyHandler()
 
         override fun addLedgerAccount(
             params: LedgerAccountCategoryAddLedgerAccountParams,
@@ -309,11 +303,12 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable { response.use { addLedgerAccountHandler.handle(it) } }
+            return errorHandler.handle(response).parseable {
+                response.use { addLedgerAccountHandler.handle(it) }
+            }
         }
 
-        private val addNestedCategoryHandler: Handler<Void?> =
-            emptyHandler().withErrorHandler(errorHandler)
+        private val addNestedCategoryHandler: Handler<Void?> = emptyHandler()
 
         override fun addNestedCategory(
             params: LedgerAccountCategoryAddNestedCategoryParams,
@@ -338,11 +333,12 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable { response.use { addNestedCategoryHandler.handle(it) } }
+            return errorHandler.handle(response).parseable {
+                response.use { addNestedCategoryHandler.handle(it) }
+            }
         }
 
-        private val removeLedgerAccountHandler: Handler<Void?> =
-            emptyHandler().withErrorHandler(errorHandler)
+        private val removeLedgerAccountHandler: Handler<Void?> = emptyHandler()
 
         override fun removeLedgerAccount(
             params: LedgerAccountCategoryRemoveLedgerAccountParams,
@@ -367,11 +363,12 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable { response.use { removeLedgerAccountHandler.handle(it) } }
+            return errorHandler.handle(response).parseable {
+                response.use { removeLedgerAccountHandler.handle(it) }
+            }
         }
 
-        private val removeNestedCategoryHandler: Handler<Void?> =
-            emptyHandler().withErrorHandler(errorHandler)
+        private val removeNestedCategoryHandler: Handler<Void?> = emptyHandler()
 
         override fun removeNestedCategory(
             params: LedgerAccountCategoryRemoveNestedCategoryParams,
@@ -396,7 +393,9 @@ internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCa
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable { response.use { removeNestedCategoryHandler.handle(it) } }
+            return errorHandler.handle(response).parseable {
+                response.use { removeNestedCategoryHandler.handle(it) }
+            }
         }
     }
 }
