@@ -89,7 +89,7 @@ internal class LegalEntityCreateParamsTest {
                     .addRelationshipType(
                         LegalEntityCreateParams.LegalEntityAssociationInlineCreateRequest
                             .RelationshipType
-                            .BENEFICIAL_OWNER
+                            .AUTHORIZED_SIGNER
                     )
                     .childLegalEntity(
                         ChildLegalEntityCreate.builder()
@@ -350,7 +350,7 @@ internal class LegalEntityCreateParamsTest {
                         .addRelationshipType(
                             LegalEntityCreateParams.LegalEntityAssociationInlineCreateRequest
                                 .RelationshipType
-                                .BENEFICIAL_OWNER
+                                .AUTHORIZED_SIGNER
                         )
                         .childLegalEntity(
                             ChildLegalEntityCreate.builder()
@@ -632,7 +632,7 @@ internal class LegalEntityCreateParamsTest {
                     .addRelationshipType(
                         LegalEntityCreateParams.LegalEntityAssociationInlineCreateRequest
                             .RelationshipType
-                            .BENEFICIAL_OWNER
+                            .AUTHORIZED_SIGNER
                     )
                     .childLegalEntity(
                         ChildLegalEntityCreate.builder()

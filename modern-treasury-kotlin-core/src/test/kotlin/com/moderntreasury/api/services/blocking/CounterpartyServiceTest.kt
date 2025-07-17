@@ -225,7 +225,7 @@ internal class CounterpartyServiceTest {
                                         CounterpartyCreateParams.LegalEntityCreateRequest
                                             .LegalEntityAssociationInlineCreateRequest
                                             .RelationshipType
-                                            .BENEFICIAL_OWNER
+                                            .AUTHORIZED_SIGNER
                                     )
                                     .childLegalEntity(
                                         ChildLegalEntityCreate.builder()

@@ -845,6 +845,8 @@ private constructor(
 
         companion object {
 
+            val AUTHORIZED_SIGNER = of("authorized_signer")
+
             val BENEFICIAL_OWNER = of("beneficial_owner")
 
             val CONTROL_PERSON = of("control_person")
@@ -854,6 +856,7 @@ private constructor(
 
         /** An enum containing [RelationshipType]'s known values. */
         enum class Known {
+            AUTHORIZED_SIGNER,
             BENEFICIAL_OWNER,
             CONTROL_PERSON,
         }
@@ -868,6 +871,7 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            AUTHORIZED_SIGNER,
             BENEFICIAL_OWNER,
             CONTROL_PERSON,
             /**
@@ -886,6 +890,7 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                AUTHORIZED_SIGNER -> Value.AUTHORIZED_SIGNER
                 BENEFICIAL_OWNER -> Value.BENEFICIAL_OWNER
                 CONTROL_PERSON -> Value.CONTROL_PERSON
                 else -> Value._UNKNOWN
@@ -902,6 +907,7 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                AUTHORIZED_SIGNER -> Known.AUTHORIZED_SIGNER
                 BENEFICIAL_OWNER -> Known.BENEFICIAL_OWNER
                 CONTROL_PERSON -> Known.CONTROL_PERSON
                 else -> throw ModernTreasuryInvalidDataException("Unknown RelationshipType: $value")
