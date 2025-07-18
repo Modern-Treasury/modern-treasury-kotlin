@@ -9,9 +9,13 @@ import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.Timeout
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.core.jsonMapper
 import java.net.Proxy
 import java.time.Clock
 import java.time.Duration
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLSocketFactory
+import javax.net.ssl.X509TrustManager
 
 class ModernTreasuryOkHttpClient private constructor() {
 
@@ -29,10 +33,48 @@ class ModernTreasuryOkHttpClient private constructor() {
     class Builder internal constructor() {
 
         private var clientOptions: ClientOptions.Builder = ClientOptions.builder()
-        private var timeout: Timeout = Timeout.default()
         private var proxy: Proxy? = null
+        private var sslSocketFactory: SSLSocketFactory? = null
+        private var trustManager: X509TrustManager? = null
+        private var hostnameVerifier: HostnameVerifier? = null
 
-        fun baseUrl(baseUrl: String) = apply { clientOptions.baseUrl(baseUrl) }
+        fun proxy(proxy: Proxy?) = apply { this.proxy = proxy }
+
+        /**
+         * The socket factory used to secure HTTPS connections.
+         *
+         * If this is set, then [trustManager] must also be set.
+         *
+         * If unset, then the system default is used. Most applications should not call this method,
+         * and instead use the system default. The default include special optimizations that can be
+         * lost if the implementation is modified.
+         */
+        fun sslSocketFactory(sslSocketFactory: SSLSocketFactory?) = apply {
+            this.sslSocketFactory = sslSocketFactory
+        }
+
+        /**
+         * The trust manager used to secure HTTPS connections.
+         *
+         * If this is set, then [sslSocketFactory] must also be set.
+         *
+         * If unset, then the system default is used. Most applications should not call this method,
+         * and instead use the system default. The default include special optimizations that can be
+         * lost if the implementation is modified.
+         */
+        fun trustManager(trustManager: X509TrustManager?) = apply {
+            this.trustManager = trustManager
+        }
+
+        /**
+         * The verifier used to confirm that response certificates apply to requested hostnames for
+         * HTTPS connections.
+         *
+         * If unset, then a default hostname verifier is used.
+         */
+        fun hostnameVerifier(hostnameVerifier: HostnameVerifier?) = apply {
+            this.hostnameVerifier = hostnameVerifier
+        }
 
         /**
          * Whether to throw an exception if any of the Jackson versions detected at runtime are
@@ -48,6 +90,33 @@ class ModernTreasuryOkHttpClient private constructor() {
         fun jsonMapper(jsonMapper: JsonMapper) = apply { clientOptions.jsonMapper(jsonMapper) }
 
         fun clock(clock: Clock) = apply { clientOptions.clock(clock) }
+
+        fun baseUrl(baseUrl: String?) = apply { clientOptions.baseUrl(baseUrl) }
+
+        fun responseValidation(responseValidation: Boolean) = apply {
+            clientOptions.responseValidation(responseValidation)
+        }
+
+        fun timeout(timeout: Timeout) = apply { clientOptions.timeout(timeout) }
+
+        /**
+         * Sets the maximum time allowed for a complete HTTP call, not including retries.
+         *
+         * See [Timeout.request] for more details.
+         *
+         * For fine-grained control, pass a [Timeout] object.
+         */
+        fun timeout(timeout: Duration) = apply { clientOptions.timeout(timeout) }
+
+        fun maxRetries(maxRetries: Int) = apply { clientOptions.maxRetries(maxRetries) }
+
+        fun apiKey(apiKey: String) = apply { clientOptions.apiKey(apiKey) }
+
+        fun organizationId(organizationId: String) = apply {
+            clientOptions.organizationId(organizationId)
+        }
+
+        fun webhookKey(webhookKey: String?) = apply { clientOptions.webhookKey(webhookKey) }
 
         fun headers(headers: Headers) = apply { clientOptions.headers(headers) }
 
@@ -129,36 +198,6 @@ class ModernTreasuryOkHttpClient private constructor() {
             clientOptions.removeAllQueryParams(keys)
         }
 
-        fun timeout(timeout: Timeout) = apply {
-            clientOptions.timeout(timeout)
-            this.timeout = timeout
-        }
-
-        /**
-         * Sets the maximum time allowed for a complete HTTP call, not including retries.
-         *
-         * See [Timeout.request] for more details.
-         *
-         * For fine-grained control, pass a [Timeout] object.
-         */
-        fun timeout(timeout: Duration) = timeout(Timeout.builder().request(timeout).build())
-
-        fun maxRetries(maxRetries: Int) = apply { clientOptions.maxRetries(maxRetries) }
-
-        fun proxy(proxy: Proxy) = apply { this.proxy = proxy }
-
-        fun responseValidation(responseValidation: Boolean) = apply {
-            clientOptions.responseValidation(responseValidation)
-        }
-
-        fun apiKey(apiKey: String) = apply { clientOptions.apiKey(apiKey) }
-
-        fun organizationId(organizationId: String) = apply {
-            clientOptions.organizationId(organizationId)
-        }
-
-        fun webhookKey(webhookKey: String?) = apply { clientOptions.webhookKey(webhookKey) }
-
         fun fromEnv() = apply { clientOptions.fromEnv() }
 
         /**
@@ -169,7 +208,15 @@ class ModernTreasuryOkHttpClient private constructor() {
         fun build(): ModernTreasuryClient =
             ModernTreasuryClientImpl(
                 clientOptions
-                    .httpClient(OkHttpClient.builder().timeout(timeout).proxy(proxy).build())
+                    .httpClient(
+                        OkHttpClient.builder()
+                            .timeout(clientOptions.timeout())
+                            .proxy(proxy)
+                            .sslSocketFactory(sslSocketFactory)
+                            .trustManager(trustManager)
+                            .hostnameVerifier(hostnameVerifier)
+                            .build()
+                    )
                     .build()
             )
     }

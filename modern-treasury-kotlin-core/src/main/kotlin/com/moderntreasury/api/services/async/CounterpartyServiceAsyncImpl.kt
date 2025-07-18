@@ -3,13 +3,12 @@
 package com.moderntreasury.api.services.async
 
 import com.moderntreasury.api.core.ClientOptions
-import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.handlers.emptyHandler
+import com.moderntreasury.api.core.handlers.errorBodyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
-import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse
@@ -83,7 +82,8 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CounterpartyServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -93,7 +93,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
             )
 
         private val createHandler: Handler<Counterparty> =
-            jsonHandler<Counterparty>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<Counterparty>(clientOptions.jsonMapper)
 
         override suspend fun create(
             params: CounterpartyCreateParams,
@@ -109,7 +109,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -121,7 +121,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
         }
 
         private val retrieveHandler: Handler<Counterparty> =
-            jsonHandler<Counterparty>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<Counterparty>(clientOptions.jsonMapper)
 
         override suspend fun retrieve(
             params: CounterpartyRetrieveParams,
@@ -139,7 +139,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -151,7 +151,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
         }
 
         private val updateHandler: Handler<Counterparty> =
-            jsonHandler<Counterparty>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<Counterparty>(clientOptions.jsonMapper)
 
         override suspend fun update(
             params: CounterpartyUpdateParams,
@@ -170,7 +170,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { updateHandler.handle(it) }
                     .also {
@@ -182,7 +182,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
         }
 
         private val listHandler: Handler<List<Counterparty>> =
-            jsonHandler<List<Counterparty>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<List<Counterparty>>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: CounterpartyListParams,
@@ -197,7 +197,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
@@ -216,7 +216,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
             }
         }
 
-        private val deleteHandler: Handler<Void?> = emptyHandler().withErrorHandler(errorHandler)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override suspend fun delete(
             params: CounterpartyDeleteParams,
@@ -235,12 +235,13 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable { response.use { deleteHandler.handle(it) } }
+            return errorHandler.handle(response).parseable {
+                response.use { deleteHandler.handle(it) }
+            }
         }
 
         private val collectAccountHandler: Handler<CounterpartyCollectAccountResponse> =
             jsonHandler<CounterpartyCollectAccountResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun collectAccount(
             params: CounterpartyCollectAccountParams,
@@ -264,7 +265,7 @@ class CounterpartyServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { collectAccountHandler.handle(it) }
                     .also {

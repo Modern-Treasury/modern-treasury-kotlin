@@ -3,14 +3,14 @@
 package com.moderntreasury.api.services.async
 
 import com.moderntreasury.api.core.ClientOptions
-import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.checkRequired
+import com.moderntreasury.api.core.handlers.errorBodyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
-import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
+import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.json
@@ -74,7 +74,8 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         LedgerServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -83,8 +84,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier).build()
             )
 
-        private val createHandler: Handler<Ledger> =
-            jsonHandler<Ledger>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<Ledger> = jsonHandler<Ledger>(clientOptions.jsonMapper)
 
         override suspend fun create(
             params: LedgerCreateParams,
@@ -100,7 +100,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -111,8 +111,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val retrieveHandler: Handler<Ledger> =
-            jsonHandler<Ledger>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<Ledger> = jsonHandler<Ledger>(clientOptions.jsonMapper)
 
         override suspend fun retrieve(
             params: LedgerRetrieveParams,
@@ -130,7 +129,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -141,8 +140,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val updateHandler: Handler<Ledger> =
-            jsonHandler<Ledger>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val updateHandler: Handler<Ledger> = jsonHandler<Ledger>(clientOptions.jsonMapper)
 
         override suspend fun update(
             params: LedgerUpdateParams,
@@ -161,7 +159,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { updateHandler.handle(it) }
                     .also {
@@ -173,7 +171,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
         }
 
         private val listHandler: Handler<List<Ledger>> =
-            jsonHandler<List<Ledger>>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<List<Ledger>>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: LedgerListParams,
@@ -188,7 +186,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
@@ -207,8 +205,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val deleteHandler: Handler<Ledger> =
-            jsonHandler<Ledger>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val deleteHandler: Handler<Ledger> = jsonHandler<Ledger>(clientOptions.jsonMapper)
 
         override suspend fun delete(
             params: LedgerDeleteParams,
@@ -227,7 +224,7 @@ class LedgerServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { deleteHandler.handle(it) }
                     .also {

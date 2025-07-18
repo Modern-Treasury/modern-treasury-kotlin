@@ -15,7 +15,7 @@ internal class LegalEntityAssociationCreateParamsTest {
         LegalEntityAssociationCreateParams.builder()
             .parentLegalEntityId("parent_legal_entity_id")
             .addRelationshipType(
-                LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER
+                LegalEntityAssociationCreateParams.RelationshipType.AUTHORIZED_SIGNER
             )
             .childLegalEntity(
                 ChildLegalEntityCreate.builder()
@@ -148,7 +148,7 @@ internal class LegalEntityAssociationCreateParamsTest {
             LegalEntityAssociationCreateParams.builder()
                 .parentLegalEntityId("parent_legal_entity_id")
                 .addRelationshipType(
-                    LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER
+                    LegalEntityAssociationCreateParams.RelationshipType.AUTHORIZED_SIGNER
                 )
                 .childLegalEntity(
                     ChildLegalEntityCreate.builder()
@@ -284,7 +284,7 @@ internal class LegalEntityAssociationCreateParamsTest {
 
         assertThat(body.parentLegalEntityId()).isEqualTo("parent_legal_entity_id")
         assertThat(body.relationshipTypes())
-            .containsExactly(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
+            .containsExactly(LegalEntityAssociationCreateParams.RelationshipType.AUTHORIZED_SIGNER)
         assertThat(body.childLegalEntity())
             .isEqualTo(
                 ChildLegalEntityCreate.builder()
@@ -416,7 +416,7 @@ internal class LegalEntityAssociationCreateParamsTest {
             LegalEntityAssociationCreateParams.builder()
                 .parentLegalEntityId("parent_legal_entity_id")
                 .addRelationshipType(
-                    LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER
+                    LegalEntityAssociationCreateParams.RelationshipType.AUTHORIZED_SIGNER
                 )
                 .build()
 
@@ -424,6 +424,6 @@ internal class LegalEntityAssociationCreateParamsTest {
 
         assertThat(body.parentLegalEntityId()).isEqualTo("parent_legal_entity_id")
         assertThat(body.relationshipTypes())
-            .containsExactly(LegalEntityAssociationCreateParams.RelationshipType.BENEFICIAL_OWNER)
+            .containsExactly(LegalEntityAssociationCreateParams.RelationshipType.AUTHORIZED_SIGNER)
     }
 }

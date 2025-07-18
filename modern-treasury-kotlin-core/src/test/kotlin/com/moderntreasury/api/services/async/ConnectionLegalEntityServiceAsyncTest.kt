@@ -122,7 +122,7 @@ internal class ConnectionLegalEntityServiceAsyncTest {
                                         ConnectionLegalEntityCreateParams.LegalEntity
                                             .LegalEntityAssociationInlineCreateRequest
                                             .RelationshipType
-                                            .BENEFICIAL_OWNER
+                                            .AUTHORIZED_SIGNER
                                     )
                                     .childLegalEntity(
                                         ChildLegalEntityCreate.builder()

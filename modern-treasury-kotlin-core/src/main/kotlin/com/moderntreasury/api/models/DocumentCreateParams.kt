@@ -2,11 +2,14 @@
 
 package com.moderntreasury.api.models
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.MultipartField
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.checkRequired
@@ -16,6 +19,7 @@ import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.io.InputStream
 import java.nio.file.Path
+import java.util.Collections
 import java.util.Objects
 import kotlin.io.path.inputStream
 import kotlin.io.path.name
@@ -86,6 +90,8 @@ private constructor(
      * type.
      */
     fun _documentType(): MultipartField<String> = body._documentType()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -189,6 +195,25 @@ private constructor(
          */
         fun documentType(documentType: MultipartField<String>) = apply {
             body.documentType(documentType)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -312,12 +337,12 @@ private constructor(
     }
 
     fun _body(): Map<String, MultipartField<*>> =
-        mapOf(
+        (mapOf(
                 "documentable_id" to _documentableId(),
                 "documentable_type" to _documentableType(),
                 "file" to _file(),
                 "document_type" to _documentType(),
-            )
+            ) + _additionalBodyProperties().mapValues { MultipartField.of(it) })
             .toImmutable()
 
     override fun _headers(): Headers = additionalHeaders
@@ -330,6 +355,7 @@ private constructor(
         private val documentableType: MultipartField<DocumentableType>,
         private val file: MultipartField<InputStream>,
         private val documentType: MultipartField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         /**
@@ -398,6 +424,16 @@ private constructor(
         @ExcludeMissing
         fun _documentType(): MultipartField<String> = documentType
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
         fun toBuilder() = Builder().from(this)
 
         companion object {
@@ -422,12 +458,14 @@ private constructor(
             private var documentableType: MultipartField<DocumentableType>? = null
             private var file: MultipartField<InputStream>? = null
             private var documentType: MultipartField<String> = MultipartField.of(null)
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(documentCreateRequest: DocumentCreateRequest) = apply {
                 documentableId = documentCreateRequest.documentableId
                 documentableType = documentCreateRequest.documentableType
                 file = documentCreateRequest.file
                 documentType = documentCreateRequest.documentType
+                additionalProperties = documentCreateRequest.additionalProperties.toMutableMap()
             }
 
             /** The unique identifier for the associated object. */
@@ -494,6 +532,25 @@ private constructor(
                 this.documentType = documentType
             }
 
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
             /**
              * Returns an immutable instance of [DocumentCreateRequest].
              *
@@ -514,6 +571,7 @@ private constructor(
                     checkRequired("documentableType", documentableType),
                     checkRequired("file", file),
                     documentType,
+                    additionalProperties.toMutableMap(),
                 )
         }
 
@@ -544,17 +602,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DocumentCreateRequest && documentableId == other.documentableId && documentableType == other.documentableType && file == other.file && documentType == other.documentType /* spotless:on */
+            return /* spotless:off */ other is DocumentCreateRequest && documentableId == other.documentableId && documentableType == other.documentableType && file == other.file && documentType == other.documentType && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(documentableId, documentableType, file, documentType) }
+        private val hashCode: Int by lazy { Objects.hash(documentableId, documentableType, file, documentType, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "DocumentCreateRequest{documentableId=$documentableId, documentableType=$documentableType, file=$file, documentType=$documentType}"
+            "DocumentCreateRequest{documentableId=$documentableId, documentableType=$documentableType, file=$file, documentType=$documentType, additionalProperties=$additionalProperties}"
     }
 
     class DocumentableType @JsonCreator private constructor(private val value: JsonField<String>) :
