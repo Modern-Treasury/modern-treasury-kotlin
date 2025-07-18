@@ -1,5 +1,28 @@
 # Changelog
 
+## 7.6.0 (2025-07-18)
+
+Full Changelog: [v7.5.0...v7.6.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.5.0...v7.6.0)
+
+### Features
+
+* **api:** api update ([fcdcf3b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/fcdcf3bc5072d0187c606b9fbcad76bb096dc655))
+* **api:** api update ([0c0f30b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0c0f30b941b41c1029a7cb42a890246beaa6996b))
+* **client:** add https config options ([a823f2e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a823f2ed8313e121371d9acd28f025ccef211116))
+* **client:** allow setting additional multipart body props ([aa1430b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/aa1430b590460e910d7606e1a370b88ac9179796))
+
+
+### Bug Fixes
+
+* **client:** ensure error handling always occurs ([e7ed4f9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e7ed4f9c1ea43b1e74d17ff7507af41ffe36df3e))
+
+
+### Chores
+
+* **ci:** bump `actions/setup-java` to v4 ([bc5fbe0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/bc5fbe09b6eb3b846dff7c8671fce56c98b75128))
+* **internal:** allow running specific example from cli ([14be2d3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/14be2d3e85386e813483d354f25f3566d55d54b8))
+* **internal:** refactor delegating from client to options ([99235db](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/99235dbe14a4d010d0b4cb26e4de88b29c49a375))
+
 ## 7.5.0 (2025-07-15)
 
 Full Changelog: [v7.4.0...v7.5.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.4.0...v7.5.0)
