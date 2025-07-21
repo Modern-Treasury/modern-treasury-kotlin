@@ -51,7 +51,8 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.Counterparty
 import com.moderntreasury.api.models.CounterpartyCreateParams
 
-// Configures using the `MODERN_TREASURY_API_KEY`, `MODERN_TREASURY_ORGANIZATION_ID`, `MODERN_TREASURY_WEBHOOK_KEY` and `MODERN_TREASURY_BASE_URL` environment variables
+// Configures using the `moderntreasury.apiKey`, `moderntreasury.organizationId`, `moderntreasury.webhookKey` and `moderntreasury.baseUrl` system properties
+// Or configures using the `MODERN_TREASURY_API_KEY`, `MODERN_TREASURY_ORGANIZATION_ID`, `MODERN_TREASURY_WEBHOOK_KEY` and `MODERN_TREASURY_BASE_URL` environment variables
 val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.fromEnv()
 
 val params: CounterpartyCreateParams = CounterpartyCreateParams.builder()
@@ -62,13 +63,14 @@ val counterparty: Counterparty = client.counterparties().create(params)
 
 ## Client configuration
 
-Configure the client using environment variables:
+Configure the client using system properties or environment variables:
 
 ```kotlin
 import com.moderntreasury.api.client.ModernTreasuryClient
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 
-// Configures using the `MODERN_TREASURY_API_KEY`, `MODERN_TREASURY_ORGANIZATION_ID`, `MODERN_TREASURY_WEBHOOK_KEY` and `MODERN_TREASURY_BASE_URL` environment variables
+// Configures using the `moderntreasury.apiKey`, `moderntreasury.organizationId`, `moderntreasury.webhookKey` and `moderntreasury.baseUrl` system properties
+// Or configures using the `MODERN_TREASURY_API_KEY`, `MODERN_TREASURY_ORGANIZATION_ID`, `MODERN_TREASURY_WEBHOOK_KEY` and `MODERN_TREASURY_BASE_URL` environment variables
 val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.fromEnv()
 ```
 
@@ -91,7 +93,8 @@ import com.moderntreasury.api.client.ModernTreasuryClient
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 
 val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.builder()
-    // Configures using the `MODERN_TREASURY_API_KEY`, `MODERN_TREASURY_ORGANIZATION_ID`, `MODERN_TREASURY_WEBHOOK_KEY` and `MODERN_TREASURY_BASE_URL` environment variables
+    // Configures using the `moderntreasury.apiKey`, `moderntreasury.organizationId`, `moderntreasury.webhookKey` and `moderntreasury.baseUrl` system properties
+    Or configures using the `MODERN_TREASURY_API_KEY`, `MODERN_TREASURY_ORGANIZATION_ID`, `MODERN_TREASURY_WEBHOOK_KEY` and `MODERN_TREASURY_BASE_URL` environment variables
     .fromEnv()
     .apiKey("My API Key")
     .build()
@@ -99,12 +102,14 @@ val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.builder()
 
 See this table for the available options:
 
-| Setter           | Environment variable              | Required | Default value                      |
-| ---------------- | --------------------------------- | -------- | ---------------------------------- |
-| `apiKey`         | `MODERN_TREASURY_API_KEY`         | true     | -                                  |
-| `organizationId` | `MODERN_TREASURY_ORGANIZATION_ID` | true     | -                                  |
-| `webhookKey`     | `MODERN_TREASURY_WEBHOOK_KEY`     | false    | -                                  |
-| `baseUrl`        | `MODERN_TREASURY_BASE_URL`        | true     | `"https://app.moderntreasury.com"` |
+| Setter           | System property                 | Environment variable              | Required | Default value                      |
+| ---------------- | ------------------------------- | --------------------------------- | -------- | ---------------------------------- |
+| `apiKey`         | `moderntreasury.apiKey`         | `MODERN_TREASURY_API_KEY`         | true     | -                                  |
+| `organizationId` | `moderntreasury.organizationId` | `MODERN_TREASURY_ORGANIZATION_ID` | true     | -                                  |
+| `webhookKey`     | `moderntreasury.webhookKey`     | `MODERN_TREASURY_WEBHOOK_KEY`     | false    | -                                  |
+| `baseUrl`        | `moderntreasury.baseUrl`        | `MODERN_TREASURY_BASE_URL`        | true     | `"https://app.moderntreasury.com"` |
+
+System properties take precedence over environment variables.
 
 > [!TIP]
 > Don't create more than one client in the same application. Each client has a connection pool and
@@ -149,7 +154,8 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.Counterparty
 import com.moderntreasury.api.models.CounterpartyCreateParams
 
-// Configures using the `MODERN_TREASURY_API_KEY`, `MODERN_TREASURY_ORGANIZATION_ID`, `MODERN_TREASURY_WEBHOOK_KEY` and `MODERN_TREASURY_BASE_URL` environment variables
+// Configures using the `moderntreasury.apiKey`, `moderntreasury.organizationId`, `moderntreasury.webhookKey` and `moderntreasury.baseUrl` system properties
+// Or configures using the `MODERN_TREASURY_API_KEY`, `MODERN_TREASURY_ORGANIZATION_ID`, `MODERN_TREASURY_WEBHOOK_KEY` and `MODERN_TREASURY_BASE_URL` environment variables
 val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.fromEnv()
 
 val params: CounterpartyCreateParams = CounterpartyCreateParams.builder()
@@ -166,7 +172,8 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.models.Counterparty
 import com.moderntreasury.api.models.CounterpartyCreateParams
 
-// Configures using the `MODERN_TREASURY_API_KEY`, `MODERN_TREASURY_ORGANIZATION_ID`, `MODERN_TREASURY_WEBHOOK_KEY` and `MODERN_TREASURY_BASE_URL` environment variables
+// Configures using the `moderntreasury.apiKey`, `moderntreasury.organizationId`, `moderntreasury.webhookKey` and `moderntreasury.baseUrl` system properties
+// Or configures using the `MODERN_TREASURY_API_KEY`, `MODERN_TREASURY_ORGANIZATION_ID`, `MODERN_TREASURY_WEBHOOK_KEY` and `MODERN_TREASURY_BASE_URL` environment variables
 val client: ModernTreasuryClientAsync = ModernTreasuryOkHttpClientAsync.fromEnv()
 
 val params: CounterpartyCreateParams = CounterpartyCreateParams.builder()
