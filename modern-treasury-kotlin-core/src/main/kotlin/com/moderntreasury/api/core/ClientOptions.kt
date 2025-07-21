@@ -226,10 +226,18 @@ private constructor(
         fun timeout(): Timeout = timeout
 
         fun fromEnv() = apply {
-            System.getenv("MODERN_TREASURY_BASE_URL")?.let { baseUrl(it) }
-            System.getenv("MODERN_TREASURY_API_KEY")?.let { apiKey(it) }
-            System.getenv("MODERN_TREASURY_ORGANIZATION_ID")?.let { organizationId(it) }
-            System.getenv("MODERN_TREASURY_WEBHOOK_KEY")?.let { webhookKey(it) }
+            (System.getProperty("moderntreasury.baseUrl")
+                    ?: System.getenv("MODERN_TREASURY_BASE_URL"))
+                ?.let { baseUrl(it) }
+            (System.getProperty("moderntreasury.apiKey")
+                    ?: System.getenv("MODERN_TREASURY_API_KEY"))
+                ?.let { apiKey(it) }
+            (System.getProperty("moderntreasury.organizationId")
+                    ?: System.getenv("MODERN_TREASURY_ORGANIZATION_ID"))
+                ?.let { organizationId(it) }
+            (System.getProperty("moderntreasury.webhookKey")
+                    ?: System.getenv("MODERN_TREASURY_WEBHOOK_KEY"))
+                ?.let { webhookKey(it) }
         }
 
         /**
