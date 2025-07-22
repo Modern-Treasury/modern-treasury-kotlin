@@ -6,7 +6,6 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.AddressRequest
-import com.moderntreasury.api.models.BankSettings
 import com.moderntreasury.api.models.ChildLegalEntityCreate
 import com.moderntreasury.api.models.ContactDetailCreateRequest
 import com.moderntreasury.api.models.CounterpartyCollectAccountParams
@@ -19,7 +18,6 @@ import com.moderntreasury.api.models.LegalEntityAddressCreateRequest
 import com.moderntreasury.api.models.LegalEntityComplianceDetail
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
 import com.moderntreasury.api.models.TransactionDirection
-import com.moderntreasury.api.models.WealthAndEmploymentDetails
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
@@ -155,7 +153,9 @@ internal class CounterpartyServiceAsyncTest {
                                     .build()
                             )
                             .bankSettings(
-                                BankSettings.builder()
+                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                    .LegalEntityBankSetting
+                                    .builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .backupWithholdingPercentage(0L)
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -244,7 +244,8 @@ internal class CounterpartyServiceAsyncTest {
                                                     .build()
                                             )
                                             .bankSettings(
-                                                BankSettings.builder()
+                                                ChildLegalEntityCreate.LegalEntityBankSetting
+                                                    .builder()
                                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                                     .backupWithholdingPercentage(0L)
                                                     .createdAt(
@@ -390,7 +391,9 @@ internal class CounterpartyServiceAsyncTest {
                                             .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
                                             .suffix("suffix")
                                             .wealthAndEmploymentDetails(
-                                                WealthAndEmploymentDetails.builder()
+                                                ChildLegalEntityCreate
+                                                    .LegalEntityWealthEmploymentDetail
+                                                    .builder()
                                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                                     .annualIncome(0L)
                                                     .createdAt(
@@ -407,27 +410,37 @@ internal class CounterpartyServiceAsyncTest {
                                                     .employerName("employer_name")
                                                     .employerState("employer_state")
                                                     .employmentStatus(
-                                                        WealthAndEmploymentDetails.EmploymentStatus
+                                                        ChildLegalEntityCreate
+                                                            .LegalEntityWealthEmploymentDetail
+                                                            .EmploymentStatus
                                                             .EMPLOYED
                                                     )
                                                     .incomeCountry("income_country")
                                                     .incomeSource(
-                                                        WealthAndEmploymentDetails.IncomeSource
+                                                        ChildLegalEntityCreate
+                                                            .LegalEntityWealthEmploymentDetail
+                                                            .IncomeSource
                                                             .FAMILY_SUPPORT
                                                     )
                                                     .incomeState("income_state")
                                                     .industry(
-                                                        WealthAndEmploymentDetails.Industry
+                                                        ChildLegalEntityCreate
+                                                            .LegalEntityWealthEmploymentDetail
+                                                            .Industry
                                                             .ACCOUNTING
                                                     )
                                                     .liveMode(true)
                                                     .object_("object")
                                                     .occupation(
-                                                        WealthAndEmploymentDetails.Occupation
+                                                        ChildLegalEntityCreate
+                                                            .LegalEntityWealthEmploymentDetail
+                                                            .Occupation
                                                             .CONSULTING
                                                     )
                                                     .sourceOfFunds(
-                                                        WealthAndEmploymentDetails.SourceOfFunds
+                                                        ChildLegalEntityCreate
+                                                            .LegalEntityWealthEmploymentDetail
+                                                            .SourceOfFunds
                                                             .ALIMONY
                                                     )
                                                     .updatedAt(
@@ -436,7 +449,9 @@ internal class CounterpartyServiceAsyncTest {
                                                         )
                                                     )
                                                     .wealthSource(
-                                                        WealthAndEmploymentDetails.WealthSource
+                                                        ChildLegalEntityCreate
+                                                            .LegalEntityWealthEmploymentDetail
+                                                            .WealthSource
                                                             .BUSINESS_SALE
                                                     )
                                                     .build()
@@ -475,7 +490,9 @@ internal class CounterpartyServiceAsyncTest {
                             )
                             .suffix("suffix")
                             .wealthAndEmploymentDetails(
-                                WealthAndEmploymentDetails.builder()
+                                CounterpartyCreateParams.LegalEntityCreateRequest
+                                    .LegalEntityWealthEmploymentDetail
+                                    .builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .annualIncome(0L)
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -484,21 +501,45 @@ internal class CounterpartyServiceAsyncTest {
                                     .employerName("employer_name")
                                     .employerState("employer_state")
                                     .employmentStatus(
-                                        WealthAndEmploymentDetails.EmploymentStatus.EMPLOYED
+                                        CounterpartyCreateParams.LegalEntityCreateRequest
+                                            .LegalEntityWealthEmploymentDetail
+                                            .EmploymentStatus
+                                            .EMPLOYED
                                     )
                                     .incomeCountry("income_country")
                                     .incomeSource(
-                                        WealthAndEmploymentDetails.IncomeSource.FAMILY_SUPPORT
+                                        CounterpartyCreateParams.LegalEntityCreateRequest
+                                            .LegalEntityWealthEmploymentDetail
+                                            .IncomeSource
+                                            .FAMILY_SUPPORT
                                     )
                                     .incomeState("income_state")
-                                    .industry(WealthAndEmploymentDetails.Industry.ACCOUNTING)
+                                    .industry(
+                                        CounterpartyCreateParams.LegalEntityCreateRequest
+                                            .LegalEntityWealthEmploymentDetail
+                                            .Industry
+                                            .ACCOUNTING
+                                    )
                                     .liveMode(true)
                                     .object_("object")
-                                    .occupation(WealthAndEmploymentDetails.Occupation.CONSULTING)
-                                    .sourceOfFunds(WealthAndEmploymentDetails.SourceOfFunds.ALIMONY)
+                                    .occupation(
+                                        CounterpartyCreateParams.LegalEntityCreateRequest
+                                            .LegalEntityWealthEmploymentDetail
+                                            .Occupation
+                                            .CONSULTING
+                                    )
+                                    .sourceOfFunds(
+                                        CounterpartyCreateParams.LegalEntityCreateRequest
+                                            .LegalEntityWealthEmploymentDetail
+                                            .SourceOfFunds
+                                            .ALIMONY
+                                    )
                                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .wealthSource(
-                                        WealthAndEmploymentDetails.WealthSource.BUSINESS_SALE
+                                        CounterpartyCreateParams.LegalEntityCreateRequest
+                                            .LegalEntityWealthEmploymentDetail
+                                            .WealthSource
+                                            .BUSINESS_SALE
                                     )
                                     .build()
                             )
