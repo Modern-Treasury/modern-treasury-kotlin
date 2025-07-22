@@ -42,6 +42,7 @@ internal class ExpectedPaymentServiceTest {
                     .dateUpperBound(LocalDate.parse("2019-12-27"))
                     .description("description")
                     .direction(ExpectedPaymentCreateParams.Direction.CREDIT)
+                    .externalId("external_id")
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerTransaction(
                         LedgerTransactionCreateRequest.builder()
@@ -185,6 +186,7 @@ internal class ExpectedPaymentServiceTest {
                     .dateUpperBound(LocalDate.parse("2019-12-27"))
                     .description("description")
                     .direction(ExpectedPaymentUpdateParams.Direction.CREDIT)
+                    .externalId("external_id")
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(
                         ExpectedPaymentUpdateParams.Metadata.builder()

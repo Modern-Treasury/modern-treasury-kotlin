@@ -17,6 +17,7 @@ internal class ExpectedPaymentListParamsTest {
             .createdAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .createdAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .direction(TransactionDirection.CREDIT)
+            .externalId("external_id")
             .internalAccountId("internal_account_id")
             .metadata(
                 ExpectedPaymentListParams.Metadata.builder()
@@ -40,6 +41,7 @@ internal class ExpectedPaymentListParamsTest {
                 .createdAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .direction(TransactionDirection.CREDIT)
+                .externalId("external_id")
                 .internalAccountId("internal_account_id")
                 .metadata(
                     ExpectedPaymentListParams.Metadata.builder()
@@ -63,6 +65,7 @@ internal class ExpectedPaymentListParamsTest {
                     .put("created_at_lower_bound", "2019-12-27T18:11:19.117Z")
                     .put("created_at_upper_bound", "2019-12-27T18:11:19.117Z")
                     .put("direction", "credit")
+                    .put("external_id", "external_id")
                     .put("internal_account_id", "internal_account_id")
                     .put("metadata[foo]", "string")
                     .put("per_page", "0")
