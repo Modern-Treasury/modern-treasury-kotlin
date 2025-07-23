@@ -94,7 +94,7 @@ import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 
 val client: ModernTreasuryClient = ModernTreasuryOkHttpClient.builder()
     // Configures using the `moderntreasury.apiKey`, `moderntreasury.organizationId`, `moderntreasury.webhookKey` and `moderntreasury.baseUrl` system properties
-    Or configures using the `MODERN_TREASURY_API_KEY`, `MODERN_TREASURY_ORGANIZATION_ID`, `MODERN_TREASURY_WEBHOOK_KEY` and `MODERN_TREASURY_BASE_URL` environment variables
+    // Or configures using the `MODERN_TREASURY_API_KEY`, `MODERN_TREASURY_ORGANIZATION_ID`, `MODERN_TREASURY_WEBHOOK_KEY` and `MODERN_TREASURY_BASE_URL` environment variables
     .fromEnv()
     .apiKey("My API Key")
     .build()
