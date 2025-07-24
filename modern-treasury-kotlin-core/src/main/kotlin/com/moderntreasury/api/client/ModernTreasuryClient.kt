@@ -164,7 +164,7 @@ interface ModernTreasuryClient {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PingResponse
 
-    /** @see [ping] */
+    /** @see ping */
     fun ping(requestOptions: RequestOptions): PingResponse =
         ping(ClientPingParams.none(), requestOptions)
 
@@ -277,7 +277,7 @@ interface ModernTreasuryClient {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PingResponse>
 
-        /** @see [ping] */
+        /** @see ping */
         @MustBeClosed
         fun ping(requestOptions: RequestOptions): HttpResponseFor<PingResponse> =
             ping(ClientPingParams.none(), requestOptions)

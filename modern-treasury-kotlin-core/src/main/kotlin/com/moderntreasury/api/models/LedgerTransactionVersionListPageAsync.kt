@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.ledgerTransactions.VersionServiceAsync
 import java.util.Objects
 
-/** @see [VersionServiceAsync.list] */
+/** @see VersionServiceAsync.list */
 class LedgerTransactionVersionListPageAsync
 private constructor(
     private val service: VersionServiceAsync,

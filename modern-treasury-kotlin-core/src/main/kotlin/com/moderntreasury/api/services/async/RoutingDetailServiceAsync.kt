@@ -35,7 +35,7 @@ interface RoutingDetailServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RoutingDetail = create(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-    /** @see [create] */
+    /** @see create */
     suspend fun create(
         params: RoutingDetailCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -48,7 +48,7 @@ interface RoutingDetailServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RoutingDetail = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: RoutingDetailRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -62,7 +62,7 @@ interface RoutingDetailServiceAsync {
     ): RoutingDetailListPageAsync =
         list(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(
         params: RoutingDetailListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -75,7 +75,7 @@ interface RoutingDetailServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ) = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(
         params: RoutingDetailDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -108,7 +108,7 @@ interface RoutingDetailServiceAsync {
         ): HttpResponseFor<RoutingDetail> =
             create(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         suspend fun create(
             params: RoutingDetailCreateParams,
@@ -128,7 +128,7 @@ interface RoutingDetailServiceAsync {
         ): HttpResponseFor<RoutingDetail> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: RoutingDetailRetrieveParams,
@@ -147,7 +147,7 @@ interface RoutingDetailServiceAsync {
         ): HttpResponseFor<RoutingDetailListPageAsync> =
             list(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             params: RoutingDetailListParams,
@@ -166,7 +166,7 @@ interface RoutingDetailServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse = delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(
             params: RoutingDetailDeleteParams,

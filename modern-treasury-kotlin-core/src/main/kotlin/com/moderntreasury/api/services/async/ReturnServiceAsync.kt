@@ -39,13 +39,13 @@ interface ReturnServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ReturnObject = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: ReturnRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ReturnObject
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): ReturnObject =
         retrieve(id, ReturnRetrieveParams.none(), requestOptions)
 
@@ -55,7 +55,7 @@ interface ReturnServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ReturnListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): ReturnListPageAsync =
         list(ReturnListParams.none(), requestOptions)
 
@@ -95,14 +95,14 @@ interface ReturnServiceAsync {
         ): HttpResponseFor<ReturnObject> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: ReturnRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ReturnObject>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
@@ -119,7 +119,7 @@ interface ReturnServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ReturnListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ReturnListPageAsync> =
             list(ReturnListParams.none(), requestOptions)

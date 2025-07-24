@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.internalAccounts.BalanceReportServiceAsync
 import java.util.Objects
 
-/** @see [BalanceReportServiceAsync.list] */
+/** @see BalanceReportServiceAsync.list */
 class BalanceReportListPageAsync
 private constructor(
     private val service: BalanceReportServiceAsync,

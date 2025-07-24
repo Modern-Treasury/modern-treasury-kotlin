@@ -30,7 +30,7 @@ interface AccountEntryService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ) = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: LedgerAccountSettlementAccountEntryUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -43,7 +43,7 @@ interface AccountEntryService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ) = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     fun delete(
         params: LedgerAccountSettlementAccountEntryDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -75,7 +75,7 @@ interface AccountEntryService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse = update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: LedgerAccountSettlementAccountEntryUpdateParams,
@@ -94,7 +94,7 @@ interface AccountEntryService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse = delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         fun delete(
             params: LedgerAccountSettlementAccountEntryDeleteParams,

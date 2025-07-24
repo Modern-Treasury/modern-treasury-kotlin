@@ -33,7 +33,7 @@ interface LineItemService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LineItem = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: LineItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -46,7 +46,7 @@ interface LineItemService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LineItem = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: LineItemUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -60,7 +60,7 @@ interface LineItemService {
     ): LineItemListPage =
         list(params.toBuilder().itemizableId(itemizableId).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: LineItemListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -88,7 +88,7 @@ interface LineItemService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LineItem> = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: LineItemRetrieveParams,
@@ -107,7 +107,7 @@ interface LineItemService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LineItem> = update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: LineItemUpdateParams,
@@ -126,7 +126,7 @@ interface LineItemService {
         ): HttpResponseFor<LineItemListPage> =
             list(params.toBuilder().itemizableId(itemizableId).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: LineItemListParams,

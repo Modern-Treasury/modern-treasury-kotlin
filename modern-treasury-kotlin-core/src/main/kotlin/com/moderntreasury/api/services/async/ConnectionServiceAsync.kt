@@ -29,7 +29,7 @@ interface ConnectionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): ConnectionListPageAsync =
         list(ConnectionListParams.none(), requestOptions)
 
@@ -58,7 +58,7 @@ interface ConnectionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ConnectionListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ConnectionListPageAsync> =
             list(ConnectionListParams.none(), requestOptions)

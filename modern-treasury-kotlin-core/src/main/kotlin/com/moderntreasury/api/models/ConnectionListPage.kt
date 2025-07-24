@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.ConnectionService
 import java.util.Objects
 
-/** @see [ConnectionService.list] */
+/** @see ConnectionService.list */
 class ConnectionListPage
 private constructor(
     private val service: ConnectionService,

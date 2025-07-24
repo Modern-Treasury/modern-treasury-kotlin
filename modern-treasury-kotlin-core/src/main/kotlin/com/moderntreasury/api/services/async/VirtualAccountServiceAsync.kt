@@ -41,13 +41,13 @@ interface VirtualAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccount = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: VirtualAccountRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccount
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): VirtualAccount =
         retrieve(id, VirtualAccountRetrieveParams.none(), requestOptions)
 
@@ -58,13 +58,13 @@ interface VirtualAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccount = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: VirtualAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccount
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(id: String, requestOptions: RequestOptions): VirtualAccount =
         update(id, VirtualAccountUpdateParams.none(), requestOptions)
 
@@ -74,7 +74,7 @@ interface VirtualAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccountListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): VirtualAccountListPageAsync =
         list(VirtualAccountListParams.none(), requestOptions)
 
@@ -85,13 +85,13 @@ interface VirtualAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccount = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(
         params: VirtualAccountDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VirtualAccount
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(id: String, requestOptions: RequestOptions): VirtualAccount =
         delete(id, VirtualAccountDeleteParams.none(), requestOptions)
 
@@ -132,14 +132,14 @@ interface VirtualAccountServiceAsync {
         ): HttpResponseFor<VirtualAccount> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: VirtualAccountRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<VirtualAccount>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
@@ -159,14 +159,14 @@ interface VirtualAccountServiceAsync {
         ): HttpResponseFor<VirtualAccount> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: VirtualAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<VirtualAccount>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             id: String,
@@ -184,7 +184,7 @@ interface VirtualAccountServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<VirtualAccountListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -203,14 +203,14 @@ interface VirtualAccountServiceAsync {
         ): HttpResponseFor<VirtualAccount> =
             delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(
             params: VirtualAccountDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<VirtualAccount>
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(
             id: String,

@@ -32,13 +32,13 @@ interface PaperItemService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaperItem = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: PaperItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaperItem
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): PaperItem =
         retrieve(id, PaperItemRetrieveParams.none(), requestOptions)
 
@@ -48,7 +48,7 @@ interface PaperItemService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaperItemListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): PaperItemListPage =
         list(PaperItemListParams.none(), requestOptions)
 
@@ -73,14 +73,14 @@ interface PaperItemService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaperItem> = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: PaperItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaperItem>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<PaperItem> =
             retrieve(id, PaperItemRetrieveParams.none(), requestOptions)
@@ -95,7 +95,7 @@ interface PaperItemService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaperItemListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PaperItemListPage> =
             list(PaperItemListParams.none(), requestOptions)

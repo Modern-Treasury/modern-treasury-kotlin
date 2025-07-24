@@ -29,7 +29,7 @@ interface VersionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransactionVersionListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): LedgerTransactionVersionListPage =
         list(LedgerTransactionVersionListParams.none(), requestOptions)
 
@@ -53,7 +53,7 @@ interface VersionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerTransactionVersionListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

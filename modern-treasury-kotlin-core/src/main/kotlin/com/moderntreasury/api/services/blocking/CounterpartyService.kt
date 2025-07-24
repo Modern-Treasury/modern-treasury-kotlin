@@ -44,13 +44,13 @@ interface CounterpartyService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Counterparty = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: CounterpartyRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Counterparty
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): Counterparty =
         retrieve(id, CounterpartyRetrieveParams.none(), requestOptions)
 
@@ -61,13 +61,13 @@ interface CounterpartyService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Counterparty = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: CounterpartyUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Counterparty
 
-    /** @see [update] */
+    /** @see update */
     fun update(id: String, requestOptions: RequestOptions): Counterparty =
         update(id, CounterpartyUpdateParams.none(), requestOptions)
 
@@ -77,7 +77,7 @@ interface CounterpartyService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CounterpartyListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CounterpartyListPage =
         list(CounterpartyListParams.none(), requestOptions)
 
@@ -88,13 +88,13 @@ interface CounterpartyService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ) = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     fun delete(
         params: CounterpartyDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    /** @see [delete] */
+    /** @see delete */
     fun delete(id: String, requestOptions: RequestOptions) =
         delete(id, CounterpartyDeleteParams.none(), requestOptions)
 
@@ -106,7 +106,7 @@ interface CounterpartyService {
     ): CounterpartyCollectAccountResponse =
         collectAccount(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [collectAccount] */
+    /** @see collectAccount */
     fun collectAccount(
         params: CounterpartyCollectAccountParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -148,14 +148,14 @@ interface CounterpartyService {
         ): HttpResponseFor<Counterparty> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: CounterpartyRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Counterparty>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<Counterparty> =
             retrieve(id, CounterpartyRetrieveParams.none(), requestOptions)
@@ -171,14 +171,14 @@ interface CounterpartyService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Counterparty> = update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: CounterpartyUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Counterparty>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(id: String, requestOptions: RequestOptions): HttpResponseFor<Counterparty> =
             update(id, CounterpartyUpdateParams.none(), requestOptions)
@@ -193,7 +193,7 @@ interface CounterpartyService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CounterpartyListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CounterpartyListPage> =
             list(CounterpartyListParams.none(), requestOptions)
@@ -209,14 +209,14 @@ interface CounterpartyService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse = delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         fun delete(
             params: CounterpartyDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         fun delete(id: String, requestOptions: RequestOptions): HttpResponse =
             delete(id, CounterpartyDeleteParams.none(), requestOptions)
@@ -233,7 +233,7 @@ interface CounterpartyService {
         ): HttpResponseFor<CounterpartyCollectAccountResponse> =
             collectAccount(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [collectAccount] */
+        /** @see collectAccount */
         @MustBeClosed
         fun collectAccount(
             params: CounterpartyCollectAccountParams,

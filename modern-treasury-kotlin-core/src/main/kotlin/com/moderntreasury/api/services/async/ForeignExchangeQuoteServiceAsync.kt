@@ -39,13 +39,13 @@ interface ForeignExchangeQuoteServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ForeignExchangeQuote = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: ForeignExchangeQuoteRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ForeignExchangeQuote
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): ForeignExchangeQuote =
         retrieve(id, ForeignExchangeQuoteRetrieveParams.none(), requestOptions)
 
@@ -55,7 +55,7 @@ interface ForeignExchangeQuoteServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ForeignExchangeQuoteListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): ForeignExchangeQuoteListPageAsync =
         list(ForeignExchangeQuoteListParams.none(), requestOptions)
 
@@ -96,14 +96,14 @@ interface ForeignExchangeQuoteServiceAsync {
         ): HttpResponseFor<ForeignExchangeQuote> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: ForeignExchangeQuoteRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ForeignExchangeQuote>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
@@ -121,7 +121,7 @@ interface ForeignExchangeQuoteServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ForeignExchangeQuoteListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

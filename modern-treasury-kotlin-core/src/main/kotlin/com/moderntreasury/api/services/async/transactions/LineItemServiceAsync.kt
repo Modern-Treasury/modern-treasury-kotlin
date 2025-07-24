@@ -41,13 +41,13 @@ interface LineItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionLineItem = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: TransactionLineItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionLineItem
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): TransactionLineItem =
         retrieve(id, TransactionLineItemRetrieveParams.none(), requestOptions)
 
@@ -57,7 +57,7 @@ interface LineItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionLineItemListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): TransactionLineItemListPageAsync =
         list(TransactionLineItemListParams.none(), requestOptions)
 
@@ -68,13 +68,13 @@ interface LineItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ) = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(
         params: TransactionLineItemDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(id: String, requestOptions: RequestOptions) =
         delete(id, TransactionLineItemDeleteParams.none(), requestOptions)
 
@@ -114,14 +114,14 @@ interface LineItemServiceAsync {
         ): HttpResponseFor<TransactionLineItem> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: TransactionLineItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TransactionLineItem>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
@@ -139,7 +139,7 @@ interface LineItemServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TransactionLineItemListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -157,14 +157,14 @@ interface LineItemServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse = delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(
             params: TransactionLineItemDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(id: String, requestOptions: RequestOptions): HttpResponse =
             delete(id, TransactionLineItemDeleteParams.none(), requestOptions)

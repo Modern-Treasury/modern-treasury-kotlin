@@ -34,7 +34,7 @@ interface ExpectedPaymentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment
 
-    /** @see [create] */
+    /** @see create */
     suspend fun create(requestOptions: RequestOptions): ExpectedPayment =
         create(ExpectedPaymentCreateParams.none(), requestOptions)
 
@@ -45,13 +45,13 @@ interface ExpectedPaymentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: ExpectedPaymentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): ExpectedPayment =
         retrieve(id, ExpectedPaymentRetrieveParams.none(), requestOptions)
 
@@ -62,13 +62,13 @@ interface ExpectedPaymentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: ExpectedPaymentUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(id: String, requestOptions: RequestOptions): ExpectedPayment =
         update(id, ExpectedPaymentUpdateParams.none(), requestOptions)
 
@@ -78,7 +78,7 @@ interface ExpectedPaymentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPaymentListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): ExpectedPaymentListPageAsync =
         list(ExpectedPaymentListParams.none(), requestOptions)
 
@@ -89,13 +89,13 @@ interface ExpectedPaymentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(
         params: ExpectedPaymentDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(id: String, requestOptions: RequestOptions): ExpectedPayment =
         delete(id, ExpectedPaymentDeleteParams.none(), requestOptions)
 
@@ -124,7 +124,7 @@ interface ExpectedPaymentServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExpectedPayment>
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         suspend fun create(requestOptions: RequestOptions): HttpResponseFor<ExpectedPayment> =
             create(ExpectedPaymentCreateParams.none(), requestOptions)
@@ -141,14 +141,14 @@ interface ExpectedPaymentServiceAsync {
         ): HttpResponseFor<ExpectedPayment> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: ExpectedPaymentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExpectedPayment>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
@@ -168,14 +168,14 @@ interface ExpectedPaymentServiceAsync {
         ): HttpResponseFor<ExpectedPayment> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: ExpectedPaymentUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExpectedPayment>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             id: String,
@@ -193,7 +193,7 @@ interface ExpectedPaymentServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExpectedPaymentListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -212,14 +212,14 @@ interface ExpectedPaymentServiceAsync {
         ): HttpResponseFor<ExpectedPayment> =
             delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(
             params: ExpectedPaymentDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExpectedPayment>
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(
             id: String,

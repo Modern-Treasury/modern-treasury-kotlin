@@ -42,13 +42,13 @@ interface PaymentActionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentActionRetrieveResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: PaymentActionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentActionRetrieveResponse
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): PaymentActionRetrieveResponse =
         retrieve(id, PaymentActionRetrieveParams.none(), requestOptions)
 
@@ -59,7 +59,7 @@ interface PaymentActionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentActionUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: PaymentActionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -71,7 +71,7 @@ interface PaymentActionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentActionListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): PaymentActionListPage =
         list(PaymentActionListParams.none(), requestOptions)
 
@@ -111,14 +111,14 @@ interface PaymentActionService {
         ): HttpResponseFor<PaymentActionRetrieveResponse> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: PaymentActionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentActionRetrieveResponse>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             id: String,
@@ -138,7 +138,7 @@ interface PaymentActionService {
         ): HttpResponseFor<PaymentActionUpdateResponse> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: PaymentActionUpdateParams,
@@ -155,7 +155,7 @@ interface PaymentActionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentActionListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PaymentActionListPage> =
             list(PaymentActionListParams.none(), requestOptions)

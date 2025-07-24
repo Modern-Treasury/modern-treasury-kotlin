@@ -40,13 +40,13 @@ interface ConnectionLegalEntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionLegalEntity = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: ConnectionLegalEntityRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionLegalEntity
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): ConnectionLegalEntity =
         retrieve(id, ConnectionLegalEntityRetrieveParams.none(), requestOptions)
 
@@ -57,13 +57,13 @@ interface ConnectionLegalEntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionLegalEntity = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: ConnectionLegalEntityUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionLegalEntity
 
-    /** @see [update] */
+    /** @see update */
     fun update(id: String, requestOptions: RequestOptions): ConnectionLegalEntity =
         update(id, ConnectionLegalEntityUpdateParams.none(), requestOptions)
 
@@ -73,7 +73,7 @@ interface ConnectionLegalEntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionLegalEntityListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): ConnectionLegalEntityListPage =
         list(ConnectionLegalEntityListParams.none(), requestOptions)
 
@@ -115,14 +115,14 @@ interface ConnectionLegalEntityService {
         ): HttpResponseFor<ConnectionLegalEntity> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: ConnectionLegalEntityRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ConnectionLegalEntity>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             id: String,
@@ -142,14 +142,14 @@ interface ConnectionLegalEntityService {
         ): HttpResponseFor<ConnectionLegalEntity> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: ConnectionLegalEntityUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ConnectionLegalEntity>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             id: String,
@@ -167,7 +167,7 @@ interface ConnectionLegalEntityService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ConnectionLegalEntityListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ConnectionLegalEntityListPage> =
             list(ConnectionLegalEntityListParams.none(), requestOptions)

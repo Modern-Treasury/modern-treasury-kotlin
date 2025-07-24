@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.TransactionServiceAsync
 import java.util.Objects
 
-/** @see [TransactionServiceAsync.list] */
+/** @see TransactionServiceAsync.list */
 class TransactionListPageAsync
 private constructor(
     private val service: TransactionServiceAsync,
