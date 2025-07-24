@@ -1403,7 +1403,10 @@ private constructor(
 
             fun ofUnnamedSchemaWithArrayParent0s(
                 unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>
-            ) = Status(unnamedSchemaWithArrayParent0s = unnamedSchemaWithArrayParent0s)
+            ) =
+                Status(
+                    unnamedSchemaWithArrayParent0s = unnamedSchemaWithArrayParent0s.toImmutable()
+                )
         }
 
         /** An interface that defines how to map each variant of [Status] to a value of type [T]. */
