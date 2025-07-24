@@ -12,9 +12,15 @@ import java.time.Clock
 import java.time.Duration
 import java.util.Base64
 
+/** A class representing the SDK client configuration. */
 class ClientOptions
 private constructor(
     private val originalHttpClient: HttpClient,
+    /**
+     * The HTTP client to use in the SDK.
+     *
+     * Use the one published in `modern-treasury-kotlin-client-okhttp` or implement your own.
+     */
     val httpClient: HttpClient,
     /**
      * Whether to throw an exception if any of the Jackson versions detected at runtime are
@@ -24,13 +30,55 @@ private constructor(
      * the SDK will work correctly when using an incompatible Jackson version.
      */
     val checkJacksonVersionCompatibility: Boolean,
+    /**
+     * The Jackson JSON mapper to use for serializing and deserializing JSON.
+     *
+     * Defaults to [com.moderntreasury.api.core.jsonMapper]. The default is usually sufficient and
+     * rarely needs to be overridden.
+     */
     val jsonMapper: JsonMapper,
+    /**
+     * The clock to use for operations that require timing, like retries.
+     *
+     * This is primarily useful for using a fake clock in tests.
+     *
+     * Defaults to [Clock.systemUTC].
+     */
     val clock: Clock,
     private val baseUrl: String?,
+    /** Headers to send with the request. */
     val headers: Headers,
+    /** Query params to send with the request. */
     val queryParams: QueryParams,
+    /**
+     * Whether to call `validate` on every response before returning it.
+     *
+     * Defaults to false, which means the shape of the response will not be validated upfront.
+     * Instead, validation will only occur for the parts of the response that are accessed.
+     */
     val responseValidation: Boolean,
+    /**
+     * Sets the maximum time allowed for various parts of an HTTP call's lifecycle, excluding
+     * retries.
+     *
+     * Defaults to [Timeout.default].
+     */
     val timeout: Timeout,
+    /**
+     * The maximum number of times to retry failed requests, with a short exponential backoff
+     * between requests.
+     *
+     * Only the following error types are retried:
+     * - Connection errors (for example, due to a network connectivity problem)
+     * - 408 Request Timeout
+     * - 409 Conflict
+     * - 429 Rate Limit
+     * - 5xx Internal
+     *
+     * The API may also explicitly instruct the SDK to retry or not retry a request.
+     *
+     * Defaults to 2.
+     */
     val maxRetries: Int,
     val apiKey: String,
     val organizationId: String,
@@ -43,6 +91,11 @@ private constructor(
         }
     }
 
+    /**
+     * The base URL to use for every request.
+     *
+     * Defaults to the production environment: `https://app.moderntreasury.com`.
+     */
     fun baseUrl(): String = baseUrl ?: PRODUCTION_URL
 
     fun toBuilder() = Builder().from(this)
@@ -63,6 +116,11 @@ private constructor(
          */
         fun builder() = Builder()
 
+        /**
+         * Returns options configured using system properties and environment variables.
+         *
+         * @see Builder.fromEnv
+         */
         fun fromEnv(): ClientOptions = builder().fromEnv().build()
     }
 
@@ -99,6 +157,11 @@ private constructor(
             webhookKey = clientOptions.webhookKey
         }
 
+        /**
+         * The HTTP client to use in the SDK.
+         *
+         * Use the one published in `modern-treasury-kotlin-client-okhttp` or implement your own.
+         */
         fun httpClient(httpClient: HttpClient) = apply {
             this.httpClient = PhantomReachableClosingHttpClient(httpClient)
         }
@@ -114,16 +177,46 @@ private constructor(
             this.checkJacksonVersionCompatibility = checkJacksonVersionCompatibility
         }
 
+        /**
+         * The Jackson JSON mapper to use for serializing and deserializing JSON.
+         *
+         * Defaults to [com.moderntreasury.api.core.jsonMapper]. The default is usually sufficient
+         * and rarely needs to be overridden.
+         */
         fun jsonMapper(jsonMapper: JsonMapper) = apply { this.jsonMapper = jsonMapper }
 
+        /**
+         * The clock to use for operations that require timing, like retries.
+         *
+         * This is primarily useful for using a fake clock in tests.
+         *
+         * Defaults to [Clock.systemUTC].
+         */
         fun clock(clock: Clock) = apply { this.clock = clock }
 
+        /**
+         * The base URL to use for every request.
+         *
+         * Defaults to the production environment: `https://app.moderntreasury.com`.
+         */
         fun baseUrl(baseUrl: String?) = apply { this.baseUrl = baseUrl }
 
+        /**
+         * Whether to call `validate` on every response before returning it.
+         *
+         * Defaults to false, which means the shape of the response will not be validated upfront.
+         * Instead, validation will only occur for the parts of the response that are accessed.
+         */
         fun responseValidation(responseValidation: Boolean) = apply {
             this.responseValidation = responseValidation
         }
 
+        /**
+         * Sets the maximum time allowed for various parts of an HTTP call's lifecycle, excluding
+         * retries.
+         *
+         * Defaults to [Timeout.default].
+         */
         fun timeout(timeout: Timeout) = apply { this.timeout = timeout }
 
         /**
@@ -135,6 +228,21 @@ private constructor(
          */
         fun timeout(timeout: Duration) = timeout(Timeout.builder().request(timeout).build())
 
+        /**
+         * The maximum number of times to retry failed requests, with a short exponential backoff
+         * between requests.
+         *
+         * Only the following error types are retried:
+         * - Connection errors (for example, due to a network connectivity problem)
+         * - 408 Request Timeout
+         * - 409 Conflict
+         * - 429 Rate Limit
+         * - 5xx Internal
+         *
+         * The API may also explicitly instruct the SDK to retry or not retry a request.
+         *
+         * Defaults to 2.
+         */
         fun maxRetries(maxRetries: Int) = apply { this.maxRetries = maxRetries }
 
         fun apiKey(apiKey: String) = apply { this.apiKey = apiKey }
@@ -225,6 +333,20 @@ private constructor(
 
         fun timeout(): Timeout = timeout
 
+        /**
+         * Updates configuration using system properties and environment variables.
+         *
+         * See this table for the available options:
+         *
+         * |Setter          |System property                |Environment variable             |Required|Default value                     |
+         * |----------------|-------------------------------|---------------------------------|--------|----------------------------------|
+         * |`apiKey`        |`moderntreasury.apiKey`        |`MODERN_TREASURY_API_KEY`        |true    |-                                 |
+         * |`organizationId`|`moderntreasury.organizationId`|`MODERN_TREASURY_ORGANIZATION_ID`|true    |-                                 |
+         * |`webhookKey`    |`moderntreasury.webhookKey`    |`MODERN_TREASURY_WEBHOOK_KEY`    |false   |-                                 |
+         * |`baseUrl`       |`moderntreasury.baseUrl`       |`MODERN_TREASURY_BASE_URL`       |true    |`"https://app.moderntreasury.com"`|
+         *
+         * System properties take precedence over environment variables.
+         */
         fun fromEnv() = apply {
             (System.getProperty("moderntreasury.baseUrl")
                     ?: System.getenv("MODERN_TREASURY_BASE_URL"))

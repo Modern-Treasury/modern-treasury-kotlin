@@ -106,8 +106,10 @@ private constructor(
      */
     fun updatedAt(): UpdatedAt? = updatedAt
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
@@ -525,6 +527,7 @@ private constructor(
 
         fun notEq(): Long? = notEq
 
+        /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
 
         fun toBuilder() = Builder().from(this)
@@ -711,6 +714,7 @@ private constructor(
 
         fun effectiveAtUpperBound(): OffsetDateTime? = effectiveAtUpperBound
 
+        /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
 
         fun toBuilder() = Builder().from(this)
@@ -839,6 +843,7 @@ private constructor(
      */
     class CreatedAt private constructor(private val additionalProperties: QueryParams) {
 
+        /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
 
         fun toBuilder() = Builder().from(this)
@@ -938,6 +943,7 @@ private constructor(
      */
     class Metadata private constructor(private val additionalProperties: QueryParams) {
 
+        /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
 
         fun toBuilder() = Builder().from(this)
@@ -1058,6 +1064,7 @@ private constructor(
 
         fun notEq(): Long? = notEq
 
+        /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
 
         fun toBuilder() = Builder().from(this)
@@ -1246,6 +1253,7 @@ private constructor(
 
         fun notEq(): Long? = notEq
 
+        /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
 
         fun toBuilder() = Builder().from(this)
@@ -1414,6 +1422,7 @@ private constructor(
      */
     class UpdatedAt private constructor(private val additionalProperties: QueryParams) {
 
+        /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
 
         fun toBuilder() = Builder().from(this)
