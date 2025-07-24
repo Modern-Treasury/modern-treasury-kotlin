@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.AccountDetailServiceAsync
 import java.util.Objects
 
-/** @see [AccountDetailServiceAsync.list] */
+/** @see AccountDetailServiceAsync.list */
 class AccountDetailListPageAsync
 private constructor(
     private val service: AccountDetailServiceAsync,

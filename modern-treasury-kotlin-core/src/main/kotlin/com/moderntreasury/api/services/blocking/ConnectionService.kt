@@ -29,7 +29,7 @@ interface ConnectionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConnectionListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): ConnectionListPage =
         list(ConnectionListParams.none(), requestOptions)
 
@@ -55,7 +55,7 @@ interface ConnectionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ConnectionListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ConnectionListPage> =
             list(ConnectionListParams.none(), requestOptions)

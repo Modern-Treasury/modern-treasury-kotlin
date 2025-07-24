@@ -44,13 +44,13 @@ interface LedgerAccountBalanceMonitorServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitor = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: LedgerAccountBalanceMonitorRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitor
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): LedgerAccountBalanceMonitor =
         retrieve(id, LedgerAccountBalanceMonitorRetrieveParams.none(), requestOptions)
 
@@ -62,13 +62,13 @@ interface LedgerAccountBalanceMonitorServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitor = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: LedgerAccountBalanceMonitorUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitor
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(id: String, requestOptions: RequestOptions): LedgerAccountBalanceMonitor =
         update(id, LedgerAccountBalanceMonitorUpdateParams.none(), requestOptions)
 
@@ -79,7 +79,7 @@ interface LedgerAccountBalanceMonitorServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitorListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): LedgerAccountBalanceMonitorListPageAsync =
         list(LedgerAccountBalanceMonitorListParams.none(), requestOptions)
 
@@ -91,13 +91,13 @@ interface LedgerAccountBalanceMonitorServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitor = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(
         params: LedgerAccountBalanceMonitorDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountBalanceMonitor
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(id: String, requestOptions: RequestOptions): LedgerAccountBalanceMonitor =
         delete(id, LedgerAccountBalanceMonitorDeleteParams.none(), requestOptions)
 
@@ -139,14 +139,14 @@ interface LedgerAccountBalanceMonitorServiceAsync {
         ): HttpResponseFor<LedgerAccountBalanceMonitor> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: LedgerAccountBalanceMonitorRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountBalanceMonitor>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
@@ -167,14 +167,14 @@ interface LedgerAccountBalanceMonitorServiceAsync {
         ): HttpResponseFor<LedgerAccountBalanceMonitor> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: LedgerAccountBalanceMonitorUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountBalanceMonitor>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             id: String,
@@ -193,7 +193,7 @@ interface LedgerAccountBalanceMonitorServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountBalanceMonitorListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -213,14 +213,14 @@ interface LedgerAccountBalanceMonitorServiceAsync {
         ): HttpResponseFor<LedgerAccountBalanceMonitor> =
             delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(
             params: LedgerAccountBalanceMonitorDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountBalanceMonitor>
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(
             id: String,

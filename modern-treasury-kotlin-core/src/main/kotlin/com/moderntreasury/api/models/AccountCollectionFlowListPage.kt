@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.AccountCollectionFlowService
 import java.util.Objects
 
-/** @see [AccountCollectionFlowService.list] */
+/** @see AccountCollectionFlowService.list */
 class AccountCollectionFlowListPage
 private constructor(
     private val service: AccountCollectionFlowService,

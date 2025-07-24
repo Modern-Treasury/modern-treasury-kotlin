@@ -41,13 +41,13 @@ interface LedgerAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccount = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: LedgerAccountRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccount
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): LedgerAccount =
         retrieve(id, LedgerAccountRetrieveParams.none(), requestOptions)
 
@@ -58,13 +58,13 @@ interface LedgerAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccount = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: LedgerAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccount
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(id: String, requestOptions: RequestOptions): LedgerAccount =
         update(id, LedgerAccountUpdateParams.none(), requestOptions)
 
@@ -74,7 +74,7 @@ interface LedgerAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): LedgerAccountListPageAsync =
         list(LedgerAccountListParams.none(), requestOptions)
 
@@ -85,13 +85,13 @@ interface LedgerAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccount = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(
         params: LedgerAccountDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccount
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(id: String, requestOptions: RequestOptions): LedgerAccount =
         delete(id, LedgerAccountDeleteParams.none(), requestOptions)
 
@@ -132,14 +132,14 @@ interface LedgerAccountServiceAsync {
         ): HttpResponseFor<LedgerAccount> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: LedgerAccountRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccount>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
@@ -159,14 +159,14 @@ interface LedgerAccountServiceAsync {
         ): HttpResponseFor<LedgerAccount> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: LedgerAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccount>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             id: String,
@@ -184,7 +184,7 @@ interface LedgerAccountServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -203,14 +203,14 @@ interface LedgerAccountServiceAsync {
         ): HttpResponseFor<LedgerAccount> =
             delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(
             params: LedgerAccountDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccount>
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(
             id: String,

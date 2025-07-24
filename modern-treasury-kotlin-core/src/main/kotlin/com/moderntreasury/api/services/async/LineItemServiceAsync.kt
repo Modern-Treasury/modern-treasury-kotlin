@@ -33,7 +33,7 @@ interface LineItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LineItem = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: LineItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -46,7 +46,7 @@ interface LineItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LineItem = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: LineItemUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -60,7 +60,7 @@ interface LineItemServiceAsync {
     ): LineItemListPageAsync =
         list(params.toBuilder().itemizableId(itemizableId).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(
         params: LineItemListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -92,7 +92,7 @@ interface LineItemServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LineItem> = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: LineItemRetrieveParams,
@@ -111,7 +111,7 @@ interface LineItemServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LineItem> = update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: LineItemUpdateParams,
@@ -130,7 +130,7 @@ interface LineItemServiceAsync {
         ): HttpResponseFor<LineItemListPageAsync> =
             list(params.toBuilder().itemizableId(itemizableId).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             params: LineItemListParams,

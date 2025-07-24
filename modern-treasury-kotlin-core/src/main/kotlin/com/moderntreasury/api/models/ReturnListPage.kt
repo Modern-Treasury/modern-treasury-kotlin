@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.ReturnService
 import java.util.Objects
 
-/** @see [ReturnService.list] */
+/** @see ReturnService.list */
 class ReturnListPage
 private constructor(
     private val service: ReturnService,

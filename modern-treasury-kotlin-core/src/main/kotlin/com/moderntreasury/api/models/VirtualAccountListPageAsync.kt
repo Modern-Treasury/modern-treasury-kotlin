@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.VirtualAccountServiceAsync
 import java.util.Objects
 
-/** @see [VirtualAccountServiceAsync.list] */
+/** @see VirtualAccountServiceAsync.list */
 class VirtualAccountListPageAsync
 private constructor(
     private val service: VirtualAccountServiceAsync,

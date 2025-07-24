@@ -36,7 +36,7 @@ interface BalanceReportServiceAsync {
     ): BalanceReport =
         create(params.toBuilder().internalAccountId(internalAccountId).build(), requestOptions)
 
-    /** @see [create] */
+    /** @see create */
     suspend fun create(
         params: BalanceReportCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -49,7 +49,7 @@ interface BalanceReportServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BalanceReport = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: BalanceReportRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -63,13 +63,13 @@ interface BalanceReportServiceAsync {
     ): BalanceReportListPageAsync =
         list(params.toBuilder().internalAccountId(internalAccountId).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(
         params: BalanceReportListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BalanceReportListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(
         internalAccountId: String,
         requestOptions: RequestOptions,
@@ -83,7 +83,7 @@ interface BalanceReportServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ) = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(
         params: BalanceReportDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -117,7 +117,7 @@ interface BalanceReportServiceAsync {
         ): HttpResponseFor<BalanceReport> =
             create(params.toBuilder().internalAccountId(internalAccountId).build(), requestOptions)
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         suspend fun create(
             params: BalanceReportCreateParams,
@@ -137,7 +137,7 @@ interface BalanceReportServiceAsync {
         ): HttpResponseFor<BalanceReport> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: BalanceReportRetrieveParams,
@@ -157,14 +157,14 @@ interface BalanceReportServiceAsync {
         ): HttpResponseFor<BalanceReportListPageAsync> =
             list(params.toBuilder().internalAccountId(internalAccountId).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             params: BalanceReportListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BalanceReportListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             internalAccountId: String,
@@ -184,7 +184,7 @@ interface BalanceReportServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse = delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(
             params: BalanceReportDeleteParams,

@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.LegalEntityService
 import java.util.Objects
 
-/** @see [LegalEntityService.list] */
+/** @see LegalEntityService.list */
 class LegalEntityListPage
 private constructor(
     private val service: LegalEntityService,

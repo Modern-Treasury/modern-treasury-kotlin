@@ -33,13 +33,13 @@ interface LedgerEntryServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEntry = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: LedgerEntryRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEntry
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): LedgerEntry =
         retrieve(id, LedgerEntryRetrieveParams.none(), requestOptions)
 
@@ -50,13 +50,13 @@ interface LedgerEntryServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEntry = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: LedgerEntryUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEntry
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(id: String, requestOptions: RequestOptions): LedgerEntry =
         update(id, LedgerEntryUpdateParams.none(), requestOptions)
 
@@ -66,7 +66,7 @@ interface LedgerEntryServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerEntryListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): LedgerEntryListPageAsync =
         list(LedgerEntryListParams.none(), requestOptions)
 
@@ -97,14 +97,14 @@ interface LedgerEntryServiceAsync {
         ): HttpResponseFor<LedgerEntry> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: LedgerEntryRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerEntry>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
@@ -123,14 +123,14 @@ interface LedgerEntryServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerEntry> = update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: LedgerEntryUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerEntry>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             id: String,
@@ -147,7 +147,7 @@ interface LedgerEntryServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerEntryListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

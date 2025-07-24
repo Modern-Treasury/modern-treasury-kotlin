@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.EventServiceAsync
 import java.util.Objects
 
-/** @see [EventServiceAsync.list] */
+/** @see EventServiceAsync.list */
 class EventListPageAsync
 private constructor(
     private val service: EventServiceAsync,
