@@ -39,13 +39,13 @@ interface LedgerAccountStatementServiceAsync {
     ): LedgerAccountStatementRetrieveResponse =
         retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: LedgerAccountStatementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountStatementRetrieveResponse
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         id: String,
         requestOptions: RequestOptions,
@@ -90,14 +90,14 @@ interface LedgerAccountStatementServiceAsync {
         ): HttpResponseFor<LedgerAccountStatementRetrieveResponse> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: LedgerAccountStatementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountStatementRetrieveResponse>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,

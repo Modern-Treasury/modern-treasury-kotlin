@@ -35,7 +35,7 @@ interface AccountDetailService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountDetail = create(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: AccountDetailCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -48,7 +48,7 @@ interface AccountDetailService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountDetail = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: AccountDetailRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -61,7 +61,7 @@ interface AccountDetailService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountDetailListPage = list(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: AccountDetailListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -74,7 +74,7 @@ interface AccountDetailService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ) = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     fun delete(
         params: AccountDetailDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -106,7 +106,7 @@ interface AccountDetailService {
         ): HttpResponseFor<AccountDetail> =
             create(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: AccountDetailCreateParams,
@@ -126,7 +126,7 @@ interface AccountDetailService {
         ): HttpResponseFor<AccountDetail> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: AccountDetailRetrieveParams,
@@ -145,7 +145,7 @@ interface AccountDetailService {
         ): HttpResponseFor<AccountDetailListPage> =
             list(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: AccountDetailListParams,
@@ -164,7 +164,7 @@ interface AccountDetailService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse = delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         fun delete(
             params: AccountDetailDeleteParams,

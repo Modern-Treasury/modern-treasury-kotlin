@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.PaperItemService
 import java.util.Objects
 
-/** @see [PaperItemService.list] */
+/** @see PaperItemService.list */
 class PaperItemListPage
 private constructor(
     private val service: PaperItemService,

@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.ForeignExchangeQuoteServiceAsync
 import java.util.Objects
 
-/** @see [ForeignExchangeQuoteServiceAsync.list] */
+/** @see ForeignExchangeQuoteServiceAsync.list */
 class ForeignExchangeQuoteListPageAsync
 private constructor(
     private val service: ForeignExchangeQuoteServiceAsync,

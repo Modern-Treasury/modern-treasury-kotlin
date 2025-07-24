@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.LegalEntityServiceAsync
 import java.util.Objects
 
-/** @see [LegalEntityServiceAsync.list] */
+/** @see LegalEntityServiceAsync.list */
 class LegalEntityListPageAsync
 private constructor(
     private val service: LegalEntityServiceAsync,

@@ -39,13 +39,13 @@ interface DocumentService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Document = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: DocumentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): Document =
         retrieve(id, DocumentRetrieveParams.none(), requestOptions)
 
@@ -55,7 +55,7 @@ interface DocumentService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): DocumentListPage =
         list(DocumentListParams.none(), requestOptions)
 
@@ -90,14 +90,14 @@ interface DocumentService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Document> = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: DocumentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Document>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<Document> =
             retrieve(id, DocumentRetrieveParams.none(), requestOptions)
@@ -112,7 +112,7 @@ interface DocumentService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DocumentListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListPage> =
             list(DocumentListParams.none(), requestOptions)

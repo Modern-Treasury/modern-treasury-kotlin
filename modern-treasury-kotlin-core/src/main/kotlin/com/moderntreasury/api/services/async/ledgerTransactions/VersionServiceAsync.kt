@@ -29,7 +29,7 @@ interface VersionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransactionVersionListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): LedgerTransactionVersionListPageAsync =
         list(LedgerTransactionVersionListParams.none(), requestOptions)
 
@@ -57,7 +57,7 @@ interface VersionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerTransactionVersionListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

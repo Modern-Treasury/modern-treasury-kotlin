@@ -45,13 +45,13 @@ interface InternalAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccount = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: InternalAccountRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccount
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): InternalAccount =
         retrieve(id, InternalAccountRetrieveParams.none(), requestOptions)
 
@@ -62,13 +62,13 @@ interface InternalAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccount = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: InternalAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccount
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(id: String, requestOptions: RequestOptions): InternalAccount =
         update(id, InternalAccountUpdateParams.none(), requestOptions)
 
@@ -78,7 +78,7 @@ interface InternalAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccountListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): InternalAccountListPageAsync =
         list(InternalAccountListParams.none(), requestOptions)
 
@@ -90,7 +90,7 @@ interface InternalAccountServiceAsync {
     ): InternalAccountUpdateAccountCapabilityResponse =
         updateAccountCapability(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [updateAccountCapability] */
+    /** @see updateAccountCapability */
     suspend fun updateAccountCapability(
         params: InternalAccountUpdateAccountCapabilityParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -135,14 +135,14 @@ interface InternalAccountServiceAsync {
         ): HttpResponseFor<InternalAccount> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: InternalAccountRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InternalAccount>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
@@ -162,14 +162,14 @@ interface InternalAccountServiceAsync {
         ): HttpResponseFor<InternalAccount> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: InternalAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InternalAccount>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             id: String,
@@ -187,7 +187,7 @@ interface InternalAccountServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InternalAccountListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -207,7 +207,7 @@ interface InternalAccountServiceAsync {
         ): HttpResponseFor<InternalAccountUpdateAccountCapabilityResponse> =
             updateAccountCapability(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [updateAccountCapability] */
+        /** @see updateAccountCapability */
         @MustBeClosed
         suspend fun updateAccountCapability(
             params: InternalAccountUpdateAccountCapabilityParams,

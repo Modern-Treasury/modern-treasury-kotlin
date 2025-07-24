@@ -40,13 +40,13 @@ interface AccountCollectionFlowService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountCollectionFlow = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: AccountCollectionFlowRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountCollectionFlow
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): AccountCollectionFlow =
         retrieve(id, AccountCollectionFlowRetrieveParams.none(), requestOptions)
 
@@ -57,7 +57,7 @@ interface AccountCollectionFlowService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountCollectionFlow = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: AccountCollectionFlowUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -69,7 +69,7 @@ interface AccountCollectionFlowService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountCollectionFlowListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): AccountCollectionFlowListPage =
         list(AccountCollectionFlowListParams.none(), requestOptions)
 
@@ -111,14 +111,14 @@ interface AccountCollectionFlowService {
         ): HttpResponseFor<AccountCollectionFlow> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: AccountCollectionFlowRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountCollectionFlow>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             id: String,
@@ -138,7 +138,7 @@ interface AccountCollectionFlowService {
         ): HttpResponseFor<AccountCollectionFlow> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: AccountCollectionFlowUpdateParams,
@@ -155,7 +155,7 @@ interface AccountCollectionFlowService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountCollectionFlowListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<AccountCollectionFlowListPage> =
             list(AccountCollectionFlowListParams.none(), requestOptions)

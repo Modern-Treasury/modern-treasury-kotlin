@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.paymentOrders.ReversalServiceAsync
 import java.util.Objects
 
-/** @see [ReversalServiceAsync.list] */
+/** @see ReversalServiceAsync.list */
 class PaymentOrderReversalListPageAsync
 private constructor(
     private val service: ReversalServiceAsync,

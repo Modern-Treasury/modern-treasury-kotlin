@@ -45,13 +45,13 @@ interface TransactionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: TransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): Transaction =
         retrieve(id, TransactionRetrieveParams.none(), requestOptions)
 
@@ -62,13 +62,13 @@ interface TransactionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: TransactionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(id: String, requestOptions: RequestOptions): Transaction =
         update(id, TransactionUpdateParams.none(), requestOptions)
 
@@ -78,7 +78,7 @@ interface TransactionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): TransactionListPageAsync =
         list(TransactionListParams.none(), requestOptions)
 
@@ -89,13 +89,13 @@ interface TransactionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ) = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(
         params: TransactionDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(id: String, requestOptions: RequestOptions) =
         delete(id, TransactionDeleteParams.none(), requestOptions)
 
@@ -138,14 +138,14 @@ interface TransactionServiceAsync {
         ): HttpResponseFor<Transaction> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: TransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
@@ -164,14 +164,14 @@ interface TransactionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction> = update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: TransactionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             id: String,
@@ -188,7 +188,7 @@ interface TransactionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TransactionListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -206,14 +206,14 @@ interface TransactionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse = delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(
             params: TransactionDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(id: String, requestOptions: RequestOptions): HttpResponse =
             delete(id, TransactionDeleteParams.none(), requestOptions)
