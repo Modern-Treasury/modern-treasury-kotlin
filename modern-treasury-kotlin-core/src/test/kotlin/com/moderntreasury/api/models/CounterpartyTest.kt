@@ -47,6 +47,7 @@ internal class CounterpartyTest {
                         )
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .externalId("external_id")
                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .liveMode(true)
                         .metadata(
@@ -114,6 +115,7 @@ internal class CounterpartyTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .email("dev@stainless.com")
+                .externalId("external_id")
                 .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
                 .metadata(
@@ -163,6 +165,7 @@ internal class CounterpartyTest {
                     )
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .externalId("external_id")
                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .liveMode(true)
                     .metadata(
@@ -232,6 +235,7 @@ internal class CounterpartyTest {
         assertThat(counterparty.discardedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(counterparty.email()).isEqualTo("dev@stainless.com")
+        assertThat(counterparty.externalId()).isEqualTo("external_id")
         assertThat(counterparty.legalEntityId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(counterparty.liveMode()).isEqualTo(true)
         assertThat(counterparty.metadata())
@@ -288,6 +292,7 @@ internal class CounterpartyTest {
                         )
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .externalId("external_id")
                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .liveMode(true)
                         .metadata(
@@ -355,6 +360,7 @@ internal class CounterpartyTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .email("dev@stainless.com")
+                .externalId("external_id")
                 .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
                 .metadata(

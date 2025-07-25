@@ -220,6 +220,7 @@ internal class BulkRequestServiceTest {
                                             )
                                             .build()
                                     )
+                                    .externalId("external_id")
                                     .ledgerAccount(
                                         LedgerAccountCreateRequest.builder()
                                             .currency("currency")

@@ -78,6 +78,7 @@ internal class ErrorHandlingTest {
             assertThrows<BadRequestException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -97,6 +98,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -175,6 +177,7 @@ internal class ErrorHandlingTest {
             assertThrows<BadRequestException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -194,6 +197,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -272,6 +276,7 @@ internal class ErrorHandlingTest {
             assertThrows<UnauthorizedException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -291,6 +296,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -369,6 +375,7 @@ internal class ErrorHandlingTest {
             assertThrows<UnauthorizedException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -388,6 +395,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -466,6 +474,7 @@ internal class ErrorHandlingTest {
             assertThrows<PermissionDeniedException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -485,6 +494,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -563,6 +573,7 @@ internal class ErrorHandlingTest {
             assertThrows<PermissionDeniedException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -582,6 +593,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -660,6 +672,7 @@ internal class ErrorHandlingTest {
             assertThrows<NotFoundException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -679,6 +692,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -757,6 +771,7 @@ internal class ErrorHandlingTest {
             assertThrows<NotFoundException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -776,6 +791,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -854,6 +870,7 @@ internal class ErrorHandlingTest {
             assertThrows<UnprocessableEntityException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -873,6 +890,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -951,6 +969,7 @@ internal class ErrorHandlingTest {
             assertThrows<UnprocessableEntityException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -970,6 +989,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -1048,6 +1068,7 @@ internal class ErrorHandlingTest {
             assertThrows<RateLimitException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -1067,6 +1088,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -1145,6 +1167,7 @@ internal class ErrorHandlingTest {
             assertThrows<RateLimitException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -1164,6 +1187,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -1242,6 +1266,7 @@ internal class ErrorHandlingTest {
             assertThrows<InternalServerException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -1261,6 +1286,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -1339,6 +1365,7 @@ internal class ErrorHandlingTest {
             assertThrows<InternalServerException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -1358,6 +1385,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -1436,6 +1464,7 @@ internal class ErrorHandlingTest {
             assertThrows<UnexpectedStatusCodeException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -1455,6 +1484,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -1533,6 +1563,7 @@ internal class ErrorHandlingTest {
             assertThrows<UnexpectedStatusCodeException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -1552,6 +1583,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -1628,6 +1660,7 @@ internal class ErrorHandlingTest {
             assertThrows<ModernTreasuryException> {
                 externalAccountService.create(
                     ExternalAccountCreateParams.builder()
+                        .queryExternalId("external_id")
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addAccountDetail(
                             ExternalAccountCreateParams.AccountDetail.builder()
@@ -1647,6 +1680,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")

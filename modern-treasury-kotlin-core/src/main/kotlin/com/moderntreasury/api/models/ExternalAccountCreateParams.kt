@@ -24,10 +24,14 @@ import java.util.Objects
 /** create external account */
 class ExternalAccountCreateParams
 private constructor(
+    private val queryExternalId: String?,
     private val body: ExternalAccountCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    /** An optional user-defined 180 character unique identifier. */
+    fun queryExternalId(): String? = queryExternalId
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -54,6 +58,14 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun contactDetails(): List<ContactDetailCreateRequest>? = body.contactDetails()
+
+    /**
+     * An optional user-defined 180 character unique identifier.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun bodyExternalId(): String? = body.bodyExternalId()
 
     /**
      * Specifies a ledger account object that will be created with the external account. The
@@ -157,6 +169,13 @@ private constructor(
     fun _contactDetails(): JsonField<List<ContactDetailCreateRequest>> = body._contactDetails()
 
     /**
+     * Returns the raw JSON value of [bodyExternalId].
+     *
+     * Unlike [bodyExternalId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _bodyExternalId(): JsonField<String> = body._bodyExternalId()
+
+    /**
      * Returns the raw JSON value of [ledgerAccount].
      *
      * Unlike [ledgerAccount], this method doesn't throw if the JSON field has an unexpected type.
@@ -246,15 +265,22 @@ private constructor(
     /** A builder for [ExternalAccountCreateParams]. */
     class Builder internal constructor() {
 
+        private var queryExternalId: String? = null
         private var body: ExternalAccountCreateRequest.Builder =
             ExternalAccountCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(externalAccountCreateParams: ExternalAccountCreateParams) = apply {
+            queryExternalId = externalAccountCreateParams.queryExternalId
             body = externalAccountCreateParams.body.toBuilder()
             additionalHeaders = externalAccountCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = externalAccountCreateParams.additionalQueryParams.toBuilder()
+        }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun queryExternalId(queryExternalId: String?) = apply {
+            this.queryExternalId = queryExternalId
         }
 
         /**
@@ -266,7 +292,7 @@ private constructor(
          * - [accountDetails]
          * - [accountType]
          * - [contactDetails]
-         * - [ledgerAccount]
+         * - [bodyExternalId]
          * - etc.
          */
         fun body(body: ExternalAccountCreateRequest) = apply { this.body = body.toBuilder() }
@@ -344,6 +370,20 @@ private constructor(
          */
         fun addContactDetail(contactDetail: ContactDetailCreateRequest) = apply {
             body.addContactDetail(contactDetail)
+        }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun bodyExternalId(bodyExternalId: String?) = apply { body.bodyExternalId(bodyExternalId) }
+
+        /**
+         * Sets [Builder.bodyExternalId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bodyExternalId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun bodyExternalId(bodyExternalId: JsonField<String>) = apply {
+            body.bodyExternalId(bodyExternalId)
         }
 
         /**
@@ -623,6 +663,7 @@ private constructor(
          */
         fun build(): ExternalAccountCreateParams =
             ExternalAccountCreateParams(
+                queryExternalId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -633,7 +674,13 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                queryExternalId?.let { put("external_id", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     class ExternalAccountCreateRequest
     private constructor(
@@ -641,6 +688,7 @@ private constructor(
         private val accountDetails: JsonField<List<AccountDetail>>,
         private val accountType: JsonField<ExternalAccountType>,
         private val contactDetails: JsonField<List<ContactDetailCreateRequest>>,
+        private val bodyExternalId: JsonField<String>,
         private val ledgerAccount: JsonField<LedgerAccountCreateRequest>,
         private val metadata: JsonField<Metadata>,
         private val name: JsonField<String>,
@@ -667,6 +715,9 @@ private constructor(
             @JsonProperty("contact_details")
             @ExcludeMissing
             contactDetails: JsonField<List<ContactDetailCreateRequest>> = JsonMissing.of(),
+            @JsonProperty("external_id")
+            @ExcludeMissing
+            bodyExternalId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("ledger_account")
             @ExcludeMissing
             ledgerAccount: JsonField<LedgerAccountCreateRequest> = JsonMissing.of(),
@@ -697,6 +748,7 @@ private constructor(
             accountDetails,
             accountType,
             contactDetails,
+            bodyExternalId,
             ledgerAccount,
             metadata,
             name,
@@ -735,6 +787,14 @@ private constructor(
          */
         fun contactDetails(): List<ContactDetailCreateRequest>? =
             contactDetails.getNullable("contact_details")
+
+        /**
+         * An optional user-defined 180 character unique identifier.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun bodyExternalId(): String? = bodyExternalId.getNullable("external_id")
 
         /**
          * Specifies a ledger account object that will be created with the external account. The
@@ -852,6 +912,16 @@ private constructor(
         fun _contactDetails(): JsonField<List<ContactDetailCreateRequest>> = contactDetails
 
         /**
+         * Returns the raw JSON value of [bodyExternalId].
+         *
+         * Unlike [bodyExternalId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        fun _bodyExternalId(): JsonField<String> = bodyExternalId
+
+        /**
          * Returns the raw JSON value of [ledgerAccount].
          *
          * Unlike [ledgerAccount], this method doesn't throw if the JSON field has an unexpected
@@ -964,6 +1034,7 @@ private constructor(
             private var accountDetails: JsonField<MutableList<AccountDetail>>? = null
             private var accountType: JsonField<ExternalAccountType> = JsonMissing.of()
             private var contactDetails: JsonField<MutableList<ContactDetailCreateRequest>>? = null
+            private var bodyExternalId: JsonField<String> = JsonMissing.of()
             private var ledgerAccount: JsonField<LedgerAccountCreateRequest> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
@@ -982,6 +1053,7 @@ private constructor(
                 accountType = externalAccountCreateRequest.accountType
                 contactDetails =
                     externalAccountCreateRequest.contactDetails.map { it.toMutableList() }
+                bodyExternalId = externalAccountCreateRequest.bodyExternalId
                 ledgerAccount = externalAccountCreateRequest.ledgerAccount
                 metadata = externalAccountCreateRequest.metadata
                 name = externalAccountCreateRequest.name
@@ -1076,6 +1148,21 @@ private constructor(
                     (contactDetails ?: JsonField.of(mutableListOf())).also {
                         checkKnown("contactDetails", it).add(contactDetail)
                     }
+            }
+
+            /** An optional user-defined 180 character unique identifier. */
+            fun bodyExternalId(bodyExternalId: String?) =
+                bodyExternalId(JsonField.ofNullable(bodyExternalId))
+
+            /**
+             * Sets [Builder.bodyExternalId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.bodyExternalId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun bodyExternalId(bodyExternalId: JsonField<String>) = apply {
+                this.bodyExternalId = bodyExternalId
             }
 
             /**
@@ -1263,6 +1350,7 @@ private constructor(
                     (accountDetails ?: JsonMissing.of()).map { it.toImmutable() },
                     accountType,
                     (contactDetails ?: JsonMissing.of()).map { it.toImmutable() },
+                    bodyExternalId,
                     ledgerAccount,
                     metadata,
                     name,
@@ -1287,6 +1375,7 @@ private constructor(
             accountDetails()?.forEach { it.validate() }
             accountType()?.validate()
             contactDetails()?.forEach { it.validate() }
+            bodyExternalId()
             ledgerAccount()?.validate()
             metadata()?.validate()
             name()
@@ -1318,6 +1407,7 @@ private constructor(
                 (accountDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (accountType.asKnown()?.validity() ?: 0) +
                 (contactDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (bodyExternalId.asKnown() == null) 0 else 1) +
                 (ledgerAccount.asKnown()?.validity() ?: 0) +
                 (metadata.asKnown()?.validity() ?: 0) +
                 (if (name.asKnown() == null) 0 else 1) +
@@ -1333,17 +1423,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExternalAccountCreateRequest && counterpartyId == other.counterpartyId && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ExternalAccountCreateRequest && counterpartyId == other.counterpartyId && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && bodyExternalId == other.bodyExternalId && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(counterpartyId, accountDetails, accountType, contactDetails, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(counterpartyId, accountDetails, accountType, contactDetails, bodyExternalId, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ExternalAccountCreateRequest{counterpartyId=$counterpartyId, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
+            "ExternalAccountCreateRequest{counterpartyId=$counterpartyId, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, bodyExternalId=$bodyExternalId, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
     }
 
     class AccountDetail
@@ -2806,11 +2896,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccountCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is ExternalAccountCreateParams && queryExternalId == other.queryExternalId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(queryExternalId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "ExternalAccountCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ExternalAccountCreateParams{queryExternalId=$queryExternalId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

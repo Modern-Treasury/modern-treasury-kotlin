@@ -4652,6 +4652,7 @@ private constructor(
                 private val accountDetails: JsonField<List<AccountDetail>>,
                 private val accountType: JsonField<ExternalAccountType>,
                 private val contactDetails: JsonField<List<ContactDetailCreateRequest>>,
+                private val externalId: JsonField<String>,
                 private val ledgerAccount: JsonField<LedgerAccountCreateRequest>,
                 private val metadata: JsonField<Metadata>,
                 private val name: JsonField<String>,
@@ -4675,6 +4676,9 @@ private constructor(
                     @JsonProperty("contact_details")
                     @ExcludeMissing
                     contactDetails: JsonField<List<ContactDetailCreateRequest>> = JsonMissing.of(),
+                    @JsonProperty("external_id")
+                    @ExcludeMissing
+                    externalId: JsonField<String> = JsonMissing.of(),
                     @JsonProperty("ledger_account")
                     @ExcludeMissing
                     ledgerAccount: JsonField<LedgerAccountCreateRequest> = JsonMissing.of(),
@@ -4706,6 +4710,7 @@ private constructor(
                     accountDetails,
                     accountType,
                     contactDetails,
+                    externalId,
                     ledgerAccount,
                     metadata,
                     name,
@@ -4739,6 +4744,14 @@ private constructor(
                  */
                 fun contactDetails(): List<ContactDetailCreateRequest>? =
                     contactDetails.getNullable("contact_details")
+
+                /**
+                 * An optional user-defined 180 character unique identifier.
+                 *
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
+                fun externalId(): String? = externalId.getNullable("external_id")
 
                 /**
                  * Specifies a ledger account object that will be created with the external account.
@@ -4847,6 +4860,16 @@ private constructor(
                 @JsonProperty("contact_details")
                 @ExcludeMissing
                 fun _contactDetails(): JsonField<List<ContactDetailCreateRequest>> = contactDetails
+
+                /**
+                 * Returns the raw JSON value of [externalId].
+                 *
+                 * Unlike [externalId], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("external_id")
+                @ExcludeMissing
+                fun _externalId(): JsonField<String> = externalId
 
                 /**
                  * Returns the raw JSON value of [ledgerAccount].
@@ -4964,6 +4987,7 @@ private constructor(
                     private var contactDetails:
                         JsonField<MutableList<ContactDetailCreateRequest>>? =
                         null
+                    private var externalId: JsonField<String> = JsonMissing.of()
                     private var ledgerAccount: JsonField<LedgerAccountCreateRequest> =
                         JsonMissing.of()
                     private var metadata: JsonField<Metadata> = JsonMissing.of()
@@ -4980,6 +5004,7 @@ private constructor(
                         accountDetails = receivingAccount.accountDetails.map { it.toMutableList() }
                         accountType = receivingAccount.accountType
                         contactDetails = receivingAccount.contactDetails.map { it.toMutableList() }
+                        externalId = receivingAccount.externalId
                         ledgerAccount = receivingAccount.ledgerAccount
                         metadata = receivingAccount.metadata
                         name = receivingAccount.name
@@ -5057,6 +5082,21 @@ private constructor(
                             (contactDetails ?: JsonField.of(mutableListOf())).also {
                                 checkKnown("contactDetails", it).add(contactDetail)
                             }
+                    }
+
+                    /** An optional user-defined 180 character unique identifier. */
+                    fun externalId(externalId: String?) =
+                        externalId(JsonField.ofNullable(externalId))
+
+                    /**
+                     * Sets [Builder.externalId] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.externalId] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun externalId(externalId: JsonField<String>) = apply {
+                        this.externalId = externalId
                     }
 
                     /**
@@ -5248,6 +5288,7 @@ private constructor(
                             (accountDetails ?: JsonMissing.of()).map { it.toImmutable() },
                             accountType,
                             (contactDetails ?: JsonMissing.of()).map { it.toImmutable() },
+                            externalId,
                             ledgerAccount,
                             metadata,
                             name,
@@ -5271,6 +5312,7 @@ private constructor(
                     accountDetails()?.forEach { it.validate() }
                     accountType()?.validate()
                     contactDetails()?.forEach { it.validate() }
+                    externalId()
                     ledgerAccount()?.validate()
                     metadata()?.validate()
                     name()
@@ -5301,6 +5343,7 @@ private constructor(
                     (accountDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                         (accountType.asKnown()?.validity() ?: 0) +
                         (contactDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                        (if (externalId.asKnown() == null) 0 else 1) +
                         (ledgerAccount.asKnown()?.validity() ?: 0) +
                         (metadata.asKnown()?.validity() ?: 0) +
                         (if (name.asKnown() == null) 0 else 1) +
@@ -6820,17 +6863,17 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is ReceivingAccount && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
+                    return /* spotless:off */ other is ReceivingAccount && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && externalId == other.externalId && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(accountDetails, accountType, contactDetails, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalProperties) }
+                private val hashCode: Int by lazy { Objects.hash(accountDetails, accountType, contactDetails, externalId, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalProperties) }
                 /* spotless:on */
 
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "ReceivingAccount{accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
+                    "ReceivingAccount{accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, externalId=$externalId, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
@@ -12713,6 +12756,7 @@ private constructor(
                 private val accountDetails: JsonField<List<AccountDetail>>,
                 private val accountType: JsonField<ExternalAccountType>,
                 private val contactDetails: JsonField<List<ContactDetailCreateRequest>>,
+                private val externalId: JsonField<String>,
                 private val ledgerAccount: JsonField<LedgerAccountCreateRequest>,
                 private val metadata: JsonField<Metadata>,
                 private val name: JsonField<String>,
@@ -12736,6 +12780,9 @@ private constructor(
                     @JsonProperty("contact_details")
                     @ExcludeMissing
                     contactDetails: JsonField<List<ContactDetailCreateRequest>> = JsonMissing.of(),
+                    @JsonProperty("external_id")
+                    @ExcludeMissing
+                    externalId: JsonField<String> = JsonMissing.of(),
                     @JsonProperty("ledger_account")
                     @ExcludeMissing
                     ledgerAccount: JsonField<LedgerAccountCreateRequest> = JsonMissing.of(),
@@ -12767,6 +12814,7 @@ private constructor(
                     accountDetails,
                     accountType,
                     contactDetails,
+                    externalId,
                     ledgerAccount,
                     metadata,
                     name,
@@ -12800,6 +12848,14 @@ private constructor(
                  */
                 fun contactDetails(): List<ContactDetailCreateRequest>? =
                     contactDetails.getNullable("contact_details")
+
+                /**
+                 * An optional user-defined 180 character unique identifier.
+                 *
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
+                fun externalId(): String? = externalId.getNullable("external_id")
 
                 /**
                  * Specifies a ledger account object that will be created with the external account.
@@ -12908,6 +12964,16 @@ private constructor(
                 @JsonProperty("contact_details")
                 @ExcludeMissing
                 fun _contactDetails(): JsonField<List<ContactDetailCreateRequest>> = contactDetails
+
+                /**
+                 * Returns the raw JSON value of [externalId].
+                 *
+                 * Unlike [externalId], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("external_id")
+                @ExcludeMissing
+                fun _externalId(): JsonField<String> = externalId
 
                 /**
                  * Returns the raw JSON value of [ledgerAccount].
@@ -13025,6 +13091,7 @@ private constructor(
                     private var contactDetails:
                         JsonField<MutableList<ContactDetailCreateRequest>>? =
                         null
+                    private var externalId: JsonField<String> = JsonMissing.of()
                     private var ledgerAccount: JsonField<LedgerAccountCreateRequest> =
                         JsonMissing.of()
                     private var metadata: JsonField<Metadata> = JsonMissing.of()
@@ -13041,6 +13108,7 @@ private constructor(
                         accountDetails = receivingAccount.accountDetails.map { it.toMutableList() }
                         accountType = receivingAccount.accountType
                         contactDetails = receivingAccount.contactDetails.map { it.toMutableList() }
+                        externalId = receivingAccount.externalId
                         ledgerAccount = receivingAccount.ledgerAccount
                         metadata = receivingAccount.metadata
                         name = receivingAccount.name
@@ -13118,6 +13186,21 @@ private constructor(
                             (contactDetails ?: JsonField.of(mutableListOf())).also {
                                 checkKnown("contactDetails", it).add(contactDetail)
                             }
+                    }
+
+                    /** An optional user-defined 180 character unique identifier. */
+                    fun externalId(externalId: String?) =
+                        externalId(JsonField.ofNullable(externalId))
+
+                    /**
+                     * Sets [Builder.externalId] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.externalId] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun externalId(externalId: JsonField<String>) = apply {
+                        this.externalId = externalId
                     }
 
                     /**
@@ -13309,6 +13392,7 @@ private constructor(
                             (accountDetails ?: JsonMissing.of()).map { it.toImmutable() },
                             accountType,
                             (contactDetails ?: JsonMissing.of()).map { it.toImmutable() },
+                            externalId,
                             ledgerAccount,
                             metadata,
                             name,
@@ -13332,6 +13416,7 @@ private constructor(
                     accountDetails()?.forEach { it.validate() }
                     accountType()?.validate()
                     contactDetails()?.forEach { it.validate() }
+                    externalId()
                     ledgerAccount()?.validate()
                     metadata()?.validate()
                     name()
@@ -13362,6 +13447,7 @@ private constructor(
                     (accountDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                         (accountType.asKnown()?.validity() ?: 0) +
                         (contactDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                        (if (externalId.asKnown() == null) 0 else 1) +
                         (ledgerAccount.asKnown()?.validity() ?: 0) +
                         (metadata.asKnown()?.validity() ?: 0) +
                         (if (name.asKnown() == null) 0 else 1) +
@@ -14881,17 +14967,17 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is ReceivingAccount && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
+                    return /* spotless:off */ other is ReceivingAccount && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && externalId == other.externalId && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(accountDetails, accountType, contactDetails, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalProperties) }
+                private val hashCode: Int by lazy { Objects.hash(accountDetails, accountType, contactDetails, externalId, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalProperties) }
                 /* spotless:on */
 
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "ReceivingAccount{accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
+                    "ReceivingAccount{accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, externalId=$externalId, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
             }
 
             /**
