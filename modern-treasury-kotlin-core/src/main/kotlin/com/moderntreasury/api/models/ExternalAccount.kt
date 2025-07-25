@@ -28,6 +28,7 @@ private constructor(
     private val counterpartyId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val discardedAt: JsonField<OffsetDateTime>,
+    private val externalId: JsonField<String>,
     private val ledgerAccountId: JsonField<String>,
     private val liveMode: JsonField<Boolean>,
     private val metadata: JsonField<Metadata>,
@@ -64,6 +65,9 @@ private constructor(
         @JsonProperty("discarded_at")
         @ExcludeMissing
         discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        externalId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("ledger_account_id")
         @ExcludeMissing
         ledgerAccountId: JsonField<String> = JsonMissing.of(),
@@ -98,6 +102,7 @@ private constructor(
         counterpartyId,
         createdAt,
         discardedAt,
+        externalId,
         ledgerAccountId,
         liveMode,
         metadata,
@@ -156,6 +161,14 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
+
+    /**
+     * An optional user-defined 180 character unique identifier.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun externalId(): String? = externalId.getNullable("external_id")
 
     /**
      * If the external account links to a ledger account in Modern Treasury, the id of the ledger
@@ -310,6 +323,13 @@ private constructor(
     fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
     /**
+     * Returns the raw JSON value of [externalId].
+     *
+     * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("external_id") @ExcludeMissing fun _externalId(): JsonField<String> = externalId
+
+    /**
      * Returns the raw JSON value of [ledgerAccountId].
      *
      * Unlike [ledgerAccountId], this method doesn't throw if the JSON field has an unexpected type.
@@ -433,6 +453,7 @@ private constructor(
          * .counterpartyId()
          * .createdAt()
          * .discardedAt()
+         * .externalId()
          * .ledgerAccountId()
          * .liveMode()
          * .metadata()
@@ -460,6 +481,7 @@ private constructor(
         private var counterpartyId: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var discardedAt: JsonField<OffsetDateTime>? = null
+        private var externalId: JsonField<String>? = null
         private var ledgerAccountId: JsonField<String>? = null
         private var liveMode: JsonField<Boolean>? = null
         private var metadata: JsonField<Metadata>? = null
@@ -482,6 +504,7 @@ private constructor(
             counterpartyId = externalAccount.counterpartyId
             createdAt = externalAccount.createdAt
             discardedAt = externalAccount.discardedAt
+            externalId = externalAccount.externalId
             ledgerAccountId = externalAccount.ledgerAccountId
             liveMode = externalAccount.liveMode
             metadata = externalAccount.metadata
@@ -611,6 +634,18 @@ private constructor(
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
         }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+        /**
+         * Sets [Builder.externalId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
         /**
          * If the external account links to a ledger account in Modern Treasury, the id of the
@@ -819,6 +854,7 @@ private constructor(
          * .counterpartyId()
          * .createdAt()
          * .discardedAt()
+         * .externalId()
          * .ledgerAccountId()
          * .liveMode()
          * .metadata()
@@ -844,6 +880,7 @@ private constructor(
                 checkRequired("counterpartyId", counterpartyId),
                 checkRequired("createdAt", createdAt),
                 checkRequired("discardedAt", discardedAt),
+                checkRequired("externalId", externalId),
                 checkRequired("ledgerAccountId", ledgerAccountId),
                 checkRequired("liveMode", liveMode),
                 checkRequired("metadata", metadata),
@@ -874,6 +911,7 @@ private constructor(
         counterpartyId()
         createdAt()
         discardedAt()
+        externalId()
         ledgerAccountId()
         liveMode()
         metadata().validate()
@@ -910,6 +948,7 @@ private constructor(
             (if (counterpartyId.asKnown() == null) 0 else 1) +
             (if (createdAt.asKnown() == null) 0 else 1) +
             (if (discardedAt.asKnown() == null) 0 else 1) +
+            (if (externalId.asKnown() == null) 0 else 1) +
             (if (ledgerAccountId.asKnown() == null) 0 else 1) +
             (if (liveMode.asKnown() == null) 0 else 1) +
             (metadata.asKnown()?.validity() ?: 0) +
@@ -1430,15 +1469,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccount && id == other.id && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && counterpartyId == other.counterpartyId && createdAt == other.createdAt && discardedAt == other.discardedAt && ledgerAccountId == other.ledgerAccountId && liveMode == other.liveMode && metadata == other.metadata && name == other.name && object_ == other.object_ && partyAddress == other.partyAddress && partyName == other.partyName && partyType == other.partyType && routingDetails == other.routingDetails && updatedAt == other.updatedAt && verificationSource == other.verificationSource && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ExternalAccount && id == other.id && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && counterpartyId == other.counterpartyId && createdAt == other.createdAt && discardedAt == other.discardedAt && externalId == other.externalId && ledgerAccountId == other.ledgerAccountId && liveMode == other.liveMode && metadata == other.metadata && name == other.name && object_ == other.object_ && partyAddress == other.partyAddress && partyName == other.partyName && partyType == other.partyType && routingDetails == other.routingDetails && updatedAt == other.updatedAt && verificationSource == other.verificationSource && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountDetails, accountType, contactDetails, counterpartyId, createdAt, discardedAt, ledgerAccountId, liveMode, metadata, name, object_, partyAddress, partyName, partyType, routingDetails, updatedAt, verificationSource, verificationStatus, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountDetails, accountType, contactDetails, counterpartyId, createdAt, discardedAt, externalId, ledgerAccountId, liveMode, metadata, name, object_, partyAddress, partyName, partyType, routingDetails, updatedAt, verificationSource, verificationStatus, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ExternalAccount{id=$id, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, counterpartyId=$counterpartyId, createdAt=$createdAt, discardedAt=$discardedAt, ledgerAccountId=$ledgerAccountId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, routingDetails=$routingDetails, updatedAt=$updatedAt, verificationSource=$verificationSource, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
+        "ExternalAccount{id=$id, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, counterpartyId=$counterpartyId, createdAt=$createdAt, discardedAt=$discardedAt, externalId=$externalId, ledgerAccountId=$ledgerAccountId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, routingDetails=$routingDetails, updatedAt=$updatedAt, verificationSource=$verificationSource, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
 }

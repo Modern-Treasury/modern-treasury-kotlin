@@ -16,6 +16,7 @@ private constructor(
     private val createdAtLowerBound: OffsetDateTime?,
     private val createdAtUpperBound: OffsetDateTime?,
     private val email: String?,
+    private val externalId: String?,
     private val legalEntityId: String?,
     private val metadata: Metadata?,
     private val name: String?,
@@ -34,6 +35,9 @@ private constructor(
 
     /** Performs a partial string match of the email field. This is also case insensitive. */
     fun email(): String? = email
+
+    /** An optional user-defined 180 character unique identifier. */
+    fun externalId(): String? = externalId
 
     /** Filters for counterparties with the given legal entity ID. */
     fun legalEntityId(): String? = legalEntityId
@@ -72,6 +76,7 @@ private constructor(
         private var createdAtLowerBound: OffsetDateTime? = null
         private var createdAtUpperBound: OffsetDateTime? = null
         private var email: String? = null
+        private var externalId: String? = null
         private var legalEntityId: String? = null
         private var metadata: Metadata? = null
         private var name: String? = null
@@ -84,6 +89,7 @@ private constructor(
             createdAtLowerBound = counterpartyListParams.createdAtLowerBound
             createdAtUpperBound = counterpartyListParams.createdAtUpperBound
             email = counterpartyListParams.email
+            externalId = counterpartyListParams.externalId
             legalEntityId = counterpartyListParams.legalEntityId
             metadata = counterpartyListParams.metadata
             name = counterpartyListParams.name
@@ -106,6 +112,9 @@ private constructor(
 
         /** Performs a partial string match of the email field. This is also case insensitive. */
         fun email(email: String?) = apply { this.email = email }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun externalId(externalId: String?) = apply { this.externalId = externalId }
 
         /** Filters for counterparties with the given legal entity ID. */
         fun legalEntityId(legalEntityId: String?) = apply { this.legalEntityId = legalEntityId }
@@ -237,6 +246,7 @@ private constructor(
                 createdAtLowerBound,
                 createdAtUpperBound,
                 email,
+                externalId,
                 legalEntityId,
                 metadata,
                 name,
@@ -259,6 +269,7 @@ private constructor(
                     put("created_at_upper_bound", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
                 }
                 email?.let { put("email", it) }
+                externalId?.let { put("external_id", it) }
                 legalEntityId?.let { put("legal_entity_id", it) }
                 metadata?.let {
                     it._additionalProperties().keys().forEach { key ->
@@ -378,11 +389,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CounterpartyListParams && afterCursor == other.afterCursor && createdAtLowerBound == other.createdAtLowerBound && createdAtUpperBound == other.createdAtUpperBound && email == other.email && legalEntityId == other.legalEntityId && metadata == other.metadata && name == other.name && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is CounterpartyListParams && afterCursor == other.afterCursor && createdAtLowerBound == other.createdAtLowerBound && createdAtUpperBound == other.createdAtUpperBound && email == other.email && externalId == other.externalId && legalEntityId == other.legalEntityId && metadata == other.metadata && name == other.name && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, createdAtLowerBound, createdAtUpperBound, email, legalEntityId, metadata, name, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, createdAtLowerBound, createdAtUpperBound, email, externalId, legalEntityId, metadata, name, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "CounterpartyListParams{afterCursor=$afterCursor, createdAtLowerBound=$createdAtLowerBound, createdAtUpperBound=$createdAtUpperBound, email=$email, legalEntityId=$legalEntityId, metadata=$metadata, name=$name, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CounterpartyListParams{afterCursor=$afterCursor, createdAtLowerBound=$createdAtLowerBound, createdAtUpperBound=$createdAtUpperBound, email=$email, externalId=$externalId, legalEntityId=$legalEntityId, metadata=$metadata, name=$name, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
