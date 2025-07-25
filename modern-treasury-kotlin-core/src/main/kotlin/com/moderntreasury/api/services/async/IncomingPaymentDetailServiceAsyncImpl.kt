@@ -3,14 +3,14 @@
 package com.moderntreasury.api.services.async
 
 import com.moderntreasury.api.core.ClientOptions
-import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.checkRequired
+import com.moderntreasury.api.core.handlers.errorBodyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
-import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
+import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.json
@@ -70,7 +70,8 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         IncomingPaymentDetailServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -81,7 +82,6 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
 
         private val retrieveHandler: Handler<IncomingPaymentDetail> =
             jsonHandler<IncomingPaymentDetail>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun retrieve(
             params: IncomingPaymentDetailRetrieveParams,
@@ -99,7 +99,7 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -112,7 +112,6 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
 
         private val updateHandler: Handler<IncomingPaymentDetail> =
             jsonHandler<IncomingPaymentDetail>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun update(
             params: IncomingPaymentDetailUpdateParams,
@@ -131,7 +130,7 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { updateHandler.handle(it) }
                     .also {
@@ -144,7 +143,6 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
 
         private val listHandler: Handler<List<IncomingPaymentDetail>> =
             jsonHandler<List<IncomingPaymentDetail>>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun list(
             params: IncomingPaymentDetailListParams,
@@ -159,7 +157,7 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
@@ -179,7 +177,7 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
         }
 
         private val createAsyncHandler: Handler<AsyncResponse> =
-            jsonHandler<AsyncResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AsyncResponse>(clientOptions.jsonMapper)
 
         override suspend fun createAsync(
             params: IncomingPaymentDetailCreateAsyncParams,
@@ -200,7 +198,7 @@ internal constructor(private val clientOptions: ClientOptions) : IncomingPayment
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createAsyncHandler.handle(it) }
                     .also {

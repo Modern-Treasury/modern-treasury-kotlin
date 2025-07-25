@@ -26,6 +26,7 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val discardedAt: JsonField<OffsetDateTime>,
     private val email: JsonField<String>,
+    private val externalId: JsonField<String>,
     private val legalEntityId: JsonField<String>,
     private val liveMode: JsonField<Boolean>,
     private val metadata: JsonField<Metadata>,
@@ -50,6 +51,9 @@ private constructor(
         @ExcludeMissing
         discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        externalId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("legal_entity_id")
         @ExcludeMissing
         legalEntityId: JsonField<String> = JsonMissing.of(),
@@ -72,6 +76,7 @@ private constructor(
         createdAt,
         discardedAt,
         email,
+        externalId,
         legalEntityId,
         liveMode,
         metadata,
@@ -116,6 +121,14 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun email(): String? = email.getNullable("email")
+
+    /**
+     * An optional user-defined 180 character unique identifier.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun externalId(): String? = externalId.getNullable("external_id")
 
     /**
      * The id of the legal entity.
@@ -219,6 +232,13 @@ private constructor(
     @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
     /**
+     * Returns the raw JSON value of [externalId].
+     *
+     * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("external_id") @ExcludeMissing fun _externalId(): JsonField<String> = externalId
+
+    /**
      * Returns the raw JSON value of [legalEntityId].
      *
      * Unlike [legalEntityId], this method doesn't throw if the JSON field has an unexpected type.
@@ -308,6 +328,7 @@ private constructor(
          * .createdAt()
          * .discardedAt()
          * .email()
+         * .externalId()
          * .legalEntityId()
          * .liveMode()
          * .metadata()
@@ -329,6 +350,7 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var discardedAt: JsonField<OffsetDateTime>? = null
         private var email: JsonField<String>? = null
+        private var externalId: JsonField<String>? = null
         private var legalEntityId: JsonField<String>? = null
         private var liveMode: JsonField<Boolean>? = null
         private var metadata: JsonField<Metadata>? = null
@@ -345,6 +367,7 @@ private constructor(
             createdAt = counterparty.createdAt
             discardedAt = counterparty.discardedAt
             email = counterparty.email
+            externalId = counterparty.externalId
             legalEntityId = counterparty.legalEntityId
             liveMode = counterparty.liveMode
             metadata = counterparty.metadata
@@ -427,6 +450,18 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun email(email: JsonField<String>) = apply { this.email = email }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+        /**
+         * Sets [Builder.externalId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
         /** The id of the legal entity. */
         fun legalEntityId(legalEntityId: String?) =
@@ -568,6 +603,7 @@ private constructor(
          * .createdAt()
          * .discardedAt()
          * .email()
+         * .externalId()
          * .legalEntityId()
          * .liveMode()
          * .metadata()
@@ -587,6 +623,7 @@ private constructor(
                 checkRequired("createdAt", createdAt),
                 checkRequired("discardedAt", discardedAt),
                 checkRequired("email", email),
+                checkRequired("externalId", externalId),
                 checkRequired("legalEntityId", legalEntityId),
                 checkRequired("liveMode", liveMode),
                 checkRequired("metadata", metadata),
@@ -611,6 +648,7 @@ private constructor(
         createdAt()
         discardedAt()
         email()
+        externalId()
         legalEntityId()
         liveMode()
         metadata().validate()
@@ -641,6 +679,7 @@ private constructor(
             (if (createdAt.asKnown() == null) 0 else 1) +
             (if (discardedAt.asKnown() == null) 0 else 1) +
             (if (email.asKnown() == null) 0 else 1) +
+            (if (externalId.asKnown() == null) 0 else 1) +
             (if (legalEntityId.asKnown() == null) 0 else 1) +
             (if (liveMode.asKnown() == null) 0 else 1) +
             (metadata.asKnown()?.validity() ?: 0) +
@@ -658,6 +697,7 @@ private constructor(
         private val contactDetails: JsonField<List<ContactDetail>>,
         private val createdAt: JsonField<OffsetDateTime>,
         private val discardedAt: JsonField<OffsetDateTime>,
+        private val externalId: JsonField<String>,
         private val ledgerAccountId: JsonField<String>,
         private val liveMode: JsonField<Boolean>,
         private val metadata: JsonField<Metadata>,
@@ -691,6 +731,9 @@ private constructor(
             @JsonProperty("discarded_at")
             @ExcludeMissing
             discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("external_id")
+            @ExcludeMissing
+            externalId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("ledger_account_id")
             @ExcludeMissing
             ledgerAccountId: JsonField<String> = JsonMissing.of(),
@@ -730,6 +773,7 @@ private constructor(
             contactDetails,
             createdAt,
             discardedAt,
+            externalId,
             ledgerAccountId,
             liveMode,
             metadata,
@@ -782,6 +826,14 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
+
+        /**
+         * An optional user-defined 180 character unique identifier.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun externalId(): String? = externalId.getNullable("external_id")
 
         /**
          * If the external account links to a ledger account in Modern Treasury, the id of the
@@ -929,6 +981,15 @@ private constructor(
         fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
         /**
+         * Returns the raw JSON value of [externalId].
+         *
+         * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        fun _externalId(): JsonField<String> = externalId
+
+        /**
          * Returns the raw JSON value of [ledgerAccountId].
          *
          * Unlike [ledgerAccountId], this method doesn't throw if the JSON field has an unexpected
@@ -1058,6 +1119,7 @@ private constructor(
             private var contactDetails: JsonField<MutableList<ContactDetail>>? = null
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var discardedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var externalId: JsonField<String> = JsonMissing.of()
             private var ledgerAccountId: JsonField<String> = JsonMissing.of()
             private var liveMode: JsonField<Boolean> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
@@ -1079,6 +1141,7 @@ private constructor(
                 contactDetails = account.contactDetails.map { it.toMutableList() }
                 createdAt = account.createdAt
                 discardedAt = account.discardedAt
+                externalId = account.externalId
                 ledgerAccountId = account.ledgerAccountId
                 liveMode = account.liveMode
                 metadata = account.metadata
@@ -1198,6 +1261,18 @@ private constructor(
             fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
                 this.discardedAt = discardedAt
             }
+
+            /** An optional user-defined 180 character unique identifier. */
+            fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+            /**
+             * Sets [Builder.externalId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.externalId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
             /**
              * If the external account links to a ledger account in Modern Treasury, the id of the
@@ -1411,6 +1486,7 @@ private constructor(
                     (contactDetails ?: JsonMissing.of()).map { it.toImmutable() },
                     createdAt,
                     discardedAt,
+                    externalId,
                     ledgerAccountId,
                     liveMode,
                     metadata,
@@ -1440,6 +1516,7 @@ private constructor(
             contactDetails()?.forEach { it.validate() }
             createdAt()
             discardedAt()
+            externalId()
             ledgerAccountId()
             liveMode()
             metadata()?.validate()
@@ -1476,6 +1553,7 @@ private constructor(
                 (contactDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (createdAt.asKnown() == null) 0 else 1) +
                 (if (discardedAt.asKnown() == null) 0 else 1) +
+                (if (externalId.asKnown() == null) 0 else 1) +
                 (if (ledgerAccountId.asKnown() == null) 0 else 1) +
                 (if (liveMode.asKnown() == null) 0 else 1) +
                 (metadata.asKnown()?.validity() ?: 0) +
@@ -2014,17 +2092,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Account && id == other.id && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && createdAt == other.createdAt && discardedAt == other.discardedAt && ledgerAccountId == other.ledgerAccountId && liveMode == other.liveMode && metadata == other.metadata && name == other.name && object_ == other.object_ && partyAddress == other.partyAddress && partyName == other.partyName && partyType == other.partyType && routingDetails == other.routingDetails && updatedAt == other.updatedAt && verificationSource == other.verificationSource && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Account && id == other.id && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && createdAt == other.createdAt && discardedAt == other.discardedAt && externalId == other.externalId && ledgerAccountId == other.ledgerAccountId && liveMode == other.liveMode && metadata == other.metadata && name == other.name && object_ == other.object_ && partyAddress == other.partyAddress && partyName == other.partyName && partyType == other.partyType && routingDetails == other.routingDetails && updatedAt == other.updatedAt && verificationSource == other.verificationSource && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, accountDetails, accountType, contactDetails, createdAt, discardedAt, ledgerAccountId, liveMode, metadata, name, object_, partyAddress, partyName, partyType, routingDetails, updatedAt, verificationSource, verificationStatus, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, accountDetails, accountType, contactDetails, createdAt, discardedAt, externalId, ledgerAccountId, liveMode, metadata, name, object_, partyAddress, partyName, partyType, routingDetails, updatedAt, verificationSource, verificationStatus, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Account{id=$id, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, createdAt=$createdAt, discardedAt=$discardedAt, ledgerAccountId=$ledgerAccountId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, routingDetails=$routingDetails, updatedAt=$updatedAt, verificationSource=$verificationSource, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
+            "Account{id=$id, accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, createdAt=$createdAt, discardedAt=$discardedAt, externalId=$externalId, ledgerAccountId=$ledgerAccountId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, routingDetails=$routingDetails, updatedAt=$updatedAt, verificationSource=$verificationSource, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
@@ -2276,15 +2354,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Counterparty && id == other.id && accounts == other.accounts && createdAt == other.createdAt && discardedAt == other.discardedAt && email == other.email && legalEntityId == other.legalEntityId && liveMode == other.liveMode && metadata == other.metadata && name == other.name && object_ == other.object_ && sendRemittanceAdvice == other.sendRemittanceAdvice && updatedAt == other.updatedAt && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Counterparty && id == other.id && accounts == other.accounts && createdAt == other.createdAt && discardedAt == other.discardedAt && email == other.email && externalId == other.externalId && legalEntityId == other.legalEntityId && liveMode == other.liveMode && metadata == other.metadata && name == other.name && object_ == other.object_ && sendRemittanceAdvice == other.sendRemittanceAdvice && updatedAt == other.updatedAt && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accounts, createdAt, discardedAt, email, legalEntityId, liveMode, metadata, name, object_, sendRemittanceAdvice, updatedAt, verificationStatus, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accounts, createdAt, discardedAt, email, externalId, legalEntityId, liveMode, metadata, name, object_, sendRemittanceAdvice, updatedAt, verificationStatus, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Counterparty{id=$id, accounts=$accounts, createdAt=$createdAt, discardedAt=$discardedAt, email=$email, legalEntityId=$legalEntityId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, sendRemittanceAdvice=$sendRemittanceAdvice, updatedAt=$updatedAt, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
+        "Counterparty{id=$id, accounts=$accounts, createdAt=$createdAt, discardedAt=$discardedAt, email=$email, externalId=$externalId, legalEntityId=$legalEntityId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, sendRemittanceAdvice=$sendRemittanceAdvice, updatedAt=$updatedAt, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
 }

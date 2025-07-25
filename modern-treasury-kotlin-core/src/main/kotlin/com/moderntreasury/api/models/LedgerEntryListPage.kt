@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.LedgerEntryService
 import java.util.Objects
 
-/** @see [LedgerEntryService.list] */
+/** @see LedgerEntryService.list */
 class LedgerEntryListPage
 private constructor(
     private val service: LedgerEntryService,

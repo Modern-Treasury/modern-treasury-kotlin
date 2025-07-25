@@ -32,13 +32,13 @@ interface BulkResultServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkResult = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: BulkResultRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkResult
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): BulkResult =
         retrieve(id, BulkResultRetrieveParams.none(), requestOptions)
 
@@ -48,7 +48,7 @@ interface BulkResultServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkResultListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): BulkResultListPageAsync =
         list(BulkResultListParams.none(), requestOptions)
 
@@ -78,14 +78,14 @@ interface BulkResultServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkResult> = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: BulkResultRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkResult>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
@@ -103,7 +103,7 @@ interface BulkResultServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkResultListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<BulkResultListPageAsync> =
             list(BulkResultListParams.none(), requestOptions)

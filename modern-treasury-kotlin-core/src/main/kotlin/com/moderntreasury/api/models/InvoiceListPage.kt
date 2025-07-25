@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.InvoiceService
 import java.util.Objects
 
-/** @see [InvoiceService.list] */
+/** @see InvoiceService.list */
 class InvoiceListPage
 private constructor(
     private val service: InvoiceService,

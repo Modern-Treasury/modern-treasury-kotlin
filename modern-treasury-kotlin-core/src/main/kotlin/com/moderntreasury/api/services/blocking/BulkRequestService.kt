@@ -39,13 +39,13 @@ interface BulkRequestService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequest = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: BulkRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequest
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): BulkRequest =
         retrieve(id, BulkRequestRetrieveParams.none(), requestOptions)
 
@@ -55,7 +55,7 @@ interface BulkRequestService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequestListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): BulkRequestListPage =
         list(BulkRequestListParams.none(), requestOptions)
 
@@ -95,14 +95,14 @@ interface BulkRequestService {
         ): HttpResponseFor<BulkRequest> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: BulkRequestRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkRequest>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<BulkRequest> =
             retrieve(id, BulkRequestRetrieveParams.none(), requestOptions)
@@ -117,7 +117,7 @@ interface BulkRequestService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkRequestListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<BulkRequestListPage> =
             list(BulkRequestListParams.none(), requestOptions)

@@ -175,6 +175,7 @@ internal class PaymentOrderServiceTest {
                                     )
                                     .build()
                             )
+                            .externalId("external_id")
                             .ledgerAccount(
                                 LedgerAccountCreateRequest.builder()
                                     .currency("currency")
@@ -355,6 +356,7 @@ internal class PaymentOrderServiceTest {
                                     )
                                     .build()
                             )
+                            .externalId("external_id")
                             .ledgerAccount(
                                 LedgerAccountCreateRequest.builder()
                                     .currency("currency")
@@ -591,6 +593,7 @@ internal class PaymentOrderServiceTest {
                                     )
                                     .build()
                             )
+                            .externalId("external_id")
                             .ledgerAccount(
                                 LedgerAccountCreateRequest.builder()
                                     .currency("currency")

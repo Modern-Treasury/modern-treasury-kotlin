@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.ForeignExchangeQuoteService
 import java.util.Objects
 
-/** @see [ForeignExchangeQuoteService.list] */
+/** @see ForeignExchangeQuoteService.list */
 class ForeignExchangeQuoteListPage
 private constructor(
     private val service: ForeignExchangeQuoteService,

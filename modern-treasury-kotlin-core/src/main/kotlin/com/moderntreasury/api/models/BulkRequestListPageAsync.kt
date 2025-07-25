@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.BulkRequestServiceAsync
 import java.util.Objects
 
-/** @see [BulkRequestServiceAsync.list] */
+/** @see BulkRequestServiceAsync.list */
 class BulkRequestListPageAsync
 private constructor(
     private val service: BulkRequestServiceAsync,

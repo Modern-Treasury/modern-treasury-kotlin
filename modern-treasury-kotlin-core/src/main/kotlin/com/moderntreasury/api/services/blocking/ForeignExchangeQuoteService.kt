@@ -39,13 +39,13 @@ interface ForeignExchangeQuoteService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ForeignExchangeQuote = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: ForeignExchangeQuoteRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ForeignExchangeQuote
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): ForeignExchangeQuote =
         retrieve(id, ForeignExchangeQuoteRetrieveParams.none(), requestOptions)
 
@@ -55,7 +55,7 @@ interface ForeignExchangeQuoteService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ForeignExchangeQuoteListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): ForeignExchangeQuoteListPage =
         list(ForeignExchangeQuoteListParams.none(), requestOptions)
 
@@ -96,14 +96,14 @@ interface ForeignExchangeQuoteService {
         ): HttpResponseFor<ForeignExchangeQuote> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: ForeignExchangeQuoteRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ForeignExchangeQuote>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             id: String,
@@ -121,7 +121,7 @@ interface ForeignExchangeQuoteService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ForeignExchangeQuoteListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ForeignExchangeQuoteListPage> =
             list(ForeignExchangeQuoteListParams.none(), requestOptions)

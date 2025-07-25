@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.CounterpartyServiceAsync
 import java.util.Objects
 
-/** @see [CounterpartyServiceAsync.list] */
+/** @see CounterpartyServiceAsync.list */
 class CounterpartyListPageAsync
 private constructor(
     private val service: CounterpartyServiceAsync,

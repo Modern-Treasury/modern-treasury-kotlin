@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.AccountCollectionFlowServiceAsync
 import java.util.Objects
 
-/** @see [AccountCollectionFlowServiceAsync.list] */
+/** @see AccountCollectionFlowServiceAsync.list */
 class AccountCollectionFlowListPageAsync
 private constructor(
     private val service: AccountCollectionFlowServiceAsync,

@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.PaymentFlowServiceAsync
 import java.util.Objects
 
-/** @see [PaymentFlowServiceAsync.list] */
+/** @see PaymentFlowServiceAsync.list */
 class PaymentFlowListPageAsync
 private constructor(
     private val service: PaymentFlowServiceAsync,

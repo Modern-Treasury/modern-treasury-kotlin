@@ -35,7 +35,7 @@ interface LineItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceLineItem = create(params.toBuilder().invoiceId(invoiceId).build(), requestOptions)
 
-    /** @see [create] */
+    /** @see create */
     suspend fun create(
         params: InvoiceLineItemCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -48,7 +48,7 @@ interface LineItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceLineItem = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: InvoiceLineItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -61,7 +61,7 @@ interface LineItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceLineItem = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: InvoiceLineItemUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -75,13 +75,13 @@ interface LineItemServiceAsync {
     ): InvoiceLineItemListPageAsync =
         list(params.toBuilder().invoiceId(invoiceId).build(), requestOptions)
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(
         params: InvoiceLineItemListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceLineItemListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(
         invoiceId: String,
         requestOptions: RequestOptions,
@@ -95,7 +95,7 @@ interface LineItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceLineItem = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(
         params: InvoiceLineItemDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -127,7 +127,7 @@ interface LineItemServiceAsync {
         ): HttpResponseFor<InvoiceLineItem> =
             create(params.toBuilder().invoiceId(invoiceId).build(), requestOptions)
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         suspend fun create(
             params: InvoiceLineItemCreateParams,
@@ -146,7 +146,7 @@ interface LineItemServiceAsync {
         ): HttpResponseFor<InvoiceLineItem> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: InvoiceLineItemRetrieveParams,
@@ -166,7 +166,7 @@ interface LineItemServiceAsync {
         ): HttpResponseFor<InvoiceLineItem> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: InvoiceLineItemUpdateParams,
@@ -185,14 +185,14 @@ interface LineItemServiceAsync {
         ): HttpResponseFor<InvoiceLineItemListPageAsync> =
             list(params.toBuilder().invoiceId(invoiceId).build(), requestOptions)
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             params: InvoiceLineItemListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InvoiceLineItemListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             invoiceId: String,
@@ -213,7 +213,7 @@ interface LineItemServiceAsync {
         ): HttpResponseFor<InvoiceLineItem> =
             delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(
             params: InvoiceLineItemDeleteParams,

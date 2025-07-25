@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.ExpectedPaymentService
 import java.util.Objects
 
-/** @see [ExpectedPaymentService.list] */
+/** @see ExpectedPaymentService.list */
 class ExpectedPaymentListPage
 private constructor(
     private val service: ExpectedPaymentService,

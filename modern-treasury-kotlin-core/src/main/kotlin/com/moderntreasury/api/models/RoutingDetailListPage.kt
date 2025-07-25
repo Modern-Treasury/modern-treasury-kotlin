@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.RoutingDetailService
 import java.util.Objects
 
-/** @see [RoutingDetailService.list] */
+/** @see RoutingDetailService.list */
 class RoutingDetailListPage
 private constructor(
     private val service: RoutingDetailService,

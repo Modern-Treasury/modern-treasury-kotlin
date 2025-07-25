@@ -40,13 +40,13 @@ interface LegalEntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntity = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: LegalEntityRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntity
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): LegalEntity =
         retrieve(id, LegalEntityRetrieveParams.none(), requestOptions)
 
@@ -57,13 +57,13 @@ interface LegalEntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntity = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: LegalEntityUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntity
 
-    /** @see [update] */
+    /** @see update */
     fun update(id: String, requestOptions: RequestOptions): LegalEntity =
         update(id, LegalEntityUpdateParams.none(), requestOptions)
 
@@ -73,7 +73,7 @@ interface LegalEntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntityListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): LegalEntityListPage =
         list(LegalEntityListParams.none(), requestOptions)
 
@@ -113,14 +113,14 @@ interface LegalEntityService {
         ): HttpResponseFor<LegalEntity> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: LegalEntityRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LegalEntity>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<LegalEntity> =
             retrieve(id, LegalEntityRetrieveParams.none(), requestOptions)
@@ -136,14 +136,14 @@ interface LegalEntityService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LegalEntity> = update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: LegalEntityUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LegalEntity>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(id: String, requestOptions: RequestOptions): HttpResponseFor<LegalEntity> =
             update(id, LegalEntityUpdateParams.none(), requestOptions)
@@ -158,7 +158,7 @@ interface LegalEntityService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LegalEntityListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<LegalEntityListPage> =
             list(LegalEntityListParams.none(), requestOptions)

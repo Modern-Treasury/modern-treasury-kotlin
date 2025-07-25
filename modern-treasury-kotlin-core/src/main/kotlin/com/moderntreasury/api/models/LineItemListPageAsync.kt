@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.LineItemServiceAsync
 import java.util.Objects
 
-/** @see [LineItemServiceAsync.list] */
+/** @see LineItemServiceAsync.list */
 class LineItemListPageAsync
 private constructor(
     private val service: LineItemServiceAsync,

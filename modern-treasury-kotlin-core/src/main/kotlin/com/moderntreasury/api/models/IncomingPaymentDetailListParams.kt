@@ -65,8 +65,10 @@ private constructor(
     /** If the incoming payment detail is in a virtual account, the ID of the Virtual Account. */
     fun virtualAccountId(): String? = virtualAccountId
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
@@ -310,6 +312,7 @@ private constructor(
      */
     class Metadata private constructor(private val additionalProperties: QueryParams) {
 
+        /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
 
         fun toBuilder() = Builder().from(this)

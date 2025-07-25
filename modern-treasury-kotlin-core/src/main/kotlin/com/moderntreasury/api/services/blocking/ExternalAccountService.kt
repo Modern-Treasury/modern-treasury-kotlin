@@ -45,13 +45,13 @@ interface ExternalAccountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: ExternalAccountRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): ExternalAccount =
         retrieve(id, ExternalAccountRetrieveParams.none(), requestOptions)
 
@@ -62,13 +62,13 @@ interface ExternalAccountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: ExternalAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
-    /** @see [update] */
+    /** @see update */
     fun update(id: String, requestOptions: RequestOptions): ExternalAccount =
         update(id, ExternalAccountUpdateParams.none(), requestOptions)
 
@@ -78,7 +78,7 @@ interface ExternalAccountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccountListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): ExternalAccountListPage =
         list(ExternalAccountListParams.none(), requestOptions)
 
@@ -89,13 +89,13 @@ interface ExternalAccountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ) = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     fun delete(
         params: ExternalAccountDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    /** @see [delete] */
+    /** @see delete */
     fun delete(id: String, requestOptions: RequestOptions) =
         delete(id, ExternalAccountDeleteParams.none(), requestOptions)
 
@@ -107,13 +107,13 @@ interface ExternalAccountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount = completeVerification(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [completeVerification] */
+    /** @see completeVerification */
     fun completeVerification(
         params: ExternalAccountCompleteVerificationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
-    /** @see [completeVerification] */
+    /** @see completeVerification */
     fun completeVerification(id: String, requestOptions: RequestOptions): ExternalAccount =
         completeVerification(id, ExternalAccountCompleteVerificationParams.none(), requestOptions)
 
@@ -124,7 +124,7 @@ interface ExternalAccountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccountVerifyResponse = verify(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [verify] */
+    /** @see verify */
     fun verify(
         params: ExternalAccountVerifyParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -167,14 +167,14 @@ interface ExternalAccountService {
         ): HttpResponseFor<ExternalAccount> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: ExternalAccountRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccount>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<ExternalAccount> =
             retrieve(id, ExternalAccountRetrieveParams.none(), requestOptions)
@@ -191,14 +191,14 @@ interface ExternalAccountService {
         ): HttpResponseFor<ExternalAccount> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: ExternalAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccount>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(id: String, requestOptions: RequestOptions): HttpResponseFor<ExternalAccount> =
             update(id, ExternalAccountUpdateParams.none(), requestOptions)
@@ -213,7 +213,7 @@ interface ExternalAccountService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccountListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ExternalAccountListPage> =
             list(ExternalAccountListParams.none(), requestOptions)
@@ -229,14 +229,14 @@ interface ExternalAccountService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse = delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         fun delete(
             params: ExternalAccountDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         fun delete(id: String, requestOptions: RequestOptions): HttpResponse =
             delete(id, ExternalAccountDeleteParams.none(), requestOptions)
@@ -254,14 +254,14 @@ interface ExternalAccountService {
         ): HttpResponseFor<ExternalAccount> =
             completeVerification(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [completeVerification] */
+        /** @see completeVerification */
         @MustBeClosed
         fun completeVerification(
             params: ExternalAccountCompleteVerificationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccount>
 
-        /** @see [completeVerification] */
+        /** @see completeVerification */
         @MustBeClosed
         fun completeVerification(
             id: String,
@@ -285,7 +285,7 @@ interface ExternalAccountService {
         ): HttpResponseFor<ExternalAccountVerifyResponse> =
             verify(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [verify] */
+        /** @see verify */
         @MustBeClosed
         fun verify(
             params: ExternalAccountVerifyParams,

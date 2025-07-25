@@ -3,12 +3,11 @@
 package com.moderntreasury.api.services.async.ledgerAccountSettlements
 
 import com.moderntreasury.api.core.ClientOptions
-import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.handlers.emptyHandler
+import com.moderntreasury.api.core.handlers.errorBodyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
-import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
 import com.moderntreasury.api.core.http.HttpResponse
@@ -50,7 +49,8 @@ class AccountEntryServiceAsyncImpl internal constructor(private val clientOption
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AccountEntryServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -59,7 +59,7 @@ class AccountEntryServiceAsyncImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier).build()
             )
 
-        private val updateHandler: Handler<Void?> = emptyHandler().withErrorHandler(errorHandler)
+        private val updateHandler: Handler<Void?> = emptyHandler()
 
         override suspend fun update(
             params: LedgerAccountSettlementAccountEntryUpdateParams,
@@ -83,10 +83,12 @@ class AccountEntryServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable { response.use { updateHandler.handle(it) } }
+            return errorHandler.handle(response).parseable {
+                response.use { updateHandler.handle(it) }
+            }
         }
 
-        private val deleteHandler: Handler<Void?> = emptyHandler().withErrorHandler(errorHandler)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override suspend fun delete(
             params: LedgerAccountSettlementAccountEntryDeleteParams,
@@ -110,7 +112,9 @@ class AccountEntryServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable { response.use { deleteHandler.handle(it) } }
+            return errorHandler.handle(response).parseable {
+                response.use { deleteHandler.handle(it) }
+            }
         }
     }
 }

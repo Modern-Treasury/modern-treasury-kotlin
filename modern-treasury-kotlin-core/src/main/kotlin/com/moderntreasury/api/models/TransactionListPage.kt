@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.TransactionService
 import java.util.Objects
 
-/** @see [TransactionService.list] */
+/** @see TransactionService.list */
 class TransactionListPage
 private constructor(
     private val service: TransactionService,

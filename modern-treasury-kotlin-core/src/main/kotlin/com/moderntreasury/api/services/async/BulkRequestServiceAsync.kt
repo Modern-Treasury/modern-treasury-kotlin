@@ -39,13 +39,13 @@ interface BulkRequestServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequest = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: BulkRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequest
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): BulkRequest =
         retrieve(id, BulkRequestRetrieveParams.none(), requestOptions)
 
@@ -55,7 +55,7 @@ interface BulkRequestServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkRequestListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): BulkRequestListPageAsync =
         list(BulkRequestListParams.none(), requestOptions)
 
@@ -96,14 +96,14 @@ interface BulkRequestServiceAsync {
         ): HttpResponseFor<BulkRequest> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: BulkRequestRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkRequest>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
@@ -121,7 +121,7 @@ interface BulkRequestServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkRequestListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

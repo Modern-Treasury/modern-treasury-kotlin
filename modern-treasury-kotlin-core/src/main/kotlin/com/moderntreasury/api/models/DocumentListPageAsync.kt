@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.DocumentServiceAsync
 import java.util.Objects
 
-/** @see [DocumentServiceAsync.list] */
+/** @see DocumentServiceAsync.list */
 class DocumentListPageAsync
 private constructor(
     private val service: DocumentServiceAsync,

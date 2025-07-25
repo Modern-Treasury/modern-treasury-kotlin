@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.ConnectionLegalEntityService
 import java.util.Objects
 
-/** @see [ConnectionLegalEntityService.list] */
+/** @see ConnectionLegalEntityService.list */
 class ConnectionLegalEntityListPage
 private constructor(
     private val service: ConnectionLegalEntityService,

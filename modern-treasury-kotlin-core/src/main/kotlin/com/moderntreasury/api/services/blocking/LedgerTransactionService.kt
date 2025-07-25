@@ -45,13 +45,13 @@ interface LedgerTransactionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransaction = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: LedgerTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransaction
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): LedgerTransaction =
         retrieve(id, LedgerTransactionRetrieveParams.none(), requestOptions)
 
@@ -62,13 +62,13 @@ interface LedgerTransactionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransaction = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: LedgerTransactionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransaction
 
-    /** @see [update] */
+    /** @see update */
     fun update(id: String, requestOptions: RequestOptions): LedgerTransaction =
         update(id, LedgerTransactionUpdateParams.none(), requestOptions)
 
@@ -78,7 +78,7 @@ interface LedgerTransactionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransactionListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): LedgerTransactionListPage =
         list(LedgerTransactionListParams.none(), requestOptions)
 
@@ -89,7 +89,7 @@ interface LedgerTransactionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransaction = createPartialPost(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [createPartialPost] */
+    /** @see createPartialPost */
     fun createPartialPost(
         params: LedgerTransactionCreatePartialPostParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -103,13 +103,13 @@ interface LedgerTransactionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransaction = createReversal(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [createReversal] */
+    /** @see createReversal */
     fun createReversal(
         params: LedgerTransactionCreateReversalParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransaction
 
-    /** @see [createReversal] */
+    /** @see createReversal */
     fun createReversal(id: String, requestOptions: RequestOptions): LedgerTransaction =
         createReversal(id, LedgerTransactionCreateReversalParams.none(), requestOptions)
 
@@ -152,14 +152,14 @@ interface LedgerTransactionService {
         ): HttpResponseFor<LedgerTransaction> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: LedgerTransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerTransaction>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             id: String,
@@ -179,14 +179,14 @@ interface LedgerTransactionService {
         ): HttpResponseFor<LedgerTransaction> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: LedgerTransactionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerTransaction>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(id: String, requestOptions: RequestOptions): HttpResponseFor<LedgerTransaction> =
             update(id, LedgerTransactionUpdateParams.none(), requestOptions)
@@ -201,7 +201,7 @@ interface LedgerTransactionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerTransactionListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<LedgerTransactionListPage> =
             list(LedgerTransactionListParams.none(), requestOptions)
@@ -218,7 +218,7 @@ interface LedgerTransactionService {
         ): HttpResponseFor<LedgerTransaction> =
             createPartialPost(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [createPartialPost] */
+        /** @see createPartialPost */
         @MustBeClosed
         fun createPartialPost(
             params: LedgerTransactionCreatePartialPostParams,
@@ -238,14 +238,14 @@ interface LedgerTransactionService {
         ): HttpResponseFor<LedgerTransaction> =
             createReversal(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [createReversal] */
+        /** @see createReversal */
         @MustBeClosed
         fun createReversal(
             params: LedgerTransactionCreateReversalParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerTransaction>
 
-        /** @see [createReversal] */
+        /** @see createReversal */
         @MustBeClosed
         fun createReversal(
             id: String,

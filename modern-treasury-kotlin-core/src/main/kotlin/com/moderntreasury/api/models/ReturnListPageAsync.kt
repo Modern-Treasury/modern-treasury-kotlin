@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.ReturnServiceAsync
 import java.util.Objects
 
-/** @see [ReturnServiceAsync.list] */
+/** @see ReturnServiceAsync.list */
 class ReturnListPageAsync
 private constructor(
     private val service: ReturnServiceAsync,

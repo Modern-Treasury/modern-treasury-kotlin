@@ -32,6 +32,7 @@ private constructor(
     private val dateUpperBound: JsonField<LocalDate>,
     private val description: JsonField<String>,
     private val direction: JsonField<Direction>,
+    private val externalId: JsonField<String>,
     private val internalAccountId: JsonField<String>,
     private val ledgerTransactionId: JsonField<String>,
     private val liveMode: JsonField<Boolean>,
@@ -79,6 +80,9 @@ private constructor(
         @JsonProperty("direction")
         @ExcludeMissing
         direction: JsonField<Direction> = JsonMissing.of(),
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        externalId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("internal_account_id")
         @ExcludeMissing
         internalAccountId: JsonField<String> = JsonMissing.of(),
@@ -130,6 +134,7 @@ private constructor(
         dateUpperBound,
         description,
         direction,
+        externalId,
         internalAccountId,
         ledgerTransactionId,
         liveMode,
@@ -227,6 +232,14 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun direction(): Direction? = direction.getNullable("direction")
+
+    /**
+     * An optional user-defined 180 character unique identifier.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun externalId(): String? = externalId.getNullable("external_id")
 
     /**
      * The ID of the Internal Account for the expected payment.
@@ -442,6 +455,13 @@ private constructor(
     @JsonProperty("direction") @ExcludeMissing fun _direction(): JsonField<Direction> = direction
 
     /**
+     * Returns the raw JSON value of [externalId].
+     *
+     * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("external_id") @ExcludeMissing fun _externalId(): JsonField<String> = externalId
+
+    /**
      * Returns the raw JSON value of [internalAccountId].
      *
      * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
@@ -594,6 +614,7 @@ private constructor(
          * .dateUpperBound()
          * .description()
          * .direction()
+         * .externalId()
          * .internalAccountId()
          * .ledgerTransactionId()
          * .liveMode()
@@ -628,6 +649,7 @@ private constructor(
         private var dateUpperBound: JsonField<LocalDate>? = null
         private var description: JsonField<String>? = null
         private var direction: JsonField<Direction>? = null
+        private var externalId: JsonField<String>? = null
         private var internalAccountId: JsonField<String>? = null
         private var ledgerTransactionId: JsonField<String>? = null
         private var liveMode: JsonField<Boolean>? = null
@@ -657,6 +679,7 @@ private constructor(
             dateUpperBound = expectedPayment.dateUpperBound
             description = expectedPayment.description
             direction = expectedPayment.direction
+            externalId = expectedPayment.externalId
             internalAccountId = expectedPayment.internalAccountId
             ledgerTransactionId = expectedPayment.ledgerTransactionId
             liveMode = expectedPayment.liveMode
@@ -831,6 +854,18 @@ private constructor(
          * value.
          */
         fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+        /**
+         * Sets [Builder.externalId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
         /** The ID of the Internal Account for the expected payment. */
         fun internalAccountId(internalAccountId: String?) =
@@ -1101,6 +1136,7 @@ private constructor(
          * .dateUpperBound()
          * .description()
          * .direction()
+         * .externalId()
          * .internalAccountId()
          * .ledgerTransactionId()
          * .liveMode()
@@ -1133,6 +1169,7 @@ private constructor(
                 checkRequired("dateUpperBound", dateUpperBound),
                 checkRequired("description", description),
                 checkRequired("direction", direction),
+                checkRequired("externalId", externalId),
                 checkRequired("internalAccountId", internalAccountId),
                 checkRequired("ledgerTransactionId", ledgerTransactionId),
                 checkRequired("liveMode", liveMode),
@@ -1172,6 +1209,7 @@ private constructor(
         dateUpperBound()
         description()
         direction()?.validate()
+        externalId()
         internalAccountId()
         ledgerTransactionId()
         liveMode()
@@ -1213,6 +1251,7 @@ private constructor(
             (if (dateUpperBound.asKnown() == null) 0 else 1) +
             (if (description.asKnown() == null) 0 else 1) +
             (direction.asKnown()?.validity() ?: 0) +
+            (if (externalId.asKnown() == null) 0 else 1) +
             (if (internalAccountId.asKnown() == null) 0 else 1) +
             (if (ledgerTransactionId.asKnown() == null) 0 else 1) +
             (if (liveMode.asKnown() == null) 0 else 1) +
@@ -1738,15 +1777,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExpectedPayment && id == other.id && amountLowerBound == other.amountLowerBound && amountUpperBound == other.amountUpperBound && counterpartyId == other.counterpartyId && createdAt == other.createdAt && currency == other.currency && dateLowerBound == other.dateLowerBound && dateUpperBound == other.dateUpperBound && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && ledgerTransactionId == other.ledgerTransactionId && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && reconciliationFilters == other.reconciliationFilters && reconciliationGroups == other.reconciliationGroups && reconciliationMethod == other.reconciliationMethod && reconciliationRuleVariables == other.reconciliationRuleVariables && remittanceInformation == other.remittanceInformation && statementDescriptor == other.statementDescriptor && status == other.status && transactionId == other.transactionId && transactionLineItemId == other.transactionLineItemId && type == other.type && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ExpectedPayment && id == other.id && amountLowerBound == other.amountLowerBound && amountUpperBound == other.amountUpperBound && counterpartyId == other.counterpartyId && createdAt == other.createdAt && currency == other.currency && dateLowerBound == other.dateLowerBound && dateUpperBound == other.dateUpperBound && description == other.description && direction == other.direction && externalId == other.externalId && internalAccountId == other.internalAccountId && ledgerTransactionId == other.ledgerTransactionId && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && reconciliationFilters == other.reconciliationFilters && reconciliationGroups == other.reconciliationGroups && reconciliationMethod == other.reconciliationMethod && reconciliationRuleVariables == other.reconciliationRuleVariables && remittanceInformation == other.remittanceInformation && statementDescriptor == other.statementDescriptor && status == other.status && transactionId == other.transactionId && transactionLineItemId == other.transactionLineItemId && type == other.type && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, amountLowerBound, amountUpperBound, counterpartyId, createdAt, currency, dateLowerBound, dateUpperBound, description, direction, internalAccountId, ledgerTransactionId, liveMode, metadata, object_, reconciliationFilters, reconciliationGroups, reconciliationMethod, reconciliationRuleVariables, remittanceInformation, statementDescriptor, status, transactionId, transactionLineItemId, type, updatedAt, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, amountLowerBound, amountUpperBound, counterpartyId, createdAt, currency, dateLowerBound, dateUpperBound, description, direction, externalId, internalAccountId, ledgerTransactionId, liveMode, metadata, object_, reconciliationFilters, reconciliationGroups, reconciliationMethod, reconciliationRuleVariables, remittanceInformation, statementDescriptor, status, transactionId, transactionLineItemId, type, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ExpectedPayment{id=$id, amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, createdAt=$createdAt, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationMethod=$reconciliationMethod, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "ExpectedPayment{id=$id, amountLowerBound=$amountLowerBound, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, createdAt=$createdAt, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, externalId=$externalId, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationMethod=$reconciliationMethod, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

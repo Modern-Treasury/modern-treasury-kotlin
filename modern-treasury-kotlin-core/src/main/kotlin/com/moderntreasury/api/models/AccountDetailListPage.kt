@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.AccountDetailService
 import java.util.Objects
 
-/** @see [AccountDetailService.list] */
+/** @see AccountDetailService.list */
 class AccountDetailListPage
 private constructor(
     private val service: AccountDetailService,

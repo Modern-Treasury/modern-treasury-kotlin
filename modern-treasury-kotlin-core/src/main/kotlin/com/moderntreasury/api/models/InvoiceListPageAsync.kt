@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.InvoiceServiceAsync
 import java.util.Objects
 
-/** @see [InvoiceServiceAsync.list] */
+/** @see InvoiceServiceAsync.list */
 class InvoiceListPageAsync
 private constructor(
     private val service: InvoiceServiceAsync,

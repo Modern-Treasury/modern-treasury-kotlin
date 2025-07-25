@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.DocumentService
 import java.util.Objects
 
-/** @see [DocumentService.list] */
+/** @see DocumentService.list */
 class DocumentListPage
 private constructor(
     private val service: DocumentService,

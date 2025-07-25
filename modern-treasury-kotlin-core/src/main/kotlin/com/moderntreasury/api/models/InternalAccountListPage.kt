@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.InternalAccountService
 import java.util.Objects
 
-/** @see [InternalAccountService.list] */
+/** @see InternalAccountService.list */
 class InternalAccountListPage
 private constructor(
     private val service: InternalAccountService,

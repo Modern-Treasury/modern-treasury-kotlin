@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.PaymentFlowService
 import java.util.Objects
 
-/** @see [PaymentFlowService.list] */
+/** @see PaymentFlowService.list */
 class PaymentFlowListPage
 private constructor(
     private val service: PaymentFlowService,

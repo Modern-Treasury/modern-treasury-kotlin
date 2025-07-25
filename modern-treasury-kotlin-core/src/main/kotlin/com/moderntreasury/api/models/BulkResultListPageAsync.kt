@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.BulkResultServiceAsync
 import java.util.Objects
 
-/** @see [BulkResultServiceAsync.list] */
+/** @see BulkResultServiceAsync.list */
 class BulkResultListPageAsync
 private constructor(
     private val service: BulkResultServiceAsync,

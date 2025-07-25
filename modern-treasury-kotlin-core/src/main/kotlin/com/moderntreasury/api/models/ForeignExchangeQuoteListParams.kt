@@ -54,8 +54,10 @@ private constructor(
     /** Currency to convert the `base_currency` to, often called the "buy" currency. */
     fun targetCurrency(): String? = targetCurrency
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
@@ -292,6 +294,7 @@ private constructor(
      */
     class Metadata private constructor(private val additionalProperties: QueryParams) {
 
+        /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
 
         fun toBuilder() = Builder().from(this)

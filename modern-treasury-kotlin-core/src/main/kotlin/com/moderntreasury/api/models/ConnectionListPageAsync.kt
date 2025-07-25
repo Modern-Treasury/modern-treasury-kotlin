@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.ConnectionServiceAsync
 import java.util.Objects
 
-/** @see [ConnectionServiceAsync.list] */
+/** @see ConnectionServiceAsync.list */
 class ConnectionListPageAsync
 private constructor(
     private val service: ConnectionServiceAsync,

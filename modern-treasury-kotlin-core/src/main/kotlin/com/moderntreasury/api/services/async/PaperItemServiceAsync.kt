@@ -32,13 +32,13 @@ interface PaperItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaperItem = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: PaperItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaperItem
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): PaperItem =
         retrieve(id, PaperItemRetrieveParams.none(), requestOptions)
 
@@ -48,7 +48,7 @@ interface PaperItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaperItemListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): PaperItemListPageAsync =
         list(PaperItemListParams.none(), requestOptions)
 
@@ -77,14 +77,14 @@ interface PaperItemServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaperItem> = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: PaperItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaperItem>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
@@ -101,7 +101,7 @@ interface PaperItemServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaperItemListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<PaperItemListPageAsync> =
             list(PaperItemListParams.none(), requestOptions)

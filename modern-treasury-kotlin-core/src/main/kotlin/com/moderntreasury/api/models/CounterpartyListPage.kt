@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.CounterpartyService
 import java.util.Objects
 
-/** @see [CounterpartyService.list] */
+/** @see CounterpartyService.list */
 class CounterpartyListPage
 private constructor(
     private val service: CounterpartyService,

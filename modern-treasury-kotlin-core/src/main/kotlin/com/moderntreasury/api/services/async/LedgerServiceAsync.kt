@@ -41,13 +41,13 @@ interface LedgerServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Ledger = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: LedgerRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Ledger
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): Ledger =
         retrieve(id, LedgerRetrieveParams.none(), requestOptions)
 
@@ -58,13 +58,13 @@ interface LedgerServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Ledger = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: LedgerUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Ledger
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(id: String, requestOptions: RequestOptions): Ledger =
         update(id, LedgerUpdateParams.none(), requestOptions)
 
@@ -74,7 +74,7 @@ interface LedgerServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): LedgerListPageAsync =
         list(LedgerListParams.none(), requestOptions)
 
@@ -85,13 +85,13 @@ interface LedgerServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Ledger = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(
         params: LedgerDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Ledger
 
-    /** @see [delete] */
+    /** @see delete */
     suspend fun delete(id: String, requestOptions: RequestOptions): Ledger =
         delete(id, LedgerDeleteParams.none(), requestOptions)
 
@@ -130,14 +130,14 @@ interface LedgerServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Ledger> = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: LedgerRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Ledger>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<Ledger> =
             retrieve(id, LedgerRetrieveParams.none(), requestOptions)
@@ -153,14 +153,14 @@ interface LedgerServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Ledger> = update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: LedgerUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Ledger>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(id: String, requestOptions: RequestOptions): HttpResponseFor<Ledger> =
             update(id, LedgerUpdateParams.none(), requestOptions)
@@ -175,7 +175,7 @@ interface LedgerServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<LedgerListPageAsync> =
             list(LedgerListParams.none(), requestOptions)
@@ -191,14 +191,14 @@ interface LedgerServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Ledger> = delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(
             params: LedgerDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Ledger>
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         suspend fun delete(id: String, requestOptions: RequestOptions): HttpResponseFor<Ledger> =
             delete(id, LedgerDeleteParams.none(), requestOptions)

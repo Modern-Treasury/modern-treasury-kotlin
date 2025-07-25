@@ -35,13 +35,13 @@ interface IncomingPaymentDetailService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IncomingPaymentDetail = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: IncomingPaymentDetailRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IncomingPaymentDetail
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): IncomingPaymentDetail =
         retrieve(id, IncomingPaymentDetailRetrieveParams.none(), requestOptions)
 
@@ -52,13 +52,13 @@ interface IncomingPaymentDetailService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IncomingPaymentDetail = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: IncomingPaymentDetailUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IncomingPaymentDetail
 
-    /** @see [update] */
+    /** @see update */
     fun update(id: String, requestOptions: RequestOptions): IncomingPaymentDetail =
         update(id, IncomingPaymentDetailUpdateParams.none(), requestOptions)
 
@@ -68,7 +68,7 @@ interface IncomingPaymentDetailService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IncomingPaymentDetailListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): IncomingPaymentDetailListPage =
         list(IncomingPaymentDetailListParams.none(), requestOptions)
 
@@ -79,7 +79,7 @@ interface IncomingPaymentDetailService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AsyncResponse
 
-    /** @see [createAsync] */
+    /** @see createAsync */
     fun createAsync(requestOptions: RequestOptions): AsyncResponse =
         createAsync(IncomingPaymentDetailCreateAsyncParams.none(), requestOptions)
 
@@ -111,14 +111,14 @@ interface IncomingPaymentDetailService {
         ): HttpResponseFor<IncomingPaymentDetail> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: IncomingPaymentDetailRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IncomingPaymentDetail>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             id: String,
@@ -138,14 +138,14 @@ interface IncomingPaymentDetailService {
         ): HttpResponseFor<IncomingPaymentDetail> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: IncomingPaymentDetailUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IncomingPaymentDetail>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             id: String,
@@ -163,7 +163,7 @@ interface IncomingPaymentDetailService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IncomingPaymentDetailListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<IncomingPaymentDetailListPage> =
             list(IncomingPaymentDetailListParams.none(), requestOptions)
@@ -180,7 +180,7 @@ interface IncomingPaymentDetailService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AsyncResponse>
 
-        /** @see [createAsync] */
+        /** @see createAsync */
         @MustBeClosed
         fun createAsync(requestOptions: RequestOptions): HttpResponseFor<AsyncResponse> =
             createAsync(IncomingPaymentDetailCreateAsyncParams.none(), requestOptions)

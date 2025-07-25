@@ -32,13 +32,13 @@ interface BulkResultService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkResult = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: BulkResultRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkResult
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): BulkResult =
         retrieve(id, BulkResultRetrieveParams.none(), requestOptions)
 
@@ -48,7 +48,7 @@ interface BulkResultService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkResultListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): BulkResultListPage =
         list(BulkResultListParams.none(), requestOptions)
 
@@ -75,14 +75,14 @@ interface BulkResultService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkResult> = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: BulkResultRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkResult>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<BulkResult> =
             retrieve(id, BulkResultRetrieveParams.none(), requestOptions)
@@ -97,7 +97,7 @@ interface BulkResultService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkResultListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<BulkResultListPage> =
             list(BulkResultListParams.none(), requestOptions)

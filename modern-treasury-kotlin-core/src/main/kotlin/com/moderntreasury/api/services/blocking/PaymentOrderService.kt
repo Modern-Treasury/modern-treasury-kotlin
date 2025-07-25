@@ -45,13 +45,13 @@ interface PaymentOrderService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentOrder = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: PaymentOrderRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentOrder
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): PaymentOrder =
         retrieve(id, PaymentOrderRetrieveParams.none(), requestOptions)
 
@@ -62,13 +62,13 @@ interface PaymentOrderService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentOrder = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: PaymentOrderUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentOrder
 
-    /** @see [update] */
+    /** @see update */
     fun update(id: String, requestOptions: RequestOptions): PaymentOrder =
         update(id, PaymentOrderUpdateParams.none(), requestOptions)
 
@@ -78,7 +78,7 @@ interface PaymentOrderService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentOrderListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): PaymentOrderListPage =
         list(PaymentOrderListParams.none(), requestOptions)
 
@@ -126,14 +126,14 @@ interface PaymentOrderService {
         ): HttpResponseFor<PaymentOrder> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: PaymentOrderRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentOrder>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<PaymentOrder> =
             retrieve(id, PaymentOrderRetrieveParams.none(), requestOptions)
@@ -149,14 +149,14 @@ interface PaymentOrderService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentOrder> = update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: PaymentOrderUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentOrder>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(id: String, requestOptions: RequestOptions): HttpResponseFor<PaymentOrder> =
             update(id, PaymentOrderUpdateParams.none(), requestOptions)
@@ -171,7 +171,7 @@ interface PaymentOrderService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentOrderListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PaymentOrderListPage> =
             list(PaymentOrderListParams.none(), requestOptions)

@@ -3,14 +3,14 @@
 package com.moderntreasury.api.services.async
 
 import com.moderntreasury.api.core.ClientOptions
-import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.checkRequired
+import com.moderntreasury.api.core.handlers.errorBodyHandler
 import com.moderntreasury.api.core.handlers.errorHandler
 import com.moderntreasury.api.core.handlers.jsonHandler
-import com.moderntreasury.api.core.handlers.withErrorHandler
 import com.moderntreasury.api.core.http.HttpMethod
 import com.moderntreasury.api.core.http.HttpRequest
+import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.http.HttpResponse.Handler
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.json
@@ -69,7 +69,8 @@ internal constructor(private val clientOptions: ClientOptions) : ConnectionLegal
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ConnectionLegalEntityServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -80,7 +81,6 @@ internal constructor(private val clientOptions: ClientOptions) : ConnectionLegal
 
         private val createHandler: Handler<ConnectionLegalEntity> =
             jsonHandler<ConnectionLegalEntity>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun create(
             params: ConnectionLegalEntityCreateParams,
@@ -96,7 +96,7 @@ internal constructor(private val clientOptions: ClientOptions) : ConnectionLegal
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -109,7 +109,6 @@ internal constructor(private val clientOptions: ClientOptions) : ConnectionLegal
 
         private val retrieveHandler: Handler<ConnectionLegalEntity> =
             jsonHandler<ConnectionLegalEntity>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun retrieve(
             params: ConnectionLegalEntityRetrieveParams,
@@ -127,7 +126,7 @@ internal constructor(private val clientOptions: ClientOptions) : ConnectionLegal
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -140,7 +139,6 @@ internal constructor(private val clientOptions: ClientOptions) : ConnectionLegal
 
         private val updateHandler: Handler<ConnectionLegalEntity> =
             jsonHandler<ConnectionLegalEntity>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun update(
             params: ConnectionLegalEntityUpdateParams,
@@ -159,7 +157,7 @@ internal constructor(private val clientOptions: ClientOptions) : ConnectionLegal
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { updateHandler.handle(it) }
                     .also {
@@ -172,7 +170,6 @@ internal constructor(private val clientOptions: ClientOptions) : ConnectionLegal
 
         private val listHandler: Handler<List<ConnectionLegalEntity>> =
             jsonHandler<List<ConnectionLegalEntity>>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun list(
             params: ConnectionLegalEntityListParams,
@@ -187,7 +184,7 @@ internal constructor(private val clientOptions: ClientOptions) : ConnectionLegal
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {

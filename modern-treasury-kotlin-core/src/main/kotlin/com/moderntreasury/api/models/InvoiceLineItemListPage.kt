@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.invoices.LineItemService
 import java.util.Objects
 
-/** @see [LineItemService.list] */
+/** @see LineItemService.list */
 class InvoiceLineItemListPage
 private constructor(
     private val service: LineItemService,

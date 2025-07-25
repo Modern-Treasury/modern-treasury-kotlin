@@ -16,6 +16,7 @@ internal class CounterpartyListParamsTest {
             .createdAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .createdAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .email("dev@stainless.com")
+            .externalId("external_id")
             .legalEntityId("legal_entity_id")
             .metadata(
                 CounterpartyListParams.Metadata.builder()
@@ -35,6 +36,7 @@ internal class CounterpartyListParamsTest {
                 .createdAtLowerBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdAtUpperBound(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .email("dev@stainless.com")
+                .externalId("external_id")
                 .legalEntityId("legal_entity_id")
                 .metadata(
                     CounterpartyListParams.Metadata.builder()
@@ -54,6 +56,7 @@ internal class CounterpartyListParamsTest {
                     .put("created_at_lower_bound", "2019-12-27T18:11:19.117Z")
                     .put("created_at_upper_bound", "2019-12-27T18:11:19.117Z")
                     .put("email", "dev@stainless.com")
+                    .put("external_id", "external_id")
                     .put("legal_entity_id", "legal_entity_id")
                     .put("metadata[foo]", "string")
                     .put("name", "name")

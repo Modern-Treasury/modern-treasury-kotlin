@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.PaperItemServiceAsync
 import java.util.Objects
 
-/** @see [PaperItemServiceAsync.list] */
+/** @see PaperItemServiceAsync.list */
 class PaperItemListPageAsync
 private constructor(
     private val service: PaperItemServiceAsync,

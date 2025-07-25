@@ -45,13 +45,13 @@ interface InvoiceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Invoice = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: InvoiceRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Invoice
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): Invoice =
         retrieve(id, InvoiceRetrieveParams.none(), requestOptions)
 
@@ -62,13 +62,13 @@ interface InvoiceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Invoice = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: InvoiceUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Invoice
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(id: String, requestOptions: RequestOptions): Invoice =
         update(id, InvoiceUpdateParams.none(), requestOptions)
 
@@ -78,7 +78,7 @@ interface InvoiceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InvoiceListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): InvoiceListPageAsync =
         list(InvoiceListParams.none(), requestOptions)
 
@@ -89,7 +89,7 @@ interface InvoiceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ) = addPaymentOrder(params.toBuilder().paymentOrderId(paymentOrderId).build(), requestOptions)
 
-    /** @see [addPaymentOrder] */
+    /** @see addPaymentOrder */
     suspend fun addPaymentOrder(
         params: InvoiceAddPaymentOrderParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -132,14 +132,14 @@ interface InvoiceServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Invoice> = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: InvoiceRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Invoice>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<Invoice> =
             retrieve(id, InvoiceRetrieveParams.none(), requestOptions)
@@ -155,14 +155,14 @@ interface InvoiceServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Invoice> = update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: InvoiceUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Invoice>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(id: String, requestOptions: RequestOptions): HttpResponseFor<Invoice> =
             update(id, InvoiceUpdateParams.none(), requestOptions)
@@ -177,7 +177,7 @@ interface InvoiceServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InvoiceListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<InvoiceListPageAsync> =
             list(InvoiceListParams.none(), requestOptions)
@@ -198,7 +198,7 @@ interface InvoiceServiceAsync {
                 requestOptions,
             )
 
-        /** @see [addPaymentOrder] */
+        /** @see addPaymentOrder */
         @MustBeClosed
         suspend fun addPaymentOrder(
             params: InvoiceAddPaymentOrderParams,

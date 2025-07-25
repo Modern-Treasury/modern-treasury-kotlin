@@ -44,13 +44,13 @@ interface LedgerAccountSettlementServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountSettlement = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: LedgerAccountSettlementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountSettlement
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): LedgerAccountSettlement =
         retrieve(id, LedgerAccountSettlementRetrieveParams.none(), requestOptions)
 
@@ -61,13 +61,13 @@ interface LedgerAccountSettlementServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountSettlement = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: LedgerAccountSettlementUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountSettlement
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(id: String, requestOptions: RequestOptions): LedgerAccountSettlement =
         update(id, LedgerAccountSettlementUpdateParams.none(), requestOptions)
 
@@ -77,7 +77,7 @@ interface LedgerAccountSettlementServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccountSettlementListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): LedgerAccountSettlementListPageAsync =
         list(LedgerAccountSettlementListParams.none(), requestOptions)
 
@@ -121,14 +121,14 @@ interface LedgerAccountSettlementServiceAsync {
         ): HttpResponseFor<LedgerAccountSettlement> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: LedgerAccountSettlementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountSettlement>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
@@ -149,14 +149,14 @@ interface LedgerAccountSettlementServiceAsync {
         ): HttpResponseFor<LedgerAccountSettlement> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: LedgerAccountSettlementUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountSettlement>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             id: String,
@@ -174,7 +174,7 @@ interface LedgerAccountSettlementServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccountSettlementListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

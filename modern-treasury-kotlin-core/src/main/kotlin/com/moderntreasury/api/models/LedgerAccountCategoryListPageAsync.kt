@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.async.LedgerAccountCategoryServiceAsync
 import java.util.Objects
 
-/** @see [LedgerAccountCategoryServiceAsync.list] */
+/** @see LedgerAccountCategoryServiceAsync.list */
 class LedgerAccountCategoryListPageAsync
 private constructor(
     private val service: LedgerAccountCategoryServiceAsync,

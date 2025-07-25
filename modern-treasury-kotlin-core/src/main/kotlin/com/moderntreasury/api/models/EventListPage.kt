@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.EventService
 import java.util.Objects
 
-/** @see [EventService.list] */
+/** @see EventService.list */
 class EventListPage
 private constructor(
     private val service: EventService,

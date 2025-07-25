@@ -34,6 +34,7 @@ internal class ExternalAccountServiceTest {
         val externalAccount =
             externalAccountService.create(
                 ExternalAccountCreateParams.builder()
+                    .queryExternalId("external_id")
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .addAccountDetail(
                         ExternalAccountCreateParams.AccountDetail.builder()
@@ -53,6 +54,7 @@ internal class ExternalAccountServiceTest {
                             )
                             .build()
                     )
+                    .bodyExternalId("external_id")
                     .ledgerAccount(
                         LedgerAccountCreateRequest.builder()
                             .currency("currency")

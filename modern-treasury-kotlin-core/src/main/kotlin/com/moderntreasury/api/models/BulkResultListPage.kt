@@ -9,7 +9,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.services.blocking.BulkResultService
 import java.util.Objects
 
-/** @see [BulkResultService.list] */
+/** @see BulkResultService.list */
 class BulkResultListPage
 private constructor(
     private val service: BulkResultService,
