@@ -26,10 +26,14 @@ import java.util.Objects
 /** Create a new counterparty. */
 class CounterpartyCreateParams
 private constructor(
+    private val queryExternalId: String?,
     private val body: CounterpartyCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    /** An optional user-defined 180 character unique identifier. */
+    fun queryExternalId(): String? = queryExternalId
 
     /**
      * A human friendly name for this counterparty.
@@ -60,6 +64,14 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun email(): String? = body.email()
+
+    /**
+     * An optional user-defined 180 character unique identifier.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun bodyExternalId(): String? = body.bodyExternalId()
 
     /**
      * An optional type to auto-sync the counterparty to your ledger. Either `customer` or `vendor`.
@@ -144,6 +156,13 @@ private constructor(
     fun _email(): JsonField<String> = body._email()
 
     /**
+     * Returns the raw JSON value of [bodyExternalId].
+     *
+     * Unlike [bodyExternalId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _bodyExternalId(): JsonField<String> = body._bodyExternalId()
+
+    /**
      * Returns the raw JSON value of [ledgerType].
      *
      * Unlike [ledgerType], this method doesn't throw if the JSON field has an unexpected type.
@@ -221,14 +240,21 @@ private constructor(
     /** A builder for [CounterpartyCreateParams]. */
     class Builder internal constructor() {
 
+        private var queryExternalId: String? = null
         private var body: CounterpartyCreateRequest.Builder = CounterpartyCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(counterpartyCreateParams: CounterpartyCreateParams) = apply {
+            queryExternalId = counterpartyCreateParams.queryExternalId
             body = counterpartyCreateParams.body.toBuilder()
             additionalHeaders = counterpartyCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = counterpartyCreateParams.additionalQueryParams.toBuilder()
+        }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun queryExternalId(queryExternalId: String?) = apply {
+            this.queryExternalId = queryExternalId
         }
 
         /**
@@ -240,7 +266,7 @@ private constructor(
          * - [accounting]
          * - [accounts]
          * - [email]
-         * - [ledgerType]
+         * - [bodyExternalId]
          * - etc.
          */
         fun body(body: CounterpartyCreateRequest) = apply { this.body = body.toBuilder() }
@@ -296,6 +322,20 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun email(email: JsonField<String>) = apply { body.email(email) }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun bodyExternalId(bodyExternalId: String?) = apply { body.bodyExternalId(bodyExternalId) }
+
+        /**
+         * Sets [Builder.bodyExternalId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bodyExternalId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun bodyExternalId(bodyExternalId: JsonField<String>) = apply {
+            body.bodyExternalId(bodyExternalId)
+        }
 
         /**
          * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
@@ -539,6 +579,7 @@ private constructor(
          */
         fun build(): CounterpartyCreateParams =
             CounterpartyCreateParams(
+                queryExternalId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -549,7 +590,13 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                queryExternalId?.let { put("external_id", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     class CounterpartyCreateRequest
     private constructor(
@@ -557,6 +604,7 @@ private constructor(
         private val accounting: JsonField<Accounting>,
         private val accounts: JsonField<List<Account>>,
         private val email: JsonField<String>,
+        private val bodyExternalId: JsonField<String>,
         private val ledgerType: JsonField<LedgerType>,
         private val legalEntity: JsonField<LegalEntityCreateRequest>,
         private val legalEntityId: JsonField<String>,
@@ -577,6 +625,9 @@ private constructor(
             @ExcludeMissing
             accounts: JsonField<List<Account>> = JsonMissing.of(),
             @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("external_id")
+            @ExcludeMissing
+            bodyExternalId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("ledger_type")
             @ExcludeMissing
             ledgerType: JsonField<LedgerType> = JsonMissing.of(),
@@ -603,6 +654,7 @@ private constructor(
             accounting,
             accounts,
             email,
+            bodyExternalId,
             ledgerType,
             legalEntity,
             legalEntityId,
@@ -642,6 +694,14 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun email(): String? = email.getNullable("email")
+
+        /**
+         * An optional user-defined 180 character unique identifier.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun bodyExternalId(): String? = bodyExternalId.getNullable("external_id")
 
         /**
          * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
@@ -733,6 +793,16 @@ private constructor(
          * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
+
+        /**
+         * Returns the raw JSON value of [bodyExternalId].
+         *
+         * Unlike [bodyExternalId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        fun _bodyExternalId(): JsonField<String> = bodyExternalId
 
         /**
          * Returns the raw JSON value of [ledgerType].
@@ -833,6 +903,7 @@ private constructor(
             private var accounting: JsonField<Accounting> = JsonMissing.of()
             private var accounts: JsonField<MutableList<Account>>? = null
             private var email: JsonField<String> = JsonMissing.of()
+            private var bodyExternalId: JsonField<String> = JsonMissing.of()
             private var ledgerType: JsonField<LedgerType> = JsonMissing.of()
             private var legalEntity: JsonField<LegalEntityCreateRequest> = JsonMissing.of()
             private var legalEntityId: JsonField<String> = JsonMissing.of()
@@ -847,6 +918,7 @@ private constructor(
                 accounting = counterpartyCreateRequest.accounting
                 accounts = counterpartyCreateRequest.accounts.map { it.toMutableList() }
                 email = counterpartyCreateRequest.email
+                bodyExternalId = counterpartyCreateRequest.bodyExternalId
                 ledgerType = counterpartyCreateRequest.ledgerType
                 legalEntity = counterpartyCreateRequest.legalEntity
                 legalEntityId = counterpartyCreateRequest.legalEntityId
@@ -919,6 +991,21 @@ private constructor(
              * supported value.
              */
             fun email(email: JsonField<String>) = apply { this.email = email }
+
+            /** An optional user-defined 180 character unique identifier. */
+            fun bodyExternalId(bodyExternalId: String?) =
+                bodyExternalId(JsonField.ofNullable(bodyExternalId))
+
+            /**
+             * Sets [Builder.bodyExternalId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.bodyExternalId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun bodyExternalId(bodyExternalId: JsonField<String>) = apply {
+                this.bodyExternalId = bodyExternalId
+            }
 
             /**
              * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
@@ -1068,6 +1155,7 @@ private constructor(
                     accounting,
                     (accounts ?: JsonMissing.of()).map { it.toImmutable() },
                     email,
+                    bodyExternalId,
                     ledgerType,
                     legalEntity,
                     legalEntityId,
@@ -1090,6 +1178,7 @@ private constructor(
             accounting()?.validate()
             accounts()?.forEach { it.validate() }
             email()
+            bodyExternalId()
             ledgerType()?.validate()
             legalEntity()?.validate()
             legalEntityId()
@@ -1119,6 +1208,7 @@ private constructor(
                 (accounting.asKnown()?.validity() ?: 0) +
                 (accounts.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (email.asKnown() == null) 0 else 1) +
+                (if (bodyExternalId.asKnown() == null) 0 else 1) +
                 (ledgerType.asKnown()?.validity() ?: 0) +
                 (legalEntity.asKnown()?.validity() ?: 0) +
                 (if (legalEntityId.asKnown() == null) 0 else 1) +
@@ -1132,17 +1222,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CounterpartyCreateRequest && name == other.name && accounting == other.accounting && accounts == other.accounts && email == other.email && ledgerType == other.ledgerType && legalEntity == other.legalEntity && legalEntityId == other.legalEntityId && metadata == other.metadata && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CounterpartyCreateRequest && name == other.name && accounting == other.accounting && accounts == other.accounts && email == other.email && bodyExternalId == other.bodyExternalId && ledgerType == other.ledgerType && legalEntity == other.legalEntity && legalEntityId == other.legalEntityId && metadata == other.metadata && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(name, accounting, accounts, email, ledgerType, legalEntity, legalEntityId, metadata, sendRemittanceAdvice, taxpayerIdentifier, verificationStatus, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(name, accounting, accounts, email, bodyExternalId, ledgerType, legalEntity, legalEntityId, metadata, sendRemittanceAdvice, taxpayerIdentifier, verificationStatus, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CounterpartyCreateRequest{name=$name, accounting=$accounting, accounts=$accounts, email=$email, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
+            "CounterpartyCreateRequest{name=$name, accounting=$accounting, accounts=$accounts, email=$email, bodyExternalId=$bodyExternalId, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
     }
 
     class Accounting
@@ -1423,6 +1513,7 @@ private constructor(
         private val accountDetails: JsonField<List<AccountDetail>>,
         private val accountType: JsonField<ExternalAccountType>,
         private val contactDetails: JsonField<List<ContactDetailCreateRequest>>,
+        private val externalId: JsonField<String>,
         private val ledgerAccount: JsonField<LedgerAccountCreateRequest>,
         private val metadata: JsonField<Metadata>,
         private val name: JsonField<String>,
@@ -1446,6 +1537,9 @@ private constructor(
             @JsonProperty("contact_details")
             @ExcludeMissing
             contactDetails: JsonField<List<ContactDetailCreateRequest>> = JsonMissing.of(),
+            @JsonProperty("external_id")
+            @ExcludeMissing
+            externalId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("ledger_account")
             @ExcludeMissing
             ledgerAccount: JsonField<LedgerAccountCreateRequest> = JsonMissing.of(),
@@ -1475,6 +1569,7 @@ private constructor(
             accountDetails,
             accountType,
             contactDetails,
+            externalId,
             ledgerAccount,
             metadata,
             name,
@@ -1507,6 +1602,14 @@ private constructor(
          */
         fun contactDetails(): List<ContactDetailCreateRequest>? =
             contactDetails.getNullable("contact_details")
+
+        /**
+         * An optional user-defined 180 character unique identifier.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun externalId(): String? = externalId.getNullable("external_id")
 
         /**
          * Specifies a ledger account object that will be created with the external account. The
@@ -1614,6 +1717,15 @@ private constructor(
         fun _contactDetails(): JsonField<List<ContactDetailCreateRequest>> = contactDetails
 
         /**
+         * Returns the raw JSON value of [externalId].
+         *
+         * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        fun _externalId(): JsonField<String> = externalId
+
+        /**
          * Returns the raw JSON value of [ledgerAccount].
          *
          * Unlike [ledgerAccount], this method doesn't throw if the JSON field has an unexpected
@@ -1717,6 +1829,7 @@ private constructor(
             private var accountDetails: JsonField<MutableList<AccountDetail>>? = null
             private var accountType: JsonField<ExternalAccountType> = JsonMissing.of()
             private var contactDetails: JsonField<MutableList<ContactDetailCreateRequest>>? = null
+            private var externalId: JsonField<String> = JsonMissing.of()
             private var ledgerAccount: JsonField<LedgerAccountCreateRequest> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
@@ -1732,6 +1845,7 @@ private constructor(
                 accountDetails = account.accountDetails.map { it.toMutableList() }
                 accountType = account.accountType
                 contactDetails = account.contactDetails.map { it.toMutableList() }
+                externalId = account.externalId
                 ledgerAccount = account.ledgerAccount
                 metadata = account.metadata
                 name = account.name
@@ -1811,6 +1925,18 @@ private constructor(
                         checkKnown("contactDetails", it).add(contactDetail)
                     }
             }
+
+            /** An optional user-defined 180 character unique identifier. */
+            fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+            /**
+             * Sets [Builder.externalId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.externalId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
             /**
              * Specifies a ledger account object that will be created with the external account. The
@@ -1989,6 +2115,7 @@ private constructor(
                     (accountDetails ?: JsonMissing.of()).map { it.toImmutable() },
                     accountType,
                     (contactDetails ?: JsonMissing.of()).map { it.toImmutable() },
+                    externalId,
                     ledgerAccount,
                     metadata,
                     name,
@@ -2012,6 +2139,7 @@ private constructor(
             accountDetails()?.forEach { it.validate() }
             accountType()?.validate()
             contactDetails()?.forEach { it.validate() }
+            externalId()
             ledgerAccount()?.validate()
             metadata()?.validate()
             name()
@@ -2042,6 +2170,7 @@ private constructor(
             (accountDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (accountType.asKnown()?.validity() ?: 0) +
                 (contactDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (externalId.asKnown() == null) 0 else 1) +
                 (ledgerAccount.asKnown()?.validity() ?: 0) +
                 (metadata.asKnown()?.validity() ?: 0) +
                 (if (name.asKnown() == null) 0 else 1) +
@@ -3536,17 +3665,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Account && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Account && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && externalId == other.externalId && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountDetails, accountType, contactDetails, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(accountDetails, accountType, contactDetails, externalId, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Account{accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
+            "Account{accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, externalId=$externalId, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -9176,11 +9305,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CounterpartyCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is CounterpartyCreateParams && queryExternalId == other.queryExternalId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(queryExternalId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "CounterpartyCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CounterpartyCreateParams{queryExternalId=$queryExternalId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

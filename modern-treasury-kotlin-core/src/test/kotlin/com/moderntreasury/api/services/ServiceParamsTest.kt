@@ -55,6 +55,7 @@ internal class ServiceParamsTest {
 
         counterpartyService.create(
             CounterpartyCreateParams.builder()
+                .queryExternalId("external_id")
                 .name("name")
                 .accounting(
                     CounterpartyCreateParams.Accounting.builder()
@@ -81,6 +82,7 @@ internal class ServiceParamsTest {
                                 )
                                 .build()
                         )
+                        .externalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -140,6 +142,7 @@ internal class ServiceParamsTest {
                         .build()
                 )
                 .email("dev@stainless.com")
+                .bodyExternalId("external_id")
                 .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
                 .legalEntity(
                     CounterpartyCreateParams.LegalEntityCreateRequest.builder()

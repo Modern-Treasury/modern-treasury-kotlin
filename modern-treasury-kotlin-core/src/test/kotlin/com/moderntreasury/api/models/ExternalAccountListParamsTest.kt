@@ -13,6 +13,7 @@ internal class ExternalAccountListParamsTest {
         ExternalAccountListParams.builder()
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")
+            .externalId("external_id")
             .metadata(
                 ExternalAccountListParams.Metadata.builder()
                     .putAdditionalProperty("foo", "string")
@@ -29,6 +30,7 @@ internal class ExternalAccountListParamsTest {
             ExternalAccountListParams.builder()
                 .afterCursor("after_cursor")
                 .counterpartyId("counterparty_id")
+                .externalId("external_id")
                 .metadata(
                     ExternalAccountListParams.Metadata.builder()
                         .putAdditionalProperty("foo", "string")
@@ -45,6 +47,7 @@ internal class ExternalAccountListParamsTest {
                 QueryParams.builder()
                     .put("after_cursor", "after_cursor")
                     .put("counterparty_id", "counterparty_id")
+                    .put("external_id", "external_id")
                     .put("metadata[foo]", "string")
                     .put("party_name", "party_name")
                     .put("per_page", "0")

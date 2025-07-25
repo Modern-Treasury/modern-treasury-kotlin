@@ -17,6 +17,7 @@ internal class LedgerTransactionTest {
         val ledgerTransaction =
             LedgerTransaction.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .archivedReason("archived_reason")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .description("description")
                 .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -99,6 +100,7 @@ internal class LedgerTransactionTest {
                 .build()
 
         assertThat(ledgerTransaction.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(ledgerTransaction.archivedReason()).isEqualTo("archived_reason")
         assertThat(ledgerTransaction.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(ledgerTransaction.description()).isEqualTo("description")
@@ -197,6 +199,7 @@ internal class LedgerTransactionTest {
         val ledgerTransaction =
             LedgerTransaction.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .archivedReason("archived_reason")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .description("description")
                 .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

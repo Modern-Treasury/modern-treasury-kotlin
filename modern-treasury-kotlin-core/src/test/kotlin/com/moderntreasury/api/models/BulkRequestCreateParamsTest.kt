@@ -169,6 +169,7 @@ internal class BulkRequestCreateParamsTest {
                                     )
                                     .build()
                             )
+                            .externalId("external_id")
                             .ledgerAccount(
                                 LedgerAccountCreateRequest.builder()
                                     .currency("currency")
@@ -441,6 +442,7 @@ internal class BulkRequestCreateParamsTest {
                                         )
                                         .build()
                                 )
+                                .externalId("external_id")
                                 .ledgerAccount(
                                     LedgerAccountCreateRequest.builder()
                                         .currency("currency")
@@ -716,6 +718,7 @@ internal class BulkRequestCreateParamsTest {
                                         )
                                         .build()
                                 )
+                                .externalId("external_id")
                                 .ledgerAccount(
                                     LedgerAccountCreateRequest.builder()
                                         .currency("currency")
