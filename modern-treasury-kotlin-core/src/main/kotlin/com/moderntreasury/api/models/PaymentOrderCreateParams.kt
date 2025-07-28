@@ -1528,7 +1528,7 @@ private constructor(
                 "ultimate_originating_party_name" to _ultimateOriginatingPartyName(),
                 "ultimate_receiving_party_identifier" to _ultimateReceivingPartyIdentifier(),
                 "ultimate_receiving_party_name" to _ultimateReceivingPartyName(),
-            ) + _additionalBodyProperties().mapValues { MultipartField.of(it) })
+            ) + _additionalBodyProperties().mapValues { (_, value) -> MultipartField.of(value) })
             .toImmutable()
 
     override fun _headers(): Headers = additionalHeaders
