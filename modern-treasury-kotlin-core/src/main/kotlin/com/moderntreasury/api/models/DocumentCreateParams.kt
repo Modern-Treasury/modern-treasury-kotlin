@@ -344,7 +344,7 @@ private constructor(
                 "documentable_type" to _documentableType(),
                 "file" to _file(),
                 "document_type" to _documentType(),
-            ) + _additionalBodyProperties().mapValues { MultipartField.of(it) })
+            ) + _additionalBodyProperties().mapValues { (_, value) -> MultipartField.of(value) })
             .toImmutable()
 
     override fun _headers(): Headers = additionalHeaders
