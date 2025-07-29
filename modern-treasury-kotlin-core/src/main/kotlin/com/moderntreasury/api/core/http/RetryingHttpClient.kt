@@ -3,6 +3,7 @@ package com.moderntreasury.api.core.http
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.errors.ModernTreasuryIoException
+import com.moderntreasury.api.errors.ModernTreasuryRetryableException
 import java.io.IOException
 import java.time.Clock
 import java.time.Duration
@@ -159,10 +160,10 @@ private constructor(
     }
 
     private fun shouldRetry(throwable: Throwable): Boolean =
-        // Only retry IOException and ModernTreasuryIoException, other exceptions are not intended
-        // to be
-        // retried.
-        throwable is IOException || throwable is ModernTreasuryIoException
+        // Only retry known retryable exceptions, other exceptions are not intended to be retried.
+        throwable is IOException ||
+            throwable is ModernTreasuryIoException ||
+            throwable is ModernTreasuryRetryableException
 
     private fun getRetryBackoffDuration(retries: Int, response: HttpResponse?): Duration {
         // About the Retry-After header:
