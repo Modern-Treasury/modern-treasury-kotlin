@@ -41,8 +41,8 @@ private constructor(
     fun returnableId(): String? = returnableId
 
     /**
-     * One of `payment_order`, `paper_item`, `reversal`, or `incoming_payment_detail`. Must be
-     * accompanied by `returnable_id`.
+     * One of `payment_order`, `reversal`, or `incoming_payment_detail`. Must be accompanied by
+     * `returnable_id`.
      */
     fun returnableType(): ReturnableType? = returnableType
 
@@ -111,8 +111,8 @@ private constructor(
         fun returnableId(returnableId: String?) = apply { this.returnableId = returnableId }
 
         /**
-         * One of `payment_order`, `paper_item`, `reversal`, or `incoming_payment_detail`. Must be
-         * accompanied by `returnable_id`.
+         * One of `payment_order`, `reversal`, or `incoming_payment_detail`. Must be accompanied by
+         * `returnable_id`.
          */
         fun returnableType(returnableType: ReturnableType?) = apply {
             this.returnableType = returnableType
@@ -250,8 +250,8 @@ private constructor(
             .build()
 
     /**
-     * One of `payment_order`, `paper_item`, `reversal`, or `incoming_payment_detail`. Must be
-     * accompanied by `returnable_id`.
+     * One of `payment_order`, `reversal`, or `incoming_payment_detail`. Must be accompanied by
+     * `returnable_id`.
      */
     class ReturnableType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
