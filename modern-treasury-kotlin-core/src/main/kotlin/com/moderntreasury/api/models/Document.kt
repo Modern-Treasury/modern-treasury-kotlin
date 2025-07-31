@@ -122,8 +122,8 @@ private constructor(
 
     /**
      * The type of the associated object. Currently can be one of `payment_order`, `transaction`,
-     * `paper_item`, `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`,
-     * `decision`, or `external_account`.
+     * `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`, `decision`,
+     * or `external_account`.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -424,7 +424,7 @@ private constructor(
 
         /**
          * The type of the associated object. Currently can be one of `payment_order`,
-         * `transaction`, `paper_item`, `expected_payment`, `counterparty`, `organization`, `case`,
+         * `transaction`, `expected_payment`, `counterparty`, `organization`, `case`,
          * `internal_account`, `decision`, or `external_account`.
          */
         fun documentableType(documentableType: DocumentableType) =
@@ -1050,8 +1050,8 @@ private constructor(
 
     /**
      * The type of the associated object. Currently can be one of `payment_order`, `transaction`,
-     * `paper_item`, `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`,
-     * `decision`, or `external_account`.
+     * `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`, `decision`,
+     * or `external_account`.
      */
     class DocumentableType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
