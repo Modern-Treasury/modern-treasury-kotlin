@@ -1,5 +1,50 @@
 # Changelog
 
+## 7.6.0 (2025-08-01)
+
+Full Changelog: [v7.5.0...v7.6.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.5.0...v7.6.0)
+
+### Features
+
+* add retryable exception ([6c0a6a5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6c0a6a564d92baeb8efaa2caa439dac82b74feaf))
+* **api:** api update ([6541cb7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6541cb75dbfb5911c8638fd854b0e840de7547da))
+* **api:** api update ([f8a4209](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f8a42097df0acc9a25cd5df31b0ca9ae61359f66))
+* **api:** api update ([2bc342d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2bc342d614875a16a83fa266a92c86a2220e42b3))
+* **api:** api update ([fc0490a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/fc0490a28b1a95206ccdae179fc9abae25db1cb3))
+* **api:** api update ([ccede06](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ccede06cb944b13461444a7647ee0c1e7fe01c39))
+* **api:** api update ([fcdcf3b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/fcdcf3bc5072d0187c606b9fbcad76bb096dc655))
+* **api:** api update ([0c0f30b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0c0f30b941b41c1029a7cb42a890246beaa6996b))
+* **client:** add `{QueryParams,Headers}#put(String, JsonValue)` methods ([3abf3f9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3abf3f9f871e3553f984a8675bad6c1ab69a651d))
+* **client:** add https config options ([a823f2e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a823f2ed8313e121371d9acd28f025ccef211116))
+* **client:** allow configuring env via system properties ([348e5f1](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/348e5f14cbcbc8a31d6da92f8a9d294fc94bdb86))
+* **client:** allow setting additional multipart body props ([aa1430b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/aa1430b590460e910d7606e1a370b88ac9179796))
+* **client:** ensure compat with proguard ([f2eee34](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f2eee349a25aef81a9e45361527c8862a38dd8dd))
+
+
+### Bug Fixes
+
+* **client:** accidental mutability of some classes ([0680266](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0680266b4f5aac176ea3fa62e1c81ab00d957866))
+* **client:** ensure error handling always occurs ([e7ed4f9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e7ed4f9c1ea43b1e74d17ff7507af41ffe36df3e))
+* **client:** r8 support ([308dca2](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/308dca291e1b935b8ba53c1cfdb50c509ba1f3fc))
+* **client:** some bad `_additionalBodyProperties` serialization ([fae5651](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/fae5651f5193ca968b986168e22c337ce1030e64))
+* **client:** unique model names ([193d799](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/193d7996392a4d7123909536bd66847ebb936085))
+
+
+### Chores
+
+* **ci:** bump `actions/setup-java` to v4 ([bc5fbe0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/bc5fbe09b6eb3b846dff7c8671fce56c98b75128))
+* **internal:** allow running specific example from cli ([14be2d3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/14be2d3e85386e813483d354f25f3566d55d54b8))
+* **internal:** bump ci test timeout ([0e61c51](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0e61c51889f938fc8bed910f4ad4a46475467489))
+* **internal:** reduce proguard ci logging ([6bc2dc9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6bc2dc9759cb129a6da1883fed88efb65edd217e))
+* **internal:** refactor delegating from client to options ([99235db](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/99235dbe14a4d010d0b4cb26e4de88b29c49a375))
+* **internal:** remove unnecessary `[...]` in `[@see](https://github.com/see)` ([099e83a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/099e83a0bbaa3836f43f34573d77a0c39d8921b4))
+
+
+### Documentation
+
+* fix missing readme comment ([3506165](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/35061655add87ef08561c159ad18d728753a64b7))
+* more code comments ([79cf1eb](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/79cf1eb9e27465decb9f66d20facaddfcf47553e))
+
 ## 7.5.0 (2025-07-15)
 
 Full Changelog: [v7.4.0...v7.5.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.4.0...v7.5.0)
