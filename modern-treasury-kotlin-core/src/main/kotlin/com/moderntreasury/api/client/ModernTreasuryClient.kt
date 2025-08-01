@@ -34,7 +34,6 @@ import com.moderntreasury.api.services.blocking.LedgerTransactionService
 import com.moderntreasury.api.services.blocking.LegalEntityAssociationService
 import com.moderntreasury.api.services.blocking.LegalEntityService
 import com.moderntreasury.api.services.blocking.LineItemService
-import com.moderntreasury.api.services.blocking.PaperItemService
 import com.moderntreasury.api.services.blocking.PaymentActionService
 import com.moderntreasury.api.services.blocking.PaymentFlowService
 import com.moderntreasury.api.services.blocking.PaymentOrderService
@@ -132,8 +131,6 @@ interface ModernTreasuryClient {
     fun transactions(): TransactionService
 
     fun validations(): ValidationService
-
-    fun paperItems(): PaperItemService
 
     fun virtualAccounts(): VirtualAccountService
 
@@ -243,8 +240,6 @@ interface ModernTreasuryClient {
         fun transactions(): TransactionService.WithRawResponse
 
         fun validations(): ValidationService.WithRawResponse
-
-        fun paperItems(): PaperItemService.WithRawResponse
 
         fun virtualAccounts(): VirtualAccountService.WithRawResponse
 
