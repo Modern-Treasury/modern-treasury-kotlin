@@ -69,8 +69,6 @@ import com.moderntreasury.api.services.async.LegalEntityServiceAsync
 import com.moderntreasury.api.services.async.LegalEntityServiceAsyncImpl
 import com.moderntreasury.api.services.async.LineItemServiceAsync
 import com.moderntreasury.api.services.async.LineItemServiceAsyncImpl
-import com.moderntreasury.api.services.async.PaperItemServiceAsync
-import com.moderntreasury.api.services.async.PaperItemServiceAsyncImpl
 import com.moderntreasury.api.services.async.PaymentActionServiceAsync
 import com.moderntreasury.api.services.async.PaymentActionServiceAsyncImpl
 import com.moderntreasury.api.services.async.PaymentFlowServiceAsync
@@ -214,10 +212,6 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
         ValidationServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val paperItems: PaperItemServiceAsync by lazy {
-        PaperItemServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val webhooks: WebhookServiceAsync by lazy { WebhookServiceAsyncImpl(clientOptions) }
 
     private val virtualAccounts: VirtualAccountServiceAsync by lazy {
@@ -319,9 +313,7 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
     override fun transactions(): TransactionServiceAsync = transactions
 
     override fun validations(): ValidationServiceAsync = validations
-
-    override fun paperItems(): PaperItemServiceAsync = paperItems
-
+      
     override fun webhooks(): WebhookServiceAsync = webhooks
 
     override fun virtualAccounts(): VirtualAccountServiceAsync = virtualAccounts
@@ -469,10 +461,6 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
             ValidationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val paperItems: PaperItemServiceAsync.WithRawResponse by lazy {
-            PaperItemServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val virtualAccounts: VirtualAccountServiceAsync.WithRawResponse by lazy {
             VirtualAccountServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -581,8 +569,6 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
         override fun transactions(): TransactionServiceAsync.WithRawResponse = transactions
 
         override fun validations(): ValidationServiceAsync.WithRawResponse = validations
-
-        override fun paperItems(): PaperItemServiceAsync.WithRawResponse = paperItems
 
         override fun virtualAccounts(): VirtualAccountServiceAsync.WithRawResponse = virtualAccounts
 

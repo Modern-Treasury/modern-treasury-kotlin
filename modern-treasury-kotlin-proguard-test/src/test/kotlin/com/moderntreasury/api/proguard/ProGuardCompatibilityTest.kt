@@ -88,7 +88,6 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.returns()).isNotNull()
         assertThat(client.transactions()).isNotNull()
         assertThat(client.validations()).isNotNull()
-        assertThat(client.paperItems()).isNotNull()
         assertThat(client.virtualAccounts()).isNotNull()
         assertThat(client.bulkRequests()).isNotNull()
         assertThat(client.bulkResults()).isNotNull()
