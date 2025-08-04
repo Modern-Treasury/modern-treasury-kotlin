@@ -6,6 +6,7 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Collections
 import java.util.SortedMap
+import java.util.concurrent.locks.Lock
 
 internal fun <T : Any> T?.getOrThrow(name: String): T =
     this ?: throw ModernTreasuryInvalidDataException("`${name}` is not present")
@@ -88,3 +89,19 @@ internal fun Headers.getRequiredHeader(name: String): String =
         ?: throw ModernTreasuryInvalidDataException("Could not find $name header")
 
 internal interface Enum
+
+/**
+ * Executes a suspending block of code while holding this lock.
+ *
+ * @param T the return type of the action
+ * @param action the suspending function to execute while holding the lock
+ * @return the result of executing the action
+ */
+internal suspend fun <T> Lock.withLockAsync(action: suspend () -> T): T {
+    lock()
+    return try {
+        action()
+    } finally {
+        unlock()
+    }
+}
