@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.Params
-import com.moderntreasury.api.core.getOrThrow
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
@@ -34,7 +33,7 @@ private constructor(
     private val perPage: Long?,
     private val showBalances: Boolean?,
     private val showDeleted: Boolean?,
-    private val status: Status?,
+    private val status: List<Status>?,
     private val updatedAt: UpdatedAt?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -124,7 +123,7 @@ private constructor(
      * Get all ledger entries that match the status specified. One of `pending`, `posted`, or
      * `archived`. For multiple statuses, use `status[]=pending&status[]=posted`.
      */
-    fun status(): Status? = status
+    fun status(): List<Status>? = status
 
     /**
      * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
@@ -170,7 +169,7 @@ private constructor(
         private var perPage: Long? = null
         private var showBalances: Boolean? = null
         private var showDeleted: Boolean? = null
-        private var status: Status? = null
+        private var status: MutableList<Status>? = null
         private var updatedAt: UpdatedAt? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -194,7 +193,7 @@ private constructor(
             perPage = ledgerEntryListParams.perPage
             showBalances = ledgerEntryListParams.showBalances
             showDeleted = ledgerEntryListParams.showDeleted
-            status = ledgerEntryListParams.status
+            status = ledgerEntryListParams.status?.toMutableList()
             updatedAt = ledgerEntryListParams.updatedAt
             additionalHeaders = ledgerEntryListParams.additionalHeaders.toBuilder()
             additionalQueryParams = ledgerEntryListParams.additionalQueryParams.toBuilder()
@@ -337,18 +336,16 @@ private constructor(
          * Get all ledger entries that match the status specified. One of `pending`, `posted`, or
          * `archived`. For multiple statuses, use `status[]=pending&status[]=posted`.
          */
-        fun status(status: Status?) = apply { this.status = status }
-
-        /** Alias for calling [status] with `Status.ofUnionMember0(unionMember0)`. */
-        fun status(unionMember0: Status.UnionMember0) = status(Status.ofUnionMember0(unionMember0))
+        fun status(status: List<Status>?) = apply { this.status = status?.toMutableList() }
 
         /**
-         * Alias for calling [status] with
-         * `Status.ofUnnamedSchemaWithArrayParent0s(unnamedSchemaWithArrayParent0s)`.
+         * Adds a single [Status] to [Builder.status].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun statusOfUnnamedSchemaWithArrayParent0s(
-            unnamedSchemaWithArrayParent0s: List<Status.UnnamedSchemaWithArrayParent0>
-        ) = status(Status.ofUnnamedSchemaWithArrayParent0s(unnamedSchemaWithArrayParent0s))
+        fun addStatus(status: Status) = apply {
+            this.status = (this.status ?: mutableListOf()).apply { add(status) }
+        }
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
@@ -480,7 +477,7 @@ private constructor(
                 perPage,
                 showBalances,
                 showDeleted,
-                status,
+                status?.toImmutable(),
                 updatedAt,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -542,22 +539,7 @@ private constructor(
                 perPage?.let { put("per_page", it.toString()) }
                 showBalances?.let { put("show_balances", it.toString()) }
                 showDeleted?.let { put("show_deleted", it.toString()) }
-                status?.accept(
-                    object : Status.Visitor<Unit> {
-                        override fun visitUnionMember0(unionMember0: Status.UnionMember0) {
-                            put("status", unionMember0.toString())
-                        }
-
-                        override fun visitUnnamedSchemaWithArrayParent0s(
-                            unnamedSchemaWithArrayParent0s:
-                                List<Status.UnnamedSchemaWithArrayParent0>
-                        ) {
-                            unnamedSchemaWithArrayParent0s.forEach {
-                                put("status[]", it.toString())
-                            }
-                        }
-                    }
-                )
+                status?.forEach { put("status[]", it.toString()) }
                 updatedAt?.let {
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
@@ -1354,355 +1336,135 @@ private constructor(
             "OrderBy{createdAt=$createdAt, effectiveAt=$effectiveAt, additionalProperties=$additionalProperties}"
     }
 
-    /**
-     * Get all ledger entries that match the status specified. One of `pending`, `posted`, or
-     * `archived`. For multiple statuses, use `status[]=pending&status[]=posted`.
-     */
-    class Status
-    private constructor(
-        private val unionMember0: UnionMember0? = null,
-        private val unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>? = null,
-    ) {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
-        fun unionMember0(): UnionMember0? = unionMember0
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        fun unnamedSchemaWithArrayParent0s(): List<UnnamedSchemaWithArrayParent0>? =
-            unnamedSchemaWithArrayParent0s
+        companion object {
 
-        fun isUnionMember0(): Boolean = unionMember0 != null
+            val PENDING = of("pending")
 
-        fun isUnnamedSchemaWithArrayParent0s(): Boolean = unnamedSchemaWithArrayParent0s != null
+            val POSTED = of("posted")
 
-        fun asUnionMember0(): UnionMember0 = unionMember0.getOrThrow("unionMember0")
+            val ARCHIVED = of("archived")
 
-        fun asUnnamedSchemaWithArrayParent0s(): List<UnnamedSchemaWithArrayParent0> =
-            unnamedSchemaWithArrayParent0s.getOrThrow("unnamedSchemaWithArrayParent0s")
+            fun of(value: String) = Status(JsonField.of(value))
+        }
 
-        fun <T> accept(visitor: Visitor<T>): T =
-            when {
-                unionMember0 != null -> visitor.visitUnionMember0(unionMember0)
-                unnamedSchemaWithArrayParent0s != null ->
-                    visitor.visitUnnamedSchemaWithArrayParent0s(unnamedSchemaWithArrayParent0s)
-                else -> throw IllegalStateException("Invalid Status")
+        /** An enum containing [Status]'s known values. */
+        enum class Known {
+            PENDING,
+            POSTED,
+            ARCHIVED,
+        }
+
+        /**
+         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Status] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            PENDING,
+            POSTED,
+            ARCHIVED,
+            /** An enum member indicating that [Status] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                POSTED -> Value.POSTED
+                ARCHIVED -> Value.ARCHIVED
+                else -> Value._UNKNOWN
             }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+         *   known member.
+         */
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                POSTED -> Known.POSTED
+                ARCHIVED -> Known.ARCHIVED
+                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
+         *   the expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Status = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return /* spotless:off */ other is Status && unionMember0 == other.unionMember0 && unnamedSchemaWithArrayParent0s == other.unnamedSchemaWithArrayParent0s /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
-        override fun hashCode(): Int = /* spotless:off */ Objects.hash(unionMember0, unnamedSchemaWithArrayParent0s) /* spotless:on */
+        override fun hashCode() = value.hashCode()
 
-        override fun toString(): String =
-            when {
-                unionMember0 != null -> "Status{unionMember0=$unionMember0}"
-                unnamedSchemaWithArrayParent0s != null ->
-                    "Status{unnamedSchemaWithArrayParent0s=$unnamedSchemaWithArrayParent0s}"
-                else -> throw IllegalStateException("Invalid Status")
-            }
-
-        companion object {
-
-            fun ofUnionMember0(unionMember0: UnionMember0) = Status(unionMember0 = unionMember0)
-
-            fun ofUnnamedSchemaWithArrayParent0s(
-                unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>
-            ) =
-                Status(
-                    unnamedSchemaWithArrayParent0s = unnamedSchemaWithArrayParent0s.toImmutable()
-                )
-        }
-
-        /** An interface that defines how to map each variant of [Status] to a value of type [T]. */
-        interface Visitor<out T> {
-
-            fun visitUnionMember0(unionMember0: UnionMember0): T
-
-            fun visitUnnamedSchemaWithArrayParent0s(
-                unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>
-            ): T
-        }
-
-        class UnionMember0 @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                val PENDING = of("pending")
-
-                val POSTED = of("posted")
-
-                val ARCHIVED = of("archived")
-
-                fun of(value: String) = UnionMember0(JsonField.of(value))
-            }
-
-            /** An enum containing [UnionMember0]'s known values. */
-            enum class Known {
-                PENDING,
-                POSTED,
-                ARCHIVED,
-            }
-
-            /**
-             * An enum containing [UnionMember0]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [UnionMember0] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                PENDING,
-                POSTED,
-                ARCHIVED,
-                /**
-                 * An enum member indicating that [UnionMember0] was instantiated with an unknown
-                 * value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    PENDING -> Value.PENDING
-                    POSTED -> Value.POSTED
-                    ARCHIVED -> Value.ARCHIVED
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-             *   known member.
-             */
-            fun known(): Known =
-                when (this) {
-                    PENDING -> Known.PENDING
-                    POSTED -> Known.POSTED
-                    ARCHIVED -> Known.ARCHIVED
-                    else -> throw ModernTreasuryInvalidDataException("Unknown UnionMember0: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value does not
-             *   have the expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString()
-                    ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-            private var validated: Boolean = false
-
-            fun validate(): UnionMember0 = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: ModernTreasuryInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return /* spotless:off */ other is UnionMember0 && value == other.value /* spotless:on */
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        class UnnamedSchemaWithArrayParent0
-        @JsonCreator
-        private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                val PENDING = of("pending")
-
-                val POSTED = of("posted")
-
-                val ARCHIVED = of("archived")
-
-                fun of(value: String) = UnnamedSchemaWithArrayParent0(JsonField.of(value))
-            }
-
-            /** An enum containing [UnnamedSchemaWithArrayParent0]'s known values. */
-            enum class Known {
-                PENDING,
-                POSTED,
-                ARCHIVED,
-            }
-
-            /**
-             * An enum containing [UnnamedSchemaWithArrayParent0]'s known values, as well as an
-             * [_UNKNOWN] member.
-             *
-             * An instance of [UnnamedSchemaWithArrayParent0] can contain an unknown value in a
-             * couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                PENDING,
-                POSTED,
-                ARCHIVED,
-                /**
-                 * An enum member indicating that [UnnamedSchemaWithArrayParent0] was instantiated
-                 * with an unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    PENDING -> Value.PENDING
-                    POSTED -> Value.POSTED
-                    ARCHIVED -> Value.ARCHIVED
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-             *   known member.
-             */
-            fun known(): Known =
-                when (this) {
-                    PENDING -> Known.PENDING
-                    POSTED -> Known.POSTED
-                    ARCHIVED -> Known.ARCHIVED
-                    else ->
-                        throw ModernTreasuryInvalidDataException(
-                            "Unknown UnnamedSchemaWithArrayParent0: $value"
-                        )
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value does not
-             *   have the expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString()
-                    ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-            private var validated: Boolean = false
-
-            fun validate(): UnnamedSchemaWithArrayParent0 = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: ModernTreasuryInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return /* spotless:off */ other is UnnamedSchemaWithArrayParent0 && value == other.value /* spotless:on */
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
+        override fun toString() = value.toString()
     }
 
     /**
