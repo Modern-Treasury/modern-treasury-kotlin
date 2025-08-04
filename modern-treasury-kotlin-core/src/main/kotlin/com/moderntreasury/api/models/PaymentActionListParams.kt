@@ -720,6 +720,8 @@ private constructor(
 
             val EVOLVE_NON_PROCESSING_TRANSACTION = of("evolve_non_processing_transaction")
 
+            val CONTROL_FILE = of("control_file")
+
             val STOP = of("stop")
 
             val ISSUE = of("issue")
@@ -730,6 +732,7 @@ private constructor(
         /** An enum containing [Type]'s known values. */
         enum class Known {
             EVOLVE_NON_PROCESSING_TRANSACTION,
+            CONTROL_FILE,
             STOP,
             ISSUE,
         }
@@ -745,6 +748,7 @@ private constructor(
          */
         enum class Value {
             EVOLVE_NON_PROCESSING_TRANSACTION,
+            CONTROL_FILE,
             STOP,
             ISSUE,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
@@ -761,6 +765,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 EVOLVE_NON_PROCESSING_TRANSACTION -> Value.EVOLVE_NON_PROCESSING_TRANSACTION
+                CONTROL_FILE -> Value.CONTROL_FILE
                 STOP -> Value.STOP
                 ISSUE -> Value.ISSUE
                 else -> Value._UNKNOWN
@@ -778,6 +783,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 EVOLVE_NON_PROCESSING_TRANSACTION -> Known.EVOLVE_NON_PROCESSING_TRANSACTION
+                CONTROL_FILE -> Known.CONTROL_FILE
                 STOP -> Known.STOP
                 ISSUE -> Known.ISSUE
                 else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
