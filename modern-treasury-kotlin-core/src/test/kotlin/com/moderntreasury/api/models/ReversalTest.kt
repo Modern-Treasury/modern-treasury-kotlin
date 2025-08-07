@@ -30,7 +30,7 @@ internal class ReversalTest {
                 .paymentOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .reason(Reversal.Reason.DUPLICATE)
                 .status(Reversal.Status.COMPLETED)
-                .addTransactionId(JsonValue.from(mapOf<String, Any>()))
+                .addTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
@@ -50,7 +50,8 @@ internal class ReversalTest {
         assertThat(reversal.paymentOrderId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(reversal.reason()).isEqualTo(Reversal.Reason.DUPLICATE)
         assertThat(reversal.status()).isEqualTo(Reversal.Status.COMPLETED)
-        assertThat(reversal.transactionIds()).containsExactly(JsonValue.from(mapOf<String, Any>()))
+        assertThat(reversal.transactionIds())
+            .containsExactly("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(reversal.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
@@ -74,7 +75,7 @@ internal class ReversalTest {
                 .paymentOrderId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .reason(Reversal.Reason.DUPLICATE)
                 .status(Reversal.Status.COMPLETED)
-                .addTransactionId(JsonValue.from(mapOf<String, Any>()))
+                .addTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
