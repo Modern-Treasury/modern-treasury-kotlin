@@ -30,7 +30,7 @@ private constructor(
     private val paymentOrderId: JsonField<String>,
     private val reason: JsonField<Reason>,
     private val status: JsonField<Status>,
-    private val transactionIds: JsonField<List<JsonValue?>>,
+    private val transactionIds: JsonField<List<String?>>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -54,7 +54,7 @@ private constructor(
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("transaction_ids")
         @ExcludeMissing
-        transactionIds: JsonField<List<JsonValue?>> = JsonMissing.of(),
+        transactionIds: JsonField<List<String?>> = JsonMissing.of(),
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -144,7 +144,7 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun transactionIds(): List<JsonValue?> = transactionIds.getRequired("transaction_ids")
+    fun transactionIds(): List<String?> = transactionIds.getRequired("transaction_ids")
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -229,7 +229,7 @@ private constructor(
      */
     @JsonProperty("transaction_ids")
     @ExcludeMissing
-    fun _transactionIds(): JsonField<List<JsonValue?>> = transactionIds
+    fun _transactionIds(): JsonField<List<String?>> = transactionIds
 
     /**
      * Returns the raw JSON value of [updatedAt].
@@ -287,7 +287,7 @@ private constructor(
         private var paymentOrderId: JsonField<String>? = null
         private var reason: JsonField<Reason>? = null
         private var status: JsonField<Status>? = null
-        private var transactionIds: JsonField<MutableList<JsonValue?>>? = null
+        private var transactionIds: JsonField<MutableList<String?>>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -418,26 +418,26 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        fun transactionIds(transactionIds: List<JsonValue?>) =
+        fun transactionIds(transactionIds: List<String?>) =
             transactionIds(JsonField.of(transactionIds))
 
         /**
          * Sets [Builder.transactionIds] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.transactionIds] with a well-typed `List<JsonValue?>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.transactionIds] with a well-typed `List<String?>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun transactionIds(transactionIds: JsonField<List<JsonValue?>>) = apply {
+        fun transactionIds(transactionIds: JsonField<List<String?>>) = apply {
             this.transactionIds = transactionIds.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [JsonValue] to [transactionIds].
+         * Adds a single [String] to [transactionIds].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addTransactionId(transactionId: JsonValue) = apply {
+        fun addTransactionId(transactionId: String) = apply {
             transactionIds =
                 (transactionIds ?: JsonField.of(mutableListOf())).also {
                     checkKnown("transactionIds", it).add(transactionId)
