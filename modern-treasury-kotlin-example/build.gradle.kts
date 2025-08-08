@@ -9,7 +9,7 @@ dependencies {
 
 application {
     // Use `./gradlew :modern-treasury-kotlin-example:run` to run `Main`
-    // Use `./gradlew :modern-treasury-kotlin-example:run -Dexample=Something` to run `SomethingExample`
+    // Use `./gradlew :modern-treasury-kotlin-example:run -Pexample=Something` to run `SomethingExample`
     mainClass = "com.moderntreasury.api.example.${
         if (project.hasProperty("example"))
             "${project.property("example")}ExampleKt"

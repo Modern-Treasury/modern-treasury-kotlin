@@ -69,8 +69,6 @@ import com.moderntreasury.api.services.blocking.LegalEntityService
 import com.moderntreasury.api.services.blocking.LegalEntityServiceImpl
 import com.moderntreasury.api.services.blocking.LineItemService
 import com.moderntreasury.api.services.blocking.LineItemServiceImpl
-import com.moderntreasury.api.services.blocking.PaperItemService
-import com.moderntreasury.api.services.blocking.PaperItemServiceImpl
 import com.moderntreasury.api.services.blocking.PaymentActionService
 import com.moderntreasury.api.services.blocking.PaymentActionServiceImpl
 import com.moderntreasury.api.services.blocking.PaymentFlowService
@@ -207,10 +205,6 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
         ValidationServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val paperItems: PaperItemService by lazy {
-        PaperItemServiceImpl(clientOptionsWithUserAgent)
-    }
-
     private val webhooks: WebhookService by lazy { WebhookServiceImpl(clientOptions) }
 
     private val virtualAccounts: VirtualAccountService by lazy {
@@ -308,8 +302,6 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
     override fun transactions(): TransactionService = transactions
 
     override fun validations(): ValidationService = validations
-
-    override fun paperItems(): PaperItemService = paperItems
 
     override fun webhooks(): WebhookService = webhooks
 
@@ -449,10 +441,6 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
             ValidationServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val paperItems: PaperItemService.WithRawResponse by lazy {
-            PaperItemServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val virtualAccounts: VirtualAccountService.WithRawResponse by lazy {
             VirtualAccountServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -555,8 +543,6 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
         override fun transactions(): TransactionService.WithRawResponse = transactions
 
         override fun validations(): ValidationService.WithRawResponse = validations
-
-        override fun paperItems(): PaperItemService.WithRawResponse = paperItems
 
         override fun virtualAccounts(): VirtualAccountService.WithRawResponse = virtualAccounts
 

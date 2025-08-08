@@ -1,5 +1,25 @@
 # Changelog
 
+## 7.7.0 (2025-08-08)
+
+Full Changelog: [v7.6.0...v7.7.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.6.0...v7.7.0)
+
+### Features
+
+* **api:** api update ([342f0c4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/342f0c4bf8fa4366d817ca60b1d4552ca58b834a))
+* **api:** api update ([6dc51db](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6dc51db3b8bdeb6c8b4b835459955ffaf0f35ce1))
+* **api:** manual updates ([38b2ce5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/38b2ce59483b5726e20a2066f835a981c31ecad8))
+* **api:** manual updates ([e97916c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e97916cc5f1d2597f4efeae64c5ff502091e970d))
+
+
+### Chores
+
+* **example:** fix run example comment ([618d453](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/618d453356d14b7c69b1e39743e411f399496e98))
+* increase max gradle JVM heap to 8GB ([93b0b1f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/93b0b1f5bce91320714c26c57763271423b48ae9))
+* **internal:** add lock helper ([d696cf3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d696cf3d9621e9c51491ad7acade1f279365f0bd))
+* **internal:** update comment in script ([f949bf5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f949bf51869a0abcec939ba13121afef0df7c997))
+* update @stainless-api/prism-cli to v5.15.0 ([1688a91](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1688a916cfae45c6d5ed3fd504d50d0aad07971c))
+
 ## 7.6.0 (2025-08-01)
 
 Full Changelog: [v7.5.0...v7.6.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.5.0...v7.6.0)
