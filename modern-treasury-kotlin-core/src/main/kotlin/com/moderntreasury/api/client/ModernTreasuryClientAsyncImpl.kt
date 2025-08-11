@@ -313,7 +313,7 @@ class ModernTreasuryClientAsyncImpl(private val clientOptions: ClientOptions) :
     override fun transactions(): TransactionServiceAsync = transactions
 
     override fun validations(): ValidationServiceAsync = validations
-      
+
     override fun webhooks(): WebhookServiceAsync = webhooks
 
     override fun virtualAccounts(): VirtualAccountServiceAsync = virtualAccounts
