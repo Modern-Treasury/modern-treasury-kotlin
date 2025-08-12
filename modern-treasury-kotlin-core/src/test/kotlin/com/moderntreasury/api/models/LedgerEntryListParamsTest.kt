@@ -13,6 +13,9 @@ internal class LedgerEntryListParamsTest {
         LedgerEntryListParams.builder()
             .addId("string")
             .afterCursor("after_cursor")
+            .amount(
+                LedgerEntryListParams.Amount.builder().eq(0L).gt(0L).gte(0L).lt(0L).lte(0L).build()
+            )
             .asOfLockVersion(0L)
             .direction(TransactionDirection.CREDIT)
             .effectiveAt(
@@ -65,6 +68,15 @@ internal class LedgerEntryListParamsTest {
             LedgerEntryListParams.builder()
                 .addId("string")
                 .afterCursor("after_cursor")
+                .amount(
+                    LedgerEntryListParams.Amount.builder()
+                        .eq(0L)
+                        .gt(0L)
+                        .gte(0L)
+                        .lt(0L)
+                        .lte(0L)
+                        .build()
+                )
                 .asOfLockVersion(0L)
                 .direction(TransactionDirection.CREDIT)
                 .effectiveAt(
@@ -117,6 +129,11 @@ internal class LedgerEntryListParamsTest {
                 QueryParams.builder()
                     .put("id[]", "string")
                     .put("after_cursor", "after_cursor")
+                    .put("amount[eq]", "0")
+                    .put("amount[gt]", "0")
+                    .put("amount[gte]", "0")
+                    .put("amount[lt]", "0")
+                    .put("amount[lte]", "0")
                     .put("as_of_lock_version", "0")
                     .put("direction", "credit")
                     .put("effective_at[foo]", "2019-12-27T18:11:19.117Z")
