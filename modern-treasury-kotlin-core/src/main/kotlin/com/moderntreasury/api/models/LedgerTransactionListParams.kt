@@ -18,6 +18,7 @@ class LedgerTransactionListParams
 private constructor(
     private val id: List<String>?,
     private val afterCursor: String?,
+    private val amount: Amount?,
     private val effectiveAt: EffectiveAt?,
     private val effectiveDate: EffectiveDate?,
     private val externalId: String?,
@@ -46,6 +47,9 @@ private constructor(
     fun id(): List<String>? = id
 
     fun afterCursor(): String? = afterCursor
+
+    /** Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by amount. */
+    fun amount(): Amount? = amount
 
     /**
      * Use "gt" (>), "gte" (>=), "lt" (<), "lte" (<=), or "eq" (=) to filter by effective at. For
@@ -132,6 +136,7 @@ private constructor(
 
         private var id: MutableList<String>? = null
         private var afterCursor: String? = null
+        private var amount: Amount? = null
         private var effectiveAt: EffectiveAt? = null
         private var effectiveDate: EffectiveDate? = null
         private var externalId: String? = null
@@ -155,6 +160,7 @@ private constructor(
         internal fun from(ledgerTransactionListParams: LedgerTransactionListParams) = apply {
             id = ledgerTransactionListParams.id?.toMutableList()
             afterCursor = ledgerTransactionListParams.afterCursor
+            amount = ledgerTransactionListParams.amount
             effectiveAt = ledgerTransactionListParams.effectiveAt
             effectiveDate = ledgerTransactionListParams.effectiveDate
             externalId = ledgerTransactionListParams.externalId
@@ -191,6 +197,9 @@ private constructor(
         fun addId(id: String) = apply { this.id = (this.id ?: mutableListOf()).apply { add(id) } }
 
         fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
+
+        /** Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by amount. */
+        fun amount(amount: Amount?) = apply { this.amount = amount }
 
         /**
          * Use "gt" (>), "gte" (>=), "lt" (<), "lte" (<=), or "eq" (=) to filter by effective at.
@@ -393,6 +402,7 @@ private constructor(
             LedgerTransactionListParams(
                 id?.toImmutable(),
                 afterCursor,
+                amount,
                 effectiveAt,
                 effectiveDate,
                 externalId,
@@ -422,6 +432,18 @@ private constructor(
             .apply {
                 id?.forEach { put("id[]", it) }
                 afterCursor?.let { put("after_cursor", it) }
+                amount?.let {
+                    it.eq()?.let { put("amount[eq]", it.toString()) }
+                    it.gt()?.let { put("amount[gt]", it.toString()) }
+                    it.gte()?.let { put("amount[gte]", it.toString()) }
+                    it.lt()?.let { put("amount[lt]", it.toString()) }
+                    it.lte()?.let { put("amount[lte]", it.toString()) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("amount[$key]", value)
+                        }
+                    }
+                }
                 effectiveAt?.let {
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
@@ -497,6 +519,177 @@ private constructor(
                 putAll(additionalQueryParams)
             }
             .build()
+
+    /** Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by amount. */
+    class Amount
+    private constructor(
+        private val eq: Long?,
+        private val gt: Long?,
+        private val gte: Long?,
+        private val lt: Long?,
+        private val lte: Long?,
+        private val additionalProperties: QueryParams,
+    ) {
+
+        fun eq(): Long? = eq
+
+        fun gt(): Long? = gt
+
+        fun gte(): Long? = gte
+
+        fun lt(): Long? = lt
+
+        fun lte(): Long? = lte
+
+        /** Query params to send with the request. */
+        fun _additionalProperties(): QueryParams = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Amount]. */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [Amount]. */
+        class Builder internal constructor() {
+
+            private var eq: Long? = null
+            private var gt: Long? = null
+            private var gte: Long? = null
+            private var lt: Long? = null
+            private var lte: Long? = null
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+            internal fun from(amount: Amount) = apply {
+                eq = amount.eq
+                gt = amount.gt
+                gte = amount.gte
+                lt = amount.lt
+                lte = amount.lte
+                additionalProperties = amount.additionalProperties.toBuilder()
+            }
+
+            fun eq(eq: Long?) = apply { this.eq = eq }
+
+            /**
+             * Alias for [Builder.eq].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun eq(eq: Long) = eq(eq as Long?)
+
+            fun gt(gt: Long?) = apply { this.gt = gt }
+
+            /**
+             * Alias for [Builder.gt].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun gt(gt: Long) = gt(gt as Long?)
+
+            fun gte(gte: Long?) = apply { this.gte = gte }
+
+            /**
+             * Alias for [Builder.gte].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun gte(gte: Long) = gte(gte as Long?)
+
+            fun lt(lt: Long?) = apply { this.lt = lt }
+
+            /**
+             * Alias for [Builder.lt].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun lt(lt: Long) = lt(lt as Long?)
+
+            fun lte(lte: Long?) = apply { this.lte = lte }
+
+            /**
+             * Alias for [Builder.lte].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun lte(lte: Long) = lte(lte as Long?)
+
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            /**
+             * Returns an immutable instance of [Amount].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Amount = Amount(eq, gt, gte, lt, lte, additionalProperties.build())
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Amount && eq == other.eq && gt == other.gt && gte == other.gte && lt == other.lt && lte == other.lte && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(eq, gt, gte, lt, lte, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Amount{eq=$eq, gt=$gt, gte=$gte, lt=$lt, lte=$lte, additionalProperties=$additionalProperties}"
+    }
 
     /**
      * Use "gt" (>), "gte" (>=), "lt" (<), "lte" (<=), or "eq" (=) to filter by effective at. For
@@ -1879,11 +2072,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerTransactionListParams && id == other.id && afterCursor == other.afterCursor && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && externalId == other.externalId && ledgerAccountCategoryId == other.ledgerAccountCategoryId && ledgerAccountId == other.ledgerAccountId && ledgerAccountSettlementId == other.ledgerAccountSettlementId && ledgerId == other.ledgerId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && orderBy == other.orderBy && partiallyPostsLedgerTransactionId == other.partiallyPostsLedgerTransactionId && perPage == other.perPage && postedAt == other.postedAt && reversesLedgerTransactionId == other.reversesLedgerTransactionId && status == other.status && updatedAt == other.updatedAt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is LedgerTransactionListParams && id == other.id && afterCursor == other.afterCursor && amount == other.amount && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && externalId == other.externalId && ledgerAccountCategoryId == other.ledgerAccountCategoryId && ledgerAccountId == other.ledgerAccountId && ledgerAccountSettlementId == other.ledgerAccountSettlementId && ledgerId == other.ledgerId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && metadata == other.metadata && orderBy == other.orderBy && partiallyPostsLedgerTransactionId == other.partiallyPostsLedgerTransactionId && perPage == other.perPage && postedAt == other.postedAt && reversesLedgerTransactionId == other.reversesLedgerTransactionId && status == other.status && updatedAt == other.updatedAt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, effectiveAt, effectiveDate, externalId, ledgerAccountCategoryId, ledgerAccountId, ledgerAccountSettlementId, ledgerId, ledgerableId, ledgerableType, metadata, orderBy, partiallyPostsLedgerTransactionId, perPage, postedAt, reversesLedgerTransactionId, status, updatedAt, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, amount, effectiveAt, effectiveDate, externalId, ledgerAccountCategoryId, ledgerAccountId, ledgerAccountSettlementId, ledgerId, ledgerableId, ledgerableType, metadata, orderBy, partiallyPostsLedgerTransactionId, perPage, postedAt, reversesLedgerTransactionId, status, updatedAt, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "LedgerTransactionListParams{id=$id, afterCursor=$afterCursor, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountSettlementId=$ledgerAccountSettlementId, ledgerId=$ledgerId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, orderBy=$orderBy, partiallyPostsLedgerTransactionId=$partiallyPostsLedgerTransactionId, perPage=$perPage, postedAt=$postedAt, reversesLedgerTransactionId=$reversesLedgerTransactionId, status=$status, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LedgerTransactionListParams{id=$id, afterCursor=$afterCursor, amount=$amount, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountSettlementId=$ledgerAccountSettlementId, ledgerId=$ledgerId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, orderBy=$orderBy, partiallyPostsLedgerTransactionId=$partiallyPostsLedgerTransactionId, perPage=$perPage, postedAt=$postedAt, reversesLedgerTransactionId=$reversesLedgerTransactionId, status=$status, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
