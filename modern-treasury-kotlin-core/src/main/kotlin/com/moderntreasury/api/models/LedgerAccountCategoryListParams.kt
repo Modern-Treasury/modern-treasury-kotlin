@@ -453,12 +453,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Balances && effectiveAt == other.effectiveAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Balances &&
+                effectiveAt == other.effectiveAt &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(effectiveAt, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -554,12 +554,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -571,10 +569,38 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountCategoryListParams && id == other.id && afterCursor == other.afterCursor && balances == other.balances && currency == other.currency && externalId == other.externalId && ledgerAccountId == other.ledgerAccountId && ledgerId == other.ledgerId && metadata == other.metadata && name == other.name && parentLedgerAccountCategoryId == other.parentLedgerAccountCategoryId && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is LedgerAccountCategoryListParams &&
+            id == other.id &&
+            afterCursor == other.afterCursor &&
+            balances == other.balances &&
+            currency == other.currency &&
+            externalId == other.externalId &&
+            ledgerAccountId == other.ledgerAccountId &&
+            ledgerId == other.ledgerId &&
+            metadata == other.metadata &&
+            name == other.name &&
+            parentLedgerAccountCategoryId == other.parentLedgerAccountCategoryId &&
+            perPage == other.perPage &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, balances, currency, externalId, ledgerAccountId, ledgerId, metadata, name, parentLedgerAccountCategoryId, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            id,
+            afterCursor,
+            balances,
+            currency,
+            externalId,
+            ledgerAccountId,
+            ledgerId,
+            metadata,
+            name,
+            parentLedgerAccountCategoryId,
+            perPage,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "LedgerAccountCategoryListParams{id=$id, afterCursor=$afterCursor, balances=$balances, currency=$currency, externalId=$externalId, ledgerAccountId=$ledgerAccountId, ledgerId=$ledgerId, metadata=$metadata, name=$name, parentLedgerAccountCategoryId=$parentLedgerAccountCategoryId, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

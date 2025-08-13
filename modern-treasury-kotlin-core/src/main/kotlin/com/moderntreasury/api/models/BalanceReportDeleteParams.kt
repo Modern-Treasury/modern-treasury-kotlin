@@ -232,10 +232,22 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BalanceReportDeleteParams && internalAccountId == other.internalAccountId && id == other.id && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return other is BalanceReportDeleteParams &&
+            internalAccountId == other.internalAccountId &&
+            id == other.id &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams &&
+            additionalBodyProperties == other.additionalBodyProperties
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(internalAccountId, id, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            internalAccountId,
+            id,
+            additionalHeaders,
+            additionalQueryParams,
+            additionalBodyProperties,
+        )
 
     override fun toString() =
         "BalanceReportDeleteParams{internalAccountId=$internalAccountId, id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"

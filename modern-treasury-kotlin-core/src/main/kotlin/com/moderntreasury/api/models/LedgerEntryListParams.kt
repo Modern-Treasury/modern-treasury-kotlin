@@ -731,12 +731,18 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Amount && eq == other.eq && gt == other.gt && gte == other.gte && lt == other.lt && lte == other.lte && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Amount &&
+                eq == other.eq &&
+                gt == other.gt &&
+                gte == other.gte &&
+                lt == other.lt &&
+                lte == other.lte &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(eq, gt, gte, lt, lte, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(eq, gt, gte, lt, lte, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -832,12 +838,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EffectiveAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is EffectiveAt && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -932,12 +936,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EffectiveDate && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is EffectiveDate && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1037,12 +1039,11 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountLockVersion && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is LedgerAccountLockVersion &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1138,12 +1139,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1373,7 +1372,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CreatedAt && value == other.value /* spotless:on */
+                return other is CreatedAt && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1503,7 +1502,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is EffectiveAt && value == other.value /* spotless:on */
+                return other is EffectiveAt && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1516,12 +1515,15 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is OrderBy && createdAt == other.createdAt && effectiveAt == other.effectiveAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is OrderBy &&
+                createdAt == other.createdAt &&
+                effectiveAt == other.effectiveAt &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(createdAt, effectiveAt, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(createdAt, effectiveAt, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1652,7 +1654,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1749,12 +1751,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is UpdatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is UpdatedAt && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1766,10 +1766,58 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerEntryListParams && id == other.id && afterCursor == other.afterCursor && amount == other.amount && asOfLockVersion == other.asOfLockVersion && direction == other.direction && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && ledgerAccountCategoryId == other.ledgerAccountCategoryId && ledgerAccountId == other.ledgerAccountId && ledgerAccountLockVersion == other.ledgerAccountLockVersion && ledgerAccountPayoutId == other.ledgerAccountPayoutId && ledgerAccountSettlementId == other.ledgerAccountSettlementId && ledgerAccountStatementId == other.ledgerAccountStatementId && ledgerTransactionId == other.ledgerTransactionId && metadata == other.metadata && orderBy == other.orderBy && perPage == other.perPage && showBalances == other.showBalances && showDeleted == other.showDeleted && status == other.status && updatedAt == other.updatedAt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is LedgerEntryListParams &&
+            id == other.id &&
+            afterCursor == other.afterCursor &&
+            amount == other.amount &&
+            asOfLockVersion == other.asOfLockVersion &&
+            direction == other.direction &&
+            effectiveAt == other.effectiveAt &&
+            effectiveDate == other.effectiveDate &&
+            ledgerAccountCategoryId == other.ledgerAccountCategoryId &&
+            ledgerAccountId == other.ledgerAccountId &&
+            ledgerAccountLockVersion == other.ledgerAccountLockVersion &&
+            ledgerAccountPayoutId == other.ledgerAccountPayoutId &&
+            ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
+            ledgerAccountStatementId == other.ledgerAccountStatementId &&
+            ledgerTransactionId == other.ledgerTransactionId &&
+            metadata == other.metadata &&
+            orderBy == other.orderBy &&
+            perPage == other.perPage &&
+            showBalances == other.showBalances &&
+            showDeleted == other.showDeleted &&
+            status == other.status &&
+            updatedAt == other.updatedAt &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, amount, asOfLockVersion, direction, effectiveAt, effectiveDate, ledgerAccountCategoryId, ledgerAccountId, ledgerAccountLockVersion, ledgerAccountPayoutId, ledgerAccountSettlementId, ledgerAccountStatementId, ledgerTransactionId, metadata, orderBy, perPage, showBalances, showDeleted, status, updatedAt, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            id,
+            afterCursor,
+            amount,
+            asOfLockVersion,
+            direction,
+            effectiveAt,
+            effectiveDate,
+            ledgerAccountCategoryId,
+            ledgerAccountId,
+            ledgerAccountLockVersion,
+            ledgerAccountPayoutId,
+            ledgerAccountSettlementId,
+            ledgerAccountStatementId,
+            ledgerTransactionId,
+            metadata,
+            orderBy,
+            perPage,
+            showBalances,
+            showDeleted,
+            status,
+            updatedAt,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "LedgerEntryListParams{id=$id, afterCursor=$afterCursor, amount=$amount, asOfLockVersion=$asOfLockVersion, direction=$direction, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountPayoutId=$ledgerAccountPayoutId, ledgerAccountSettlementId=$ledgerAccountSettlementId, ledgerAccountStatementId=$ledgerAccountStatementId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, orderBy=$orderBy, perPage=$perPage, showBalances=$showBalances, showDeleted=$showDeleted, status=$status, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

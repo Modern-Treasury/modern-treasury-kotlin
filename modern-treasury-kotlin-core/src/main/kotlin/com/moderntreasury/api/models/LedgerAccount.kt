@@ -1122,12 +1122,25 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerBalancesWithEffectiveAt && availableBalance == other.availableBalance && effectiveAtLowerBound == other.effectiveAtLowerBound && effectiveAtUpperBound == other.effectiveAtUpperBound && pendingBalance == other.pendingBalance && postedBalance == other.postedBalance && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is LedgerBalancesWithEffectiveAt &&
+                availableBalance == other.availableBalance &&
+                effectiveAtLowerBound == other.effectiveAtLowerBound &&
+                effectiveAtUpperBound == other.effectiveAtUpperBound &&
+                pendingBalance == other.pendingBalance &&
+                postedBalance == other.postedBalance &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(availableBalance, effectiveAtLowerBound, effectiveAtUpperBound, pendingBalance, postedBalance, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                availableBalance,
+                effectiveAtLowerBound,
+                effectiveAtUpperBound,
+                pendingBalance,
+                postedBalance,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1272,7 +1285,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerableType && value == other.value /* spotless:on */
+            return other is LedgerableType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1368,12 +1381,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1385,12 +1396,47 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccount && id == other.id && balances == other.balances && createdAt == other.createdAt && description == other.description && discardedAt == other.discardedAt && externalId == other.externalId && ledgerId == other.ledgerId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && liveMode == other.liveMode && lockVersion == other.lockVersion && metadata == other.metadata && name == other.name && normalBalance == other.normalBalance && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is LedgerAccount &&
+            id == other.id &&
+            balances == other.balances &&
+            createdAt == other.createdAt &&
+            description == other.description &&
+            discardedAt == other.discardedAt &&
+            externalId == other.externalId &&
+            ledgerId == other.ledgerId &&
+            ledgerableId == other.ledgerableId &&
+            ledgerableType == other.ledgerableType &&
+            liveMode == other.liveMode &&
+            lockVersion == other.lockVersion &&
+            metadata == other.metadata &&
+            name == other.name &&
+            normalBalance == other.normalBalance &&
+            object_ == other.object_ &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, balances, createdAt, description, discardedAt, externalId, ledgerId, ledgerableId, ledgerableType, liveMode, lockVersion, metadata, name, normalBalance, object_, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            balances,
+            createdAt,
+            description,
+            discardedAt,
+            externalId,
+            ledgerId,
+            ledgerableId,
+            ledgerableType,
+            liveMode,
+            lockVersion,
+            metadata,
+            name,
+            normalBalance,
+            object_,
+            updatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

@@ -233,10 +233,28 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountCollectionFlowListParams && afterCursor == other.afterCursor && clientToken == other.clientToken && counterpartyId == other.counterpartyId && externalAccountId == other.externalAccountId && perPage == other.perPage && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is AccountCollectionFlowListParams &&
+            afterCursor == other.afterCursor &&
+            clientToken == other.clientToken &&
+            counterpartyId == other.counterpartyId &&
+            externalAccountId == other.externalAccountId &&
+            perPage == other.perPage &&
+            status == other.status &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, clientToken, counterpartyId, externalAccountId, perPage, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            afterCursor,
+            clientToken,
+            counterpartyId,
+            externalAccountId,
+            perPage,
+            status,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "AccountCollectionFlowListParams{afterCursor=$afterCursor, clientToken=$clientToken, counterpartyId=$counterpartyId, externalAccountId=$externalAccountId, perPage=$perPage, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -575,12 +575,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ReversalCreateRequest && reason == other.reason && ledgerTransaction == other.ledgerTransaction && metadata == other.metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is ReversalCreateRequest &&
+                reason == other.reason &&
+                ledgerTransaction == other.ledgerTransaction &&
+                metadata == other.metadata &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(reason, ledgerTransaction, metadata, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(reason, ledgerTransaction, metadata, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -727,7 +731,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
+            return other is Reason && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -823,12 +827,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -840,10 +842,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentOrderReversalCreateParams && paymentOrderId == other.paymentOrderId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is PaymentOrderReversalCreateParams &&
+            paymentOrderId == other.paymentOrderId &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(paymentOrderId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(paymentOrderId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "PaymentOrderReversalCreateParams{paymentOrderId=$paymentOrderId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

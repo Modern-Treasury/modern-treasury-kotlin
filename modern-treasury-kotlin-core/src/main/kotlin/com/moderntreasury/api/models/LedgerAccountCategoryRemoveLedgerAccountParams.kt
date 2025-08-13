@@ -239,10 +239,22 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountCategoryRemoveLedgerAccountParams && id == other.id && ledgerAccountId == other.ledgerAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return other is LedgerAccountCategoryRemoveLedgerAccountParams &&
+            id == other.id &&
+            ledgerAccountId == other.ledgerAccountId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams &&
+            additionalBodyProperties == other.additionalBodyProperties
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, ledgerAccountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            id,
+            ledgerAccountId,
+            additionalHeaders,
+            additionalQueryParams,
+            additionalBodyProperties,
+        )
 
     override fun toString() =
         "LedgerAccountCategoryRemoveLedgerAccountParams{id=$id, ledgerAccountId=$ledgerAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"

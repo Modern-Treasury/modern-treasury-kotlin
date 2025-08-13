@@ -440,12 +440,18 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CreatedAt && eq == other.eq && gt == other.gt && gte == other.gte && lt == other.lt && lte == other.lte && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is CreatedAt &&
+                eq == other.eq &&
+                gt == other.gt &&
+                gte == other.gte &&
+                lt == other.lt &&
+                lte == other.lte &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(eq, gt, gte, lt, lte, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(eq, gt, gte, lt, lte, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -541,12 +547,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -695,7 +699,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -833,7 +837,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -846,10 +850,34 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentActionListParams && actionableId == other.actionableId && actionableType == other.actionableType && afterCursor == other.afterCursor && createdAt == other.createdAt && internalAccountId == other.internalAccountId && metadata == other.metadata && perPage == other.perPage && status == other.status && type == other.type && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is PaymentActionListParams &&
+            actionableId == other.actionableId &&
+            actionableType == other.actionableType &&
+            afterCursor == other.afterCursor &&
+            createdAt == other.createdAt &&
+            internalAccountId == other.internalAccountId &&
+            metadata == other.metadata &&
+            perPage == other.perPage &&
+            status == other.status &&
+            type == other.type &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(actionableId, actionableType, afterCursor, createdAt, internalAccountId, metadata, perPage, status, type, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            actionableId,
+            actionableType,
+            afterCursor,
+            createdAt,
+            internalAccountId,
+            metadata,
+            perPage,
+            status,
+            type,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "PaymentActionListParams{actionableId=$actionableId, actionableType=$actionableType, afterCursor=$afterCursor, createdAt=$createdAt, internalAccountId=$internalAccountId, metadata=$metadata, perPage=$perPage, status=$status, type=$type, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -470,12 +470,33 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Connection && id == other.id && createdAt == other.createdAt && discardedAt == other.discardedAt && liveMode == other.liveMode && object_ == other.object_ && updatedAt == other.updatedAt && vendorCustomerId == other.vendorCustomerId && vendorId == other.vendorId && vendorName == other.vendorName && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is Connection &&
+            id == other.id &&
+            createdAt == other.createdAt &&
+            discardedAt == other.discardedAt &&
+            liveMode == other.liveMode &&
+            object_ == other.object_ &&
+            updatedAt == other.updatedAt &&
+            vendorCustomerId == other.vendorCustomerId &&
+            vendorId == other.vendorId &&
+            vendorName == other.vendorName &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, createdAt, discardedAt, liveMode, object_, updatedAt, vendorCustomerId, vendorId, vendorName, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            createdAt,
+            discardedAt,
+            liveMode,
+            object_,
+            updatedAt,
+            vendorCustomerId,
+            vendorId,
+            vendorName,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

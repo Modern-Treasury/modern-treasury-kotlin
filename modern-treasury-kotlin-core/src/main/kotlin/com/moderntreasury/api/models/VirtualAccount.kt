@@ -904,12 +904,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -921,12 +919,47 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is VirtualAccount && id == other.id && accountDetails == other.accountDetails && counterpartyId == other.counterpartyId && createdAt == other.createdAt && creditLedgerAccountId == other.creditLedgerAccountId && debitLedgerAccountId == other.debitLedgerAccountId && description == other.description && discardedAt == other.discardedAt && internalAccountId == other.internalAccountId && ledgerAccountId == other.ledgerAccountId && liveMode == other.liveMode && metadata == other.metadata && name == other.name && object_ == other.object_ && routingDetails == other.routingDetails && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is VirtualAccount &&
+            id == other.id &&
+            accountDetails == other.accountDetails &&
+            counterpartyId == other.counterpartyId &&
+            createdAt == other.createdAt &&
+            creditLedgerAccountId == other.creditLedgerAccountId &&
+            debitLedgerAccountId == other.debitLedgerAccountId &&
+            description == other.description &&
+            discardedAt == other.discardedAt &&
+            internalAccountId == other.internalAccountId &&
+            ledgerAccountId == other.ledgerAccountId &&
+            liveMode == other.liveMode &&
+            metadata == other.metadata &&
+            name == other.name &&
+            object_ == other.object_ &&
+            routingDetails == other.routingDetails &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountDetails, counterpartyId, createdAt, creditLedgerAccountId, debitLedgerAccountId, description, discardedAt, internalAccountId, ledgerAccountId, liveMode, metadata, name, object_, routingDetails, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            accountDetails,
+            counterpartyId,
+            createdAt,
+            creditLedgerAccountId,
+            debitLedgerAccountId,
+            description,
+            discardedAt,
+            internalAccountId,
+            ledgerAccountId,
+            liveMode,
+            metadata,
+            name,
+            object_,
+            routingDetails,
+            updatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

@@ -248,10 +248,32 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentFlowListParams && afterCursor == other.afterCursor && clientToken == other.clientToken && counterpartyId == other.counterpartyId && originatingAccountId == other.originatingAccountId && paymentOrderId == other.paymentOrderId && perPage == other.perPage && receivingAccountId == other.receivingAccountId && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is PaymentFlowListParams &&
+            afterCursor == other.afterCursor &&
+            clientToken == other.clientToken &&
+            counterpartyId == other.counterpartyId &&
+            originatingAccountId == other.originatingAccountId &&
+            paymentOrderId == other.paymentOrderId &&
+            perPage == other.perPage &&
+            receivingAccountId == other.receivingAccountId &&
+            status == other.status &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, clientToken, counterpartyId, originatingAccountId, paymentOrderId, perPage, receivingAccountId, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            afterCursor,
+            clientToken,
+            counterpartyId,
+            originatingAccountId,
+            paymentOrderId,
+            perPage,
+            receivingAccountId,
+            status,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "PaymentFlowListParams{afterCursor=$afterCursor, clientToken=$clientToken, counterpartyId=$counterpartyId, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, perPage=$perPage, receivingAccountId=$receivingAccountId, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

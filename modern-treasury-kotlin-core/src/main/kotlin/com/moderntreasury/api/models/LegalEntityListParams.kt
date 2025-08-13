@@ -353,7 +353,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LegalEntityType && value == other.value /* spotless:on */
+            return other is LegalEntityType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -449,12 +449,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -466,10 +464,26 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LegalEntityListParams && afterCursor == other.afterCursor && legalEntityType == other.legalEntityType && metadata == other.metadata && perPage == other.perPage && showDeleted == other.showDeleted && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is LegalEntityListParams &&
+            afterCursor == other.afterCursor &&
+            legalEntityType == other.legalEntityType &&
+            metadata == other.metadata &&
+            perPage == other.perPage &&
+            showDeleted == other.showDeleted &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, legalEntityType, metadata, perPage, showDeleted, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            afterCursor,
+            legalEntityType,
+            metadata,
+            perPage,
+            showDeleted,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "LegalEntityListParams{afterCursor=$afterCursor, legalEntityType=$legalEntityType, metadata=$metadata, perPage=$perPage, showDeleted=$showDeleted, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

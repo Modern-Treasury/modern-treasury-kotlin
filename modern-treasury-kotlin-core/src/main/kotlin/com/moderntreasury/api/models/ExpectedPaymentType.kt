@@ -321,7 +321,7 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
             return true
         }
 
-        return /* spotless:off */ other is ExpectedPaymentType && value == other.value /* spotless:on */
+        return other is ExpectedPaymentType && value == other.value
     }
 
     override fun hashCode() = value.hashCode()

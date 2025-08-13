@@ -126,7 +126,7 @@ class TransactionDirection @JsonCreator private constructor(private val value: J
             return true
         }
 
-        return /* spotless:off */ other is TransactionDirection && value == other.value /* spotless:on */
+        return other is TransactionDirection && value == other.value
     }
 
     override fun hashCode() = value.hashCode()
