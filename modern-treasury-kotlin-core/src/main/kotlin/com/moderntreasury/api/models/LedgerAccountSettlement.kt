@@ -922,12 +922,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1079,7 +1077,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1092,12 +1090,49 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountSettlement && id == other.id && amount == other.amount && contraLedgerAccountId == other.contraLedgerAccountId && createdAt == other.createdAt && currency == other.currency && currencyExponent == other.currencyExponent && description == other.description && effectiveAtUpperBound == other.effectiveAtUpperBound && ledgerId == other.ledgerId && ledgerTransactionId == other.ledgerTransactionId && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && settledLedgerAccountId == other.settledLedgerAccountId && settlementEntryDirection == other.settlementEntryDirection && status == other.status && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is LedgerAccountSettlement &&
+            id == other.id &&
+            amount == other.amount &&
+            contraLedgerAccountId == other.contraLedgerAccountId &&
+            createdAt == other.createdAt &&
+            currency == other.currency &&
+            currencyExponent == other.currencyExponent &&
+            description == other.description &&
+            effectiveAtUpperBound == other.effectiveAtUpperBound &&
+            ledgerId == other.ledgerId &&
+            ledgerTransactionId == other.ledgerTransactionId &&
+            liveMode == other.liveMode &&
+            metadata == other.metadata &&
+            object_ == other.object_ &&
+            settledLedgerAccountId == other.settledLedgerAccountId &&
+            settlementEntryDirection == other.settlementEntryDirection &&
+            status == other.status &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, amount, contraLedgerAccountId, createdAt, currency, currencyExponent, description, effectiveAtUpperBound, ledgerId, ledgerTransactionId, liveMode, metadata, object_, settledLedgerAccountId, settlementEntryDirection, status, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            amount,
+            contraLedgerAccountId,
+            createdAt,
+            currency,
+            currencyExponent,
+            description,
+            effectiveAtUpperBound,
+            ledgerId,
+            ledgerTransactionId,
+            liveMode,
+            metadata,
+            object_,
+            settledLedgerAccountId,
+            settlementEntryDirection,
+            status,
+            updatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

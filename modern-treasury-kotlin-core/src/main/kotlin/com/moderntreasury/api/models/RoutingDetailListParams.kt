@@ -226,10 +226,24 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RoutingDetailListParams && accountsType == other.accountsType && accountId == other.accountId && afterCursor == other.afterCursor && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is RoutingDetailListParams &&
+            accountsType == other.accountsType &&
+            accountId == other.accountId &&
+            afterCursor == other.afterCursor &&
+            perPage == other.perPage &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountsType, accountId, afterCursor, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            accountsType,
+            accountId,
+            afterCursor,
+            perPage,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "RoutingDetailListParams{accountsType=$accountsType, accountId=$accountId, afterCursor=$afterCursor, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

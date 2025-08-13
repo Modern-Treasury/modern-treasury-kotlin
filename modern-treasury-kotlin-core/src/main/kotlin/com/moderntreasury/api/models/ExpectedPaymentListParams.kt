@@ -436,12 +436,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -578,7 +576,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -899,7 +897,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -912,10 +910,42 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExpectedPaymentListParams && afterCursor == other.afterCursor && counterpartyId == other.counterpartyId && createdAtLowerBound == other.createdAtLowerBound && createdAtUpperBound == other.createdAtUpperBound && direction == other.direction && externalId == other.externalId && internalAccountId == other.internalAccountId && metadata == other.metadata && perPage == other.perPage && status == other.status && type == other.type && updatedAtLowerBound == other.updatedAtLowerBound && updatedAtUpperBound == other.updatedAtUpperBound && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is ExpectedPaymentListParams &&
+            afterCursor == other.afterCursor &&
+            counterpartyId == other.counterpartyId &&
+            createdAtLowerBound == other.createdAtLowerBound &&
+            createdAtUpperBound == other.createdAtUpperBound &&
+            direction == other.direction &&
+            externalId == other.externalId &&
+            internalAccountId == other.internalAccountId &&
+            metadata == other.metadata &&
+            perPage == other.perPage &&
+            status == other.status &&
+            type == other.type &&
+            updatedAtLowerBound == other.updatedAtLowerBound &&
+            updatedAtUpperBound == other.updatedAtUpperBound &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, counterpartyId, createdAtLowerBound, createdAtUpperBound, direction, externalId, internalAccountId, metadata, perPage, status, type, updatedAtLowerBound, updatedAtUpperBound, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            afterCursor,
+            counterpartyId,
+            createdAtLowerBound,
+            createdAtUpperBound,
+            direction,
+            externalId,
+            internalAccountId,
+            metadata,
+            perPage,
+            status,
+            type,
+            updatedAtLowerBound,
+            updatedAtUpperBound,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "ExpectedPaymentListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, createdAtLowerBound=$createdAtLowerBound, createdAtUpperBound=$createdAtUpperBound, direction=$direction, externalId=$externalId, internalAccountId=$internalAccountId, metadata=$metadata, perPage=$perPage, status=$status, type=$type, updatedAtLowerBound=$updatedAtLowerBound, updatedAtUpperBound=$updatedAtUpperBound, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

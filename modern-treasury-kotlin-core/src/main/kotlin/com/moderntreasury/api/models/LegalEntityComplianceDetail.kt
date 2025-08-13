@@ -598,12 +598,39 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LegalEntityComplianceDetail && id == other.id && createdAt == other.createdAt && discardedAt == other.discardedAt && issuer == other.issuer && liveMode == other.liveMode && object_ == other.object_ && tokenExpiresAt == other.tokenExpiresAt && tokenIssuedAt == other.tokenIssuedAt && tokenUrl == other.tokenUrl && updatedAt == other.updatedAt && entityValidated == other.entityValidated && validatedAt == other.validatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is LegalEntityComplianceDetail &&
+            id == other.id &&
+            createdAt == other.createdAt &&
+            discardedAt == other.discardedAt &&
+            issuer == other.issuer &&
+            liveMode == other.liveMode &&
+            object_ == other.object_ &&
+            tokenExpiresAt == other.tokenExpiresAt &&
+            tokenIssuedAt == other.tokenIssuedAt &&
+            tokenUrl == other.tokenUrl &&
+            updatedAt == other.updatedAt &&
+            entityValidated == other.entityValidated &&
+            validatedAt == other.validatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, createdAt, discardedAt, issuer, liveMode, object_, tokenExpiresAt, tokenIssuedAt, tokenUrl, updatedAt, entityValidated, validatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            createdAt,
+            discardedAt,
+            issuer,
+            liveMode,
+            object_,
+            tokenExpiresAt,
+            tokenIssuedAt,
+            tokenUrl,
+            updatedAt,
+            entityValidated,
+            validatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

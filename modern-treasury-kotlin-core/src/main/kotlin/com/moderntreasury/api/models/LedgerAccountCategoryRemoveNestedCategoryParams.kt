@@ -237,10 +237,22 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountCategoryRemoveNestedCategoryParams && id == other.id && subCategoryId == other.subCategoryId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return other is LedgerAccountCategoryRemoveNestedCategoryParams &&
+            id == other.id &&
+            subCategoryId == other.subCategoryId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams &&
+            additionalBodyProperties == other.additionalBodyProperties
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, subCategoryId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            id,
+            subCategoryId,
+            additionalHeaders,
+            additionalQueryParams,
+            additionalBodyProperties,
+        )
 
     override fun toString() =
         "LedgerAccountCategoryRemoveNestedCategoryParams{id=$id, subCategoryId=$subCategoryId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"

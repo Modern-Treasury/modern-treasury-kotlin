@@ -374,7 +374,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BalanceReportType && value == other.value /* spotless:on */
+            return other is BalanceReportType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -387,10 +387,26 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BalanceReportListParams && internalAccountId == other.internalAccountId && afterCursor == other.afterCursor && asOfDate == other.asOfDate && balanceReportType == other.balanceReportType && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is BalanceReportListParams &&
+            internalAccountId == other.internalAccountId &&
+            afterCursor == other.afterCursor &&
+            asOfDate == other.asOfDate &&
+            balanceReportType == other.balanceReportType &&
+            perPage == other.perPage &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(internalAccountId, afterCursor, asOfDate, balanceReportType, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            internalAccountId,
+            afterCursor,
+            asOfDate,
+            balanceReportType,
+            perPage,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "BalanceReportListParams{internalAccountId=$internalAccountId, afterCursor=$afterCursor, asOfDate=$asOfDate, balanceReportType=$balanceReportType, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

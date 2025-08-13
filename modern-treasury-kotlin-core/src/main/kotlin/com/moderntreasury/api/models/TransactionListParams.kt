@@ -441,12 +441,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -458,10 +456,44 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is TransactionListParams && afterCursor == other.afterCursor && asOfDateEnd == other.asOfDateEnd && asOfDateStart == other.asOfDateStart && counterpartyId == other.counterpartyId && description == other.description && direction == other.direction && internalAccountId == other.internalAccountId && metadata == other.metadata && paymentType == other.paymentType && perPage == other.perPage && posted == other.posted && transactableType == other.transactableType && vendorId == other.vendorId && virtualAccountId == other.virtualAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is TransactionListParams &&
+            afterCursor == other.afterCursor &&
+            asOfDateEnd == other.asOfDateEnd &&
+            asOfDateStart == other.asOfDateStart &&
+            counterpartyId == other.counterpartyId &&
+            description == other.description &&
+            direction == other.direction &&
+            internalAccountId == other.internalAccountId &&
+            metadata == other.metadata &&
+            paymentType == other.paymentType &&
+            perPage == other.perPage &&
+            posted == other.posted &&
+            transactableType == other.transactableType &&
+            vendorId == other.vendorId &&
+            virtualAccountId == other.virtualAccountId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, asOfDateEnd, asOfDateStart, counterpartyId, description, direction, internalAccountId, metadata, paymentType, perPage, posted, transactableType, vendorId, virtualAccountId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            afterCursor,
+            asOfDateEnd,
+            asOfDateStart,
+            counterpartyId,
+            description,
+            direction,
+            internalAccountId,
+            metadata,
+            paymentType,
+            perPage,
+            posted,
+            transactableType,
+            vendorId,
+            virtualAccountId,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "TransactionListParams{afterCursor=$afterCursor, asOfDateEnd=$asOfDateEnd, asOfDateStart=$asOfDateStart, counterpartyId=$counterpartyId, description=$description, direction=$direction, internalAccountId=$internalAccountId, metadata=$metadata, paymentType=$paymentType, perPage=$perPage, posted=$posted, transactableType=$transactableType, vendorId=$vendorId, virtualAccountId=$virtualAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

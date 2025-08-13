@@ -372,12 +372,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -389,10 +387,34 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CounterpartyListParams && afterCursor == other.afterCursor && createdAtLowerBound == other.createdAtLowerBound && createdAtUpperBound == other.createdAtUpperBound && email == other.email && externalId == other.externalId && legalEntityId == other.legalEntityId && metadata == other.metadata && name == other.name && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is CounterpartyListParams &&
+            afterCursor == other.afterCursor &&
+            createdAtLowerBound == other.createdAtLowerBound &&
+            createdAtUpperBound == other.createdAtUpperBound &&
+            email == other.email &&
+            externalId == other.externalId &&
+            legalEntityId == other.legalEntityId &&
+            metadata == other.metadata &&
+            name == other.name &&
+            perPage == other.perPage &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, createdAtLowerBound, createdAtUpperBound, email, externalId, legalEntityId, metadata, name, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            afterCursor,
+            createdAtLowerBound,
+            createdAtUpperBound,
+            email,
+            externalId,
+            legalEntityId,
+            metadata,
+            name,
+            perPage,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "CounterpartyListParams{afterCursor=$afterCursor, createdAtLowerBound=$createdAtLowerBound, createdAtUpperBound=$createdAtUpperBound, email=$email, externalId=$externalId, legalEntityId=$legalEntityId, metadata=$metadata, name=$name, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

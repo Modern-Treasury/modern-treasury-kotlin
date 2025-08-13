@@ -877,7 +877,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentType && value == other.value /* spotless:on */
+            return other is PaymentType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1131,7 +1131,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RoutingNumberType && value == other.value /* spotless:on */
+            return other is RoutingNumberType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1144,12 +1144,37 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RoutingDetail && id == other.id && bankAddress == other.bankAddress && bankName == other.bankName && createdAt == other.createdAt && discardedAt == other.discardedAt && liveMode == other.liveMode && object_ == other.object_ && paymentType == other.paymentType && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is RoutingDetail &&
+            id == other.id &&
+            bankAddress == other.bankAddress &&
+            bankName == other.bankName &&
+            createdAt == other.createdAt &&
+            discardedAt == other.discardedAt &&
+            liveMode == other.liveMode &&
+            object_ == other.object_ &&
+            paymentType == other.paymentType &&
+            routingNumber == other.routingNumber &&
+            routingNumberType == other.routingNumberType &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, bankAddress, bankName, createdAt, discardedAt, liveMode, object_, paymentType, routingNumber, routingNumberType, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            bankAddress,
+            bankName,
+            createdAt,
+            discardedAt,
+            liveMode,
+            object_,
+            paymentType,
+            routingNumber,
+            routingNumberType,
+            updatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

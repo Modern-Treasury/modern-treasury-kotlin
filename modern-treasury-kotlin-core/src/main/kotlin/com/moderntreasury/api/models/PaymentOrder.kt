@@ -2462,7 +2462,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ChargeBearer && value == other.value /* spotless:on */
+            return other is ChargeBearer && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2594,7 +2594,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
+            return other is Direction && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2734,7 +2734,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ForeignExchangeIndicator && value == other.value /* spotless:on */
+            return other is ForeignExchangeIndicator && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2830,12 +2830,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -2964,7 +2962,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Priority && value == other.value /* spotless:on */
+            return other is Priority && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -3096,7 +3094,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ReceivingAccountType && value == other.value /* spotless:on */
+            return other is ReceivingAccountType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -4146,7 +4144,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ReferenceNumberType && value == other.value /* spotless:on */
+                return other is ReferenceNumberType && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -4159,12 +4157,29 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentReference && id == other.id && createdAt == other.createdAt && liveMode == other.liveMode && object_ == other.object_ && referenceNumber == other.referenceNumber && referenceNumberType == other.referenceNumberType && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is PaymentReference &&
+                id == other.id &&
+                createdAt == other.createdAt &&
+                liveMode == other.liveMode &&
+                object_ == other.object_ &&
+                referenceNumber == other.referenceNumber &&
+                referenceNumberType == other.referenceNumberType &&
+                updatedAt == other.updatedAt &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, createdAt, liveMode, object_, referenceNumber, referenceNumberType, updatedAt, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                id,
+                createdAt,
+                liveMode,
+                object_,
+                referenceNumber,
+                referenceNumberType,
+                updatedAt,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -4350,7 +4365,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -4444,10 +4459,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is UltimateOriginatingAccount && virtual == other.virtual && internalAccount == other.internalAccount /* spotless:on */
+            return other is UltimateOriginatingAccount &&
+                virtual == other.virtual &&
+                internalAccount == other.internalAccount
         }
 
-        override fun hashCode(): Int = /* spotless:off */ Objects.hash(virtual, internalAccount) /* spotless:on */
+        override fun hashCode(): Int = Objects.hash(virtual, internalAccount)
 
         override fun toString(): String =
             when {
@@ -4669,7 +4686,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is UltimateOriginatingAccountType && value == other.value /* spotless:on */
+            return other is UltimateOriginatingAccountType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -4682,12 +4699,111 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentOrder && id == other.id && accounting == other.accounting && accountingCategoryId == other.accountingCategoryId && accountingLedgerClassId == other.accountingLedgerClassId && amount == other.amount && chargeBearer == other.chargeBearer && counterpartyId == other.counterpartyId && createdAt == other.createdAt && currency == other.currency && currentReturn == other.currentReturn && description == other.description && direction == other.direction && effectiveDate == other.effectiveDate && expiresAt == other.expiresAt && externalId == other.externalId && foreignExchangeContract == other.foreignExchangeContract && foreignExchangeIndicator == other.foreignExchangeIndicator && foreignExchangeRate == other.foreignExchangeRate && ledgerTransactionId == other.ledgerTransactionId && liveMode == other.liveMode && metadata == other.metadata && nsfProtected == other.nsfProtected && object_ == other.object_ && originatingAccountId == other.originatingAccountId && originatingPartyName == other.originatingPartyName && priority == other.priority && processAfter == other.processAfter && purpose == other.purpose && receivingAccountId == other.receivingAccountId && receivingAccountType == other.receivingAccountType && referenceNumbers == other.referenceNumbers && remittanceInformation == other.remittanceInformation && sendRemittanceAdvice == other.sendRemittanceAdvice && statementDescriptor == other.statementDescriptor && status == other.status && subtype == other.subtype && transactionIds == other.transactionIds && type == other.type && ultimateOriginatingAccount == other.ultimateOriginatingAccount && ultimateOriginatingAccountId == other.ultimateOriginatingAccountId && ultimateOriginatingAccountType == other.ultimateOriginatingAccountType && ultimateOriginatingPartyIdentifier == other.ultimateOriginatingPartyIdentifier && ultimateOriginatingPartyName == other.ultimateOriginatingPartyName && ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier && ultimateReceivingPartyName == other.ultimateReceivingPartyName && updatedAt == other.updatedAt && vendorAttributes == other.vendorAttributes && vendorFailureReason == other.vendorFailureReason && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is PaymentOrder &&
+            id == other.id &&
+            accounting == other.accounting &&
+            accountingCategoryId == other.accountingCategoryId &&
+            accountingLedgerClassId == other.accountingLedgerClassId &&
+            amount == other.amount &&
+            chargeBearer == other.chargeBearer &&
+            counterpartyId == other.counterpartyId &&
+            createdAt == other.createdAt &&
+            currency == other.currency &&
+            currentReturn == other.currentReturn &&
+            description == other.description &&
+            direction == other.direction &&
+            effectiveDate == other.effectiveDate &&
+            expiresAt == other.expiresAt &&
+            externalId == other.externalId &&
+            foreignExchangeContract == other.foreignExchangeContract &&
+            foreignExchangeIndicator == other.foreignExchangeIndicator &&
+            foreignExchangeRate == other.foreignExchangeRate &&
+            ledgerTransactionId == other.ledgerTransactionId &&
+            liveMode == other.liveMode &&
+            metadata == other.metadata &&
+            nsfProtected == other.nsfProtected &&
+            object_ == other.object_ &&
+            originatingAccountId == other.originatingAccountId &&
+            originatingPartyName == other.originatingPartyName &&
+            priority == other.priority &&
+            processAfter == other.processAfter &&
+            purpose == other.purpose &&
+            receivingAccountId == other.receivingAccountId &&
+            receivingAccountType == other.receivingAccountType &&
+            referenceNumbers == other.referenceNumbers &&
+            remittanceInformation == other.remittanceInformation &&
+            sendRemittanceAdvice == other.sendRemittanceAdvice &&
+            statementDescriptor == other.statementDescriptor &&
+            status == other.status &&
+            subtype == other.subtype &&
+            transactionIds == other.transactionIds &&
+            type == other.type &&
+            ultimateOriginatingAccount == other.ultimateOriginatingAccount &&
+            ultimateOriginatingAccountId == other.ultimateOriginatingAccountId &&
+            ultimateOriginatingAccountType == other.ultimateOriginatingAccountType &&
+            ultimateOriginatingPartyIdentifier == other.ultimateOriginatingPartyIdentifier &&
+            ultimateOriginatingPartyName == other.ultimateOriginatingPartyName &&
+            ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier &&
+            ultimateReceivingPartyName == other.ultimateReceivingPartyName &&
+            updatedAt == other.updatedAt &&
+            vendorAttributes == other.vendorAttributes &&
+            vendorFailureReason == other.vendorFailureReason &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accounting, accountingCategoryId, accountingLedgerClassId, amount, chargeBearer, counterpartyId, createdAt, currency, currentReturn, description, direction, effectiveDate, expiresAt, externalId, foreignExchangeContract, foreignExchangeIndicator, foreignExchangeRate, ledgerTransactionId, liveMode, metadata, nsfProtected, object_, originatingAccountId, originatingPartyName, priority, processAfter, purpose, receivingAccountId, receivingAccountType, referenceNumbers, remittanceInformation, sendRemittanceAdvice, statementDescriptor, status, subtype, transactionIds, type, ultimateOriginatingAccount, ultimateOriginatingAccountId, ultimateOriginatingAccountType, ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier, ultimateReceivingPartyName, updatedAt, vendorAttributes, vendorFailureReason, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            accounting,
+            accountingCategoryId,
+            accountingLedgerClassId,
+            amount,
+            chargeBearer,
+            counterpartyId,
+            createdAt,
+            currency,
+            currentReturn,
+            description,
+            direction,
+            effectiveDate,
+            expiresAt,
+            externalId,
+            foreignExchangeContract,
+            foreignExchangeIndicator,
+            foreignExchangeRate,
+            ledgerTransactionId,
+            liveMode,
+            metadata,
+            nsfProtected,
+            object_,
+            originatingAccountId,
+            originatingPartyName,
+            priority,
+            processAfter,
+            purpose,
+            receivingAccountId,
+            receivingAccountType,
+            referenceNumbers,
+            remittanceInformation,
+            sendRemittanceAdvice,
+            statementDescriptor,
+            status,
+            subtype,
+            transactionIds,
+            type,
+            ultimateOriginatingAccount,
+            ultimateOriginatingAccountId,
+            ultimateOriginatingAccountType,
+            ultimateOriginatingPartyIdentifier,
+            ultimateOriginatingPartyName,
+            ultimateReceivingPartyIdentifier,
+            ultimateReceivingPartyName,
+            updatedAt,
+            vendorAttributes,
+            vendorFailureReason,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

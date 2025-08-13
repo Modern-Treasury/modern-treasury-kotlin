@@ -214,10 +214,24 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ConnectionListParams && afterCursor == other.afterCursor && entity == other.entity && perPage == other.perPage && vendorCustomerId == other.vendorCustomerId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is ConnectionListParams &&
+            afterCursor == other.afterCursor &&
+            entity == other.entity &&
+            perPage == other.perPage &&
+            vendorCustomerId == other.vendorCustomerId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, entity, perPage, vendorCustomerId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            afterCursor,
+            entity,
+            perPage,
+            vendorCustomerId,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "ConnectionListParams{afterCursor=$afterCursor, entity=$entity, perPage=$perPage, vendorCustomerId=$vendorCustomerId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

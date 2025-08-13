@@ -383,12 +383,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -536,7 +534,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -549,10 +547,38 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InvoiceListParams && afterCursor == other.afterCursor && counterpartyId == other.counterpartyId && dueDateEnd == other.dueDateEnd && dueDateStart == other.dueDateStart && expectedPaymentId == other.expectedPaymentId && metadata == other.metadata && number == other.number && originatingAccountId == other.originatingAccountId && paymentOrderId == other.paymentOrderId && perPage == other.perPage && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is InvoiceListParams &&
+            afterCursor == other.afterCursor &&
+            counterpartyId == other.counterpartyId &&
+            dueDateEnd == other.dueDateEnd &&
+            dueDateStart == other.dueDateStart &&
+            expectedPaymentId == other.expectedPaymentId &&
+            metadata == other.metadata &&
+            number == other.number &&
+            originatingAccountId == other.originatingAccountId &&
+            paymentOrderId == other.paymentOrderId &&
+            perPage == other.perPage &&
+            status == other.status &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, counterpartyId, dueDateEnd, dueDateStart, expectedPaymentId, metadata, number, originatingAccountId, paymentOrderId, perPage, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            afterCursor,
+            counterpartyId,
+            dueDateEnd,
+            dueDateStart,
+            expectedPaymentId,
+            metadata,
+            number,
+            originatingAccountId,
+            paymentOrderId,
+            perPage,
+            status,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "InvoiceListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, dueDateEnd=$dueDateEnd, dueDateStart=$dueDateStart, expectedPaymentId=$expectedPaymentId, metadata=$metadata, number=$number, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, perPage=$perPage, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

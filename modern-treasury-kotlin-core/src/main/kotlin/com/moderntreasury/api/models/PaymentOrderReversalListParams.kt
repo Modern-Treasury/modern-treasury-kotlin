@@ -207,10 +207,16 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentOrderReversalListParams && paymentOrderId == other.paymentOrderId && afterCursor == other.afterCursor && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is PaymentOrderReversalListParams &&
+            paymentOrderId == other.paymentOrderId &&
+            afterCursor == other.afterCursor &&
+            perPage == other.perPage &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(paymentOrderId, afterCursor, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(paymentOrderId, afterCursor, perPage, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "PaymentOrderReversalListParams{paymentOrderId=$paymentOrderId, afterCursor=$afterCursor, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
