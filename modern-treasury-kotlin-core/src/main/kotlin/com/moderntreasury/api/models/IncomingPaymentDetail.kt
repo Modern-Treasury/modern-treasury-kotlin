@@ -1246,12 +1246,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Data && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Data && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1346,12 +1344,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1558,7 +1554,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is OriginatingAccountNumberType && value == other.value /* spotless:on */
+            return other is OriginatingAccountNumberType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1814,7 +1810,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is OriginatingRoutingNumberType && value == other.value /* spotless:on */
+            return other is OriginatingRoutingNumberType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1949,7 +1945,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2141,7 +2137,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2154,12 +2150,65 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is IncomingPaymentDetail && id == other.id && amount == other.amount && asOfDate == other.asOfDate && createdAt == other.createdAt && currency == other.currency && data == other.data && direction == other.direction && internalAccountId == other.internalAccountId && ledgerTransactionId == other.ledgerTransactionId && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && originatingAccountNumberSafe == other.originatingAccountNumberSafe && originatingAccountNumberType == other.originatingAccountNumberType && originatingRoutingNumber == other.originatingRoutingNumber && originatingRoutingNumberType == other.originatingRoutingNumberType && status == other.status && transactionId == other.transactionId && transactionLineItemId == other.transactionLineItemId && type == other.type && updatedAt == other.updatedAt && vendorId == other.vendorId && virtualAccount == other.virtualAccount && virtualAccountId == other.virtualAccountId && originatingAccountNumber == other.originatingAccountNumber && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is IncomingPaymentDetail &&
+            id == other.id &&
+            amount == other.amount &&
+            asOfDate == other.asOfDate &&
+            createdAt == other.createdAt &&
+            currency == other.currency &&
+            data == other.data &&
+            direction == other.direction &&
+            internalAccountId == other.internalAccountId &&
+            ledgerTransactionId == other.ledgerTransactionId &&
+            liveMode == other.liveMode &&
+            metadata == other.metadata &&
+            object_ == other.object_ &&
+            originatingAccountNumberSafe == other.originatingAccountNumberSafe &&
+            originatingAccountNumberType == other.originatingAccountNumberType &&
+            originatingRoutingNumber == other.originatingRoutingNumber &&
+            originatingRoutingNumberType == other.originatingRoutingNumberType &&
+            status == other.status &&
+            transactionId == other.transactionId &&
+            transactionLineItemId == other.transactionLineItemId &&
+            type == other.type &&
+            updatedAt == other.updatedAt &&
+            vendorId == other.vendorId &&
+            virtualAccount == other.virtualAccount &&
+            virtualAccountId == other.virtualAccountId &&
+            originatingAccountNumber == other.originatingAccountNumber &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, amount, asOfDate, createdAt, currency, data, direction, internalAccountId, ledgerTransactionId, liveMode, metadata, object_, originatingAccountNumberSafe, originatingAccountNumberType, originatingRoutingNumber, originatingRoutingNumberType, status, transactionId, transactionLineItemId, type, updatedAt, vendorId, virtualAccount, virtualAccountId, originatingAccountNumber, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            amount,
+            asOfDate,
+            createdAt,
+            currency,
+            data,
+            direction,
+            internalAccountId,
+            ledgerTransactionId,
+            liveMode,
+            metadata,
+            object_,
+            originatingAccountNumberSafe,
+            originatingAccountNumberType,
+            originatingRoutingNumber,
+            originatingRoutingNumberType,
+            status,
+            transactionId,
+            transactionLineItemId,
+            type,
+            updatedAt,
+            vendorId,
+            virtualAccount,
+            virtualAccountId,
+            originatingAccountNumber,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

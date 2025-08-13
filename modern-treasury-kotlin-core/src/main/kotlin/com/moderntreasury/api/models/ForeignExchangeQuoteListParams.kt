@@ -376,12 +376,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -393,10 +391,34 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ForeignExchangeQuoteListParams && afterCursor == other.afterCursor && baseCurrency == other.baseCurrency && effectiveAtEnd == other.effectiveAtEnd && effectiveAtStart == other.effectiveAtStart && expiresAt == other.expiresAt && internalAccountId == other.internalAccountId && metadata == other.metadata && perPage == other.perPage && targetCurrency == other.targetCurrency && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is ForeignExchangeQuoteListParams &&
+            afterCursor == other.afterCursor &&
+            baseCurrency == other.baseCurrency &&
+            effectiveAtEnd == other.effectiveAtEnd &&
+            effectiveAtStart == other.effectiveAtStart &&
+            expiresAt == other.expiresAt &&
+            internalAccountId == other.internalAccountId &&
+            metadata == other.metadata &&
+            perPage == other.perPage &&
+            targetCurrency == other.targetCurrency &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, baseCurrency, effectiveAtEnd, effectiveAtStart, expiresAt, internalAccountId, metadata, perPage, targetCurrency, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            afterCursor,
+            baseCurrency,
+            effectiveAtEnd,
+            effectiveAtStart,
+            expiresAt,
+            internalAccountId,
+            metadata,
+            perPage,
+            targetCurrency,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "ForeignExchangeQuoteListParams{afterCursor=$afterCursor, baseCurrency=$baseCurrency, effectiveAtEnd=$effectiveAtEnd, effectiveAtStart=$effectiveAtStart, expiresAt=$expiresAt, internalAccountId=$internalAccountId, metadata=$metadata, perPage=$perPage, targetCurrency=$targetCurrency, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -192,10 +192,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerTransactionCreateParams && ledgerTransactionCreateRequest == other.ledgerTransactionCreateRequest && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is LedgerTransactionCreateParams &&
+            ledgerTransactionCreateRequest == other.ledgerTransactionCreateRequest &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(ledgerTransactionCreateRequest, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(ledgerTransactionCreateRequest, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "LedgerTransactionCreateParams{ledgerTransactionCreateRequest=$ledgerTransactionCreateRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

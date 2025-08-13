@@ -206,10 +206,16 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InvoiceLineItemListParams && invoiceId == other.invoiceId && afterCursor == other.afterCursor && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is InvoiceLineItemListParams &&
+            invoiceId == other.invoiceId &&
+            afterCursor == other.afterCursor &&
+            perPage == other.perPage &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(invoiceId, afterCursor, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(invoiceId, afterCursor, perPage, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "InvoiceLineItemListParams{invoiceId=$invoiceId, afterCursor=$afterCursor, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -640,12 +640,25 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentActionCreateRequest && type == other.type && actionableId == other.actionableId && actionableType == other.actionableType && details == other.details && internalAccountId == other.internalAccountId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is PaymentActionCreateRequest &&
+                type == other.type &&
+                actionableId == other.actionableId &&
+                actionableType == other.actionableType &&
+                details == other.details &&
+                internalAccountId == other.internalAccountId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(type, actionableId, actionableType, details, internalAccountId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                type,
+                actionableId,
+                actionableType,
+                details,
+                internalAccountId,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -658,10 +671,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentActionCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is PaymentActionCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "PaymentActionCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

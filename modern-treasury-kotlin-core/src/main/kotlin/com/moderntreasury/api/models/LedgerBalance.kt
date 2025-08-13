@@ -298,12 +298,18 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerBalance && amount == other.amount && credits == other.credits && currency == other.currency && currencyExponent == other.currencyExponent && debits == other.debits && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is LedgerBalance &&
+            amount == other.amount &&
+            credits == other.credits &&
+            currency == other.currency &&
+            currencyExponent == other.currencyExponent &&
+            debits == other.debits &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(amount, credits, currency, currencyExponent, debits, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(amount, credits, currency, currencyExponent, debits, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 

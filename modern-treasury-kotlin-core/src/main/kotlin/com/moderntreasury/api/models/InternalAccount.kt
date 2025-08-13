@@ -1800,7 +1800,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is PaymentType && value == other.value /* spotless:on */
+                return other is PaymentType && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1813,12 +1813,33 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountCapability && id == other.id && createdAt == other.createdAt && direction == other.direction && discardedAt == other.discardedAt && identifier == other.identifier && liveMode == other.liveMode && object_ == other.object_ && paymentType == other.paymentType && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is AccountCapability &&
+                id == other.id &&
+                createdAt == other.createdAt &&
+                direction == other.direction &&
+                discardedAt == other.discardedAt &&
+                identifier == other.identifier &&
+                liveMode == other.liveMode &&
+                object_ == other.object_ &&
+                paymentType == other.paymentType &&
+                updatedAt == other.updatedAt &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, createdAt, direction, discardedAt, identifier, liveMode, object_, paymentType, updatedAt, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                id,
+                createdAt,
+                direction,
+                discardedAt,
+                identifier,
+                liveMode,
+                object_,
+                paymentType,
+                updatedAt,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -2013,7 +2034,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountType && value == other.value /* spotless:on */
+            return other is AccountType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2109,12 +2130,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -2241,7 +2260,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PartyType && value == other.value /* spotless:on */
+            return other is PartyType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2254,12 +2273,57 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InternalAccount && id == other.id && accountCapabilities == other.accountCapabilities && accountDetails == other.accountDetails && accountType == other.accountType && connection == other.connection && counterpartyId == other.counterpartyId && createdAt == other.createdAt && currency == other.currency && ledgerAccountId == other.ledgerAccountId && legalEntityId == other.legalEntityId && liveMode == other.liveMode && metadata == other.metadata && name == other.name && object_ == other.object_ && parentAccountId == other.parentAccountId && partyAddress == other.partyAddress && partyName == other.partyName && partyType == other.partyType && routingDetails == other.routingDetails && updatedAt == other.updatedAt && vendorId == other.vendorId && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is InternalAccount &&
+            id == other.id &&
+            accountCapabilities == other.accountCapabilities &&
+            accountDetails == other.accountDetails &&
+            accountType == other.accountType &&
+            connection == other.connection &&
+            counterpartyId == other.counterpartyId &&
+            createdAt == other.createdAt &&
+            currency == other.currency &&
+            ledgerAccountId == other.ledgerAccountId &&
+            legalEntityId == other.legalEntityId &&
+            liveMode == other.liveMode &&
+            metadata == other.metadata &&
+            name == other.name &&
+            object_ == other.object_ &&
+            parentAccountId == other.parentAccountId &&
+            partyAddress == other.partyAddress &&
+            partyName == other.partyName &&
+            partyType == other.partyType &&
+            routingDetails == other.routingDetails &&
+            updatedAt == other.updatedAt &&
+            vendorId == other.vendorId &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountCapabilities, accountDetails, accountType, connection, counterpartyId, createdAt, currency, ledgerAccountId, legalEntityId, liveMode, metadata, name, object_, parentAccountId, partyAddress, partyName, partyType, routingDetails, updatedAt, vendorId, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            accountCapabilities,
+            accountDetails,
+            accountType,
+            connection,
+            counterpartyId,
+            createdAt,
+            currency,
+            ledgerAccountId,
+            legalEntityId,
+            liveMode,
+            metadata,
+            name,
+            object_,
+            parentAccountId,
+            partyAddress,
+            partyName,
+            partyType,
+            routingDetails,
+            updatedAt,
+            vendorId,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

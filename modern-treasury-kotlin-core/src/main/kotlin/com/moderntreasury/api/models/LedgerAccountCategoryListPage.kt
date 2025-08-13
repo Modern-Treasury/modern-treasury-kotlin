@@ -113,10 +113,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountCategoryListPage && service == other.service && params == other.params && headers == other.headers && items == other.items /* spotless:on */
+        return other is LedgerAccountCategoryListPage &&
+            service == other.service &&
+            params == other.params &&
+            headers == other.headers &&
+            items == other.items
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, headers, items) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(service, params, headers, items)
 
     override fun toString() =
         "LedgerAccountCategoryListPage{service=$service, params=$params, headers=$headers, items=$items}"

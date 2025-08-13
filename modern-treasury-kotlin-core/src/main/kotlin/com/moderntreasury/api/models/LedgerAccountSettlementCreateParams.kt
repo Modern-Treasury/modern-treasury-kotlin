@@ -1017,12 +1017,31 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LedgerAccountSettlementCreateRequest && contraLedgerAccountId == other.contraLedgerAccountId && settledLedgerAccountId == other.settledLedgerAccountId && allowEitherDirection == other.allowEitherDirection && description == other.description && effectiveAtUpperBound == other.effectiveAtUpperBound && metadata == other.metadata && skipSettlementLedgerTransaction == other.skipSettlementLedgerTransaction && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is LedgerAccountSettlementCreateRequest &&
+                contraLedgerAccountId == other.contraLedgerAccountId &&
+                settledLedgerAccountId == other.settledLedgerAccountId &&
+                allowEitherDirection == other.allowEitherDirection &&
+                description == other.description &&
+                effectiveAtUpperBound == other.effectiveAtUpperBound &&
+                metadata == other.metadata &&
+                skipSettlementLedgerTransaction == other.skipSettlementLedgerTransaction &&
+                status == other.status &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(contraLedgerAccountId, settledLedgerAccountId, allowEitherDirection, description, effectiveAtUpperBound, metadata, skipSettlementLedgerTransaction, status, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                contraLedgerAccountId,
+                settledLedgerAccountId,
+                allowEitherDirection,
+                description,
+                effectiveAtUpperBound,
+                metadata,
+                skipSettlementLedgerTransaction,
+                status,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1118,12 +1137,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1257,7 +1274,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1270,10 +1287,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountSettlementCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is LedgerAccountSettlementCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "LedgerAccountSettlementCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

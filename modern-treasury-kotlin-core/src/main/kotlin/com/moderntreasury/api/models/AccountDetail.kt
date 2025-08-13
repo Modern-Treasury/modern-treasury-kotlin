@@ -680,7 +680,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountNumberType && value == other.value /* spotless:on */
+            return other is AccountNumberType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -693,12 +693,33 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountDetail && id == other.id && accountNumberSafe == other.accountNumberSafe && accountNumberType == other.accountNumberType && createdAt == other.createdAt && discardedAt == other.discardedAt && liveMode == other.liveMode && object_ == other.object_ && updatedAt == other.updatedAt && accountNumber == other.accountNumber && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is AccountDetail &&
+            id == other.id &&
+            accountNumberSafe == other.accountNumberSafe &&
+            accountNumberType == other.accountNumberType &&
+            createdAt == other.createdAt &&
+            discardedAt == other.discardedAt &&
+            liveMode == other.liveMode &&
+            object_ == other.object_ &&
+            updatedAt == other.updatedAt &&
+            accountNumber == other.accountNumber &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountNumberSafe, accountNumberType, createdAt, discardedAt, liveMode, object_, updatedAt, accountNumber, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            accountNumberSafe,
+            accountNumberType,
+            createdAt,
+            discardedAt,
+            liveMode,
+            object_,
+            updatedAt,
+            accountNumber,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

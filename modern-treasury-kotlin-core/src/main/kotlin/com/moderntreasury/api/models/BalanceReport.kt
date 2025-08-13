@@ -669,7 +669,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BalanceReportType && value == other.value /* spotless:on */
+            return other is BalanceReportType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1480,7 +1480,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is BalanceType && value == other.value /* spotless:on */
+                return other is BalanceType && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1493,12 +1493,41 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Balance && id == other.id && amount == other.amount && asOfDate == other.asOfDate && asOfTime == other.asOfTime && balanceType == other.balanceType && createdAt == other.createdAt && currency == other.currency && liveMode == other.liveMode && object_ == other.object_ && updatedAt == other.updatedAt && valueDate == other.valueDate && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Balance &&
+                id == other.id &&
+                amount == other.amount &&
+                asOfDate == other.asOfDate &&
+                asOfTime == other.asOfTime &&
+                balanceType == other.balanceType &&
+                createdAt == other.createdAt &&
+                currency == other.currency &&
+                liveMode == other.liveMode &&
+                object_ == other.object_ &&
+                updatedAt == other.updatedAt &&
+                valueDate == other.valueDate &&
+                vendorCode == other.vendorCode &&
+                vendorCodeType == other.vendorCodeType &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, amount, asOfDate, asOfTime, balanceType, createdAt, currency, liveMode, object_, updatedAt, valueDate, vendorCode, vendorCodeType, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                id,
+                amount,
+                asOfDate,
+                asOfTime,
+                balanceType,
+                createdAt,
+                currency,
+                liveMode,
+                object_,
+                updatedAt,
+                valueDate,
+                vendorCode,
+                vendorCodeType,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1511,12 +1540,35 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BalanceReport && id == other.id && asOfDate == other.asOfDate && asOfTime == other.asOfTime && balanceReportType == other.balanceReportType && balances == other.balances && createdAt == other.createdAt && internalAccountId == other.internalAccountId && liveMode == other.liveMode && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is BalanceReport &&
+            id == other.id &&
+            asOfDate == other.asOfDate &&
+            asOfTime == other.asOfTime &&
+            balanceReportType == other.balanceReportType &&
+            balances == other.balances &&
+            createdAt == other.createdAt &&
+            internalAccountId == other.internalAccountId &&
+            liveMode == other.liveMode &&
+            object_ == other.object_ &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, asOfDate, asOfTime, balanceReportType, balances, createdAt, internalAccountId, liveMode, object_, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            asOfDate,
+            asOfTime,
+            balanceReportType,
+            balances,
+            createdAt,
+            internalAccountId,
+            liveMode,
+            object_,
+            updatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 
