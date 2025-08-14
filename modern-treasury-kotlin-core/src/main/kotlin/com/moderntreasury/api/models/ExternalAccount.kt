@@ -1050,12 +1050,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1182,7 +1180,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PartyType && value == other.value /* spotless:on */
+            return other is PartyType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1319,7 +1317,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is VerificationSource && value == other.value /* spotless:on */
+            return other is VerificationSource && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1456,7 +1454,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is VerificationStatus && value == other.value /* spotless:on */
+            return other is VerificationStatus && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1469,12 +1467,55 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccount && id == other.id && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && counterpartyId == other.counterpartyId && createdAt == other.createdAt && discardedAt == other.discardedAt && externalId == other.externalId && ledgerAccountId == other.ledgerAccountId && liveMode == other.liveMode && metadata == other.metadata && name == other.name && object_ == other.object_ && partyAddress == other.partyAddress && partyName == other.partyName && partyType == other.partyType && routingDetails == other.routingDetails && updatedAt == other.updatedAt && verificationSource == other.verificationSource && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is ExternalAccount &&
+            id == other.id &&
+            accountDetails == other.accountDetails &&
+            accountType == other.accountType &&
+            contactDetails == other.contactDetails &&
+            counterpartyId == other.counterpartyId &&
+            createdAt == other.createdAt &&
+            discardedAt == other.discardedAt &&
+            externalId == other.externalId &&
+            ledgerAccountId == other.ledgerAccountId &&
+            liveMode == other.liveMode &&
+            metadata == other.metadata &&
+            name == other.name &&
+            object_ == other.object_ &&
+            partyAddress == other.partyAddress &&
+            partyName == other.partyName &&
+            partyType == other.partyType &&
+            routingDetails == other.routingDetails &&
+            updatedAt == other.updatedAt &&
+            verificationSource == other.verificationSource &&
+            verificationStatus == other.verificationStatus &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountDetails, accountType, contactDetails, counterpartyId, createdAt, discardedAt, externalId, ledgerAccountId, liveMode, metadata, name, object_, partyAddress, partyName, partyType, routingDetails, updatedAt, verificationSource, verificationStatus, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            accountDetails,
+            accountType,
+            contactDetails,
+            counterpartyId,
+            createdAt,
+            discardedAt,
+            externalId,
+            ledgerAccountId,
+            liveMode,
+            metadata,
+            name,
+            object_,
+            partyAddress,
+            partyName,
+            partyType,
+            routingDetails,
+            updatedAt,
+            verificationSource,
+            verificationStatus,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

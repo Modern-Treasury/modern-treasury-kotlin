@@ -533,12 +533,37 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentActionUpdateResponse && id == other.id && actionableId == other.actionableId && actionableType == other.actionableType && createdAt == other.createdAt && details == other.details && internalAccountId == other.internalAccountId && liveMode == other.liveMode && object_ == other.object_ && status == other.status && type == other.type && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is PaymentActionUpdateResponse &&
+            id == other.id &&
+            actionableId == other.actionableId &&
+            actionableType == other.actionableType &&
+            createdAt == other.createdAt &&
+            details == other.details &&
+            internalAccountId == other.internalAccountId &&
+            liveMode == other.liveMode &&
+            object_ == other.object_ &&
+            status == other.status &&
+            type == other.type &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, actionableId, actionableType, createdAt, details, internalAccountId, liveMode, object_, status, type, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            actionableId,
+            actionableType,
+            createdAt,
+            details,
+            internalAccountId,
+            liveMode,
+            object_,
+            status,
+            type,
+            updatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

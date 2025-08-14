@@ -634,7 +634,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -647,12 +647,35 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ConnectionLegalEntity && id == other.id && connectionId == other.connectionId && createdAt == other.createdAt && discardedAt == other.discardedAt && legalEntityId == other.legalEntityId && liveMode == other.liveMode && object_ == other.object_ && status == other.status && updatedAt == other.updatedAt && vendorId == other.vendorId && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is ConnectionLegalEntity &&
+            id == other.id &&
+            connectionId == other.connectionId &&
+            createdAt == other.createdAt &&
+            discardedAt == other.discardedAt &&
+            legalEntityId == other.legalEntityId &&
+            liveMode == other.liveMode &&
+            object_ == other.object_ &&
+            status == other.status &&
+            updatedAt == other.updatedAt &&
+            vendorId == other.vendorId &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, connectionId, createdAt, discardedAt, legalEntityId, liveMode, object_, status, updatedAt, vendorId, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            connectionId,
+            createdAt,
+            discardedAt,
+            legalEntityId,
+            liveMode,
+            object_,
+            status,
+            updatedAt,
+            vendorId,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

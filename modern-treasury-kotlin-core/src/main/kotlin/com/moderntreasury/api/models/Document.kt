@@ -1035,12 +1035,31 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DocumentDetail && id == other.id && createdAt == other.createdAt && discardedAt == other.discardedAt && documentIdentifier == other.documentIdentifier && documentIdentifierType == other.documentIdentifierType && liveMode == other.liveMode && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is DocumentDetail &&
+                id == other.id &&
+                createdAt == other.createdAt &&
+                discardedAt == other.discardedAt &&
+                documentIdentifier == other.documentIdentifier &&
+                documentIdentifierType == other.documentIdentifierType &&
+                liveMode == other.liveMode &&
+                object_ == other.object_ &&
+                updatedAt == other.updatedAt &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, createdAt, discardedAt, documentIdentifier, documentIdentifierType, liveMode, object_, updatedAt, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                id,
+                createdAt,
+                discardedAt,
+                documentIdentifier,
+                documentIdentifierType,
+                liveMode,
+                object_,
+                updatedAt,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1222,7 +1241,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DocumentableType && value == other.value /* spotless:on */
+            return other is DocumentableType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1432,12 +1451,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is File && contentType == other.contentType && filename == other.filename && size == other.size && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is File &&
+                contentType == other.contentType &&
+                filename == other.filename &&
+                size == other.size &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(contentType, filename, size, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(contentType, filename, size, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1450,12 +1473,39 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Document && id == other.id && createdAt == other.createdAt && discardedAt == other.discardedAt && documentDetails == other.documentDetails && documentType == other.documentType && documentableId == other.documentableId && documentableType == other.documentableType && file == other.file && liveMode == other.liveMode && object_ == other.object_ && source == other.source && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is Document &&
+            id == other.id &&
+            createdAt == other.createdAt &&
+            discardedAt == other.discardedAt &&
+            documentDetails == other.documentDetails &&
+            documentType == other.documentType &&
+            documentableId == other.documentableId &&
+            documentableType == other.documentableType &&
+            file == other.file &&
+            liveMode == other.liveMode &&
+            object_ == other.object_ &&
+            source == other.source &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, createdAt, discardedAt, documentDetails, documentType, documentableId, documentableType, file, liveMode, object_, source, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            createdAt,
+            discardedAt,
+            documentDetails,
+            documentType,
+            documentableId,
+            documentableType,
+            file,
+            liveMode,
+            object_,
+            source,
+            updatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

@@ -420,12 +420,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CreatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is CreatedAt && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -520,12 +518,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -621,12 +617,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is UpdatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is UpdatedAt && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -638,10 +632,36 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountSettlementListParams && id == other.id && afterCursor == other.afterCursor && createdAt == other.createdAt && ledgerId == other.ledgerId && ledgerTransactionId == other.ledgerTransactionId && metadata == other.metadata && perPage == other.perPage && settledLedgerAccountId == other.settledLedgerAccountId && settlementEntryDirection == other.settlementEntryDirection && updatedAt == other.updatedAt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is LedgerAccountSettlementListParams &&
+            id == other.id &&
+            afterCursor == other.afterCursor &&
+            createdAt == other.createdAt &&
+            ledgerId == other.ledgerId &&
+            ledgerTransactionId == other.ledgerTransactionId &&
+            metadata == other.metadata &&
+            perPage == other.perPage &&
+            settledLedgerAccountId == other.settledLedgerAccountId &&
+            settlementEntryDirection == other.settlementEntryDirection &&
+            updatedAt == other.updatedAt &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, createdAt, ledgerId, ledgerTransactionId, metadata, perPage, settledLedgerAccountId, settlementEntryDirection, updatedAt, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            id,
+            afterCursor,
+            createdAt,
+            ledgerId,
+            ledgerTransactionId,
+            metadata,
+            perPage,
+            settledLedgerAccountId,
+            settlementEntryDirection,
+            updatedAt,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "LedgerAccountSettlementListParams{id=$id, afterCursor=$afterCursor, createdAt=$createdAt, ledgerId=$ledgerId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, perPage=$perPage, settledLedgerAccountId=$settledLedgerAccountId, settlementEntryDirection=$settlementEntryDirection, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

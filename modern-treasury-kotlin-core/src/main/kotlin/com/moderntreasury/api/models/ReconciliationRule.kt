@@ -675,7 +675,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
+            return other is Direction && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -771,12 +771,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CustomIdentifiers && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is CustomIdentifiers && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1096,7 +1094,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1109,12 +1107,35 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ReconciliationRule && amountLowerBound == other.amountLowerBound && amountUpperBound == other.amountUpperBound && direction == other.direction && internalAccountId == other.internalAccountId && counterpartyId == other.counterpartyId && currency == other.currency && customIdentifiers == other.customIdentifiers && dateLowerBound == other.dateLowerBound && dateUpperBound == other.dateUpperBound && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is ReconciliationRule &&
+            amountLowerBound == other.amountLowerBound &&
+            amountUpperBound == other.amountUpperBound &&
+            direction == other.direction &&
+            internalAccountId == other.internalAccountId &&
+            counterpartyId == other.counterpartyId &&
+            currency == other.currency &&
+            customIdentifiers == other.customIdentifiers &&
+            dateLowerBound == other.dateLowerBound &&
+            dateUpperBound == other.dateUpperBound &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(amountLowerBound, amountUpperBound, direction, internalAccountId, counterpartyId, currency, customIdentifiers, dateLowerBound, dateUpperBound, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            amountLowerBound,
+            amountUpperBound,
+            direction,
+            internalAccountId,
+            counterpartyId,
+            currency,
+            customIdentifiers,
+            dateLowerBound,
+            dateUpperBound,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

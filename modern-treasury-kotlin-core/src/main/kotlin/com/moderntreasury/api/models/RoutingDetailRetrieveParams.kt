@@ -207,10 +207,16 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RoutingDetailRetrieveParams && accountsType == other.accountsType && accountId == other.accountId && id == other.id && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is RoutingDetailRetrieveParams &&
+            accountsType == other.accountsType &&
+            accountId == other.accountId &&
+            id == other.id &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountsType, accountId, id, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(accountsType, accountId, id, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "RoutingDetailRetrieveParams{accountsType=$accountsType, accountId=$accountId, id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

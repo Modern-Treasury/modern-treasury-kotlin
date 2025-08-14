@@ -1241,12 +1241,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CustomIdentifiers && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is CustomIdentifiers && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1341,12 +1339,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1672,7 +1668,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1962,7 +1958,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is VendorCodeType && value == other.value /* spotless:on */
+            return other is VendorCodeType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2065,12 +2061,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Details && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Details && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -2082,12 +2076,65 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Transaction && id == other.id && amount == other.amount && asOfDate == other.asOfDate && asOfTime == other.asOfTime && asOfTimezone == other.asOfTimezone && createdAt == other.createdAt && currency == other.currency && customIdentifiers == other.customIdentifiers && direction == other.direction && discardedAt == other.discardedAt && foreignExchangeRate == other.foreignExchangeRate && internalAccountId == other.internalAccountId && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && posted == other.posted && reconciled == other.reconciled && type == other.type && updatedAt == other.updatedAt && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && vendorCustomerId == other.vendorCustomerId && vendorId == other.vendorId && details == other.details && vendorDescription == other.vendorDescription && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is Transaction &&
+            id == other.id &&
+            amount == other.amount &&
+            asOfDate == other.asOfDate &&
+            asOfTime == other.asOfTime &&
+            asOfTimezone == other.asOfTimezone &&
+            createdAt == other.createdAt &&
+            currency == other.currency &&
+            customIdentifiers == other.customIdentifiers &&
+            direction == other.direction &&
+            discardedAt == other.discardedAt &&
+            foreignExchangeRate == other.foreignExchangeRate &&
+            internalAccountId == other.internalAccountId &&
+            liveMode == other.liveMode &&
+            metadata == other.metadata &&
+            object_ == other.object_ &&
+            posted == other.posted &&
+            reconciled == other.reconciled &&
+            type == other.type &&
+            updatedAt == other.updatedAt &&
+            vendorCode == other.vendorCode &&
+            vendorCodeType == other.vendorCodeType &&
+            vendorCustomerId == other.vendorCustomerId &&
+            vendorId == other.vendorId &&
+            details == other.details &&
+            vendorDescription == other.vendorDescription &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, amount, asOfDate, asOfTime, asOfTimezone, createdAt, currency, customIdentifiers, direction, discardedAt, foreignExchangeRate, internalAccountId, liveMode, metadata, object_, posted, reconciled, type, updatedAt, vendorCode, vendorCodeType, vendorCustomerId, vendorId, details, vendorDescription, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            amount,
+            asOfDate,
+            asOfTime,
+            asOfTimezone,
+            createdAt,
+            currency,
+            customIdentifiers,
+            direction,
+            discardedAt,
+            foreignExchangeRate,
+            internalAccountId,
+            liveMode,
+            metadata,
+            object_,
+            posted,
+            reconciled,
+            type,
+            updatedAt,
+            vendorCode,
+            vendorCodeType,
+            vendorCustomerId,
+            vendorId,
+            details,
+            vendorDescription,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

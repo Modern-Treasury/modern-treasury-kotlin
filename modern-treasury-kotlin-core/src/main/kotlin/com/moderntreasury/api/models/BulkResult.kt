@@ -778,10 +778,24 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Entity && paymentOrder == other.paymentOrder && expectedPayment == other.expectedPayment && ledgerTransaction == other.ledgerTransaction && ledgerAccount == other.ledgerAccount && transaction == other.transaction && bulkError == other.bulkError /* spotless:on */
+            return other is Entity &&
+                paymentOrder == other.paymentOrder &&
+                expectedPayment == other.expectedPayment &&
+                ledgerTransaction == other.ledgerTransaction &&
+                ledgerAccount == other.ledgerAccount &&
+                transaction == other.transaction &&
+                bulkError == other.bulkError
         }
 
-        override fun hashCode(): Int = /* spotless:off */ Objects.hash(paymentOrder, expectedPayment, ledgerTransaction, ledgerAccount, transaction, bulkError) /* spotless:on */
+        override fun hashCode(): Int =
+            Objects.hash(
+                paymentOrder,
+                expectedPayment,
+                ledgerTransaction,
+                ledgerAccount,
+                transaction,
+                bulkError,
+            )
 
         override fun toString(): String =
             when {
@@ -1466,12 +1480,16 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is RequestError && code == other.code && message == other.message && parameter == other.parameter && additionalProperties == other.additionalProperties /* spotless:on */
+                    return other is RequestError &&
+                        code == other.code &&
+                        message == other.message &&
+                        parameter == other.parameter &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(code, message, parameter, additionalProperties) }
-                /* spotless:on */
+                private val hashCode: Int by lazy {
+                    Objects.hash(code, message, parameter, additionalProperties)
+                }
 
                 override fun hashCode(): Int = hashCode
 
@@ -1484,12 +1502,27 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is BulkError && id == other.id && createdAt == other.createdAt && liveMode == other.liveMode && object_ == other.object_ && requestErrors == other.requestErrors && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is BulkError &&
+                    id == other.id &&
+                    createdAt == other.createdAt &&
+                    liveMode == other.liveMode &&
+                    object_ == other.object_ &&
+                    requestErrors == other.requestErrors &&
+                    updatedAt == other.updatedAt &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(id, createdAt, liveMode, object_, requestErrors, updatedAt, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(
+                    id,
+                    createdAt,
+                    liveMode,
+                    object_,
+                    requestErrors,
+                    updatedAt,
+                    additionalProperties,
+                )
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -1657,7 +1690,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EntityType && value == other.value /* spotless:on */
+            return other is EntityType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1756,12 +1789,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RequestParams && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is RequestParams && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1886,7 +1917,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RequestType && value == other.value /* spotless:on */
+            return other is RequestType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2018,7 +2049,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2031,12 +2062,39 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BulkResult && id == other.id && createdAt == other.createdAt && entity == other.entity && entityId == other.entityId && entityType == other.entityType && liveMode == other.liveMode && object_ == other.object_ && requestId == other.requestId && requestParams == other.requestParams && requestType == other.requestType && status == other.status && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is BulkResult &&
+            id == other.id &&
+            createdAt == other.createdAt &&
+            entity == other.entity &&
+            entityId == other.entityId &&
+            entityType == other.entityType &&
+            liveMode == other.liveMode &&
+            object_ == other.object_ &&
+            requestId == other.requestId &&
+            requestParams == other.requestParams &&
+            requestType == other.requestType &&
+            status == other.status &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, createdAt, entity, entityId, entityType, liveMode, object_, requestId, requestParams, requestType, status, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            createdAt,
+            entity,
+            entityId,
+            entityType,
+            liveMode,
+            object_,
+            requestId,
+            requestParams,
+            requestType,
+            status,
+            updatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

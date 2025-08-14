@@ -197,10 +197,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InvoiceLineItemRetrieveParams && invoiceId == other.invoiceId && id == other.id && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is InvoiceLineItemRetrieveParams &&
+            invoiceId == other.invoiceId &&
+            id == other.id &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(invoiceId, id, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(invoiceId, id, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "InvoiceLineItemRetrieveParams{invoiceId=$invoiceId, id=$id, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

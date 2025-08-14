@@ -305,12 +305,19 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AddressRequest && country == other.country && line1 == other.line1 && line2 == other.line2 && locality == other.locality && postalCode == other.postalCode && region == other.region && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is AddressRequest &&
+            country == other.country &&
+            line1 == other.line1 &&
+            line2 == other.line2 &&
+            locality == other.locality &&
+            postalCode == other.postalCode &&
+            region == other.region &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(country, line1, line2, locality, postalCode, region, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(country, line1, line2, locality, postalCode, region, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 

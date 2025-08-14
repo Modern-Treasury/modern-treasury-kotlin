@@ -482,12 +482,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -616,7 +614,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Priority && value == other.value /* spotless:on */
+            return other is Priority && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -801,7 +799,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1118,7 +1116,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1131,10 +1129,52 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PaymentOrderListParams && afterCursor == other.afterCursor && counterpartyId == other.counterpartyId && createdAtEnd == other.createdAtEnd && createdAtStart == other.createdAtStart && direction == other.direction && effectiveDateEnd == other.effectiveDateEnd && effectiveDateStart == other.effectiveDateStart && externalId == other.externalId && metadata == other.metadata && originatingAccountId == other.originatingAccountId && perPage == other.perPage && priority == other.priority && processAfterEnd == other.processAfterEnd && processAfterStart == other.processAfterStart && referenceNumber == other.referenceNumber && status == other.status && transactionId == other.transactionId && type == other.type && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is PaymentOrderListParams &&
+            afterCursor == other.afterCursor &&
+            counterpartyId == other.counterpartyId &&
+            createdAtEnd == other.createdAtEnd &&
+            createdAtStart == other.createdAtStart &&
+            direction == other.direction &&
+            effectiveDateEnd == other.effectiveDateEnd &&
+            effectiveDateStart == other.effectiveDateStart &&
+            externalId == other.externalId &&
+            metadata == other.metadata &&
+            originatingAccountId == other.originatingAccountId &&
+            perPage == other.perPage &&
+            priority == other.priority &&
+            processAfterEnd == other.processAfterEnd &&
+            processAfterStart == other.processAfterStart &&
+            referenceNumber == other.referenceNumber &&
+            status == other.status &&
+            transactionId == other.transactionId &&
+            type == other.type &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, counterpartyId, createdAtEnd, createdAtStart, direction, effectiveDateEnd, effectiveDateStart, externalId, metadata, originatingAccountId, perPage, priority, processAfterEnd, processAfterStart, referenceNumber, status, transactionId, type, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            afterCursor,
+            counterpartyId,
+            createdAtEnd,
+            createdAtStart,
+            direction,
+            effectiveDateEnd,
+            effectiveDateStart,
+            externalId,
+            metadata,
+            originatingAccountId,
+            perPage,
+            priority,
+            processAfterEnd,
+            processAfterStart,
+            referenceNumber,
+            status,
+            transactionId,
+            type,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "PaymentOrderListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, createdAtEnd=$createdAtEnd, createdAtStart=$createdAtStart, direction=$direction, effectiveDateEnd=$effectiveDateEnd, effectiveDateStart=$effectiveDateStart, externalId=$externalId, metadata=$metadata, originatingAccountId=$originatingAccountId, perPage=$perPage, priority=$priority, processAfterEnd=$processAfterEnd, processAfterStart=$processAfterStart, referenceNumber=$referenceNumber, status=$status, transactionId=$transactionId, type=$type, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

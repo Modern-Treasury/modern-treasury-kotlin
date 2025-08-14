@@ -348,7 +348,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ItemizableType && value == other.value /* spotless:on */
+            return other is ItemizableType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -361,10 +361,24 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LineItemListParams && itemizableType == other.itemizableType && itemizableId == other.itemizableId && afterCursor == other.afterCursor && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is LineItemListParams &&
+            itemizableType == other.itemizableType &&
+            itemizableId == other.itemizableId &&
+            afterCursor == other.afterCursor &&
+            perPage == other.perPage &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(itemizableType, itemizableId, afterCursor, perPage, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            itemizableType,
+            itemizableId,
+            afterCursor,
+            perPage,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "LineItemListParams{itemizableType=$itemizableType, itemizableId=$itemizableId, afterCursor=$afterCursor, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

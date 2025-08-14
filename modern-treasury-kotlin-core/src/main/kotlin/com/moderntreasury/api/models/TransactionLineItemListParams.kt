@@ -309,12 +309,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Id && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Id && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -438,7 +436,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -451,10 +449,26 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is TransactionLineItemListParams && id == other.id && afterCursor == other.afterCursor && perPage == other.perPage && transactionId == other.transactionId && type == other.type && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is TransactionLineItemListParams &&
+            id == other.id &&
+            afterCursor == other.afterCursor &&
+            perPage == other.perPage &&
+            transactionId == other.transactionId &&
+            type == other.type &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(id, afterCursor, perPage, transactionId, type, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            id,
+            afterCursor,
+            perPage,
+            transactionId,
+            type,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "TransactionLineItemListParams{id=$id, afterCursor=$afterCursor, perPage=$perPage, transactionId=$transactionId, type=$type, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -193,7 +193,7 @@ class ExternalAccountType @JsonCreator private constructor(private val value: Js
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccountType && value == other.value /* spotless:on */
+        return other is ExternalAccountType && value == other.value
     }
 
     override fun hashCode() = value.hashCode()

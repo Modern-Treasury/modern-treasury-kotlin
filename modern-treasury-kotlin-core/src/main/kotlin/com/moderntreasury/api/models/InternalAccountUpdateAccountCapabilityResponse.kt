@@ -797,7 +797,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PaymentType && value == other.value /* spotless:on */
+            return other is PaymentType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -810,12 +810,33 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InternalAccountUpdateAccountCapabilityResponse && id == other.id && createdAt == other.createdAt && direction == other.direction && discardedAt == other.discardedAt && identifier == other.identifier && liveMode == other.liveMode && object_ == other.object_ && paymentType == other.paymentType && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is InternalAccountUpdateAccountCapabilityResponse &&
+            id == other.id &&
+            createdAt == other.createdAt &&
+            direction == other.direction &&
+            discardedAt == other.discardedAt &&
+            identifier == other.identifier &&
+            liveMode == other.liveMode &&
+            object_ == other.object_ &&
+            paymentType == other.paymentType &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, createdAt, direction, discardedAt, identifier, liveMode, object_, paymentType, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            createdAt,
+            direction,
+            discardedAt,
+            identifier,
+            liveMode,
+            object_,
+            paymentType,
+            updatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

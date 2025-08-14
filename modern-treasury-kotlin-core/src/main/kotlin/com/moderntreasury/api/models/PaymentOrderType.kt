@@ -322,7 +322,7 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
             return true
         }
 
-        return /* spotless:off */ other is PaymentOrderType && value == other.value /* spotless:on */
+        return other is PaymentOrderType && value == other.value
     }
 
     override fun hashCode() = value.hashCode()

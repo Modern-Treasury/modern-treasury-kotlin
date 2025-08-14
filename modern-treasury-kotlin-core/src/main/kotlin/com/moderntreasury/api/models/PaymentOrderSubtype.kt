@@ -293,7 +293,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             return true
         }
 
-        return /* spotless:off */ other is PaymentOrderSubtype && value == other.value /* spotless:on */
+        return other is PaymentOrderSubtype && value == other.value
     }
 
     override fun hashCode() = value.hashCode()

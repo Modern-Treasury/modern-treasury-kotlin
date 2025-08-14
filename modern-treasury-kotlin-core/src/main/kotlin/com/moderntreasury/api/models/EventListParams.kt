@@ -247,10 +247,30 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is EventListParams && afterCursor == other.afterCursor && entityId == other.entityId && eventName == other.eventName && eventTimeEnd == other.eventTimeEnd && eventTimeStart == other.eventTimeStart && perPage == other.perPage && resource == other.resource && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is EventListParams &&
+            afterCursor == other.afterCursor &&
+            entityId == other.entityId &&
+            eventName == other.eventName &&
+            eventTimeEnd == other.eventTimeEnd &&
+            eventTimeStart == other.eventTimeStart &&
+            perPage == other.perPage &&
+            resource == other.resource &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, entityId, eventName, eventTimeEnd, eventTimeStart, perPage, resource, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            afterCursor,
+            entityId,
+            eventName,
+            eventTimeEnd,
+            eventTimeStart,
+            perPage,
+            resource,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "EventListParams{afterCursor=$afterCursor, entityId=$entityId, eventName=$eventName, eventTimeEnd=$eventTimeEnd, eventTimeStart=$eventTimeStart, perPage=$perPage, resource=$resource, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

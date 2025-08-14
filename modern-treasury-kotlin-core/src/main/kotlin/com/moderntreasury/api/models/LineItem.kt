@@ -768,7 +768,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ItemizableType && value == other.value /* spotless:on */
+            return other is ItemizableType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -864,12 +864,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -881,12 +879,41 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LineItem && id == other.id && accounting == other.accounting && accountingCategoryId == other.accountingCategoryId && accountingLedgerClassId == other.accountingLedgerClassId && amount == other.amount && createdAt == other.createdAt && description == other.description && itemizableId == other.itemizableId && itemizableType == other.itemizableType && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is LineItem &&
+            id == other.id &&
+            accounting == other.accounting &&
+            accountingCategoryId == other.accountingCategoryId &&
+            accountingLedgerClassId == other.accountingLedgerClassId &&
+            amount == other.amount &&
+            createdAt == other.createdAt &&
+            description == other.description &&
+            itemizableId == other.itemizableId &&
+            itemizableType == other.itemizableType &&
+            liveMode == other.liveMode &&
+            metadata == other.metadata &&
+            object_ == other.object_ &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accounting, accountingCategoryId, accountingLedgerClassId, amount, createdAt, description, itemizableId, itemizableType, liveMode, metadata, object_, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            accounting,
+            accountingCategoryId,
+            accountingLedgerClassId,
+            amount,
+            createdAt,
+            description,
+            itemizableId,
+            itemizableType,
+            liveMode,
+            metadata,
+            object_,
+            updatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

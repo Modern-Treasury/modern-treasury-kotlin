@@ -799,12 +799,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AlertCondition && field == other.field && operator == other.operator && value == other.value && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is AlertCondition &&
+                field == other.field &&
+                operator == other.operator &&
+                value == other.value &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(field, operator, value, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(field, operator, value, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1053,12 +1057,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CurrentLedgerAccountBalanceState && balances == other.balances && ledgerAccountLockVersion == other.ledgerAccountLockVersion && triggered == other.triggered && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is CurrentLedgerAccountBalanceState &&
+                balances == other.balances &&
+                ledgerAccountLockVersion == other.ledgerAccountLockVersion &&
+                triggered == other.triggered &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(balances, ledgerAccountLockVersion, triggered, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(balances, ledgerAccountLockVersion, triggered, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1154,12 +1162,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1171,12 +1177,37 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LedgerAccountBalanceMonitor && id == other.id && alertCondition == other.alertCondition && createdAt == other.createdAt && currentLedgerAccountBalanceState == other.currentLedgerAccountBalanceState && description == other.description && discardedAt == other.discardedAt && ledgerAccountId == other.ledgerAccountId && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is LedgerAccountBalanceMonitor &&
+            id == other.id &&
+            alertCondition == other.alertCondition &&
+            createdAt == other.createdAt &&
+            currentLedgerAccountBalanceState == other.currentLedgerAccountBalanceState &&
+            description == other.description &&
+            discardedAt == other.discardedAt &&
+            ledgerAccountId == other.ledgerAccountId &&
+            liveMode == other.liveMode &&
+            metadata == other.metadata &&
+            object_ == other.object_ &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, alertCondition, createdAt, currentLedgerAccountBalanceState, description, discardedAt, ledgerAccountId, liveMode, metadata, object_, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            alertCondition,
+            createdAt,
+            currentLedgerAccountBalanceState,
+            description,
+            discardedAt,
+            ledgerAccountId,
+            liveMode,
+            metadata,
+            object_,
+            updatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

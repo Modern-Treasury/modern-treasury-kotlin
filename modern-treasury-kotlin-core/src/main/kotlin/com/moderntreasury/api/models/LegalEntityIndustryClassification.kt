@@ -658,7 +658,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ClassificationType && value == other.value /* spotless:on */
+            return other is ClassificationType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -671,12 +671,31 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LegalEntityIndustryClassification && id == other.id && classificationCodes == other.classificationCodes && classificationType == other.classificationType && createdAt == other.createdAt && discardedAt == other.discardedAt && liveMode == other.liveMode && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is LegalEntityIndustryClassification &&
+            id == other.id &&
+            classificationCodes == other.classificationCodes &&
+            classificationType == other.classificationType &&
+            createdAt == other.createdAt &&
+            discardedAt == other.discardedAt &&
+            liveMode == other.liveMode &&
+            object_ == other.object_ &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, classificationCodes, classificationType, createdAt, discardedAt, liveMode, object_, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            classificationCodes,
+            classificationType,
+            createdAt,
+            discardedAt,
+            liveMode,
+            object_,
+            updatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

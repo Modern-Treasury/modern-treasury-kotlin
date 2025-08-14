@@ -350,7 +350,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -363,10 +363,26 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ConnectionLegalEntityListParams && afterCursor == other.afterCursor && connectionId == other.connectionId && legalEntityId == other.legalEntityId && perPage == other.perPage && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is ConnectionLegalEntityListParams &&
+            afterCursor == other.afterCursor &&
+            connectionId == other.connectionId &&
+            legalEntityId == other.legalEntityId &&
+            perPage == other.perPage &&
+            status == other.status &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(afterCursor, connectionId, legalEntityId, perPage, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            afterCursor,
+            connectionId,
+            legalEntityId,
+            perPage,
+            status,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "ConnectionLegalEntityListParams{afterCursor=$afterCursor, connectionId=$connectionId, legalEntityId=$legalEntityId, perPage=$perPage, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

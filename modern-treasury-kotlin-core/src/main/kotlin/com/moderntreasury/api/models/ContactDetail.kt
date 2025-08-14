@@ -563,7 +563,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ContactIdentifierType && value == other.value /* spotless:on */
+            return other is ContactIdentifierType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -576,12 +576,31 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ContactDetail && id == other.id && contactIdentifier == other.contactIdentifier && contactIdentifierType == other.contactIdentifierType && createdAt == other.createdAt && discardedAt == other.discardedAt && liveMode == other.liveMode && object_ == other.object_ && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is ContactDetail &&
+            id == other.id &&
+            contactIdentifier == other.contactIdentifier &&
+            contactIdentifierType == other.contactIdentifierType &&
+            createdAt == other.createdAt &&
+            discardedAt == other.discardedAt &&
+            liveMode == other.liveMode &&
+            object_ == other.object_ &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, contactIdentifier, contactIdentifierType, createdAt, discardedAt, liveMode, object_, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            contactIdentifier,
+            contactIdentifierType,
+            createdAt,
+            discardedAt,
+            liveMode,
+            object_,
+            updatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

@@ -413,12 +413,29 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ForeignExchangeRate && baseAmount == other.baseAmount && baseCurrency == other.baseCurrency && exponent == other.exponent && rateString == other.rateString && targetAmount == other.targetAmount && targetCurrency == other.targetCurrency && value == other.value && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is ForeignExchangeRate &&
+            baseAmount == other.baseAmount &&
+            baseCurrency == other.baseCurrency &&
+            exponent == other.exponent &&
+            rateString == other.rateString &&
+            targetAmount == other.targetAmount &&
+            targetCurrency == other.targetCurrency &&
+            value == other.value &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(baseAmount, baseCurrency, exponent, rateString, targetAmount, targetCurrency, value, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            baseAmount,
+            baseCurrency,
+            exponent,
+            rateString,
+            targetAmount,
+            targetCurrency,
+            value,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

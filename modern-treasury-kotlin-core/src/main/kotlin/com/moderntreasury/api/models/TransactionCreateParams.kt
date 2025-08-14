@@ -1139,12 +1139,37 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is TransactionCreateRequest && amount == other.amount && asOfDate == other.asOfDate && direction == other.direction && internalAccountId == other.internalAccountId && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && metadata == other.metadata && posted == other.posted && type == other.type && vendorCustomerId == other.vendorCustomerId && vendorDescription == other.vendorDescription && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is TransactionCreateRequest &&
+                amount == other.amount &&
+                asOfDate == other.asOfDate &&
+                direction == other.direction &&
+                internalAccountId == other.internalAccountId &&
+                vendorCode == other.vendorCode &&
+                vendorCodeType == other.vendorCodeType &&
+                metadata == other.metadata &&
+                posted == other.posted &&
+                type == other.type &&
+                vendorCustomerId == other.vendorCustomerId &&
+                vendorDescription == other.vendorDescription &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, asOfDate, direction, internalAccountId, vendorCode, vendorCodeType, metadata, posted, type, vendorCustomerId, vendorDescription, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                amount,
+                asOfDate,
+                direction,
+                internalAccountId,
+                vendorCode,
+                vendorCodeType,
+                metadata,
+                posted,
+                type,
+                vendorCustomerId,
+                vendorDescription,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1240,12 +1265,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1571,7 +1594,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1584,10 +1607,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is TransactionCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is TransactionCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "TransactionCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

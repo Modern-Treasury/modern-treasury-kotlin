@@ -1423,12 +1423,43 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExternalAccountCreateRequest && counterpartyId == other.counterpartyId && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && bodyExternalId == other.bodyExternalId && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is ExternalAccountCreateRequest &&
+                counterpartyId == other.counterpartyId &&
+                accountDetails == other.accountDetails &&
+                accountType == other.accountType &&
+                contactDetails == other.contactDetails &&
+                bodyExternalId == other.bodyExternalId &&
+                ledgerAccount == other.ledgerAccount &&
+                metadata == other.metadata &&
+                name == other.name &&
+                partyAddress == other.partyAddress &&
+                partyIdentifier == other.partyIdentifier &&
+                partyName == other.partyName &&
+                partyType == other.partyType &&
+                plaidProcessorToken == other.plaidProcessorToken &&
+                routingDetails == other.routingDetails &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(counterpartyId, accountDetails, accountType, contactDetails, bodyExternalId, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                counterpartyId,
+                accountDetails,
+                accountType,
+                contactDetails,
+                bodyExternalId,
+                ledgerAccount,
+                metadata,
+                name,
+                partyAddress,
+                partyIdentifier,
+                partyName,
+                partyType,
+                plaidProcessorToken,
+                routingDetails,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1819,7 +1850,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is AccountNumberType && value == other.value /* spotless:on */
+                return other is AccountNumberType && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1832,12 +1863,15 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountDetail && accountNumber == other.accountNumber && accountNumberType == other.accountNumberType && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is AccountDetail &&
+                accountNumber == other.accountNumber &&
+                accountNumberType == other.accountNumberType &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountNumber, accountNumberType, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(accountNumber, accountNumberType, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1933,12 +1967,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Metadata && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Metadata && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -2065,7 +2097,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PartyType && value == other.value /* spotless:on */
+            return other is PartyType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2543,7 +2575,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is RoutingNumberType && value == other.value /* spotless:on */
+                return other is RoutingNumberType && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2865,7 +2897,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is PaymentType && value == other.value /* spotless:on */
+                return other is PaymentType && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2878,12 +2910,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RoutingDetail && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is RoutingDetail &&
+                routingNumber == other.routingNumber &&
+                routingNumberType == other.routingNumberType &&
+                paymentType == other.paymentType &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -2896,10 +2932,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccountCreateParams && queryExternalId == other.queryExternalId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is ExternalAccountCreateParams &&
+            queryExternalId == other.queryExternalId &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(queryExternalId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(queryExternalId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "ExternalAccountCreateParams{queryExternalId=$queryExternalId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

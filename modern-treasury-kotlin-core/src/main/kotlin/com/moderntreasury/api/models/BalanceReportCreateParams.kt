@@ -658,12 +658,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BalanceReportCreateRequest && asOfDate == other.asOfDate && asOfTime == other.asOfTime && balanceReportType == other.balanceReportType && balances == other.balances && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is BalanceReportCreateRequest &&
+                asOfDate == other.asOfDate &&
+                asOfTime == other.asOfTime &&
+                balanceReportType == other.balanceReportType &&
+                balances == other.balances &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(asOfDate, asOfTime, balanceReportType, balances, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(asOfDate, asOfTime, balanceReportType, balances, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -809,7 +814,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BalanceReportType && value == other.value /* spotless:on */
+            return other is BalanceReportType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1265,7 +1270,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is BalanceType && value == other.value /* spotless:on */
+                return other is BalanceType && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1278,12 +1283,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BalanceCreateRequest && amount == other.amount && balanceType == other.balanceType && vendorCode == other.vendorCode && vendorCodeType == other.vendorCodeType && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is BalanceCreateRequest &&
+                amount == other.amount &&
+                balanceType == other.balanceType &&
+                vendorCode == other.vendorCode &&
+                vendorCodeType == other.vendorCodeType &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, balanceType, vendorCode, vendorCodeType, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(amount, balanceType, vendorCode, vendorCodeType, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1296,10 +1306,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BalanceReportCreateParams && internalAccountId == other.internalAccountId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is BalanceReportCreateParams &&
+            internalAccountId == other.internalAccountId &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(internalAccountId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(internalAccountId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "BalanceReportCreateParams{internalAccountId=$internalAccountId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
