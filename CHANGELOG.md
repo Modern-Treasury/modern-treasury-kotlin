@@ -1,5 +1,26 @@
 # Changelog
 
+## 7.11.0 (2025-08-14)
+
+Full Changelog: [v7.10.0...v7.11.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.10.0...v7.11.0)
+
+### Features
+
+* **api:** api update ([e975017](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e975017954590d230cf6d123d117c491e5c15cef))
+
+
+### Performance Improvements
+
+* **internal:** make formatting faster ([e11f2e1](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e11f2e16027f3fedda4dd43eefd6dbe8dfbb0d3e))
+
+
+### Chores
+
+* **ci:** add build job ([f758357](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f758357f69c79150f9babef29e6ceffbb732cca9))
+* **internal:** dynamically determine included projects ([741da2a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/741da2ad91125acc9b6a88015604bfb1bf50fc22))
+* **internal:** format identity methods ([5cece29](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5cece29645d67ce25f5dd80d5cf136eb1c4e3315))
+* **internal:** support passing arguments to test script ([b133705](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b13370528855ca9ec3bd105d0d64776e062daa9a))
+
 ## 7.10.0 (2025-08-12)
 
 Full Changelog: [v7.9.0...v7.10.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.9.0...v7.10.0)
