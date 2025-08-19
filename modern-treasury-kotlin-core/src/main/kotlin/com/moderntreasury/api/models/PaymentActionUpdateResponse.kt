@@ -126,7 +126,7 @@ private constructor(
 
     /**
      * The current status of the payment action. One of `pending`, `processing`, `sent`,
-     * `cancelled`, or `failed`.
+     * `acknowledged`, `cancelled`, or `failed`.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -391,7 +391,7 @@ private constructor(
 
         /**
          * The current status of the payment action. One of `pending`, `processing`, `sent`,
-         * `cancelled`, or `failed`.
+         * `acknowledged`, `cancelled`, or `failed`.
          */
         fun status(status: String) = status(JsonField.of(status))
 
