@@ -448,6 +448,8 @@ private constructor(
 
             val SENT = of("sent")
 
+            val ACKNOWLEDGED = of("acknowledged")
+
             val FAILED = of("failed")
 
             val CANCELLED = of("cancelled")
@@ -461,6 +463,7 @@ private constructor(
             PROCESSABLE,
             PROCESSING,
             SENT,
+            ACKNOWLEDGED,
             FAILED,
             CANCELLED,
         }
@@ -479,6 +482,7 @@ private constructor(
             PROCESSABLE,
             PROCESSING,
             SENT,
+            ACKNOWLEDGED,
             FAILED,
             CANCELLED,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
@@ -498,6 +502,7 @@ private constructor(
                 PROCESSABLE -> Value.PROCESSABLE
                 PROCESSING -> Value.PROCESSING
                 SENT -> Value.SENT
+                ACKNOWLEDGED -> Value.ACKNOWLEDGED
                 FAILED -> Value.FAILED
                 CANCELLED -> Value.CANCELLED
                 else -> Value._UNKNOWN
@@ -518,6 +523,7 @@ private constructor(
                 PROCESSABLE -> Known.PROCESSABLE
                 PROCESSING -> Known.PROCESSING
                 SENT -> Known.SENT
+                ACKNOWLEDGED -> Known.ACKNOWLEDGED
                 FAILED -> Known.FAILED
                 CANCELLED -> Known.CANCELLED
                 else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
