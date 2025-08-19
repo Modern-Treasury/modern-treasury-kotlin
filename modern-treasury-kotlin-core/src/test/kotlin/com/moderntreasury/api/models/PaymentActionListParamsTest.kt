@@ -32,7 +32,7 @@ internal class PaymentActionListParamsTest {
             )
             .perPage(0L)
             .status(PaymentActionListParams.Status.PENDING)
-            .type(PaymentActionListParams.Type.EVOLVE_NON_PROCESSING_TRANSACTION)
+            .type(PaymentActionListParams.Type.STOP)
             .build()
     }
 
@@ -60,7 +60,7 @@ internal class PaymentActionListParamsTest {
                 )
                 .perPage(0L)
                 .status(PaymentActionListParams.Status.PENDING)
-                .type(PaymentActionListParams.Type.EVOLVE_NON_PROCESSING_TRANSACTION)
+                .type(PaymentActionListParams.Type.STOP)
                 .build()
 
         val queryParams = params._queryParams()
@@ -80,7 +80,7 @@ internal class PaymentActionListParamsTest {
                     .put("metadata[foo]", "string")
                     .put("per_page", "0")
                     .put("status", "pending")
-                    .put("type", "evolve_non_processing_transaction")
+                    .put("type", "stop")
                     .build()
             )
     }
