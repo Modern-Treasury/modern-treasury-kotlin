@@ -322,7 +322,7 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
         // get /api/ping
         withRawResponse().ping(params, requestOptions).parse()
 
-    override fun close() = clientOptions.httpClient.close()
+    override fun close() = clientOptions.close()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ModernTreasuryClient.WithRawResponse {
