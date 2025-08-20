@@ -183,7 +183,7 @@ private constructor(
 
         fun file(file: ByteArray) = apply { body.file(file) }
 
-        fun file(file: Path) = apply { body.file(file) }
+        fun file(path: Path) = apply { body.file(path) }
 
         /** A category given to the document, can be `null`. */
         fun documentType(documentType: String) = apply { body.documentType(documentType) }
@@ -512,11 +512,11 @@ private constructor(
 
             fun file(file: ByteArray) = file(file.inputStream())
 
-            fun file(file: Path) =
+            fun file(path: Path) =
                 file(
                     MultipartField.builder<InputStream>()
-                        .value(file.inputStream())
-                        .filename(file.name)
+                        .value(path.inputStream())
+                        .filename(path.name)
                         .build()
                 )
 
