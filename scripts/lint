@@ -4,5 +4,10 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-echo "==> Running lints"
-./gradlew lint
+if command -v ktfmt &> /dev/null; then
+    echo "==> Checking ktfmt"
+    ./scripts/format --dry-run --set-exit-if-changed
+else
+    echo "==> Running gradlew lint"
+    ./gradlew lint
+fi
