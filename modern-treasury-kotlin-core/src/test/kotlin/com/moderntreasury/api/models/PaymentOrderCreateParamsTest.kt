@@ -460,20 +460,25 @@ internal class PaymentOrderCreateParamsTest {
                         "currency" to MultipartField.of(Currency.AED),
                         "description" to MultipartField.of("description"),
                         "documents" to
-                            MultipartField.of(
-                                listOf(
-                                    PaymentOrderCreateParams.DocumentCreateRequest.builder()
-                                        .documentableId("documentable_id")
-                                        .documentableType(
-                                            PaymentOrderCreateParams.DocumentCreateRequest
-                                                .DocumentableType
-                                                .COUNTERPARTIES
-                                        )
-                                        .file("some content".byteInputStream())
-                                        .documentType("document_type")
-                                        .build()
+                            MultipartField.builder<
+                                    List<PaymentOrderCreateParams.DocumentCreateRequest>
+                                >()
+                                .value(
+                                    listOf(
+                                        PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                                            .documentableId("documentable_id")
+                                            .documentableType(
+                                                PaymentOrderCreateParams.DocumentCreateRequest
+                                                    .DocumentableType
+                                                    .COUNTERPARTIES
+                                            )
+                                            .file("some content".byteInputStream())
+                                            .documentType("document_type")
+                                            .build()
+                                    )
                                 )
-                            ),
+                                .contentType("application/octet-stream")
+                                .build(),
                         "effective_date" to MultipartField.of(LocalDate.parse("2019-12-27")),
                         "expires_at" to
                             MultipartField.of(OffsetDateTime.parse("2019-12-27T18:11:19.117Z")),
