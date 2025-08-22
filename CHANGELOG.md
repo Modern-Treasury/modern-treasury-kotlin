@@ -1,5 +1,40 @@
 # Changelog
 
+## 7.11.0 (2025-08-22)
+
+Full Changelog: [v7.10.0...v7.11.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.10.0...v7.11.0)
+
+### Features
+
+* **api:** api update ([5a5a485](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5a5a485d98e496442458d9923145f7cb7adc5463))
+* **api:** api update ([217cbb7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/217cbb776210e8ae720ee77d1133bdfaaf349f9e))
+* **api:** api update ([e975017](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e975017954590d230cf6d123d117c491e5c15cef))
+
+
+### Bug Fixes
+
+* **client:** ensure correct binary content type ([378fac7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/378fac73633e87114bcdc3e01d2d429ae7722dc0))
+* **client:** missing multipart content type ([c181f23](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c181f23cd0b412b6f37f6c06081783f8a8fc7c93))
+
+
+### Performance Improvements
+
+* **internal:** make formatting faster ([e11f2e1](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e11f2e16027f3fedda4dd43eefd6dbe8dfbb0d3e))
+
+
+### Chores
+
+* **ci:** add build job ([f758357](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f758357f69c79150f9babef29e6ceffbb732cca9))
+* **ci:** reduce log noise ([b17f98f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b17f98f80eae58b02a5d724762eac98d955058dd))
+* **client:** refactor closing / shutdown ([3c98dc0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3c98dc08fedb43b5b8daac7562362b78d6612723))
+* **client:** rename parameter ([378fac7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/378fac73633e87114bcdc3e01d2d429ae7722dc0))
+* **internal:** dynamically determine included projects ([741da2a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/741da2ad91125acc9b6a88015604bfb1bf50fc22))
+* **internal:** fix multipart tests ([9b906b7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9b906b75bfc5130342284ac7bf0dec6a3702a182))
+* **internal:** format identity methods ([5cece29](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5cece29645d67ce25f5dd80d5cf136eb1c4e3315))
+* **internal:** support passing arguments to test script ([b133705](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b13370528855ca9ec3bd105d0d64776e062daa9a))
+* **internal:** support running ktfmt directly ([1061577](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1061577aa2115af85920f133d9a03a211201de62))
+* remove memory upper bound from publishing step ([eb512d8](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/eb512d828be756e1646541490d55140e203c3e40))
+
 ## 7.10.0 (2025-08-12)
 
 Full Changelog: [v7.9.0...v7.10.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.9.0...v7.10.0)
