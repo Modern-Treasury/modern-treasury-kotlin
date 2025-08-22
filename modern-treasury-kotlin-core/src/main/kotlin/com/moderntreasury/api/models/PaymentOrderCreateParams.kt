@@ -2602,9 +2602,12 @@ private constructor(
              */
             fun addDocument(document: DocumentCreateRequest) = apply {
                 documents =
-                    (documents ?: MultipartField.of(mutableListOf())).also {
-                        checkKnown("documents", it).add(document)
-                    }
+                    (documents
+                            ?: MultipartField.builder<MutableList<DocumentCreateRequest>>()
+                                .value(mutableListOf())
+                                .contentType("application/octet-stream")
+                                .build())
+                        .also { checkKnown("documents", it).add(document) }
             }
 
             /**
