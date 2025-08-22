@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.11.1 (2025-08-22)
+
+Full Changelog: [v7.11.0...v7.11.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.11.0...v7.11.1)
+
+### Bug Fixes
+
+* update singularization rules ([f5f0f2b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f5f0f2b9ee4d0fe998afe9d5aa3a36121c92958e))
+
 ## 7.11.0 (2025-08-22)
 
 Full Changelog: [v7.10.0...v7.11.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.10.0...v7.11.0)
