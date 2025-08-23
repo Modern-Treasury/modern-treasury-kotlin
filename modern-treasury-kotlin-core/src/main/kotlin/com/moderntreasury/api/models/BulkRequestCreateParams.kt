@@ -302,111 +302,112 @@ private constructor(
             body.putAdditionalProperty(key, value)
         }
 
-        fun putAlladditional_body_properties(additionalBodyProperties: Map<String, JsonValue>) =
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                body.putAlladditional_body_properties(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
         fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
-        fun removeAlladditional_body_properties(keys: Set<String>) = apply {
-            body.removeAlladditional_body_properties(keys)
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
-            putAlladditional_headers(additionalHeaders)
+            putAllAdditionalHeaders(additionalHeaders)
         }
 
         fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.clear()
-            putAlladditional_headers(additionalHeaders)
+            putAllAdditionalHeaders(additionalHeaders)
         }
 
         fun putAdditionalHeader(name: String, value: String) = apply {
             additionalHeaders.put(name, value)
         }
 
-        fun putadditional_headers(name: String, values: Iterable<String>) = apply {
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
             additionalHeaders.put(name, values)
         }
 
-        fun putAlladditional_headers(additionalHeaders: Headers) = apply {
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.putAll(additionalHeaders)
         }
 
-        fun putAlladditional_headers(additionalHeaders: Map<String, Iterable<String>>) = apply {
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.putAll(additionalHeaders)
         }
 
-        fun replaceadditional_headers(name: String, value: String) = apply {
+        fun replaceAdditionalHeaders(name: String, value: String) = apply {
             additionalHeaders.replace(name, value)
         }
 
-        fun replaceadditional_headers(name: String, values: Iterable<String>) = apply {
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
             additionalHeaders.replace(name, values)
         }
 
-        fun replaceAlladditional_headers(additionalHeaders: Headers) = apply {
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.replaceAll(additionalHeaders)
         }
 
-        fun replaceAlladditional_headers(additionalHeaders: Map<String, Iterable<String>>) = apply {
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.replaceAll(additionalHeaders)
         }
 
-        fun removeadditional_headers(name: String) = apply { additionalHeaders.remove(name) }
+        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
 
-        fun removeAlladditional_headers(names: Set<String>) = apply {
+        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
             additionalHeaders.removeAll(names)
         }
 
         fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
             this.additionalQueryParams.clear()
-            putAlladditional_query_params(additionalQueryParams)
+            putAllAdditionalQueryParams(additionalQueryParams)
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
             this.additionalQueryParams.clear()
-            putAlladditional_query_params(additionalQueryParams)
+            putAllAdditionalQueryParams(additionalQueryParams)
         }
 
         fun putAdditionalQueryParam(key: String, value: String) = apply {
             additionalQueryParams.put(key, value)
         }
 
-        fun putadditional_query_params(key: String, values: Iterable<String>) = apply {
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
             additionalQueryParams.put(key, values)
         }
 
-        fun putAlladditional_query_params(additionalQueryParams: QueryParams) = apply {
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
             this.additionalQueryParams.putAll(additionalQueryParams)
         }
 
-        fun putAlladditional_query_params(additionalQueryParams: Map<String, Iterable<String>>) =
+        fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceadditional_query_params(key: String, value: String) = apply {
+        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
             additionalQueryParams.replace(key, value)
         }
 
-        fun replaceadditional_query_params(key: String, values: Iterable<String>) = apply {
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
             additionalQueryParams.replace(key, values)
         }
 
-        fun replaceAlladditional_query_params(additionalQueryParams: QueryParams) = apply {
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
             this.additionalQueryParams.replaceAll(additionalQueryParams)
         }
 
-        fun replaceAlladditional_query_params(
-            additionalQueryParams: Map<String, Iterable<String>>
-        ) = apply { this.additionalQueryParams.replaceAll(additionalQueryParams) }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
 
-        fun removeadditional_query_params(key: String) = apply { additionalQueryParams.remove(key) }
+        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
 
-        fun removeAlladditional_query_params(keys: Set<String>) = apply {
+        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
         }
 
@@ -741,20 +742,20 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAlladditional_properties(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
 
-            fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) = apply {
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
             }
 
             fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAlladditional_properties(keys: Set<String>) = apply {
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                 keys.forEach(::removeAdditionalProperty)
             }
 
@@ -3289,14 +3290,14 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    putAlladditional_properties(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
 
-                fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
@@ -3305,7 +3306,7 @@ private constructor(
                     additionalProperties.remove(key)
                 }
 
-                fun removeAlladditional_properties(keys: Set<String>) = apply {
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                     keys.forEach(::removeAdditionalProperty)
                 }
 
@@ -4222,14 +4223,14 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        putAlladditional_properties(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
 
-                    fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
@@ -4238,7 +4239,7 @@ private constructor(
                         additionalProperties.remove(key)
                     }
 
-                    fun removeAlladditional_properties(keys: Set<String>) = apply {
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                         keys.forEach(::removeAdditionalProperty)
                     }
 
@@ -4334,14 +4335,14 @@ private constructor(
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                putAlladditional_properties(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }
 
-                        fun putAlladditional_properties(
+                        fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
@@ -4349,7 +4350,7 @@ private constructor(
                             additionalProperties.remove(key)
                         }
 
-                        fun removeAlladditional_properties(keys: Set<String>) = apply {
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                             keys.forEach(::removeAdditionalProperty)
                         }
 
@@ -4469,14 +4470,14 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        putAlladditional_properties(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
 
-                    fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
@@ -4485,7 +4486,7 @@ private constructor(
                         additionalProperties.remove(key)
                     }
 
-                    fun removeAlladditional_properties(keys: Set<String>) = apply {
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                         keys.forEach(::removeAdditionalProperty)
                     }
 
@@ -5292,14 +5293,14 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        putAlladditional_properties(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
 
-                    fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
@@ -5308,7 +5309,7 @@ private constructor(
                         additionalProperties.remove(key)
                     }
 
-                    fun removeAlladditional_properties(keys: Set<String>) = apply {
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                         keys.forEach(::removeAdditionalProperty)
                     }
 
@@ -5512,14 +5513,14 @@ private constructor(
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                putAlladditional_properties(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }
 
-                        fun putAlladditional_properties(
+                        fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
@@ -5527,7 +5528,7 @@ private constructor(
                             additionalProperties.remove(key)
                         }
 
-                        fun removeAlladditional_properties(keys: Set<String>) = apply {
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                             keys.forEach(::removeAdditionalProperty)
                         }
 
@@ -5847,14 +5848,14 @@ private constructor(
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                putAlladditional_properties(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }
 
-                        fun putAlladditional_properties(
+                        fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
@@ -5862,7 +5863,7 @@ private constructor(
                             additionalProperties.remove(key)
                         }
 
-                        fun removeAlladditional_properties(keys: Set<String>) = apply {
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                             keys.forEach(::removeAdditionalProperty)
                         }
 
@@ -6217,14 +6218,14 @@ private constructor(
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                putAlladditional_properties(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }
 
-                        fun putAlladditional_properties(
+                        fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
@@ -6232,7 +6233,7 @@ private constructor(
                             additionalProperties.remove(key)
                         }
 
-                        fun removeAlladditional_properties(keys: Set<String>) = apply {
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                             keys.forEach(::removeAdditionalProperty)
                         }
 
@@ -7931,14 +7932,14 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    putAlladditional_properties(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
 
-                fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
@@ -7947,7 +7948,7 @@ private constructor(
                     additionalProperties.remove(key)
                 }
 
-                fun removeAlladditional_properties(keys: Set<String>) = apply {
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                     keys.forEach(::removeAdditionalProperty)
                 }
 
@@ -8386,14 +8387,14 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        putAlladditional_properties(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
 
-                    fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
@@ -8402,7 +8403,7 @@ private constructor(
                         additionalProperties.remove(key)
                     }
 
-                    fun removeAlladditional_properties(keys: Set<String>) = apply {
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                         keys.forEach(::removeAdditionalProperty)
                     }
 
@@ -8498,14 +8499,14 @@ private constructor(
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                putAlladditional_properties(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }
 
-                        fun putAlladditional_properties(
+                        fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
@@ -8513,7 +8514,7 @@ private constructor(
                             additionalProperties.remove(key)
                         }
 
-                        fun removeAlladditional_properties(keys: Set<String>) = apply {
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                             keys.forEach(::removeAdditionalProperty)
                         }
 
@@ -8633,14 +8634,14 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        putAlladditional_properties(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
 
-                    fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
@@ -8649,7 +8650,7 @@ private constructor(
                         additionalProperties.remove(key)
                     }
 
-                    fun removeAlladditional_properties(keys: Set<String>) = apply {
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                         keys.forEach(::removeAdditionalProperty)
                     }
 
@@ -9258,14 +9259,14 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    putAlladditional_properties(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
 
-                fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
@@ -9274,7 +9275,7 @@ private constructor(
                     additionalProperties.remove(key)
                 }
 
-                fun removeAlladditional_properties(keys: Set<String>) = apply {
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                     keys.forEach(::removeAdditionalProperty)
                 }
 
@@ -9394,14 +9395,14 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        putAlladditional_properties(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
 
-                    fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
@@ -9410,7 +9411,7 @@ private constructor(
                         additionalProperties.remove(key)
                     }
 
-                    fun removeAlladditional_properties(keys: Set<String>) = apply {
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                         keys.forEach(::removeAdditionalProperty)
                     }
 
@@ -9906,14 +9907,14 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    putAlladditional_properties(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
 
-                fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
@@ -9922,7 +9923,7 @@ private constructor(
                     additionalProperties.remove(key)
                 }
 
-                fun removeAlladditional_properties(keys: Set<String>) = apply {
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                     keys.forEach(::removeAdditionalProperty)
                 }
 
@@ -11599,14 +11600,14 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    putAlladditional_properties(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
 
-                fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
@@ -11615,7 +11616,7 @@ private constructor(
                     additionalProperties.remove(key)
                 }
 
-                fun removeAlladditional_properties(keys: Set<String>) = apply {
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                     keys.forEach(::removeAdditionalProperty)
                 }
 
@@ -12522,14 +12523,14 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        putAlladditional_properties(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
 
-                    fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
@@ -12538,7 +12539,7 @@ private constructor(
                         additionalProperties.remove(key)
                     }
 
-                    fun removeAlladditional_properties(keys: Set<String>) = apply {
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                         keys.forEach(::removeAdditionalProperty)
                     }
 
@@ -12634,14 +12635,14 @@ private constructor(
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                putAlladditional_properties(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }
 
-                        fun putAlladditional_properties(
+                        fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
@@ -12649,7 +12650,7 @@ private constructor(
                             additionalProperties.remove(key)
                         }
 
-                        fun removeAlladditional_properties(keys: Set<String>) = apply {
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                             keys.forEach(::removeAdditionalProperty)
                         }
 
@@ -12769,14 +12770,14 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        putAlladditional_properties(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
 
-                    fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
@@ -12785,7 +12786,7 @@ private constructor(
                         additionalProperties.remove(key)
                     }
 
-                    fun removeAlladditional_properties(keys: Set<String>) = apply {
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                         keys.forEach(::removeAdditionalProperty)
                     }
 
@@ -13592,14 +13593,14 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        putAlladditional_properties(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
 
-                    fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
@@ -13608,7 +13609,7 @@ private constructor(
                         additionalProperties.remove(key)
                     }
 
-                    fun removeAlladditional_properties(keys: Set<String>) = apply {
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                         keys.forEach(::removeAdditionalProperty)
                     }
 
@@ -13812,14 +13813,14 @@ private constructor(
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                putAlladditional_properties(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }
 
-                        fun putAlladditional_properties(
+                        fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
@@ -13827,7 +13828,7 @@ private constructor(
                             additionalProperties.remove(key)
                         }
 
-                        fun removeAlladditional_properties(keys: Set<String>) = apply {
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                             keys.forEach(::removeAdditionalProperty)
                         }
 
@@ -14147,14 +14148,14 @@ private constructor(
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                putAlladditional_properties(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }
 
-                        fun putAlladditional_properties(
+                        fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
@@ -14162,7 +14163,7 @@ private constructor(
                             additionalProperties.remove(key)
                         }
 
-                        fun removeAlladditional_properties(keys: Set<String>) = apply {
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                             keys.forEach(::removeAdditionalProperty)
                         }
 
@@ -14517,14 +14518,14 @@ private constructor(
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                putAlladditional_properties(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }
 
-                        fun putAlladditional_properties(
+                        fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
@@ -14532,7 +14533,7 @@ private constructor(
                             additionalProperties.remove(key)
                         }
 
-                        fun removeAlladditional_properties(keys: Set<String>) = apply {
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                             keys.forEach(::removeAdditionalProperty)
                         }
 
@@ -16345,14 +16346,14 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    putAlladditional_properties(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
 
-                fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
@@ -16361,7 +16362,7 @@ private constructor(
                     additionalProperties.remove(key)
                 }
 
-                fun removeAlladditional_properties(keys: Set<String>) = apply {
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                     keys.forEach(::removeAdditionalProperty)
                 }
 
@@ -16624,14 +16625,14 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        putAlladditional_properties(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
 
-                    fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
@@ -16640,7 +16641,7 @@ private constructor(
                         additionalProperties.remove(key)
                     }
 
-                    fun removeAlladditional_properties(keys: Set<String>) = apply {
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                         keys.forEach(::removeAdditionalProperty)
                     }
 
@@ -16993,14 +16994,14 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    putAlladditional_properties(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
 
-                fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
@@ -17009,7 +17010,7 @@ private constructor(
                     additionalProperties.remove(key)
                 }
 
-                fun removeAlladditional_properties(keys: Set<String>) = apply {
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                     keys.forEach(::removeAdditionalProperty)
                 }
 
@@ -17089,14 +17090,14 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        putAlladditional_properties(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
 
-                    fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
@@ -17105,7 +17106,7 @@ private constructor(
                         additionalProperties.remove(key)
                     }
 
-                    fun removeAlladditional_properties(keys: Set<String>) = apply {
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                         keys.forEach(::removeAdditionalProperty)
                     }
 
@@ -17558,14 +17559,14 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    putAlladditional_properties(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
 
-                fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
@@ -17574,7 +17575,7 @@ private constructor(
                     additionalProperties.remove(key)
                 }
 
-                fun removeAlladditional_properties(keys: Set<String>) = apply {
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                     keys.forEach(::removeAdditionalProperty)
                 }
 
@@ -17832,14 +17833,14 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        putAlladditional_properties(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
 
-                    fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) =
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
@@ -17848,7 +17849,7 @@ private constructor(
                         additionalProperties.remove(key)
                     }
 
-                    fun removeAlladditional_properties(keys: Set<String>) = apply {
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                         keys.forEach(::removeAdditionalProperty)
                     }
 
@@ -18110,20 +18111,20 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                putAlladditional_properties(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
 
-            fun putAlladditional_properties(additionalProperties: Map<String, JsonValue>) = apply {
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
             }
 
             fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAlladditional_properties(keys: Set<String>) = apply {
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
                 keys.forEach(::removeAdditionalProperty)
             }
 
