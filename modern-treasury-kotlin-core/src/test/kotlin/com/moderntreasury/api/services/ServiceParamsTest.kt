@@ -82,7 +82,7 @@ internal class ServiceParamsTest {
                                 )
                                 .build()
                         )
-                        .externalId("external_id")
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
