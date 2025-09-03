@@ -41,7 +41,7 @@ internal class CounterpartyCreateParamsTest {
                             )
                             .build()
                     )
-                    .externalId("external_id")
+                    .bodyExternalId("external_id")
                     .ledgerAccount(
                         LedgerAccountCreateRequest.builder()
                             .currency("currency")
@@ -506,7 +506,7 @@ internal class CounterpartyCreateParamsTest {
                                 )
                                 .build()
                         )
-                        .externalId("external_id")
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -999,7 +999,7 @@ internal class CounterpartyCreateParamsTest {
                                 )
                                 .build()
                         )
-                        .externalId("external_id")
+                        .bodyExternalId("external_id")
                         .ledgerAccount(
                             LedgerAccountCreateRequest.builder()
                                 .currency("currency")
@@ -1476,7 +1476,7 @@ internal class CounterpartyCreateParamsTest {
                             )
                             .build()
                     )
-                    .externalId("external_id")
+                    .bodyExternalId("external_id")
                     .ledgerAccount(
                         LedgerAccountCreateRequest.builder()
                             .currency("currency")
