@@ -14,14 +14,7 @@ internal class PaymentOrderUpdateParamsTest {
     fun create() {
         PaymentOrderUpdateParams.builder()
             .id("id")
-            .accounting(
-                Accounting.builder()
-                    .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .build()
-            )
             .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .amount(0L)
             .chargeBearer(PaymentOrderUpdateParams.ChargeBearer.SHARED)
             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -170,14 +163,7 @@ internal class PaymentOrderUpdateParamsTest {
         val params =
             PaymentOrderUpdateParams.builder()
                 .id("id")
-                .accounting(
-                    Accounting.builder()
-                        .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .build()
-                )
                 .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .amount(0L)
                 .chargeBearer(PaymentOrderUpdateParams.ChargeBearer.SHARED)
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -316,15 +302,7 @@ internal class PaymentOrderUpdateParamsTest {
 
         val body = params._body()
 
-        assertThat(body.accounting())
-            .isEqualTo(
-                Accounting.builder()
-                    .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .build()
-            )
         assertThat(body.accountingCategoryId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.accountingLedgerClassId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.chargeBearer()).isEqualTo(PaymentOrderUpdateParams.ChargeBearer.SHARED)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

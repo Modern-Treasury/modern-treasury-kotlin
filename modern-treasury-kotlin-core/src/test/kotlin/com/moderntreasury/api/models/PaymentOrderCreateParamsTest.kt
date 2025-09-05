@@ -19,14 +19,7 @@ internal class PaymentOrderCreateParamsTest {
             .direction(PaymentOrderCreateParams.Direction.CREDIT)
             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .type(PaymentOrderType.ACH)
-            .accounting(
-                Accounting.builder()
-                    .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .build()
-            )
             .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .chargeBearer(PaymentOrderCreateParams.ChargeBearer.SHARED)
             .currency(Currency.AED)
             .description("description")
@@ -225,14 +218,7 @@ internal class PaymentOrderCreateParamsTest {
                 .direction(PaymentOrderCreateParams.Direction.CREDIT)
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .type(PaymentOrderType.ACH)
-                .accounting(
-                    Accounting.builder()
-                        .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .build()
-                )
                 .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .chargeBearer(PaymentOrderCreateParams.ChargeBearer.SHARED)
                 .currency(Currency.AED)
                 .description("description")
@@ -444,16 +430,7 @@ internal class PaymentOrderCreateParamsTest {
                         "originating_account_id" to
                             MultipartField.of("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),
                         "type" to MultipartField.of(PaymentOrderType.ACH),
-                        "accounting" to
-                            MultipartField.of(
-                                Accounting.builder()
-                                    .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .build()
-                            ),
                         "accounting_category_id" to
-                            MultipartField.of("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),
-                        "accounting_ledger_class_id" to
                             MultipartField.of("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),
                         "charge_bearer" to
                             MultipartField.of(PaymentOrderCreateParams.ChargeBearer.SHARED),
