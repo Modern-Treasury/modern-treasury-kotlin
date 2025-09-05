@@ -5,7 +5,6 @@ package com.moderntreasury.api.services.async
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.models.Accounting
 import com.moderntreasury.api.models.AddressRequest
 import com.moderntreasury.api.models.BulkRequestCreateParams
 import com.moderntreasury.api.models.ContactDetailCreateRequest
@@ -52,14 +51,7 @@ internal class BulkRequestServiceAsyncTest {
                             )
                             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .type(PaymentOrderType.ACH)
-                            .accounting(
-                                Accounting.builder()
-                                    .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .build()
-                            )
                             .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .chargeBearer(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .ChargeBearer
