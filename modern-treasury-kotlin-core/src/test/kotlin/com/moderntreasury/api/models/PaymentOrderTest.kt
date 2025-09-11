@@ -17,7 +17,14 @@ internal class PaymentOrderTest {
         val paymentOrder =
             PaymentOrder.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .accounting(
+                    PaymentOrder.Accounting.builder()
+                        .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .build()
+                )
                 .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .amount(0L)
                 .chargeBearer(PaymentOrder.ChargeBearer.SHARED)
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -212,7 +219,16 @@ internal class PaymentOrderTest {
                 .build()
 
         assertThat(paymentOrder.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(paymentOrder.accounting())
+            .isEqualTo(
+                PaymentOrder.Accounting.builder()
+                    .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .build()
+            )
         assertThat(paymentOrder.accountingCategoryId())
+            .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(paymentOrder.accountingLedgerClassId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(paymentOrder.amount()).isEqualTo(0L)
         assertThat(paymentOrder.chargeBearer()).isEqualTo(PaymentOrder.ChargeBearer.SHARED)
@@ -433,7 +449,14 @@ internal class PaymentOrderTest {
         val paymentOrder =
             PaymentOrder.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .accounting(
+                    PaymentOrder.Accounting.builder()
+                        .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .build()
+                )
                 .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .amount(0L)
                 .chargeBearer(PaymentOrder.ChargeBearer.SHARED)
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

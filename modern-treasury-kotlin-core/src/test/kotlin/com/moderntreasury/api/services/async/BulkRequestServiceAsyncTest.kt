@@ -51,7 +51,16 @@ internal class BulkRequestServiceAsyncTest {
                             )
                             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .type(PaymentOrderType.ACH)
+                            .accounting(
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                    .Accounting
+                                    .builder()
+                                    .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .build()
+                            )
                             .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .chargeBearer(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .ChargeBearer
