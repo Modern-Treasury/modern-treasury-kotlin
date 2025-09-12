@@ -40,6 +40,7 @@ private constructor(
     private val partyName: JsonField<String>,
     private val partyType: JsonField<PartyType>,
     private val routingDetails: JsonField<List<RoutingDetail>>,
+    private val status: JsonField<String>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val vendorId: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -90,6 +91,7 @@ private constructor(
         @JsonProperty("routing_details")
         @ExcludeMissing
         routingDetails: JsonField<List<RoutingDetail>> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<String> = JsonMissing.of(),
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -114,6 +116,7 @@ private constructor(
         partyName,
         partyType,
         routingDetails,
+        status,
         updatedAt,
         vendorId,
         mutableMapOf(),
@@ -268,6 +271,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun routingDetails(): List<RoutingDetail> = routingDetails.getRequired("routing_details")
+
+    /**
+     * The internal account status.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun status(): String? = status.getNullable("status")
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -440,6 +451,13 @@ private constructor(
     fun _routingDetails(): JsonField<List<RoutingDetail>> = routingDetails
 
     /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<String> = status
+
+    /**
      * Returns the raw JSON value of [updatedAt].
      *
      * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -493,6 +511,7 @@ private constructor(
          * .partyName()
          * .partyType()
          * .routingDetails()
+         * .status()
          * .updatedAt()
          * .vendorId()
          * ```
@@ -522,6 +541,7 @@ private constructor(
         private var partyName: JsonField<String>? = null
         private var partyType: JsonField<PartyType>? = null
         private var routingDetails: JsonField<MutableList<RoutingDetail>>? = null
+        private var status: JsonField<String>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var vendorId: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -546,6 +566,7 @@ private constructor(
             partyName = internalAccount.partyName
             partyType = internalAccount.partyType
             routingDetails = internalAccount.routingDetails.map { it.toMutableList() }
+            status = internalAccount.status
             updatedAt = internalAccount.updatedAt
             vendorId = internalAccount.vendorId
             additionalProperties = internalAccount.additionalProperties.toMutableMap()
@@ -845,6 +866,17 @@ private constructor(
                 }
         }
 
+        /** The internal account status. */
+        fun status(status: String?) = status(JsonField.ofNullable(status))
+
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun status(status: JsonField<String>) = apply { this.status = status }
+
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -912,6 +944,7 @@ private constructor(
          * .partyName()
          * .partyType()
          * .routingDetails()
+         * .status()
          * .updatedAt()
          * .vendorId()
          * ```
@@ -939,6 +972,7 @@ private constructor(
                 checkRequired("partyName", partyName),
                 checkRequired("partyType", partyType),
                 checkRequired("routingDetails", routingDetails).map { it.toImmutable() },
+                checkRequired("status", status),
                 checkRequired("updatedAt", updatedAt),
                 checkRequired("vendorId", vendorId),
                 additionalProperties.toMutableMap(),
@@ -971,6 +1005,7 @@ private constructor(
         partyName()
         partyType()?.validate()
         routingDetails().forEach { it.validate() }
+        status()
         updatedAt()
         vendorId()
         validated = true
@@ -1009,6 +1044,7 @@ private constructor(
             (if (partyName.asKnown() == null) 0 else 1) +
             (partyType.asKnown()?.validity() ?: 0) +
             (routingDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+            (if (status.asKnown() == null) 0 else 1) +
             (if (updatedAt.asKnown() == null) 0 else 1) +
             (if (vendorId.asKnown() == null) 0 else 1)
 
@@ -2299,6 +2335,7 @@ private constructor(
             partyName == other.partyName &&
             partyType == other.partyType &&
             routingDetails == other.routingDetails &&
+            status == other.status &&
             updatedAt == other.updatedAt &&
             vendorId == other.vendorId &&
             additionalProperties == other.additionalProperties
@@ -2325,6 +2362,7 @@ private constructor(
             partyName,
             partyType,
             routingDetails,
+            status,
             updatedAt,
             vendorId,
             additionalProperties,
@@ -2334,5 +2372,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InternalAccount{id=$id, accountCapabilities=$accountCapabilities, accountDetails=$accountDetails, accountType=$accountType, connection=$connection, counterpartyId=$counterpartyId, createdAt=$createdAt, currency=$currency, ledgerAccountId=$ledgerAccountId, legalEntityId=$legalEntityId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, parentAccountId=$parentAccountId, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, routingDetails=$routingDetails, updatedAt=$updatedAt, vendorId=$vendorId, additionalProperties=$additionalProperties}"
+        "InternalAccount{id=$id, accountCapabilities=$accountCapabilities, accountDetails=$accountDetails, accountType=$accountType, connection=$connection, counterpartyId=$counterpartyId, createdAt=$createdAt, currency=$currency, ledgerAccountId=$ledgerAccountId, legalEntityId=$legalEntityId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, parentAccountId=$parentAccountId, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, routingDetails=$routingDetails, status=$status, updatedAt=$updatedAt, vendorId=$vendorId, additionalProperties=$additionalProperties}"
 }
