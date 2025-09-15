@@ -623,6 +623,8 @@ private constructor(
 
             val LOB_CHECK_ID = of("lob_check_id")
 
+            val MT_FOF_TRANSFER_ID = of("mt_fof_transfer_id")
+
             val OTHER = of("other")
 
             val PARTIAL_SWIFT_MIR = of("partial_swift_mir")
@@ -752,6 +754,7 @@ private constructor(
             JPMC_PAYMENT_RETURNED_DATETIME,
             JPMC_TRANSACTION_REFERENCE_NUMBER,
             LOB_CHECK_ID,
+            MT_FOF_TRANSFER_ID,
             OTHER,
             PARTIAL_SWIFT_MIR,
             PNC_CLEARING_REFERENCE,
@@ -852,6 +855,7 @@ private constructor(
             JPMC_PAYMENT_RETURNED_DATETIME,
             JPMC_TRANSACTION_REFERENCE_NUMBER,
             LOB_CHECK_ID,
+            MT_FOF_TRANSFER_ID,
             OTHER,
             PARTIAL_SWIFT_MIR,
             PNC_CLEARING_REFERENCE,
@@ -958,6 +962,7 @@ private constructor(
                 JPMC_PAYMENT_RETURNED_DATETIME -> Value.JPMC_PAYMENT_RETURNED_DATETIME
                 JPMC_TRANSACTION_REFERENCE_NUMBER -> Value.JPMC_TRANSACTION_REFERENCE_NUMBER
                 LOB_CHECK_ID -> Value.LOB_CHECK_ID
+                MT_FOF_TRANSFER_ID -> Value.MT_FOF_TRANSFER_ID
                 OTHER -> Value.OTHER
                 PARTIAL_SWIFT_MIR -> Value.PARTIAL_SWIFT_MIR
                 PNC_CLEARING_REFERENCE -> Value.PNC_CLEARING_REFERENCE
@@ -1066,6 +1071,7 @@ private constructor(
                 JPMC_PAYMENT_RETURNED_DATETIME -> Known.JPMC_PAYMENT_RETURNED_DATETIME
                 JPMC_TRANSACTION_REFERENCE_NUMBER -> Known.JPMC_TRANSACTION_REFERENCE_NUMBER
                 LOB_CHECK_ID -> Known.LOB_CHECK_ID
+                MT_FOF_TRANSFER_ID -> Known.MT_FOF_TRANSFER_ID
                 OTHER -> Known.OTHER
                 PARTIAL_SWIFT_MIR -> Known.PARTIAL_SWIFT_MIR
                 PNC_CLEARING_REFERENCE -> Known.PNC_CLEARING_REFERENCE
