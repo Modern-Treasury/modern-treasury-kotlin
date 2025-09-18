@@ -1738,6 +1738,8 @@ private constructor(
 
             val JPMC = of("jpmc")
 
+            val MT_FOF = of("mt_fof")
+
             val MX = of("mx")
 
             val PAYPAL = of("paypal")
@@ -1781,6 +1783,7 @@ private constructor(
             HIFI,
             ISO20022,
             JPMC,
+            MT_FOF,
             MX,
             PAYPAL,
             PLAID,
@@ -1821,6 +1824,7 @@ private constructor(
             HIFI,
             ISO20022,
             JPMC,
+            MT_FOF,
             MX,
             PAYPAL,
             PLAID,
@@ -1865,6 +1869,7 @@ private constructor(
                 HIFI -> Value.HIFI
                 ISO20022 -> Value.ISO20022
                 JPMC -> Value.JPMC
+                MT_FOF -> Value.MT_FOF
                 MX -> Value.MX
                 PAYPAL -> Value.PAYPAL
                 PLAID -> Value.PLAID
@@ -1907,6 +1912,7 @@ private constructor(
                 HIFI -> Known.HIFI
                 ISO20022 -> Known.ISO20022
                 JPMC -> Known.JPMC
+                MT_FOF -> Known.MT_FOF
                 MX -> Known.MX
                 PAYPAL -> Known.PAYPAL
                 PLAID -> Known.PLAID
