@@ -9,6 +9,7 @@ import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.LedgerTransaction
 import com.moderntreasury.api.models.LedgerTransactionCreateParams
 import com.moderntreasury.api.models.LedgerTransactionCreatePartialPostParams
+import com.moderntreasury.api.models.LedgerTransactionCreateRequest
 import com.moderntreasury.api.models.LedgerTransactionCreateReversalParams
 import com.moderntreasury.api.models.LedgerTransactionListPageAsync
 import com.moderntreasury.api.models.LedgerTransactionListParams
@@ -37,6 +38,18 @@ interface LedgerTransactionServiceAsync {
         params: LedgerTransactionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerTransaction
+
+    /** @see create */
+    suspend fun create(
+        ledgerTransactionCreateRequest: LedgerTransactionCreateRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LedgerTransaction =
+        create(
+            LedgerTransactionCreateParams.builder()
+                .ledgerTransactionCreateRequest(ledgerTransactionCreateRequest)
+                .build(),
+            requestOptions,
+        )
 
     /** Get details on a single ledger transaction. */
     suspend fun retrieve(
@@ -139,6 +152,19 @@ interface LedgerTransactionServiceAsync {
             params: LedgerTransactionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerTransaction>
+
+        /** @see create */
+        @MustBeClosed
+        suspend fun create(
+            ledgerTransactionCreateRequest: LedgerTransactionCreateRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerTransaction> =
+            create(
+                LedgerTransactionCreateParams.builder()
+                    .ledgerTransactionCreateRequest(ledgerTransactionCreateRequest)
+                    .build(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /api/ledger_transactions/{id}`, but is otherwise the
