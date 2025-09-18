@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.LedgerAccount
 import com.moderntreasury.api.models.LedgerAccountCreateParams
+import com.moderntreasury.api.models.LedgerAccountCreateRequest
 import com.moderntreasury.api.models.LedgerAccountDeleteParams
 import com.moderntreasury.api.models.LedgerAccountListPage
 import com.moderntreasury.api.models.LedgerAccountListParams
@@ -33,6 +34,18 @@ interface LedgerAccountService {
         params: LedgerAccountCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LedgerAccount
+
+    /** @see create */
+    fun create(
+        ledgerAccountCreateRequest: LedgerAccountCreateRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LedgerAccount =
+        create(
+            LedgerAccountCreateParams.builder()
+                .ledgerAccountCreateRequest(ledgerAccountCreateRequest)
+                .build(),
+            requestOptions,
+        )
 
     /** Get details on a single ledger account. */
     fun retrieve(
@@ -118,6 +131,19 @@ interface LedgerAccountService {
             params: LedgerAccountCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LedgerAccount>
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            ledgerAccountCreateRequest: LedgerAccountCreateRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LedgerAccount> =
+            create(
+                LedgerAccountCreateParams.builder()
+                    .ledgerAccountCreateRequest(ledgerAccountCreateRequest)
+                    .build(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /api/ledger_accounts/{id}`, but is otherwise the
