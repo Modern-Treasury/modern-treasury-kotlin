@@ -1,5 +1,22 @@
 # Changelog
 
+## 7.15.0 (2025-09-19)
+
+Full Changelog: [v7.14.0...v7.15.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.14.0...v7.15.0)
+
+### Features
+
+* **api:** api update ([cd4e2e2](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/cd4e2e29b0e215d5de65a1ea41a13ca8ce819ab4))
+* **api:** api update ([6e74de1](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6e74de15d643c22b1b6a304658099ecf836eb163))
+* **api:** api update ([d32d841](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d32d84104164ca32a057280b667af98a0328eed3))
+* **client:** add convenience overloads for some methods ([8834a23](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8834a239c8102442e113f201ed9ab72845ccc2a2))
+* **client:** expose sleeper option ([4162efe](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4162efe5cfae61db2a5f833dceccc8fa35c8b6d5))
+
+
+### Bug Fixes
+
+* **client:** ensure single timer is created per client ([4162efe](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4162efe5cfae61db2a5f833dceccc8fa35c8b6d5))
+
 ## 7.14.0 (2025-09-15)
 
 Full Changelog: [v7.13.0...v7.14.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.13.0...v7.14.0)
