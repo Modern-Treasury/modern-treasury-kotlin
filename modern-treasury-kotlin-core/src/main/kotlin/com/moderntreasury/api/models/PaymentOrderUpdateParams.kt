@@ -6797,6 +6797,8 @@ private constructor(
 
             val FAILED = of("failed")
 
+            val HELD = of("held")
+
             val NEEDS_APPROVAL = of("needs_approval")
 
             val PENDING = of("pending")
@@ -6821,6 +6823,7 @@ private constructor(
             COMPLETED,
             DENIED,
             FAILED,
+            HELD,
             NEEDS_APPROVAL,
             PENDING,
             PROCESSING,
@@ -6845,6 +6848,7 @@ private constructor(
             COMPLETED,
             DENIED,
             FAILED,
+            HELD,
             NEEDS_APPROVAL,
             PENDING,
             PROCESSING,
@@ -6870,6 +6874,7 @@ private constructor(
                 COMPLETED -> Value.COMPLETED
                 DENIED -> Value.DENIED
                 FAILED -> Value.FAILED
+                HELD -> Value.HELD
                 NEEDS_APPROVAL -> Value.NEEDS_APPROVAL
                 PENDING -> Value.PENDING
                 PROCESSING -> Value.PROCESSING
@@ -6896,6 +6901,7 @@ private constructor(
                 COMPLETED -> Known.COMPLETED
                 DENIED -> Known.DENIED
                 FAILED -> Known.FAILED
+                HELD -> Known.HELD
                 NEEDS_APPROVAL -> Known.NEEDS_APPROVAL
                 PENDING -> Known.PENDING
                 PROCESSING -> Known.PROCESSING
