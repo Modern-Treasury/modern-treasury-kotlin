@@ -526,7 +526,7 @@ internal class ServiceParamsTest {
                 )
                 .sendRemittanceAdvice(true)
                 .taxpayerIdentifier("taxpayer_identifier")
-                .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
+                .verificationStatus("verification_status")
                 .putAdditionalHeader("Secret-Header", "42")
                 .putAdditionalQueryParam("secret_query_param", "42")
                 .putAdditionalBodyProperty("secretProperty", JsonValue.from("42"))
