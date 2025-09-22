@@ -218,7 +218,7 @@ internal class ProGuardCompatibilityTest {
                 .object_("object")
                 .sendRemittanceAdvice(true)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .verificationStatus(Counterparty.VerificationStatus.DENIED)
+                .verificationStatus("verification_status")
                 .build()
 
         val roundtrippedCounterparty =
