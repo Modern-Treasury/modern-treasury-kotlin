@@ -129,7 +129,7 @@ internal class CounterpartyTest {
                 .object_("object")
                 .sendRemittanceAdvice(true)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .verificationStatus(Counterparty.VerificationStatus.DENIED)
+                .verificationStatus("verification_status")
                 .build()
 
         assertThat(counterparty.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -251,8 +251,7 @@ internal class CounterpartyTest {
         assertThat(counterparty.sendRemittanceAdvice()).isEqualTo(true)
         assertThat(counterparty.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(counterparty.verificationStatus())
-            .isEqualTo(Counterparty.VerificationStatus.DENIED)
+        assertThat(counterparty.verificationStatus()).isEqualTo("verification_status")
     }
 
     @Test
@@ -374,7 +373,7 @@ internal class CounterpartyTest {
                 .object_("object")
                 .sendRemittanceAdvice(true)
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .verificationStatus(Counterparty.VerificationStatus.DENIED)
+                .verificationStatus("verification_status")
                 .build()
 
         val roundtrippedCounterparty =

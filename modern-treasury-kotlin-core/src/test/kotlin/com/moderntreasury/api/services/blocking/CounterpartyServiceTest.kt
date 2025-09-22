@@ -559,7 +559,7 @@ internal class CounterpartyServiceTest {
                     )
                     .sendRemittanceAdvice(true)
                     .taxpayerIdentifier("taxpayer_identifier")
-                    .verificationStatus(CounterpartyCreateParams.VerificationStatus.DENIED)
+                    .verificationStatus("verification_status")
                     .build()
             )
 
