@@ -10,6 +10,8 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 
 /** list invoices */
@@ -17,6 +19,8 @@ class InvoiceListParams
 private constructor(
     private val afterCursor: String?,
     private val counterpartyId: String?,
+    private val createdAtEnd: OffsetDateTime?,
+    private val createdAtStart: OffsetDateTime?,
     private val dueDateEnd: LocalDate?,
     private val dueDateStart: LocalDate?,
     private val expectedPaymentId: String?,
@@ -33,6 +37,12 @@ private constructor(
     fun afterCursor(): String? = afterCursor
 
     fun counterpartyId(): String? = counterpartyId
+
+    /** An inclusive upper bound for searching created_at */
+    fun createdAtEnd(): OffsetDateTime? = createdAtEnd
+
+    /** An inclusive lower bound for searching created_at */
+    fun createdAtStart(): OffsetDateTime? = createdAtStart
 
     /** An inclusive upper bound for searching due_date */
     fun dueDateEnd(): LocalDate? = dueDateEnd
@@ -80,6 +90,8 @@ private constructor(
 
         private var afterCursor: String? = null
         private var counterpartyId: String? = null
+        private var createdAtEnd: OffsetDateTime? = null
+        private var createdAtStart: OffsetDateTime? = null
         private var dueDateEnd: LocalDate? = null
         private var dueDateStart: LocalDate? = null
         private var expectedPaymentId: String? = null
@@ -95,6 +107,8 @@ private constructor(
         internal fun from(invoiceListParams: InvoiceListParams) = apply {
             afterCursor = invoiceListParams.afterCursor
             counterpartyId = invoiceListParams.counterpartyId
+            createdAtEnd = invoiceListParams.createdAtEnd
+            createdAtStart = invoiceListParams.createdAtStart
             dueDateEnd = invoiceListParams.dueDateEnd
             dueDateStart = invoiceListParams.dueDateStart
             expectedPaymentId = invoiceListParams.expectedPaymentId
@@ -111,6 +125,14 @@ private constructor(
         fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
 
         fun counterpartyId(counterpartyId: String?) = apply { this.counterpartyId = counterpartyId }
+
+        /** An inclusive upper bound for searching created_at */
+        fun createdAtEnd(createdAtEnd: OffsetDateTime?) = apply { this.createdAtEnd = createdAtEnd }
+
+        /** An inclusive lower bound for searching created_at */
+        fun createdAtStart(createdAtStart: OffsetDateTime?) = apply {
+            this.createdAtStart = createdAtStart
+        }
 
         /** An inclusive upper bound for searching due_date */
         fun dueDateEnd(dueDateEnd: LocalDate?) = apply { this.dueDateEnd = dueDateEnd }
@@ -255,6 +277,8 @@ private constructor(
             InvoiceListParams(
                 afterCursor,
                 counterpartyId,
+                createdAtEnd,
+                createdAtStart,
                 dueDateEnd,
                 dueDateStart,
                 expectedPaymentId,
@@ -276,6 +300,12 @@ private constructor(
             .apply {
                 afterCursor?.let { put("after_cursor", it) }
                 counterpartyId?.let { put("counterparty_id", it) }
+                createdAtEnd?.let {
+                    put("created_at_end", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
+                createdAtStart?.let {
+                    put("created_at_start", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
                 dueDateEnd?.let { put("due_date_end", it.toString()) }
                 dueDateStart?.let { put("due_date_start", it.toString()) }
                 expectedPaymentId?.let { put("expected_payment_id", it) }
@@ -550,6 +580,8 @@ private constructor(
         return other is InvoiceListParams &&
             afterCursor == other.afterCursor &&
             counterpartyId == other.counterpartyId &&
+            createdAtEnd == other.createdAtEnd &&
+            createdAtStart == other.createdAtStart &&
             dueDateEnd == other.dueDateEnd &&
             dueDateStart == other.dueDateStart &&
             expectedPaymentId == other.expectedPaymentId &&
@@ -567,6 +599,8 @@ private constructor(
         Objects.hash(
             afterCursor,
             counterpartyId,
+            createdAtEnd,
+            createdAtStart,
             dueDateEnd,
             dueDateStart,
             expectedPaymentId,
@@ -581,5 +615,5 @@ private constructor(
         )
 
     override fun toString() =
-        "InvoiceListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, dueDateEnd=$dueDateEnd, dueDateStart=$dueDateStart, expectedPaymentId=$expectedPaymentId, metadata=$metadata, number=$number, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, perPage=$perPage, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "InvoiceListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, createdAtEnd=$createdAtEnd, createdAtStart=$createdAtStart, dueDateEnd=$dueDateEnd, dueDateStart=$dueDateStart, expectedPaymentId=$expectedPaymentId, metadata=$metadata, number=$number, originatingAccountId=$originatingAccountId, paymentOrderId=$paymentOrderId, perPage=$perPage, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
