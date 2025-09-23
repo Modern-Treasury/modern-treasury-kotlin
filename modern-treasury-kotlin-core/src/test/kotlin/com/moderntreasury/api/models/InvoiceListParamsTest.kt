@@ -4,6 +4,7 @@ package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.http.QueryParams
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,6 +15,8 @@ internal class InvoiceListParamsTest {
         InvoiceListParams.builder()
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")
+            .createdAtEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .createdAtStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .dueDateEnd(LocalDate.parse("2019-12-27"))
             .dueDateStart(LocalDate.parse("2019-12-27"))
             .expectedPaymentId("expected_payment_id")
@@ -34,6 +37,8 @@ internal class InvoiceListParamsTest {
             InvoiceListParams.builder()
                 .afterCursor("after_cursor")
                 .counterpartyId("counterparty_id")
+                .createdAtEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdAtStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .dueDateEnd(LocalDate.parse("2019-12-27"))
                 .dueDateStart(LocalDate.parse("2019-12-27"))
                 .expectedPaymentId("expected_payment_id")
@@ -56,6 +61,8 @@ internal class InvoiceListParamsTest {
                 QueryParams.builder()
                     .put("after_cursor", "after_cursor")
                     .put("counterparty_id", "counterparty_id")
+                    .put("created_at_end", "2019-12-27T18:11:19.117Z")
+                    .put("created_at_start", "2019-12-27T18:11:19.117Z")
                     .put("due_date_end", "2019-12-27")
                     .put("due_date_start", "2019-12-27")
                     .put("expected_payment_id", "expected_payment_id")
