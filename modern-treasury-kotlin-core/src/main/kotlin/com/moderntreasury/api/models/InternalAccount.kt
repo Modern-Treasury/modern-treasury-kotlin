@@ -20,6 +20,7 @@ import java.util.Collections
 import java.util.Objects
 
 class InternalAccount
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountCapabilities: JsonField<List<AccountCapability>>,
@@ -1049,6 +1050,7 @@ private constructor(
             (if (vendorId.asKnown() == null) 0 else 1)
 
     class AccountCapability
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
         private val createdAt: JsonField<OffsetDateTime>,

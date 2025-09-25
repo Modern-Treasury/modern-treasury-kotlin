@@ -771,6 +771,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class ExpectedPaymentUpdateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amountLowerBound: JsonField<Long>,
         private val amountUpperBound: JsonField<Long>,

@@ -369,6 +369,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class BalanceReportCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val asOfDate: JsonField<LocalDate>,
         private val asOfTime: JsonField<String>,
@@ -823,6 +824,7 @@ private constructor(
     }
 
     class BalanceCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amount: JsonField<Long>,
         private val balanceType: JsonField<BalanceType>,

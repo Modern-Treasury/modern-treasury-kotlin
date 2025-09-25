@@ -31,6 +31,7 @@ import java.util.Collections
 import java.util.Objects
 
 class BulkResult
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -921,6 +922,7 @@ private constructor(
         }
 
         class BulkError
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val id: JsonField<String>,
             private val createdAt: JsonField<OffsetDateTime>,
@@ -1280,6 +1282,7 @@ private constructor(
                     (if (updatedAt.asKnown() == null) 0 else 1)
 
             class RequestError
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val code: JsonField<String>,
                 private val message: JsonField<String>,

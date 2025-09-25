@@ -842,6 +842,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class ExpectedPaymentCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amountLowerBound: JsonField<Long>,
         private val amountUpperBound: JsonField<Long>,
@@ -2011,6 +2012,7 @@ private constructor(
     }
 
     class LineItemRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amount: JsonField<Long>,
         private val accountingCategoryId: JsonField<String>,

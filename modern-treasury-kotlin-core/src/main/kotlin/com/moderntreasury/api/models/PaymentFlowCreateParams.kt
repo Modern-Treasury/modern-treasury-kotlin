@@ -415,6 +415,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class PaymentFlowCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amount: JsonField<Long>,
         private val counterpartyId: JsonField<String>,

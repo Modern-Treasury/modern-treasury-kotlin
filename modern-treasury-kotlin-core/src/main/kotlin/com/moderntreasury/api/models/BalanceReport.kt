@@ -21,6 +21,7 @@ import java.util.Collections
 import java.util.Objects
 
 class BalanceReport
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val asOfDate: JsonField<LocalDate>,
@@ -678,6 +679,7 @@ private constructor(
     }
 
     class Balance
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
         private val amount: JsonField<Long>,

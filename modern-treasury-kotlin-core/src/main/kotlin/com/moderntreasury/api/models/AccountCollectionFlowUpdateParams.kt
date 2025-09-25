@@ -264,6 +264,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class AccountCollectionFlowUpdateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val status: JsonField<Status>,
         private val additionalProperties: MutableMap<String, JsonValue>,

@@ -21,6 +21,7 @@ import java.util.Collections
 import java.util.Objects
 
 class LedgerTransactionCreateRequest
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val ledgerEntries: JsonField<List<LedgerEntryCreateRequest>>,
     private val description: JsonField<String>,

@@ -386,6 +386,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class LedgerTransactionPartialPostCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val postedLedgerEntries: JsonField<List<LedgerEntryPartialPostCreateRequest>>,
         private val description: JsonField<String>,
@@ -724,6 +725,7 @@ private constructor(
     }
 
     class LedgerEntryPartialPostCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amount: JsonField<Long>,
         private val direction: JsonField<Direction>,

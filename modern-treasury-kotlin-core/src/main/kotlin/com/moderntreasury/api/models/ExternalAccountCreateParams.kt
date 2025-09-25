@@ -683,6 +683,7 @@ private constructor(
             .build()
 
     class ExternalAccountCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val counterpartyId: JsonField<String>,
         private val accountDetails: JsonField<List<AccountDetail>>,
@@ -1468,6 +1469,7 @@ private constructor(
     }
 
     class AccountDetail
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountNumber: JsonField<String>,
         private val accountNumberType: JsonField<AccountNumberType>,
@@ -2106,6 +2108,7 @@ private constructor(
     }
 
     class RoutingDetail
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val routingNumber: JsonField<String>,
         private val routingNumberType: JsonField<RoutingNumberType>,

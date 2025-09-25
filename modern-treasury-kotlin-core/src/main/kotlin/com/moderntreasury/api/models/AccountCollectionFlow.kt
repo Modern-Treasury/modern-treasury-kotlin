@@ -20,6 +20,7 @@ import java.util.Collections
 import java.util.Objects
 
 class AccountCollectionFlow
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val counterpartyId: JsonField<String>,
     private val paymentTypes: JsonField<List<PaymentType>>,

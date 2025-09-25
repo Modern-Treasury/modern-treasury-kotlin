@@ -17,6 +17,7 @@ import java.util.Collections
 import java.util.Objects
 
 class LedgerEntryCreateRequest
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val amount: JsonField<Long>,
     private val direction: JsonField<TransactionDirection>,

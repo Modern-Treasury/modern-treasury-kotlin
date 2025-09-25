@@ -393,6 +393,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class LedgerAccountStatementCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val effectiveAtLowerBound: JsonField<OffsetDateTime>,
         private val effectiveAtUpperBound: JsonField<OffsetDateTime>,

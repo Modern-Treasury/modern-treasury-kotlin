@@ -604,6 +604,7 @@ private constructor(
             .build()
 
     class CounterpartyCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val name: JsonField<String>,
         private val accounting: JsonField<Accounting>,
@@ -1276,6 +1277,7 @@ private constructor(
 
     @Deprecated("deprecated")
     class Accounting
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val type: JsonField<Type>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1549,6 +1551,7 @@ private constructor(
     }
 
     class Account
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountDetails: JsonField<List<AccountDetail>>,
         private val accountType: JsonField<ExternalAccountType>,
@@ -2226,6 +2229,7 @@ private constructor(
                 (routingDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
 
         class AccountDetail
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val accountNumber: JsonField<String>,
             private val accountNumberType: JsonField<AccountNumberType>,
@@ -2878,6 +2882,7 @@ private constructor(
         }
 
         class RoutingDetail
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val routingNumber: JsonField<String>,
             private val routingNumberType: JsonField<RoutingNumberType>,
@@ -3894,6 +3899,7 @@ private constructor(
     }
 
     class LegalEntityCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val legalEntityType: JsonField<LegalEntityType>,
         private val addresses: JsonField<List<LegalEntityAddressCreateRequest>>,
@@ -5298,6 +5304,7 @@ private constructor(
         }
 
         class LegalEntityBankSetting
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val id: JsonField<String>,
             private val backupWithholdingPercentage: JsonField<Long>,
@@ -5920,6 +5927,7 @@ private constructor(
         }
 
         class LegalEntityAssociationInlineCreateRequest
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val relationshipTypes: JsonField<List<RelationshipType>>,
             private val childLegalEntity: JsonField<ChildLegalEntityCreate>,
@@ -6709,6 +6717,7 @@ private constructor(
 
         /** A list of phone numbers in E.164 format. */
         class PhoneNumber
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val phoneNumber: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -6993,6 +7002,7 @@ private constructor(
         }
 
         class LegalEntityWealthEmploymentDetail
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val id: JsonField<String>,
             private val annualIncome: JsonField<Long>,
