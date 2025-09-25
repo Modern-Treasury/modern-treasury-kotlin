@@ -455,6 +455,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class InvoiceLineItemUpdateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val description: JsonField<String>,
         private val direction: JsonField<String>,

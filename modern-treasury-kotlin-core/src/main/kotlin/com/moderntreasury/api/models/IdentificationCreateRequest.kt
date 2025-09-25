@@ -18,6 +18,7 @@ import java.util.Collections
 import java.util.Objects
 
 class IdentificationCreateRequest
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val idNumber: JsonField<String>,
     private val idType: JsonField<IdType>,

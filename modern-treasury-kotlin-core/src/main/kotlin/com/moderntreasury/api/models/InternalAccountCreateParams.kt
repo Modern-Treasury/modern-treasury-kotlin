@@ -570,6 +570,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class InternalAccountCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val connectionId: JsonField<String>,
         private val currency: JsonField<Currency>,
@@ -1330,6 +1331,7 @@ private constructor(
     }
 
     class AccountCapability
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
         private val createdAt: JsonField<OffsetDateTime>,
@@ -2367,6 +2369,7 @@ private constructor(
 
     /** The address associated with the owner or null. */
     class PartyAddress
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val country: JsonField<String>,
         private val line1: JsonField<String>,

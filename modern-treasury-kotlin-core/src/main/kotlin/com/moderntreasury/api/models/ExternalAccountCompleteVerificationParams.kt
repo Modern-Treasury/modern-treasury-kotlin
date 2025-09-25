@@ -259,6 +259,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class ExternalAccountCompleteVerificationRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amounts: JsonField<List<Long>>,
         private val additionalProperties: MutableMap<String, JsonValue>,

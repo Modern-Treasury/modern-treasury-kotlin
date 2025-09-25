@@ -16,6 +16,7 @@ import java.util.Collections
 import java.util.Objects
 
 class LedgerBalances
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val availableBalance: JsonField<LedgerBalance>,
     private val pendingBalance: JsonField<LedgerBalance>,

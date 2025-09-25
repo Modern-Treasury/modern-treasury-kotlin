@@ -1106,6 +1106,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class InvoiceUpdateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val contactDetails: JsonField<List<ContactDetail>>,
         private val counterpartyBillingAddress: JsonField<CounterpartyBillingAddress>,
@@ -2468,6 +2469,7 @@ private constructor(
 
     /** The counterparty's billing address. */
     class CounterpartyBillingAddress
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val country: JsonField<String>,
         private val line1: JsonField<String>,
@@ -2814,6 +2816,7 @@ private constructor(
 
     /** The counterparty's shipping address where physical goods should be delivered. */
     class CounterpartyShippingAddress
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val country: JsonField<String>,
         private val line1: JsonField<String>,
@@ -3159,6 +3162,7 @@ private constructor(
     }
 
     class InvoiceLineItemCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val name: JsonField<String>,
         private val unitAmount: JsonField<Long>,
@@ -3696,6 +3700,7 @@ private constructor(
 
     /** The invoice issuer's business address. */
     class InvoicerAddress
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val country: JsonField<String>,
         private val line1: JsonField<String>,

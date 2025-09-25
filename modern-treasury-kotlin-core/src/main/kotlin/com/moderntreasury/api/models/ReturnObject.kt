@@ -21,6 +21,7 @@ import java.util.Collections
 import java.util.Objects
 
 class ReturnObject
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val amount: JsonField<Long>,
@@ -1864,6 +1865,7 @@ private constructor(
      * payment.
      */
     class Corrections
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountNumber: JsonField<String>,
         private val companyId: JsonField<String>,
@@ -2267,6 +2269,7 @@ private constructor(
     }
 
     class PaymentReference
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
         private val createdAt: JsonField<OffsetDateTime>,

@@ -347,6 +347,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class LedgerAccountBalanceMonitorCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val alertCondition: JsonField<AlertConditionCreateRequest>,
         private val ledgerAccountId: JsonField<String>,
@@ -653,6 +654,7 @@ private constructor(
 
     /** Describes the condition that must be satisfied for the monitor to be triggered. */
     class AlertConditionCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val field: JsonField<String>,
         private val operator: JsonField<String>,

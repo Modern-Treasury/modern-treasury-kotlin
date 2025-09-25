@@ -481,6 +481,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class LedgerAccountCategoryCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val currency: JsonField<String>,
         private val ledgerId: JsonField<String>,
