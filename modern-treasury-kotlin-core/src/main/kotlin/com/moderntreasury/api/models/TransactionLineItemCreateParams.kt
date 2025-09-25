@@ -316,6 +316,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class TransactionLineItemCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amount: JsonField<Long>,
         private val expectedPaymentId: JsonField<String>,

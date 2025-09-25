@@ -518,6 +518,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class LedgerAccountSettlementCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val contraLedgerAccountId: JsonField<String>,
         private val settledLedgerAccountId: JsonField<String>,

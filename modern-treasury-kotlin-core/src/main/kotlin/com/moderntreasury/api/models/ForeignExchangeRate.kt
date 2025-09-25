@@ -16,6 +16,7 @@ import java.util.Collections
 import java.util.Objects
 
 class ForeignExchangeRate
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val baseAmount: JsonField<Long>,
     private val baseCurrency: JsonField<Currency>,

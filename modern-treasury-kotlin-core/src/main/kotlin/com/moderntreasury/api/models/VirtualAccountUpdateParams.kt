@@ -327,6 +327,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class VirtualAccountUpdateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val counterpartyId: JsonField<String>,
         private val ledgerAccountId: JsonField<String>,

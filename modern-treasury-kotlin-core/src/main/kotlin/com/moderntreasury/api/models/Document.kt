@@ -20,6 +20,7 @@ import java.util.Collections
 import java.util.Objects
 
 class Document
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -608,6 +609,7 @@ private constructor(
             (if (updatedAt.asKnown() == null) 0 else 1)
 
     class DocumentDetail
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
         private val createdAt: JsonField<OffsetDateTime>,
@@ -1250,6 +1252,7 @@ private constructor(
     }
 
     class File
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val contentType: JsonField<String>,
         private val filename: JsonField<String>,

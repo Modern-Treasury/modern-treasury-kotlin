@@ -336,6 +336,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class ReversalCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val reason: JsonField<Reason>,
         private val ledgerTransaction: JsonField<LedgerTransactionCreateRequest>,

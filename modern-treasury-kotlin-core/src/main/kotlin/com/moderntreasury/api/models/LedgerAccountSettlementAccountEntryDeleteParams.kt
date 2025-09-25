@@ -282,6 +282,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class LedgerAccountSettlementEntriesDeleteRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val ledgerEntryIds: JsonField<List<String>>,
         private val additionalProperties: MutableMap<String, JsonValue>,

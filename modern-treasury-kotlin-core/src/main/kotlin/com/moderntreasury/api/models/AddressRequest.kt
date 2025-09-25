@@ -15,6 +15,7 @@ import java.util.Collections
 import java.util.Objects
 
 class AddressRequest
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val country: JsonField<String>,
     private val line1: JsonField<String>,

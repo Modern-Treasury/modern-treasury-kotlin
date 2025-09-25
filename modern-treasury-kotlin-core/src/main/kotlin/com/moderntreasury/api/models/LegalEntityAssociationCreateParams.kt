@@ -429,6 +429,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class LegalEntityAssociationCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val parentLegalEntityId: JsonField<String>,
         private val relationshipTypes: JsonField<List<RelationshipType>>,

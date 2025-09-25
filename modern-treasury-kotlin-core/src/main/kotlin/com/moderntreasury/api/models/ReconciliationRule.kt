@@ -19,6 +19,7 @@ import java.util.Collections
 import java.util.Objects
 
 class ReconciliationRule
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val amountLowerBound: JsonField<Long>,
     private val amountUpperBound: JsonField<Long>,

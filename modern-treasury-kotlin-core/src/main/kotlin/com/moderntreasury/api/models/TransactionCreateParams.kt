@@ -565,6 +565,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class TransactionCreateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amount: JsonField<Long>,
         private val asOfDate: JsonField<LocalDate>,

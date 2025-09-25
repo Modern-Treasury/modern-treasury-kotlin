@@ -284,6 +284,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class LedgerAccountBalanceMonitorUpdateRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val description: JsonField<String>,
         private val metadata: JsonField<Metadata>,

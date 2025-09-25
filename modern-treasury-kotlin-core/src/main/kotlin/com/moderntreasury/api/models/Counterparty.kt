@@ -20,6 +20,7 @@ import java.util.Collections
 import java.util.Objects
 
 class Counterparty
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accounts: JsonField<List<Account>>,
@@ -693,6 +694,7 @@ private constructor(
             (if (verificationStatus.asKnown() == null) 0 else 1)
 
     class Account
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
         private val accountDetails: JsonField<List<AccountDetail>>,
