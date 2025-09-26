@@ -3821,6 +3821,8 @@ private constructor(
 
             val EFT = of("eft")
 
+            val GB_FPS = of("gb_fps")
+
             val INTERAC = of("interac")
 
             val MANUAL = of("manual")
@@ -3842,6 +3844,7 @@ private constructor(
             CHECK,
             CROSS_BORDER,
             EFT,
+            GB_FPS,
             INTERAC,
             MANUAL,
             SEPA,
@@ -3866,6 +3869,7 @@ private constructor(
             CHECK,
             CROSS_BORDER,
             EFT,
+            GB_FPS,
             INTERAC,
             MANUAL,
             SEPA,
@@ -3891,6 +3895,7 @@ private constructor(
                 CHECK -> Value.CHECK
                 CROSS_BORDER -> Value.CROSS_BORDER
                 EFT -> Value.EFT
+                GB_FPS -> Value.GB_FPS
                 INTERAC -> Value.INTERAC
                 MANUAL -> Value.MANUAL
                 SEPA -> Value.SEPA
@@ -3917,6 +3922,7 @@ private constructor(
                 CHECK -> Known.CHECK
                 CROSS_BORDER -> Known.CROSS_BORDER
                 EFT -> Known.EFT
+                GB_FPS -> Known.GB_FPS
                 INTERAC -> Known.INTERAC
                 MANUAL -> Known.MANUAL
                 SEPA -> Known.SEPA
