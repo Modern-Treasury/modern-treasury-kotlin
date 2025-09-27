@@ -22,6 +22,7 @@ private constructor(
     private val paymentDirection: TransactionDirection?,
     private val paymentType: PaymentType?,
     private val perPage: Long?,
+    private val status: Status?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -50,6 +51,9 @@ private constructor(
     fun paymentType(): PaymentType? = paymentType
 
     fun perPage(): Long? = perPage
+
+    /** Only return internal accounts with this status. */
+    fun status(): Status? = status
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -80,6 +84,7 @@ private constructor(
         private var paymentDirection: TransactionDirection? = null
         private var paymentType: PaymentType? = null
         private var perPage: Long? = null
+        private var status: Status? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -92,6 +97,7 @@ private constructor(
             paymentDirection = internalAccountListParams.paymentDirection
             paymentType = internalAccountListParams.paymentType
             perPage = internalAccountListParams.perPage
+            status = internalAccountListParams.status
             additionalHeaders = internalAccountListParams.additionalHeaders.toBuilder()
             additionalQueryParams = internalAccountListParams.additionalQueryParams.toBuilder()
         }
@@ -129,6 +135,9 @@ private constructor(
          * This unboxed primitive overload exists for backwards compatibility.
          */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
+
+        /** Only return internal accounts with this status. */
+        fun status(status: Status?) = apply { this.status = status }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -243,6 +252,7 @@ private constructor(
                 paymentDirection,
                 paymentType,
                 perPage,
+                status,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -267,6 +277,7 @@ private constructor(
                 paymentDirection?.let { put("payment_direction", it.toString()) }
                 paymentType?.let { put("payment_type", it.toString()) }
                 perPage?.let { put("per_page", it.toString()) }
+                status?.let { put("status", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -696,6 +707,150 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** Only return internal accounts with this status. */
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val ACTIVE = of("active")
+
+            val PENDING_ACTIVATION = of("pending_activation")
+
+            val SUSPENDED = of("suspended")
+
+            val PENDING_CLOSURE = of("pending_closure")
+
+            val CLOSED = of("closed")
+
+            fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        /** An enum containing [Status]'s known values. */
+        enum class Known {
+            ACTIVE,
+            PENDING_ACTIVATION,
+            SUSPENDED,
+            PENDING_CLOSURE,
+            CLOSED,
+        }
+
+        /**
+         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Status] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            ACTIVE,
+            PENDING_ACTIVATION,
+            SUSPENDED,
+            PENDING_CLOSURE,
+            CLOSED,
+            /** An enum member indicating that [Status] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                ACTIVE -> Value.ACTIVE
+                PENDING_ACTIVATION -> Value.PENDING_ACTIVATION
+                SUSPENDED -> Value.SUSPENDED
+                PENDING_CLOSURE -> Value.PENDING_CLOSURE
+                CLOSED -> Value.CLOSED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+         *   known member.
+         */
+        fun known(): Known =
+            when (this) {
+                ACTIVE -> Known.ACTIVE
+                PENDING_ACTIVATION -> Known.PENDING_ACTIVATION
+                SUSPENDED -> Known.SUSPENDED
+                PENDING_CLOSURE -> Known.PENDING_CLOSURE
+                CLOSED -> Known.CLOSED
+                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
+         *   the expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Status = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -710,6 +865,7 @@ private constructor(
             paymentDirection == other.paymentDirection &&
             paymentType == other.paymentType &&
             perPage == other.perPage &&
+            status == other.status &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
@@ -724,10 +880,11 @@ private constructor(
             paymentDirection,
             paymentType,
             perPage,
+            status,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "InternalAccountListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, currency=$currency, legalEntityId=$legalEntityId, metadata=$metadata, paymentDirection=$paymentDirection, paymentType=$paymentType, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "InternalAccountListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, currency=$currency, legalEntityId=$legalEntityId, metadata=$metadata, paymentDirection=$paymentDirection, paymentType=$paymentType, perPage=$perPage, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
