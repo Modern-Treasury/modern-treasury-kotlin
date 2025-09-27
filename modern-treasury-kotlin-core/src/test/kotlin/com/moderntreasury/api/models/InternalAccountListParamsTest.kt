@@ -23,6 +23,7 @@ internal class InternalAccountListParamsTest {
             .paymentDirection(TransactionDirection.CREDIT)
             .paymentType(InternalAccountListParams.PaymentType.ACH)
             .perPage(0L)
+            .status(InternalAccountListParams.Status.ACTIVE)
             .build()
     }
 
@@ -42,6 +43,7 @@ internal class InternalAccountListParamsTest {
                 .paymentDirection(TransactionDirection.CREDIT)
                 .paymentType(InternalAccountListParams.PaymentType.ACH)
                 .perPage(0L)
+                .status(InternalAccountListParams.Status.ACTIVE)
                 .build()
 
         val queryParams = params._queryParams()
@@ -57,6 +59,7 @@ internal class InternalAccountListParamsTest {
                     .put("payment_direction", "credit")
                     .put("payment_type", "ach")
                     .put("per_page", "0")
+                    .put("status", "active")
                     .build()
             )
     }

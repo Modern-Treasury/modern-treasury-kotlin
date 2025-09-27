@@ -41,7 +41,7 @@ private constructor(
     private val partyName: JsonField<String>,
     private val partyType: JsonField<PartyType>,
     private val routingDetails: JsonField<List<RoutingDetail>>,
-    private val status: JsonField<String>,
+    private val status: JsonField<Status>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val vendorId: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -92,7 +92,7 @@ private constructor(
         @JsonProperty("routing_details")
         @ExcludeMissing
         routingDetails: JsonField<List<RoutingDetail>> = JsonMissing.of(),
-        @JsonProperty("status") @ExcludeMissing status: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("updated_at")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -279,7 +279,7 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
      */
-    fun status(): String? = status.getNullable("status")
+    fun status(): Status? = status.getNullable("status")
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -456,7 +456,7 @@ private constructor(
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<String> = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * Returns the raw JSON value of [updatedAt].
@@ -542,7 +542,7 @@ private constructor(
         private var partyName: JsonField<String>? = null
         private var partyType: JsonField<PartyType>? = null
         private var routingDetails: JsonField<MutableList<RoutingDetail>>? = null
-        private var status: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var vendorId: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -868,15 +868,15 @@ private constructor(
         }
 
         /** The internal account status. */
-        fun status(status: String?) = status(JsonField.ofNullable(status))
+        fun status(status: Status?) = status(JsonField.ofNullable(status))
 
         /**
          * Sets [Builder.status] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.status] with a well-typed [String] value instead. This
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun status(status: JsonField<String>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
@@ -1006,7 +1006,7 @@ private constructor(
         partyName()
         partyType()?.validate()
         routingDetails().forEach { it.validate() }
-        status()
+        status()?.validate()
         updatedAt()
         vendorId()
         validated = true
@@ -1045,7 +1045,7 @@ private constructor(
             (if (partyName.asKnown() == null) 0 else 1) +
             (partyType.asKnown()?.validity() ?: 0) +
             (routingDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-            (if (status.asKnown() == null) 0 else 1) +
+            (status.asKnown()?.validity() ?: 0) +
             (if (updatedAt.asKnown() == null) 0 else 1) +
             (if (vendorId.asKnown() == null) 0 else 1)
 
@@ -2305,6 +2305,150 @@ private constructor(
             }
 
             return other is PartyType && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** The internal account status. */
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val ACTIVE = of("active")
+
+            val CLOSED = of("closed")
+
+            val PENDING_ACTIVATION = of("pending_activation")
+
+            val PENDING_CLOSURE = of("pending_closure")
+
+            val SUSPENDED = of("suspended")
+
+            fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        /** An enum containing [Status]'s known values. */
+        enum class Known {
+            ACTIVE,
+            CLOSED,
+            PENDING_ACTIVATION,
+            PENDING_CLOSURE,
+            SUSPENDED,
+        }
+
+        /**
+         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Status] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            ACTIVE,
+            CLOSED,
+            PENDING_ACTIVATION,
+            PENDING_CLOSURE,
+            SUSPENDED,
+            /** An enum member indicating that [Status] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                ACTIVE -> Value.ACTIVE
+                CLOSED -> Value.CLOSED
+                PENDING_ACTIVATION -> Value.PENDING_ACTIVATION
+                PENDING_CLOSURE -> Value.PENDING_CLOSURE
+                SUSPENDED -> Value.SUSPENDED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+         *   known member.
+         */
+        fun known(): Known =
+            when (this) {
+                ACTIVE -> Known.ACTIVE
+                CLOSED -> Known.CLOSED
+                PENDING_ACTIVATION -> Known.PENDING_ACTIVATION
+                PENDING_CLOSURE -> Known.PENDING_CLOSURE
+                SUSPENDED -> Known.SUSPENDED
+                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
+         *   the expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Status = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
