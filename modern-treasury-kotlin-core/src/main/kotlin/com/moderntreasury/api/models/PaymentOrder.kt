@@ -65,6 +65,7 @@ private constructor(
     private val purpose: JsonField<String>,
     private val receivingAccountId: JsonField<String>,
     private val receivingAccountType: JsonField<ReceivingAccountType>,
+    private val reconciled: JsonField<Boolean>,
     private val referenceNumbers: JsonField<List<PaymentReference>>,
     private val remittanceInformation: JsonField<String>,
     private val sendRemittanceAdvice: JsonField<Boolean>,
@@ -165,6 +166,9 @@ private constructor(
         @JsonProperty("receiving_account_type")
         @ExcludeMissing
         receivingAccountType: JsonField<ReceivingAccountType> = JsonMissing.of(),
+        @JsonProperty("reconciled")
+        @ExcludeMissing
+        reconciled: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("reference_numbers")
         @ExcludeMissing
         referenceNumbers: JsonField<List<PaymentReference>> = JsonMissing.of(),
@@ -248,6 +252,7 @@ private constructor(
         purpose,
         receivingAccountId,
         receivingAccountType,
+        reconciled,
         referenceNumbers,
         remittanceInformation,
         sendRemittanceAdvice,
@@ -537,6 +542,14 @@ private constructor(
      */
     fun receivingAccountType(): ReceivingAccountType =
         receivingAccountType.getRequired("receiving_account_type")
+
+    /**
+     * True if the object is reconciled, false otherwise.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun reconciled(): Boolean = reconciled.getRequired("reconciled")
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -967,6 +980,13 @@ private constructor(
     fun _receivingAccountType(): JsonField<ReceivingAccountType> = receivingAccountType
 
     /**
+     * Returns the raw JSON value of [reconciled].
+     *
+     * Unlike [reconciled], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("reconciled") @ExcludeMissing fun _reconciled(): JsonField<Boolean> = reconciled
+
+    /**
      * Returns the raw JSON value of [referenceNumbers].
      *
      * Unlike [referenceNumbers], this method doesn't throw if the JSON field has an unexpected
@@ -1180,6 +1200,7 @@ private constructor(
          * .purpose()
          * .receivingAccountId()
          * .receivingAccountType()
+         * .reconciled()
          * .referenceNumbers()
          * .remittanceInformation()
          * .sendRemittanceAdvice()
@@ -1237,6 +1258,7 @@ private constructor(
         private var purpose: JsonField<String>? = null
         private var receivingAccountId: JsonField<String>? = null
         private var receivingAccountType: JsonField<ReceivingAccountType>? = null
+        private var reconciled: JsonField<Boolean>? = null
         private var referenceNumbers: JsonField<MutableList<PaymentReference>>? = null
         private var remittanceInformation: JsonField<String>? = null
         private var sendRemittanceAdvice: JsonField<Boolean>? = null
@@ -1290,6 +1312,7 @@ private constructor(
             purpose = paymentOrder.purpose
             receivingAccountId = paymentOrder.receivingAccountId
             receivingAccountType = paymentOrder.receivingAccountType
+            reconciled = paymentOrder.reconciled
             referenceNumbers = paymentOrder.referenceNumbers.map { it.toMutableList() }
             remittanceInformation = paymentOrder.remittanceInformation
             sendRemittanceAdvice = paymentOrder.sendRemittanceAdvice
@@ -1785,6 +1808,18 @@ private constructor(
             this.receivingAccountType = receivingAccountType
         }
 
+        /** True if the object is reconciled, false otherwise. */
+        fun reconciled(reconciled: Boolean) = reconciled(JsonField.of(reconciled))
+
+        /**
+         * Sets [Builder.reconciled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reconciled] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun reconciled(reconciled: JsonField<Boolean>) = apply { this.reconciled = reconciled }
+
         fun referenceNumbers(referenceNumbers: List<PaymentReference>) =
             referenceNumbers(JsonField.of(referenceNumbers))
 
@@ -2173,6 +2208,7 @@ private constructor(
          * .purpose()
          * .receivingAccountId()
          * .receivingAccountType()
+         * .reconciled()
          * .referenceNumbers()
          * .remittanceInformation()
          * .sendRemittanceAdvice()
@@ -2228,6 +2264,7 @@ private constructor(
                 checkRequired("purpose", purpose),
                 checkRequired("receivingAccountId", receivingAccountId),
                 checkRequired("receivingAccountType", receivingAccountType),
+                checkRequired("reconciled", reconciled),
                 checkRequired("referenceNumbers", referenceNumbers).map { it.toImmutable() },
                 checkRequired("remittanceInformation", remittanceInformation),
                 checkRequired("sendRemittanceAdvice", sendRemittanceAdvice),
@@ -2291,6 +2328,7 @@ private constructor(
         purpose()
         receivingAccountId()
         receivingAccountType().validate()
+        reconciled()
         referenceNumbers().forEach { it.validate() }
         remittanceInformation()
         sendRemittanceAdvice()
@@ -2356,6 +2394,7 @@ private constructor(
             (if (purpose.asKnown() == null) 0 else 1) +
             (if (receivingAccountId.asKnown() == null) 0 else 1) +
             (receivingAccountType.asKnown()?.validity() ?: 0) +
+            (if (reconciled.asKnown() == null) 0 else 1) +
             (referenceNumbers.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (remittanceInformation.asKnown() == null) 0 else 1) +
             (if (sendRemittanceAdvice.asKnown() == null) 0 else 1) +
@@ -6089,6 +6128,7 @@ private constructor(
             purpose == other.purpose &&
             receivingAccountId == other.receivingAccountId &&
             receivingAccountType == other.receivingAccountType &&
+            reconciled == other.reconciled &&
             referenceNumbers == other.referenceNumbers &&
             remittanceInformation == other.remittanceInformation &&
             sendRemittanceAdvice == other.sendRemittanceAdvice &&
@@ -6143,6 +6183,7 @@ private constructor(
             purpose,
             receivingAccountId,
             receivingAccountType,
+            reconciled,
             referenceNumbers,
             remittanceInformation,
             sendRemittanceAdvice,
@@ -6168,5 +6209,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PaymentOrder{id=$id, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, amount=$amount, chargeBearer=$chargeBearer, counterpartyId=$counterpartyId, createdAt=$createdAt, currency=$currency, currentHold=$currentHold, currentReturn=$currentReturn, description=$description, direction=$direction, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeRate=$foreignExchangeRate, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, nsfProtected=$nsfProtected, object_=$object_, originatingAccountId=$originatingAccountId, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccountId=$receivingAccountId, receivingAccountType=$receivingAccountType, referenceNumbers=$referenceNumbers, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, status=$status, subtype=$subtype, transactionIds=$transactionIds, type=$type, ultimateOriginatingAccount=$ultimateOriginatingAccount, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingAccountType=$ultimateOriginatingAccountType, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, updatedAt=$updatedAt, vendorAttributes=$vendorAttributes, vendorFailureReason=$vendorFailureReason, additionalProperties=$additionalProperties}"
+        "PaymentOrder{id=$id, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, amount=$amount, chargeBearer=$chargeBearer, counterpartyId=$counterpartyId, createdAt=$createdAt, currency=$currency, currentHold=$currentHold, currentReturn=$currentReturn, description=$description, direction=$direction, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeRate=$foreignExchangeRate, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, nsfProtected=$nsfProtected, object_=$object_, originatingAccountId=$originatingAccountId, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccountId=$receivingAccountId, receivingAccountType=$receivingAccountType, reconciled=$reconciled, referenceNumbers=$referenceNumbers, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, status=$status, subtype=$subtype, transactionIds=$transactionIds, type=$type, ultimateOriginatingAccount=$ultimateOriginatingAccount, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingAccountType=$ultimateOriginatingAccountType, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, updatedAt=$updatedAt, vendorAttributes=$vendorAttributes, vendorFailureReason=$vendorFailureReason, additionalProperties=$additionalProperties}"
 }

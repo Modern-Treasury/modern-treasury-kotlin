@@ -29,6 +29,7 @@ internal class ReturnCreateParamsTest {
             .data(JsonValue.from(mapOf<String, Any>()))
             .dateOfDeath(LocalDate.parse("2019-12-27"))
             .reason("reason")
+            .reconciled(true)
             .build()
     }
 
@@ -53,6 +54,7 @@ internal class ReturnCreateParamsTest {
                 .data(JsonValue.from(mapOf<String, Any>()))
                 .dateOfDeath(LocalDate.parse("2019-12-27"))
                 .reason("reason")
+                .reconciled(true)
                 .build()
 
         val body = params._body()
@@ -76,6 +78,7 @@ internal class ReturnCreateParamsTest {
         assertThat(body._data()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(body.dateOfDeath()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.reason()).isEqualTo("reason")
+        assertThat(body.reconciled()).isEqualTo(true)
     }
 
     @Test

@@ -270,6 +270,14 @@ private constructor(
     fun receivingAccountId(): String? = body.receivingAccountId()
 
     /**
+     * True if the object is reconciled, false otherwise.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun reconciled(): Boolean? = body.reconciled()
+
+    /**
      * For `ach`, this field will be passed through on an addenda record. For `wire` payments the
      * field will be passed through as the "Originator to Beneficiary Information", also known as
      * OBI or Fedwire tag 6000.
@@ -545,6 +553,13 @@ private constructor(
      * type.
      */
     fun _receivingAccountId(): JsonField<String> = body._receivingAccountId()
+
+    /**
+     * Returns the raw JSON value of [reconciled].
+     *
+     * Unlike [reconciled], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _reconciled(): JsonField<Boolean> = body._reconciled()
 
     /**
      * Returns the raw JSON value of [remittanceInformation].
@@ -1124,6 +1139,18 @@ private constructor(
             body.receivingAccountId(receivingAccountId)
         }
 
+        /** True if the object is reconciled, false otherwise. */
+        fun reconciled(reconciled: Boolean) = apply { body.reconciled(reconciled) }
+
+        /**
+         * Sets [Builder.reconciled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reconciled] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun reconciled(reconciled: JsonField<Boolean>) = apply { body.reconciled(reconciled) }
+
         /**
          * For `ach`, this field will be passed through on an addenda record. For `wire` payments
          * the field will be passed through as the "Originator to Beneficiary Information", also
@@ -1469,6 +1496,7 @@ private constructor(
         private val purpose: JsonField<String>,
         private val receivingAccount: JsonField<ReceivingAccount>,
         private val receivingAccountId: JsonField<String>,
+        private val reconciled: JsonField<Boolean>,
         private val remittanceInformation: JsonField<String>,
         private val sendRemittanceAdvice: JsonField<Boolean>,
         private val statementDescriptor: JsonField<String>,
@@ -1557,6 +1585,9 @@ private constructor(
             @JsonProperty("receiving_account_id")
             @ExcludeMissing
             receivingAccountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("reconciled")
+            @ExcludeMissing
+            reconciled: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("remittance_information")
             @ExcludeMissing
             remittanceInformation: JsonField<String> = JsonMissing.of(),
@@ -1611,6 +1642,7 @@ private constructor(
             purpose,
             receivingAccount,
             receivingAccountId,
+            reconciled,
             remittanceInformation,
             sendRemittanceAdvice,
             statementDescriptor,
@@ -1875,6 +1907,14 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun receivingAccountId(): String? = receivingAccountId.getNullable("receiving_account_id")
+
+        /**
+         * True if the object is reconciled, false otherwise.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun reconciled(): Boolean? = reconciled.getNullable("reconciled")
 
         /**
          * For `ach`, this field will be passed through on an addenda record. For `wire` payments
@@ -2207,6 +2247,15 @@ private constructor(
         fun _receivingAccountId(): JsonField<String> = receivingAccountId
 
         /**
+         * Returns the raw JSON value of [reconciled].
+         *
+         * Unlike [reconciled], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("reconciled")
+        @ExcludeMissing
+        fun _reconciled(): JsonField<Boolean> = reconciled
+
+        /**
          * Returns the raw JSON value of [remittanceInformation].
          *
          * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an
@@ -2357,6 +2406,7 @@ private constructor(
             private var purpose: JsonField<String> = JsonMissing.of()
             private var receivingAccount: JsonField<ReceivingAccount> = JsonMissing.of()
             private var receivingAccountId: JsonField<String> = JsonMissing.of()
+            private var reconciled: JsonField<Boolean> = JsonMissing.of()
             private var remittanceInformation: JsonField<String> = JsonMissing.of()
             private var sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of()
             private var statementDescriptor: JsonField<String> = JsonMissing.of()
@@ -2397,6 +2447,7 @@ private constructor(
                     purpose = paymentOrderAsyncCreateRequest.purpose
                     receivingAccount = paymentOrderAsyncCreateRequest.receivingAccount
                     receivingAccountId = paymentOrderAsyncCreateRequest.receivingAccountId
+                    reconciled = paymentOrderAsyncCreateRequest.reconciled
                     remittanceInformation = paymentOrderAsyncCreateRequest.remittanceInformation
                     sendRemittanceAdvice = paymentOrderAsyncCreateRequest.sendRemittanceAdvice
                     statementDescriptor = paymentOrderAsyncCreateRequest.statementDescriptor
@@ -2872,6 +2923,18 @@ private constructor(
                 this.receivingAccountId = receivingAccountId
             }
 
+            /** True if the object is reconciled, false otherwise. */
+            fun reconciled(reconciled: Boolean) = reconciled(JsonField.of(reconciled))
+
+            /**
+             * Sets [Builder.reconciled] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reconciled] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun reconciled(reconciled: JsonField<Boolean>) = apply { this.reconciled = reconciled }
+
             /**
              * For `ach`, this field will be passed through on an addenda record. For `wire`
              * payments the field will be passed through as the "Originator to Beneficiary
@@ -3103,6 +3166,7 @@ private constructor(
                     purpose,
                     receivingAccount,
                     receivingAccountId,
+                    reconciled,
                     remittanceInformation,
                     sendRemittanceAdvice,
                     statementDescriptor,
@@ -3149,6 +3213,7 @@ private constructor(
             purpose()
             receivingAccount()?.validate()
             receivingAccountId()
+            reconciled()
             remittanceInformation()
             sendRemittanceAdvice()
             statementDescriptor()
@@ -3202,6 +3267,7 @@ private constructor(
                 (if (purpose.asKnown() == null) 0 else 1) +
                 (receivingAccount.asKnown()?.validity() ?: 0) +
                 (if (receivingAccountId.asKnown() == null) 0 else 1) +
+                (if (reconciled.asKnown() == null) 0 else 1) +
                 (if (remittanceInformation.asKnown() == null) 0 else 1) +
                 (if (sendRemittanceAdvice.asKnown() == null) 0 else 1) +
                 (if (statementDescriptor.asKnown() == null) 0 else 1) +
@@ -3244,6 +3310,7 @@ private constructor(
                 purpose == other.purpose &&
                 receivingAccount == other.receivingAccount &&
                 receivingAccountId == other.receivingAccountId &&
+                reconciled == other.reconciled &&
                 remittanceInformation == other.remittanceInformation &&
                 sendRemittanceAdvice == other.sendRemittanceAdvice &&
                 statementDescriptor == other.statementDescriptor &&
@@ -3284,6 +3351,7 @@ private constructor(
                 purpose,
                 receivingAccount,
                 receivingAccountId,
+                reconciled,
                 remittanceInformation,
                 sendRemittanceAdvice,
                 statementDescriptor,
@@ -3300,7 +3368,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PaymentOrderAsyncCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, effectiveDate=$effectiveDate, expiresAt=$expiresAt, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
+            "PaymentOrderAsyncCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, effectiveDate=$effectiveDate, expiresAt=$expiresAt, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciled=$reconciled, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
     }
 
     /**

@@ -76,6 +76,7 @@ internal class PaymentOrderTest {
                         .liveMode(true)
                         .object_("object")
                         .reason("reason")
+                        .reconciled(true)
                         .addReferenceNumber(
                             ReturnObject.PaymentReference.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -138,6 +139,7 @@ internal class PaymentOrderTest {
                 .purpose("purpose")
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .receivingAccountType(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
+                .reconciled(true)
                 .addReferenceNumber(
                     PaymentOrder.PaymentReference.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -304,6 +306,7 @@ internal class PaymentOrderTest {
                     .liveMode(true)
                     .object_("object")
                     .reason("reason")
+                    .reconciled(true)
                     .addReferenceNumber(
                         ReturnObject.PaymentReference.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -375,6 +378,7 @@ internal class PaymentOrderTest {
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(paymentOrder.receivingAccountType())
             .isEqualTo(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
+        assertThat(paymentOrder.reconciled()).isEqualTo(true)
         assertThat(paymentOrder.referenceNumbers())
             .containsExactly(
                 PaymentOrder.PaymentReference.builder()
@@ -549,6 +553,7 @@ internal class PaymentOrderTest {
                         .liveMode(true)
                         .object_("object")
                         .reason("reason")
+                        .reconciled(true)
                         .addReferenceNumber(
                             ReturnObject.PaymentReference.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -611,6 +616,7 @@ internal class PaymentOrderTest {
                 .purpose("purpose")
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .receivingAccountType(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
+                .reconciled(true)
                 .addReferenceNumber(
                     PaymentOrder.PaymentReference.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
