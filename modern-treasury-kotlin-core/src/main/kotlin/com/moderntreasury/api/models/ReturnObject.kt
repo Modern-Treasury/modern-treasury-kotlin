@@ -38,6 +38,7 @@ private constructor(
     private val liveMode: JsonField<Boolean>,
     private val object_: JsonField<String>,
     private val reason: JsonField<String>,
+    private val reconciled: JsonField<Boolean>,
     private val referenceNumbers: JsonField<List<PaymentReference>>,
     private val returnableId: JsonField<String>,
     private val returnableType: JsonField<ReturnableType>,
@@ -85,6 +86,9 @@ private constructor(
         @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
         @JsonProperty("reason") @ExcludeMissing reason: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("reconciled")
+        @ExcludeMissing
+        reconciled: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("reference_numbers")
         @ExcludeMissing
         referenceNumbers: JsonField<List<PaymentReference>> = JsonMissing.of(),
@@ -126,6 +130,7 @@ private constructor(
         liveMode,
         object_,
         reason,
+        reconciled,
         referenceNumbers,
         returnableId,
         returnableType,
@@ -257,6 +262,14 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun reason(): String? = reason.getNullable("reason")
+
+    /**
+     * True if the object is reconciled, false otherwise.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun reconciled(): Boolean = reconciled.getRequired("reconciled")
 
     /**
      * An array of Payment Reference objects.
@@ -468,6 +481,13 @@ private constructor(
     @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<String> = reason
 
     /**
+     * Returns the raw JSON value of [reconciled].
+     *
+     * Unlike [reconciled], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("reconciled") @ExcludeMissing fun _reconciled(): JsonField<Boolean> = reconciled
+
+    /**
      * Returns the raw JSON value of [referenceNumbers].
      *
      * Unlike [referenceNumbers], this method doesn't throw if the JSON field has an unexpected
@@ -588,6 +608,7 @@ private constructor(
          * .liveMode()
          * .object_()
          * .reason()
+         * .reconciled()
          * .referenceNumbers()
          * .returnableId()
          * .returnableType()
@@ -620,6 +641,7 @@ private constructor(
         private var liveMode: JsonField<Boolean>? = null
         private var object_: JsonField<String>? = null
         private var reason: JsonField<String>? = null
+        private var reconciled: JsonField<Boolean>? = null
         private var referenceNumbers: JsonField<MutableList<PaymentReference>>? = null
         private var returnableId: JsonField<String>? = null
         private var returnableType: JsonField<ReturnableType>? = null
@@ -649,6 +671,7 @@ private constructor(
             liveMode = returnObject.liveMode
             object_ = returnObject.object_
             reason = returnObject.reason
+            reconciled = returnObject.reconciled
             referenceNumbers = returnObject.referenceNumbers.map { it.toMutableList() }
             returnableId = returnObject.returnableId
             returnableType = returnObject.returnableType
@@ -872,6 +895,18 @@ private constructor(
          */
         fun reason(reason: JsonField<String>) = apply { this.reason = reason }
 
+        /** True if the object is reconciled, false otherwise. */
+        fun reconciled(reconciled: Boolean) = reconciled(JsonField.of(reconciled))
+
+        /**
+         * Sets [Builder.reconciled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reconciled] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun reconciled(reconciled: JsonField<Boolean>) = apply { this.reconciled = reconciled }
+
         /** An array of Payment Reference objects. */
         fun referenceNumbers(referenceNumbers: List<PaymentReference>) =
             referenceNumbers(JsonField.of(referenceNumbers))
@@ -1067,6 +1102,7 @@ private constructor(
          * .liveMode()
          * .object_()
          * .reason()
+         * .reconciled()
          * .referenceNumbers()
          * .returnableId()
          * .returnableType()
@@ -1097,6 +1133,7 @@ private constructor(
                 checkRequired("liveMode", liveMode),
                 checkRequired("object_", object_),
                 checkRequired("reason", reason),
+                checkRequired("reconciled", reconciled),
                 checkRequired("referenceNumbers", referenceNumbers).map { it.toImmutable() },
                 checkRequired("returnableId", returnableId),
                 checkRequired("returnableType", returnableType),
@@ -1134,6 +1171,7 @@ private constructor(
         liveMode()
         object_()
         reason()
+        reconciled()
         referenceNumbers().forEach { it.validate() }
         returnableId()
         returnableType()?.validate()
@@ -1176,6 +1214,7 @@ private constructor(
             (if (liveMode.asKnown() == null) 0 else 1) +
             (if (object_.asKnown() == null) 0 else 1) +
             (if (reason.asKnown() == null) 0 else 1) +
+            (if (reconciled.asKnown() == null) 0 else 1) +
             (referenceNumbers.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (returnableId.asKnown() == null) 0 else 1) +
             (returnableType.asKnown()?.validity() ?: 0) +
@@ -4003,6 +4042,7 @@ private constructor(
             liveMode == other.liveMode &&
             object_ == other.object_ &&
             reason == other.reason &&
+            reconciled == other.reconciled &&
             referenceNumbers == other.referenceNumbers &&
             returnableId == other.returnableId &&
             returnableType == other.returnableType &&
@@ -4034,6 +4074,7 @@ private constructor(
             liveMode,
             object_,
             reason,
+            reconciled,
             referenceNumbers,
             returnableId,
             returnableType,
@@ -4052,5 +4093,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ReturnObject{id=$id, amount=$amount, code=$code, corrections=$corrections, createdAt=$createdAt, currency=$currency, currentReturn=$currentReturn, dateOfDeath=$dateOfDeath, discardedAt=$discardedAt, failureReason=$failureReason, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, object_=$object_, reason=$reason, referenceNumbers=$referenceNumbers, returnableId=$returnableId, returnableType=$returnableType, role=$role, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, additionalInformation=$additionalInformation, data=$data, additionalProperties=$additionalProperties}"
+        "ReturnObject{id=$id, amount=$amount, code=$code, corrections=$corrections, createdAt=$createdAt, currency=$currency, currentReturn=$currentReturn, dateOfDeath=$dateOfDeath, discardedAt=$discardedAt, failureReason=$failureReason, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, object_=$object_, reason=$reason, reconciled=$reconciled, referenceNumbers=$referenceNumbers, returnableId=$returnableId, returnableType=$returnableType, role=$role, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, additionalInformation=$additionalInformation, data=$data, additionalProperties=$additionalProperties}"
 }

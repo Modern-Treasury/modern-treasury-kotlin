@@ -92,6 +92,14 @@ private constructor(
     fun reason(): String? = body.reason()
 
     /**
+     * True if the object is reconciled, false otherwise.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun reconciled(): Boolean? = body.reconciled()
+
+    /**
      * Returns the raw JSON value of [returnableId].
      *
      * Unlike [returnableId], this method doesn't throw if the JSON field has an unexpected type.
@@ -140,6 +148,13 @@ private constructor(
      * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _reason(): JsonField<String> = body._reason()
+
+    /**
+     * Returns the raw JSON value of [reconciled].
+     *
+     * Unlike [reconciled], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _reconciled(): JsonField<Boolean> = body._reconciled()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -304,6 +319,18 @@ private constructor(
          */
         fun reason(reason: JsonField<String>) = apply { body.reason(reason) }
 
+        /** True if the object is reconciled, false otherwise. */
+        fun reconciled(reconciled: Boolean) = apply { body.reconciled(reconciled) }
+
+        /**
+         * Sets [Builder.reconciled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reconciled] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun reconciled(reconciled: JsonField<Boolean>) = apply { body.reconciled(reconciled) }
+
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
         }
@@ -459,6 +486,7 @@ private constructor(
         private val data: JsonValue,
         private val dateOfDeath: JsonField<LocalDate>,
         private val reason: JsonField<String>,
+        private val reconciled: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -482,6 +510,9 @@ private constructor(
             @ExcludeMissing
             dateOfDeath: JsonField<LocalDate> = JsonMissing.of(),
             @JsonProperty("reason") @ExcludeMissing reason: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("reconciled")
+            @ExcludeMissing
+            reconciled: JsonField<Boolean> = JsonMissing.of(),
         ) : this(
             returnableId,
             returnableType,
@@ -491,6 +522,7 @@ private constructor(
             data,
             dateOfDeath,
             reason,
+            reconciled,
             mutableMapOf(),
         )
 
@@ -560,6 +592,14 @@ private constructor(
         fun reason(): String? = reason.getNullable("reason")
 
         /**
+         * True if the object is reconciled, false otherwise.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun reconciled(): Boolean? = reconciled.getNullable("reconciled")
+
+        /**
          * Returns the raw JSON value of [returnableId].
          *
          * Unlike [returnableId], this method doesn't throw if the JSON field has an unexpected
@@ -621,6 +661,15 @@ private constructor(
          */
         @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<String> = reason
 
+        /**
+         * Returns the raw JSON value of [reconciled].
+         *
+         * Unlike [reconciled], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("reconciled")
+        @ExcludeMissing
+        fun _reconciled(): JsonField<Boolean> = reconciled
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -658,6 +707,7 @@ private constructor(
             private var data: JsonValue = JsonMissing.of()
             private var dateOfDeath: JsonField<LocalDate> = JsonMissing.of()
             private var reason: JsonField<String> = JsonMissing.of()
+            private var reconciled: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(returnCreateRequest: ReturnCreateRequest) = apply {
@@ -669,6 +719,7 @@ private constructor(
                 data = returnCreateRequest.data
                 dateOfDeath = returnCreateRequest.dateOfDeath
                 reason = returnCreateRequest.reason
+                reconciled = returnCreateRequest.reconciled
                 additionalProperties = returnCreateRequest.additionalProperties.toMutableMap()
             }
 
@@ -790,6 +841,18 @@ private constructor(
              */
             fun reason(reason: JsonField<String>) = apply { this.reason = reason }
 
+            /** True if the object is reconciled, false otherwise. */
+            fun reconciled(reconciled: Boolean) = reconciled(JsonField.of(reconciled))
+
+            /**
+             * Sets [Builder.reconciled] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reconciled] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun reconciled(reconciled: JsonField<Boolean>) = apply { this.reconciled = reconciled }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -832,6 +895,7 @@ private constructor(
                     data,
                     dateOfDeath,
                     reason,
+                    reconciled,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -850,6 +914,7 @@ private constructor(
             corrections()?.validate()
             dateOfDeath()
             reason()
+            reconciled()
             validated = true
         }
 
@@ -874,7 +939,8 @@ private constructor(
                 (code.asKnown()?.validity() ?: 0) +
                 (corrections.asKnown()?.validity() ?: 0) +
                 (if (dateOfDeath.asKnown() == null) 0 else 1) +
-                (if (reason.asKnown() == null) 0 else 1)
+                (if (reason.asKnown() == null) 0 else 1) +
+                (if (reconciled.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -890,6 +956,7 @@ private constructor(
                 data == other.data &&
                 dateOfDeath == other.dateOfDeath &&
                 reason == other.reason &&
+                reconciled == other.reconciled &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -903,6 +970,7 @@ private constructor(
                 data,
                 dateOfDeath,
                 reason,
+                reconciled,
                 additionalProperties,
             )
         }
@@ -910,7 +978,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ReturnCreateRequest{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, corrections=$corrections, data=$data, dateOfDeath=$dateOfDeath, reason=$reason, additionalProperties=$additionalProperties}"
+            "ReturnCreateRequest{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, corrections=$corrections, data=$data, dateOfDeath=$dateOfDeath, reason=$reason, reconciled=$reconciled, additionalProperties=$additionalProperties}"
     }
 
     /** The type of object being returned. Currently, this may only be incoming_payment_detail. */

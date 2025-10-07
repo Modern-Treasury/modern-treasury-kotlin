@@ -38,6 +38,7 @@ private constructor(
     private val originatingAccountNumberType: JsonField<OriginatingAccountNumberType>,
     private val originatingRoutingNumber: JsonField<String>,
     private val originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType>,
+    private val reconciled: JsonField<Boolean>,
     private val status: JsonField<Status>,
     private val transactionId: JsonField<String>,
     private val transactionLineItemId: JsonField<String>,
@@ -86,6 +87,9 @@ private constructor(
         @JsonProperty("originating_routing_number_type")
         @ExcludeMissing
         originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType> = JsonMissing.of(),
+        @JsonProperty("reconciled")
+        @ExcludeMissing
+        reconciled: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("transaction_id")
         @ExcludeMissing
@@ -124,6 +128,7 @@ private constructor(
         originatingAccountNumberType,
         originatingRoutingNumber,
         originatingRoutingNumberType,
+        reconciled,
         status,
         transactionId,
         transactionLineItemId,
@@ -262,6 +267,14 @@ private constructor(
      */
     fun originatingRoutingNumberType(): OriginatingRoutingNumberType? =
         originatingRoutingNumberType.getNullable("originating_routing_number_type")
+
+    /**
+     * True if the object is reconciled, false otherwise.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun reconciled(): Boolean = reconciled.getRequired("reconciled")
 
     /**
      * The current status of the incoming payment order. One of `pending`, `completed`, or
@@ -474,6 +487,13 @@ private constructor(
         originatingRoutingNumberType
 
     /**
+     * Returns the raw JSON value of [reconciled].
+     *
+     * Unlike [reconciled], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("reconciled") @ExcludeMissing fun _reconciled(): JsonField<Boolean> = reconciled
+
+    /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -586,6 +606,7 @@ private constructor(
          * .originatingAccountNumberType()
          * .originatingRoutingNumber()
          * .originatingRoutingNumberType()
+         * .reconciled()
          * .status()
          * .transactionId()
          * .transactionLineItemId()
@@ -618,6 +639,7 @@ private constructor(
         private var originatingAccountNumberType: JsonField<OriginatingAccountNumberType>? = null
         private var originatingRoutingNumber: JsonField<String>? = null
         private var originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType>? = null
+        private var reconciled: JsonField<Boolean>? = null
         private var status: JsonField<Status>? = null
         private var transactionId: JsonField<String>? = null
         private var transactionLineItemId: JsonField<String>? = null
@@ -646,6 +668,7 @@ private constructor(
             originatingAccountNumberType = incomingPaymentDetail.originatingAccountNumberType
             originatingRoutingNumber = incomingPaymentDetail.originatingRoutingNumber
             originatingRoutingNumberType = incomingPaymentDetail.originatingRoutingNumberType
+            reconciled = incomingPaymentDetail.reconciled
             status = incomingPaymentDetail.status
             transactionId = incomingPaymentDetail.transactionId
             transactionLineItemId = incomingPaymentDetail.transactionLineItemId
@@ -872,6 +895,18 @@ private constructor(
             originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType>
         ) = apply { this.originatingRoutingNumberType = originatingRoutingNumberType }
 
+        /** True if the object is reconciled, false otherwise. */
+        fun reconciled(reconciled: Boolean) = reconciled(JsonField.of(reconciled))
+
+        /**
+         * Sets [Builder.reconciled] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reconciled] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun reconciled(reconciled: JsonField<Boolean>) = apply { this.reconciled = reconciled }
+
         /**
          * The current status of the incoming payment order. One of `pending`, `completed`, or
          * `returned`.
@@ -1041,6 +1076,7 @@ private constructor(
          * .originatingAccountNumberType()
          * .originatingRoutingNumber()
          * .originatingRoutingNumberType()
+         * .reconciled()
          * .status()
          * .transactionId()
          * .transactionLineItemId()
@@ -1071,6 +1107,7 @@ private constructor(
                 checkRequired("originatingAccountNumberType", originatingAccountNumberType),
                 checkRequired("originatingRoutingNumber", originatingRoutingNumber),
                 checkRequired("originatingRoutingNumberType", originatingRoutingNumberType),
+                checkRequired("reconciled", reconciled),
                 checkRequired("status", status),
                 checkRequired("transactionId", transactionId),
                 checkRequired("transactionLineItemId", transactionLineItemId),
@@ -1107,6 +1144,7 @@ private constructor(
         originatingAccountNumberType()?.validate()
         originatingRoutingNumber()
         originatingRoutingNumberType()?.validate()
+        reconciled()
         status().validate()
         transactionId()
         transactionLineItemId()
@@ -1149,6 +1187,7 @@ private constructor(
             (originatingAccountNumberType.asKnown()?.validity() ?: 0) +
             (if (originatingRoutingNumber.asKnown() == null) 0 else 1) +
             (originatingRoutingNumberType.asKnown()?.validity() ?: 0) +
+            (if (reconciled.asKnown() == null) 0 else 1) +
             (status.asKnown()?.validity() ?: 0) +
             (if (transactionId.asKnown() == null) 0 else 1) +
             (if (transactionLineItemId.asKnown() == null) 0 else 1) +
@@ -2168,6 +2207,7 @@ private constructor(
             originatingAccountNumberType == other.originatingAccountNumberType &&
             originatingRoutingNumber == other.originatingRoutingNumber &&
             originatingRoutingNumberType == other.originatingRoutingNumberType &&
+            reconciled == other.reconciled &&
             status == other.status &&
             transactionId == other.transactionId &&
             transactionLineItemId == other.transactionLineItemId &&
@@ -2198,6 +2238,7 @@ private constructor(
             originatingAccountNumberType,
             originatingRoutingNumber,
             originatingRoutingNumberType,
+            reconciled,
             status,
             transactionId,
             transactionLineItemId,
@@ -2214,5 +2255,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "IncomingPaymentDetail{id=$id, amount=$amount, asOfDate=$asOfDate, createdAt=$createdAt, currency=$currency, data=$data, direction=$direction, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, originatingAccountNumberSafe=$originatingAccountNumberSafe, originatingAccountNumberType=$originatingAccountNumberType, originatingRoutingNumber=$originatingRoutingNumber, originatingRoutingNumberType=$originatingRoutingNumberType, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, vendorId=$vendorId, virtualAccount=$virtualAccount, virtualAccountId=$virtualAccountId, originatingAccountNumber=$originatingAccountNumber, additionalProperties=$additionalProperties}"
+        "IncomingPaymentDetail{id=$id, amount=$amount, asOfDate=$asOfDate, createdAt=$createdAt, currency=$currency, data=$data, direction=$direction, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, originatingAccountNumberSafe=$originatingAccountNumberSafe, originatingAccountNumberType=$originatingAccountNumberType, originatingRoutingNumber=$originatingRoutingNumber, originatingRoutingNumberType=$originatingRoutingNumberType, reconciled=$reconciled, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, vendorId=$vendorId, virtualAccount=$virtualAccount, virtualAccountId=$virtualAccountId, originatingAccountNumber=$originatingAccountNumber, additionalProperties=$additionalProperties}"
 }
