@@ -242,7 +242,7 @@ internal class PaymentOrderServiceTest {
                             .build()
                     )
                     .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .reconciled(true)
+                    .reconciliationStatus(PaymentOrderCreateParams.ReconciliationStatus.RECONCILED)
                     .remittanceInformation("remittance_information")
                     .sendRemittanceAdvice(true)
                     .statementDescriptor("statement_descriptor")
@@ -424,7 +424,7 @@ internal class PaymentOrderServiceTest {
                             .build()
                     )
                     .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .reconciled(true)
+                    .reconciliationStatus(PaymentOrderUpdateParams.ReconciliationStatus.RECONCILED)
                     .remittanceInformation("remittance_information")
                     .sendRemittanceAdvice(true)
                     .statementDescriptor("statement_descriptor")
@@ -665,7 +665,9 @@ internal class PaymentOrderServiceTest {
                             .build()
                     )
                     .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .reconciled(true)
+                    .reconciliationStatus(
+                        PaymentOrderCreateAsyncParams.ReconciliationStatus.RECONCILED
+                    )
                     .remittanceInformation("remittance_information")
                     .sendRemittanceAdvice(true)
                     .statementDescriptor("statement_descriptor")
