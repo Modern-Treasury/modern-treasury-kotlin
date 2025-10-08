@@ -65,7 +65,7 @@ private constructor(
     private val purpose: JsonField<String>,
     private val receivingAccountId: JsonField<String>,
     private val receivingAccountType: JsonField<ReceivingAccountType>,
-    private val reconciled: JsonField<Boolean>,
+    private val reconciliationStatus: JsonField<ReconciliationStatus>,
     private val referenceNumbers: JsonField<List<PaymentReference>>,
     private val remittanceInformation: JsonField<String>,
     private val sendRemittanceAdvice: JsonField<Boolean>,
@@ -166,9 +166,9 @@ private constructor(
         @JsonProperty("receiving_account_type")
         @ExcludeMissing
         receivingAccountType: JsonField<ReceivingAccountType> = JsonMissing.of(),
-        @JsonProperty("reconciled")
+        @JsonProperty("reconciliation_status")
         @ExcludeMissing
-        reconciled: JsonField<Boolean> = JsonMissing.of(),
+        reconciliationStatus: JsonField<ReconciliationStatus> = JsonMissing.of(),
         @JsonProperty("reference_numbers")
         @ExcludeMissing
         referenceNumbers: JsonField<List<PaymentReference>> = JsonMissing.of(),
@@ -252,7 +252,7 @@ private constructor(
         purpose,
         receivingAccountId,
         receivingAccountType,
-        reconciled,
+        reconciliationStatus,
         referenceNumbers,
         remittanceInformation,
         sendRemittanceAdvice,
@@ -544,12 +544,13 @@ private constructor(
         receivingAccountType.getRequired("receiving_account_type")
 
     /**
-     * True if the object is reconciled, false otherwise.
+     * One of `unreconciled`, `tentatively_reconciled` or `reconciled`.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun reconciled(): Boolean = reconciled.getRequired("reconciled")
+    fun reconciliationStatus(): ReconciliationStatus =
+        reconciliationStatus.getRequired("reconciliation_status")
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -980,11 +981,14 @@ private constructor(
     fun _receivingAccountType(): JsonField<ReceivingAccountType> = receivingAccountType
 
     /**
-     * Returns the raw JSON value of [reconciled].
+     * Returns the raw JSON value of [reconciliationStatus].
      *
-     * Unlike [reconciled], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [reconciliationStatus], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
-    @JsonProperty("reconciled") @ExcludeMissing fun _reconciled(): JsonField<Boolean> = reconciled
+    @JsonProperty("reconciliation_status")
+    @ExcludeMissing
+    fun _reconciliationStatus(): JsonField<ReconciliationStatus> = reconciliationStatus
 
     /**
      * Returns the raw JSON value of [referenceNumbers].
@@ -1200,7 +1204,7 @@ private constructor(
          * .purpose()
          * .receivingAccountId()
          * .receivingAccountType()
-         * .reconciled()
+         * .reconciliationStatus()
          * .referenceNumbers()
          * .remittanceInformation()
          * .sendRemittanceAdvice()
@@ -1258,7 +1262,7 @@ private constructor(
         private var purpose: JsonField<String>? = null
         private var receivingAccountId: JsonField<String>? = null
         private var receivingAccountType: JsonField<ReceivingAccountType>? = null
-        private var reconciled: JsonField<Boolean>? = null
+        private var reconciliationStatus: JsonField<ReconciliationStatus>? = null
         private var referenceNumbers: JsonField<MutableList<PaymentReference>>? = null
         private var remittanceInformation: JsonField<String>? = null
         private var sendRemittanceAdvice: JsonField<Boolean>? = null
@@ -1312,7 +1316,7 @@ private constructor(
             purpose = paymentOrder.purpose
             receivingAccountId = paymentOrder.receivingAccountId
             receivingAccountType = paymentOrder.receivingAccountType
-            reconciled = paymentOrder.reconciled
+            reconciliationStatus = paymentOrder.reconciliationStatus
             referenceNumbers = paymentOrder.referenceNumbers.map { it.toMutableList() }
             remittanceInformation = paymentOrder.remittanceInformation
             sendRemittanceAdvice = paymentOrder.sendRemittanceAdvice
@@ -1808,17 +1812,20 @@ private constructor(
             this.receivingAccountType = receivingAccountType
         }
 
-        /** True if the object is reconciled, false otherwise. */
-        fun reconciled(reconciled: Boolean) = reconciled(JsonField.of(reconciled))
+        /** One of `unreconciled`, `tentatively_reconciled` or `reconciled`. */
+        fun reconciliationStatus(reconciliationStatus: ReconciliationStatus) =
+            reconciliationStatus(JsonField.of(reconciliationStatus))
 
         /**
-         * Sets [Builder.reconciled] to an arbitrary JSON value.
+         * Sets [Builder.reconciliationStatus] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.reconciled] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.reconciliationStatus] with a well-typed
+         * [ReconciliationStatus] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
          */
-        fun reconciled(reconciled: JsonField<Boolean>) = apply { this.reconciled = reconciled }
+        fun reconciliationStatus(reconciliationStatus: JsonField<ReconciliationStatus>) = apply {
+            this.reconciliationStatus = reconciliationStatus
+        }
 
         fun referenceNumbers(referenceNumbers: List<PaymentReference>) =
             referenceNumbers(JsonField.of(referenceNumbers))
@@ -2208,7 +2215,7 @@ private constructor(
          * .purpose()
          * .receivingAccountId()
          * .receivingAccountType()
-         * .reconciled()
+         * .reconciliationStatus()
          * .referenceNumbers()
          * .remittanceInformation()
          * .sendRemittanceAdvice()
@@ -2264,7 +2271,7 @@ private constructor(
                 checkRequired("purpose", purpose),
                 checkRequired("receivingAccountId", receivingAccountId),
                 checkRequired("receivingAccountType", receivingAccountType),
-                checkRequired("reconciled", reconciled),
+                checkRequired("reconciliationStatus", reconciliationStatus),
                 checkRequired("referenceNumbers", referenceNumbers).map { it.toImmutable() },
                 checkRequired("remittanceInformation", remittanceInformation),
                 checkRequired("sendRemittanceAdvice", sendRemittanceAdvice),
@@ -2328,7 +2335,7 @@ private constructor(
         purpose()
         receivingAccountId()
         receivingAccountType().validate()
-        reconciled()
+        reconciliationStatus().validate()
         referenceNumbers().forEach { it.validate() }
         remittanceInformation()
         sendRemittanceAdvice()
@@ -2394,7 +2401,7 @@ private constructor(
             (if (purpose.asKnown() == null) 0 else 1) +
             (if (receivingAccountId.asKnown() == null) 0 else 1) +
             (receivingAccountType.asKnown()?.validity() ?: 0) +
-            (if (reconciled.asKnown() == null) 0 else 1) +
+            (reconciliationStatus.asKnown()?.validity() ?: 0) +
             (referenceNumbers.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (remittanceInformation.asKnown() == null) 0 else 1) +
             (if (sendRemittanceAdvice.asKnown() == null) 0 else 1) +
@@ -4477,6 +4484,145 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** One of `unreconciled`, `tentatively_reconciled` or `reconciled`. */
+    class ReconciliationStatus
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val RECONCILED = of("reconciled")
+
+            val UNRECONCILED = of("unreconciled")
+
+            val TENTATIVELY_RECONCILED = of("tentatively_reconciled")
+
+            fun of(value: String) = ReconciliationStatus(JsonField.of(value))
+        }
+
+        /** An enum containing [ReconciliationStatus]'s known values. */
+        enum class Known {
+            RECONCILED,
+            UNRECONCILED,
+            TENTATIVELY_RECONCILED,
+        }
+
+        /**
+         * An enum containing [ReconciliationStatus]'s known values, as well as an [_UNKNOWN]
+         * member.
+         *
+         * An instance of [ReconciliationStatus] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            RECONCILED,
+            UNRECONCILED,
+            TENTATIVELY_RECONCILED,
+            /**
+             * An enum member indicating that [ReconciliationStatus] was instantiated with an
+             * unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                RECONCILED -> Value.RECONCILED
+                UNRECONCILED -> Value.UNRECONCILED
+                TENTATIVELY_RECONCILED -> Value.TENTATIVELY_RECONCILED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+         *   known member.
+         */
+        fun known(): Known =
+            when (this) {
+                RECONCILED -> Known.RECONCILED
+                UNRECONCILED -> Known.UNRECONCILED
+                TENTATIVELY_RECONCILED -> Known.TENTATIVELY_RECONCILED
+                else ->
+                    throw ModernTreasuryInvalidDataException("Unknown ReconciliationStatus: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
+         *   the expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): ReconciliationStatus = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReconciliationStatus && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     class PaymentReference
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
@@ -6128,7 +6274,7 @@ private constructor(
             purpose == other.purpose &&
             receivingAccountId == other.receivingAccountId &&
             receivingAccountType == other.receivingAccountType &&
-            reconciled == other.reconciled &&
+            reconciliationStatus == other.reconciliationStatus &&
             referenceNumbers == other.referenceNumbers &&
             remittanceInformation == other.remittanceInformation &&
             sendRemittanceAdvice == other.sendRemittanceAdvice &&
@@ -6183,7 +6329,7 @@ private constructor(
             purpose,
             receivingAccountId,
             receivingAccountType,
-            reconciled,
+            reconciliationStatus,
             referenceNumbers,
             remittanceInformation,
             sendRemittanceAdvice,
@@ -6209,5 +6355,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PaymentOrder{id=$id, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, amount=$amount, chargeBearer=$chargeBearer, counterpartyId=$counterpartyId, createdAt=$createdAt, currency=$currency, currentHold=$currentHold, currentReturn=$currentReturn, description=$description, direction=$direction, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeRate=$foreignExchangeRate, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, nsfProtected=$nsfProtected, object_=$object_, originatingAccountId=$originatingAccountId, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccountId=$receivingAccountId, receivingAccountType=$receivingAccountType, reconciled=$reconciled, referenceNumbers=$referenceNumbers, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, status=$status, subtype=$subtype, transactionIds=$transactionIds, type=$type, ultimateOriginatingAccount=$ultimateOriginatingAccount, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingAccountType=$ultimateOriginatingAccountType, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, updatedAt=$updatedAt, vendorAttributes=$vendorAttributes, vendorFailureReason=$vendorFailureReason, additionalProperties=$additionalProperties}"
+        "PaymentOrder{id=$id, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, amount=$amount, chargeBearer=$chargeBearer, counterpartyId=$counterpartyId, createdAt=$createdAt, currency=$currency, currentHold=$currentHold, currentReturn=$currentReturn, description=$description, direction=$direction, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeRate=$foreignExchangeRate, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, nsfProtected=$nsfProtected, object_=$object_, originatingAccountId=$originatingAccountId, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccountId=$receivingAccountId, receivingAccountType=$receivingAccountType, reconciliationStatus=$reconciliationStatus, referenceNumbers=$referenceNumbers, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, status=$status, subtype=$subtype, transactionIds=$transactionIds, type=$type, ultimateOriginatingAccount=$ultimateOriginatingAccount, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingAccountType=$ultimateOriginatingAccountType, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, updatedAt=$updatedAt, vendorAttributes=$vendorAttributes, vendorFailureReason=$vendorFailureReason, additionalProperties=$additionalProperties}"
 }

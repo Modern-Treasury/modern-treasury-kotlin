@@ -319,7 +319,11 @@ internal class BulkRequestServiceTest {
                                     .build()
                             )
                             .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .reconciled(true)
+                            .reconciliationStatus(
+                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                    .ReconciliationStatus
+                                    .RECONCILED
+                            )
                             .remittanceInformation("remittance_information")
                             .sendRemittanceAdvice(true)
                             .statementDescriptor("statement_descriptor")

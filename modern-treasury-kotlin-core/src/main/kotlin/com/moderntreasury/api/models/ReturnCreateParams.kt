@@ -92,12 +92,12 @@ private constructor(
     fun reason(): String? = body.reason()
 
     /**
-     * True if the object is reconciled, false otherwise.
+     * One of `unreconciled`, `tentatively_reconciled` or `reconciled`.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
      */
-    fun reconciled(): Boolean? = body.reconciled()
+    fun reconciliationStatus(): ReconciliationStatus? = body.reconciliationStatus()
 
     /**
      * Returns the raw JSON value of [returnableId].
@@ -150,11 +150,12 @@ private constructor(
     fun _reason(): JsonField<String> = body._reason()
 
     /**
-     * Returns the raw JSON value of [reconciled].
+     * Returns the raw JSON value of [reconciliationStatus].
      *
-     * Unlike [reconciled], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [reconciliationStatus], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
-    fun _reconciled(): JsonField<Boolean> = body._reconciled()
+    fun _reconciliationStatus(): JsonField<ReconciliationStatus> = body._reconciliationStatus()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -319,17 +320,21 @@ private constructor(
          */
         fun reason(reason: JsonField<String>) = apply { body.reason(reason) }
 
-        /** True if the object is reconciled, false otherwise. */
-        fun reconciled(reconciled: Boolean) = apply { body.reconciled(reconciled) }
+        /** One of `unreconciled`, `tentatively_reconciled` or `reconciled`. */
+        fun reconciliationStatus(reconciliationStatus: ReconciliationStatus) = apply {
+            body.reconciliationStatus(reconciliationStatus)
+        }
 
         /**
-         * Sets [Builder.reconciled] to an arbitrary JSON value.
+         * Sets [Builder.reconciliationStatus] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.reconciled] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.reconciliationStatus] with a well-typed
+         * [ReconciliationStatus] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
          */
-        fun reconciled(reconciled: JsonField<Boolean>) = apply { body.reconciled(reconciled) }
+        fun reconciliationStatus(reconciliationStatus: JsonField<ReconciliationStatus>) = apply {
+            body.reconciliationStatus(reconciliationStatus)
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -486,7 +491,7 @@ private constructor(
         private val data: JsonValue,
         private val dateOfDeath: JsonField<LocalDate>,
         private val reason: JsonField<String>,
-        private val reconciled: JsonField<Boolean>,
+        private val reconciliationStatus: JsonField<ReconciliationStatus>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -510,9 +515,9 @@ private constructor(
             @ExcludeMissing
             dateOfDeath: JsonField<LocalDate> = JsonMissing.of(),
             @JsonProperty("reason") @ExcludeMissing reason: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("reconciled")
+            @JsonProperty("reconciliation_status")
             @ExcludeMissing
-            reconciled: JsonField<Boolean> = JsonMissing.of(),
+            reconciliationStatus: JsonField<ReconciliationStatus> = JsonMissing.of(),
         ) : this(
             returnableId,
             returnableType,
@@ -522,7 +527,7 @@ private constructor(
             data,
             dateOfDeath,
             reason,
-            reconciled,
+            reconciliationStatus,
             mutableMapOf(),
         )
 
@@ -592,12 +597,13 @@ private constructor(
         fun reason(): String? = reason.getNullable("reason")
 
         /**
-         * True if the object is reconciled, false otherwise.
+         * One of `unreconciled`, `tentatively_reconciled` or `reconciled`.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
          */
-        fun reconciled(): Boolean? = reconciled.getNullable("reconciled")
+        fun reconciliationStatus(): ReconciliationStatus? =
+            reconciliationStatus.getNullable("reconciliation_status")
 
         /**
          * Returns the raw JSON value of [returnableId].
@@ -662,13 +668,14 @@ private constructor(
         @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<String> = reason
 
         /**
-         * Returns the raw JSON value of [reconciled].
+         * Returns the raw JSON value of [reconciliationStatus].
          *
-         * Unlike [reconciled], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [reconciliationStatus], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
-        @JsonProperty("reconciled")
+        @JsonProperty("reconciliation_status")
         @ExcludeMissing
-        fun _reconciled(): JsonField<Boolean> = reconciled
+        fun _reconciliationStatus(): JsonField<ReconciliationStatus> = reconciliationStatus
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -707,7 +714,7 @@ private constructor(
             private var data: JsonValue = JsonMissing.of()
             private var dateOfDeath: JsonField<LocalDate> = JsonMissing.of()
             private var reason: JsonField<String> = JsonMissing.of()
-            private var reconciled: JsonField<Boolean> = JsonMissing.of()
+            private var reconciliationStatus: JsonField<ReconciliationStatus> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(returnCreateRequest: ReturnCreateRequest) = apply {
@@ -719,7 +726,7 @@ private constructor(
                 data = returnCreateRequest.data
                 dateOfDeath = returnCreateRequest.dateOfDeath
                 reason = returnCreateRequest.reason
-                reconciled = returnCreateRequest.reconciled
+                reconciliationStatus = returnCreateRequest.reconciliationStatus
                 additionalProperties = returnCreateRequest.additionalProperties.toMutableMap()
             }
 
@@ -841,17 +848,21 @@ private constructor(
              */
             fun reason(reason: JsonField<String>) = apply { this.reason = reason }
 
-            /** True if the object is reconciled, false otherwise. */
-            fun reconciled(reconciled: Boolean) = reconciled(JsonField.of(reconciled))
+            /** One of `unreconciled`, `tentatively_reconciled` or `reconciled`. */
+            fun reconciliationStatus(reconciliationStatus: ReconciliationStatus) =
+                reconciliationStatus(JsonField.of(reconciliationStatus))
 
             /**
-             * Sets [Builder.reconciled] to an arbitrary JSON value.
+             * Sets [Builder.reconciliationStatus] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.reconciled] with a well-typed [Boolean] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.reconciliationStatus] with a well-typed
+             * [ReconciliationStatus] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
              */
-            fun reconciled(reconciled: JsonField<Boolean>) = apply { this.reconciled = reconciled }
+            fun reconciliationStatus(reconciliationStatus: JsonField<ReconciliationStatus>) =
+                apply {
+                    this.reconciliationStatus = reconciliationStatus
+                }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -895,7 +906,7 @@ private constructor(
                     data,
                     dateOfDeath,
                     reason,
-                    reconciled,
+                    reconciliationStatus,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -914,7 +925,7 @@ private constructor(
             corrections()?.validate()
             dateOfDeath()
             reason()
-            reconciled()
+            reconciliationStatus()?.validate()
             validated = true
         }
 
@@ -940,7 +951,7 @@ private constructor(
                 (corrections.asKnown()?.validity() ?: 0) +
                 (if (dateOfDeath.asKnown() == null) 0 else 1) +
                 (if (reason.asKnown() == null) 0 else 1) +
-                (if (reconciled.asKnown() == null) 0 else 1)
+                (reconciliationStatus.asKnown()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -956,7 +967,7 @@ private constructor(
                 data == other.data &&
                 dateOfDeath == other.dateOfDeath &&
                 reason == other.reason &&
-                reconciled == other.reconciled &&
+                reconciliationStatus == other.reconciliationStatus &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -970,7 +981,7 @@ private constructor(
                 data,
                 dateOfDeath,
                 reason,
-                reconciled,
+                reconciliationStatus,
                 additionalProperties,
             )
         }
@@ -978,7 +989,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ReturnCreateRequest{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, corrections=$corrections, data=$data, dateOfDeath=$dateOfDeath, reason=$reason, reconciled=$reconciled, additionalProperties=$additionalProperties}"
+            "ReturnCreateRequest{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, corrections=$corrections, data=$data, dateOfDeath=$dateOfDeath, reason=$reason, reconciliationStatus=$reconciliationStatus, additionalProperties=$additionalProperties}"
     }
 
     /** The type of object being returned. Currently, this may only be incoming_payment_detail. */
@@ -2184,6 +2195,145 @@ private constructor(
 
         override fun toString() =
             "Corrections{accountNumber=$accountNumber, companyId=$companyId, companyName=$companyName, individualIdentificationNumber=$individualIdentificationNumber, routingNumber=$routingNumber, transactionCode=$transactionCode, additionalProperties=$additionalProperties}"
+    }
+
+    /** One of `unreconciled`, `tentatively_reconciled` or `reconciled`. */
+    class ReconciliationStatus
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val RECONCILED = of("reconciled")
+
+            val UNRECONCILED = of("unreconciled")
+
+            val TENTATIVELY_RECONCILED = of("tentatively_reconciled")
+
+            fun of(value: String) = ReconciliationStatus(JsonField.of(value))
+        }
+
+        /** An enum containing [ReconciliationStatus]'s known values. */
+        enum class Known {
+            RECONCILED,
+            UNRECONCILED,
+            TENTATIVELY_RECONCILED,
+        }
+
+        /**
+         * An enum containing [ReconciliationStatus]'s known values, as well as an [_UNKNOWN]
+         * member.
+         *
+         * An instance of [ReconciliationStatus] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            RECONCILED,
+            UNRECONCILED,
+            TENTATIVELY_RECONCILED,
+            /**
+             * An enum member indicating that [ReconciliationStatus] was instantiated with an
+             * unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                RECONCILED -> Value.RECONCILED
+                UNRECONCILED -> Value.UNRECONCILED
+                TENTATIVELY_RECONCILED -> Value.TENTATIVELY_RECONCILED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+         *   known member.
+         */
+        fun known(): Known =
+            when (this) {
+                RECONCILED -> Known.RECONCILED
+                UNRECONCILED -> Known.UNRECONCILED
+                TENTATIVELY_RECONCILED -> Known.TENTATIVELY_RECONCILED
+                else ->
+                    throw ModernTreasuryInvalidDataException("Unknown ReconciliationStatus: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
+         *   the expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): ReconciliationStatus = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReconciliationStatus && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {
