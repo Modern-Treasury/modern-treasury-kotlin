@@ -203,7 +203,7 @@ internal class InvoiceTest {
                                 .liveMode(true)
                                 .object_("object")
                                 .reason("reason")
-                                .reconciled(true)
+                                .reconciliationStatus(ReturnObject.ReconciliationStatus.RECONCILED)
                                 .addReferenceNumber(
                                     ReturnObject.PaymentReference.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -268,7 +268,7 @@ internal class InvoiceTest {
                         .purpose("purpose")
                         .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .receivingAccountType(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
-                        .reconciled(true)
+                        .reconciliationStatus(PaymentOrder.ReconciliationStatus.RECONCILED)
                         .addReferenceNumber(
                             PaymentOrder.PaymentReference.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -587,7 +587,7 @@ internal class InvoiceTest {
                             .liveMode(true)
                             .object_("object")
                             .reason("reason")
-                            .reconciled(true)
+                            .reconciliationStatus(ReturnObject.ReconciliationStatus.RECONCILED)
                             .addReferenceNumber(
                                 ReturnObject.PaymentReference.builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -652,7 +652,7 @@ internal class InvoiceTest {
                     .purpose("purpose")
                     .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .receivingAccountType(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
-                    .reconciled(true)
+                    .reconciliationStatus(PaymentOrder.ReconciliationStatus.RECONCILED)
                     .addReferenceNumber(
                         PaymentOrder.PaymentReference.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -963,7 +963,7 @@ internal class InvoiceTest {
                                 .liveMode(true)
                                 .object_("object")
                                 .reason("reason")
-                                .reconciled(true)
+                                .reconciliationStatus(ReturnObject.ReconciliationStatus.RECONCILED)
                                 .addReferenceNumber(
                                     ReturnObject.PaymentReference.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -1028,7 +1028,7 @@ internal class InvoiceTest {
                         .purpose("purpose")
                         .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .receivingAccountType(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
-                        .reconciled(true)
+                        .reconciliationStatus(PaymentOrder.ReconciliationStatus.RECONCILED)
                         .addReferenceNumber(
                             PaymentOrder.PaymentReference.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

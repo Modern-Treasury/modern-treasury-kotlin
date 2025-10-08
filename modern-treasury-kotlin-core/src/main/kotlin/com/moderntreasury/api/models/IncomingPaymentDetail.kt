@@ -38,7 +38,7 @@ private constructor(
     private val originatingAccountNumberType: JsonField<OriginatingAccountNumberType>,
     private val originatingRoutingNumber: JsonField<String>,
     private val originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType>,
-    private val reconciled: JsonField<Boolean>,
+    private val reconciliationStatus: JsonField<ReconciliationStatus>,
     private val status: JsonField<Status>,
     private val transactionId: JsonField<String>,
     private val transactionLineItemId: JsonField<String>,
@@ -87,9 +87,9 @@ private constructor(
         @JsonProperty("originating_routing_number_type")
         @ExcludeMissing
         originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType> = JsonMissing.of(),
-        @JsonProperty("reconciled")
+        @JsonProperty("reconciliation_status")
         @ExcludeMissing
-        reconciled: JsonField<Boolean> = JsonMissing.of(),
+        reconciliationStatus: JsonField<ReconciliationStatus> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("transaction_id")
         @ExcludeMissing
@@ -128,7 +128,7 @@ private constructor(
         originatingAccountNumberType,
         originatingRoutingNumber,
         originatingRoutingNumberType,
-        reconciled,
+        reconciliationStatus,
         status,
         transactionId,
         transactionLineItemId,
@@ -269,12 +269,13 @@ private constructor(
         originatingRoutingNumberType.getNullable("originating_routing_number_type")
 
     /**
-     * True if the object is reconciled, false otherwise.
+     * One of `unreconciled`, `tentatively_reconciled` or `reconciled`.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun reconciled(): Boolean = reconciled.getRequired("reconciled")
+    fun reconciliationStatus(): ReconciliationStatus =
+        reconciliationStatus.getRequired("reconciliation_status")
 
     /**
      * The current status of the incoming payment order. One of `pending`, `completed`, or
@@ -487,11 +488,14 @@ private constructor(
         originatingRoutingNumberType
 
     /**
-     * Returns the raw JSON value of [reconciled].
+     * Returns the raw JSON value of [reconciliationStatus].
      *
-     * Unlike [reconciled], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [reconciliationStatus], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
-    @JsonProperty("reconciled") @ExcludeMissing fun _reconciled(): JsonField<Boolean> = reconciled
+    @JsonProperty("reconciliation_status")
+    @ExcludeMissing
+    fun _reconciliationStatus(): JsonField<ReconciliationStatus> = reconciliationStatus
 
     /**
      * Returns the raw JSON value of [status].
@@ -606,7 +610,7 @@ private constructor(
          * .originatingAccountNumberType()
          * .originatingRoutingNumber()
          * .originatingRoutingNumberType()
-         * .reconciled()
+         * .reconciliationStatus()
          * .status()
          * .transactionId()
          * .transactionLineItemId()
@@ -639,7 +643,7 @@ private constructor(
         private var originatingAccountNumberType: JsonField<OriginatingAccountNumberType>? = null
         private var originatingRoutingNumber: JsonField<String>? = null
         private var originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType>? = null
-        private var reconciled: JsonField<Boolean>? = null
+        private var reconciliationStatus: JsonField<ReconciliationStatus>? = null
         private var status: JsonField<Status>? = null
         private var transactionId: JsonField<String>? = null
         private var transactionLineItemId: JsonField<String>? = null
@@ -668,7 +672,7 @@ private constructor(
             originatingAccountNumberType = incomingPaymentDetail.originatingAccountNumberType
             originatingRoutingNumber = incomingPaymentDetail.originatingRoutingNumber
             originatingRoutingNumberType = incomingPaymentDetail.originatingRoutingNumberType
-            reconciled = incomingPaymentDetail.reconciled
+            reconciliationStatus = incomingPaymentDetail.reconciliationStatus
             status = incomingPaymentDetail.status
             transactionId = incomingPaymentDetail.transactionId
             transactionLineItemId = incomingPaymentDetail.transactionLineItemId
@@ -895,17 +899,20 @@ private constructor(
             originatingRoutingNumberType: JsonField<OriginatingRoutingNumberType>
         ) = apply { this.originatingRoutingNumberType = originatingRoutingNumberType }
 
-        /** True if the object is reconciled, false otherwise. */
-        fun reconciled(reconciled: Boolean) = reconciled(JsonField.of(reconciled))
+        /** One of `unreconciled`, `tentatively_reconciled` or `reconciled`. */
+        fun reconciliationStatus(reconciliationStatus: ReconciliationStatus) =
+            reconciliationStatus(JsonField.of(reconciliationStatus))
 
         /**
-         * Sets [Builder.reconciled] to an arbitrary JSON value.
+         * Sets [Builder.reconciliationStatus] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.reconciled] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.reconciliationStatus] with a well-typed
+         * [ReconciliationStatus] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
          */
-        fun reconciled(reconciled: JsonField<Boolean>) = apply { this.reconciled = reconciled }
+        fun reconciliationStatus(reconciliationStatus: JsonField<ReconciliationStatus>) = apply {
+            this.reconciliationStatus = reconciliationStatus
+        }
 
         /**
          * The current status of the incoming payment order. One of `pending`, `completed`, or
@@ -1076,7 +1083,7 @@ private constructor(
          * .originatingAccountNumberType()
          * .originatingRoutingNumber()
          * .originatingRoutingNumberType()
-         * .reconciled()
+         * .reconciliationStatus()
          * .status()
          * .transactionId()
          * .transactionLineItemId()
@@ -1107,7 +1114,7 @@ private constructor(
                 checkRequired("originatingAccountNumberType", originatingAccountNumberType),
                 checkRequired("originatingRoutingNumber", originatingRoutingNumber),
                 checkRequired("originatingRoutingNumberType", originatingRoutingNumberType),
-                checkRequired("reconciled", reconciled),
+                checkRequired("reconciliationStatus", reconciliationStatus),
                 checkRequired("status", status),
                 checkRequired("transactionId", transactionId),
                 checkRequired("transactionLineItemId", transactionLineItemId),
@@ -1144,7 +1151,7 @@ private constructor(
         originatingAccountNumberType()?.validate()
         originatingRoutingNumber()
         originatingRoutingNumberType()?.validate()
-        reconciled()
+        reconciliationStatus().validate()
         status().validate()
         transactionId()
         transactionLineItemId()
@@ -1187,7 +1194,7 @@ private constructor(
             (originatingAccountNumberType.asKnown()?.validity() ?: 0) +
             (if (originatingRoutingNumber.asKnown() == null) 0 else 1) +
             (originatingRoutingNumberType.asKnown()?.validity() ?: 0) +
-            (if (reconciled.asKnown() == null) 0 else 1) +
+            (reconciliationStatus.asKnown()?.validity() ?: 0) +
             (status.asKnown()?.validity() ?: 0) +
             (if (transactionId.asKnown() == null) 0 else 1) +
             (if (transactionLineItemId.asKnown() == null) 0 else 1) +
@@ -1858,6 +1865,145 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** One of `unreconciled`, `tentatively_reconciled` or `reconciled`. */
+    class ReconciliationStatus
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val RECONCILED = of("reconciled")
+
+            val UNRECONCILED = of("unreconciled")
+
+            val TENTATIVELY_RECONCILED = of("tentatively_reconciled")
+
+            fun of(value: String) = ReconciliationStatus(JsonField.of(value))
+        }
+
+        /** An enum containing [ReconciliationStatus]'s known values. */
+        enum class Known {
+            RECONCILED,
+            UNRECONCILED,
+            TENTATIVELY_RECONCILED,
+        }
+
+        /**
+         * An enum containing [ReconciliationStatus]'s known values, as well as an [_UNKNOWN]
+         * member.
+         *
+         * An instance of [ReconciliationStatus] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            RECONCILED,
+            UNRECONCILED,
+            TENTATIVELY_RECONCILED,
+            /**
+             * An enum member indicating that [ReconciliationStatus] was instantiated with an
+             * unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                RECONCILED -> Value.RECONCILED
+                UNRECONCILED -> Value.UNRECONCILED
+                TENTATIVELY_RECONCILED -> Value.TENTATIVELY_RECONCILED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+         *   known member.
+         */
+        fun known(): Known =
+            when (this) {
+                RECONCILED -> Known.RECONCILED
+                UNRECONCILED -> Known.UNRECONCILED
+                TENTATIVELY_RECONCILED -> Known.TENTATIVELY_RECONCILED
+                else ->
+                    throw ModernTreasuryInvalidDataException("Unknown ReconciliationStatus: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
+         *   the expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): ReconciliationStatus = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReconciliationStatus && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     /**
      * The current status of the incoming payment order. One of `pending`, `completed`, or
      * `returned`.
@@ -2207,7 +2353,7 @@ private constructor(
             originatingAccountNumberType == other.originatingAccountNumberType &&
             originatingRoutingNumber == other.originatingRoutingNumber &&
             originatingRoutingNumberType == other.originatingRoutingNumberType &&
-            reconciled == other.reconciled &&
+            reconciliationStatus == other.reconciliationStatus &&
             status == other.status &&
             transactionId == other.transactionId &&
             transactionLineItemId == other.transactionLineItemId &&
@@ -2238,7 +2384,7 @@ private constructor(
             originatingAccountNumberType,
             originatingRoutingNumber,
             originatingRoutingNumberType,
-            reconciled,
+            reconciliationStatus,
             status,
             transactionId,
             transactionLineItemId,
@@ -2255,5 +2401,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "IncomingPaymentDetail{id=$id, amount=$amount, asOfDate=$asOfDate, createdAt=$createdAt, currency=$currency, data=$data, direction=$direction, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, originatingAccountNumberSafe=$originatingAccountNumberSafe, originatingAccountNumberType=$originatingAccountNumberType, originatingRoutingNumber=$originatingRoutingNumber, originatingRoutingNumberType=$originatingRoutingNumberType, reconciled=$reconciled, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, vendorId=$vendorId, virtualAccount=$virtualAccount, virtualAccountId=$virtualAccountId, originatingAccountNumber=$originatingAccountNumber, additionalProperties=$additionalProperties}"
+        "IncomingPaymentDetail{id=$id, amount=$amount, asOfDate=$asOfDate, createdAt=$createdAt, currency=$currency, data=$data, direction=$direction, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, originatingAccountNumberSafe=$originatingAccountNumberSafe, originatingAccountNumberType=$originatingAccountNumberType, originatingRoutingNumber=$originatingRoutingNumber, originatingRoutingNumberType=$originatingRoutingNumberType, reconciliationStatus=$reconciliationStatus, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, vendorId=$vendorId, virtualAccount=$virtualAccount, virtualAccountId=$virtualAccountId, originatingAccountNumber=$originatingAccountNumber, additionalProperties=$additionalProperties}"
 }

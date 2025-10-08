@@ -205,7 +205,7 @@ internal class PaymentOrderCreateParamsTest {
                     .build()
             )
             .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .reconciled(true)
+            .reconciliationStatus(PaymentOrderCreateParams.ReconciliationStatus.RECONCILED)
             .remittanceInformation("remittance_information")
             .sendRemittanceAdvice(true)
             .statementDescriptor("statement_descriptor")
@@ -417,7 +417,7 @@ internal class PaymentOrderCreateParamsTest {
                         .build()
                 )
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .reconciled(true)
+                .reconciliationStatus(PaymentOrderCreateParams.ReconciliationStatus.RECONCILED)
                 .remittanceInformation("remittance_information")
                 .sendRemittanceAdvice(true)
                 .statementDescriptor("statement_descriptor")
@@ -709,7 +709,10 @@ internal class PaymentOrderCreateParamsTest {
                             ),
                         "receiving_account_id" to
                             MultipartField.of("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),
-                        "reconciled" to MultipartField.of(true),
+                        "reconciliation_status" to
+                            MultipartField.of(
+                                PaymentOrderCreateParams.ReconciliationStatus.RECONCILED
+                            ),
                         "remittance_information" to MultipartField.of("remittance_information"),
                         "send_remittance_advice" to MultipartField.of(true),
                         "statement_descriptor" to MultipartField.of("statement_descriptor"),
