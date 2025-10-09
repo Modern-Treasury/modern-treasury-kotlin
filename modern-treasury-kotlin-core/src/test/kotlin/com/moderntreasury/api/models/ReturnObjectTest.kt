@@ -40,7 +40,7 @@ internal class ReturnObjectTest {
                 .liveMode(true)
                 .object_("object")
                 .reason("reason")
-                .reconciliationStatus(ReturnObject.ReconciliationStatus.RECONCILED)
+                .reconciliationStatus(ReturnObject.ReconciliationStatus.UNRECONCILED)
                 .addReferenceNumber(
                     ReturnObject.PaymentReference.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -97,7 +97,7 @@ internal class ReturnObjectTest {
         assertThat(returnObject.object_()).isEqualTo("object")
         assertThat(returnObject.reason()).isEqualTo("reason")
         assertThat(returnObject.reconciliationStatus())
-            .isEqualTo(ReturnObject.ReconciliationStatus.RECONCILED)
+            .isEqualTo(ReturnObject.ReconciliationStatus.UNRECONCILED)
         assertThat(returnObject.referenceNumbers())
             .containsExactly(
                 ReturnObject.PaymentReference.builder()
@@ -156,7 +156,7 @@ internal class ReturnObjectTest {
                 .liveMode(true)
                 .object_("object")
                 .reason("reason")
-                .reconciliationStatus(ReturnObject.ReconciliationStatus.RECONCILED)
+                .reconciliationStatus(ReturnObject.ReconciliationStatus.UNRECONCILED)
                 .addReferenceNumber(
                     ReturnObject.PaymentReference.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
