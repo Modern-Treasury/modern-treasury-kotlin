@@ -322,7 +322,7 @@ internal class BulkRequestServiceAsyncTest {
                             .reconciliationStatus(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .ReconciliationStatus
-                                    .RECONCILED
+                                    .UNRECONCILED
                             )
                             .remittanceInformation("remittance_information")
                             .sendRemittanceAdvice(true)

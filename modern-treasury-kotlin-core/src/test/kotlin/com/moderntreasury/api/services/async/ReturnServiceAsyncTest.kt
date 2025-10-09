@@ -43,7 +43,7 @@ internal class ReturnServiceAsyncTest {
                     .data(JsonValue.from(mapOf<String, Any>()))
                     .dateOfDeath(LocalDate.parse("2019-12-27"))
                     .reason("reason")
-                    .reconciliationStatus(ReturnCreateParams.ReconciliationStatus.RECONCILED)
+                    .reconciliationStatus(ReturnCreateParams.ReconciliationStatus.UNRECONCILED)
                     .build()
             )
 

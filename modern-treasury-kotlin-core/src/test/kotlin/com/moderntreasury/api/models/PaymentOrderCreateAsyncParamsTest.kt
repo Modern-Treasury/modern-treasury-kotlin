@@ -193,7 +193,7 @@ internal class PaymentOrderCreateAsyncParamsTest {
                     .build()
             )
             .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .reconciliationStatus(PaymentOrderCreateAsyncParams.ReconciliationStatus.RECONCILED)
+            .reconciliationStatus(PaymentOrderCreateAsyncParams.ReconciliationStatus.UNRECONCILED)
             .remittanceInformation("remittance_information")
             .sendRemittanceAdvice(true)
             .statementDescriptor("statement_descriptor")
@@ -396,7 +396,9 @@ internal class PaymentOrderCreateAsyncParamsTest {
                         .build()
                 )
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .reconciliationStatus(PaymentOrderCreateAsyncParams.ReconciliationStatus.RECONCILED)
+                .reconciliationStatus(
+                    PaymentOrderCreateAsyncParams.ReconciliationStatus.UNRECONCILED
+                )
                 .remittanceInformation("remittance_information")
                 .sendRemittanceAdvice(true)
                 .statementDescriptor("statement_descriptor")
@@ -595,7 +597,7 @@ internal class PaymentOrderCreateAsyncParamsTest {
             )
         assertThat(body.receivingAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.reconciliationStatus())
-            .isEqualTo(PaymentOrderCreateAsyncParams.ReconciliationStatus.RECONCILED)
+            .isEqualTo(PaymentOrderCreateAsyncParams.ReconciliationStatus.UNRECONCILED)
         assertThat(body.remittanceInformation()).isEqualTo("remittance_information")
         assertThat(body.sendRemittanceAdvice()).isEqualTo(true)
         assertThat(body.statementDescriptor()).isEqualTo("statement_descriptor")
