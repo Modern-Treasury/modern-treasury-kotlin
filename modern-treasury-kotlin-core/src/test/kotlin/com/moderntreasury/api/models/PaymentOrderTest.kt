@@ -76,7 +76,7 @@ internal class PaymentOrderTest {
                         .liveMode(true)
                         .object_("object")
                         .reason("reason")
-                        .reconciliationStatus(ReturnObject.ReconciliationStatus.RECONCILED)
+                        .reconciliationStatus(ReturnObject.ReconciliationStatus.UNRECONCILED)
                         .addReferenceNumber(
                             ReturnObject.PaymentReference.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -139,7 +139,7 @@ internal class PaymentOrderTest {
                 .purpose("purpose")
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .receivingAccountType(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
-                .reconciliationStatus(PaymentOrder.ReconciliationStatus.RECONCILED)
+                .reconciliationStatus(PaymentOrder.ReconciliationStatus.UNRECONCILED)
                 .addReferenceNumber(
                     PaymentOrder.PaymentReference.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -306,7 +306,7 @@ internal class PaymentOrderTest {
                     .liveMode(true)
                     .object_("object")
                     .reason("reason")
-                    .reconciliationStatus(ReturnObject.ReconciliationStatus.RECONCILED)
+                    .reconciliationStatus(ReturnObject.ReconciliationStatus.UNRECONCILED)
                     .addReferenceNumber(
                         ReturnObject.PaymentReference.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -379,7 +379,7 @@ internal class PaymentOrderTest {
         assertThat(paymentOrder.receivingAccountType())
             .isEqualTo(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
         assertThat(paymentOrder.reconciliationStatus())
-            .isEqualTo(PaymentOrder.ReconciliationStatus.RECONCILED)
+            .isEqualTo(PaymentOrder.ReconciliationStatus.UNRECONCILED)
         assertThat(paymentOrder.referenceNumbers())
             .containsExactly(
                 PaymentOrder.PaymentReference.builder()
@@ -554,7 +554,7 @@ internal class PaymentOrderTest {
                         .liveMode(true)
                         .object_("object")
                         .reason("reason")
-                        .reconciliationStatus(ReturnObject.ReconciliationStatus.RECONCILED)
+                        .reconciliationStatus(ReturnObject.ReconciliationStatus.UNRECONCILED)
                         .addReferenceNumber(
                             ReturnObject.PaymentReference.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -617,7 +617,7 @@ internal class PaymentOrderTest {
                 .purpose("purpose")
                 .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .receivingAccountType(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
-                .reconciliationStatus(PaymentOrder.ReconciliationStatus.RECONCILED)
+                .reconciliationStatus(PaymentOrder.ReconciliationStatus.UNRECONCILED)
                 .addReferenceNumber(
                     PaymentOrder.PaymentReference.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

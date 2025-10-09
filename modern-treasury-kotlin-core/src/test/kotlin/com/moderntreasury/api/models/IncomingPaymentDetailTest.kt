@@ -46,7 +46,7 @@ internal class IncomingPaymentDetailTest {
                 .originatingRoutingNumberType(
                     IncomingPaymentDetail.OriginatingRoutingNumberType.ABA
                 )
-                .reconciliationStatus(IncomingPaymentDetail.ReconciliationStatus.RECONCILED)
+                .reconciliationStatus(IncomingPaymentDetail.ReconciliationStatus.UNRECONCILED)
                 .status(IncomingPaymentDetail.Status.COMPLETED)
                 .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -159,7 +159,7 @@ internal class IncomingPaymentDetailTest {
         assertThat(incomingPaymentDetail.originatingRoutingNumberType())
             .isEqualTo(IncomingPaymentDetail.OriginatingRoutingNumberType.ABA)
         assertThat(incomingPaymentDetail.reconciliationStatus())
-            .isEqualTo(IncomingPaymentDetail.ReconciliationStatus.RECONCILED)
+            .isEqualTo(IncomingPaymentDetail.ReconciliationStatus.UNRECONCILED)
         assertThat(incomingPaymentDetail.status()).isEqualTo(IncomingPaymentDetail.Status.COMPLETED)
         assertThat(incomingPaymentDetail.transactionId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -278,7 +278,7 @@ internal class IncomingPaymentDetailTest {
                 .originatingRoutingNumberType(
                     IncomingPaymentDetail.OriginatingRoutingNumberType.ABA
                 )
-                .reconciliationStatus(IncomingPaymentDetail.ReconciliationStatus.RECONCILED)
+                .reconciliationStatus(IncomingPaymentDetail.ReconciliationStatus.UNRECONCILED)
                 .status(IncomingPaymentDetail.Status.COMPLETED)
                 .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .transactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

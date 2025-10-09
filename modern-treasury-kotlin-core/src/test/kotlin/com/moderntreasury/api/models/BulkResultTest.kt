@@ -82,7 +82,9 @@ internal class BulkResultTest {
                                 .liveMode(true)
                                 .object_("object")
                                 .reason("reason")
-                                .reconciliationStatus(ReturnObject.ReconciliationStatus.RECONCILED)
+                                .reconciliationStatus(
+                                    ReturnObject.ReconciliationStatus.UNRECONCILED
+                                )
                                 .addReferenceNumber(
                                     ReturnObject.PaymentReference.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -147,7 +149,7 @@ internal class BulkResultTest {
                         .purpose("purpose")
                         .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .receivingAccountType(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
-                        .reconciliationStatus(PaymentOrder.ReconciliationStatus.RECONCILED)
+                        .reconciliationStatus(PaymentOrder.ReconciliationStatus.UNRECONCILED)
                         .addReferenceNumber(
                             PaymentOrder.PaymentReference.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -342,7 +344,9 @@ internal class BulkResultTest {
                                 .liveMode(true)
                                 .object_("object")
                                 .reason("reason")
-                                .reconciliationStatus(ReturnObject.ReconciliationStatus.RECONCILED)
+                                .reconciliationStatus(
+                                    ReturnObject.ReconciliationStatus.UNRECONCILED
+                                )
                                 .addReferenceNumber(
                                     ReturnObject.PaymentReference.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -407,7 +411,7 @@ internal class BulkResultTest {
                         .purpose("purpose")
                         .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .receivingAccountType(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
-                        .reconciliationStatus(PaymentOrder.ReconciliationStatus.RECONCILED)
+                        .reconciliationStatus(PaymentOrder.ReconciliationStatus.UNRECONCILED)
                         .addReferenceNumber(
                             PaymentOrder.PaymentReference.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -607,7 +611,9 @@ internal class BulkResultTest {
                                 .liveMode(true)
                                 .object_("object")
                                 .reason("reason")
-                                .reconciliationStatus(ReturnObject.ReconciliationStatus.RECONCILED)
+                                .reconciliationStatus(
+                                    ReturnObject.ReconciliationStatus.UNRECONCILED
+                                )
                                 .addReferenceNumber(
                                     ReturnObject.PaymentReference.builder()
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -672,7 +678,7 @@ internal class BulkResultTest {
                         .purpose("purpose")
                         .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .receivingAccountType(PaymentOrder.ReceivingAccountType.INTERNAL_ACCOUNT)
-                        .reconciliationStatus(PaymentOrder.ReconciliationStatus.RECONCILED)
+                        .reconciliationStatus(PaymentOrder.ReconciliationStatus.UNRECONCILED)
                         .addReferenceNumber(
                             PaymentOrder.PaymentReference.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
