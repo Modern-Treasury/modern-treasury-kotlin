@@ -1713,8 +1713,6 @@ private constructor(
 
             val BRALE = of("brale")
 
-            val BRIDGE = of("bridge")
-
             val CLEARTOUCH = of("cleartouch")
 
             val COLUMN = of("column")
@@ -1771,7 +1769,6 @@ private constructor(
             BANKPROV,
             BNK_DEV,
             BRALE,
-            BRIDGE,
             CLEARTOUCH,
             COLUMN,
             CROSS_RIVER,
@@ -1812,7 +1809,6 @@ private constructor(
             BANKPROV,
             BNK_DEV,
             BRALE,
-            BRIDGE,
             CLEARTOUCH,
             COLUMN,
             CROSS_RIVER,
@@ -1857,7 +1853,6 @@ private constructor(
                 BANKPROV -> Value.BANKPROV
                 BNK_DEV -> Value.BNK_DEV
                 BRALE -> Value.BRALE
-                BRIDGE -> Value.BRIDGE
                 CLEARTOUCH -> Value.CLEARTOUCH
                 COLUMN -> Value.COLUMN
                 CROSS_RIVER -> Value.CROSS_RIVER
@@ -1900,7 +1895,6 @@ private constructor(
                 BANKPROV -> Known.BANKPROV
                 BNK_DEV -> Known.BNK_DEV
                 BRALE -> Known.BRALE
-                BRIDGE -> Known.BRIDGE
                 CLEARTOUCH -> Known.CLEARTOUCH
                 COLUMN -> Known.COLUMN
                 CROSS_RIVER -> Known.CROSS_RIVER
