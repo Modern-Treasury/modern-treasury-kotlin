@@ -1743,8 +1743,6 @@ private constructor(
 
             val PAYPAL = of("paypal")
 
-            val PLAID = of("plaid")
-
             val PNC = of("pnc")
 
             val SIGNET = of("signet")
@@ -1784,7 +1782,6 @@ private constructor(
             MT_FOF,
             MX,
             PAYPAL,
-            PLAID,
             PNC,
             SIGNET,
             SILVERGATE,
@@ -1824,7 +1821,6 @@ private constructor(
             MT_FOF,
             MX,
             PAYPAL,
-            PLAID,
             PNC,
             SIGNET,
             SILVERGATE,
@@ -1868,7 +1864,6 @@ private constructor(
                 MT_FOF -> Value.MT_FOF
                 MX -> Value.MX
                 PAYPAL -> Value.PAYPAL
-                PLAID -> Value.PLAID
                 PNC -> Value.PNC
                 SIGNET -> Value.SIGNET
                 SILVERGATE -> Value.SILVERGATE
@@ -1910,7 +1905,6 @@ private constructor(
                 MT_FOF -> Known.MT_FOF
                 MX -> Known.MX
                 PAYPAL -> Known.PAYPAL
-                PLAID -> Known.PLAID
                 PNC -> Known.PNC
                 SIGNET -> Known.SIGNET
                 SILVERGATE -> Known.SILVERGATE
