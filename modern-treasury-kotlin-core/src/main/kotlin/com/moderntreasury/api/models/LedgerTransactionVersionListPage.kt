@@ -22,7 +22,7 @@ private constructor(
 
     fun afterCursor(): String? = headers.values("X-After-Cursor").firstOrNull()
 
-    override fun hasNextPage(): Boolean = items().isNotEmpty() && afterCursor() != null
+    override fun hasNextPage(): Boolean = afterCursor() != null
 
     fun nextPageParams(): LedgerTransactionVersionListParams {
         val nextCursor =
