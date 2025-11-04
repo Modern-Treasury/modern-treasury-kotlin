@@ -40,6 +40,8 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
 
         val IAT = of("IAT")
 
+        val POS = of("POS")
+
         val PPD = of("PPD")
 
         val TEL = of("TEL")
@@ -96,6 +98,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         CIE,
         CTX,
         IAT,
+        POS,
         PPD,
         TEL,
         WEB,
@@ -137,6 +140,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         CIE,
         CTX,
         IAT,
+        POS,
         PPD,
         TEL,
         WEB,
@@ -182,6 +186,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             CIE -> Value.CIE
             CTX -> Value.CTX
             IAT -> Value.IAT
+            POS -> Value.POS
             PPD -> Value.PPD
             TEL -> Value.TEL
             WEB -> Value.WEB
@@ -225,6 +230,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             CIE -> Known.CIE
             CTX -> Known.CTX
             IAT -> Known.IAT
+            POS -> Known.POS
             PPD -> Known.PPD
             TEL -> Known.TEL
             WEB -> Known.WEB
