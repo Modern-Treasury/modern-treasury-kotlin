@@ -20,9 +20,12 @@ import com.moderntreasury.api.services.async.EventServiceAsync
 import com.moderntreasury.api.services.async.ExpectedPaymentServiceAsync
 import com.moderntreasury.api.services.async.ExternalAccountServiceAsync
 import com.moderntreasury.api.services.async.ForeignExchangeQuoteServiceAsync
+import com.moderntreasury.api.services.async.HoldServiceAsync
 import com.moderntreasury.api.services.async.IncomingPaymentDetailServiceAsync
 import com.moderntreasury.api.services.async.InternalAccountServiceAsync
 import com.moderntreasury.api.services.async.InvoiceServiceAsync
+import com.moderntreasury.api.services.async.JournalEntryServiceAsync
+import com.moderntreasury.api.services.async.JournalReportServiceAsync
 import com.moderntreasury.api.services.async.LedgerAccountBalanceMonitorServiceAsync
 import com.moderntreasury.api.services.async.LedgerAccountCategoryServiceAsync
 import com.moderntreasury.api.services.async.LedgerAccountServiceAsync
@@ -153,6 +156,12 @@ interface ModernTreasuryClientAsync {
 
     fun paymentActions(): PaymentActionServiceAsync
 
+    fun journalEntries(): JournalEntryServiceAsync
+
+    fun journalReports(): JournalReportServiceAsync
+
+    fun holds(): HoldServiceAsync
+
     /**
      * A test endpoint often used to confirm credentials and headers are being passed in correctly.
      */
@@ -262,6 +271,12 @@ interface ModernTreasuryClientAsync {
         fun legalEntityAssociations(): LegalEntityAssociationServiceAsync.WithRawResponse
 
         fun paymentActions(): PaymentActionServiceAsync.WithRawResponse
+
+        fun journalEntries(): JournalEntryServiceAsync.WithRawResponse
+
+        fun journalReports(): JournalReportServiceAsync.WithRawResponse
+
+        fun holds(): HoldServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /api/ping`, but is otherwise the same as
