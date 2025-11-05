@@ -41,12 +41,18 @@ import com.moderntreasury.api.services.blocking.ExternalAccountService
 import com.moderntreasury.api.services.blocking.ExternalAccountServiceImpl
 import com.moderntreasury.api.services.blocking.ForeignExchangeQuoteService
 import com.moderntreasury.api.services.blocking.ForeignExchangeQuoteServiceImpl
+import com.moderntreasury.api.services.blocking.HoldService
+import com.moderntreasury.api.services.blocking.HoldServiceImpl
 import com.moderntreasury.api.services.blocking.IncomingPaymentDetailService
 import com.moderntreasury.api.services.blocking.IncomingPaymentDetailServiceImpl
 import com.moderntreasury.api.services.blocking.InternalAccountService
 import com.moderntreasury.api.services.blocking.InternalAccountServiceImpl
 import com.moderntreasury.api.services.blocking.InvoiceService
 import com.moderntreasury.api.services.blocking.InvoiceServiceImpl
+import com.moderntreasury.api.services.blocking.JournalEntryService
+import com.moderntreasury.api.services.blocking.JournalEntryServiceImpl
+import com.moderntreasury.api.services.blocking.JournalReportService
+import com.moderntreasury.api.services.blocking.JournalReportServiceImpl
 import com.moderntreasury.api.services.blocking.LedgerAccountBalanceMonitorService
 import com.moderntreasury.api.services.blocking.LedgerAccountBalanceMonitorServiceImpl
 import com.moderntreasury.api.services.blocking.LedgerAccountCategoryService
@@ -243,6 +249,16 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
         PaymentActionServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val journalEntries: JournalEntryService by lazy {
+        JournalEntryServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val journalReports: JournalReportService by lazy {
+        JournalReportServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val holds: HoldService by lazy { HoldServiceImpl(clientOptionsWithUserAgent) }
+
     override fun async(): ModernTreasuryClientAsync = async
 
     override fun withRawResponse(): ModernTreasuryClient.WithRawResponse = withRawResponse
@@ -323,6 +339,12 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
     override fun legalEntityAssociations(): LegalEntityAssociationService = legalEntityAssociations
 
     override fun paymentActions(): PaymentActionService = paymentActions
+
+    override fun journalEntries(): JournalEntryService = journalEntries
+
+    override fun journalReports(): JournalReportService = journalReports
+
+    override fun holds(): HoldService = holds
 
     override fun ping(params: ClientPingParams, requestOptions: RequestOptions): PingResponse =
         // get /api/ping
@@ -478,6 +500,18 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
             PaymentActionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val journalEntries: JournalEntryService.WithRawResponse by lazy {
+            JournalEntryServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val journalReports: JournalReportService.WithRawResponse by lazy {
+            JournalReportServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val holds: HoldService.WithRawResponse by lazy {
+            HoldServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
         ): ModernTreasuryClient.WithRawResponse =
@@ -565,6 +599,12 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
             legalEntityAssociations
 
         override fun paymentActions(): PaymentActionService.WithRawResponse = paymentActions
+
+        override fun journalEntries(): JournalEntryService.WithRawResponse = journalEntries
+
+        override fun journalReports(): JournalReportService.WithRawResponse = journalReports
+
+        override fun holds(): HoldService.WithRawResponse = holds
 
         private val pingHandler: Handler<PingResponse> =
             jsonHandler<PingResponse>(clientOptions.jsonMapper)

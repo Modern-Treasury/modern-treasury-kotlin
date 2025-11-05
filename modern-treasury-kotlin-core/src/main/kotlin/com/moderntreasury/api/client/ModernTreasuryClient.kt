@@ -20,9 +20,12 @@ import com.moderntreasury.api.services.blocking.EventService
 import com.moderntreasury.api.services.blocking.ExpectedPaymentService
 import com.moderntreasury.api.services.blocking.ExternalAccountService
 import com.moderntreasury.api.services.blocking.ForeignExchangeQuoteService
+import com.moderntreasury.api.services.blocking.HoldService
 import com.moderntreasury.api.services.blocking.IncomingPaymentDetailService
 import com.moderntreasury.api.services.blocking.InternalAccountService
 import com.moderntreasury.api.services.blocking.InvoiceService
+import com.moderntreasury.api.services.blocking.JournalEntryService
+import com.moderntreasury.api.services.blocking.JournalReportService
 import com.moderntreasury.api.services.blocking.LedgerAccountBalanceMonitorService
 import com.moderntreasury.api.services.blocking.LedgerAccountCategoryService
 import com.moderntreasury.api.services.blocking.LedgerAccountService
@@ -153,6 +156,12 @@ interface ModernTreasuryClient {
 
     fun paymentActions(): PaymentActionService
 
+    fun journalEntries(): JournalEntryService
+
+    fun journalReports(): JournalReportService
+
+    fun holds(): HoldService
+
     /**
      * A test endpoint often used to confirm credentials and headers are being passed in correctly.
      */
@@ -261,6 +270,12 @@ interface ModernTreasuryClient {
         fun legalEntityAssociations(): LegalEntityAssociationService.WithRawResponse
 
         fun paymentActions(): PaymentActionService.WithRawResponse
+
+        fun journalEntries(): JournalEntryService.WithRawResponse
+
+        fun journalReports(): JournalReportService.WithRawResponse
+
+        fun holds(): HoldService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /api/ping`, but is otherwise the same as

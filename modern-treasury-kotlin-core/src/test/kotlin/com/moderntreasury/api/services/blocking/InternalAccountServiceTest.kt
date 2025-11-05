@@ -135,6 +135,21 @@ internal class InternalAccountServiceTest {
     }
 
     @Test
+    fun requestClosure() {
+        val client =
+            ModernTreasuryOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .organizationId("my-organization-ID")
+                .build()
+        val internalAccountService = client.internalAccounts()
+
+        val internalAccount = internalAccountService.requestClosure("id")
+
+        internalAccount.validate()
+    }
+
+    @Test
     fun updateAccountCapability() {
         val client =
             ModernTreasuryOkHttpClient.builder()

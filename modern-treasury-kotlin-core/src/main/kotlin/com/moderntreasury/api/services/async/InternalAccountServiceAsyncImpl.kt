@@ -20,6 +20,7 @@ import com.moderntreasury.api.models.InternalAccount
 import com.moderntreasury.api.models.InternalAccountCreateParams
 import com.moderntreasury.api.models.InternalAccountListPageAsync
 import com.moderntreasury.api.models.InternalAccountListParams
+import com.moderntreasury.api.models.InternalAccountRequestClosureParams
 import com.moderntreasury.api.models.InternalAccountRetrieveParams
 import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityParams
 import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityResponse
@@ -74,6 +75,13 @@ internal constructor(private val clientOptions: ClientOptions) : InternalAccount
     ): InternalAccountListPageAsync =
         // get /api/internal_accounts
         withRawResponse().list(params, requestOptions).parse()
+
+    override suspend fun requestClosure(
+        params: InternalAccountRequestClosureParams,
+        requestOptions: RequestOptions,
+    ): InternalAccount =
+        // post /api/internal_accounts/{id}/request_closure
+        withRawResponse().requestClosure(params, requestOptions).parse()
 
     override suspend fun updateAccountCapability(
         params: InternalAccountUpdateAccountCapabilityParams,
@@ -221,6 +229,42 @@ internal constructor(private val clientOptions: ClientOptions) : InternalAccount
                             .headers(response.headers())
                             .items(it)
                             .build()
+                    }
+            }
+        }
+
+        private val requestClosureHandler: Handler<InternalAccount> =
+            jsonHandler<InternalAccount>(clientOptions.jsonMapper)
+
+        override suspend fun requestClosure(
+            params: InternalAccountRequestClosureParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InternalAccount> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "api",
+                        "internal_accounts",
+                        params._pathParam(0),
+                        "request_closure",
+                    )
+                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { requestClosureHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }
