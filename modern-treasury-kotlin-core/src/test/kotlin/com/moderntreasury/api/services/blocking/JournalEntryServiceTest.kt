@@ -35,7 +35,11 @@ internal class JournalEntryServiceTest {
         val journalEntryService = client.journalEntries()
 
         journalEntryService.list(
-            JournalEntryListParams.builder().journalReportId("journal_report_id").build()
+            JournalEntryListParams.builder()
+                .journalReportId("journal_report_id")
+                .page(0L)
+                .perPage(0L)
+                .build()
         )
     }
 }
