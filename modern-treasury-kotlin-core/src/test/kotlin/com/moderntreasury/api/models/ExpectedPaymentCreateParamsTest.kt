@@ -14,6 +14,12 @@ internal class ExpectedPaymentCreateParamsTest {
     fun create() {
         ExpectedPaymentCreateParams.builder()
             .amountLowerBound(0L)
+            .amountReconciled(0L)
+            .amountReconciledDirection(ExpectedPaymentCreateParams.AmountReconciledDirection.CREDIT)
+            .amountUnreconciled(0L)
+            .amountUnreconciledDirection(
+                ExpectedPaymentCreateParams.AmountUnreconciledDirection.CREDIT
+            )
             .amountUpperBound(0L)
             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .currency(Currency.AED)
@@ -125,6 +131,14 @@ internal class ExpectedPaymentCreateParamsTest {
         val params =
             ExpectedPaymentCreateParams.builder()
                 .amountLowerBound(0L)
+                .amountReconciled(0L)
+                .amountReconciledDirection(
+                    ExpectedPaymentCreateParams.AmountReconciledDirection.CREDIT
+                )
+                .amountUnreconciled(0L)
+                .amountUnreconciledDirection(
+                    ExpectedPaymentCreateParams.AmountUnreconciledDirection.CREDIT
+                )
                 .amountUpperBound(0L)
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .currency(Currency.AED)
@@ -235,6 +249,12 @@ internal class ExpectedPaymentCreateParamsTest {
         val body = params._body()
 
         assertThat(body.amountLowerBound()).isEqualTo(0L)
+        assertThat(body.amountReconciled()).isEqualTo(0L)
+        assertThat(body.amountReconciledDirection())
+            .isEqualTo(ExpectedPaymentCreateParams.AmountReconciledDirection.CREDIT)
+        assertThat(body.amountUnreconciled()).isEqualTo(0L)
+        assertThat(body.amountUnreconciledDirection())
+            .isEqualTo(ExpectedPaymentCreateParams.AmountUnreconciledDirection.CREDIT)
         assertThat(body.amountUpperBound()).isEqualTo(0L)
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.currency()).isEqualTo(Currency.AED)
