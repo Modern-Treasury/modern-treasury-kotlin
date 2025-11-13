@@ -10,6 +10,7 @@ import com.moderntreasury.api.models.InternalAccount
 import com.moderntreasury.api.models.InternalAccountCreateParams
 import com.moderntreasury.api.models.InternalAccountListPage
 import com.moderntreasury.api.models.InternalAccountListParams
+import com.moderntreasury.api.models.InternalAccountRequestClosureParams
 import com.moderntreasury.api.models.InternalAccountRetrieveParams
 import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityParams
 import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityResponse
@@ -81,6 +82,23 @@ interface InternalAccountService {
     /** @see list */
     fun list(requestOptions: RequestOptions): InternalAccountListPage =
         list(InternalAccountListParams.none(), requestOptions)
+
+    /** request closure of internal account */
+    fun requestClosure(
+        id: String,
+        params: InternalAccountRequestClosureParams = InternalAccountRequestClosureParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InternalAccount = requestClosure(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see requestClosure */
+    fun requestClosure(
+        params: InternalAccountRequestClosureParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InternalAccount
+
+    /** @see requestClosure */
+    fun requestClosure(id: String, requestOptions: RequestOptions): InternalAccount =
+        requestClosure(id, InternalAccountRequestClosureParams.none(), requestOptions)
 
     /** update account_capability */
     fun updateAccountCapability(
@@ -185,6 +203,34 @@ interface InternalAccountService {
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InternalAccountListPage> =
             list(InternalAccountListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /api/internal_accounts/{id}/request_closure`, but
+         * is otherwise the same as [InternalAccountService.requestClosure].
+         */
+        @MustBeClosed
+        fun requestClosure(
+            id: String,
+            params: InternalAccountRequestClosureParams =
+                InternalAccountRequestClosureParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InternalAccount> =
+            requestClosure(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see requestClosure */
+        @MustBeClosed
+        fun requestClosure(
+            params: InternalAccountRequestClosureParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InternalAccount>
+
+        /** @see requestClosure */
+        @MustBeClosed
+        fun requestClosure(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InternalAccount> =
+            requestClosure(id, InternalAccountRequestClosureParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch

@@ -97,6 +97,9 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.legalEntities()).isNotNull()
         assertThat(client.legalEntityAssociations()).isNotNull()
         assertThat(client.paymentActions()).isNotNull()
+        assertThat(client.journalEntries()).isNotNull()
+        assertThat(client.journalReports()).isNotNull()
+        assertThat(client.holds()).isNotNull()
     }
 
     @Test

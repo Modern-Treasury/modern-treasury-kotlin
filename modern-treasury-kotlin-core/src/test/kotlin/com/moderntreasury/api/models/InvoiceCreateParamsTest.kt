@@ -52,7 +52,6 @@ internal class InvoiceCreateParamsTest {
             .currency(Currency.AED)
             .description("description")
             .fallbackPaymentMethod("fallback_payment_method")
-            .ingestLedgerEntries(true)
             .addInvoiceLineItem(
                 InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
                     .name("name")
@@ -80,7 +79,6 @@ internal class InvoiceCreateParamsTest {
                     .line2("line2")
                     .build()
             )
-            .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .metadata(
                 InvoiceCreateParams.Metadata.builder()
                     .putAdditionalProperty("key", JsonValue.from("value"))
@@ -144,7 +142,6 @@ internal class InvoiceCreateParamsTest {
                 .currency(Currency.AED)
                 .description("description")
                 .fallbackPaymentMethod("fallback_payment_method")
-                .ingestLedgerEntries(true)
                 .addInvoiceLineItem(
                     InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
                         .name("name")
@@ -172,7 +169,6 @@ internal class InvoiceCreateParamsTest {
                         .line2("line2")
                         .build()
                 )
-                .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .metadata(
                     InvoiceCreateParams.Metadata.builder()
                         .putAdditionalProperty("key", JsonValue.from("value"))
@@ -236,7 +232,6 @@ internal class InvoiceCreateParamsTest {
         assertThat(body.currency()).isEqualTo(Currency.AED)
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.fallbackPaymentMethod()).isEqualTo("fallback_payment_method")
-        assertThat(body.ingestLedgerEntries()).isEqualTo(true)
         assertThat(body.invoiceLineItems())
             .containsExactly(
                 InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
@@ -266,8 +261,6 @@ internal class InvoiceCreateParamsTest {
                     .line2("line2")
                     .build()
             )
-        assertThat(body.ledgerAccountSettlementId())
-            .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata())
             .isEqualTo(
                 InvoiceCreateParams.Metadata.builder()
