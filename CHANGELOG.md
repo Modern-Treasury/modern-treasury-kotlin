@@ -1,5 +1,20 @@
 # Changelog
 
+## 7.18.0 (2025-11-13)
+
+Full Changelog: [v7.17.0...v7.18.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.17.0...v7.18.0)
+
+### Features
+
+* **api:** api update ([921a6af](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/921a6af46d6859c85023ff9f2778f98b5aff136b))
+* **api:** api update ([89627d4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/89627d438058cd9a7d72a9d4f9effcf1acf48893))
+* **api:** manual updates ([abdb07b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/abdb07b62ba81492a6cdfb5e7f9ba619500d6773))
+
+
+### Bug Fixes
+
+* **client:** multi-value header serialization ([54005ae](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/54005ae410fb79b8cd4db3dd031d71f3eb8a9a3b))
+
 ## 7.17.0 (2025-11-05)
 
 Full Changelog: [v7.16.0...v7.17.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.16.0...v7.17.0)
