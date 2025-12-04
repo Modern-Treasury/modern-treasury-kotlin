@@ -2967,11 +2967,15 @@ private constructor(
 
                 val LOB_CHECK_ID = of("lob_check_id")
 
+                val MT_FLOW_ACH_NOC_ID = of("mt_flow_ach_noc_id")
+
                 val MT_FLOW_TRANSFER_ID = of("mt_flow_transfer_id")
 
                 val OTHER = of("other")
 
                 val PARTIAL_SWIFT_MIR = of("partial_swift_mir")
+
+                val PAXOS_TRANSFER_ID = of("paxos_transfer_id")
 
                 val PNC_CLEARING_REFERENCE = of("pnc_clearing_reference")
 
@@ -3095,9 +3099,11 @@ private constructor(
                 JPMC_PAYMENT_RETURNED_DATETIME,
                 JPMC_TRANSACTION_REFERENCE_NUMBER,
                 LOB_CHECK_ID,
+                MT_FLOW_ACH_NOC_ID,
                 MT_FLOW_TRANSFER_ID,
                 OTHER,
                 PARTIAL_SWIFT_MIR,
+                PAXOS_TRANSFER_ID,
                 PNC_CLEARING_REFERENCE,
                 PNC_INSTRUCTION_ID,
                 PNC_MULTIPAYMENT_ID,
@@ -3195,9 +3201,11 @@ private constructor(
                 JPMC_PAYMENT_RETURNED_DATETIME,
                 JPMC_TRANSACTION_REFERENCE_NUMBER,
                 LOB_CHECK_ID,
+                MT_FLOW_ACH_NOC_ID,
                 MT_FLOW_TRANSFER_ID,
                 OTHER,
                 PARTIAL_SWIFT_MIR,
+                PAXOS_TRANSFER_ID,
                 PNC_CLEARING_REFERENCE,
                 PNC_INSTRUCTION_ID,
                 PNC_MULTIPAYMENT_ID,
@@ -3299,9 +3307,11 @@ private constructor(
                     JPMC_PAYMENT_RETURNED_DATETIME -> Value.JPMC_PAYMENT_RETURNED_DATETIME
                     JPMC_TRANSACTION_REFERENCE_NUMBER -> Value.JPMC_TRANSACTION_REFERENCE_NUMBER
                     LOB_CHECK_ID -> Value.LOB_CHECK_ID
+                    MT_FLOW_ACH_NOC_ID -> Value.MT_FLOW_ACH_NOC_ID
                     MT_FLOW_TRANSFER_ID -> Value.MT_FLOW_TRANSFER_ID
                     OTHER -> Value.OTHER
                     PARTIAL_SWIFT_MIR -> Value.PARTIAL_SWIFT_MIR
+                    PAXOS_TRANSFER_ID -> Value.PAXOS_TRANSFER_ID
                     PNC_CLEARING_REFERENCE -> Value.PNC_CLEARING_REFERENCE
                     PNC_INSTRUCTION_ID -> Value.PNC_INSTRUCTION_ID
                     PNC_MULTIPAYMENT_ID -> Value.PNC_MULTIPAYMENT_ID
@@ -3405,9 +3415,11 @@ private constructor(
                     JPMC_PAYMENT_RETURNED_DATETIME -> Known.JPMC_PAYMENT_RETURNED_DATETIME
                     JPMC_TRANSACTION_REFERENCE_NUMBER -> Known.JPMC_TRANSACTION_REFERENCE_NUMBER
                     LOB_CHECK_ID -> Known.LOB_CHECK_ID
+                    MT_FLOW_ACH_NOC_ID -> Known.MT_FLOW_ACH_NOC_ID
                     MT_FLOW_TRANSFER_ID -> Known.MT_FLOW_TRANSFER_ID
                     OTHER -> Known.OTHER
                     PARTIAL_SWIFT_MIR -> Known.PARTIAL_SWIFT_MIR
+                    PAXOS_TRANSFER_ID -> Known.PAXOS_TRANSFER_ID
                     PNC_CLEARING_REFERENCE -> Known.PNC_CLEARING_REFERENCE
                     PNC_INSTRUCTION_ID -> Known.PNC_INSTRUCTION_ID
                     PNC_MULTIPAYMENT_ID -> Known.PNC_MULTIPAYMENT_ID
@@ -3998,6 +4010,8 @@ private constructor(
 
             val WIRE = of("wire")
 
+            val ZENGIN = of("zengin")
+
             fun of(value: String) = Type(JsonField.of(value))
         }
 
@@ -4016,6 +4030,7 @@ private constructor(
             MANUAL,
             SEPA,
             WIRE,
+            ZENGIN,
         }
 
         /**
@@ -4041,6 +4056,7 @@ private constructor(
             MANUAL,
             SEPA,
             WIRE,
+            ZENGIN,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -4067,6 +4083,7 @@ private constructor(
                 MANUAL -> Value.MANUAL
                 SEPA -> Value.SEPA
                 WIRE -> Value.WIRE
+                ZENGIN -> Value.ZENGIN
                 else -> Value._UNKNOWN
             }
 
@@ -4094,6 +4111,7 @@ private constructor(
                 MANUAL -> Known.MANUAL
                 SEPA -> Known.SEPA
                 WIRE -> Known.WIRE
+                ZENGIN -> Known.ZENGIN
                 else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
             }
 
