@@ -104,6 +104,7 @@ internal class InternalAccountServiceTest {
             internalAccountService.update(
                 InternalAccountUpdateParams.builder()
                     .id("id")
+                    .contraLedgerAccountId("contra_ledger_account_id")
                     .counterpartyId("counterparty_id")
                     .ledgerAccountId("ledger_account_id")
                     .metadata(

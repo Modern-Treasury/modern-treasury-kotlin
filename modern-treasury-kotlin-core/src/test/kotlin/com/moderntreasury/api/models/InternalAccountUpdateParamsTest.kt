@@ -12,6 +12,7 @@ internal class InternalAccountUpdateParamsTest {
     fun create() {
         InternalAccountUpdateParams.builder()
             .id("id")
+            .contraLedgerAccountId("contra_ledger_account_id")
             .counterpartyId("counterparty_id")
             .ledgerAccountId("ledger_account_id")
             .metadata(
@@ -38,6 +39,7 @@ internal class InternalAccountUpdateParamsTest {
         val params =
             InternalAccountUpdateParams.builder()
                 .id("id")
+                .contraLedgerAccountId("contra_ledger_account_id")
                 .counterpartyId("counterparty_id")
                 .ledgerAccountId("ledger_account_id")
                 .metadata(
@@ -51,6 +53,7 @@ internal class InternalAccountUpdateParamsTest {
 
         val body = params._body()
 
+        assertThat(body.contraLedgerAccountId()).isEqualTo("contra_ledger_account_id")
         assertThat(body.counterpartyId()).isEqualTo("counterparty_id")
         assertThat(body.ledgerAccountId()).isEqualTo("ledger_account_id")
         assertThat(body.metadata())
