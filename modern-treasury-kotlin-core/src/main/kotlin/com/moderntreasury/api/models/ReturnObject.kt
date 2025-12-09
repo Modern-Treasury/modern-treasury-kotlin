@@ -2867,6 +2867,8 @@ private constructor(
 
                 val BANKPROV_PAYMENT_ID = of("bankprov_payment_id")
 
+                val BLOCKCHAIN_TRANSACTION_HASH = of("blockchain_transaction_hash")
+
                 val BNK_DEV_PRENOTIFICATION_ID = of("bnk_dev_prenotification_id")
 
                 val BNK_DEV_TRANSFER_ID = of("bnk_dev_transfer_id")
@@ -3050,6 +3052,7 @@ private constructor(
                 ACH_TRACE_NUMBER,
                 BANKPROV_PAYMENT_ACTIVITY_DATE,
                 BANKPROV_PAYMENT_ID,
+                BLOCKCHAIN_TRANSACTION_HASH,
                 BNK_DEV_PRENOTIFICATION_ID,
                 BNK_DEV_TRANSFER_ID,
                 BNY_MELLON_TRANSACTION_REFERENCE_NUMBER,
@@ -3152,6 +3155,7 @@ private constructor(
                 ACH_TRACE_NUMBER,
                 BANKPROV_PAYMENT_ACTIVITY_DATE,
                 BANKPROV_PAYMENT_ID,
+                BLOCKCHAIN_TRANSACTION_HASH,
                 BNK_DEV_PRENOTIFICATION_ID,
                 BNK_DEV_TRANSFER_ID,
                 BNY_MELLON_TRANSACTION_REFERENCE_NUMBER,
@@ -3256,6 +3260,7 @@ private constructor(
                     ACH_TRACE_NUMBER -> Value.ACH_TRACE_NUMBER
                     BANKPROV_PAYMENT_ACTIVITY_DATE -> Value.BANKPROV_PAYMENT_ACTIVITY_DATE
                     BANKPROV_PAYMENT_ID -> Value.BANKPROV_PAYMENT_ID
+                    BLOCKCHAIN_TRANSACTION_HASH -> Value.BLOCKCHAIN_TRANSACTION_HASH
                     BNK_DEV_PRENOTIFICATION_ID -> Value.BNK_DEV_PRENOTIFICATION_ID
                     BNK_DEV_TRANSFER_ID -> Value.BNK_DEV_TRANSFER_ID
                     BNY_MELLON_TRANSACTION_REFERENCE_NUMBER ->
@@ -3364,6 +3369,7 @@ private constructor(
                     ACH_TRACE_NUMBER -> Known.ACH_TRACE_NUMBER
                     BANKPROV_PAYMENT_ACTIVITY_DATE -> Known.BANKPROV_PAYMENT_ACTIVITY_DATE
                     BANKPROV_PAYMENT_ID -> Known.BANKPROV_PAYMENT_ID
+                    BLOCKCHAIN_TRANSACTION_HASH -> Known.BLOCKCHAIN_TRANSACTION_HASH
                     BNK_DEV_PRENOTIFICATION_ID -> Known.BNK_DEV_PRENOTIFICATION_ID
                     BNK_DEV_TRANSFER_ID -> Known.BNK_DEV_TRANSFER_ID
                     BNY_MELLON_TRANSACTION_REFERENCE_NUMBER ->
