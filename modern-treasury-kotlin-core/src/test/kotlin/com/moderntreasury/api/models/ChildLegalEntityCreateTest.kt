@@ -88,6 +88,7 @@ internal class ChildLegalEntityCreateTest {
                         .build()
                 )
                 .lastName("last_name")
+                .addLegalEntityAssociation(JsonValue.from(mapOf<String, Any>()))
                 .legalEntityType(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
                 .legalStructure(ChildLegalEntityCreate.LegalStructure.CORPORATION)
                 .metadata(
@@ -225,6 +226,8 @@ internal class ChildLegalEntityCreateTest {
                     .build()
             )
         assertThat(childLegalEntityCreate.lastName()).isEqualTo("last_name")
+        assertThat(childLegalEntityCreate.legalEntityAssociations())
+            .containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(childLegalEntityCreate.legalEntityType())
             .isEqualTo(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
         assertThat(childLegalEntityCreate.legalStructure())
@@ -368,6 +371,7 @@ internal class ChildLegalEntityCreateTest {
                         .build()
                 )
                 .lastName("last_name")
+                .addLegalEntityAssociation(JsonValue.from(mapOf<String, Any>()))
                 .legalEntityType(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
                 .legalStructure(ChildLegalEntityCreate.LegalStructure.CORPORATION)
                 .metadata(

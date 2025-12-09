@@ -560,11 +560,15 @@ private constructor(
 
             val BACS = of("bacs")
 
+            val BASE = of("base")
+
             val BOOK = of("book")
 
             val CHECK = of("check")
 
             val EFT = of("eft")
+
+            val ETHEREUM = of("ethereum")
 
             val INTERAC = of("interac")
 
@@ -572,11 +576,15 @@ private constructor(
 
             val NZ_BECS = of("nz_becs")
 
+            val POLYGON = of("polygon")
+
             val RTP = of("rtp")
 
             val SEPA = of("sepa")
 
             val SIGNET = of("signet")
+
+            val SOLANA = of("solana")
 
             val WIRE = of("wire")
 
@@ -588,15 +596,19 @@ private constructor(
             ACH,
             AU_BECS,
             BACS,
+            BASE,
             BOOK,
             CHECK,
             EFT,
+            ETHEREUM,
             INTERAC,
             NEFT,
             NZ_BECS,
+            POLYGON,
             RTP,
             SEPA,
             SIGNET,
+            SOLANA,
             WIRE,
         }
 
@@ -613,15 +625,19 @@ private constructor(
             ACH,
             AU_BECS,
             BACS,
+            BASE,
             BOOK,
             CHECK,
             EFT,
+            ETHEREUM,
             INTERAC,
             NEFT,
             NZ_BECS,
+            POLYGON,
             RTP,
             SEPA,
             SIGNET,
+            SOLANA,
             WIRE,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
@@ -639,15 +655,19 @@ private constructor(
                 ACH -> Value.ACH
                 AU_BECS -> Value.AU_BECS
                 BACS -> Value.BACS
+                BASE -> Value.BASE
                 BOOK -> Value.BOOK
                 CHECK -> Value.CHECK
                 EFT -> Value.EFT
+                ETHEREUM -> Value.ETHEREUM
                 INTERAC -> Value.INTERAC
                 NEFT -> Value.NEFT
                 NZ_BECS -> Value.NZ_BECS
+                POLYGON -> Value.POLYGON
                 RTP -> Value.RTP
                 SEPA -> Value.SEPA
                 SIGNET -> Value.SIGNET
+                SOLANA -> Value.SOLANA
                 WIRE -> Value.WIRE
                 else -> Value._UNKNOWN
             }
@@ -666,15 +686,19 @@ private constructor(
                 ACH -> Known.ACH
                 AU_BECS -> Known.AU_BECS
                 BACS -> Known.BACS
+                BASE -> Known.BASE
                 BOOK -> Known.BOOK
                 CHECK -> Known.CHECK
                 EFT -> Known.EFT
+                ETHEREUM -> Known.ETHEREUM
                 INTERAC -> Known.INTERAC
                 NEFT -> Known.NEFT
                 NZ_BECS -> Known.NZ_BECS
+                POLYGON -> Known.POLYGON
                 RTP -> Known.RTP
                 SEPA -> Known.SEPA
                 SIGNET -> Known.SIGNET
+                SOLANA -> Known.SOLANA
                 WIRE -> Known.WIRE
                 else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
             }

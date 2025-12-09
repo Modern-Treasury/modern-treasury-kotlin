@@ -253,6 +253,9 @@ internal class ConnectionLegalEntityServiceAsyncTest {
                                                     .build()
                                             )
                                             .lastName("last_name")
+                                            .addLegalEntityAssociation(
+                                                JsonValue.from(mapOf<String, Any>())
+                                            )
                                             .legalEntityType(
                                                 ChildLegalEntityCreate.LegalEntityType.BUSINESS
                                             )
