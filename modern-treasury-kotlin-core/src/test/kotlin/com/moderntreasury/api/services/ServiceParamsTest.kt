@@ -177,6 +177,7 @@ internal class ServiceParamsTest {
                                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .build()
                         )
+                        .businessDescription("business_description")
                         .businessName("business_name")
                         .citizenshipCountry("citizenship_country")
                         .complianceDetails(
@@ -195,10 +196,12 @@ internal class ServiceParamsTest {
                                 .validatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .build()
                         )
+                        .countryOfIncorporation("country_of_incorporation")
                         .dateFormed(LocalDate.parse("2019-12-27"))
                         .dateOfBirth(LocalDate.parse("2019-12-27"))
                         .addDoingBusinessAsName("string")
                         .email("email")
+                        .expectedActivityVolume(0L)
                         .firstName("first_name")
                         .addIdentification(
                             IdentificationCreateRequest.builder()
@@ -223,6 +226,7 @@ internal class ServiceParamsTest {
                                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .build()
                         )
+                        .intendedUse("intended_use")
                         .lastName("last_name")
                         .addLegalEntityAssociation(
                             CounterpartyCreateParams.LegalEntityCreateRequest
@@ -270,6 +274,7 @@ internal class ServiceParamsTest {
                                                 )
                                                 .build()
                                         )
+                                        .businessDescription("business_description")
                                         .businessName("business_name")
                                         .citizenshipCountry("citizenship_country")
                                         .complianceDetails(
@@ -300,10 +305,12 @@ internal class ServiceParamsTest {
                                                 )
                                                 .build()
                                         )
+                                        .countryOfIncorporation("country_of_incorporation")
                                         .dateFormed(LocalDate.parse("2019-12-27"))
                                         .dateOfBirth(LocalDate.parse("2019-12-27"))
                                         .addDoingBusinessAsName("string")
                                         .email("email")
+                                        .expectedActivityVolume(0L)
                                         .firstName("first_name")
                                         .addIdentification(
                                             IdentificationCreateRequest.builder()
@@ -336,6 +343,7 @@ internal class ServiceParamsTest {
                                                 )
                                                 .build()
                                         )
+                                        .intendedUse("intended_use")
                                         .lastName("last_name")
                                         .addLegalEntityAssociation(
                                             JsonValue.from(mapOf<String, Any>())
@@ -360,6 +368,7 @@ internal class ServiceParamsTest {
                                                 .build()
                                         )
                                         .middleName("middle_name")
+                                        .addOperatingJurisdiction("string")
                                         .addPhoneNumber(
                                             ChildLegalEntityCreate.PhoneNumber.builder()
                                                 .phoneNumber("phone_number")
@@ -368,6 +377,7 @@ internal class ServiceParamsTest {
                                         .politicallyExposedPerson(true)
                                         .preferredName("preferred_name")
                                         .prefix("prefix")
+                                        .addPrimarySocialMediaSite("string")
                                         .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
                                         .suffix("suffix")
                                         .wealthAndEmploymentDetails(
@@ -449,6 +459,7 @@ internal class ServiceParamsTest {
                                 .build()
                         )
                         .middleName("middle_name")
+                        .addOperatingJurisdiction("string")
                         .addPhoneNumber(
                             CounterpartyCreateParams.LegalEntityCreateRequest.PhoneNumber.builder()
                                 .phoneNumber("phone_number")
@@ -457,6 +468,7 @@ internal class ServiceParamsTest {
                         .politicallyExposedPerson(true)
                         .preferredName("preferred_name")
                         .prefix("prefix")
+                        .addPrimarySocialMediaSite("string")
                         .riskRating(
                             CounterpartyCreateParams.LegalEntityCreateRequest.RiskRating.LOW
                         )
