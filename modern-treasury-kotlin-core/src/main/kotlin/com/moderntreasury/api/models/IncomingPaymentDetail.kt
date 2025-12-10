@@ -2188,6 +2188,8 @@ private constructor(
 
             val WIRE = of("wire")
 
+            val ZENGIN = of("zengin")
+
             fun of(value: String) = Type(JsonField.of(value))
         }
 
@@ -2210,6 +2212,7 @@ private constructor(
             SIGNET,
             SOLANA,
             WIRE,
+            ZENGIN,
         }
 
         /**
@@ -2239,6 +2242,7 @@ private constructor(
             SIGNET,
             SOLANA,
             WIRE,
+            ZENGIN,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -2269,6 +2273,7 @@ private constructor(
                 SIGNET -> Value.SIGNET
                 SOLANA -> Value.SOLANA
                 WIRE -> Value.WIRE
+                ZENGIN -> Value.ZENGIN
                 else -> Value._UNKNOWN
             }
 
@@ -2300,6 +2305,7 @@ private constructor(
                 SIGNET -> Known.SIGNET
                 SOLANA -> Known.SOLANA
                 WIRE -> Known.WIRE
+                ZENGIN -> Known.ZENGIN
                 else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
             }
 
