@@ -5,6 +5,7 @@ package com.moderntreasury.api.models
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.jsonMapper
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -22,6 +23,7 @@ internal class LedgerEntryCreateRequestTest {
                         .putAdditionalProperty("foo", JsonValue.from(0))
                         .build()
                 )
+                .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .lockVersion(0L)
                 .metadata(
                     LedgerEntryCreateRequest.Metadata.builder()
@@ -53,6 +55,8 @@ internal class LedgerEntryCreateRequestTest {
                     .putAdditionalProperty("foo", JsonValue.from(0))
                     .build()
             )
+        assertThat(ledgerEntryCreateRequest.effectiveAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(ledgerEntryCreateRequest.lockVersion()).isEqualTo(0L)
         assertThat(ledgerEntryCreateRequest.metadata())
             .isEqualTo(
@@ -90,6 +94,7 @@ internal class LedgerEntryCreateRequestTest {
                         .putAdditionalProperty("foo", JsonValue.from(0))
                         .build()
                 )
+                .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .lockVersion(0L)
                 .metadata(
                     LedgerEntryCreateRequest.Metadata.builder()
