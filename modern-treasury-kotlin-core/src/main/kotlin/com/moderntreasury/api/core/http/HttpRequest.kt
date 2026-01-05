@@ -2,6 +2,7 @@ package com.moderntreasury.api.core.http
 
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.toImmutable
+import java.net.URLEncoder
 
 class HttpRequest
 private constructor(
@@ -12,6 +13,35 @@ private constructor(
     val queryParams: QueryParams,
     val body: HttpRequestBody?,
 ) {
+
+    fun url(): String = buildString {
+        append(baseUrl)
+
+        pathSegments.forEach { segment ->
+            if (!endsWith("/")) {
+                append("/")
+            }
+            append(URLEncoder.encode(segment, "UTF-8"))
+        }
+
+        if (queryParams.isEmpty()) {
+            return@buildString
+        }
+
+        append("?")
+        var isFirst = true
+        queryParams.keys().forEach { key ->
+            queryParams.values(key).forEach { value ->
+                if (!isFirst) {
+                    append("&")
+                }
+                append(URLEncoder.encode(key, "UTF-8"))
+                append("=")
+                append(URLEncoder.encode(value, "UTF-8"))
+                isFirst = false
+            }
+        }
+    }
 
     fun toBuilder(): Builder = Builder().from(this)
 
