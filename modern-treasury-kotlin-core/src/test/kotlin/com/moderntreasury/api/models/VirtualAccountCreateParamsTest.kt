@@ -14,12 +14,9 @@ internal class VirtualAccountCreateParamsTest {
             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .name("name")
             .addAccountDetail(
-                VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
+                AccountDetailCreate.builder()
                     .accountNumber("account_number")
-                    .accountNumberType(
-                        VirtualAccountCreateParams.AccountDetailCreateRequest.AccountNumberType
-                            .AU_NUMBER
-                    )
+                    .accountNumberType(AccountDetailCreate.AccountNumberType.AU_NUMBER)
                     .build()
             )
             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -52,14 +49,10 @@ internal class VirtualAccountCreateParamsTest {
                     .build()
             )
             .addRoutingDetail(
-                VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
+                RoutingDetailCreate.builder()
                     .routingNumber("routing_number")
-                    .routingNumberType(
-                        VirtualAccountCreateParams.RoutingDetailCreateRequest.RoutingNumberType.ABA
-                    )
-                    .paymentType(
-                        VirtualAccountCreateParams.RoutingDetailCreateRequest.PaymentType.ACH
-                    )
+                    .routingNumberType(RoutingDetailCreate.RoutingNumberType.ABA)
+                    .paymentType(RoutingDetailCreate.PaymentType.ACH)
                     .build()
             )
             .build()
@@ -72,12 +65,9 @@ internal class VirtualAccountCreateParamsTest {
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .name("name")
                 .addAccountDetail(
-                    VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
+                    AccountDetailCreate.builder()
                         .accountNumber("account_number")
-                        .accountNumberType(
-                            VirtualAccountCreateParams.AccountDetailCreateRequest.AccountNumberType
-                                .AU_NUMBER
-                        )
+                        .accountNumberType(AccountDetailCreate.AccountNumberType.AU_NUMBER)
                         .build()
                 )
                 .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -110,15 +100,10 @@ internal class VirtualAccountCreateParamsTest {
                         .build()
                 )
                 .addRoutingDetail(
-                    VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
+                    RoutingDetailCreate.builder()
                         .routingNumber("routing_number")
-                        .routingNumberType(
-                            VirtualAccountCreateParams.RoutingDetailCreateRequest.RoutingNumberType
-                                .ABA
-                        )
-                        .paymentType(
-                            VirtualAccountCreateParams.RoutingDetailCreateRequest.PaymentType.ACH
-                        )
+                        .routingNumberType(RoutingDetailCreate.RoutingNumberType.ABA)
+                        .paymentType(RoutingDetailCreate.PaymentType.ACH)
                         .build()
                 )
                 .build()
@@ -129,12 +114,9 @@ internal class VirtualAccountCreateParamsTest {
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.accountDetails())
             .containsExactly(
-                VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
+                AccountDetailCreate.builder()
                     .accountNumber("account_number")
-                    .accountNumberType(
-                        VirtualAccountCreateParams.AccountDetailCreateRequest.AccountNumberType
-                            .AU_NUMBER
-                    )
+                    .accountNumberType(AccountDetailCreate.AccountNumberType.AU_NUMBER)
                     .build()
             )
         assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -170,14 +152,10 @@ internal class VirtualAccountCreateParamsTest {
             )
         assertThat(body.routingDetails())
             .containsExactly(
-                VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
+                RoutingDetailCreate.builder()
                     .routingNumber("routing_number")
-                    .routingNumberType(
-                        VirtualAccountCreateParams.RoutingDetailCreateRequest.RoutingNumberType.ABA
-                    )
-                    .paymentType(
-                        VirtualAccountCreateParams.RoutingDetailCreateRequest.PaymentType.ACH
-                    )
+                    .routingNumberType(RoutingDetailCreate.RoutingNumberType.ABA)
+                    .paymentType(RoutingDetailCreate.PaymentType.ACH)
                     .build()
             )
     }

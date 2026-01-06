@@ -16,11 +16,13 @@ import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.json
 import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepare
-import com.moderntreasury.api.models.LineItem
 import com.moderntreasury.api.models.LineItemListPage
 import com.moderntreasury.api.models.LineItemListParams
+import com.moderntreasury.api.models.LineItemListResponse
 import com.moderntreasury.api.models.LineItemRetrieveParams
+import com.moderntreasury.api.models.LineItemRetrieveResponse
 import com.moderntreasury.api.models.LineItemUpdateParams
+import com.moderntreasury.api.models.LineItemUpdateResponse
 
 class LineItemServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     LineItemService {
@@ -37,11 +39,14 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
     override fun retrieve(
         params: LineItemRetrieveParams,
         requestOptions: RequestOptions,
-    ): LineItem =
+    ): LineItemRetrieveResponse =
         // get /api/{itemizable_type}/{itemizable_id}/line_items/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun update(params: LineItemUpdateParams, requestOptions: RequestOptions): LineItem =
+    override fun update(
+        params: LineItemUpdateParams,
+        requestOptions: RequestOptions,
+    ): LineItemUpdateResponse =
         // patch /api/{itemizable_type}/{itemizable_id}/line_items/{id}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -65,13 +70,13 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
                 clientOptions.toBuilder().apply(modifier).build()
             )
 
-        private val retrieveHandler: Handler<LineItem> =
-            jsonHandler<LineItem>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<LineItemRetrieveResponse> =
+            jsonHandler<LineItemRetrieveResponse>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: LineItemRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LineItem> {
+        ): HttpResponseFor<LineItemRetrieveResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id())
@@ -101,13 +106,13 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val updateHandler: Handler<LineItem> =
-            jsonHandler<LineItem>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<LineItemUpdateResponse> =
+            jsonHandler<LineItemUpdateResponse>(clientOptions.jsonMapper)
 
         override fun update(
             params: LineItemUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LineItem> {
+        ): HttpResponseFor<LineItemUpdateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id())
@@ -138,8 +143,8 @@ class LineItemServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val listHandler: Handler<List<LineItem>> =
-            jsonHandler<List<LineItem>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<LineItemListResponse>> =
+            jsonHandler<List<LineItemListResponse>>(clientOptions.jsonMapper)
 
         override fun list(
             params: LineItemListParams,

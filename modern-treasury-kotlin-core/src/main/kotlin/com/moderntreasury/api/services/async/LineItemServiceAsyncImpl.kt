@@ -16,11 +16,13 @@ import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.json
 import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepareAsync
-import com.moderntreasury.api.models.LineItem
 import com.moderntreasury.api.models.LineItemListPageAsync
 import com.moderntreasury.api.models.LineItemListParams
+import com.moderntreasury.api.models.LineItemListResponse
 import com.moderntreasury.api.models.LineItemRetrieveParams
+import com.moderntreasury.api.models.LineItemRetrieveResponse
 import com.moderntreasury.api.models.LineItemUpdateParams
+import com.moderntreasury.api.models.LineItemUpdateResponse
 
 class LineItemServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     LineItemServiceAsync {
@@ -37,14 +39,14 @@ class LineItemServiceAsyncImpl internal constructor(private val clientOptions: C
     override suspend fun retrieve(
         params: LineItemRetrieveParams,
         requestOptions: RequestOptions,
-    ): LineItem =
+    ): LineItemRetrieveResponse =
         // get /api/{itemizable_type}/{itemizable_id}/line_items/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
     override suspend fun update(
         params: LineItemUpdateParams,
         requestOptions: RequestOptions,
-    ): LineItem =
+    ): LineItemUpdateResponse =
         // patch /api/{itemizable_type}/{itemizable_id}/line_items/{id}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -68,13 +70,13 @@ class LineItemServiceAsyncImpl internal constructor(private val clientOptions: C
                 clientOptions.toBuilder().apply(modifier).build()
             )
 
-        private val retrieveHandler: Handler<LineItem> =
-            jsonHandler<LineItem>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<LineItemRetrieveResponse> =
+            jsonHandler<LineItemRetrieveResponse>(clientOptions.jsonMapper)
 
         override suspend fun retrieve(
             params: LineItemRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LineItem> {
+        ): HttpResponseFor<LineItemRetrieveResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id())
@@ -104,13 +106,13 @@ class LineItemServiceAsyncImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val updateHandler: Handler<LineItem> =
-            jsonHandler<LineItem>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<LineItemUpdateResponse> =
+            jsonHandler<LineItemUpdateResponse>(clientOptions.jsonMapper)
 
         override suspend fun update(
             params: LineItemUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LineItem> {
+        ): HttpResponseFor<LineItemUpdateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id())
@@ -141,8 +143,8 @@ class LineItemServiceAsyncImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val listHandler: Handler<List<LineItem>> =
-            jsonHandler<List<LineItem>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<LineItemListResponse>> =
+            jsonHandler<List<LineItemListResponse>>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: LineItemListParams,

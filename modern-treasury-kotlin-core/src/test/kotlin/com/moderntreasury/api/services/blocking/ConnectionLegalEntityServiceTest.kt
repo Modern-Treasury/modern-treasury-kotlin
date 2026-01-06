@@ -10,6 +10,7 @@ import com.moderntreasury.api.models.ConnectionLegalEntityCreateParams
 import com.moderntreasury.api.models.ConnectionLegalEntityUpdateParams
 import com.moderntreasury.api.models.IdentificationCreateRequest
 import com.moderntreasury.api.models.LegalEntityAddressCreateRequest
+import com.moderntreasury.api.models.LegalEntityAssociationInlineCreate
 import com.moderntreasury.api.models.LegalEntityComplianceDetail
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
 import java.time.LocalDate
@@ -118,13 +119,9 @@ internal class ConnectionLegalEntityServiceTest {
                             .intendedUse("intended_use")
                             .lastName("last_name")
                             .addLegalEntityAssociation(
-                                ConnectionLegalEntityCreateParams.LegalEntity
-                                    .LegalEntityAssociationInlineCreateRequest
-                                    .builder()
+                                LegalEntityAssociationInlineCreate.builder()
                                     .addRelationshipType(
-                                        ConnectionLegalEntityCreateParams.LegalEntity
-                                            .LegalEntityAssociationInlineCreateRequest
-                                            .RelationshipType
+                                        LegalEntityAssociationInlineCreate.RelationshipType
                                             .AUTHORIZED_SIGNER
                                     )
                                     .childLegalEntity(
@@ -261,9 +258,7 @@ internal class ConnectionLegalEntityServiceTest {
                                             )
                                             .intendedUse("intended_use")
                                             .lastName("last_name")
-                                            .addLegalEntityAssociation(
-                                                JsonValue.from(mapOf<String, Any>())
-                                            )
+                                            .legalEntityAssociations(listOf())
                                             .legalEntityType(
                                                 ChildLegalEntityCreate.LegalEntityType.BUSINESS
                                             )

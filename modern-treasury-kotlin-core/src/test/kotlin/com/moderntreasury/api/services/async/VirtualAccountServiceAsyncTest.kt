@@ -5,7 +5,9 @@ package com.moderntreasury.api.services.async
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.models.AccountDetailCreate
 import com.moderntreasury.api.models.LedgerAccountCreateRequest
+import com.moderntreasury.api.models.RoutingDetailCreate
 import com.moderntreasury.api.models.TransactionDirection
 import com.moderntreasury.api.models.VirtualAccountCreateParams
 import com.moderntreasury.api.models.VirtualAccountUpdateParams
@@ -31,13 +33,9 @@ internal class VirtualAccountServiceAsyncTest {
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .name("name")
                     .addAccountDetail(
-                        VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
+                        AccountDetailCreate.builder()
                             .accountNumber("account_number")
-                            .accountNumberType(
-                                VirtualAccountCreateParams.AccountDetailCreateRequest
-                                    .AccountNumberType
-                                    .AU_NUMBER
-                            )
+                            .accountNumberType(AccountDetailCreate.AccountNumberType.AU_NUMBER)
                             .build()
                     )
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -70,17 +68,10 @@ internal class VirtualAccountServiceAsyncTest {
                             .build()
                     )
                     .addRoutingDetail(
-                        VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
+                        RoutingDetailCreate.builder()
                             .routingNumber("routing_number")
-                            .routingNumberType(
-                                VirtualAccountCreateParams.RoutingDetailCreateRequest
-                                    .RoutingNumberType
-                                    .ABA
-                            )
-                            .paymentType(
-                                VirtualAccountCreateParams.RoutingDetailCreateRequest.PaymentType
-                                    .ACH
-                            )
+                            .routingNumberType(RoutingDetailCreate.RoutingNumberType.ABA)
+                            .paymentType(RoutingDetailCreate.PaymentType.ACH)
                             .build()
                     )
                     .build()

@@ -23,7 +23,7 @@ class LegalEntityAssociation
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
-    private val childLegalEntity: JsonValue,
+    private val childLegalEntity: JsonField<ChildLegalEntity>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val discardedAt: JsonField<OffsetDateTime>,
     private val liveMode: JsonField<Boolean>,
@@ -41,7 +41,7 @@ private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("child_legal_entity")
         @ExcludeMissing
-        childLegalEntity: JsonValue = JsonMissing.of(),
+        childLegalEntity: JsonField<ChildLegalEntity> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -84,10 +84,13 @@ private constructor(
      */
     fun id(): String = id.getRequired("id")
 
-    /** The child legal entity. */
-    @JsonProperty("child_legal_entity")
-    @ExcludeMissing
-    fun _childLegalEntity(): JsonValue = childLegalEntity
+    /**
+     * The child legal entity.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun childLegalEntity(): ChildLegalEntity = childLegalEntity.getRequired("child_legal_entity")
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -159,6 +162,16 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [childLegalEntity].
+     *
+     * Unlike [childLegalEntity], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("child_legal_entity")
+    @ExcludeMissing
+    fun _childLegalEntity(): JsonField<ChildLegalEntity> = childLegalEntity
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -277,7 +290,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
-        private var childLegalEntity: JsonValue? = null
+        private var childLegalEntity: JsonField<ChildLegalEntity>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var discardedAt: JsonField<OffsetDateTime>? = null
         private var liveMode: JsonField<Boolean>? = null
@@ -315,7 +328,17 @@ private constructor(
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The child legal entity. */
-        fun childLegalEntity(childLegalEntity: JsonValue) = apply {
+        fun childLegalEntity(childLegalEntity: ChildLegalEntity) =
+            childLegalEntity(JsonField.of(childLegalEntity))
+
+        /**
+         * Sets [Builder.childLegalEntity] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.childLegalEntity] with a well-typed [ChildLegalEntity]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun childLegalEntity(childLegalEntity: JsonField<ChildLegalEntity>) = apply {
             this.childLegalEntity = childLegalEntity
         }
 
@@ -521,6 +544,7 @@ private constructor(
         }
 
         id()
+        childLegalEntity().validate()
         createdAt()
         discardedAt()
         liveMode()
@@ -548,6 +572,7 @@ private constructor(
      */
     internal fun validity(): Int =
         (if (id.asKnown() == null) 0 else 1) +
+            (childLegalEntity.asKnown()?.validity() ?: 0) +
             (if (createdAt.asKnown() == null) 0 else 1) +
             (if (discardedAt.asKnown() == null) 0 else 1) +
             (if (liveMode.asKnown() == null) 0 else 1) +

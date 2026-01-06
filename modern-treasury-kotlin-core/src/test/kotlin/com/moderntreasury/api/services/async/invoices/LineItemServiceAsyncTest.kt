@@ -5,6 +5,7 @@ package com.moderntreasury.api.services.async.invoices
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.models.InvoiceLineItemCreate
 import com.moderntreasury.api.models.InvoiceLineItemCreateParams
 import com.moderntreasury.api.models.InvoiceLineItemDeleteParams
 import com.moderntreasury.api.models.InvoiceLineItemRetrieveParams
@@ -29,19 +30,23 @@ internal class LineItemServiceAsyncTest {
             lineItemServiceAsync.create(
                 InvoiceLineItemCreateParams.builder()
                     .invoiceId("invoice_id")
-                    .name("name")
-                    .unitAmount(0L)
-                    .description("description")
-                    .direction("direction")
-                    .metadata(
-                        InvoiceLineItemCreateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .invoiceLineItemCreate(
+                        InvoiceLineItemCreate.builder()
+                            .name("name")
+                            .unitAmount(0L)
+                            .description("description")
+                            .direction("direction")
+                            .metadata(
+                                InvoiceLineItemCreate.Metadata.builder()
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
+                            .quantity(0L)
+                            .unitAmountDecimal("unit_amount_decimal")
                             .build()
                     )
-                    .quantity(0L)
-                    .unitAmountDecimal("unit_amount_decimal")
                     .build()
             )
 

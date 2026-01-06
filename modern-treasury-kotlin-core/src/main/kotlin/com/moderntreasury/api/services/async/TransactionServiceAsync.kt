@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.Transaction
+import com.moderntreasury.api.models.TransactionCreate
 import com.moderntreasury.api.models.TransactionCreateParams
 import com.moderntreasury.api.models.TransactionDeleteParams
 import com.moderntreasury.api.models.TransactionListPageAsync
@@ -37,6 +38,16 @@ interface TransactionServiceAsync {
         params: TransactionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
+
+    /** @see create */
+    suspend fun create(
+        transactionCreate: TransactionCreate,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Transaction =
+        create(
+            TransactionCreateParams.builder().transactionCreate(transactionCreate).build(),
+            requestOptions,
+        )
 
     /** Get details on a single transaction. */
     suspend fun retrieve(
@@ -125,6 +136,17 @@ interface TransactionServiceAsync {
             params: TransactionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction>
+
+        /** @see create */
+        @MustBeClosed
+        suspend fun create(
+            transactionCreate: TransactionCreate,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Transaction> =
+            create(
+                TransactionCreateParams.builder().transactionCreate(transactionCreate).build(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /api/transactions/{id}`, but is otherwise the same

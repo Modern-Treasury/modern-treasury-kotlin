@@ -16,10 +16,9 @@ import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.json
 import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepareAsync
+import com.moderntreasury.api.models.LedgerAccountStatement
 import com.moderntreasury.api.models.LedgerAccountStatementCreateParams
-import com.moderntreasury.api.models.LedgerAccountStatementCreateResponse
 import com.moderntreasury.api.models.LedgerAccountStatementRetrieveParams
-import com.moderntreasury.api.models.LedgerAccountStatementRetrieveResponse
 
 class LedgerAccountStatementServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
@@ -40,14 +39,14 @@ internal constructor(private val clientOptions: ClientOptions) :
     override suspend fun create(
         params: LedgerAccountStatementCreateParams,
         requestOptions: RequestOptions,
-    ): LedgerAccountStatementCreateResponse =
+    ): LedgerAccountStatement =
         // post /api/ledger_account_statements
         withRawResponse().create(params, requestOptions).parse()
 
     override suspend fun retrieve(
         params: LedgerAccountStatementRetrieveParams,
         requestOptions: RequestOptions,
-    ): LedgerAccountStatementRetrieveResponse =
+    ): LedgerAccountStatement =
         // get /api/ledger_account_statements/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
@@ -64,13 +63,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 clientOptions.toBuilder().apply(modifier).build()
             )
 
-        private val createHandler: Handler<LedgerAccountStatementCreateResponse> =
-            jsonHandler<LedgerAccountStatementCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<LedgerAccountStatement> =
+            jsonHandler<LedgerAccountStatement>(clientOptions.jsonMapper)
 
         override suspend fun create(
             params: LedgerAccountStatementCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountStatementCreateResponse> {
+        ): HttpResponseFor<LedgerAccountStatement> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -92,13 +91,13 @@ internal constructor(private val clientOptions: ClientOptions) :
             }
         }
 
-        private val retrieveHandler: Handler<LedgerAccountStatementRetrieveResponse> =
-            jsonHandler<LedgerAccountStatementRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<LedgerAccountStatement> =
+            jsonHandler<LedgerAccountStatement>(clientOptions.jsonMapper)
 
         override suspend fun retrieve(
             params: LedgerAccountStatementRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse> {
+        ): HttpResponseFor<LedgerAccountStatement> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id())
