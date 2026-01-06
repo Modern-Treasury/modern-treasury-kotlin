@@ -20,7 +20,7 @@ internal class PaymentOrderCreateParamsTest {
             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .type(PaymentOrderType.ACH)
             .accounting(
-                PaymentOrderCreateParams.Accounting.builder()
+                Accounting.builder()
                     .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
@@ -31,13 +31,10 @@ internal class PaymentOrderCreateParamsTest {
             .currency(Currency.AED)
             .description("description")
             .addDocument(
-                PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                DocumentCreate.builder()
                     .documentableId("documentable_id")
-                    .documentableType(
-                        PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
-                            .COUNTERPARTIES
-                    )
-                    .file("some content".byteInputStream())
+                    .documentableType(DocumentCreate.DocumentableType.COUNTERPARTIES)
+                    .file("some content")
                     .documentType("document_type")
                     .build()
             )
@@ -100,12 +97,12 @@ internal class PaymentOrderCreateParamsTest {
             )
             .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .addLineItem(
-                PaymentOrderCreateParams.LineItemRequest.builder()
+                LineItem.builder()
                     .amount(0L)
                     .accountingCategoryId("accounting_category_id")
                     .description("description")
                     .metadata(
-                        PaymentOrderCreateParams.LineItemRequest.Metadata.builder()
+                        LineItem.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -228,7 +225,7 @@ internal class PaymentOrderCreateParamsTest {
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .type(PaymentOrderType.ACH)
                 .accounting(
-                    PaymentOrderCreateParams.Accounting.builder()
+                    Accounting.builder()
                         .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
@@ -239,13 +236,10 @@ internal class PaymentOrderCreateParamsTest {
                 .currency(Currency.AED)
                 .description("description")
                 .addDocument(
-                    PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                    DocumentCreate.builder()
                         .documentableId("documentable_id")
-                        .documentableType(
-                            PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
-                                .COUNTERPARTIES
-                        )
-                        .file("some content".byteInputStream())
+                        .documentableType(DocumentCreate.DocumentableType.COUNTERPARTIES)
+                        .file("some content")
                         .documentType("document_type")
                         .build()
                 )
@@ -310,12 +304,12 @@ internal class PaymentOrderCreateParamsTest {
                 )
                 .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .addLineItem(
-                    PaymentOrderCreateParams.LineItemRequest.builder()
+                    LineItem.builder()
                         .amount(0L)
                         .accountingCategoryId("accounting_category_id")
                         .description("description")
                         .metadata(
-                            PaymentOrderCreateParams.LineItemRequest.Metadata.builder()
+                            LineItem.Metadata.builder()
                                 .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -450,7 +444,7 @@ internal class PaymentOrderCreateParamsTest {
                         "type" to MultipartField.of(PaymentOrderType.ACH),
                         "accounting" to
                             MultipartField.of(
-                                PaymentOrderCreateParams.Accounting.builder()
+                                Accounting.builder()
                                     .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .build()
@@ -464,25 +458,18 @@ internal class PaymentOrderCreateParamsTest {
                         "currency" to MultipartField.of(Currency.AED),
                         "description" to MultipartField.of("description"),
                         "documents" to
-                            MultipartField.builder<
-                                    List<PaymentOrderCreateParams.DocumentCreateRequest>
-                                >()
-                                .value(
-                                    listOf(
-                                        PaymentOrderCreateParams.DocumentCreateRequest.builder()
-                                            .documentableId("documentable_id")
-                                            .documentableType(
-                                                PaymentOrderCreateParams.DocumentCreateRequest
-                                                    .DocumentableType
-                                                    .COUNTERPARTIES
-                                            )
-                                            .file("some content".byteInputStream())
-                                            .documentType("document_type")
-                                            .build()
-                                    )
+                            MultipartField.of(
+                                listOf(
+                                    DocumentCreate.builder()
+                                        .documentableId("documentable_id")
+                                        .documentableType(
+                                            DocumentCreate.DocumentableType.COUNTERPARTIES
+                                        )
+                                        .file("some content")
+                                        .documentType("document_type")
+                                        .build()
                                 )
-                                .contentType("application/octet-stream")
-                                .build(),
+                            ),
                         "effective_date" to MultipartField.of(LocalDate.parse("2019-12-27")),
                         "expires_at" to
                             MultipartField.of(OffsetDateTime.parse("2019-12-27T18:11:19.117Z")),
@@ -570,13 +557,12 @@ internal class PaymentOrderCreateParamsTest {
                         "line_items" to
                             MultipartField.of(
                                 listOf(
-                                    PaymentOrderCreateParams.LineItemRequest.builder()
+                                    LineItem.builder()
                                         .amount(0L)
                                         .accountingCategoryId("accounting_category_id")
                                         .description("description")
                                         .metadata(
-                                            PaymentOrderCreateParams.LineItemRequest.Metadata
-                                                .builder()
+                                            LineItem.Metadata.builder()
                                                 .putAdditionalProperty(
                                                     "key",
                                                     JsonValue.from("value"),

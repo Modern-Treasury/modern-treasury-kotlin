@@ -53,13 +53,13 @@ internal class InvoiceCreateParamsTest {
             .description("description")
             .fallbackPaymentMethod("fallback_payment_method")
             .addInvoiceLineItem(
-                InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
+                InvoiceLineItemCreate.builder()
                     .name("name")
                     .unitAmount(0L)
                     .description("description")
                     .direction("direction")
                     .metadata(
-                        InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                        InvoiceLineItemCreate.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -143,13 +143,13 @@ internal class InvoiceCreateParamsTest {
                 .description("description")
                 .fallbackPaymentMethod("fallback_payment_method")
                 .addInvoiceLineItem(
-                    InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
+                    InvoiceLineItemCreate.builder()
                         .name("name")
                         .unitAmount(0L)
                         .description("description")
                         .direction("direction")
                         .metadata(
-                            InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                            InvoiceLineItemCreate.Metadata.builder()
                                 .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -234,13 +234,13 @@ internal class InvoiceCreateParamsTest {
         assertThat(body.fallbackPaymentMethod()).isEqualTo("fallback_payment_method")
         assertThat(body.invoiceLineItems())
             .containsExactly(
-                InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
+                InvoiceLineItemCreate.builder()
                     .name("name")
                     .unitAmount(0L)
                     .description("description")
                     .direction("direction")
                     .metadata(
-                        InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                        InvoiceLineItemCreate.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))

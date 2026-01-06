@@ -92,7 +92,16 @@ internal class ChildLegalEntityCreateTest {
                 )
                 .intendedUse("intended_use")
                 .lastName("last_name")
-                .addLegalEntityAssociation(JsonValue.from(mapOf<String, Any>()))
+                .addLegalEntityAssociation(
+                    LegalEntityAssociationInlineCreate.builder()
+                        .addRelationshipType(
+                            LegalEntityAssociationInlineCreate.RelationshipType.AUTHORIZED_SIGNER
+                        )
+                        .childLegalEntityId("child_legal_entity_id")
+                        .ownershipPercentage(0L)
+                        .title("title")
+                        .build()
+                )
                 .legalEntityType(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
                 .legalStructure(ChildLegalEntityCreate.LegalStructure.CORPORATION)
                 .metadata(
@@ -238,7 +247,16 @@ internal class ChildLegalEntityCreateTest {
         assertThat(childLegalEntityCreate.intendedUse()).isEqualTo("intended_use")
         assertThat(childLegalEntityCreate.lastName()).isEqualTo("last_name")
         assertThat(childLegalEntityCreate.legalEntityAssociations())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+            .containsExactly(
+                LegalEntityAssociationInlineCreate.builder()
+                    .addRelationshipType(
+                        LegalEntityAssociationInlineCreate.RelationshipType.AUTHORIZED_SIGNER
+                    )
+                    .childLegalEntityId("child_legal_entity_id")
+                    .ownershipPercentage(0L)
+                    .title("title")
+                    .build()
+            )
         assertThat(childLegalEntityCreate.legalEntityType())
             .isEqualTo(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
         assertThat(childLegalEntityCreate.legalStructure())
@@ -388,7 +406,16 @@ internal class ChildLegalEntityCreateTest {
                 )
                 .intendedUse("intended_use")
                 .lastName("last_name")
-                .addLegalEntityAssociation(JsonValue.from(mapOf<String, Any>()))
+                .addLegalEntityAssociation(
+                    LegalEntityAssociationInlineCreate.builder()
+                        .addRelationshipType(
+                            LegalEntityAssociationInlineCreate.RelationshipType.AUTHORIZED_SIGNER
+                        )
+                        .childLegalEntityId("child_legal_entity_id")
+                        .ownershipPercentage(0L)
+                        .title("title")
+                        .build()
+                )
                 .legalEntityType(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
                 .legalStructure(ChildLegalEntityCreate.LegalStructure.CORPORATION)
                 .metadata(

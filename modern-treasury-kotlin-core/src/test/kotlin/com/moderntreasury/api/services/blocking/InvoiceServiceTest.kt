@@ -9,6 +9,7 @@ import com.moderntreasury.api.models.ContactDetail
 import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.InvoiceAddPaymentOrderParams
 import com.moderntreasury.api.models.InvoiceCreateParams
+import com.moderntreasury.api.models.InvoiceLineItemCreate
 import com.moderntreasury.api.models.InvoiceUpdateParams
 import com.moderntreasury.api.models.PaymentOrderType
 import java.time.LocalDate
@@ -72,13 +73,13 @@ internal class InvoiceServiceTest {
                     .description("description")
                     .fallbackPaymentMethod("fallback_payment_method")
                     .addInvoiceLineItem(
-                        InvoiceCreateParams.InvoiceLineItemCreateRequest.builder()
+                        InvoiceLineItemCreate.builder()
                             .name("name")
                             .unitAmount(0L)
                             .description("description")
                             .direction("direction")
                             .metadata(
-                                InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                InvoiceLineItemCreate.Metadata.builder()
                                     .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -188,13 +189,13 @@ internal class InvoiceServiceTest {
                     .dueDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .fallbackPaymentMethod("fallback_payment_method")
                     .addInvoiceLineItem(
-                        InvoiceUpdateParams.InvoiceLineItemCreateRequest.builder()
+                        InvoiceLineItemCreate.builder()
                             .name("name")
                             .unitAmount(0L)
                             .description("description")
                             .direction("direction")
                             .metadata(
-                                InvoiceUpdateParams.InvoiceLineItemCreateRequest.Metadata.builder()
+                                InvoiceLineItemCreate.Metadata.builder()
                                     .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))

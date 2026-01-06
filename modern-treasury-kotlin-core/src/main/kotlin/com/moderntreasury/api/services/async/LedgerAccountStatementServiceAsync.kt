@@ -6,10 +6,9 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
+import com.moderntreasury.api.models.LedgerAccountStatement
 import com.moderntreasury.api.models.LedgerAccountStatementCreateParams
-import com.moderntreasury.api.models.LedgerAccountStatementCreateResponse
 import com.moderntreasury.api.models.LedgerAccountStatementRetrieveParams
-import com.moderntreasury.api.models.LedgerAccountStatementRetrieveResponse
 
 interface LedgerAccountStatementServiceAsync {
 
@@ -29,27 +28,23 @@ interface LedgerAccountStatementServiceAsync {
     suspend fun create(
         params: LedgerAccountStatementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LedgerAccountStatementCreateResponse
+    ): LedgerAccountStatement
 
     /** Get details on a single ledger account statement. */
     suspend fun retrieve(
         id: String,
         params: LedgerAccountStatementRetrieveParams = LedgerAccountStatementRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LedgerAccountStatementRetrieveResponse =
-        retrieve(params.toBuilder().id(id).build(), requestOptions)
+    ): LedgerAccountStatement = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     suspend fun retrieve(
         params: LedgerAccountStatementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LedgerAccountStatementRetrieveResponse
+    ): LedgerAccountStatement
 
     /** @see retrieve */
-    suspend fun retrieve(
-        id: String,
-        requestOptions: RequestOptions,
-    ): LedgerAccountStatementRetrieveResponse =
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): LedgerAccountStatement =
         retrieve(id, LedgerAccountStatementRetrieveParams.none(), requestOptions)
 
     /**
@@ -75,7 +70,7 @@ interface LedgerAccountStatementServiceAsync {
         suspend fun create(
             params: LedgerAccountStatementCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LedgerAccountStatementCreateResponse>
+        ): HttpResponseFor<LedgerAccountStatement>
 
         /**
          * Returns a raw HTTP response for `get /api/ledger_account_statements/{id}`, but is
@@ -87,7 +82,7 @@ interface LedgerAccountStatementServiceAsync {
             params: LedgerAccountStatementRetrieveParams =
                 LedgerAccountStatementRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse> =
+        ): HttpResponseFor<LedgerAccountStatement> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
@@ -95,14 +90,14 @@ interface LedgerAccountStatementServiceAsync {
         suspend fun retrieve(
             params: LedgerAccountStatementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse>
+        ): HttpResponseFor<LedgerAccountStatement>
 
         /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse> =
+        ): HttpResponseFor<LedgerAccountStatement> =
             retrieve(id, LedgerAccountStatementRetrieveParams.none(), requestOptions)
     }
 }

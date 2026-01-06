@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.models.AccountDetailCreate
 import com.moderntreasury.api.models.AccountDetailCreateParams
 import com.moderntreasury.api.models.AccountDetailDeleteParams
 import com.moderntreasury.api.models.AccountDetailListParams
@@ -30,8 +31,12 @@ internal class AccountDetailServiceTest {
                 AccountDetailCreateParams.builder()
                     .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
                     .accountId("account_id")
-                    .accountNumber("account_number")
-                    .accountNumberType(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
+                    .accountDetailCreate(
+                        AccountDetailCreate.builder()
+                            .accountNumber("account_number")
+                            .accountNumberType(AccountDetailCreate.AccountNumberType.AU_NUMBER)
+                            .build()
+                    )
                     .build()
             )
 

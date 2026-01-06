@@ -7,6 +7,7 @@ import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.LegalEntity
+import com.moderntreasury.api.models.LegalEntityCreate
 import com.moderntreasury.api.models.LegalEntityCreateParams
 import com.moderntreasury.api.models.LegalEntityListPageAsync
 import com.moderntreasury.api.models.LegalEntityListParams
@@ -32,6 +33,16 @@ interface LegalEntityServiceAsync {
         params: LegalEntityCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LegalEntity
+
+    /** @see create */
+    suspend fun create(
+        legalEntityCreate: LegalEntityCreate,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LegalEntity =
+        create(
+            LegalEntityCreateParams.builder().legalEntityCreate(legalEntityCreate).build(),
+            requestOptions,
+        )
 
     /** Get details on a single legal entity. */
     suspend fun retrieve(
@@ -101,6 +112,17 @@ interface LegalEntityServiceAsync {
             params: LegalEntityCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LegalEntity>
+
+        /** @see create */
+        @MustBeClosed
+        suspend fun create(
+            legalEntityCreate: LegalEntityCreate,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LegalEntity> =
+            create(
+                LegalEntityCreateParams.builder().legalEntityCreate(legalEntityCreate).build(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /api/legal_entities/{id}`, but is otherwise the same

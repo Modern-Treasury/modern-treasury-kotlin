@@ -15,7 +15,9 @@ import com.moderntreasury.api.models.ExternalAccountType
 import com.moderntreasury.api.models.IdentificationCreateRequest
 import com.moderntreasury.api.models.LedgerAccountCreateRequest
 import com.moderntreasury.api.models.LegalEntityAddressCreateRequest
+import com.moderntreasury.api.models.LegalEntityAssociationInlineCreate
 import com.moderntreasury.api.models.LegalEntityComplianceDetail
+import com.moderntreasury.api.models.LegalEntityCreate
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
 import com.moderntreasury.api.models.TransactionDirection
 import java.time.LocalDate
@@ -136,11 +138,8 @@ internal class CounterpartyServiceAsyncTest {
                     .externalId("external_id")
                     .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
                     .legalEntity(
-                        CounterpartyCreateParams.LegalEntityCreateRequest.builder()
-                            .legalEntityType(
-                                CounterpartyCreateParams.LegalEntityCreateRequest.LegalEntityType
-                                    .BUSINESS
-                            )
+                        LegalEntityCreate.builder()
+                            .legalEntityType(LegalEntityCreate.LegalEntityType.BUSINESS)
                             .addAddress(
                                 LegalEntityAddressCreateRequest.builder()
                                     .country("country")
@@ -155,9 +154,7 @@ internal class CounterpartyServiceAsyncTest {
                                     .build()
                             )
                             .bankSettings(
-                                CounterpartyCreateParams.LegalEntityCreateRequest
-                                    .LegalEntityBankSetting
-                                    .builder()
+                                LegalEntityCreate.LegalEntityBankSetting.builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .backupWithholdingPercentage(0L)
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -224,13 +221,9 @@ internal class CounterpartyServiceAsyncTest {
                             .intendedUse("intended_use")
                             .lastName("last_name")
                             .addLegalEntityAssociation(
-                                CounterpartyCreateParams.LegalEntityCreateRequest
-                                    .LegalEntityAssociationInlineCreateRequest
-                                    .builder()
+                                LegalEntityAssociationInlineCreate.builder()
                                     .addRelationshipType(
-                                        CounterpartyCreateParams.LegalEntityCreateRequest
-                                            .LegalEntityAssociationInlineCreateRequest
-                                            .RelationshipType
+                                        LegalEntityAssociationInlineCreate.RelationshipType
                                             .AUTHORIZED_SIGNER
                                     )
                                     .childLegalEntity(
@@ -367,9 +360,7 @@ internal class CounterpartyServiceAsyncTest {
                                             )
                                             .intendedUse("intended_use")
                                             .lastName("last_name")
-                                            .addLegalEntityAssociation(
-                                                JsonValue.from(mapOf<String, Any>())
-                                            )
+                                            .legalEntityAssociations(listOf())
                                             .legalEntityType(
                                                 ChildLegalEntityCreate.LegalEntityType.BUSINESS
                                             )
@@ -479,12 +470,9 @@ internal class CounterpartyServiceAsyncTest {
                                     .title("title")
                                     .build()
                             )
-                            .legalStructure(
-                                CounterpartyCreateParams.LegalEntityCreateRequest.LegalStructure
-                                    .CORPORATION
-                            )
+                            .legalStructure(LegalEntityCreate.LegalStructure.CORPORATION)
                             .metadata(
-                                CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder()
+                                LegalEntityCreate.Metadata.builder()
                                     .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -493,8 +481,7 @@ internal class CounterpartyServiceAsyncTest {
                             .middleName("middle_name")
                             .addOperatingJurisdiction("string")
                             .addPhoneNumber(
-                                CounterpartyCreateParams.LegalEntityCreateRequest.PhoneNumber
-                                    .builder()
+                                LegalEntityCreate.PhoneNumber.builder()
                                     .phoneNumber("phone_number")
                                     .build()
                             )
@@ -502,14 +489,10 @@ internal class CounterpartyServiceAsyncTest {
                             .preferredName("preferred_name")
                             .prefix("prefix")
                             .addPrimarySocialMediaSite("string")
-                            .riskRating(
-                                CounterpartyCreateParams.LegalEntityCreateRequest.RiskRating.LOW
-                            )
+                            .riskRating(LegalEntityCreate.RiskRating.LOW)
                             .suffix("suffix")
                             .wealthAndEmploymentDetails(
-                                CounterpartyCreateParams.LegalEntityCreateRequest
-                                    .LegalEntityWealthEmploymentDetail
-                                    .builder()
+                                LegalEntityCreate.LegalEntityWealthEmploymentDetail.builder()
                                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .annualIncome(0L)
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -518,43 +501,36 @@ internal class CounterpartyServiceAsyncTest {
                                     .employerName("employer_name")
                                     .employerState("employer_state")
                                     .employmentStatus(
-                                        CounterpartyCreateParams.LegalEntityCreateRequest
-                                            .LegalEntityWealthEmploymentDetail
+                                        LegalEntityCreate.LegalEntityWealthEmploymentDetail
                                             .EmploymentStatus
                                             .EMPLOYED
                                     )
                                     .incomeCountry("income_country")
                                     .incomeSource(
-                                        CounterpartyCreateParams.LegalEntityCreateRequest
-                                            .LegalEntityWealthEmploymentDetail
+                                        LegalEntityCreate.LegalEntityWealthEmploymentDetail
                                             .IncomeSource
                                             .FAMILY_SUPPORT
                                     )
                                     .incomeState("income_state")
                                     .industry(
-                                        CounterpartyCreateParams.LegalEntityCreateRequest
-                                            .LegalEntityWealthEmploymentDetail
-                                            .Industry
+                                        LegalEntityCreate.LegalEntityWealthEmploymentDetail.Industry
                                             .ACCOUNTING
                                     )
                                     .liveMode(true)
                                     .object_("object")
                                     .occupation(
-                                        CounterpartyCreateParams.LegalEntityCreateRequest
-                                            .LegalEntityWealthEmploymentDetail
+                                        LegalEntityCreate.LegalEntityWealthEmploymentDetail
                                             .Occupation
                                             .CONSULTING
                                     )
                                     .sourceOfFunds(
-                                        CounterpartyCreateParams.LegalEntityCreateRequest
-                                            .LegalEntityWealthEmploymentDetail
+                                        LegalEntityCreate.LegalEntityWealthEmploymentDetail
                                             .SourceOfFunds
                                             .ALIMONY
                                     )
                                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .wealthSource(
-                                        CounterpartyCreateParams.LegalEntityCreateRequest
-                                            .LegalEntityWealthEmploymentDetail
+                                        LegalEntityCreate.LegalEntityWealthEmploymentDetail
                                             .WealthSource
                                             .BUSINESS_SALE
                                     )

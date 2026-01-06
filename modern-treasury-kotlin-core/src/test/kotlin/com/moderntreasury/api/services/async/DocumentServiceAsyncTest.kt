@@ -4,7 +4,7 @@ package com.moderntreasury.api.services.async
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
-import com.moderntreasury.api.models.DocumentCreateParams
+import com.moderntreasury.api.models.DocumentCreate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -25,10 +25,10 @@ internal class DocumentServiceAsyncTest {
 
         val document =
             documentServiceAsync.create(
-                DocumentCreateParams.builder()
+                DocumentCreate.builder()
                     .documentableId("documentable_id")
-                    .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
-                    .file("some content".byteInputStream())
+                    .documentableType(DocumentCreate.DocumentableType.COUNTERPARTIES)
+                    .file("some content")
                     .documentType("document_type")
                     .build()
             )

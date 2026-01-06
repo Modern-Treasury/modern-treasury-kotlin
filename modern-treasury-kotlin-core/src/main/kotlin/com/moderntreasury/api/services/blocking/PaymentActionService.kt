@@ -6,14 +6,12 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
+import com.moderntreasury.api.models.PaymentAction
 import com.moderntreasury.api.models.PaymentActionCreateParams
-import com.moderntreasury.api.models.PaymentActionCreateResponse
 import com.moderntreasury.api.models.PaymentActionListPage
 import com.moderntreasury.api.models.PaymentActionListParams
 import com.moderntreasury.api.models.PaymentActionRetrieveParams
-import com.moderntreasury.api.models.PaymentActionRetrieveResponse
 import com.moderntreasury.api.models.PaymentActionUpdateParams
-import com.moderntreasury.api.models.PaymentActionUpdateResponse
 
 interface PaymentActionService {
 
@@ -33,23 +31,23 @@ interface PaymentActionService {
     fun create(
         params: PaymentActionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentActionCreateResponse
+    ): PaymentAction
 
     /** Get details on a single payment action. */
     fun retrieve(
         id: String,
         params: PaymentActionRetrieveParams = PaymentActionRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentActionRetrieveResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    ): PaymentAction = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         params: PaymentActionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentActionRetrieveResponse
+    ): PaymentAction
 
     /** @see retrieve */
-    fun retrieve(id: String, requestOptions: RequestOptions): PaymentActionRetrieveResponse =
+    fun retrieve(id: String, requestOptions: RequestOptions): PaymentAction =
         retrieve(id, PaymentActionRetrieveParams.none(), requestOptions)
 
     /** Update a single payment action. */
@@ -57,13 +55,13 @@ interface PaymentActionService {
         id: String,
         params: PaymentActionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentActionUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
+    ): PaymentAction = update(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see update */
     fun update(
         params: PaymentActionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentActionUpdateResponse
+    ): PaymentAction
 
     /** Get a list of all payment actions. */
     fun list(
@@ -97,7 +95,7 @@ interface PaymentActionService {
         fun create(
             params: PaymentActionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentActionCreateResponse>
+        ): HttpResponseFor<PaymentAction>
 
         /**
          * Returns a raw HTTP response for `get /api/payment_actions/{id}`, but is otherwise the
@@ -108,7 +106,7 @@ interface PaymentActionService {
             id: String,
             params: PaymentActionRetrieveParams = PaymentActionRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentActionRetrieveResponse> =
+        ): HttpResponseFor<PaymentAction> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
@@ -116,14 +114,11 @@ interface PaymentActionService {
         fun retrieve(
             params: PaymentActionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentActionRetrieveResponse>
+        ): HttpResponseFor<PaymentAction>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PaymentActionRetrieveResponse> =
+        fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<PaymentAction> =
             retrieve(id, PaymentActionRetrieveParams.none(), requestOptions)
 
         /**
@@ -135,7 +130,7 @@ interface PaymentActionService {
             id: String,
             params: PaymentActionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentActionUpdateResponse> =
+        ): HttpResponseFor<PaymentAction> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see update */
@@ -143,7 +138,7 @@ interface PaymentActionService {
         fun update(
             params: PaymentActionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentActionUpdateResponse>
+        ): HttpResponseFor<PaymentAction>
 
         /**
          * Returns a raw HTTP response for `get /api/payment_actions`, but is otherwise the same as

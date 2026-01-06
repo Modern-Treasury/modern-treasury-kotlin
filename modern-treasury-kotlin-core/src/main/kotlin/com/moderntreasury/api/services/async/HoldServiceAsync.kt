@@ -6,14 +6,12 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
+import com.moderntreasury.api.models.Hold
 import com.moderntreasury.api.models.HoldCreateParams
-import com.moderntreasury.api.models.HoldCreateResponse
 import com.moderntreasury.api.models.HoldListPageAsync
 import com.moderntreasury.api.models.HoldListParams
 import com.moderntreasury.api.models.HoldRetrieveParams
-import com.moderntreasury.api.models.HoldRetrieveResponse
 import com.moderntreasury.api.models.HoldUpdateParams
-import com.moderntreasury.api.models.HoldUpdateResponse
 
 interface HoldServiceAsync {
 
@@ -33,23 +31,23 @@ interface HoldServiceAsync {
     suspend fun create(
         params: HoldCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HoldCreateResponse
+    ): Hold
 
     /** Get a specific hold */
     suspend fun retrieve(
         id: String,
         params: HoldRetrieveParams = HoldRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HoldRetrieveResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    ): Hold = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     suspend fun retrieve(
         params: HoldRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HoldRetrieveResponse
+    ): Hold
 
     /** @see retrieve */
-    suspend fun retrieve(id: String, requestOptions: RequestOptions): HoldRetrieveResponse =
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): Hold =
         retrieve(id, HoldRetrieveParams.none(), requestOptions)
 
     /** Update a hold */
@@ -57,13 +55,13 @@ interface HoldServiceAsync {
         id: String,
         params: HoldUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HoldUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
+    ): Hold = update(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see update */
     suspend fun update(
         params: HoldUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HoldUpdateResponse
+    ): Hold
 
     /** Get a list of holds. */
     suspend fun list(
@@ -93,7 +91,7 @@ interface HoldServiceAsync {
         suspend fun create(
             params: HoldCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<HoldCreateResponse>
+        ): HttpResponseFor<Hold>
 
         /**
          * Returns a raw HTTP response for `get /api/holds/{id}`, but is otherwise the same as
@@ -104,22 +102,18 @@ interface HoldServiceAsync {
             id: String,
             params: HoldRetrieveParams = HoldRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<HoldRetrieveResponse> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponseFor<Hold> = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: HoldRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<HoldRetrieveResponse>
+        ): HttpResponseFor<Hold>
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<HoldRetrieveResponse> =
+        suspend fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<Hold> =
             retrieve(id, HoldRetrieveParams.none(), requestOptions)
 
         /**
@@ -131,15 +125,14 @@ interface HoldServiceAsync {
             id: String,
             params: HoldUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<HoldUpdateResponse> =
-            update(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponseFor<Hold> = update(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
         suspend fun update(
             params: HoldUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<HoldUpdateResponse>
+        ): HttpResponseFor<Hold>
 
         /**
          * Returns a raw HTTP response for `get /api/holds`, but is otherwise the same as

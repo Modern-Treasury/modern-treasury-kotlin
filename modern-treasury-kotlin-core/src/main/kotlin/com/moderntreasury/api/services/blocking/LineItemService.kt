@@ -6,11 +6,12 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
-import com.moderntreasury.api.models.LineItem
 import com.moderntreasury.api.models.LineItemListPage
 import com.moderntreasury.api.models.LineItemListParams
 import com.moderntreasury.api.models.LineItemRetrieveParams
+import com.moderntreasury.api.models.LineItemRetrieveResponse
 import com.moderntreasury.api.models.LineItemUpdateParams
+import com.moderntreasury.api.models.LineItemUpdateResponse
 
 interface LineItemService {
 
@@ -31,26 +32,26 @@ interface LineItemService {
         id: String,
         params: LineItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LineItem = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    ): LineItemRetrieveResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         params: LineItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LineItem
+    ): LineItemRetrieveResponse
 
     /** update line item */
     fun update(
         id: String,
         params: LineItemUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LineItem = update(params.toBuilder().id(id).build(), requestOptions)
+    ): LineItemUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see update */
     fun update(
         params: LineItemUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LineItem
+    ): LineItemUpdateResponse
 
     /** Get a list of line items */
     fun list(
@@ -86,14 +87,15 @@ interface LineItemService {
             id: String,
             params: LineItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LineItem> = retrieve(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponseFor<LineItemRetrieveResponse> =
+            retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: LineItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LineItem>
+        ): HttpResponseFor<LineItemRetrieveResponse>
 
         /**
          * Returns a raw HTTP response for `patch
@@ -105,14 +107,15 @@ interface LineItemService {
             id: String,
             params: LineItemUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LineItem> = update(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponseFor<LineItemUpdateResponse> =
+            update(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: LineItemUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LineItem>
+        ): HttpResponseFor<LineItemUpdateResponse>
 
         /**
          * Returns a raw HTTP response for `get /api/{itemizable_type}/{itemizable_id}/line_items`,

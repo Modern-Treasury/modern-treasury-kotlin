@@ -94,13 +94,9 @@ internal class ConnectionLegalEntityCreateParamsTest {
                     .intendedUse("intended_use")
                     .lastName("last_name")
                     .addLegalEntityAssociation(
-                        ConnectionLegalEntityCreateParams.LegalEntity
-                            .LegalEntityAssociationInlineCreateRequest
-                            .builder()
+                        LegalEntityAssociationInlineCreate.builder()
                             .addRelationshipType(
-                                ConnectionLegalEntityCreateParams.LegalEntity
-                                    .LegalEntityAssociationInlineCreateRequest
-                                    .RelationshipType
+                                LegalEntityAssociationInlineCreate.RelationshipType
                                     .AUTHORIZED_SIGNER
                             )
                             .childLegalEntity(
@@ -208,7 +204,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                     )
                                     .intendedUse("intended_use")
                                     .lastName("last_name")
-                                    .addLegalEntityAssociation(JsonValue.from(mapOf<String, Any>()))
+                                    .legalEntityAssociations(listOf())
                                     .legalEntityType(
                                         ChildLegalEntityCreate.LegalEntityType.BUSINESS
                                     )
@@ -479,13 +475,9 @@ internal class ConnectionLegalEntityCreateParamsTest {
                         .intendedUse("intended_use")
                         .lastName("last_name")
                         .addLegalEntityAssociation(
-                            ConnectionLegalEntityCreateParams.LegalEntity
-                                .LegalEntityAssociationInlineCreateRequest
-                                .builder()
+                            LegalEntityAssociationInlineCreate.builder()
                                 .addRelationshipType(
-                                    ConnectionLegalEntityCreateParams.LegalEntity
-                                        .LegalEntityAssociationInlineCreateRequest
-                                        .RelationshipType
+                                    LegalEntityAssociationInlineCreate.RelationshipType
                                         .AUTHORIZED_SIGNER
                                 )
                                 .childLegalEntity(
@@ -595,9 +587,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                         )
                                         .intendedUse("intended_use")
                                         .lastName("last_name")
-                                        .addLegalEntityAssociation(
-                                            JsonValue.from(mapOf<String, Any>())
-                                        )
+                                        .legalEntityAssociations(listOf())
                                         .legalEntityType(
                                             ChildLegalEntityCreate.LegalEntityType.BUSINESS
                                         )
@@ -867,13 +857,9 @@ internal class ConnectionLegalEntityCreateParamsTest {
                     .intendedUse("intended_use")
                     .lastName("last_name")
                     .addLegalEntityAssociation(
-                        ConnectionLegalEntityCreateParams.LegalEntity
-                            .LegalEntityAssociationInlineCreateRequest
-                            .builder()
+                        LegalEntityAssociationInlineCreate.builder()
                             .addRelationshipType(
-                                ConnectionLegalEntityCreateParams.LegalEntity
-                                    .LegalEntityAssociationInlineCreateRequest
-                                    .RelationshipType
+                                LegalEntityAssociationInlineCreate.RelationshipType
                                     .AUTHORIZED_SIGNER
                             )
                             .childLegalEntity(
@@ -981,7 +967,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                     )
                                     .intendedUse("intended_use")
                                     .lastName("last_name")
-                                    .addLegalEntityAssociation(JsonValue.from(mapOf<String, Any>()))
+                                    .legalEntityAssociations(listOf())
                                     .legalEntityType(
                                         ChildLegalEntityCreate.LegalEntityType.BUSINESS
                                     )

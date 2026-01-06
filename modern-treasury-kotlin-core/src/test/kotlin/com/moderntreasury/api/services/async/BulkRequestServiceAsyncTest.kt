@@ -5,6 +5,7 @@ package com.moderntreasury.api.services.async
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.models.Accounting
 import com.moderntreasury.api.models.AddressRequest
 import com.moderntreasury.api.models.BulkRequestCreateParams
 import com.moderntreasury.api.models.ContactDetailCreateRequest
@@ -13,6 +14,8 @@ import com.moderntreasury.api.models.ExternalAccountType
 import com.moderntreasury.api.models.LedgerAccountCreateRequest
 import com.moderntreasury.api.models.LedgerEntryCreateRequest
 import com.moderntreasury.api.models.LedgerTransactionCreateRequest
+import com.moderntreasury.api.models.LineItem
+import com.moderntreasury.api.models.PaymentOrderAsyncCreate
 import com.moderntreasury.api.models.PaymentOrderSubtype
 import com.moderntreasury.api.models.PaymentOrderType
 import com.moderntreasury.api.models.TransactionDirection
@@ -42,44 +45,28 @@ internal class BulkRequestServiceAsyncTest {
                     .actionType(BulkRequestCreateParams.ActionType.CREATE)
                     .resourceType(BulkRequestCreateParams.ResourceType.PAYMENT_ORDER)
                     .addResource(
-                        BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.builder()
+                        PaymentOrderAsyncCreate.builder()
                             .amount(0L)
-                            .direction(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .Direction
-                                    .CREDIT
-                            )
+                            .direction(PaymentOrderAsyncCreate.Direction.CREDIT)
                             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .type(PaymentOrderType.ACH)
                             .accounting(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .Accounting
-                                    .builder()
+                                Accounting.builder()
                                     .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .build()
                             )
                             .accountingCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .accountingLedgerClassId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .chargeBearer(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .ChargeBearer
-                                    .SHARED
-                            )
+                            .chargeBearer(PaymentOrderAsyncCreate.ChargeBearer.SHARED)
                             .currency(Currency.AED)
                             .description("description")
                             .effectiveDate(LocalDate.parse("2019-12-27"))
                             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .fallbackType(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .FallbackType
-                                    .ACH
-                            )
+                            .fallbackType(PaymentOrderAsyncCreate.FallbackType.ACH)
                             .foreignExchangeContract("foreign_exchange_contract")
                             .foreignExchangeIndicator(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .ForeignExchangeIndicator
-                                    .FIXED_TO_VARIABLE
+                                PaymentOrderAsyncCreate.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                             )
                             .ledgerTransaction(
                                 LedgerTransactionCreateRequest.builder()
@@ -153,18 +140,12 @@ internal class BulkRequestServiceAsyncTest {
                             )
                             .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .addLineItem(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .LineItemRequest
-                                    .builder()
+                                LineItem.builder()
                                     .amount(0L)
                                     .accountingCategoryId("accounting_category_id")
                                     .description("description")
                                     .metadata(
-                                        BulkRequestCreateParams.Resource
-                                            .PaymentOrderAsyncCreateRequest
-                                            .LineItemRequest
-                                            .Metadata
-                                            .builder()
+                                        LineItem.Metadata.builder()
                                             .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
@@ -176,9 +157,7 @@ internal class BulkRequestServiceAsyncTest {
                                     .build()
                             )
                             .metadata(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .Metadata
-                                    .builder()
+                                PaymentOrderAsyncCreate.Metadata.builder()
                                     .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -186,28 +165,17 @@ internal class BulkRequestServiceAsyncTest {
                             )
                             .nsfProtected(true)
                             .originatingPartyName("originating_party_name")
-                            .priority(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .Priority
-                                    .HIGH
-                            )
+                            .priority(PaymentOrderAsyncCreate.Priority.HIGH)
                             .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .purpose("purpose")
                             .receivingAccount(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .ReceivingAccount
-                                    .builder()
+                                PaymentOrderAsyncCreate.ReceivingAccount.builder()
                                     .addAccountDetail(
-                                        BulkRequestCreateParams.Resource
-                                            .PaymentOrderAsyncCreateRequest
-                                            .ReceivingAccount
-                                            .AccountDetail
+                                        PaymentOrderAsyncCreate.ReceivingAccount.AccountDetail
                                             .builder()
                                             .accountNumber("account_number")
                                             .accountNumberType(
-                                                BulkRequestCreateParams.Resource
-                                                    .PaymentOrderAsyncCreateRequest
-                                                    .ReceivingAccount
+                                                PaymentOrderAsyncCreate.ReceivingAccount
                                                     .AccountDetail
                                                     .AccountNumberType
                                                     .AU_NUMBER
@@ -260,11 +228,7 @@ internal class BulkRequestServiceAsyncTest {
                                             .build()
                                     )
                                     .metadata(
-                                        BulkRequestCreateParams.Resource
-                                            .PaymentOrderAsyncCreateRequest
-                                            .ReceivingAccount
-                                            .Metadata
-                                            .builder()
+                                        PaymentOrderAsyncCreate.ReceivingAccount.Metadata.builder()
                                             .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                                             .putAdditionalProperty(
@@ -287,32 +251,21 @@ internal class BulkRequestServiceAsyncTest {
                                     .partyIdentifier("party_identifier")
                                     .partyName("party_name")
                                     .partyType(
-                                        BulkRequestCreateParams.Resource
-                                            .PaymentOrderAsyncCreateRequest
-                                            .ReceivingAccount
-                                            .PartyType
-                                            .BUSINESS
+                                        PaymentOrderAsyncCreate.ReceivingAccount.PartyType.BUSINESS
                                     )
                                     .plaidProcessorToken("plaid_processor_token")
                                     .addRoutingDetail(
-                                        BulkRequestCreateParams.Resource
-                                            .PaymentOrderAsyncCreateRequest
-                                            .ReceivingAccount
-                                            .RoutingDetail
+                                        PaymentOrderAsyncCreate.ReceivingAccount.RoutingDetail
                                             .builder()
                                             .routingNumber("routing_number")
                                             .routingNumberType(
-                                                BulkRequestCreateParams.Resource
-                                                    .PaymentOrderAsyncCreateRequest
-                                                    .ReceivingAccount
+                                                PaymentOrderAsyncCreate.ReceivingAccount
                                                     .RoutingDetail
                                                     .RoutingNumberType
                                                     .ABA
                                             )
                                             .paymentType(
-                                                BulkRequestCreateParams.Resource
-                                                    .PaymentOrderAsyncCreateRequest
-                                                    .ReceivingAccount
+                                                PaymentOrderAsyncCreate.ReceivingAccount
                                                     .RoutingDetail
                                                     .PaymentType
                                                     .ACH
@@ -323,9 +276,7 @@ internal class BulkRequestServiceAsyncTest {
                             )
                             .receivingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .reconciliationStatus(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .ReconciliationStatus
-                                    .UNRECONCILED
+                                PaymentOrderAsyncCreate.ReconciliationStatus.UNRECONCILED
                             )
                             .remittanceInformation("remittance_information")
                             .sendRemittanceAdvice(true)
