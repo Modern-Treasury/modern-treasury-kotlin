@@ -5,6 +5,7 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.models.AccountCapability
 import com.moderntreasury.api.models.InternalAccountCreateParams
 import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityParams
 import com.moderntreasury.api.models.InternalAccountUpdateParams
@@ -34,7 +35,7 @@ internal class InternalAccountServiceTest {
                     .name("name")
                     .partyName("party_name")
                     .addAccountCapability(
-                        InternalAccountCreateParams.AccountCapability.builder()
+                        AccountCapability.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .direction(TransactionDirection.CREDIT)
@@ -42,9 +43,7 @@ internal class InternalAccountServiceTest {
                             .identifier("identifier")
                             .liveMode(true)
                             .object_("object")
-                            .paymentType(
-                                InternalAccountCreateParams.AccountCapability.PaymentType.ACH
-                            )
+                            .paymentType(AccountCapability.PaymentType.ACH)
                             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
                     )

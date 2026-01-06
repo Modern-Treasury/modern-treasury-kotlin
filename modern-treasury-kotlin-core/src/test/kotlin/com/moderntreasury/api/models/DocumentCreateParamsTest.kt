@@ -12,10 +12,14 @@ internal class DocumentCreateParamsTest {
     @Test
     fun create() {
         DocumentCreateParams.builder()
-            .documentableId("documentable_id")
-            .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
-            .file("some content".byteInputStream())
-            .documentType("document_type")
+            .documentCreate(
+                DocumentCreate.builder()
+                    .documentableId("documentable_id")
+                    .documentableType(DocumentCreate.DocumentableType.COUNTERPARTIES)
+                    .file("some content")
+                    .documentType("document_type")
+                    .build()
+            )
             .build()
     }
 
@@ -23,10 +27,14 @@ internal class DocumentCreateParamsTest {
     fun body() {
         val params =
             DocumentCreateParams.builder()
-                .documentableId("documentable_id")
-                .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
-                .file("some content".byteInputStream())
-                .documentType("document_type")
+                .documentCreate(
+                    DocumentCreate.builder()
+                        .documentableId("documentable_id")
+                        .documentableType(DocumentCreate.DocumentableType.COUNTERPARTIES)
+                        .file("some content")
+                        .documentType("document_type")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -41,11 +49,20 @@ internal class DocumentCreateParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "documentable_id" to MultipartField.of("documentable_id"),
-                        "documentable_type" to
-                            MultipartField.of(DocumentCreateParams.DocumentableType.COUNTERPARTIES),
-                        "file" to MultipartField.of("some content".byteInputStream()),
-                        "document_type" to MultipartField.of("document_type"),
+                        "document_create" to
+                            MultipartField.builder<DocumentCreate>()
+                                .value(
+                                    DocumentCreate.builder()
+                                        .documentableId("documentable_id")
+                                        .documentableType(
+                                            DocumentCreate.DocumentableType.COUNTERPARTIES
+                                        )
+                                        .file("some content")
+                                        .documentType("document_type")
+                                        .build()
+                                )
+                                .contentType("application/octet-stream")
+                                .build()
                     )
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }
@@ -57,9 +74,13 @@ internal class DocumentCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             DocumentCreateParams.builder()
-                .documentableId("documentable_id")
-                .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
-                .file("some content".byteInputStream())
+                .documentCreate(
+                    DocumentCreate.builder()
+                        .documentableId("documentable_id")
+                        .documentableType(DocumentCreate.DocumentableType.COUNTERPARTIES)
+                        .file("some content")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -74,10 +95,19 @@ internal class DocumentCreateParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "documentable_id" to MultipartField.of("documentable_id"),
-                        "documentable_type" to
-                            MultipartField.of(DocumentCreateParams.DocumentableType.COUNTERPARTIES),
-                        "file" to MultipartField.of("some content".byteInputStream()),
+                        "document_create" to
+                            MultipartField.builder<DocumentCreate>()
+                                .value(
+                                    DocumentCreate.builder()
+                                        .documentableId("documentable_id")
+                                        .documentableType(
+                                            DocumentCreate.DocumentableType.COUNTERPARTIES
+                                        )
+                                        .file("some content")
+                                        .build()
+                                )
+                                .contentType("application/octet-stream")
+                                .build()
                     )
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }

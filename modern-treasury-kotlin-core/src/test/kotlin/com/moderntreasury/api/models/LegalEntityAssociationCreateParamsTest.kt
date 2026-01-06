@@ -95,7 +95,17 @@ internal class LegalEntityAssociationCreateParamsTest {
                     )
                     .intendedUse("intended_use")
                     .lastName("last_name")
-                    .addLegalEntityAssociation(JsonValue.from(mapOf<String, Any>()))
+                    .addLegalEntityAssociation(
+                        LegalEntityAssociationInlineCreate.builder()
+                            .addRelationshipType(
+                                LegalEntityAssociationInlineCreate.RelationshipType
+                                    .AUTHORIZED_SIGNER
+                            )
+                            .childLegalEntityId("child_legal_entity_id")
+                            .ownershipPercentage(0L)
+                            .title("title")
+                            .build()
+                    )
                     .legalEntityType(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
                     .legalStructure(ChildLegalEntityCreate.LegalStructure.CORPORATION)
                     .metadata(
@@ -259,7 +269,17 @@ internal class LegalEntityAssociationCreateParamsTest {
                         )
                         .intendedUse("intended_use")
                         .lastName("last_name")
-                        .addLegalEntityAssociation(JsonValue.from(mapOf<String, Any>()))
+                        .addLegalEntityAssociation(
+                            LegalEntityAssociationInlineCreate.builder()
+                                .addRelationshipType(
+                                    LegalEntityAssociationInlineCreate.RelationshipType
+                                        .AUTHORIZED_SIGNER
+                                )
+                                .childLegalEntityId("child_legal_entity_id")
+                                .ownershipPercentage(0L)
+                                .title("title")
+                                .build()
+                        )
                         .legalEntityType(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
                         .legalStructure(ChildLegalEntityCreate.LegalStructure.CORPORATION)
                         .metadata(
@@ -420,7 +440,17 @@ internal class LegalEntityAssociationCreateParamsTest {
                     )
                     .intendedUse("intended_use")
                     .lastName("last_name")
-                    .addLegalEntityAssociation(JsonValue.from(mapOf<String, Any>()))
+                    .addLegalEntityAssociation(
+                        LegalEntityAssociationInlineCreate.builder()
+                            .addRelationshipType(
+                                LegalEntityAssociationInlineCreate.RelationshipType
+                                    .AUTHORIZED_SIGNER
+                            )
+                            .childLegalEntityId("child_legal_entity_id")
+                            .ownershipPercentage(0L)
+                            .title("title")
+                            .build()
+                    )
                     .legalEntityType(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
                     .legalStructure(ChildLegalEntityCreate.LegalStructure.CORPORATION)
                     .metadata(

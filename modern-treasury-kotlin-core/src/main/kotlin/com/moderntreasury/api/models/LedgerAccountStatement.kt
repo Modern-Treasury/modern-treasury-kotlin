@@ -17,7 +17,7 @@ import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-class LedgerAccountStatementCreateResponse
+class LedgerAccountStatement
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
@@ -364,8 +364,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [LedgerAccountStatementCreateResponse].
+         * Returns a mutable builder for constructing an instance of [LedgerAccountStatement].
          *
          * The following fields are required:
          * ```kotlin
@@ -389,7 +388,7 @@ private constructor(
         fun builder() = Builder()
     }
 
-    /** A builder for [LedgerAccountStatementCreateResponse]. */
+    /** A builder for [LedgerAccountStatement]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
@@ -409,27 +408,23 @@ private constructor(
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(
-            ledgerAccountStatementCreateResponse: LedgerAccountStatementCreateResponse
-        ) = apply {
-            id = ledgerAccountStatementCreateResponse.id
-            createdAt = ledgerAccountStatementCreateResponse.createdAt
-            description = ledgerAccountStatementCreateResponse.description
-            effectiveAtLowerBound = ledgerAccountStatementCreateResponse.effectiveAtLowerBound
-            effectiveAtUpperBound = ledgerAccountStatementCreateResponse.effectiveAtUpperBound
-            endingBalance = ledgerAccountStatementCreateResponse.endingBalance
-            ledgerAccountId = ledgerAccountStatementCreateResponse.ledgerAccountId
-            ledgerAccountLockVersion = ledgerAccountStatementCreateResponse.ledgerAccountLockVersion
-            ledgerAccountNormalBalance =
-                ledgerAccountStatementCreateResponse.ledgerAccountNormalBalance
-            ledgerId = ledgerAccountStatementCreateResponse.ledgerId
-            liveMode = ledgerAccountStatementCreateResponse.liveMode
-            metadata = ledgerAccountStatementCreateResponse.metadata
-            object_ = ledgerAccountStatementCreateResponse.object_
-            startingBalance = ledgerAccountStatementCreateResponse.startingBalance
-            updatedAt = ledgerAccountStatementCreateResponse.updatedAt
-            additionalProperties =
-                ledgerAccountStatementCreateResponse.additionalProperties.toMutableMap()
+        internal fun from(ledgerAccountStatement: LedgerAccountStatement) = apply {
+            id = ledgerAccountStatement.id
+            createdAt = ledgerAccountStatement.createdAt
+            description = ledgerAccountStatement.description
+            effectiveAtLowerBound = ledgerAccountStatement.effectiveAtLowerBound
+            effectiveAtUpperBound = ledgerAccountStatement.effectiveAtUpperBound
+            endingBalance = ledgerAccountStatement.endingBalance
+            ledgerAccountId = ledgerAccountStatement.ledgerAccountId
+            ledgerAccountLockVersion = ledgerAccountStatement.ledgerAccountLockVersion
+            ledgerAccountNormalBalance = ledgerAccountStatement.ledgerAccountNormalBalance
+            ledgerId = ledgerAccountStatement.ledgerId
+            liveMode = ledgerAccountStatement.liveMode
+            metadata = ledgerAccountStatement.metadata
+            object_ = ledgerAccountStatement.object_
+            startingBalance = ledgerAccountStatement.startingBalance
+            updatedAt = ledgerAccountStatement.updatedAt
+            additionalProperties = ledgerAccountStatement.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -672,7 +667,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [LedgerAccountStatementCreateResponse].
+         * Returns an immutable instance of [LedgerAccountStatement].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -697,8 +692,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): LedgerAccountStatementCreateResponse =
-            LedgerAccountStatementCreateResponse(
+        fun build(): LedgerAccountStatement =
+            LedgerAccountStatement(
                 checkRequired("id", id),
                 checkRequired("createdAt", createdAt),
                 checkRequired("description", description),
@@ -720,7 +715,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): LedgerAccountStatementCreateResponse = apply {
+    fun validate(): LedgerAccountStatement = apply {
         if (validated) {
             return@apply
         }
@@ -876,7 +871,7 @@ private constructor(
             return true
         }
 
-        return other is LedgerAccountStatementCreateResponse &&
+        return other is LedgerAccountStatement &&
             id == other.id &&
             createdAt == other.createdAt &&
             description == other.description &&
@@ -919,5 +914,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "LedgerAccountStatementCreateResponse{id=$id, createdAt=$createdAt, description=$description, effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, endingBalance=$endingBalance, ledgerAccountId=$ledgerAccountId, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountNormalBalance=$ledgerAccountNormalBalance, ledgerId=$ledgerId, liveMode=$liveMode, metadata=$metadata, object_=$object_, startingBalance=$startingBalance, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "LedgerAccountStatement{id=$id, createdAt=$createdAt, description=$description, effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, endingBalance=$endingBalance, ledgerAccountId=$ledgerAccountId, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountNormalBalance=$ledgerAccountNormalBalance, ledgerId=$ledgerId, liveMode=$liveMode, metadata=$metadata, object_=$object_, startingBalance=$startingBalance, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

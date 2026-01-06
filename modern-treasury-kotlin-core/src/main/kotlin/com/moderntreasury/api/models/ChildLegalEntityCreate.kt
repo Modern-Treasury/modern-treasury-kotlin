@@ -40,7 +40,7 @@ private constructor(
     private val industryClassifications: JsonField<List<LegalEntityIndustryClassification>>,
     private val intendedUse: JsonField<String>,
     private val lastName: JsonField<String>,
-    private val legalEntityAssociations: JsonField<List<JsonValue>>,
+    private val legalEntityAssociations: JsonField<List<LegalEntityAssociationInlineCreate>>,
     private val legalEntityType: JsonField<LegalEntityType>,
     private val legalStructure: JsonField<LegalStructure>,
     private val metadata: JsonField<Metadata>,
@@ -108,7 +108,8 @@ private constructor(
         @JsonProperty("last_name") @ExcludeMissing lastName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("legal_entity_associations")
         @ExcludeMissing
-        legalEntityAssociations: JsonField<List<JsonValue>> = JsonMissing.of(),
+        legalEntityAssociations: JsonField<List<LegalEntityAssociationInlineCreate>> =
+            JsonMissing.of(),
         @JsonProperty("legal_entity_type")
         @ExcludeMissing
         legalEntityType: JsonField<LegalEntityType> = JsonMissing.of(),
@@ -322,7 +323,7 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
      */
-    fun legalEntityAssociations(): List<JsonValue>? =
+    fun legalEntityAssociations(): List<LegalEntityAssociationInlineCreate>? =
         legalEntityAssociations.getNullable("legal_entity_associations")
 
     /**
@@ -600,7 +601,8 @@ private constructor(
      */
     @JsonProperty("legal_entity_associations")
     @ExcludeMissing
-    fun _legalEntityAssociations(): JsonField<List<JsonValue>> = legalEntityAssociations
+    fun _legalEntityAssociations(): JsonField<List<LegalEntityAssociationInlineCreate>> =
+        legalEntityAssociations
 
     /**
      * Returns the raw JSON value of [legalEntityType].
@@ -763,7 +765,9 @@ private constructor(
             null
         private var intendedUse: JsonField<String> = JsonMissing.of()
         private var lastName: JsonField<String> = JsonMissing.of()
-        private var legalEntityAssociations: JsonField<MutableList<JsonValue>>? = null
+        private var legalEntityAssociations:
+            JsonField<MutableList<LegalEntityAssociationInlineCreate>>? =
+            null
         private var legalEntityType: JsonField<LegalEntityType> = JsonMissing.of()
         private var legalStructure: JsonField<LegalStructure> = JsonMissing.of()
         private var metadata: JsonField<Metadata> = JsonMissing.of()
@@ -1119,31 +1123,35 @@ private constructor(
         fun lastName(lastName: JsonField<String>) = apply { this.lastName = lastName }
 
         /** The legal entity associations and its child legal entities. */
-        fun legalEntityAssociations(legalEntityAssociations: List<JsonValue>?) =
-            legalEntityAssociations(JsonField.ofNullable(legalEntityAssociations))
+        fun legalEntityAssociations(
+            legalEntityAssociations: List<LegalEntityAssociationInlineCreate>?
+        ) = legalEntityAssociations(JsonField.ofNullable(legalEntityAssociations))
 
         /**
          * Sets [Builder.legalEntityAssociations] to an arbitrary JSON value.
          *
          * You should usually call [Builder.legalEntityAssociations] with a well-typed
-         * `List<JsonValue>` value instead. This method is primarily for setting the field to an
-         * undocumented or not yet supported value.
+         * `List<LegalEntityAssociationInlineCreate>` value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
-        fun legalEntityAssociations(legalEntityAssociations: JsonField<List<JsonValue>>) = apply {
+        fun legalEntityAssociations(
+            legalEntityAssociations: JsonField<List<LegalEntityAssociationInlineCreate>>
+        ) = apply {
             this.legalEntityAssociations = legalEntityAssociations.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [JsonValue] to [legalEntityAssociations].
+         * Adds a single [LegalEntityAssociationInlineCreate] to [legalEntityAssociations].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addLegalEntityAssociation(legalEntityAssociation: JsonValue) = apply {
-            legalEntityAssociations =
-                (legalEntityAssociations ?: JsonField.of(mutableListOf())).also {
-                    checkKnown("legalEntityAssociations", it).add(legalEntityAssociation)
-                }
-        }
+        fun addLegalEntityAssociation(legalEntityAssociation: LegalEntityAssociationInlineCreate) =
+            apply {
+                legalEntityAssociations =
+                    (legalEntityAssociations ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("legalEntityAssociations", it).add(legalEntityAssociation)
+                    }
+            }
 
         /** The type of legal entity. */
         fun legalEntityType(legalEntityType: LegalEntityType) =
@@ -1466,7 +1474,7 @@ private constructor(
         industryClassifications()?.forEach { it.validate() }
         intendedUse()
         lastName()
-        legalEntityAssociations()
+        legalEntityAssociations()?.forEach { it.validate() }
         legalEntityType()?.validate()
         legalStructure()?.validate()
         metadata()?.validate()
@@ -1515,7 +1523,7 @@ private constructor(
             (industryClassifications.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (intendedUse.asKnown() == null) 0 else 1) +
             (if (lastName.asKnown() == null) 0 else 1) +
-            (legalEntityAssociations.asKnown()?.size ?: 0) +
+            (legalEntityAssociations.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
             (legalEntityType.asKnown()?.validity() ?: 0) +
             (legalStructure.asKnown()?.validity() ?: 0) +
             (metadata.asKnown()?.validity() ?: 0) +
