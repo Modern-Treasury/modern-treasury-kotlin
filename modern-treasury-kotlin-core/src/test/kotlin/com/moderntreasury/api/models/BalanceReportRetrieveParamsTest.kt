@@ -11,7 +11,7 @@ internal class BalanceReportRetrieveParamsTest {
     fun create() {
         BalanceReportRetrieveParams.builder()
             .internalAccountId("internal_account_id")
-            .id(BalanceReportRetrieveParams.Id.LATEST)
+            .id(BalanceReportRetrieveParams.Id.of("string"))
             .build()
     }
 
@@ -20,7 +20,7 @@ internal class BalanceReportRetrieveParamsTest {
         val params =
             BalanceReportRetrieveParams.builder()
                 .internalAccountId("internal_account_id")
-                .id(BalanceReportRetrieveParams.Id.LATEST)
+                .id(BalanceReportRetrieveParams.Id.of("string"))
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("internal_account_id")
