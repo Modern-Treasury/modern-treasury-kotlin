@@ -12,13 +12,9 @@ internal class TransactionUpdateParamsTest {
     fun create() {
         TransactionUpdateParams.builder()
             .id("id")
-            .transactionUpdate(
-                TransactionUpdate.builder()
-                    .metadata(
-                        TransactionUpdate.Metadata.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("string"))
-                            .build()
-                    )
+            .metadata(
+                TransactionUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )
             .build()
@@ -38,27 +34,19 @@ internal class TransactionUpdateParamsTest {
         val params =
             TransactionUpdateParams.builder()
                 .id("id")
-                .transactionUpdate(
-                    TransactionUpdate.builder()
-                        .metadata(
-                            TransactionUpdate.Metadata.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
+                .metadata(
+                    TransactionUpdateParams.Metadata.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
                 )
                 .build()
 
         val body = params._body()
 
-        assertThat(body)
+        assertThat(body.metadata())
             .isEqualTo(
-                TransactionUpdate.builder()
-                    .metadata(
-                        TransactionUpdate.Metadata.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("string"))
-                            .build()
-                    )
+                TransactionUpdateParams.Metadata.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )
     }

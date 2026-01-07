@@ -9,12 +9,12 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class PaymentActionTest {
+internal class PaymentActionUpdateResponseTest {
 
     @Test
     fun create() {
-        val paymentAction =
-            PaymentAction.builder()
+        val paymentActionUpdateResponse =
+            PaymentActionUpdateResponse.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .actionableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .actionableType("actionable_type")
@@ -28,27 +28,30 @@ internal class PaymentActionTest {
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
-        assertThat(paymentAction.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(paymentAction.actionableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(paymentAction.actionableType()).isEqualTo("actionable_type")
-        assertThat(paymentAction.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(paymentAction._details()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
-        assertThat(paymentAction.internalAccountId())
+        assertThat(paymentActionUpdateResponse.id())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(paymentAction.liveMode()).isEqualTo(true)
-        assertThat(paymentAction.object_()).isEqualTo("object")
-        assertThat(paymentAction.status()).isEqualTo("status")
-        assertThat(paymentAction.type()).isEqualTo("type")
-        assertThat(paymentAction.updatedAt())
+        assertThat(paymentActionUpdateResponse.actionableId())
+            .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(paymentActionUpdateResponse.actionableType()).isEqualTo("actionable_type")
+        assertThat(paymentActionUpdateResponse.createdAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(paymentActionUpdateResponse._details())
+            .isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(paymentActionUpdateResponse.internalAccountId())
+            .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(paymentActionUpdateResponse.liveMode()).isEqualTo(true)
+        assertThat(paymentActionUpdateResponse.object_()).isEqualTo("object")
+        assertThat(paymentActionUpdateResponse.status()).isEqualTo("status")
+        assertThat(paymentActionUpdateResponse.type()).isEqualTo("type")
+        assertThat(paymentActionUpdateResponse.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val paymentAction =
-            PaymentAction.builder()
+        val paymentActionUpdateResponse =
+            PaymentActionUpdateResponse.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .actionableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .actionableType("actionable_type")
@@ -62,12 +65,12 @@ internal class PaymentActionTest {
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
-        val roundtrippedPaymentAction =
+        val roundtrippedPaymentActionUpdateResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(paymentAction),
-                jacksonTypeRef<PaymentAction>(),
+                jsonMapper.writeValueAsString(paymentActionUpdateResponse),
+                jacksonTypeRef<PaymentActionUpdateResponse>(),
             )
 
-        assertThat(roundtrippedPaymentAction).isEqualTo(paymentAction)
+        assertThat(roundtrippedPaymentActionUpdateResponse).isEqualTo(paymentActionUpdateResponse)
     }
 }

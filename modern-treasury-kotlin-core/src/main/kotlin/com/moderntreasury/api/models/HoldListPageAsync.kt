@@ -15,8 +15,8 @@ private constructor(
     private val service: HoldServiceAsync,
     private val params: HoldListParams,
     private val headers: Headers,
-    private val items: List<Hold>,
-) : PageAsync<Hold> {
+    private val items: List<HoldListResponse>,
+) : PageAsync<HoldListResponse> {
 
     fun perPage(): String? = headers.values("X-Per-Page").firstOrNull()
 
@@ -32,13 +32,13 @@ private constructor(
 
     override suspend fun nextPage(): HoldListPageAsync = service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<Hold> = AutoPagerAsync.from(this)
+    fun autoPager(): AutoPagerAsync<HoldListResponse> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): HoldListParams = params
 
     /** The response that this page was parsed from. */
-    override fun items(): List<Hold> = items
+    override fun items(): List<HoldListResponse> = items
 
     fun toBuilder() = Builder().from(this)
 
@@ -64,7 +64,7 @@ private constructor(
         private var service: HoldServiceAsync? = null
         private var params: HoldListParams? = null
         private var headers: Headers? = null
-        private var items: List<Hold>? = null
+        private var items: List<HoldListResponse>? = null
 
         internal fun from(holdListPageAsync: HoldListPageAsync) = apply {
             service = holdListPageAsync.service
@@ -81,7 +81,7 @@ private constructor(
         fun headers(headers: Headers) = apply { this.headers = headers }
 
         /** The response that this page was parsed from. */
-        fun items(items: List<Hold>) = apply { this.items = items }
+        fun items(items: List<HoldListResponse>) = apply { this.items = items }
 
         /**
          * Returns an immutable instance of [HoldListPageAsync].

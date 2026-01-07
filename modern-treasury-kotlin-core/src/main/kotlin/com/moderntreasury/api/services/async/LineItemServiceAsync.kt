@@ -6,12 +6,11 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
+import com.moderntreasury.api.models.LineItem
 import com.moderntreasury.api.models.LineItemListPageAsync
 import com.moderntreasury.api.models.LineItemListParams
 import com.moderntreasury.api.models.LineItemRetrieveParams
-import com.moderntreasury.api.models.LineItemRetrieveResponse
 import com.moderntreasury.api.models.LineItemUpdateParams
-import com.moderntreasury.api.models.LineItemUpdateResponse
 
 interface LineItemServiceAsync {
 
@@ -32,26 +31,26 @@ interface LineItemServiceAsync {
         id: String,
         params: LineItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LineItemRetrieveResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    ): LineItem = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     suspend fun retrieve(
         params: LineItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LineItemRetrieveResponse
+    ): LineItem
 
     /** update line item */
     suspend fun update(
         id: String,
         params: LineItemUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LineItemUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
+    ): LineItem = update(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see update */
     suspend fun update(
         params: LineItemUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LineItemUpdateResponse
+    ): LineItem
 
     /** Get a list of line items */
     suspend fun list(
@@ -91,15 +90,14 @@ interface LineItemServiceAsync {
             id: String,
             params: LineItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LineItemRetrieveResponse> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponseFor<LineItem> = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: LineItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LineItemRetrieveResponse>
+        ): HttpResponseFor<LineItem>
 
         /**
          * Returns a raw HTTP response for `patch
@@ -111,15 +109,14 @@ interface LineItemServiceAsync {
             id: String,
             params: LineItemUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LineItemUpdateResponse> =
-            update(params.toBuilder().id(id).build(), requestOptions)
+        ): HttpResponseFor<LineItem> = update(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
         suspend fun update(
             params: LineItemUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LineItemUpdateResponse>
+        ): HttpResponseFor<LineItem>
 
         /**
          * Returns a raw HTTP response for `get /api/{itemizable_type}/{itemizable_id}/line_items`,

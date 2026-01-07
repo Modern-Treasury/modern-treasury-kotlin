@@ -7,7 +7,6 @@ import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.ExpectedPayment
-import com.moderntreasury.api.models.ExpectedPaymentCreate
 import com.moderntreasury.api.models.ExpectedPaymentCreateParams
 import com.moderntreasury.api.models.ExpectedPaymentDeleteParams
 import com.moderntreasury.api.models.ExpectedPaymentListPageAsync
@@ -34,18 +33,6 @@ interface ExpectedPaymentServiceAsync {
         params: ExpectedPaymentCreateParams = ExpectedPaymentCreateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment
-
-    /** @see create */
-    suspend fun create(
-        expectedPaymentCreate: ExpectedPaymentCreate,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExpectedPayment =
-        create(
-            ExpectedPaymentCreateParams.builder()
-                .expectedPaymentCreate(expectedPaymentCreate)
-                .build(),
-            requestOptions,
-        )
 
     /** @see create */
     suspend fun create(requestOptions: RequestOptions): ExpectedPayment =
@@ -136,19 +123,6 @@ interface ExpectedPaymentServiceAsync {
             params: ExpectedPaymentCreateParams = ExpectedPaymentCreateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExpectedPayment>
-
-        /** @see create */
-        @MustBeClosed
-        suspend fun create(
-            expectedPaymentCreate: ExpectedPaymentCreate,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExpectedPayment> =
-            create(
-                ExpectedPaymentCreateParams.builder()
-                    .expectedPaymentCreate(expectedPaymentCreate)
-                    .build(),
-                requestOptions,
-            )
 
         /** @see create */
         @MustBeClosed

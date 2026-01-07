@@ -18,7 +18,7 @@ import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-class Hold
+class HoldCreateResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
@@ -274,7 +274,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [Hold].
+         * Returns a mutable builder for constructing an instance of [HoldCreateResponse].
          *
          * The following fields are required:
          * ```kotlin
@@ -290,7 +290,7 @@ private constructor(
         fun builder() = Builder()
     }
 
-    /** A builder for [Hold]. */
+    /** A builder for [HoldCreateResponse]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
@@ -307,20 +307,20 @@ private constructor(
         private var resolvedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(hold: Hold) = apply {
-            id = hold.id
-            createdAt = hold.createdAt
-            object_ = hold.object_
-            status = hold.status
-            targetId = hold.targetId
-            targetType = hold.targetType
-            updatedAt = hold.updatedAt
-            liveMode = hold.liveMode
-            metadata = hold.metadata
-            reason = hold.reason
-            resolution = hold.resolution
-            resolvedAt = hold.resolvedAt
-            additionalProperties = hold.additionalProperties.toMutableMap()
+        internal fun from(holdCreateResponse: HoldCreateResponse) = apply {
+            id = holdCreateResponse.id
+            createdAt = holdCreateResponse.createdAt
+            object_ = holdCreateResponse.object_
+            status = holdCreateResponse.status
+            targetId = holdCreateResponse.targetId
+            targetType = holdCreateResponse.targetType
+            updatedAt = holdCreateResponse.updatedAt
+            liveMode = holdCreateResponse.liveMode
+            metadata = holdCreateResponse.metadata
+            reason = holdCreateResponse.reason
+            resolution = holdCreateResponse.resolution
+            resolvedAt = holdCreateResponse.resolvedAt
+            additionalProperties = holdCreateResponse.additionalProperties.toMutableMap()
         }
 
         fun id(id: String) = id(JsonField.of(id))
@@ -484,7 +484,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [Hold].
+         * Returns an immutable instance of [HoldCreateResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -501,8 +501,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): Hold =
-            Hold(
+        fun build(): HoldCreateResponse =
+            HoldCreateResponse(
                 checkRequired("id", id),
                 checkRequired("createdAt", createdAt),
                 checkRequired("object_", object_),
@@ -521,7 +521,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): Hold = apply {
+    fun validate(): HoldCreateResponse = apply {
         if (validated) {
             return@apply
         }
@@ -1039,7 +1039,7 @@ private constructor(
             return true
         }
 
-        return other is Hold &&
+        return other is HoldCreateResponse &&
             id == other.id &&
             createdAt == other.createdAt &&
             object_ == other.object_ &&
@@ -1076,5 +1076,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Hold{id=$id, createdAt=$createdAt, object_=$object_, status=$status, targetId=$targetId, targetType=$targetType, updatedAt=$updatedAt, liveMode=$liveMode, metadata=$metadata, reason=$reason, resolution=$resolution, resolvedAt=$resolvedAt, additionalProperties=$additionalProperties}"
+        "HoldCreateResponse{id=$id, createdAt=$createdAt, object_=$object_, status=$status, targetId=$targetId, targetType=$targetType, updatedAt=$updatedAt, liveMode=$liveMode, metadata=$metadata, reason=$reason, resolution=$resolution, resolvedAt=$resolvedAt, additionalProperties=$additionalProperties}"
 }

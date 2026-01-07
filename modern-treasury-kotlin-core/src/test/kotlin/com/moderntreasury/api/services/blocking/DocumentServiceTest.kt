@@ -4,7 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.models.DocumentCreate
+import com.moderntreasury.api.models.DocumentCreateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -25,10 +25,10 @@ internal class DocumentServiceTest {
 
         val document =
             documentService.create(
-                DocumentCreate.builder()
+                DocumentCreateParams.builder()
                     .documentableId("documentable_id")
-                    .documentableType(DocumentCreate.DocumentableType.COUNTERPARTIES)
-                    .file("some content")
+                    .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
+                    .file("some content".byteInputStream())
                     .documentType("document_type")
                     .build()
             )
