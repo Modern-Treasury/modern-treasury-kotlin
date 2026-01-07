@@ -7,7 +7,6 @@ import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.Document
-import com.moderntreasury.api.models.DocumentCreate
 import com.moderntreasury.api.models.DocumentCreateParams
 import com.moderntreasury.api.models.DocumentListPageAsync
 import com.moderntreasury.api.models.DocumentListParams
@@ -32,16 +31,6 @@ interface DocumentServiceAsync {
         params: DocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
-
-    /** @see create */
-    suspend fun create(
-        documentCreate: DocumentCreate,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Document =
-        create(
-            DocumentCreateParams.builder().documentCreate(documentCreate).build(),
-            requestOptions,
-        )
 
     /** Get an existing document. */
     suspend fun retrieve(
@@ -93,17 +82,6 @@ interface DocumentServiceAsync {
             params: DocumentCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Document>
-
-        /** @see create */
-        @MustBeClosed
-        suspend fun create(
-            documentCreate: DocumentCreate,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Document> =
-            create(
-                DocumentCreateParams.builder().documentCreate(documentCreate).build(),
-                requestOptions,
-            )
 
         /**
          * Returns a raw HTTP response for `get /api/documents/{id}`, but is otherwise the same as

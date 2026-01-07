@@ -5,7 +5,6 @@ package com.moderntreasury.api.services.async
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.models.AccountsType
-import com.moderntreasury.api.models.RoutingDetailCreate
 import com.moderntreasury.api.models.RoutingDetailCreateParams
 import com.moderntreasury.api.models.RoutingDetailDeleteParams
 import com.moderntreasury.api.models.RoutingDetailListParams
@@ -31,13 +30,9 @@ internal class RoutingDetailServiceAsyncTest {
                 RoutingDetailCreateParams.builder()
                     .accountsType(RoutingDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
                     .accountId("account_id")
-                    .routingDetailCreate(
-                        RoutingDetailCreate.builder()
-                            .routingNumber("routing_number")
-                            .routingNumberType(RoutingDetailCreate.RoutingNumberType.ABA)
-                            .paymentType(RoutingDetailCreate.PaymentType.ACH)
-                            .build()
-                    )
+                    .routingNumber("routing_number")
+                    .routingNumberType(RoutingDetailCreateParams.RoutingNumberType.ABA)
+                    .paymentType(RoutingDetailCreateParams.PaymentType.ACH)
                     .build()
             )
 

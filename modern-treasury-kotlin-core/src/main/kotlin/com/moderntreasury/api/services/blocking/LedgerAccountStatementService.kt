@@ -6,9 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
-import com.moderntreasury.api.models.LedgerAccountStatement
 import com.moderntreasury.api.models.LedgerAccountStatementCreateParams
+import com.moderntreasury.api.models.LedgerAccountStatementCreateResponse
 import com.moderntreasury.api.models.LedgerAccountStatementRetrieveParams
+import com.moderntreasury.api.models.LedgerAccountStatementRetrieveResponse
 
 interface LedgerAccountStatementService {
 
@@ -28,23 +29,27 @@ interface LedgerAccountStatementService {
     fun create(
         params: LedgerAccountStatementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LedgerAccountStatement
+    ): LedgerAccountStatementCreateResponse
 
     /** Get details on a single ledger account statement. */
     fun retrieve(
         id: String,
         params: LedgerAccountStatementRetrieveParams = LedgerAccountStatementRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LedgerAccountStatement = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    ): LedgerAccountStatementRetrieveResponse =
+        retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     fun retrieve(
         params: LedgerAccountStatementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LedgerAccountStatement
+    ): LedgerAccountStatementRetrieveResponse
 
     /** @see retrieve */
-    fun retrieve(id: String, requestOptions: RequestOptions): LedgerAccountStatement =
+    fun retrieve(
+        id: String,
+        requestOptions: RequestOptions,
+    ): LedgerAccountStatementRetrieveResponse =
         retrieve(id, LedgerAccountStatementRetrieveParams.none(), requestOptions)
 
     /**
@@ -70,7 +75,7 @@ interface LedgerAccountStatementService {
         fun create(
             params: LedgerAccountStatementCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LedgerAccountStatement>
+        ): HttpResponseFor<LedgerAccountStatementCreateResponse>
 
         /**
          * Returns a raw HTTP response for `get /api/ledger_account_statements/{id}`, but is
@@ -82,7 +87,7 @@ interface LedgerAccountStatementService {
             params: LedgerAccountStatementRetrieveParams =
                 LedgerAccountStatementRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LedgerAccountStatement> =
+        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
@@ -90,14 +95,14 @@ interface LedgerAccountStatementService {
         fun retrieve(
             params: LedgerAccountStatementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LedgerAccountStatement>
+        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse>
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountStatement> =
+        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse> =
             retrieve(id, LedgerAccountStatementRetrieveParams.none(), requestOptions)
     }
 }
