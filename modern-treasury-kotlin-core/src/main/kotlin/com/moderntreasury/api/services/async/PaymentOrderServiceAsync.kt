@@ -8,7 +8,6 @@ import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.AsyncResponse
 import com.moderntreasury.api.models.PaymentOrder
-import com.moderntreasury.api.models.PaymentOrderAsyncCreate
 import com.moderntreasury.api.models.PaymentOrderCreateAsyncParams
 import com.moderntreasury.api.models.PaymentOrderCreateParams
 import com.moderntreasury.api.models.PaymentOrderListPageAsync
@@ -88,18 +87,6 @@ interface PaymentOrderServiceAsync {
         params: PaymentOrderCreateAsyncParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AsyncResponse
-
-    /** @see createAsync */
-    suspend fun createAsync(
-        paymentOrderAsyncCreate: PaymentOrderAsyncCreate,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AsyncResponse =
-        createAsync(
-            PaymentOrderCreateAsyncParams.builder()
-                .paymentOrderAsyncCreate(paymentOrderAsyncCreate)
-                .build(),
-            requestOptions,
-        )
 
     /**
      * A view of [PaymentOrderServiceAsync] that provides access to raw HTTP responses for each
@@ -207,18 +194,5 @@ interface PaymentOrderServiceAsync {
             params: PaymentOrderCreateAsyncParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AsyncResponse>
-
-        /** @see createAsync */
-        @MustBeClosed
-        suspend fun createAsync(
-            paymentOrderAsyncCreate: PaymentOrderAsyncCreate,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AsyncResponse> =
-            createAsync(
-                PaymentOrderCreateAsyncParams.builder()
-                    .paymentOrderAsyncCreate(paymentOrderAsyncCreate)
-                    .build(),
-                requestOptions,
-            )
     }
 }

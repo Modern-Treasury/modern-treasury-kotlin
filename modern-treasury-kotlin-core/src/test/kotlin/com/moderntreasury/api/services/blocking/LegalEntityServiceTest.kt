@@ -10,7 +10,7 @@ import com.moderntreasury.api.models.IdentificationCreateRequest
 import com.moderntreasury.api.models.LegalEntityAddressCreateRequest
 import com.moderntreasury.api.models.LegalEntityAssociationInlineCreate
 import com.moderntreasury.api.models.LegalEntityComplianceDetail
-import com.moderntreasury.api.models.LegalEntityCreate
+import com.moderntreasury.api.models.LegalEntityCreateParams
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
 import com.moderntreasury.api.models.LegalEntityUpdateParams
 import java.time.LocalDate
@@ -33,8 +33,8 @@ internal class LegalEntityServiceTest {
 
         val legalEntity =
             legalEntityService.create(
-                LegalEntityCreate.builder()
-                    .legalEntityType(LegalEntityCreate.LegalEntityType.BUSINESS)
+                LegalEntityCreateParams.builder()
+                    .legalEntityType(LegalEntityCreateParams.LegalEntityType.BUSINESS)
                     .addAddress(
                         LegalEntityAddressCreateRequest.builder()
                             .country("country")
@@ -47,7 +47,7 @@ internal class LegalEntityServiceTest {
                             .build()
                     )
                     .bankSettings(
-                        LegalEntityCreate.LegalEntityBankSetting.builder()
+                        LegalEntityCreateParams.LegalEntityBankSetting.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .backupWithholdingPercentage(0L)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -319,9 +319,9 @@ internal class LegalEntityServiceTest {
                             .title("title")
                             .build()
                     )
-                    .legalStructure(LegalEntityCreate.LegalStructure.CORPORATION)
+                    .legalStructure(LegalEntityCreateParams.LegalStructure.CORPORATION)
                     .metadata(
-                        LegalEntityCreate.Metadata.builder()
+                        LegalEntityCreateParams.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -330,16 +330,18 @@ internal class LegalEntityServiceTest {
                     .middleName("middle_name")
                     .addOperatingJurisdiction("string")
                     .addPhoneNumber(
-                        LegalEntityCreate.PhoneNumber.builder().phoneNumber("phone_number").build()
+                        LegalEntityCreateParams.PhoneNumber.builder()
+                            .phoneNumber("phone_number")
+                            .build()
                     )
                     .politicallyExposedPerson(true)
                     .preferredName("preferred_name")
                     .prefix("prefix")
                     .addPrimarySocialMediaSite("string")
-                    .riskRating(LegalEntityCreate.RiskRating.LOW)
+                    .riskRating(LegalEntityCreateParams.RiskRating.LOW)
                     .suffix("suffix")
                     .wealthAndEmploymentDetails(
-                        LegalEntityCreate.LegalEntityWealthEmploymentDetail.builder()
+                        LegalEntityCreateParams.LegalEntityWealthEmploymentDetail.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .annualIncome(0L)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -348,32 +350,36 @@ internal class LegalEntityServiceTest {
                             .employerName("employer_name")
                             .employerState("employer_state")
                             .employmentStatus(
-                                LegalEntityCreate.LegalEntityWealthEmploymentDetail.EmploymentStatus
+                                LegalEntityCreateParams.LegalEntityWealthEmploymentDetail
+                                    .EmploymentStatus
                                     .EMPLOYED
                             )
                             .incomeCountry("income_country")
                             .incomeSource(
-                                LegalEntityCreate.LegalEntityWealthEmploymentDetail.IncomeSource
+                                LegalEntityCreateParams.LegalEntityWealthEmploymentDetail
+                                    .IncomeSource
                                     .FAMILY_SUPPORT
                             )
                             .incomeState("income_state")
                             .industry(
-                                LegalEntityCreate.LegalEntityWealthEmploymentDetail.Industry
+                                LegalEntityCreateParams.LegalEntityWealthEmploymentDetail.Industry
                                     .ACCOUNTING
                             )
                             .liveMode(true)
                             .object_("object")
                             .occupation(
-                                LegalEntityCreate.LegalEntityWealthEmploymentDetail.Occupation
+                                LegalEntityCreateParams.LegalEntityWealthEmploymentDetail.Occupation
                                     .CONSULTING
                             )
                             .sourceOfFunds(
-                                LegalEntityCreate.LegalEntityWealthEmploymentDetail.SourceOfFunds
+                                LegalEntityCreateParams.LegalEntityWealthEmploymentDetail
+                                    .SourceOfFunds
                                     .ALIMONY
                             )
                             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .wealthSource(
-                                LegalEntityCreate.LegalEntityWealthEmploymentDetail.WealthSource
+                                LegalEntityCreateParams.LegalEntityWealthEmploymentDetail
+                                    .WealthSource
                                     .BUSINESS_SALE
                             )
                             .build()

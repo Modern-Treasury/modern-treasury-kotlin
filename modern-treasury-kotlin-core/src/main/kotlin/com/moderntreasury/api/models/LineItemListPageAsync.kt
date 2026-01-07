@@ -15,8 +15,8 @@ private constructor(
     private val service: LineItemServiceAsync,
     private val params: LineItemListParams,
     private val headers: Headers,
-    private val items: List<LineItemListResponse>,
-) : PageAsync<LineItemListResponse> {
+    private val items: List<LineItem>,
+) : PageAsync<LineItem> {
 
     fun perPage(): String? = headers.values("X-Per-Page").firstOrNull()
 
@@ -32,13 +32,13 @@ private constructor(
 
     override suspend fun nextPage(): LineItemListPageAsync = service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<LineItemListResponse> = AutoPagerAsync.from(this)
+    fun autoPager(): AutoPagerAsync<LineItem> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): LineItemListParams = params
 
     /** The response that this page was parsed from. */
-    override fun items(): List<LineItemListResponse> = items
+    override fun items(): List<LineItem> = items
 
     fun toBuilder() = Builder().from(this)
 
@@ -64,7 +64,7 @@ private constructor(
         private var service: LineItemServiceAsync? = null
         private var params: LineItemListParams? = null
         private var headers: Headers? = null
-        private var items: List<LineItemListResponse>? = null
+        private var items: List<LineItem>? = null
 
         internal fun from(lineItemListPageAsync: LineItemListPageAsync) = apply {
             service = lineItemListPageAsync.service
@@ -81,7 +81,7 @@ private constructor(
         fun headers(headers: Headers) = apply { this.headers = headers }
 
         /** The response that this page was parsed from. */
-        fun items(items: List<LineItemListResponse>) = apply { this.items = items }
+        fun items(items: List<LineItem>) = apply { this.items = items }
 
         /**
          * Returns an immutable instance of [LineItemListPageAsync].

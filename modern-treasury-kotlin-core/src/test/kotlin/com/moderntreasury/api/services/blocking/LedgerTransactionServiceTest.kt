@@ -9,7 +9,6 @@ import com.moderntreasury.api.models.LedgerEntryCreateRequest
 import com.moderntreasury.api.models.LedgerTransactionCreatePartialPostParams
 import com.moderntreasury.api.models.LedgerTransactionCreateRequest
 import com.moderntreasury.api.models.LedgerTransactionCreateReversalParams
-import com.moderntreasury.api.models.LedgerTransactionUpdate
 import com.moderntreasury.api.models.LedgerTransactionUpdateParams
 import com.moderntreasury.api.models.TransactionDirection
 import java.time.LocalDate
@@ -114,57 +113,50 @@ internal class LedgerTransactionServiceTest {
             ledgerTransactionService.update(
                 LedgerTransactionUpdateParams.builder()
                     .id("id")
-                    .ledgerTransactionUpdate(
-                        LedgerTransactionUpdate.builder()
-                            .description("description")
-                            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .addLedgerEntry(
-                                LedgerEntryCreateRequest.builder()
-                                    .amount(0L)
-                                    .direction(TransactionDirection.CREDIT)
-                                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .availableBalanceAmount(
-                                        LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
-                                            .putAdditionalProperty("foo", JsonValue.from(0))
-                                            .build()
-                                    )
-                                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .lockVersion(0L)
-                                    .metadata(
-                                        LedgerEntryCreateRequest.Metadata.builder()
-                                            .putAdditionalProperty("key", JsonValue.from("value"))
-                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                            .putAdditionalProperty(
-                                                "modern",
-                                                JsonValue.from("treasury"),
-                                            )
-                                            .build()
-                                    )
-                                    .pendingBalanceAmount(
-                                        LedgerEntryCreateRequest.PendingBalanceAmount.builder()
-                                            .putAdditionalProperty("foo", JsonValue.from(0))
-                                            .build()
-                                    )
-                                    .postedBalanceAmount(
-                                        LedgerEntryCreateRequest.PostedBalanceAmount.builder()
-                                            .putAdditionalProperty("foo", JsonValue.from(0))
-                                            .build()
-                                    )
-                                    .showResultingLedgerAccountBalances(true)
+                    .description("description")
+                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .addLedgerEntry(
+                        LedgerEntryCreateRequest.builder()
+                            .amount(0L)
+                            .direction(TransactionDirection.CREDIT)
+                            .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .availableBalanceAmount(
+                                LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
                                     .build()
                             )
-                            .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .ledgerableType(LedgerTransactionUpdate.LedgerableType.EXPECTED_PAYMENT)
+                            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .lockVersion(0L)
                             .metadata(
-                                LedgerTransactionUpdate.Metadata.builder()
+                                LedgerEntryCreateRequest.Metadata.builder()
                                     .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
-                            .status(LedgerTransactionUpdate.Status.ARCHIVED)
+                            .pendingBalanceAmount(
+                                LedgerEntryCreateRequest.PendingBalanceAmount.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
+                                    .build()
+                            )
+                            .postedBalanceAmount(
+                                LedgerEntryCreateRequest.PostedBalanceAmount.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from(0))
+                                    .build()
+                            )
+                            .showResultingLedgerAccountBalances(true)
                             .build()
                     )
+                    .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .ledgerableType(LedgerTransactionUpdateParams.LedgerableType.EXPECTED_PAYMENT)
+                    .metadata(
+                        LedgerTransactionUpdateParams.Metadata.builder()
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .status(LedgerTransactionUpdateParams.Status.ARCHIVED)
                     .build()
             )
 

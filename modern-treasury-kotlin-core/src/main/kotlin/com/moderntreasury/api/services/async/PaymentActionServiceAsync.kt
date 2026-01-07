@@ -6,12 +6,14 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
-import com.moderntreasury.api.models.PaymentAction
 import com.moderntreasury.api.models.PaymentActionCreateParams
+import com.moderntreasury.api.models.PaymentActionCreateResponse
 import com.moderntreasury.api.models.PaymentActionListPageAsync
 import com.moderntreasury.api.models.PaymentActionListParams
 import com.moderntreasury.api.models.PaymentActionRetrieveParams
+import com.moderntreasury.api.models.PaymentActionRetrieveResponse
 import com.moderntreasury.api.models.PaymentActionUpdateParams
+import com.moderntreasury.api.models.PaymentActionUpdateResponse
 
 interface PaymentActionServiceAsync {
 
@@ -31,23 +33,26 @@ interface PaymentActionServiceAsync {
     suspend fun create(
         params: PaymentActionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentAction
+    ): PaymentActionCreateResponse
 
     /** Get details on a single payment action. */
     suspend fun retrieve(
         id: String,
         params: PaymentActionRetrieveParams = PaymentActionRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentAction = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    ): PaymentActionRetrieveResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see retrieve */
     suspend fun retrieve(
         params: PaymentActionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentAction
+    ): PaymentActionRetrieveResponse
 
     /** @see retrieve */
-    suspend fun retrieve(id: String, requestOptions: RequestOptions): PaymentAction =
+    suspend fun retrieve(
+        id: String,
+        requestOptions: RequestOptions,
+    ): PaymentActionRetrieveResponse =
         retrieve(id, PaymentActionRetrieveParams.none(), requestOptions)
 
     /** Update a single payment action. */
@@ -55,13 +60,13 @@ interface PaymentActionServiceAsync {
         id: String,
         params: PaymentActionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentAction = update(params.toBuilder().id(id).build(), requestOptions)
+    ): PaymentActionUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see update */
     suspend fun update(
         params: PaymentActionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentAction
+    ): PaymentActionUpdateResponse
 
     /** Get a list of all payment actions. */
     suspend fun list(
@@ -96,7 +101,7 @@ interface PaymentActionServiceAsync {
         suspend fun create(
             params: PaymentActionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentAction>
+        ): HttpResponseFor<PaymentActionCreateResponse>
 
         /**
          * Returns a raw HTTP response for `get /api/payment_actions/{id}`, but is otherwise the
@@ -107,7 +112,7 @@ interface PaymentActionServiceAsync {
             id: String,
             params: PaymentActionRetrieveParams = PaymentActionRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentAction> =
+        ): HttpResponseFor<PaymentActionRetrieveResponse> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see retrieve */
@@ -115,14 +120,14 @@ interface PaymentActionServiceAsync {
         suspend fun retrieve(
             params: PaymentActionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentAction>
+        ): HttpResponseFor<PaymentActionRetrieveResponse>
 
         /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             id: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PaymentAction> =
+        ): HttpResponseFor<PaymentActionRetrieveResponse> =
             retrieve(id, PaymentActionRetrieveParams.none(), requestOptions)
 
         /**
@@ -134,7 +139,7 @@ interface PaymentActionServiceAsync {
             id: String,
             params: PaymentActionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentAction> =
+        ): HttpResponseFor<PaymentActionUpdateResponse> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see update */
@@ -142,7 +147,7 @@ interface PaymentActionServiceAsync {
         suspend fun update(
             params: PaymentActionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentAction>
+        ): HttpResponseFor<PaymentActionUpdateResponse>
 
         /**
          * Returns a raw HTTP response for `get /api/payment_actions`, but is otherwise the same as
