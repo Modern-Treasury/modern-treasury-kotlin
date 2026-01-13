@@ -56,13 +56,13 @@ internal class PaymentOrderServiceAsyncTest {
                     .description("description")
                     .addDocument(
                         PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                            .file("some content".byteInputStream())
+                            .documentType("document_type")
                             .documentableId("documentable_id")
                             .documentableType(
                                 PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
-                                    .COUNTERPARTIES
+                                    .CONNECTIONS
                             )
-                            .file("some content".byteInputStream())
-                            .documentType("document_type")
                             .build()
                     )
                     .effectiveDate(LocalDate.parse("2019-12-27"))

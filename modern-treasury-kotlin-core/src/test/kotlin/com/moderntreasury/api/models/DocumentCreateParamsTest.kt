@@ -12,10 +12,10 @@ internal class DocumentCreateParamsTest {
     @Test
     fun create() {
         DocumentCreateParams.builder()
-            .documentableId("documentable_id")
-            .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
             .file("some content".byteInputStream())
             .documentType("document_type")
+            .documentableId("documentable_id")
+            .documentableType(DocumentCreateParams.DocumentableType.CONNECTIONS)
             .build()
     }
 
@@ -23,10 +23,10 @@ internal class DocumentCreateParamsTest {
     fun body() {
         val params =
             DocumentCreateParams.builder()
-                .documentableId("documentable_id")
-                .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
                 .file("some content".byteInputStream())
                 .documentType("document_type")
+                .documentableId("documentable_id")
+                .documentableType(DocumentCreateParams.DocumentableType.CONNECTIONS)
                 .build()
 
         val body = params._body()
@@ -41,11 +41,11 @@ internal class DocumentCreateParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "documentable_id" to MultipartField.of("documentable_id"),
-                        "documentable_type" to
-                            MultipartField.of(DocumentCreateParams.DocumentableType.COUNTERPARTIES),
                         "file" to MultipartField.of("some content".byteInputStream()),
                         "document_type" to MultipartField.of("document_type"),
+                        "documentable_id" to MultipartField.of("documentable_id"),
+                        "documentable_type" to
+                            MultipartField.of(DocumentCreateParams.DocumentableType.CONNECTIONS),
                     )
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }
@@ -55,12 +55,7 @@ internal class DocumentCreateParamsTest {
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params =
-            DocumentCreateParams.builder()
-                .documentableId("documentable_id")
-                .documentableType(DocumentCreateParams.DocumentableType.COUNTERPARTIES)
-                .file("some content".byteInputStream())
-                .build()
+        val params = DocumentCreateParams.builder().file("some content".byteInputStream()).build()
 
         val body = params._body()
 
@@ -73,15 +68,10 @@ internal class DocumentCreateParamsTest {
                 InputStream::class.java,
             )
             .isEqualTo(
-                mapOf(
-                        "documentable_id" to MultipartField.of("documentable_id"),
-                        "documentable_type" to
-                            MultipartField.of(DocumentCreateParams.DocumentableType.COUNTERPARTIES),
-                        "file" to MultipartField.of("some content".byteInputStream()),
-                    )
-                    .mapValues { (_, field) ->
-                        field.map { (it as? ByteArray)?.inputStream() ?: it }
-                    }
+                mapOf("file" to MultipartField.of("some content".byteInputStream())).mapValues {
+                    (_, field) ->
+                    field.map { (it as? ByteArray)?.inputStream() ?: it }
+                }
             )
     }
 }

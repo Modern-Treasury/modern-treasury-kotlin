@@ -32,13 +32,12 @@ internal class PaymentOrderCreateParamsTest {
             .description("description")
             .addDocument(
                 PaymentOrderCreateParams.DocumentCreateRequest.builder()
-                    .documentableId("documentable_id")
-                    .documentableType(
-                        PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
-                            .COUNTERPARTIES
-                    )
                     .file("some content".byteInputStream())
                     .documentType("document_type")
+                    .documentableId("documentable_id")
+                    .documentableType(
+                        PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CONNECTIONS
+                    )
                     .build()
             )
             .effectiveDate(LocalDate.parse("2019-12-27"))
@@ -240,13 +239,13 @@ internal class PaymentOrderCreateParamsTest {
                 .description("description")
                 .addDocument(
                     PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                        .file("some content".byteInputStream())
+                        .documentType("document_type")
                         .documentableId("documentable_id")
                         .documentableType(
                             PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
-                                .COUNTERPARTIES
+                                .CONNECTIONS
                         )
-                        .file("some content".byteInputStream())
-                        .documentType("document_type")
                         .build()
                 )
                 .effectiveDate(LocalDate.parse("2019-12-27"))
@@ -470,14 +469,14 @@ internal class PaymentOrderCreateParamsTest {
                                 .value(
                                     listOf(
                                         PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                                            .file("some content".byteInputStream())
+                                            .documentType("document_type")
                                             .documentableId("documentable_id")
                                             .documentableType(
                                                 PaymentOrderCreateParams.DocumentCreateRequest
                                                     .DocumentableType
-                                                    .COUNTERPARTIES
+                                                    .CONNECTIONS
                                             )
-                                            .file("some content".byteInputStream())
-                                            .documentType("document_type")
                                             .build()
                                     )
                                 )
