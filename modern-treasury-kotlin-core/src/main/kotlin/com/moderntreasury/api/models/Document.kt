@@ -116,20 +116,20 @@ private constructor(
     /**
      * The unique identifier for the associated object.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
-    fun documentableId(): String = documentableId.getRequired("documentable_id")
+    fun documentableId(): String? = documentableId.getNullable("documentable_id")
 
     /**
      * The type of the associated object. Currently can be one of `payment_order`, `transaction`,
      * `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`, `decision`,
      * or `external_account`.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
-    fun documentableType(): DocumentableType = documentableType.getRequired("documentable_type")
+    fun documentableType(): DocumentableType? = documentableType.getNullable("documentable_type")
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -410,7 +410,8 @@ private constructor(
         }
 
         /** The unique identifier for the associated object. */
-        fun documentableId(documentableId: String) = documentableId(JsonField.of(documentableId))
+        fun documentableId(documentableId: String?) =
+            documentableId(JsonField.ofNullable(documentableId))
 
         /**
          * Sets [Builder.documentableId] to an arbitrary JSON value.
@@ -428,8 +429,8 @@ private constructor(
          * `transaction`, `expected_payment`, `counterparty`, `organization`, `case`,
          * `internal_account`, `decision`, or `external_account`.
          */
-        fun documentableType(documentableType: DocumentableType) =
-            documentableType(JsonField.of(documentableType))
+        fun documentableType(documentableType: DocumentableType?) =
+            documentableType(JsonField.ofNullable(documentableType))
 
         /**
          * Sets [Builder.documentableType] to an arbitrary JSON value.
@@ -572,7 +573,7 @@ private constructor(
         documentDetails().forEach { it.validate() }
         documentType()
         documentableId()
-        documentableType().validate()
+        documentableType()?.validate()
         file().validate()
         liveMode()
         object_()
@@ -1089,6 +1090,8 @@ private constructor(
 
         companion object {
 
+            val CONNECTION = of("connection")
+
             val COUNTERPARTY = of("counterparty")
 
             val EXPECTED_PAYMENT = of("expected_payment")
@@ -1101,29 +1104,30 @@ private constructor(
 
             val INTERNAL_ACCOUNT = of("internal_account")
 
+            val LEGAL_ENTITY = of("legal_entity")
+
             val ORGANIZATION = of("organization")
 
             val PAYMENT_ORDER = of("payment_order")
 
             val TRANSACTION = of("transaction")
 
-            val CONNECTION = of("connection")
-
             fun of(value: String) = DocumentableType(JsonField.of(value))
         }
 
         /** An enum containing [DocumentableType]'s known values. */
         enum class Known {
+            CONNECTION,
             COUNTERPARTY,
             EXPECTED_PAYMENT,
             EXTERNAL_ACCOUNT,
             IDENTIFICATION,
             INCOMING_PAYMENT_DETAIL,
             INTERNAL_ACCOUNT,
+            LEGAL_ENTITY,
             ORGANIZATION,
             PAYMENT_ORDER,
             TRANSACTION,
-            CONNECTION,
         }
 
         /**
@@ -1136,16 +1140,17 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            CONNECTION,
             COUNTERPARTY,
             EXPECTED_PAYMENT,
             EXTERNAL_ACCOUNT,
             IDENTIFICATION,
             INCOMING_PAYMENT_DETAIL,
             INTERNAL_ACCOUNT,
+            LEGAL_ENTITY,
             ORGANIZATION,
             PAYMENT_ORDER,
             TRANSACTION,
-            CONNECTION,
             /**
              * An enum member indicating that [DocumentableType] was instantiated with an unknown
              * value.
@@ -1162,16 +1167,17 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                CONNECTION -> Value.CONNECTION
                 COUNTERPARTY -> Value.COUNTERPARTY
                 EXPECTED_PAYMENT -> Value.EXPECTED_PAYMENT
                 EXTERNAL_ACCOUNT -> Value.EXTERNAL_ACCOUNT
                 IDENTIFICATION -> Value.IDENTIFICATION
                 INCOMING_PAYMENT_DETAIL -> Value.INCOMING_PAYMENT_DETAIL
                 INTERNAL_ACCOUNT -> Value.INTERNAL_ACCOUNT
+                LEGAL_ENTITY -> Value.LEGAL_ENTITY
                 ORGANIZATION -> Value.ORGANIZATION
                 PAYMENT_ORDER -> Value.PAYMENT_ORDER
                 TRANSACTION -> Value.TRANSACTION
-                CONNECTION -> Value.CONNECTION
                 else -> Value._UNKNOWN
             }
 
@@ -1186,16 +1192,17 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                CONNECTION -> Known.CONNECTION
                 COUNTERPARTY -> Known.COUNTERPARTY
                 EXPECTED_PAYMENT -> Known.EXPECTED_PAYMENT
                 EXTERNAL_ACCOUNT -> Known.EXTERNAL_ACCOUNT
                 IDENTIFICATION -> Known.IDENTIFICATION
                 INCOMING_PAYMENT_DETAIL -> Known.INCOMING_PAYMENT_DETAIL
                 INTERNAL_ACCOUNT -> Known.INTERNAL_ACCOUNT
+                LEGAL_ENTITY -> Known.LEGAL_ENTITY
                 ORGANIZATION -> Known.ORGANIZATION
                 PAYMENT_ORDER -> Known.PAYMENT_ORDER
                 TRANSACTION -> Known.TRANSACTION
-                CONNECTION -> Known.CONNECTION
                 else -> throw ModernTreasuryInvalidDataException("Unknown DocumentableType: $value")
             }
 
