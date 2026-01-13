@@ -1,5 +1,54 @@
 # Changelog
 
+## 7.18.0 (2026-01-13)
+
+Full Changelog: [v7.17.0...v7.18.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.17.0...v7.18.0)
+
+### Features
+
+* **api:** api update ([174bf90](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/174bf9044c366247d9f140a2861693c18b287524))
+* **api:** api update ([3bb5118](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3bb511846de50418bfdae41bc7d90ed5765cb8cd))
+* **api:** api update ([9d123c5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9d123c5bfef6a10c51a6b44cf3d50c9315ee73d4))
+* **api:** api update ([fd86b52](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/fd86b525e66c7310907c1463f9749f06b1f5564a))
+* **api:** api update ([885b4ca](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/885b4ca63b12a97f78cb68654121cef7cf717e34))
+* **api:** api update ([12e6021](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/12e6021dbebdc3ee72e825036c5ba9d41307514e))
+* **api:** api update ([921a6af](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/921a6af46d6859c85023ff9f2778f98b5aff136b))
+* **api:** api update ([89627d4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/89627d438058cd9a7d72a9d4f9effcf1acf48893))
+* **api:** manual updates ([f988226](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f988226790e9bd75e94516ad12fb59ef560e687c))
+* **api:** manual updates ([b5c6297](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b5c6297c3b0967860fa45f3916b404f3062224bf))
+* **api:** manual updates ([f69b2cd](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f69b2cdbcab69c85abc20b98441490f7a3cd9a2f))
+* **api:** manual updates ([175b3e7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/175b3e7265a78da18e0613ac9abb59c21d034260))
+* **api:** manual updates ([737e3b9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/737e3b9ba9732f6e2bdb8b0b43688ca64090ddb1))
+* **api:** manual updates ([abdb07b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/abdb07b62ba81492a6cdfb5e7f9ba619500d6773))
+* **client:** add `HttpRequest#url()` method ([0797d0f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0797d0f0d4da6f5abdf7770dd63e442e94e2f1b8))
+* **client:** allow configuring dispatcher executor service ([ea8a829](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ea8a829a8127ece5a94023152fb25420a4aa6c4c))
+
+
+### Bug Fixes
+
+* **client:** multi-value header serialization ([54005ae](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/54005ae410fb79b8cd4db3dd031d71f3eb8a9a3b))
+* **test:** resolve failing Prism tests ([3323fa5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3323fa5f93719966153d6ea2896e8b93d8ddc061))
+
+
+### Chores
+
+* add splat as owner of SDK PRs ([84e2fe7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/84e2fe7d675b9d8e6bce61968848463d1cf1f2c5))
+* **internal:** codegen related update ([78bd262](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/78bd2621ca96f55b65a78f14234ebdfb4901c886))
+* **internal:** codegen related update ([564e20c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/564e20c3286cb37d41821a79047ba59792fa319c))
+* **internal:** codegen related update ([f38fe91](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f38fe919b920c7a14668e8912dad027ebb41dcc2))
+* **internal:** codegen related update ([d111bba](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d111bba85e1b898e4329551e9e9fbeb3cb63f7cd))
+* **internal:** codegen related update ([88e4d3d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/88e4d3df766806558406e9b3d6db0576749cab95))
+* **internal:** codegen related update ([63c176c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/63c176c8df76c94d7a6cdae0d00415dc94d6e49f))
+* **internal:** codegen related update ([47ef8f9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/47ef8f95b0dc2a1cf182848541dbd5539f410fb6))
+* **internal:** refactor build files to support future stainless package uploads ([f84aff0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f84aff0a7e78296b66e93c719a7bd62d63247093))
+* **internal:** use different example values for some enums ([eb7f783](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/eb7f78325bc430d34eeb3c8725ab190522f05161))
+
+
+### Documentation
+
+* prominently feature MCP server setup in root SDK readmes ([77e0383](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/77e0383e9f30315aa37371a20b879867aa2b4d89))
+* remove `$` for better copy-pasteabality ([493a413](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/493a413960722f0bc713d95952e8f91343de19a2))
+
 ## 7.17.0 (2025-11-05)
 
 Full Changelog: [v7.16.0...v7.17.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.16.0...v7.17.0)
