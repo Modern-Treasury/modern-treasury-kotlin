@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.18.1 (2026-01-14)
+
+Full Changelog: [v7.18.0...v7.18.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.18.0...v7.18.1)
+
 ## 7.18.0 (2026-01-13)
 
 Full Changelog: [v7.17.0...v7.18.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.17.0...v7.18.0)
