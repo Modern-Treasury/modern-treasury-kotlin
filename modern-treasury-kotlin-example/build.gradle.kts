@@ -4,7 +4,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":modern-treasury-kotlin"))
+    implementation(project(":modern-treasury-kotlin-core"))
+    implementation(project(":modern-treasury-kotlin-client-okhttp"))
 }
 
 application {
