@@ -15,7 +15,7 @@ jobs:
       group: "SDK Repo Runners"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Set up Java
         uses: actions/setup-java@v4
