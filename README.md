@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.moderntreasury.api/modern-treasury-kotlin)](https://central.sonatype.com/artifact/com.moderntreasury.api/modern-treasury-kotlin/7.18.1)
-[![javadoc](https://javadoc.io/badge2/com.moderntreasury.api/modern-treasury-kotlin/7.18.1/javadoc.svg)](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/7.18.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.moderntreasury.api/modern-treasury-kotlin)](https://central.sonatype.com/artifact/com.moderntreasury.api/modern-treasury-kotlin/7.18.2)
+[![javadoc](https://javadoc.io/badge2/com.moderntreasury.api/modern-treasury-kotlin/7.18.2/javadoc.svg)](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/7.18.2)
 
 <!-- x-release-please-end -->
 
@@ -22,7 +22,7 @@ Use the Modern Treasury MCP Server to enable AI assistants to interact with this
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [docs.moderntreasury.com](https://docs.moderntreasury.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/7.18.1).
+The REST API documentation can be found on [docs.moderntreasury.com](https://docs.moderntreasury.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/7.18.2).
 
 <!-- x-release-please-end -->
 
@@ -33,7 +33,7 @@ The REST API documentation can be found on [docs.moderntreasury.com](https://doc
 ### Gradle
 
 ```kotlin
-implementation("com.moderntreasury:modern-treasury-kotlin:7.18.1")
+implementation("com.moderntreasury:modern-treasury-kotlin:7.18.2")
 ```
 
 ### Maven
@@ -42,7 +42,7 @@ implementation("com.moderntreasury:modern-treasury-kotlin:7.18.1")
 <dependency>
   <groupId>com.moderntreasury</groupId>
   <artifactId>modern-treasury-kotlin</artifactId>
-  <version>7.18.1</version>
+  <version>7.18.2</version>
 </dependency>
 ```
 
@@ -400,6 +400,8 @@ If the SDK threw an exception, but you're _certain_ the version is compatible, t
 
 > [!CAUTION]
 > We make no guarantee that the SDK works correctly when the Jackson version check is disabled.
+
+Also note that there are bugs in older Jackson versions that can affect the SDK. We don't work around all Jackson bugs ([example](https://github.com/FasterXML/jackson-databind/issues/3240)) and expect users to upgrade Jackson for those instead.
 
 ## Network options
 

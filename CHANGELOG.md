@@ -1,5 +1,24 @@
 # Changelog
 
+## 7.18.2 (2026-01-16)
+
+Full Changelog: [v7.18.1...v7.18.2](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.18.1...v7.18.2)
+
+### Bug Fixes
+
+* **client:** disallow coercion from float to int ([c093127](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c093127c5b199e9391cfd235d1d190b4637222cd))
+* **client:** fully respect max retries ([22157c4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/22157c49b051156fc734acca5f9a7dbbad52fca0))
+* **client:** send retry count header for max retries 0 ([22157c4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/22157c49b051156fc734acca5f9a7dbbad52fca0))
+* date time deserialization leniency ([8c3d80d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8c3d80dcc67268e74c49cf1a527f799200f19c0e))
+
+
+### Chores
+
+* **ci:** upgrade `actions/setup-java` ([8e26134](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8e2613417898f14d5978e4d92e250a1a6911ee9c))
+* **internal:** depend on packages directly in example ([22157c4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/22157c49b051156fc734acca5f9a7dbbad52fca0))
+* **internal:** update `actions/checkout` version ([b9bacba](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b9bacbaa4c4da1f97e1561d4dd75dcad0e5c8bab))
+* test on Jackson 2.14.0 to avoid encountering FasterXML/jackson-databind[#3240](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/3240) in tests ([8c3d80d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8c3d80dcc67268e74c49cf1a527f799200f19c0e))
+
 ## 7.18.1 (2026-01-14)
 
 Full Changelog: [v7.18.0...v7.18.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.18.0...v7.18.1)
