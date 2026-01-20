@@ -325,6 +325,7 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
      */
+    @Deprecated("deprecated")
     fun transactionMonitoringEnabled(): Boolean? = body.transactionMonitoringEnabled()
 
     /**
@@ -599,6 +600,7 @@ private constructor(
      * Unlike [transactionMonitoringEnabled], this method doesn't throw if the JSON field has an
      * unexpected type.
      */
+    @Deprecated("deprecated")
     fun _transactionMonitoringEnabled(): JsonField<Boolean> = body._transactionMonitoringEnabled()
 
     /**
@@ -1245,6 +1247,7 @@ private constructor(
         /**
          * A flag that determines whether a payment order should go through transaction monitoring.
          */
+        @Deprecated("deprecated")
         fun transactionMonitoringEnabled(transactionMonitoringEnabled: Boolean) = apply {
             body.transactionMonitoringEnabled(transactionMonitoringEnabled)
         }
@@ -1256,6 +1259,7 @@ private constructor(
          * [Boolean] value instead. This method is primarily for setting the field to an
          * undocumented or not yet supported value.
          */
+        @Deprecated("deprecated")
         fun transactionMonitoringEnabled(transactionMonitoringEnabled: JsonField<Boolean>) = apply {
             body.transactionMonitoringEnabled(transactionMonitoringEnabled)
         }
@@ -1972,6 +1976,7 @@ private constructor(
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
          */
+        @Deprecated("deprecated")
         fun transactionMonitoringEnabled(): Boolean? =
             transactionMonitoringEnabled.getNullable("transaction_monitoring_enabled")
 
@@ -2307,6 +2312,7 @@ private constructor(
          * Unlike [transactionMonitoringEnabled], this method doesn't throw if the JSON field has an
          * unexpected type.
          */
+        @Deprecated("deprecated")
         @JsonProperty("transaction_monitoring_enabled")
         @ExcludeMissing
         fun _transactionMonitoringEnabled(): JsonField<Boolean> = transactionMonitoringEnabled
@@ -3033,6 +3039,7 @@ private constructor(
              * A flag that determines whether a payment order should go through transaction
              * monitoring.
              */
+            @Deprecated("deprecated")
             fun transactionMonitoringEnabled(transactionMonitoringEnabled: Boolean) =
                 transactionMonitoringEnabled(JsonField.of(transactionMonitoringEnabled))
 
@@ -3043,6 +3050,7 @@ private constructor(
              * [Boolean] value instead. This method is primarily for setting the field to an
              * undocumented or not yet supported value.
              */
+            @Deprecated("deprecated")
             fun transactionMonitoringEnabled(transactionMonitoringEnabled: JsonField<Boolean>) =
                 apply {
                     this.transactionMonitoringEnabled = transactionMonitoringEnabled
@@ -5628,6 +5636,8 @@ private constructor(
 
                     val BASE_ADDRESS = of("base_address")
 
+                    val CARD_TOKEN = of("card_token")
+
                     val CLABE = of("clabe")
 
                     val ETHEREUM_ADDRESS = of("ethereum_address")
@@ -5659,6 +5669,7 @@ private constructor(
                 enum class Known {
                     AU_NUMBER,
                     BASE_ADDRESS,
+                    CARD_TOKEN,
                     CLABE,
                     ETHEREUM_ADDRESS,
                     HK_NUMBER,
@@ -5687,6 +5698,7 @@ private constructor(
                 enum class Value {
                     AU_NUMBER,
                     BASE_ADDRESS,
+                    CARD_TOKEN,
                     CLABE,
                     ETHEREUM_ADDRESS,
                     HK_NUMBER,
@@ -5717,6 +5729,7 @@ private constructor(
                     when (this) {
                         AU_NUMBER -> Value.AU_NUMBER
                         BASE_ADDRESS -> Value.BASE_ADDRESS
+                        CARD_TOKEN -> Value.CARD_TOKEN
                         CLABE -> Value.CLABE
                         ETHEREUM_ADDRESS -> Value.ETHEREUM_ADDRESS
                         HK_NUMBER -> Value.HK_NUMBER
@@ -5745,6 +5758,7 @@ private constructor(
                     when (this) {
                         AU_NUMBER -> Known.AU_NUMBER
                         BASE_ADDRESS -> Known.BASE_ADDRESS
+                        CARD_TOKEN -> Known.CARD_TOKEN
                         CLABE -> Known.CLABE
                         ETHEREUM_ADDRESS -> Known.ETHEREUM_ADDRESS
                         HK_NUMBER -> Known.HK_NUMBER
