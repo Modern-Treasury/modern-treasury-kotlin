@@ -7763,12 +7763,28 @@ private constructor(
              */
             fun metadata(): Metadata? = metadata.getNullable("metadata")
 
-            /** The reconciliation filters you have for this payment. */
+            /**
+             * The reconciliation filters you have for this payment.
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```kotlin
+             * val myObject: MyClass = expectedPaymentCreateRequest.reconciliationFilters().convert(MyClass::class.java)
+             * ```
+             */
             @JsonProperty("reconciliation_filters")
             @ExcludeMissing
             fun _reconciliationFilters(): JsonValue = reconciliationFilters
 
-            /** The reconciliation groups you have for this payment. */
+            /**
+             * The reconciliation groups you have for this payment.
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```kotlin
+             * val myObject: MyClass = expectedPaymentCreateRequest.reconciliationGroups().convert(MyClass::class.java)
+             * ```
+             */
             @JsonProperty("reconciliation_groups")
             @ExcludeMissing
             fun _reconciliationGroups(): JsonValue = reconciliationGroups
@@ -17168,12 +17184,28 @@ private constructor(
              */
             fun metadata(): Metadata? = metadata.getNullable("metadata")
 
-            /** The reconciliation filters you have for this payment. */
+            /**
+             * The reconciliation filters you have for this payment.
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```kotlin
+             * val myObject: MyClass = expectedPaymentUpdateRequestWithId.reconciliationFilters().convert(MyClass::class.java)
+             * ```
+             */
             @JsonProperty("reconciliation_filters")
             @ExcludeMissing
             fun _reconciliationFilters(): JsonValue = reconciliationFilters
 
-            /** The reconciliation groups you have for this payment. */
+            /**
+             * The reconciliation groups you have for this payment.
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```kotlin
+             * val myObject: MyClass = expectedPaymentUpdateRequestWithId.reconciliationGroups().convert(MyClass::class.java)
+             * ```
+             */
             @JsonProperty("reconciliation_groups")
             @ExcludeMissing
             fun _reconciliationGroups(): JsonValue = reconciliationGroups

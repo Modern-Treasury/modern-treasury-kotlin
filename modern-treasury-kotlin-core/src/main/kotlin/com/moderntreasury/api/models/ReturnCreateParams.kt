@@ -71,7 +71,14 @@ private constructor(
      */
     fun corrections(): Corrections? = body.corrections()
 
-    /** The raw data from the return file that we get from the bank. */
+    /**
+     * The raw data from the return file that we get from the bank.
+     *
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```kotlin
+     * val myObject: MyClass = returnCreateParams.data().convert(MyClass::class.java)
+     * ```
+     */
     fun _data(): JsonValue = body._data()
 
     /**
@@ -575,7 +582,14 @@ private constructor(
          */
         fun corrections(): Corrections? = corrections.getNullable("corrections")
 
-        /** The raw data from the return file that we get from the bank. */
+        /**
+         * The raw data from the return file that we get from the bank.
+         *
+         * This arbitrary value can be deserialized into a custom type using the `convert` method:
+         * ```kotlin
+         * val myObject: MyClass = returnCreateRequest.data().convert(MyClass::class.java)
+         * ```
+         */
         @JsonProperty("data") @ExcludeMissing fun _data(): JsonValue = data
 
         /**

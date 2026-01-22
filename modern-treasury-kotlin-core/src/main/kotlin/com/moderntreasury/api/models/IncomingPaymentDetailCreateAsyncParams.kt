@@ -53,6 +53,11 @@ private constructor(
 
     /**
      * An object passed through to the simulated IPD that could reflect what a vendor would pass.
+     *
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```kotlin
+     * val myObject: MyClass = incomingPaymentDetailCreateAsyncParams.data().convert(MyClass::class.java)
+     * ```
      */
     fun _data(): JsonValue = body._data()
 
@@ -528,6 +533,11 @@ private constructor(
         /**
          * An object passed through to the simulated IPD that could reflect what a vendor would
          * pass.
+         *
+         * This arbitrary value can be deserialized into a custom type using the `convert` method:
+         * ```kotlin
+         * val myObject: MyClass = incomingPaymentDetailCreateRequest.data().convert(MyClass::class.java)
+         * ```
          */
         @JsonProperty("data") @ExcludeMissing fun _data(): JsonValue = data
 

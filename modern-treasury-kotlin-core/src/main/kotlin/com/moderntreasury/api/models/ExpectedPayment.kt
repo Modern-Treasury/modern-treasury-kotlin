@@ -337,12 +337,26 @@ private constructor(
      */
     fun object_(): String = object_.getRequired("object")
 
-    /** The reconciliation filters you have for this payment. */
+    /**
+     * The reconciliation filters you have for this payment.
+     *
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```kotlin
+     * val myObject: MyClass = expectedPayment.reconciliationFilters().convert(MyClass::class.java)
+     * ```
+     */
     @JsonProperty("reconciliation_filters")
     @ExcludeMissing
     fun _reconciliationFilters(): JsonValue = reconciliationFilters
 
-    /** The reconciliation groups you have for this payment. */
+    /**
+     * The reconciliation groups you have for this payment.
+     *
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```kotlin
+     * val myObject: MyClass = expectedPayment.reconciliationGroups().convert(MyClass::class.java)
+     * ```
+     */
     @JsonProperty("reconciliation_groups")
     @ExcludeMissing
     fun _reconciliationGroups(): JsonValue = reconciliationGroups
