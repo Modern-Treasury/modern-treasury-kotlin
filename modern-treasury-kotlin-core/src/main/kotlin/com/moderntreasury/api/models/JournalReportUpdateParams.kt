@@ -28,6 +28,12 @@ private constructor(
 
     fun id(): String? = id
 
+    /**
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```kotlin
+     * val myObject: MyClass = journalReportUpdateParams.metadata().convert(MyClass::class.java)
+     * ```
+     */
     fun _metadata(): JsonValue = body._metadata()
 
     /**
@@ -259,6 +265,12 @@ private constructor(
             @JsonProperty("status") @ExcludeMissing status: JsonField<String> = JsonMissing.of(),
         ) : this(metadata, status, mutableMapOf())
 
+        /**
+         * This arbitrary value can be deserialized into a custom type using the `convert` method:
+         * ```kotlin
+         * val myObject: MyClass = body.metadata().convert(MyClass::class.java)
+         * ```
+         */
         @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonValue = metadata
 
         /**
