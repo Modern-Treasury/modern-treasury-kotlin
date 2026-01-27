@@ -3900,6 +3900,7 @@ private constructor(
         private val lastName: JsonField<String>,
         private val legalEntityAssociations: JsonField<List<LegalEntityAssociationInlineCreate>>,
         private val legalStructure: JsonField<LegalStructure>,
+        private val listedExchange: JsonField<String>,
         private val metadata: JsonField<Metadata>,
         private val middleName: JsonField<String>,
         private val operatingJurisdictions: JsonField<List<String>>,
@@ -3908,8 +3909,11 @@ private constructor(
         private val preferredName: JsonField<String>,
         private val prefix: JsonField<String>,
         private val primarySocialMediaSites: JsonField<List<String>>,
+        private val regulators: JsonField<List<LegalEntityRegulator>>,
         private val riskRating: JsonField<RiskRating>,
         private val suffix: JsonField<String>,
+        private val thirdPartyVerification: JsonField<ThirdPartyVerification>,
+        private val tickerSymbol: JsonField<String>,
         private val wealthAndEmploymentDetails: JsonField<LegalEntityWealthEmploymentDetail>,
         private val website: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -3980,6 +3984,9 @@ private constructor(
             @JsonProperty("legal_structure")
             @ExcludeMissing
             legalStructure: JsonField<LegalStructure> = JsonMissing.of(),
+            @JsonProperty("listed_exchange")
+            @ExcludeMissing
+            listedExchange: JsonField<String> = JsonMissing.of(),
             @JsonProperty("metadata")
             @ExcludeMissing
             metadata: JsonField<Metadata> = JsonMissing.of(),
@@ -4002,10 +4009,19 @@ private constructor(
             @JsonProperty("primary_social_media_sites")
             @ExcludeMissing
             primarySocialMediaSites: JsonField<List<String>> = JsonMissing.of(),
+            @JsonProperty("regulators")
+            @ExcludeMissing
+            regulators: JsonField<List<LegalEntityRegulator>> = JsonMissing.of(),
             @JsonProperty("risk_rating")
             @ExcludeMissing
             riskRating: JsonField<RiskRating> = JsonMissing.of(),
             @JsonProperty("suffix") @ExcludeMissing suffix: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("third_party_verification")
+            @ExcludeMissing
+            thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of(),
+            @JsonProperty("ticker_symbol")
+            @ExcludeMissing
+            tickerSymbol: JsonField<String> = JsonMissing.of(),
             @JsonProperty("wealth_and_employment_details")
             @ExcludeMissing
             wealthAndEmploymentDetails: JsonField<LegalEntityWealthEmploymentDetail> =
@@ -4033,6 +4049,7 @@ private constructor(
             lastName,
             legalEntityAssociations,
             legalStructure,
+            listedExchange,
             metadata,
             middleName,
             operatingJurisdictions,
@@ -4041,8 +4058,11 @@ private constructor(
             preferredName,
             prefix,
             primarySocialMediaSites,
+            regulators,
             riskRating,
             suffix,
+            thirdPartyVerification,
+            tickerSymbol,
             wealthAndEmploymentDetails,
             website,
             mutableMapOf(),
@@ -4222,6 +4242,14 @@ private constructor(
         fun legalStructure(): LegalStructure? = legalStructure.getNullable("legal_structure")
 
         /**
+         * ISO 10383 market identifier code.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun listedExchange(): String? = listedExchange.getNullable("listed_exchange")
+
+        /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -4287,6 +4315,14 @@ private constructor(
             primarySocialMediaSites.getNullable("primary_social_media_sites")
 
         /**
+         * Array of regulatory bodies overseeing this institution.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun regulators(): List<LegalEntityRegulator>? = regulators.getNullable("regulators")
+
+        /**
          * The risk rating of the legal entity. One of low, medium, high.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -4301,6 +4337,23 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun suffix(): String? = suffix.getNullable("suffix")
+
+        /**
+         * Information describing a third-party verification run by an external vendor.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun thirdPartyVerification(): ThirdPartyVerification? =
+            thirdPartyVerification.getNullable("third_party_verification")
+
+        /**
+         * Stock ticker symbol for publicly traded companies.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun tickerSymbol(): String? = tickerSymbol.getNullable("ticker_symbol")
 
         /**
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -4517,6 +4570,16 @@ private constructor(
         fun _legalStructure(): JsonField<LegalStructure> = legalStructure
 
         /**
+         * Returns the raw JSON value of [listedExchange].
+         *
+         * Unlike [listedExchange], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("listed_exchange")
+        @ExcludeMissing
+        fun _listedExchange(): JsonField<String> = listedExchange
+
+        /**
          * Returns the raw JSON value of [metadata].
          *
          * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
@@ -4590,6 +4653,15 @@ private constructor(
         fun _primarySocialMediaSites(): JsonField<List<String>> = primarySocialMediaSites
 
         /**
+         * Returns the raw JSON value of [regulators].
+         *
+         * Unlike [regulators], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("regulators")
+        @ExcludeMissing
+        fun _regulators(): JsonField<List<LegalEntityRegulator>> = regulators
+
+        /**
          * Returns the raw JSON value of [riskRating].
          *
          * Unlike [riskRating], this method doesn't throw if the JSON field has an unexpected type.
@@ -4604,6 +4676,26 @@ private constructor(
          * Unlike [suffix], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("suffix") @ExcludeMissing fun _suffix(): JsonField<String> = suffix
+
+        /**
+         * Returns the raw JSON value of [thirdPartyVerification].
+         *
+         * Unlike [thirdPartyVerification], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("third_party_verification")
+        @ExcludeMissing
+        fun _thirdPartyVerification(): JsonField<ThirdPartyVerification> = thirdPartyVerification
+
+        /**
+         * Returns the raw JSON value of [tickerSymbol].
+         *
+         * Unlike [tickerSymbol], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("ticker_symbol")
+        @ExcludeMissing
+        fun _tickerSymbol(): JsonField<String> = tickerSymbol
 
         /**
          * Returns the raw JSON value of [wealthAndEmploymentDetails].
@@ -4676,6 +4768,7 @@ private constructor(
                 JsonField<MutableList<LegalEntityAssociationInlineCreate>>? =
                 null
             private var legalStructure: JsonField<LegalStructure> = JsonMissing.of()
+            private var listedExchange: JsonField<String> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var middleName: JsonField<String> = JsonMissing.of()
             private var operatingJurisdictions: JsonField<MutableList<String>>? = null
@@ -4684,8 +4777,11 @@ private constructor(
             private var preferredName: JsonField<String> = JsonMissing.of()
             private var prefix: JsonField<String> = JsonMissing.of()
             private var primarySocialMediaSites: JsonField<MutableList<String>>? = null
+            private var regulators: JsonField<MutableList<LegalEntityRegulator>>? = null
             private var riskRating: JsonField<RiskRating> = JsonMissing.of()
             private var suffix: JsonField<String> = JsonMissing.of()
+            private var thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of()
+            private var tickerSymbol: JsonField<String> = JsonMissing.of()
             private var wealthAndEmploymentDetails: JsonField<LegalEntityWealthEmploymentDetail> =
                 JsonMissing.of()
             private var website: JsonField<String> = JsonMissing.of()
@@ -4717,6 +4813,7 @@ private constructor(
                 legalEntityAssociations =
                     legalEntityCreateRequest.legalEntityAssociations.map { it.toMutableList() }
                 legalStructure = legalEntityCreateRequest.legalStructure
+                listedExchange = legalEntityCreateRequest.listedExchange
                 metadata = legalEntityCreateRequest.metadata
                 middleName = legalEntityCreateRequest.middleName
                 operatingJurisdictions =
@@ -4727,8 +4824,11 @@ private constructor(
                 prefix = legalEntityCreateRequest.prefix
                 primarySocialMediaSites =
                     legalEntityCreateRequest.primarySocialMediaSites.map { it.toMutableList() }
+                regulators = legalEntityCreateRequest.regulators.map { it.toMutableList() }
                 riskRating = legalEntityCreateRequest.riskRating
                 suffix = legalEntityCreateRequest.suffix
+                thirdPartyVerification = legalEntityCreateRequest.thirdPartyVerification
+                tickerSymbol = legalEntityCreateRequest.tickerSymbol
                 wealthAndEmploymentDetails = legalEntityCreateRequest.wealthAndEmploymentDetails
                 website = legalEntityCreateRequest.website
                 additionalProperties = legalEntityCreateRequest.additionalProperties.toMutableMap()
@@ -5123,6 +5223,21 @@ private constructor(
                 this.legalStructure = legalStructure
             }
 
+            /** ISO 10383 market identifier code. */
+            fun listedExchange(listedExchange: String?) =
+                listedExchange(JsonField.ofNullable(listedExchange))
+
+            /**
+             * Sets [Builder.listedExchange] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.listedExchange] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun listedExchange(listedExchange: JsonField<String>) = apply {
+                this.listedExchange = listedExchange
+            }
+
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
              * strings.
@@ -5283,6 +5398,33 @@ private constructor(
                     }
             }
 
+            /** Array of regulatory bodies overseeing this institution. */
+            fun regulators(regulators: List<LegalEntityRegulator>?) =
+                regulators(JsonField.ofNullable(regulators))
+
+            /**
+             * Sets [Builder.regulators] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.regulators] with a well-typed
+             * `List<LegalEntityRegulator>` value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun regulators(regulators: JsonField<List<LegalEntityRegulator>>) = apply {
+                this.regulators = regulators.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [LegalEntityRegulator] to [regulators].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addRegulator(regulator: LegalEntityRegulator) = apply {
+                regulators =
+                    (regulators ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("regulators", it).add(regulator)
+                    }
+            }
+
             /** The risk rating of the legal entity. One of low, medium, high. */
             fun riskRating(riskRating: RiskRating?) = riskRating(JsonField.ofNullable(riskRating))
 
@@ -5308,6 +5450,37 @@ private constructor(
              * supported value.
              */
             fun suffix(suffix: JsonField<String>) = apply { this.suffix = suffix }
+
+            /** Information describing a third-party verification run by an external vendor. */
+            fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification?) =
+                thirdPartyVerification(JsonField.ofNullable(thirdPartyVerification))
+
+            /**
+             * Sets [Builder.thirdPartyVerification] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.thirdPartyVerification] with a well-typed
+             * [ThirdPartyVerification] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun thirdPartyVerification(thirdPartyVerification: JsonField<ThirdPartyVerification>) =
+                apply {
+                    this.thirdPartyVerification = thirdPartyVerification
+                }
+
+            /** Stock ticker symbol for publicly traded companies. */
+            fun tickerSymbol(tickerSymbol: String?) =
+                tickerSymbol(JsonField.ofNullable(tickerSymbol))
+
+            /**
+             * Sets [Builder.tickerSymbol] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.tickerSymbol] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun tickerSymbol(tickerSymbol: JsonField<String>) = apply {
+                this.tickerSymbol = tickerSymbol
+            }
 
             fun wealthAndEmploymentDetails(
                 wealthAndEmploymentDetails: LegalEntityWealthEmploymentDetail?
@@ -5390,6 +5563,7 @@ private constructor(
                     lastName,
                     (legalEntityAssociations ?: JsonMissing.of()).map { it.toImmutable() },
                     legalStructure,
+                    listedExchange,
                     metadata,
                     middleName,
                     (operatingJurisdictions ?: JsonMissing.of()).map { it.toImmutable() },
@@ -5398,8 +5572,11 @@ private constructor(
                     preferredName,
                     prefix,
                     (primarySocialMediaSites ?: JsonMissing.of()).map { it.toImmutable() },
+                    (regulators ?: JsonMissing.of()).map { it.toImmutable() },
                     riskRating,
                     suffix,
+                    thirdPartyVerification,
+                    tickerSymbol,
                     wealthAndEmploymentDetails,
                     website,
                     additionalProperties.toMutableMap(),
@@ -5434,6 +5611,7 @@ private constructor(
             lastName()
             legalEntityAssociations()?.forEach { it.validate() }
             legalStructure()?.validate()
+            listedExchange()
             metadata()?.validate()
             middleName()
             operatingJurisdictions()
@@ -5442,8 +5620,11 @@ private constructor(
             preferredName()
             prefix()
             primarySocialMediaSites()
+            regulators()?.forEach { it.validate() }
             riskRating()?.validate()
             suffix()
+            thirdPartyVerification()?.validate()
+            tickerSymbol()
             wealthAndEmploymentDetails()?.validate()
             website()
             validated = true
@@ -5485,6 +5666,7 @@ private constructor(
                 (if (lastName.asKnown() == null) 0 else 1) +
                 (legalEntityAssociations.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (legalStructure.asKnown()?.validity() ?: 0) +
+                (if (listedExchange.asKnown() == null) 0 else 1) +
                 (metadata.asKnown()?.validity() ?: 0) +
                 (if (middleName.asKnown() == null) 0 else 1) +
                 (operatingJurisdictions.asKnown()?.size ?: 0) +
@@ -5493,8 +5675,11 @@ private constructor(
                 (if (preferredName.asKnown() == null) 0 else 1) +
                 (if (prefix.asKnown() == null) 0 else 1) +
                 (primarySocialMediaSites.asKnown()?.size ?: 0) +
+                (regulators.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (riskRating.asKnown()?.validity() ?: 0) +
                 (if (suffix.asKnown() == null) 0 else 1) +
+                (thirdPartyVerification.asKnown()?.validity() ?: 0) +
+                (if (tickerSymbol.asKnown() == null) 0 else 1) +
                 (wealthAndEmploymentDetails.asKnown()?.validity() ?: 0) +
                 (if (website.asKnown() == null) 0 else 1)
 
@@ -6663,6 +6848,266 @@ private constructor(
                 "PhoneNumber{phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
         }
 
+        class LegalEntityRegulator
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val jurisdiction: JsonField<String>,
+            private val name: JsonField<String>,
+            private val registrationNumber: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("jurisdiction")
+                @ExcludeMissing
+                jurisdiction: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("registration_number")
+                @ExcludeMissing
+                registrationNumber: JsonField<String> = JsonMissing.of(),
+            ) : this(jurisdiction, name, registrationNumber, mutableMapOf())
+
+            /**
+             * The country code where the regulator operates in the ISO 3166-1 alpha-2 format (e.g.,
+             * "US", "CA", "GB").
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun jurisdiction(): String = jurisdiction.getRequired("jurisdiction")
+
+            /**
+             * Full name of the regulatory body.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun name(): String = name.getRequired("name")
+
+            /**
+             * Registration or identification number with the regulator.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun registrationNumber(): String = registrationNumber.getRequired("registration_number")
+
+            /**
+             * Returns the raw JSON value of [jurisdiction].
+             *
+             * Unlike [jurisdiction], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("jurisdiction")
+            @ExcludeMissing
+            fun _jurisdiction(): JsonField<String> = jurisdiction
+
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+            /**
+             * Returns the raw JSON value of [registrationNumber].
+             *
+             * Unlike [registrationNumber], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("registration_number")
+            @ExcludeMissing
+            fun _registrationNumber(): JsonField<String> = registrationNumber
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [LegalEntityRegulator].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .jurisdiction()
+                 * .name()
+                 * .registrationNumber()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [LegalEntityRegulator]. */
+            class Builder internal constructor() {
+
+                private var jurisdiction: JsonField<String>? = null
+                private var name: JsonField<String>? = null
+                private var registrationNumber: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(legalEntityRegulator: LegalEntityRegulator) = apply {
+                    jurisdiction = legalEntityRegulator.jurisdiction
+                    name = legalEntityRegulator.name
+                    registrationNumber = legalEntityRegulator.registrationNumber
+                    additionalProperties = legalEntityRegulator.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * The country code where the regulator operates in the ISO 3166-1 alpha-2 format
+                 * (e.g., "US", "CA", "GB").
+                 */
+                fun jurisdiction(jurisdiction: String) = jurisdiction(JsonField.of(jurisdiction))
+
+                /**
+                 * Sets [Builder.jurisdiction] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.jurisdiction] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun jurisdiction(jurisdiction: JsonField<String>) = apply {
+                    this.jurisdiction = jurisdiction
+                }
+
+                /** Full name of the regulatory body. */
+                fun name(name: String) = name(JsonField.of(name))
+
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun name(name: JsonField<String>) = apply { this.name = name }
+
+                /** Registration or identification number with the regulator. */
+                fun registrationNumber(registrationNumber: String) =
+                    registrationNumber(JsonField.of(registrationNumber))
+
+                /**
+                 * Sets [Builder.registrationNumber] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.registrationNumber] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun registrationNumber(registrationNumber: JsonField<String>) = apply {
+                    this.registrationNumber = registrationNumber
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [LegalEntityRegulator].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .jurisdiction()
+                 * .name()
+                 * .registrationNumber()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): LegalEntityRegulator =
+                    LegalEntityRegulator(
+                        checkRequired("jurisdiction", jurisdiction),
+                        checkRequired("name", name),
+                        checkRequired("registrationNumber", registrationNumber),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): LegalEntityRegulator = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                jurisdiction()
+                name()
+                registrationNumber()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: ModernTreasuryInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (jurisdiction.asKnown() == null) 0 else 1) +
+                    (if (name.asKnown() == null) 0 else 1) +
+                    (if (registrationNumber.asKnown() == null) 0 else 1)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is LegalEntityRegulator &&
+                    jurisdiction == other.jurisdiction &&
+                    name == other.name &&
+                    registrationNumber == other.registrationNumber &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(jurisdiction, name, registrationNumber, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "LegalEntityRegulator{jurisdiction=$jurisdiction, name=$name, registrationNumber=$registrationNumber, additionalProperties=$additionalProperties}"
+        }
+
         /** The risk rating of the legal entity. One of low, medium, high. */
         class RiskRating @JsonCreator private constructor(private val value: JsonField<String>) :
             Enum {
@@ -6798,6 +7243,348 @@ private constructor(
             override fun hashCode() = value.hashCode()
 
             override fun toString() = value.toString()
+        }
+
+        /** Information describing a third-party verification run by an external vendor. */
+        class ThirdPartyVerification
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val vendor: JsonField<Vendor>,
+            private val vendorVerificationId: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("vendor")
+                @ExcludeMissing
+                vendor: JsonField<Vendor> = JsonMissing.of(),
+                @JsonProperty("vendor_verification_id")
+                @ExcludeMissing
+                vendorVerificationId: JsonField<String> = JsonMissing.of(),
+            ) : this(vendor, vendorVerificationId, mutableMapOf())
+
+            /**
+             * The vendor that performed the verification, e.g. `persona`.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun vendor(): Vendor = vendor.getRequired("vendor")
+
+            /**
+             * The identification of the third party verification in `vendor`'s system.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun vendorVerificationId(): String =
+                vendorVerificationId.getRequired("vendor_verification_id")
+
+            /**
+             * Returns the raw JSON value of [vendor].
+             *
+             * Unlike [vendor], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("vendor") @ExcludeMissing fun _vendor(): JsonField<Vendor> = vendor
+
+            /**
+             * Returns the raw JSON value of [vendorVerificationId].
+             *
+             * Unlike [vendorVerificationId], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("vendor_verification_id")
+            @ExcludeMissing
+            fun _vendorVerificationId(): JsonField<String> = vendorVerificationId
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [ThirdPartyVerification].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .vendor()
+                 * .vendorVerificationId()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [ThirdPartyVerification]. */
+            class Builder internal constructor() {
+
+                private var vendor: JsonField<Vendor>? = null
+                private var vendorVerificationId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(thirdPartyVerification: ThirdPartyVerification) = apply {
+                    vendor = thirdPartyVerification.vendor
+                    vendorVerificationId = thirdPartyVerification.vendorVerificationId
+                    additionalProperties =
+                        thirdPartyVerification.additionalProperties.toMutableMap()
+                }
+
+                /** The vendor that performed the verification, e.g. `persona`. */
+                fun vendor(vendor: Vendor) = vendor(JsonField.of(vendor))
+
+                /**
+                 * Sets [Builder.vendor] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.vendor] with a well-typed [Vendor] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun vendor(vendor: JsonField<Vendor>) = apply { this.vendor = vendor }
+
+                /** The identification of the third party verification in `vendor`'s system. */
+                fun vendorVerificationId(vendorVerificationId: String) =
+                    vendorVerificationId(JsonField.of(vendorVerificationId))
+
+                /**
+                 * Sets [Builder.vendorVerificationId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.vendorVerificationId] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun vendorVerificationId(vendorVerificationId: JsonField<String>) = apply {
+                    this.vendorVerificationId = vendorVerificationId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [ThirdPartyVerification].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .vendor()
+                 * .vendorVerificationId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): ThirdPartyVerification =
+                    ThirdPartyVerification(
+                        checkRequired("vendor", vendor),
+                        checkRequired("vendorVerificationId", vendorVerificationId),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): ThirdPartyVerification = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                vendor().validate()
+                vendorVerificationId()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: ModernTreasuryInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (vendor.asKnown()?.validity() ?: 0) +
+                    (if (vendorVerificationId.asKnown() == null) 0 else 1)
+
+            /** The vendor that performed the verification, e.g. `persona`. */
+            class Vendor @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    val PERSONA = of("persona")
+
+                    fun of(value: String) = Vendor(JsonField.of(value))
+                }
+
+                /** An enum containing [Vendor]'s known values. */
+                enum class Known {
+                    PERSONA
+                }
+
+                /**
+                 * An enum containing [Vendor]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Vendor] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    PERSONA,
+                    /**
+                     * An enum member indicating that [Vendor] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        PERSONA -> Value.PERSONA
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
+                 *   not a known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        PERSONA -> Known.PERSONA
+                        else -> throw ModernTreasuryInvalidDataException("Unknown Vendor: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
+                 *   not have the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString()
+                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Vendor = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: ModernTreasuryInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Vendor && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is ThirdPartyVerification &&
+                    vendor == other.vendor &&
+                    vendorVerificationId == other.vendorVerificationId &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(vendor, vendorVerificationId, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "ThirdPartyVerification{vendor=$vendor, vendorVerificationId=$vendorVerificationId, additionalProperties=$additionalProperties}"
         }
 
         class LegalEntityWealthEmploymentDetail
@@ -9031,6 +9818,7 @@ private constructor(
                 lastName == other.lastName &&
                 legalEntityAssociations == other.legalEntityAssociations &&
                 legalStructure == other.legalStructure &&
+                listedExchange == other.listedExchange &&
                 metadata == other.metadata &&
                 middleName == other.middleName &&
                 operatingJurisdictions == other.operatingJurisdictions &&
@@ -9039,8 +9827,11 @@ private constructor(
                 preferredName == other.preferredName &&
                 prefix == other.prefix &&
                 primarySocialMediaSites == other.primarySocialMediaSites &&
+                regulators == other.regulators &&
                 riskRating == other.riskRating &&
                 suffix == other.suffix &&
+                thirdPartyVerification == other.thirdPartyVerification &&
+                tickerSymbol == other.tickerSymbol &&
                 wealthAndEmploymentDetails == other.wealthAndEmploymentDetails &&
                 website == other.website &&
                 additionalProperties == other.additionalProperties
@@ -9069,6 +9860,7 @@ private constructor(
                 lastName,
                 legalEntityAssociations,
                 legalStructure,
+                listedExchange,
                 metadata,
                 middleName,
                 operatingJurisdictions,
@@ -9077,8 +9869,11 @@ private constructor(
                 preferredName,
                 prefix,
                 primarySocialMediaSites,
+                regulators,
                 riskRating,
                 suffix,
+                thirdPartyVerification,
+                tickerSymbol,
                 wealthAndEmploymentDetails,
                 website,
                 additionalProperties,
@@ -9088,7 +9883,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LegalEntityCreateRequest{legalEntityType=$legalEntityType, addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, riskRating=$riskRating, suffix=$suffix, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
+            "LegalEntityCreateRequest{legalEntityType=$legalEntityType, addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */

@@ -109,6 +109,7 @@ internal class LegalEntityAssociationCreateParamsTest {
                     )
                     .legalEntityType(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
                     .legalStructure(ChildLegalEntityCreate.LegalStructure.CORPORATION)
+                    .listedExchange("listed_exchange")
                     .metadata(
                         ChildLegalEntityCreate.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
@@ -127,8 +128,22 @@ internal class LegalEntityAssociationCreateParamsTest {
                     .preferredName("preferred_name")
                     .prefix("prefix")
                     .addPrimarySocialMediaSite("string")
+                    .addRegulator(
+                        ChildLegalEntityCreate.LegalEntityRegulator.builder()
+                            .jurisdiction("jurisdiction")
+                            .name("name")
+                            .registrationNumber("registration_number")
+                            .build()
+                    )
                     .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
                     .suffix("suffix")
+                    .thirdPartyVerification(
+                        ChildLegalEntityCreate.ThirdPartyVerification.builder()
+                            .vendor(ChildLegalEntityCreate.ThirdPartyVerification.Vendor.PERSONA)
+                            .vendorVerificationId("vendor_verification_id")
+                            .build()
+                    )
+                    .tickerSymbol("ticker_symbol")
                     .wealthAndEmploymentDetails(
                         ChildLegalEntityCreate.LegalEntityWealthEmploymentDetail.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -284,6 +299,7 @@ internal class LegalEntityAssociationCreateParamsTest {
                         )
                         .legalEntityType(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
                         .legalStructure(ChildLegalEntityCreate.LegalStructure.CORPORATION)
+                        .listedExchange("listed_exchange")
                         .metadata(
                             ChildLegalEntityCreate.Metadata.builder()
                                 .putAdditionalProperty("key", JsonValue.from("value"))
@@ -302,8 +318,24 @@ internal class LegalEntityAssociationCreateParamsTest {
                         .preferredName("preferred_name")
                         .prefix("prefix")
                         .addPrimarySocialMediaSite("string")
+                        .addRegulator(
+                            ChildLegalEntityCreate.LegalEntityRegulator.builder()
+                                .jurisdiction("jurisdiction")
+                                .name("name")
+                                .registrationNumber("registration_number")
+                                .build()
+                        )
                         .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
                         .suffix("suffix")
+                        .thirdPartyVerification(
+                            ChildLegalEntityCreate.ThirdPartyVerification.builder()
+                                .vendor(
+                                    ChildLegalEntityCreate.ThirdPartyVerification.Vendor.PERSONA
+                                )
+                                .vendorVerificationId("vendor_verification_id")
+                                .build()
+                        )
+                        .tickerSymbol("ticker_symbol")
                         .wealthAndEmploymentDetails(
                             ChildLegalEntityCreate.LegalEntityWealthEmploymentDetail.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -456,6 +488,7 @@ internal class LegalEntityAssociationCreateParamsTest {
                     )
                     .legalEntityType(ChildLegalEntityCreate.LegalEntityType.BUSINESS)
                     .legalStructure(ChildLegalEntityCreate.LegalStructure.CORPORATION)
+                    .listedExchange("listed_exchange")
                     .metadata(
                         ChildLegalEntityCreate.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
@@ -474,8 +507,22 @@ internal class LegalEntityAssociationCreateParamsTest {
                     .preferredName("preferred_name")
                     .prefix("prefix")
                     .addPrimarySocialMediaSite("string")
+                    .addRegulator(
+                        ChildLegalEntityCreate.LegalEntityRegulator.builder()
+                            .jurisdiction("jurisdiction")
+                            .name("name")
+                            .registrationNumber("registration_number")
+                            .build()
+                    )
                     .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
                     .suffix("suffix")
+                    .thirdPartyVerification(
+                        ChildLegalEntityCreate.ThirdPartyVerification.builder()
+                            .vendor(ChildLegalEntityCreate.ThirdPartyVerification.Vendor.PERSONA)
+                            .vendorVerificationId("vendor_verification_id")
+                            .build()
+                    )
+                    .tickerSymbol("ticker_symbol")
                     .wealthAndEmploymentDetails(
                         ChildLegalEntityCreate.LegalEntityWealthEmploymentDetail.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
