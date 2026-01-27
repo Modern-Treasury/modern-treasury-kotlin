@@ -176,6 +176,7 @@ internal class LegalEntityTest {
                 .lastName("last_name")
                 .legalEntityType(LegalEntity.LegalEntityType.BUSINESS)
                 .legalStructure(LegalEntity.LegalStructure.CORPORATION)
+                .listedExchange("listed_exchange")
                 .liveMode(true)
                 .metadata(
                     LegalEntity.Metadata.builder()
@@ -194,8 +195,22 @@ internal class LegalEntityTest {
                 .preferredName("preferred_name")
                 .prefix("prefix")
                 .addPrimarySocialMediaSite("string")
+                .addRegulator(
+                    LegalEntity.LegalEntityRegulator.builder()
+                        .jurisdiction("jurisdiction")
+                        .name("name")
+                        .registrationNumber("registration_number")
+                        .build()
+                )
                 .riskRating(LegalEntity.RiskRating.LOW)
                 .suffix("suffix")
+                .thirdPartyVerification(
+                    LegalEntity.ThirdPartyVerification.builder()
+                        .vendor(LegalEntity.ThirdPartyVerification.Vendor.PERSONA)
+                        .vendorVerificationId("vendor_verification_id")
+                        .build()
+                )
+                .tickerSymbol("ticker_symbol")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .wealthAndEmploymentDetails(
                     LegalEntity.LegalEntityWealthEmploymentDetail.builder()
@@ -446,6 +461,7 @@ internal class LegalEntityTest {
                                 .legalEntityAssociations(listOf())
                                 .legalEntityType(ChildLegalEntity.LegalEntityType.BUSINESS)
                                 .legalStructure(ChildLegalEntity.LegalStructure.CORPORATION)
+                                .listedExchange("listed_exchange")
                                 .liveMode(true)
                                 .metadata(
                                     ChildLegalEntity.Metadata.builder()
@@ -466,8 +482,24 @@ internal class LegalEntityTest {
                                 .preferredName("preferred_name")
                                 .prefix("prefix")
                                 .addPrimarySocialMediaSite("string")
+                                .addRegulator(
+                                    ChildLegalEntity.LegalEntityRegulator.builder()
+                                        .jurisdiction("jurisdiction")
+                                        .name("name")
+                                        .registrationNumber("registration_number")
+                                        .build()
+                                )
                                 .riskRating(ChildLegalEntity.RiskRating.LOW)
                                 .suffix("suffix")
+                                .thirdPartyVerification(
+                                    ChildLegalEntity.ThirdPartyVerification.builder()
+                                        .vendor(
+                                            ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA
+                                        )
+                                        .vendorVerificationId("vendor_verification_id")
+                                        .build()
+                                )
+                                .tickerSymbol("ticker_symbol")
                                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .wealthAndEmploymentDetails(
                                     ChildLegalEntity.LegalEntityWealthEmploymentDetail.builder()
@@ -699,6 +731,7 @@ internal class LegalEntityTest {
         assertThat(legalEntity.lastName()).isEqualTo("last_name")
         assertThat(legalEntity.legalEntityType()).isEqualTo(LegalEntity.LegalEntityType.BUSINESS)
         assertThat(legalEntity.legalStructure()).isEqualTo(LegalEntity.LegalStructure.CORPORATION)
+        assertThat(legalEntity.listedExchange()).isEqualTo("listed_exchange")
         assertThat(legalEntity.liveMode()).isEqualTo(true)
         assertThat(legalEntity.metadata())
             .isEqualTo(
@@ -717,8 +750,24 @@ internal class LegalEntityTest {
         assertThat(legalEntity.preferredName()).isEqualTo("preferred_name")
         assertThat(legalEntity.prefix()).isEqualTo("prefix")
         assertThat(legalEntity.primarySocialMediaSites()).containsExactly("string")
+        assertThat(legalEntity.regulators())
+            .containsExactly(
+                LegalEntity.LegalEntityRegulator.builder()
+                    .jurisdiction("jurisdiction")
+                    .name("name")
+                    .registrationNumber("registration_number")
+                    .build()
+            )
         assertThat(legalEntity.riskRating()).isEqualTo(LegalEntity.RiskRating.LOW)
         assertThat(legalEntity.suffix()).isEqualTo("suffix")
+        assertThat(legalEntity.thirdPartyVerification())
+            .isEqualTo(
+                LegalEntity.ThirdPartyVerification.builder()
+                    .vendor(LegalEntity.ThirdPartyVerification.Vendor.PERSONA)
+                    .vendorVerificationId("vendor_verification_id")
+                    .build()
+            )
+        assertThat(legalEntity.tickerSymbol()).isEqualTo("ticker_symbol")
         assertThat(legalEntity.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(legalEntity.wealthAndEmploymentDetails())
@@ -948,6 +997,7 @@ internal class LegalEntityTest {
                             .legalEntityAssociations(listOf())
                             .legalEntityType(ChildLegalEntity.LegalEntityType.BUSINESS)
                             .legalStructure(ChildLegalEntity.LegalStructure.CORPORATION)
+                            .listedExchange("listed_exchange")
                             .liveMode(true)
                             .metadata(
                                 ChildLegalEntity.Metadata.builder()
@@ -968,8 +1018,22 @@ internal class LegalEntityTest {
                             .preferredName("preferred_name")
                             .prefix("prefix")
                             .addPrimarySocialMediaSite("string")
+                            .addRegulator(
+                                ChildLegalEntity.LegalEntityRegulator.builder()
+                                    .jurisdiction("jurisdiction")
+                                    .name("name")
+                                    .registrationNumber("registration_number")
+                                    .build()
+                            )
                             .riskRating(ChildLegalEntity.RiskRating.LOW)
                             .suffix("suffix")
+                            .thirdPartyVerification(
+                                ChildLegalEntity.ThirdPartyVerification.builder()
+                                    .vendor(ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA)
+                                    .vendorVerificationId("vendor_verification_id")
+                                    .build()
+                            )
+                            .tickerSymbol("ticker_symbol")
                             .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .wealthAndEmploymentDetails(
                                 ChildLegalEntity.LegalEntityWealthEmploymentDetail.builder()
@@ -1197,6 +1261,7 @@ internal class LegalEntityTest {
                 .lastName("last_name")
                 .legalEntityType(LegalEntity.LegalEntityType.BUSINESS)
                 .legalStructure(LegalEntity.LegalStructure.CORPORATION)
+                .listedExchange("listed_exchange")
                 .liveMode(true)
                 .metadata(
                     LegalEntity.Metadata.builder()
@@ -1215,8 +1280,22 @@ internal class LegalEntityTest {
                 .preferredName("preferred_name")
                 .prefix("prefix")
                 .addPrimarySocialMediaSite("string")
+                .addRegulator(
+                    LegalEntity.LegalEntityRegulator.builder()
+                        .jurisdiction("jurisdiction")
+                        .name("name")
+                        .registrationNumber("registration_number")
+                        .build()
+                )
                 .riskRating(LegalEntity.RiskRating.LOW)
                 .suffix("suffix")
+                .thirdPartyVerification(
+                    LegalEntity.ThirdPartyVerification.builder()
+                        .vendor(LegalEntity.ThirdPartyVerification.Vendor.PERSONA)
+                        .vendorVerificationId("vendor_verification_id")
+                        .build()
+                )
+                .tickerSymbol("ticker_symbol")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .wealthAndEmploymentDetails(
                     LegalEntity.LegalEntityWealthEmploymentDetail.builder()
@@ -1467,6 +1546,7 @@ internal class LegalEntityTest {
                                 .legalEntityAssociations(listOf())
                                 .legalEntityType(ChildLegalEntity.LegalEntityType.BUSINESS)
                                 .legalStructure(ChildLegalEntity.LegalStructure.CORPORATION)
+                                .listedExchange("listed_exchange")
                                 .liveMode(true)
                                 .metadata(
                                     ChildLegalEntity.Metadata.builder()
@@ -1487,8 +1567,24 @@ internal class LegalEntityTest {
                                 .preferredName("preferred_name")
                                 .prefix("prefix")
                                 .addPrimarySocialMediaSite("string")
+                                .addRegulator(
+                                    ChildLegalEntity.LegalEntityRegulator.builder()
+                                        .jurisdiction("jurisdiction")
+                                        .name("name")
+                                        .registrationNumber("registration_number")
+                                        .build()
+                                )
                                 .riskRating(ChildLegalEntity.RiskRating.LOW)
                                 .suffix("suffix")
+                                .thirdPartyVerification(
+                                    ChildLegalEntity.ThirdPartyVerification.builder()
+                                        .vendor(
+                                            ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA
+                                        )
+                                        .vendorVerificationId("vendor_verification_id")
+                                        .build()
+                                )
+                                .tickerSymbol("ticker_symbol")
                                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .wealthAndEmploymentDetails(
                                     ChildLegalEntity.LegalEntityWealthEmploymentDetail.builder()
