@@ -698,6 +698,11 @@ private constructor(
     /**
      * Additional vendor specific fields for this payment. Data must be represented as key-value
      * pairs.
+     *
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```kotlin
+     * val myObject: MyClass = paymentOrder.vendorAttributes().convert(MyClass::class.java)
+     * ```
      */
     @JsonProperty("vendor_attributes")
     @ExcludeMissing

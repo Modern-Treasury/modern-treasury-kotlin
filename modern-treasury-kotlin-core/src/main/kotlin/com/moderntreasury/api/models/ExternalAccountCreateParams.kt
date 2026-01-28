@@ -1649,6 +1649,8 @@ private constructor(
 
                 val BASE_ADDRESS = of("base_address")
 
+                val CARD_TOKEN = of("card_token")
+
                 val CLABE = of("clabe")
 
                 val ETHEREUM_ADDRESS = of("ethereum_address")
@@ -1680,6 +1682,7 @@ private constructor(
             enum class Known {
                 AU_NUMBER,
                 BASE_ADDRESS,
+                CARD_TOKEN,
                 CLABE,
                 ETHEREUM_ADDRESS,
                 HK_NUMBER,
@@ -1707,6 +1710,7 @@ private constructor(
             enum class Value {
                 AU_NUMBER,
                 BASE_ADDRESS,
+                CARD_TOKEN,
                 CLABE,
                 ETHEREUM_ADDRESS,
                 HK_NUMBER,
@@ -1737,6 +1741,7 @@ private constructor(
                 when (this) {
                     AU_NUMBER -> Value.AU_NUMBER
                     BASE_ADDRESS -> Value.BASE_ADDRESS
+                    CARD_TOKEN -> Value.CARD_TOKEN
                     CLABE -> Value.CLABE
                     ETHEREUM_ADDRESS -> Value.ETHEREUM_ADDRESS
                     HK_NUMBER -> Value.HK_NUMBER
@@ -1765,6 +1770,7 @@ private constructor(
                 when (this) {
                     AU_NUMBER -> Known.AU_NUMBER
                     BASE_ADDRESS -> Known.BASE_ADDRESS
+                    CARD_TOKEN -> Known.CARD_TOKEN
                     CLABE -> Known.CLABE
                     ETHEREUM_ADDRESS -> Known.ETHEREUM_ADDRESS
                     HK_NUMBER -> Known.HK_NUMBER

@@ -2157,6 +2157,7 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
+            @Deprecated("deprecated")
             fun transactionMonitoringEnabled(): Boolean? =
                 transactionMonitoringEnabled.getNullable("transaction_monitoring_enabled")
 
@@ -2508,6 +2509,7 @@ private constructor(
              * Unlike [transactionMonitoringEnabled], this method doesn't throw if the JSON field
              * has an unexpected type.
              */
+            @Deprecated("deprecated")
             @JsonProperty("transaction_monitoring_enabled")
             @ExcludeMissing
             fun _transactionMonitoringEnabled(): JsonField<Boolean> = transactionMonitoringEnabled
@@ -3249,6 +3251,7 @@ private constructor(
                  * A flag that determines whether a payment order should go through transaction
                  * monitoring.
                  */
+                @Deprecated("deprecated")
                 fun transactionMonitoringEnabled(transactionMonitoringEnabled: Boolean) =
                     transactionMonitoringEnabled(JsonField.of(transactionMonitoringEnabled))
 
@@ -3259,6 +3262,7 @@ private constructor(
                  * [Boolean] value instead. This method is primarily for setting the field to an
                  * undocumented or not yet supported value.
                  */
+                @Deprecated("deprecated")
                 fun transactionMonitoringEnabled(transactionMonitoringEnabled: JsonField<Boolean>) =
                     apply {
                         this.transactionMonitoringEnabled = transactionMonitoringEnabled
@@ -5868,6 +5872,8 @@ private constructor(
 
                             val BASE_ADDRESS = of("base_address")
 
+                            val CARD_TOKEN = of("card_token")
+
                             val CLABE = of("clabe")
 
                             val ETHEREUM_ADDRESS = of("ethereum_address")
@@ -5899,6 +5905,7 @@ private constructor(
                         enum class Known {
                             AU_NUMBER,
                             BASE_ADDRESS,
+                            CARD_TOKEN,
                             CLABE,
                             ETHEREUM_ADDRESS,
                             HK_NUMBER,
@@ -5927,6 +5934,7 @@ private constructor(
                         enum class Value {
                             AU_NUMBER,
                             BASE_ADDRESS,
+                            CARD_TOKEN,
                             CLABE,
                             ETHEREUM_ADDRESS,
                             HK_NUMBER,
@@ -5957,6 +5965,7 @@ private constructor(
                             when (this) {
                                 AU_NUMBER -> Value.AU_NUMBER
                                 BASE_ADDRESS -> Value.BASE_ADDRESS
+                                CARD_TOKEN -> Value.CARD_TOKEN
                                 CLABE -> Value.CLABE
                                 ETHEREUM_ADDRESS -> Value.ETHEREUM_ADDRESS
                                 HK_NUMBER -> Value.HK_NUMBER
@@ -5985,6 +5994,7 @@ private constructor(
                             when (this) {
                                 AU_NUMBER -> Known.AU_NUMBER
                                 BASE_ADDRESS -> Known.BASE_ADDRESS
+                                CARD_TOKEN -> Known.CARD_TOKEN
                                 CLABE -> Known.CLABE
                                 ETHEREUM_ADDRESS -> Known.ETHEREUM_ADDRESS
                                 HK_NUMBER -> Known.HK_NUMBER
@@ -7753,12 +7763,28 @@ private constructor(
              */
             fun metadata(): Metadata? = metadata.getNullable("metadata")
 
-            /** The reconciliation filters you have for this payment. */
+            /**
+             * The reconciliation filters you have for this payment.
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```kotlin
+             * val myObject: MyClass = expectedPaymentCreateRequest.reconciliationFilters().convert(MyClass::class.java)
+             * ```
+             */
             @JsonProperty("reconciliation_filters")
             @ExcludeMissing
             fun _reconciliationFilters(): JsonValue = reconciliationFilters
 
-            /** The reconciliation groups you have for this payment. */
+            /**
+             * The reconciliation groups you have for this payment.
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```kotlin
+             * val myObject: MyClass = expectedPaymentCreateRequest.reconciliationGroups().convert(MyClass::class.java)
+             * ```
+             */
             @JsonProperty("reconciliation_groups")
             @ExcludeMissing
             fun _reconciliationGroups(): JsonValue = reconciliationGroups
@@ -15097,6 +15123,8 @@ private constructor(
 
                             val BASE_ADDRESS = of("base_address")
 
+                            val CARD_TOKEN = of("card_token")
+
                             val CLABE = of("clabe")
 
                             val ETHEREUM_ADDRESS = of("ethereum_address")
@@ -15128,6 +15156,7 @@ private constructor(
                         enum class Known {
                             AU_NUMBER,
                             BASE_ADDRESS,
+                            CARD_TOKEN,
                             CLABE,
                             ETHEREUM_ADDRESS,
                             HK_NUMBER,
@@ -15156,6 +15185,7 @@ private constructor(
                         enum class Value {
                             AU_NUMBER,
                             BASE_ADDRESS,
+                            CARD_TOKEN,
                             CLABE,
                             ETHEREUM_ADDRESS,
                             HK_NUMBER,
@@ -15186,6 +15216,7 @@ private constructor(
                             when (this) {
                                 AU_NUMBER -> Value.AU_NUMBER
                                 BASE_ADDRESS -> Value.BASE_ADDRESS
+                                CARD_TOKEN -> Value.CARD_TOKEN
                                 CLABE -> Value.CLABE
                                 ETHEREUM_ADDRESS -> Value.ETHEREUM_ADDRESS
                                 HK_NUMBER -> Value.HK_NUMBER
@@ -15214,6 +15245,7 @@ private constructor(
                             when (this) {
                                 AU_NUMBER -> Known.AU_NUMBER
                                 BASE_ADDRESS -> Known.BASE_ADDRESS
+                                CARD_TOKEN -> Known.CARD_TOKEN
                                 CLABE -> Known.CLABE
                                 ETHEREUM_ADDRESS -> Known.ETHEREUM_ADDRESS
                                 HK_NUMBER -> Known.HK_NUMBER
@@ -17152,12 +17184,28 @@ private constructor(
              */
             fun metadata(): Metadata? = metadata.getNullable("metadata")
 
-            /** The reconciliation filters you have for this payment. */
+            /**
+             * The reconciliation filters you have for this payment.
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```kotlin
+             * val myObject: MyClass = expectedPaymentUpdateRequestWithId.reconciliationFilters().convert(MyClass::class.java)
+             * ```
+             */
             @JsonProperty("reconciliation_filters")
             @ExcludeMissing
             fun _reconciliationFilters(): JsonValue = reconciliationFilters
 
-            /** The reconciliation groups you have for this payment. */
+            /**
+             * The reconciliation groups you have for this payment.
+             *
+             * This arbitrary value can be deserialized into a custom type using the `convert`
+             * method:
+             * ```kotlin
+             * val myObject: MyClass = expectedPaymentUpdateRequestWithId.reconciliationGroups().convert(MyClass::class.java)
+             * ```
+             */
             @JsonProperty("reconciliation_groups")
             @ExcludeMissing
             fun _reconciliationGroups(): JsonValue = reconciliationGroups

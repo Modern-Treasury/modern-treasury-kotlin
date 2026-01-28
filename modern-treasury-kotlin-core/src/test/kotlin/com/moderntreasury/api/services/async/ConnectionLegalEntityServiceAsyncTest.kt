@@ -86,6 +86,7 @@ internal class ConnectionLegalEntityServiceAsyncTest {
                                     .validatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
+                            .connectionId("connection_id")
                             .countryOfIncorporation("country_of_incorporation")
                             .dateFormed(LocalDate.parse("2019-12-27"))
                             .dateOfBirth(LocalDate.parse("2019-12-27"))
@@ -210,6 +211,7 @@ internal class ConnectionLegalEntityServiceAsyncTest {
                                                     )
                                                     .build()
                                             )
+                                            .connectionId("connection_id")
                                             .countryOfIncorporation("country_of_incorporation")
                                             .dateFormed(LocalDate.parse("2019-12-27"))
                                             .dateOfBirth(LocalDate.parse("2019-12-27"))
@@ -265,6 +267,7 @@ internal class ConnectionLegalEntityServiceAsyncTest {
                                             .legalStructure(
                                                 ChildLegalEntityCreate.LegalStructure.CORPORATION
                                             )
+                                            .listedExchange("listed_exchange")
                                             .metadata(
                                                 ChildLegalEntityCreate.Metadata.builder()
                                                     .putAdditionalProperty(
@@ -292,8 +295,29 @@ internal class ConnectionLegalEntityServiceAsyncTest {
                                             .preferredName("preferred_name")
                                             .prefix("prefix")
                                             .addPrimarySocialMediaSite("string")
+                                            .addRegulator(
+                                                ChildLegalEntityCreate.LegalEntityRegulator
+                                                    .builder()
+                                                    .jurisdiction("jurisdiction")
+                                                    .name("name")
+                                                    .registrationNumber("registration_number")
+                                                    .build()
+                                            )
                                             .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
                                             .suffix("suffix")
+                                            .thirdPartyVerification(
+                                                ChildLegalEntityCreate.ThirdPartyVerification
+                                                    .builder()
+                                                    .vendor(
+                                                        ChildLegalEntityCreate
+                                                            .ThirdPartyVerification
+                                                            .Vendor
+                                                            .PERSONA
+                                                    )
+                                                    .vendorVerificationId("vendor_verification_id")
+                                                    .build()
+                                            )
+                                            .tickerSymbol("ticker_symbol")
                                             .wealthAndEmploymentDetails(
                                                 ChildLegalEntityCreate
                                                     .LegalEntityWealthEmploymentDetail
@@ -376,6 +400,7 @@ internal class ConnectionLegalEntityServiceAsyncTest {
                                 ConnectionLegalEntityCreateParams.LegalEntity.LegalStructure
                                     .CORPORATION
                             )
+                            .listedExchange("listed_exchange")
                             .metadata(
                                 ConnectionLegalEntityCreateParams.LegalEntity.Metadata.builder()
                                     .putAdditionalProperty("key", JsonValue.from("value"))
@@ -394,10 +419,31 @@ internal class ConnectionLegalEntityServiceAsyncTest {
                             .preferredName("preferred_name")
                             .prefix("prefix")
                             .addPrimarySocialMediaSite("string")
+                            .addRegulator(
+                                ConnectionLegalEntityCreateParams.LegalEntity.LegalEntityRegulator
+                                    .builder()
+                                    .jurisdiction("jurisdiction")
+                                    .name("name")
+                                    .registrationNumber("registration_number")
+                                    .build()
+                            )
                             .riskRating(
                                 ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW
                             )
                             .suffix("suffix")
+                            .thirdPartyVerification(
+                                ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
+                                    .builder()
+                                    .vendor(
+                                        ConnectionLegalEntityCreateParams.LegalEntity
+                                            .ThirdPartyVerification
+                                            .Vendor
+                                            .PERSONA
+                                    )
+                                    .vendorVerificationId("vendor_verification_id")
+                                    .build()
+                            )
+                            .tickerSymbol("ticker_symbol")
                             .wealthAndEmploymentDetails(
                                 ConnectionLegalEntityCreateParams.LegalEntity
                                     .LegalEntityWealthEmploymentDetail
