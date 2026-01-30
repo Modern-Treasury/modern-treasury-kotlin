@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.moderntreasury.api/modern-treasury-kotlin)](https://central.sonatype.com/artifact/com.moderntreasury.api/modern-treasury-kotlin/7.18.1)
-[![javadoc](https://javadoc.io/badge2/com.moderntreasury.api/modern-treasury-kotlin/7.18.1/javadoc.svg)](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/7.18.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.moderntreasury.api/modern-treasury-kotlin)](https://central.sonatype.com/artifact/com.moderntreasury.api/modern-treasury-kotlin/7.19.0)
+[![javadoc](https://javadoc.io/badge2/com.moderntreasury.api/modern-treasury-kotlin/7.19.0/javadoc.svg)](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/7.19.0)
 
 <!-- x-release-please-end -->
 
@@ -22,7 +22,7 @@ Use the Modern Treasury MCP Server to enable AI assistants to interact with this
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [docs.moderntreasury.com](https://docs.moderntreasury.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/7.18.1).
+The REST API documentation can be found on [docs.moderntreasury.com](https://docs.moderntreasury.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.moderntreasury.api/modern-treasury-kotlin/7.19.0).
 
 <!-- x-release-please-end -->
 
@@ -33,7 +33,7 @@ The REST API documentation can be found on [docs.moderntreasury.com](https://doc
 ### Gradle
 
 ```kotlin
-implementation("com.moderntreasury:modern-treasury-kotlin:7.18.1")
+implementation("com.moderntreasury:modern-treasury-kotlin:7.19.0")
 ```
 
 ### Maven
@@ -42,7 +42,7 @@ implementation("com.moderntreasury:modern-treasury-kotlin:7.18.1")
 <dependency>
   <groupId>com.moderntreasury</groupId>
   <artifactId>modern-treasury-kotlin</artifactId>
-  <version>7.18.1</version>
+  <version>7.19.0</version>
 </dependency>
 ```
 
