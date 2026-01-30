@@ -418,6 +418,7 @@ private constructor(
             headers.put("X-Stainless-Package-Version", getPackageVersion())
             headers.put("X-Stainless-Runtime", "JRE")
             headers.put("X-Stainless-Runtime-Version", getJavaVersion())
+            headers.put("X-Stainless-Kotlin-Version", KotlinVersion.CURRENT.toString())
             organizationId.let { username ->
                 apiKey.let { password ->
                     if (!username.isEmpty() && !password.isEmpty()) {

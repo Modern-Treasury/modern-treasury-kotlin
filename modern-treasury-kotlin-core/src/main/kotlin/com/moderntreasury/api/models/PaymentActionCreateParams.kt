@@ -51,7 +51,14 @@ private constructor(
      */
     fun actionableType(): String? = body.actionableType()
 
-    /** Optional. The specifc details of the payment action based on type. */
+    /**
+     * Optional. The specifc details of the payment action based on type.
+     *
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```kotlin
+     * val myObject: MyClass = paymentActionCreateParams.details().convert(MyClass::class.java)
+     * ```
+     */
     fun _details(): JsonValue = body._details()
 
     /**
@@ -400,7 +407,14 @@ private constructor(
          */
         fun actionableType(): String? = actionableType.getNullable("actionable_type")
 
-        /** Optional. The specifc details of the payment action based on type. */
+        /**
+         * Optional. The specifc details of the payment action based on type.
+         *
+         * This arbitrary value can be deserialized into a custom type using the `convert` method:
+         * ```kotlin
+         * val myObject: MyClass = paymentActionCreateRequest.details().convert(MyClass::class.java)
+         * ```
+         */
         @JsonProperty("details") @ExcludeMissing fun _details(): JsonValue = details
 
         /**

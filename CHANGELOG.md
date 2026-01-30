@@ -1,5 +1,41 @@
 # Changelog
 
+## 7.19.0 (2026-01-30)
+
+Full Changelog: [v7.18.1...v7.19.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.18.1...v7.19.0)
+
+### Features
+
+* **api:** api update ([ba44df7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ba44df7f084fcf330f6d485823beb9fef681d827))
+* **api:** api update ([c7a37c0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c7a37c0e8527e314d7a35b7bb53be6977fdc48a6))
+* **client:** send `X-Stainless-Kotlin-Version` header ([e940bc5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e940bc51d6b004b37428c635b122c007d50875d7))
+
+
+### Bug Fixes
+
+* **client:** disallow coercion from float to int ([c093127](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c093127c5b199e9391cfd235d1d190b4637222cd))
+* **client:** fully respect max retries ([22157c4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/22157c49b051156fc734acca5f9a7dbbad52fca0))
+* **client:** preserve time zone in lenient date-time parsing ([7d73e0e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7d73e0e732fecaa0d670a8f83617553cf8dbfcf9))
+* **client:** send retry count header for max retries 0 ([22157c4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/22157c49b051156fc734acca5f9a7dbbad52fca0))
+* date time deserialization leniency ([8c3d80d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8c3d80dcc67268e74c49cf1a527f799200f19c0e))
+* **docs:** fix mcp installation instructions for remote servers ([92780e5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/92780e5d3a6fb66d8eb13fa516a3abbe723010c2))
+
+
+### Chores
+
+* **ci:** upgrade `actions/setup-java` ([8e26134](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8e2613417898f14d5978e4d92e250a1a6911ee9c))
+* **client:** improve example values ([3178e85](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3178e85eccef9250dacdec925a500f86c493d928))
+* **internal:** allow passing args to `./scripts/test` ([4b13327](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4b133272c773dbfcc65dc72716e43a621cf67334))
+* **internal:** correct cache invalidation for `SKIP_MOCK_TESTS` ([44a023d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/44a023d428692b15478e1c87a977cc628cc1cb48))
+* **internal:** depend on packages directly in example ([22157c4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/22157c49b051156fc734acca5f9a7dbbad52fca0))
+* **internal:** update `actions/checkout` version ([b9bacba](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b9bacbaa4c4da1f97e1561d4dd75dcad0e5c8bab))
+* test on Jackson 2.14.0 to avoid encountering FasterXML/jackson-databind[#3240](https://github.com/Modern-Treasury/modern-treasury-kotlin/issues/3240) in tests ([8c3d80d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8c3d80dcc67268e74c49cf1a527f799200f19c0e))
+
+
+### Documentation
+
+* add comment for arbitrary value fields ([b8869d9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b8869d95c9c43642e755fcb00fb2db032c09e857))
+
 ## 7.18.1 (2026-01-14)
 
 Full Changelog: [v7.18.0...v7.18.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.18.0...v7.18.1)

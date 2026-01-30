@@ -355,7 +355,14 @@ private constructor(
     fun additionalInformation(): String? =
         additionalInformation.getNullable("additional_information")
 
-    /** The raw data from the return file that we get from the bank. */
+    /**
+     * The raw data from the return file that we get from the bank.
+     *
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```kotlin
+     * val myObject: MyClass = returnObject.data().convert(MyClass::class.java)
+     * ```
+     */
     @JsonProperty("data") @ExcludeMissing fun _data(): JsonValue = data
 
     /**
