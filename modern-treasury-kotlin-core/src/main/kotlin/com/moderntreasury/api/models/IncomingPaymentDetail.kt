@@ -48,6 +48,9 @@ private constructor(
     private val virtualAccount: JsonField<VirtualAccount>,
     private val virtualAccountId: JsonField<String>,
     private val originatingAccountNumber: JsonField<String>,
+    private val originatingPartyAddress: JsonField<Address>,
+    private val originatingPartyName: JsonField<String>,
+    private val originatingPartyVendorIdentifier: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -111,6 +114,15 @@ private constructor(
         @JsonProperty("originating_account_number")
         @ExcludeMissing
         originatingAccountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originating_party_address")
+        @ExcludeMissing
+        originatingPartyAddress: JsonField<Address> = JsonMissing.of(),
+        @JsonProperty("originating_party_name")
+        @ExcludeMissing
+        originatingPartyName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originating_party_vendor_identifier")
+        @ExcludeMissing
+        originatingPartyVendorIdentifier: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
         amount,
@@ -138,6 +150,9 @@ private constructor(
         virtualAccount,
         virtualAccountId,
         originatingAccountNumber,
+        originatingPartyAddress,
+        originatingPartyName,
+        originatingPartyVendorIdentifier,
         mutableMapOf(),
     )
 
@@ -350,6 +365,33 @@ private constructor(
      */
     fun originatingAccountNumber(): String? =
         originatingAccountNumber.getNullable("originating_account_number")
+
+    /**
+     * The address of the originating party for the incoming payment detail, or `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun originatingPartyAddress(): Address? =
+        originatingPartyAddress.getNullable("originating_party_address")
+
+    /**
+     * The name of the originating party for the incoming payment detail.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun originatingPartyName(): String? = originatingPartyName.getNullable("originating_party_name")
+
+    /**
+     * The vendor-assigned identifier for the originating party of the incoming payment detail, or
+     * `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun originatingPartyVendorIdentifier(): String? =
+        originatingPartyVendorIdentifier.getNullable("originating_party_vendor_identifier")
 
     /**
      * Returns the raw JSON value of [id].
@@ -575,6 +617,36 @@ private constructor(
     @ExcludeMissing
     fun _originatingAccountNumber(): JsonField<String> = originatingAccountNumber
 
+    /**
+     * Returns the raw JSON value of [originatingPartyAddress].
+     *
+     * Unlike [originatingPartyAddress], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("originating_party_address")
+    @ExcludeMissing
+    fun _originatingPartyAddress(): JsonField<Address> = originatingPartyAddress
+
+    /**
+     * Returns the raw JSON value of [originatingPartyName].
+     *
+     * Unlike [originatingPartyName], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("originating_party_name")
+    @ExcludeMissing
+    fun _originatingPartyName(): JsonField<String> = originatingPartyName
+
+    /**
+     * Returns the raw JSON value of [originatingPartyVendorIdentifier].
+     *
+     * Unlike [originatingPartyVendorIdentifier], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("originating_party_vendor_identifier")
+    @ExcludeMissing
+    fun _originatingPartyVendorIdentifier(): JsonField<String> = originatingPartyVendorIdentifier
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -653,6 +725,9 @@ private constructor(
         private var virtualAccount: JsonField<VirtualAccount>? = null
         private var virtualAccountId: JsonField<String>? = null
         private var originatingAccountNumber: JsonField<String> = JsonMissing.of()
+        private var originatingPartyAddress: JsonField<Address> = JsonMissing.of()
+        private var originatingPartyName: JsonField<String> = JsonMissing.of()
+        private var originatingPartyVendorIdentifier: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(incomingPaymentDetail: IncomingPaymentDetail) = apply {
@@ -682,6 +757,10 @@ private constructor(
             virtualAccount = incomingPaymentDetail.virtualAccount
             virtualAccountId = incomingPaymentDetail.virtualAccountId
             originatingAccountNumber = incomingPaymentDetail.originatingAccountNumber
+            originatingPartyAddress = incomingPaymentDetail.originatingPartyAddress
+            originatingPartyName = incomingPaymentDetail.originatingPartyName
+            originatingPartyVendorIdentifier =
+                incomingPaymentDetail.originatingPartyVendorIdentifier
             additionalProperties = incomingPaymentDetail.additionalProperties.toMutableMap()
         }
 
@@ -1041,6 +1120,55 @@ private constructor(
             this.originatingAccountNumber = originatingAccountNumber
         }
 
+        /** The address of the originating party for the incoming payment detail, or `null`. */
+        fun originatingPartyAddress(originatingPartyAddress: Address?) =
+            originatingPartyAddress(JsonField.ofNullable(originatingPartyAddress))
+
+        /**
+         * Sets [Builder.originatingPartyAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatingPartyAddress] with a well-typed [Address]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun originatingPartyAddress(originatingPartyAddress: JsonField<Address>) = apply {
+            this.originatingPartyAddress = originatingPartyAddress
+        }
+
+        /** The name of the originating party for the incoming payment detail. */
+        fun originatingPartyName(originatingPartyName: String?) =
+            originatingPartyName(JsonField.ofNullable(originatingPartyName))
+
+        /**
+         * Sets [Builder.originatingPartyName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatingPartyName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun originatingPartyName(originatingPartyName: JsonField<String>) = apply {
+            this.originatingPartyName = originatingPartyName
+        }
+
+        /**
+         * The vendor-assigned identifier for the originating party of the incoming payment detail,
+         * or `null`.
+         */
+        fun originatingPartyVendorIdentifier(originatingPartyVendorIdentifier: String?) =
+            originatingPartyVendorIdentifier(JsonField.ofNullable(originatingPartyVendorIdentifier))
+
+        /**
+         * Sets [Builder.originatingPartyVendorIdentifier] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatingPartyVendorIdentifier] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun originatingPartyVendorIdentifier(originatingPartyVendorIdentifier: JsonField<String>) =
+            apply {
+                this.originatingPartyVendorIdentifier = originatingPartyVendorIdentifier
+            }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -1124,6 +1252,9 @@ private constructor(
                 checkRequired("virtualAccount", virtualAccount),
                 checkRequired("virtualAccountId", virtualAccountId),
                 originatingAccountNumber,
+                originatingPartyAddress,
+                originatingPartyName,
+                originatingPartyVendorIdentifier,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -1161,6 +1292,9 @@ private constructor(
         virtualAccount()?.validate()
         virtualAccountId()
         originatingAccountNumber()
+        originatingPartyAddress()?.validate()
+        originatingPartyName()
+        originatingPartyVendorIdentifier()
         validated = true
     }
 
@@ -1203,7 +1337,10 @@ private constructor(
             (if (vendorId.asKnown() == null) 0 else 1) +
             (virtualAccount.asKnown()?.validity() ?: 0) +
             (if (virtualAccountId.asKnown() == null) 0 else 1) +
-            (if (originatingAccountNumber.asKnown() == null) 0 else 1)
+            (if (originatingAccountNumber.asKnown() == null) 0 else 1) +
+            (originatingPartyAddress.asKnown()?.validity() ?: 0) +
+            (if (originatingPartyName.asKnown() == null) 0 else 1) +
+            (if (originatingPartyVendorIdentifier.asKnown() == null) 0 else 1)
 
     /** The raw data from the payment pre-notification file that we get from the bank. */
     class Data
@@ -2399,6 +2536,9 @@ private constructor(
             virtualAccount == other.virtualAccount &&
             virtualAccountId == other.virtualAccountId &&
             originatingAccountNumber == other.originatingAccountNumber &&
+            originatingPartyAddress == other.originatingPartyAddress &&
+            originatingPartyName == other.originatingPartyName &&
+            originatingPartyVendorIdentifier == other.originatingPartyVendorIdentifier &&
             additionalProperties == other.additionalProperties
     }
 
@@ -2430,6 +2570,9 @@ private constructor(
             virtualAccount,
             virtualAccountId,
             originatingAccountNumber,
+            originatingPartyAddress,
+            originatingPartyName,
+            originatingPartyVendorIdentifier,
             additionalProperties,
         )
     }
@@ -2437,5 +2580,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "IncomingPaymentDetail{id=$id, amount=$amount, asOfDate=$asOfDate, createdAt=$createdAt, currency=$currency, data=$data, direction=$direction, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, originatingAccountNumberSafe=$originatingAccountNumberSafe, originatingAccountNumberType=$originatingAccountNumberType, originatingRoutingNumber=$originatingRoutingNumber, originatingRoutingNumberType=$originatingRoutingNumberType, reconciliationStatus=$reconciliationStatus, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, vendorId=$vendorId, virtualAccount=$virtualAccount, virtualAccountId=$virtualAccountId, originatingAccountNumber=$originatingAccountNumber, additionalProperties=$additionalProperties}"
+        "IncomingPaymentDetail{id=$id, amount=$amount, asOfDate=$asOfDate, createdAt=$createdAt, currency=$currency, data=$data, direction=$direction, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, originatingAccountNumberSafe=$originatingAccountNumberSafe, originatingAccountNumberType=$originatingAccountNumberType, originatingRoutingNumber=$originatingRoutingNumber, originatingRoutingNumberType=$originatingRoutingNumberType, reconciliationStatus=$reconciliationStatus, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, vendorId=$vendorId, virtualAccount=$virtualAccount, virtualAccountId=$virtualAccountId, originatingAccountNumber=$originatingAccountNumber, originatingPartyAddress=$originatingPartyAddress, originatingPartyName=$originatingPartyName, originatingPartyVendorIdentifier=$originatingPartyVendorIdentifier, additionalProperties=$additionalProperties}"
 }
