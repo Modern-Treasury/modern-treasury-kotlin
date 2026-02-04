@@ -261,6 +261,7 @@ internal class LegalEntityServiceTest {
                                             .build()
                                     )
                                     .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
+                                    .status(ChildLegalEntityCreate.Status.ACTIVE)
                                     .suffix("suffix")
                                     .thirdPartyVerification(
                                         ChildLegalEntityCreate.ThirdPartyVerification.builder()
@@ -367,6 +368,7 @@ internal class LegalEntityServiceTest {
                             .build()
                     )
                     .riskRating(LegalEntityCreateParams.RiskRating.LOW)
+                    .status(LegalEntityCreateParams.Status.ACTIVE)
                     .suffix("suffix")
                     .thirdPartyVerification(
                         LegalEntityCreateParams.ThirdPartyVerification.builder()
@@ -559,6 +561,7 @@ internal class LegalEntityServiceTest {
                             .build()
                     )
                     .riskRating(LegalEntityUpdateParams.RiskRating.LOW)
+                    .status(LegalEntityUpdateParams.Status.ACTIVE)
                     .suffix("suffix")
                     .thirdPartyVerification(
                         LegalEntityUpdateParams.ThirdPartyVerification.builder()

@@ -20,6 +20,7 @@ internal class LegalEntityListParamsTest {
             )
             .perPage(0L)
             .showDeleted("show_deleted")
+            .status(LegalEntityListParams.Status.PENDING)
             .build()
     }
 
@@ -36,6 +37,7 @@ internal class LegalEntityListParamsTest {
                 )
                 .perPage(0L)
                 .showDeleted("show_deleted")
+                .status(LegalEntityListParams.Status.PENDING)
                 .build()
 
         val queryParams = params._queryParams()
@@ -48,6 +50,7 @@ internal class LegalEntityListParamsTest {
                     .put("metadata[foo]", "string")
                     .put("per_page", "0")
                     .put("show_deleted", "show_deleted")
+                    .put("status", "pending")
                     .build()
             )
     }
