@@ -219,6 +219,7 @@ internal class LegalEntityAssociationTest {
                                 .build()
                         )
                         .riskRating(ChildLegalEntity.RiskRating.LOW)
+                        .status(ChildLegalEntity.Status.ACTIVE)
                         .suffix("suffix")
                         .thirdPartyVerification(
                             ChildLegalEntity.ThirdPartyVerification.builder()
@@ -481,6 +482,7 @@ internal class LegalEntityAssociationTest {
                             .build()
                     )
                     .riskRating(ChildLegalEntity.RiskRating.LOW)
+                    .status(ChildLegalEntity.Status.ACTIVE)
                     .suffix("suffix")
                     .thirdPartyVerification(
                         ChildLegalEntity.ThirdPartyVerification.builder()
@@ -756,6 +758,7 @@ internal class LegalEntityAssociationTest {
                                 .build()
                         )
                         .riskRating(ChildLegalEntity.RiskRating.LOW)
+                        .status(ChildLegalEntity.Status.ACTIVE)
                         .suffix("suffix")
                         .thirdPartyVerification(
                             ChildLegalEntity.ThirdPartyVerification.builder()

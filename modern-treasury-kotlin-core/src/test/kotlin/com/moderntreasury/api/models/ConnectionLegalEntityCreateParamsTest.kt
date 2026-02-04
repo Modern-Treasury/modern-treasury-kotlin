@@ -243,6 +243,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                             .build()
                                     )
                                     .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
+                                    .status(ChildLegalEntityCreate.Status.ACTIVE)
                                     .suffix("suffix")
                                     .thirdPartyVerification(
                                         ChildLegalEntityCreate.ThirdPartyVerification.builder()
@@ -354,6 +355,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                             .build()
                     )
                     .riskRating(ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW)
+                    .status(ConnectionLegalEntityCreateParams.LegalEntity.Status.ACTIVE)
                     .suffix("suffix")
                     .thirdPartyVerification(
                         ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
@@ -669,6 +671,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                                 .build()
                                         )
                                         .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
+                                        .status(ChildLegalEntityCreate.Status.ACTIVE)
                                         .suffix("suffix")
                                         .thirdPartyVerification(
                                             ChildLegalEntityCreate.ThirdPartyVerification.builder()
@@ -782,6 +785,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                 .build()
                         )
                         .riskRating(ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW)
+                        .status(ConnectionLegalEntityCreateParams.LegalEntity.Status.ACTIVE)
                         .suffix("suffix")
                         .thirdPartyVerification(
                             ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
@@ -1089,6 +1093,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                             .build()
                                     )
                                     .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
+                                    .status(ChildLegalEntityCreate.Status.ACTIVE)
                                     .suffix("suffix")
                                     .thirdPartyVerification(
                                         ChildLegalEntityCreate.ThirdPartyVerification.builder()
@@ -1200,6 +1205,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                             .build()
                     )
                     .riskRating(ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW)
+                    .status(ConnectionLegalEntityCreateParams.LegalEntity.Status.ACTIVE)
                     .suffix("suffix")
                     .thirdPartyVerification(
                         ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
