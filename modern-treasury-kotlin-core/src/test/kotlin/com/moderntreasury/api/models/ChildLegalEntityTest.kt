@@ -418,6 +418,7 @@ internal class ChildLegalEntityTest {
                                         .build()
                                 )
                                 .riskRating(ChildLegalEntity.RiskRating.LOW)
+                                .status(ChildLegalEntity.Status.ACTIVE)
                                 .suffix("suffix")
                                 .thirdPartyVerification(
                                     ChildLegalEntity.ThirdPartyVerification.builder()
@@ -522,6 +523,7 @@ internal class ChildLegalEntityTest {
                         .build()
                 )
                 .riskRating(ChildLegalEntity.RiskRating.LOW)
+                .status(ChildLegalEntity.Status.ACTIVE)
                 .suffix("suffix")
                 .thirdPartyVerification(
                     ChildLegalEntity.ThirdPartyVerification.builder()
@@ -957,6 +959,7 @@ internal class ChildLegalEntityTest {
                                     .build()
                             )
                             .riskRating(ChildLegalEntity.RiskRating.LOW)
+                            .status(ChildLegalEntity.Status.ACTIVE)
                             .suffix("suffix")
                             .thirdPartyVerification(
                                 ChildLegalEntity.ThirdPartyVerification.builder()
@@ -1059,6 +1062,7 @@ internal class ChildLegalEntityTest {
                     .build()
             )
         assertThat(childLegalEntity.riskRating()).isEqualTo(ChildLegalEntity.RiskRating.LOW)
+        assertThat(childLegalEntity.status()).isEqualTo(ChildLegalEntity.Status.ACTIVE)
         assertThat(childLegalEntity.suffix()).isEqualTo("suffix")
         assertThat(childLegalEntity.thirdPartyVerification())
             .isEqualTo(
@@ -1517,6 +1521,7 @@ internal class ChildLegalEntityTest {
                                         .build()
                                 )
                                 .riskRating(ChildLegalEntity.RiskRating.LOW)
+                                .status(ChildLegalEntity.Status.ACTIVE)
                                 .suffix("suffix")
                                 .thirdPartyVerification(
                                     ChildLegalEntity.ThirdPartyVerification.builder()
@@ -1621,6 +1626,7 @@ internal class ChildLegalEntityTest {
                         .build()
                 )
                 .riskRating(ChildLegalEntity.RiskRating.LOW)
+                .status(ChildLegalEntity.Status.ACTIVE)
                 .suffix("suffix")
                 .thirdPartyVerification(
                     ChildLegalEntity.ThirdPartyVerification.builder()

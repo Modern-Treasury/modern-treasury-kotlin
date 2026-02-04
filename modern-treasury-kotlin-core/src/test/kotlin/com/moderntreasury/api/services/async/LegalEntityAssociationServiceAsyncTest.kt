@@ -162,6 +162,7 @@ internal class LegalEntityAssociationServiceAsyncTest {
                                     .build()
                             )
                             .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
+                            .status(ChildLegalEntityCreate.Status.ACTIVE)
                             .suffix("suffix")
                             .thirdPartyVerification(
                                 ChildLegalEntityCreate.ThirdPartyVerification.builder()

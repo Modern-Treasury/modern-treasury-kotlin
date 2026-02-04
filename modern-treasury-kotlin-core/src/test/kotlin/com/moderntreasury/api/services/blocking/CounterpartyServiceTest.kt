@@ -410,6 +410,7 @@ internal class CounterpartyServiceTest {
                                                     .build()
                                             )
                                             .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
+                                            .status(ChildLegalEntityCreate.Status.ACTIVE)
                                             .suffix("suffix")
                                             .thirdPartyVerification(
                                                 ChildLegalEntityCreate.ThirdPartyVerification
@@ -534,6 +535,7 @@ internal class CounterpartyServiceTest {
                             .riskRating(
                                 CounterpartyCreateParams.LegalEntityCreateRequest.RiskRating.LOW
                             )
+                            .status(CounterpartyCreateParams.LegalEntityCreateRequest.Status.ACTIVE)
                             .suffix("suffix")
                             .thirdPartyVerification(
                                 CounterpartyCreateParams.LegalEntityCreateRequest

@@ -19,6 +19,7 @@ private constructor(
     private val metadata: Metadata?,
     private val perPage: Long?,
     private val showDeleted: String?,
+    private val status: Status?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -36,6 +37,8 @@ private constructor(
     fun perPage(): Long? = perPage
 
     fun showDeleted(): String? = showDeleted
+
+    fun status(): Status? = status
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -61,6 +64,7 @@ private constructor(
         private var metadata: Metadata? = null
         private var perPage: Long? = null
         private var showDeleted: String? = null
+        private var status: Status? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -70,6 +74,7 @@ private constructor(
             metadata = legalEntityListParams.metadata
             perPage = legalEntityListParams.perPage
             showDeleted = legalEntityListParams.showDeleted
+            status = legalEntityListParams.status
             additionalHeaders = legalEntityListParams.additionalHeaders.toBuilder()
             additionalQueryParams = legalEntityListParams.additionalQueryParams.toBuilder()
         }
@@ -96,6 +101,8 @@ private constructor(
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
         fun showDeleted(showDeleted: String?) = apply { this.showDeleted = showDeleted }
+
+        fun status(status: Status?) = apply { this.status = status }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -207,6 +214,7 @@ private constructor(
                 metadata,
                 perPage,
                 showDeleted,
+                status,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -228,6 +236,7 @@ private constructor(
                 }
                 perPage?.let { put("per_page", it.toString()) }
                 showDeleted?.let { put("show_deleted", it) }
+                status?.let { put("status", it.toString()) }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -459,6 +468,143 @@ private constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val PENDING = of("pending")
+
+            val ACTIVE = of("active")
+
+            val SUSPENDED = of("suspended")
+
+            val CLOSED = of("closed")
+
+            fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        /** An enum containing [Status]'s known values. */
+        enum class Known {
+            PENDING,
+            ACTIVE,
+            SUSPENDED,
+            CLOSED,
+        }
+
+        /**
+         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Status] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            PENDING,
+            ACTIVE,
+            SUSPENDED,
+            CLOSED,
+            /** An enum member indicating that [Status] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                ACTIVE -> Value.ACTIVE
+                SUSPENDED -> Value.SUSPENDED
+                CLOSED -> Value.CLOSED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+         *   known member.
+         */
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                ACTIVE -> Known.ACTIVE
+                SUSPENDED -> Known.SUSPENDED
+                CLOSED -> Known.CLOSED
+                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
+         *   the expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Status = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -470,6 +616,7 @@ private constructor(
             metadata == other.metadata &&
             perPage == other.perPage &&
             showDeleted == other.showDeleted &&
+            status == other.status &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
@@ -481,10 +628,11 @@ private constructor(
             metadata,
             perPage,
             showDeleted,
+            status,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "LegalEntityListParams{afterCursor=$afterCursor, legalEntityType=$legalEntityType, metadata=$metadata, perPage=$perPage, showDeleted=$showDeleted, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LegalEntityListParams{afterCursor=$afterCursor, legalEntityType=$legalEntityType, metadata=$metadata, perPage=$perPage, showDeleted=$showDeleted, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
