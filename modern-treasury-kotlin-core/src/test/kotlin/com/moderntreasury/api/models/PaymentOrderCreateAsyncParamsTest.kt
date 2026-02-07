@@ -142,6 +142,7 @@ internal class PaymentOrderCreateAsyncParamsTest {
                             .normalBalance(TransactionDirection.CREDIT)
                             .currencyExponent(0L)
                             .description("description")
+                            .externalId("external_id")
                             .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
@@ -342,6 +343,7 @@ internal class PaymentOrderCreateAsyncParamsTest {
                                 .normalBalance(TransactionDirection.CREDIT)
                                 .currencyExponent(0L)
                                 .description("description")
+                                .externalId("external_id")
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
@@ -547,6 +549,7 @@ internal class PaymentOrderCreateAsyncParamsTest {
                             .normalBalance(TransactionDirection.CREDIT)
                             .currencyExponent(0L)
                             .description("description")
+                            .externalId("external_id")
                             .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
