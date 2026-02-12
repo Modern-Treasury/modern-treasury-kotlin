@@ -28,7 +28,6 @@ private constructor(
     private val businessDescription: JsonField<String>,
     private val businessName: JsonField<String>,
     private val citizenshipCountry: JsonField<String>,
-    private val complianceDetails: JsonField<LegalEntityComplianceDetail>,
     private val connectionId: JsonField<String>,
     private val countryOfIncorporation: JsonField<String>,
     private val dateFormed: JsonField<LocalDate>,
@@ -81,9 +80,6 @@ private constructor(
         @JsonProperty("citizenship_country")
         @ExcludeMissing
         citizenshipCountry: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("compliance_details")
-        @ExcludeMissing
-        complianceDetails: JsonField<LegalEntityComplianceDetail> = JsonMissing.of(),
         @JsonProperty("connection_id")
         @ExcludeMissing
         connectionId: JsonField<String> = JsonMissing.of(),
@@ -172,7 +168,6 @@ private constructor(
         businessDescription,
         businessName,
         citizenshipCountry,
-        complianceDetails,
         connectionId,
         countryOfIncorporation,
         dateFormed,
@@ -245,13 +240,6 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun citizenshipCountry(): String? = citizenshipCountry.getNullable("citizenship_country")
-
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
-    fun complianceDetails(): LegalEntityComplianceDetail? =
-        complianceDetails.getNullable("compliance_details")
 
     /**
      * The connection ID for the connection the legal entity is associated with. Defaults to the id
@@ -566,16 +554,6 @@ private constructor(
     fun _citizenshipCountry(): JsonField<String> = citizenshipCountry
 
     /**
-     * Returns the raw JSON value of [complianceDetails].
-     *
-     * Unlike [complianceDetails], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("compliance_details")
-    @ExcludeMissing
-    fun _complianceDetails(): JsonField<LegalEntityComplianceDetail> = complianceDetails
-
-    /**
      * Returns the raw JSON value of [connectionId].
      *
      * Unlike [connectionId], this method doesn't throw if the JSON field has an unexpected type.
@@ -884,7 +862,6 @@ private constructor(
         private var businessDescription: JsonField<String> = JsonMissing.of()
         private var businessName: JsonField<String> = JsonMissing.of()
         private var citizenshipCountry: JsonField<String> = JsonMissing.of()
-        private var complianceDetails: JsonField<LegalEntityComplianceDetail> = JsonMissing.of()
         private var connectionId: JsonField<String> = JsonMissing.of()
         private var countryOfIncorporation: JsonField<String> = JsonMissing.of()
         private var dateFormed: JsonField<LocalDate> = JsonMissing.of()
@@ -930,7 +907,6 @@ private constructor(
             businessDescription = childLegalEntityCreate.businessDescription
             businessName = childLegalEntityCreate.businessName
             citizenshipCountry = childLegalEntityCreate.citizenshipCountry
-            complianceDetails = childLegalEntityCreate.complianceDetails
             connectionId = childLegalEntityCreate.connectionId
             countryOfIncorporation = childLegalEntityCreate.countryOfIncorporation
             dateFormed = childLegalEntityCreate.dateFormed
@@ -1054,20 +1030,6 @@ private constructor(
          */
         fun citizenshipCountry(citizenshipCountry: JsonField<String>) = apply {
             this.citizenshipCountry = citizenshipCountry
-        }
-
-        fun complianceDetails(complianceDetails: LegalEntityComplianceDetail?) =
-            complianceDetails(JsonField.ofNullable(complianceDetails))
-
-        /**
-         * Sets [Builder.complianceDetails] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.complianceDetails] with a well-typed
-         * [LegalEntityComplianceDetail] value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
-         */
-        fun complianceDetails(complianceDetails: JsonField<LegalEntityComplianceDetail>) = apply {
-            this.complianceDetails = complianceDetails
         }
 
         /**
@@ -1668,7 +1630,6 @@ private constructor(
                 businessDescription,
                 businessName,
                 citizenshipCountry,
-                complianceDetails,
                 connectionId,
                 countryOfIncorporation,
                 dateFormed,
@@ -1717,7 +1678,6 @@ private constructor(
         businessDescription()
         businessName()
         citizenshipCountry()
-        complianceDetails()?.validate()
         connectionId()
         countryOfIncorporation()
         dateFormed()
@@ -1772,7 +1732,6 @@ private constructor(
             (if (businessDescription.asKnown() == null) 0 else 1) +
             (if (businessName.asKnown() == null) 0 else 1) +
             (if (citizenshipCountry.asKnown() == null) 0 else 1) +
-            (complianceDetails.asKnown()?.validity() ?: 0) +
             (if (connectionId.asKnown() == null) 0 else 1) +
             (if (countryOfIncorporation.asKnown() == null) 0 else 1) +
             (if (dateFormed.asKnown() == null) 0 else 1) +
@@ -5966,7 +5925,6 @@ private constructor(
             businessDescription == other.businessDescription &&
             businessName == other.businessName &&
             citizenshipCountry == other.citizenshipCountry &&
-            complianceDetails == other.complianceDetails &&
             connectionId == other.connectionId &&
             countryOfIncorporation == other.countryOfIncorporation &&
             dateFormed == other.dateFormed &&
@@ -6009,7 +5967,6 @@ private constructor(
             businessDescription,
             businessName,
             citizenshipCountry,
-            complianceDetails,
             connectionId,
             countryOfIncorporation,
             dateFormed,
@@ -6049,5 +6006,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ChildLegalEntityCreate{addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalEntityType=$legalEntityType, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, status=$status, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
+        "ChildLegalEntityCreate{addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalEntityType=$legalEntityType, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, status=$status, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
 }

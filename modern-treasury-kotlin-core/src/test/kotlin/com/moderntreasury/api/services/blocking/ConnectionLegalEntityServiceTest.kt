@@ -11,7 +11,6 @@ import com.moderntreasury.api.models.ConnectionLegalEntityUpdateParams
 import com.moderntreasury.api.models.IdentificationCreateRequest
 import com.moderntreasury.api.models.LegalEntityAddressCreateRequest
 import com.moderntreasury.api.models.LegalEntityAssociationInlineCreate
-import com.moderntreasury.api.models.LegalEntityComplianceDetail
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -68,24 +67,6 @@ internal class ConnectionLegalEntityServiceTest {
                             .businessDescription("business_description")
                             .businessName("business_name")
                             .citizenshipCountry("citizenship_country")
-                            .complianceDetails(
-                                LegalEntityComplianceDetail.builder()
-                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .issuer("issuer")
-                                    .liveMode(true)
-                                    .object_("object")
-                                    .tokenExpiresAt(
-                                        OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                    )
-                                    .tokenIssuedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .tokenUrl("token_url")
-                                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .entityValidated(true)
-                                    .validatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .build()
-                            )
                             .connectionId("connection_id")
                             .countryOfIncorporation("country_of_incorporation")
                             .dateFormed(LocalDate.parse("2019-12-27"))
@@ -171,46 +152,6 @@ internal class ConnectionLegalEntityServiceTest {
                                             .businessDescription("business_description")
                                             .businessName("business_name")
                                             .citizenshipCountry("citizenship_country")
-                                            .complianceDetails(
-                                                LegalEntityComplianceDetail.builder()
-                                                    .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                                    .createdAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .discardedAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .issuer("issuer")
-                                                    .liveMode(true)
-                                                    .object_("object")
-                                                    .tokenExpiresAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .tokenIssuedAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .tokenUrl("token_url")
-                                                    .updatedAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .entityValidated(true)
-                                                    .validatedAt(
-                                                        OffsetDateTime.parse(
-                                                            "2019-12-27T18:11:19.117Z"
-                                                        )
-                                                    )
-                                                    .build()
-                                            )
                                             .connectionId("connection_id")
                                             .countryOfIncorporation("country_of_incorporation")
                                             .dateFormed(LocalDate.parse("2019-12-27"))

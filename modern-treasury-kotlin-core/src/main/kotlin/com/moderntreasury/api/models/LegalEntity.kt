@@ -29,7 +29,7 @@ private constructor(
     private val businessDescription: JsonField<String>,
     private val businessName: JsonField<String>,
     private val citizenshipCountry: JsonField<String>,
-    private val complianceDetails: JsonField<LegalEntityComplianceDetail>,
+    private val complianceDetails: JsonValue,
     private val countryOfIncorporation: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val dateFormed: JsonField<LocalDate>,
@@ -90,7 +90,7 @@ private constructor(
         citizenshipCountry: JsonField<String> = JsonMissing.of(),
         @JsonProperty("compliance_details")
         @ExcludeMissing
-        complianceDetails: JsonField<LegalEntityComplianceDetail> = JsonMissing.of(),
+        complianceDetails: JsonValue = JsonMissing.of(),
         @JsonProperty("country_of_incorporation")
         @ExcludeMissing
         countryOfIncorporation: JsonField<String> = JsonMissing.of(),
@@ -276,11 +276,15 @@ private constructor(
     fun citizenshipCountry(): String? = citizenshipCountry.getNullable("citizenship_country")
 
     /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```kotlin
+     * val myObject: MyClass = legalEntity.complianceDetails().convert(MyClass::class.java)
+     * ```
      */
-    fun complianceDetails(): LegalEntityComplianceDetail? =
-        complianceDetails.getNullable("compliance_details")
+    @Deprecated("deprecated")
+    @JsonProperty("compliance_details")
+    @ExcludeMissing
+    fun _complianceDetails(): JsonValue = complianceDetails
 
     /**
      * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or alpha-3
@@ -627,16 +631,6 @@ private constructor(
     @JsonProperty("citizenship_country")
     @ExcludeMissing
     fun _citizenshipCountry(): JsonField<String> = citizenshipCountry
-
-    /**
-     * Returns the raw JSON value of [complianceDetails].
-     *
-     * Unlike [complianceDetails], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("compliance_details")
-    @ExcludeMissing
-    fun _complianceDetails(): JsonField<LegalEntityComplianceDetail> = complianceDetails
 
     /**
      * Returns the raw JSON value of [countryOfIncorporation].
@@ -1038,7 +1032,7 @@ private constructor(
         private var businessDescription: JsonField<String>? = null
         private var businessName: JsonField<String>? = null
         private var citizenshipCountry: JsonField<String>? = null
-        private var complianceDetails: JsonField<LegalEntityComplianceDetail>? = null
+        private var complianceDetails: JsonValue? = null
         private var countryOfIncorporation: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var dateFormed: JsonField<LocalDate>? = null
@@ -1222,17 +1216,8 @@ private constructor(
             this.citizenshipCountry = citizenshipCountry
         }
 
-        fun complianceDetails(complianceDetails: LegalEntityComplianceDetail?) =
-            complianceDetails(JsonField.ofNullable(complianceDetails))
-
-        /**
-         * Sets [Builder.complianceDetails] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.complianceDetails] with a well-typed
-         * [LegalEntityComplianceDetail] value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
-         */
-        fun complianceDetails(complianceDetails: JsonField<LegalEntityComplianceDetail>) = apply {
+        @Deprecated("deprecated")
+        fun complianceDetails(complianceDetails: JsonValue) = apply {
             this.complianceDetails = complianceDetails
         }
 
@@ -2012,7 +1997,6 @@ private constructor(
         businessDescription()
         businessName()
         citizenshipCountry()
-        complianceDetails()?.validate()
         countryOfIncorporation()
         createdAt()
         dateFormed()
@@ -2073,7 +2057,6 @@ private constructor(
             (if (businessDescription.asKnown() == null) 0 else 1) +
             (if (businessName.asKnown() == null) 0 else 1) +
             (if (citizenshipCountry.asKnown() == null) 0 else 1) +
-            (complianceDetails.asKnown()?.validity() ?: 0) +
             (if (countryOfIncorporation.asKnown() == null) 0 else 1) +
             (if (createdAt.asKnown() == null) 0 else 1) +
             (if (dateFormed.asKnown() == null) 0 else 1) +
