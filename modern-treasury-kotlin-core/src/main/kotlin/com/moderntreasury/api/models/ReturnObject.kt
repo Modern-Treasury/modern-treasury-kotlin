@@ -3016,12 +3016,6 @@ private constructor(
 
                 val SVB_PAYMENT_ID = of("svb_payment_id")
 
-                val SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW =
-                    of("svb_transaction_cleared_for_sanctions_review")
-
-                val SVB_TRANSACTION_HELD_FOR_SANCTIONS_REVIEW =
-                    of("svb_transaction_held_for_sanctions_review")
-
                 val SWIFT_MIR = of("swift_mir")
 
                 val SWIFT_UETR = of("swift_uetr")
@@ -3131,8 +3125,6 @@ private constructor(
                 SILVERGATE_PAYMENT_ID,
                 SVB_END_TO_END_ID,
                 SVB_PAYMENT_ID,
-                SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW,
-                SVB_TRANSACTION_HELD_FOR_SANCTIONS_REVIEW,
                 SWIFT_MIR,
                 SWIFT_UETR,
                 UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER,
@@ -3235,8 +3227,6 @@ private constructor(
                 SILVERGATE_PAYMENT_ID,
                 SVB_END_TO_END_ID,
                 SVB_PAYMENT_ID,
-                SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW,
-                SVB_TRANSACTION_HELD_FOR_SANCTIONS_REVIEW,
                 SWIFT_MIR,
                 SWIFT_UETR,
                 UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER,
@@ -3343,10 +3333,6 @@ private constructor(
                     SILVERGATE_PAYMENT_ID -> Value.SILVERGATE_PAYMENT_ID
                     SVB_END_TO_END_ID -> Value.SVB_END_TO_END_ID
                     SVB_PAYMENT_ID -> Value.SVB_PAYMENT_ID
-                    SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW ->
-                        Value.SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW
-                    SVB_TRANSACTION_HELD_FOR_SANCTIONS_REVIEW ->
-                        Value.SVB_TRANSACTION_HELD_FOR_SANCTIONS_REVIEW
                     SWIFT_MIR -> Value.SWIFT_MIR
                     SWIFT_UETR -> Value.SWIFT_UETR
                     UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER -> Value.UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER
@@ -3453,10 +3439,6 @@ private constructor(
                     SILVERGATE_PAYMENT_ID -> Known.SILVERGATE_PAYMENT_ID
                     SVB_END_TO_END_ID -> Known.SVB_END_TO_END_ID
                     SVB_PAYMENT_ID -> Known.SVB_PAYMENT_ID
-                    SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW ->
-                        Known.SVB_TRANSACTION_CLEARED_FOR_SANCTIONS_REVIEW
-                    SVB_TRANSACTION_HELD_FOR_SANCTIONS_REVIEW ->
-                        Known.SVB_TRANSACTION_HELD_FOR_SANCTIONS_REVIEW
                     SWIFT_MIR -> Known.SWIFT_MIR
                     SWIFT_UETR -> Known.SWIFT_UETR
                     UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER -> Known.UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER
