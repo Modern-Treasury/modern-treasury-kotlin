@@ -31,7 +31,7 @@ import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import okio.BufferedSink
 
-class OkHttpClient private constructor(private val okHttpClient: okhttp3.OkHttpClient) :
+class OkHttpClient internal constructor(private val okHttpClient: okhttp3.OkHttpClient) :
     HttpClient {
 
     override fun execute(request: HttpRequest, requestOptions: RequestOptions): HttpResponse {
