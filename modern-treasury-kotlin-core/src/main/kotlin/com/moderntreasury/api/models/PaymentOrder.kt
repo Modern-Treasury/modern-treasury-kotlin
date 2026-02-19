@@ -5110,11 +5110,15 @@ private constructor(
 
                 val COLUMN_TRANSFER_ID = of("column_transfer_id")
 
+                val CROSS_RIVER_CARD_TRACE_NUMBER = of("cross_river_card_trace_number")
+
                 val CROSS_RIVER_CORE_TRANSACTION_ID = of("cross_river_core_transaction_id")
 
                 val CROSS_RIVER_FED_BATCH_ID = of("cross_river_fed_batch_id")
 
                 val CROSS_RIVER_PAYMENT_ID = of("cross_river_payment_id")
+
+                val CROSS_RIVER_RETRIEVAL_REFERENCE_ID = of("cross_river_retrieval_reference_id")
 
                 val CROSS_RIVER_SERVICE_MESSAGE = of("cross_river_service_message")
 
@@ -5276,9 +5280,11 @@ private constructor(
                 COLUMN_FX_QUOTE_ID,
                 COLUMN_REVERSAL_PAIR_TRANSFER_ID,
                 COLUMN_TRANSFER_ID,
+                CROSS_RIVER_CARD_TRACE_NUMBER,
                 CROSS_RIVER_CORE_TRANSACTION_ID,
                 CROSS_RIVER_FED_BATCH_ID,
                 CROSS_RIVER_PAYMENT_ID,
+                CROSS_RIVER_RETRIEVAL_REFERENCE_ID,
                 CROSS_RIVER_SERVICE_MESSAGE,
                 CROSS_RIVER_TRANSACTION_ID,
                 CURRENCYCLOUD_CONVERSION_ID,
@@ -5378,9 +5384,11 @@ private constructor(
                 COLUMN_FX_QUOTE_ID,
                 COLUMN_REVERSAL_PAIR_TRANSFER_ID,
                 COLUMN_TRANSFER_ID,
+                CROSS_RIVER_CARD_TRACE_NUMBER,
                 CROSS_RIVER_CORE_TRANSACTION_ID,
                 CROSS_RIVER_FED_BATCH_ID,
                 CROSS_RIVER_PAYMENT_ID,
+                CROSS_RIVER_RETRIEVAL_REFERENCE_ID,
                 CROSS_RIVER_SERVICE_MESSAGE,
                 CROSS_RIVER_TRANSACTION_ID,
                 CURRENCYCLOUD_CONVERSION_ID,
@@ -5484,9 +5492,11 @@ private constructor(
                     COLUMN_FX_QUOTE_ID -> Value.COLUMN_FX_QUOTE_ID
                     COLUMN_REVERSAL_PAIR_TRANSFER_ID -> Value.COLUMN_REVERSAL_PAIR_TRANSFER_ID
                     COLUMN_TRANSFER_ID -> Value.COLUMN_TRANSFER_ID
+                    CROSS_RIVER_CARD_TRACE_NUMBER -> Value.CROSS_RIVER_CARD_TRACE_NUMBER
                     CROSS_RIVER_CORE_TRANSACTION_ID -> Value.CROSS_RIVER_CORE_TRANSACTION_ID
                     CROSS_RIVER_FED_BATCH_ID -> Value.CROSS_RIVER_FED_BATCH_ID
                     CROSS_RIVER_PAYMENT_ID -> Value.CROSS_RIVER_PAYMENT_ID
+                    CROSS_RIVER_RETRIEVAL_REFERENCE_ID -> Value.CROSS_RIVER_RETRIEVAL_REFERENCE_ID
                     CROSS_RIVER_SERVICE_MESSAGE -> Value.CROSS_RIVER_SERVICE_MESSAGE
                     CROSS_RIVER_TRANSACTION_ID -> Value.CROSS_RIVER_TRANSACTION_ID
                     CURRENCYCLOUD_CONVERSION_ID -> Value.CURRENCYCLOUD_CONVERSION_ID
@@ -5590,9 +5600,11 @@ private constructor(
                     COLUMN_FX_QUOTE_ID -> Known.COLUMN_FX_QUOTE_ID
                     COLUMN_REVERSAL_PAIR_TRANSFER_ID -> Known.COLUMN_REVERSAL_PAIR_TRANSFER_ID
                     COLUMN_TRANSFER_ID -> Known.COLUMN_TRANSFER_ID
+                    CROSS_RIVER_CARD_TRACE_NUMBER -> Known.CROSS_RIVER_CARD_TRACE_NUMBER
                     CROSS_RIVER_CORE_TRANSACTION_ID -> Known.CROSS_RIVER_CORE_TRANSACTION_ID
                     CROSS_RIVER_FED_BATCH_ID -> Known.CROSS_RIVER_FED_BATCH_ID
                     CROSS_RIVER_PAYMENT_ID -> Known.CROSS_RIVER_PAYMENT_ID
+                    CROSS_RIVER_RETRIEVAL_REFERENCE_ID -> Known.CROSS_RIVER_RETRIEVAL_REFERENCE_ID
                     CROSS_RIVER_SERVICE_MESSAGE -> Known.CROSS_RIVER_SERVICE_MESSAGE
                     CROSS_RIVER_TRANSACTION_ID -> Known.CROSS_RIVER_TRANSACTION_ID
                     CURRENCYCLOUD_CONVERSION_ID -> Known.CURRENCYCLOUD_CONVERSION_ID
