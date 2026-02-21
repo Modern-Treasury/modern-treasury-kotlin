@@ -17,6 +17,7 @@ private constructor(
     private val afterCursor: String?,
     private val counterpartyId: String?,
     private val currency: Currency?,
+    private val externalId: String?,
     private val legalEntityId: String?,
     private val metadata: Metadata?,
     private val paymentDirection: TransactionDirection?,
@@ -34,6 +35,9 @@ private constructor(
 
     /** Only return internal accounts with this currency. */
     fun currency(): Currency? = currency
+
+    /** An optional user-defined 180 character unique identifier. */
+    fun externalId(): String? = externalId
 
     /** Only return internal accounts associated with this legal entity. */
     fun legalEntityId(): String? = legalEntityId
@@ -79,6 +83,7 @@ private constructor(
         private var afterCursor: String? = null
         private var counterpartyId: String? = null
         private var currency: Currency? = null
+        private var externalId: String? = null
         private var legalEntityId: String? = null
         private var metadata: Metadata? = null
         private var paymentDirection: TransactionDirection? = null
@@ -92,6 +97,7 @@ private constructor(
             afterCursor = internalAccountListParams.afterCursor
             counterpartyId = internalAccountListParams.counterpartyId
             currency = internalAccountListParams.currency
+            externalId = internalAccountListParams.externalId
             legalEntityId = internalAccountListParams.legalEntityId
             metadata = internalAccountListParams.metadata
             paymentDirection = internalAccountListParams.paymentDirection
@@ -109,6 +115,9 @@ private constructor(
 
         /** Only return internal accounts with this currency. */
         fun currency(currency: Currency?) = apply { this.currency = currency }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun externalId(externalId: String?) = apply { this.externalId = externalId }
 
         /** Only return internal accounts associated with this legal entity. */
         fun legalEntityId(legalEntityId: String?) = apply { this.legalEntityId = legalEntityId }
@@ -247,6 +256,7 @@ private constructor(
                 afterCursor,
                 counterpartyId,
                 currency,
+                externalId,
                 legalEntityId,
                 metadata,
                 paymentDirection,
@@ -266,6 +276,7 @@ private constructor(
                 afterCursor?.let { put("after_cursor", it) }
                 counterpartyId?.let { put("counterparty_id", it) }
                 currency?.let { put("currency", it.toString()) }
+                externalId?.let { put("external_id", it) }
                 legalEntityId?.let { put("legal_entity_id", it) }
                 metadata?.let {
                     it._additionalProperties().keys().forEach { key ->
@@ -860,6 +871,7 @@ private constructor(
             afterCursor == other.afterCursor &&
             counterpartyId == other.counterpartyId &&
             currency == other.currency &&
+            externalId == other.externalId &&
             legalEntityId == other.legalEntityId &&
             metadata == other.metadata &&
             paymentDirection == other.paymentDirection &&
@@ -875,6 +887,7 @@ private constructor(
             afterCursor,
             counterpartyId,
             currency,
+            externalId,
             legalEntityId,
             metadata,
             paymentDirection,
@@ -886,5 +899,5 @@ private constructor(
         )
 
     override fun toString() =
-        "InternalAccountListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, currency=$currency, legalEntityId=$legalEntityId, metadata=$metadata, paymentDirection=$paymentDirection, paymentType=$paymentType, perPage=$perPage, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "InternalAccountListParams{afterCursor=$afterCursor, counterpartyId=$counterpartyId, currency=$currency, externalId=$externalId, legalEntityId=$legalEntityId, metadata=$metadata, paymentDirection=$paymentDirection, paymentType=$paymentType, perPage=$perPage, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

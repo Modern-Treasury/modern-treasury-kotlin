@@ -31,6 +31,7 @@ internal class InternalAccountCreateParamsTest {
             )
             .accountType(InternalAccountCreateParams.AccountType.CHECKING)
             .counterpartyId("counterparty_id")
+            .externalId("external_id")
             .legalEntityId("legal_entity_id")
             .parentAccountId("parent_account_id")
             .partyAddress(
@@ -76,6 +77,7 @@ internal class InternalAccountCreateParamsTest {
                 )
                 .accountType(InternalAccountCreateParams.AccountType.CHECKING)
                 .counterpartyId("counterparty_id")
+                .externalId("external_id")
                 .legalEntityId("legal_entity_id")
                 .parentAccountId("parent_account_id")
                 .partyAddress(
@@ -119,6 +121,7 @@ internal class InternalAccountCreateParamsTest {
             )
         assertThat(body.accountType()).isEqualTo(InternalAccountCreateParams.AccountType.CHECKING)
         assertThat(body.counterpartyId()).isEqualTo("counterparty_id")
+        assertThat(body.externalId()).isEqualTo("external_id")
         assertThat(body.legalEntityId()).isEqualTo("legal_entity_id")
         assertThat(body.parentAccountId()).isEqualTo("parent_account_id")
         assertThat(body.partyAddress())

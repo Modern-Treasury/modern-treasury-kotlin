@@ -50,6 +50,7 @@ internal class InternalAccountServiceTest {
                     )
                     .accountType(InternalAccountCreateParams.AccountType.CHECKING)
                     .counterpartyId("counterparty_id")
+                    .externalId("external_id")
                     .legalEntityId("legal_entity_id")
                     .parentAccountId("parent_account_id")
                     .partyAddress(
@@ -106,6 +107,7 @@ internal class InternalAccountServiceTest {
                     .id("id")
                     .contraLedgerAccountId("contra_ledger_account_id")
                     .counterpartyId("counterparty_id")
+                    .externalId("external_id")
                     .ledgerAccountId("ledger_account_id")
                     .metadata(
                         InternalAccountUpdateParams.Metadata.builder()

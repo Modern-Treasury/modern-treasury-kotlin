@@ -12,6 +12,7 @@ internal class LegalEntityListParamsTest {
     fun create() {
         LegalEntityListParams.builder()
             .afterCursor("after_cursor")
+            .externalId("external_id")
             .legalEntityType(LegalEntityListParams.LegalEntityType.BUSINESS)
             .metadata(
                 LegalEntityListParams.Metadata.builder()
@@ -29,6 +30,7 @@ internal class LegalEntityListParamsTest {
         val params =
             LegalEntityListParams.builder()
                 .afterCursor("after_cursor")
+                .externalId("external_id")
                 .legalEntityType(LegalEntityListParams.LegalEntityType.BUSINESS)
                 .metadata(
                     LegalEntityListParams.Metadata.builder()
@@ -46,6 +48,7 @@ internal class LegalEntityListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("after_cursor", "after_cursor")
+                    .put("external_id", "external_id")
                     .put("legal_entity_type", "business")
                     .put("metadata[foo]", "string")
                     .put("per_page", "0")

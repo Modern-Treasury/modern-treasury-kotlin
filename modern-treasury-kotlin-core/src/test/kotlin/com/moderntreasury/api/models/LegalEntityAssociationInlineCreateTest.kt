@@ -58,6 +58,7 @@ internal class LegalEntityAssociationInlineCreateTest {
                         .addDoingBusinessAsName("string")
                         .email("email")
                         .expectedActivityVolume(0L)
+                        .externalId("external_id")
                         .firstName("first_name")
                         .addIdentification(
                             IdentificationCreateRequest.builder()
@@ -219,6 +220,7 @@ internal class LegalEntityAssociationInlineCreateTest {
                     .addDoingBusinessAsName("string")
                     .email("email")
                     .expectedActivityVolume(0L)
+                    .externalId("external_id")
                     .firstName("first_name")
                     .addIdentification(
                         IdentificationCreateRequest.builder()
@@ -384,6 +386,7 @@ internal class LegalEntityAssociationInlineCreateTest {
                         .addDoingBusinessAsName("string")
                         .email("email")
                         .expectedActivityVolume(0L)
+                        .externalId("external_id")
                         .firstName("first_name")
                         .addIdentification(
                             IdentificationCreateRequest.builder()
