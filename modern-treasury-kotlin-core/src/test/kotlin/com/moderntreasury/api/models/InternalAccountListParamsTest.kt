@@ -14,6 +14,7 @@ internal class InternalAccountListParamsTest {
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")
             .currency(Currency.AED)
+            .externalId("external_id")
             .legalEntityId("legal_entity_id")
             .metadata(
                 InternalAccountListParams.Metadata.builder()
@@ -34,6 +35,7 @@ internal class InternalAccountListParamsTest {
                 .afterCursor("after_cursor")
                 .counterpartyId("counterparty_id")
                 .currency(Currency.AED)
+                .externalId("external_id")
                 .legalEntityId("legal_entity_id")
                 .metadata(
                     InternalAccountListParams.Metadata.builder()
@@ -54,6 +56,7 @@ internal class InternalAccountListParamsTest {
                     .put("after_cursor", "after_cursor")
                     .put("counterparty_id", "counterparty_id")
                     .put("currency", "AED")
+                    .put("external_id", "external_id")
                     .put("legal_entity_id", "legal_entity_id")
                     .put("metadata[foo]", "string")
                     .put("payment_direction", "credit")

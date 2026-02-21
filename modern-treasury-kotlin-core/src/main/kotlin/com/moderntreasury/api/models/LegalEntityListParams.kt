@@ -15,6 +15,7 @@ import java.util.Objects
 class LegalEntityListParams
 private constructor(
     private val afterCursor: String?,
+    private val externalId: String?,
     private val legalEntityType: LegalEntityType?,
     private val metadata: Metadata?,
     private val perPage: Long?,
@@ -25,6 +26,9 @@ private constructor(
 ) : Params {
 
     fun afterCursor(): String? = afterCursor
+
+    /** An optional user-defined 180 character unique identifier. */
+    fun externalId(): String? = externalId
 
     fun legalEntityType(): LegalEntityType? = legalEntityType
 
@@ -60,6 +64,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var afterCursor: String? = null
+        private var externalId: String? = null
         private var legalEntityType: LegalEntityType? = null
         private var metadata: Metadata? = null
         private var perPage: Long? = null
@@ -70,6 +75,7 @@ private constructor(
 
         internal fun from(legalEntityListParams: LegalEntityListParams) = apply {
             afterCursor = legalEntityListParams.afterCursor
+            externalId = legalEntityListParams.externalId
             legalEntityType = legalEntityListParams.legalEntityType
             metadata = legalEntityListParams.metadata
             perPage = legalEntityListParams.perPage
@@ -80,6 +86,9 @@ private constructor(
         }
 
         fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun externalId(externalId: String?) = apply { this.externalId = externalId }
 
         fun legalEntityType(legalEntityType: LegalEntityType?) = apply {
             this.legalEntityType = legalEntityType
@@ -210,6 +219,7 @@ private constructor(
         fun build(): LegalEntityListParams =
             LegalEntityListParams(
                 afterCursor,
+                externalId,
                 legalEntityType,
                 metadata,
                 perPage,
@@ -226,6 +236,7 @@ private constructor(
         QueryParams.builder()
             .apply {
                 afterCursor?.let { put("after_cursor", it) }
+                externalId?.let { put("external_id", it) }
                 legalEntityType?.let { put("legal_entity_type", it.toString()) }
                 metadata?.let {
                     it._additionalProperties().keys().forEach { key ->
@@ -612,6 +623,7 @@ private constructor(
 
         return other is LegalEntityListParams &&
             afterCursor == other.afterCursor &&
+            externalId == other.externalId &&
             legalEntityType == other.legalEntityType &&
             metadata == other.metadata &&
             perPage == other.perPage &&
@@ -624,6 +636,7 @@ private constructor(
     override fun hashCode(): Int =
         Objects.hash(
             afterCursor,
+            externalId,
             legalEntityType,
             metadata,
             perPage,
@@ -634,5 +647,5 @@ private constructor(
         )
 
     override fun toString() =
-        "LegalEntityListParams{afterCursor=$afterCursor, legalEntityType=$legalEntityType, metadata=$metadata, perPage=$perPage, showDeleted=$showDeleted, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LegalEntityListParams{afterCursor=$afterCursor, externalId=$externalId, legalEntityType=$legalEntityType, metadata=$metadata, perPage=$perPage, showDeleted=$showDeleted, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

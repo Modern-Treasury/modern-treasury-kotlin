@@ -31,6 +31,7 @@ private constructor(
     private val counterpartyId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val currency: JsonField<Currency>,
+    private val externalId: JsonField<String>,
     private val ledgerAccountId: JsonField<String>,
     private val legalEntityId: JsonField<String>,
     private val liveMode: JsonField<Boolean>,
@@ -73,6 +74,9 @@ private constructor(
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("currency") @ExcludeMissing currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        externalId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("ledger_account_id")
         @ExcludeMissing
         ledgerAccountId: JsonField<String> = JsonMissing.of(),
@@ -111,6 +115,7 @@ private constructor(
         counterpartyId,
         createdAt,
         currency,
+        externalId,
         ledgerAccountId,
         legalEntityId,
         liveMode,
@@ -199,6 +204,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun currency(): Currency = currency.getRequired("currency")
+
+    /**
+     * An optional user-defined 180 character unique identifier.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun externalId(): String? = externalId.getNullable("external_id")
 
     /**
      * If the internal account links to a ledger account in Modern Treasury, the id of the ledger
@@ -390,6 +403,13 @@ private constructor(
     @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /**
+     * Returns the raw JSON value of [externalId].
+     *
+     * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("external_id") @ExcludeMissing fun _externalId(): JsonField<String> = externalId
+
+    /**
      * Returns the raw JSON value of [ledgerAccountId].
      *
      * Unlike [ledgerAccountId], this method doesn't throw if the JSON field has an unexpected type.
@@ -527,6 +547,7 @@ private constructor(
          * .counterpartyId()
          * .createdAt()
          * .currency()
+         * .externalId()
          * .ledgerAccountId()
          * .legalEntityId()
          * .liveMode()
@@ -558,6 +579,7 @@ private constructor(
         private var counterpartyId: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var currency: JsonField<Currency>? = null
+        private var externalId: JsonField<String>? = null
         private var ledgerAccountId: JsonField<String>? = null
         private var legalEntityId: JsonField<String>? = null
         private var liveMode: JsonField<Boolean>? = null
@@ -584,6 +606,7 @@ private constructor(
             counterpartyId = internalAccount.counterpartyId
             createdAt = internalAccount.createdAt
             currency = internalAccount.currency
+            externalId = internalAccount.externalId
             ledgerAccountId = internalAccount.ledgerAccountId
             legalEntityId = internalAccount.legalEntityId
             liveMode = internalAccount.liveMode
@@ -749,6 +772,18 @@ private constructor(
          * value.
          */
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+        /**
+         * Sets [Builder.externalId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
         /**
          * If the internal account links to a ledger account in Modern Treasury, the id of the
@@ -981,6 +1016,7 @@ private constructor(
          * .counterpartyId()
          * .createdAt()
          * .currency()
+         * .externalId()
          * .ledgerAccountId()
          * .legalEntityId()
          * .liveMode()
@@ -1010,6 +1046,7 @@ private constructor(
                 checkRequired("counterpartyId", counterpartyId),
                 checkRequired("createdAt", createdAt),
                 checkRequired("currency", currency),
+                checkRequired("externalId", externalId),
                 checkRequired("ledgerAccountId", ledgerAccountId),
                 checkRequired("legalEntityId", legalEntityId),
                 checkRequired("liveMode", liveMode),
@@ -1044,6 +1081,7 @@ private constructor(
         counterpartyId()
         createdAt()
         currency().validate()
+        externalId()
         ledgerAccountId()
         legalEntityId()
         liveMode()
@@ -1084,6 +1122,7 @@ private constructor(
             (if (counterpartyId.asKnown() == null) 0 else 1) +
             (if (createdAt.asKnown() == null) 0 else 1) +
             (currency.asKnown()?.validity() ?: 0) +
+            (if (externalId.asKnown() == null) 0 else 1) +
             (if (ledgerAccountId.asKnown() == null) 0 else 1) +
             (if (legalEntityId.asKnown() == null) 0 else 1) +
             (if (liveMode.asKnown() == null) 0 else 1) +
@@ -2521,6 +2560,7 @@ private constructor(
             counterpartyId == other.counterpartyId &&
             createdAt == other.createdAt &&
             currency == other.currency &&
+            externalId == other.externalId &&
             ledgerAccountId == other.ledgerAccountId &&
             legalEntityId == other.legalEntityId &&
             liveMode == other.liveMode &&
@@ -2549,6 +2589,7 @@ private constructor(
             counterpartyId,
             createdAt,
             currency,
+            externalId,
             ledgerAccountId,
             legalEntityId,
             liveMode,
@@ -2570,5 +2611,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InternalAccount{id=$id, accountCapabilities=$accountCapabilities, accountDetails=$accountDetails, accountType=$accountType, connection=$connection, contraLedgerAccountId=$contraLedgerAccountId, counterpartyId=$counterpartyId, createdAt=$createdAt, currency=$currency, ledgerAccountId=$ledgerAccountId, legalEntityId=$legalEntityId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, parentAccountId=$parentAccountId, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, routingDetails=$routingDetails, status=$status, updatedAt=$updatedAt, vendorId=$vendorId, additionalProperties=$additionalProperties}"
+        "InternalAccount{id=$id, accountCapabilities=$accountCapabilities, accountDetails=$accountDetails, accountType=$accountType, connection=$connection, contraLedgerAccountId=$contraLedgerAccountId, counterpartyId=$counterpartyId, createdAt=$createdAt, currency=$currency, externalId=$externalId, ledgerAccountId=$ledgerAccountId, legalEntityId=$legalEntityId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, parentAccountId=$parentAccountId, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, routingDetails=$routingDetails, status=$status, updatedAt=$updatedAt, vendorId=$vendorId, additionalProperties=$additionalProperties}"
 }

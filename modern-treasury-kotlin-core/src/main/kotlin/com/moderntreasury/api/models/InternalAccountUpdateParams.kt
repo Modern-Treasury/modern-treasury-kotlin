@@ -46,6 +46,14 @@ private constructor(
     fun counterpartyId(): String? = body.counterpartyId()
 
     /**
+     * An optional user-defined 180 character unique identifier.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun externalId(): String? = body.externalId()
+
+    /**
      * The Ledger Account associated to this account.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -92,6 +100,13 @@ private constructor(
      * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _counterpartyId(): JsonField<String> = body._counterpartyId()
+
+    /**
+     * Returns the raw JSON value of [externalId].
+     *
+     * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _externalId(): JsonField<String> = body._externalId()
 
     /**
      * Returns the raw JSON value of [ledgerAccountId].
@@ -166,9 +181,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [contraLedgerAccountId]
          * - [counterpartyId]
+         * - [externalId]
          * - [ledgerAccountId]
          * - [metadata]
-         * - [name]
          * - etc.
          */
         fun body(body: InternalAccountUpdateRequest) = apply { this.body = body.toBuilder() }
@@ -202,6 +217,18 @@ private constructor(
         fun counterpartyId(counterpartyId: JsonField<String>) = apply {
             body.counterpartyId(counterpartyId)
         }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun externalId(externalId: String?) = apply { body.externalId(externalId) }
+
+        /**
+         * Sets [Builder.externalId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun externalId(externalId: JsonField<String>) = apply { body.externalId(externalId) }
 
         /** The Ledger Account associated to this account. */
         fun ledgerAccountId(ledgerAccountId: String) = apply {
@@ -409,6 +436,7 @@ private constructor(
     private constructor(
         private val contraLedgerAccountId: JsonField<String>,
         private val counterpartyId: JsonField<String>,
+        private val externalId: JsonField<String>,
         private val ledgerAccountId: JsonField<String>,
         private val metadata: JsonField<Metadata>,
         private val name: JsonField<String>,
@@ -424,6 +452,9 @@ private constructor(
             @JsonProperty("counterparty_id")
             @ExcludeMissing
             counterpartyId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("external_id")
+            @ExcludeMissing
+            externalId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("ledger_account_id")
             @ExcludeMissing
             ledgerAccountId: JsonField<String> = JsonMissing.of(),
@@ -437,6 +468,7 @@ private constructor(
         ) : this(
             contraLedgerAccountId,
             counterpartyId,
+            externalId,
             ledgerAccountId,
             metadata,
             name,
@@ -460,6 +492,14 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
+
+        /**
+         * An optional user-defined 180 character unique identifier.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun externalId(): String? = externalId.getNullable("external_id")
 
         /**
          * The Ledger Account associated to this account.
@@ -513,6 +553,15 @@ private constructor(
         @JsonProperty("counterparty_id")
         @ExcludeMissing
         fun _counterpartyId(): JsonField<String> = counterpartyId
+
+        /**
+         * Returns the raw JSON value of [externalId].
+         *
+         * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        fun _externalId(): JsonField<String> = externalId
 
         /**
          * Returns the raw JSON value of [ledgerAccountId].
@@ -574,6 +623,7 @@ private constructor(
 
             private var contraLedgerAccountId: JsonField<String> = JsonMissing.of()
             private var counterpartyId: JsonField<String> = JsonMissing.of()
+            private var externalId: JsonField<String> = JsonMissing.of()
             private var ledgerAccountId: JsonField<String> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
@@ -583,6 +633,7 @@ private constructor(
             internal fun from(internalAccountUpdateRequest: InternalAccountUpdateRequest) = apply {
                 contraLedgerAccountId = internalAccountUpdateRequest.contraLedgerAccountId
                 counterpartyId = internalAccountUpdateRequest.counterpartyId
+                externalId = internalAccountUpdateRequest.externalId
                 ledgerAccountId = internalAccountUpdateRequest.ledgerAccountId
                 metadata = internalAccountUpdateRequest.metadata
                 name = internalAccountUpdateRequest.name
@@ -620,6 +671,18 @@ private constructor(
             fun counterpartyId(counterpartyId: JsonField<String>) = apply {
                 this.counterpartyId = counterpartyId
             }
+
+            /** An optional user-defined 180 character unique identifier. */
+            fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+            /**
+             * Sets [Builder.externalId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.externalId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
             /** The Ledger Account associated to this account. */
             fun ledgerAccountId(ledgerAccountId: String) =
@@ -706,6 +769,7 @@ private constructor(
                 InternalAccountUpdateRequest(
                     contraLedgerAccountId,
                     counterpartyId,
+                    externalId,
                     ledgerAccountId,
                     metadata,
                     name,
@@ -723,6 +787,7 @@ private constructor(
 
             contraLedgerAccountId()
             counterpartyId()
+            externalId()
             ledgerAccountId()
             metadata()?.validate()
             name()
@@ -747,6 +812,7 @@ private constructor(
         internal fun validity(): Int =
             (if (contraLedgerAccountId.asKnown() == null) 0 else 1) +
                 (if (counterpartyId.asKnown() == null) 0 else 1) +
+                (if (externalId.asKnown() == null) 0 else 1) +
                 (if (ledgerAccountId.asKnown() == null) 0 else 1) +
                 (metadata.asKnown()?.validity() ?: 0) +
                 (if (name.asKnown() == null) 0 else 1) +
@@ -760,6 +826,7 @@ private constructor(
             return other is InternalAccountUpdateRequest &&
                 contraLedgerAccountId == other.contraLedgerAccountId &&
                 counterpartyId == other.counterpartyId &&
+                externalId == other.externalId &&
                 ledgerAccountId == other.ledgerAccountId &&
                 metadata == other.metadata &&
                 name == other.name &&
@@ -771,6 +838,7 @@ private constructor(
             Objects.hash(
                 contraLedgerAccountId,
                 counterpartyId,
+                externalId,
                 ledgerAccountId,
                 metadata,
                 name,
@@ -782,7 +850,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InternalAccountUpdateRequest{contraLedgerAccountId=$contraLedgerAccountId, counterpartyId=$counterpartyId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, parentAccountId=$parentAccountId, additionalProperties=$additionalProperties}"
+            "InternalAccountUpdateRequest{contraLedgerAccountId=$contraLedgerAccountId, counterpartyId=$counterpartyId, externalId=$externalId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, parentAccountId=$parentAccountId, additionalProperties=$additionalProperties}"
     }
 
     /**
