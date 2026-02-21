@@ -93,6 +93,7 @@ internal class LegalEntityTest {
                 .addDoingBusinessAsName("string")
                 .email("email")
                 .expectedActivityVolume(0L)
+                .externalId("external_id")
                 .firstName("first_name")
                 .addIdentification(
                     LegalEntity.Identification.builder()
@@ -328,6 +329,7 @@ internal class LegalEntityTest {
                                 .addDoingBusinessAsName("string")
                                 .email("email")
                                 .expectedActivityVolume(0L)
+                                .externalId("external_id")
                                 .firstName("first_name")
                                 .addIdentification(
                                     ChildLegalEntity.Identification.builder()
@@ -613,6 +615,7 @@ internal class LegalEntityTest {
         assertThat(legalEntity.doingBusinessAsNames()).containsExactly("string")
         assertThat(legalEntity.email()).isEqualTo("email")
         assertThat(legalEntity.expectedActivityVolume()).isEqualTo(0L)
+        assertThat(legalEntity.externalId()).isEqualTo("external_id")
         assertThat(legalEntity.firstName()).isEqualTo("first_name")
         assertThat(legalEntity.identifications())
             .containsExactly(
@@ -842,6 +845,7 @@ internal class LegalEntityTest {
                             .addDoingBusinessAsName("string")
                             .email("email")
                             .expectedActivityVolume(0L)
+                            .externalId("external_id")
                             .firstName("first_name")
                             .addIdentification(
                                 ChildLegalEntity.Identification.builder()
@@ -1111,6 +1115,7 @@ internal class LegalEntityTest {
                 .addDoingBusinessAsName("string")
                 .email("email")
                 .expectedActivityVolume(0L)
+                .externalId("external_id")
                 .firstName("first_name")
                 .addIdentification(
                     LegalEntity.Identification.builder()
@@ -1346,6 +1351,7 @@ internal class LegalEntityTest {
                                 .addDoingBusinessAsName("string")
                                 .email("email")
                                 .expectedActivityVolume(0L)
+                                .externalId("external_id")
                                 .firstName("first_name")
                                 .addIdentification(
                                     ChildLegalEntity.Identification.builder()
