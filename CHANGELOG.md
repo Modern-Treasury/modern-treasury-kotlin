@@ -1,5 +1,19 @@
 # Changelog
 
+## 7.20.0 (2026-02-23)
+
+Full Changelog: [v7.19.0...v7.20.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.19.0...v7.20.0)
+
+### Features
+
+* **api:** api update ([3c49957](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3c4995737ed23f9fba0cfa5cd5054ddd395290de))
+* **api:** api update ([75e75cd](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/75e75cdc87820cc6ef87339d2573e70afec03400))
+
+
+### Chores
+
+* make `Properties` more resilient to `null` ([c968dae](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c968daefe479a33092e0bf0700380a37d2ef45cc))
+
 ## 7.19.0 (2026-02-19)
 
 Full Changelog: [v7.18.1...v7.19.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.18.1...v7.19.0)
