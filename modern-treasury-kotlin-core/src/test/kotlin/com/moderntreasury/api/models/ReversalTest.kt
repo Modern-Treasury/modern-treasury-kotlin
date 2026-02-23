@@ -17,6 +17,7 @@ internal class ReversalTest {
             Reversal.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
                 .metadata(
@@ -37,6 +38,7 @@ internal class ReversalTest {
 
         assertThat(reversal.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(reversal.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(reversal.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(reversal.ledgerTransactionId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(reversal.liveMode()).isEqualTo(true)
         assertThat(reversal.metadata())
@@ -65,6 +67,7 @@ internal class ReversalTest {
             Reversal.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
                 .metadata(
