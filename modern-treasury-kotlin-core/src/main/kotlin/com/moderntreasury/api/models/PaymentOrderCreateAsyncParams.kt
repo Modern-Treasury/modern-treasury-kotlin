@@ -138,6 +138,14 @@ private constructor(
     fun expiresAt(): OffsetDateTime? = body.expiresAt()
 
     /**
+     * An optional user-defined 180 character unique identifier.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun externalId(): String? = body.externalId()
+
+    /**
      * A payment type to fallback to if the original type is not valid for the receiving account.
      * Currently, this only supports falling back from RTP to ACH (type=rtp and fallback_type=ach)
      *
@@ -448,6 +456,13 @@ private constructor(
      * Unlike [expiresAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _expiresAt(): JsonField<OffsetDateTime> = body._expiresAt()
+
+    /**
+     * Returns the raw JSON value of [externalId].
+     *
+     * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _externalId(): JsonField<String> = body._externalId()
 
     /**
      * Returns the raw JSON value of [fallbackType].
@@ -881,6 +896,18 @@ private constructor(
          * supported value.
          */
         fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply { body.expiresAt(expiresAt) }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun externalId(externalId: String?) = apply { body.externalId(externalId) }
+
+        /**
+         * Sets [Builder.externalId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun externalId(externalId: JsonField<String>) = apply { body.externalId(externalId) }
 
         /**
          * A payment type to fallback to if the original type is not valid for the receiving
@@ -1491,6 +1518,7 @@ private constructor(
         private val description: JsonField<String>,
         private val effectiveDate: JsonField<LocalDate>,
         private val expiresAt: JsonField<OffsetDateTime>,
+        private val externalId: JsonField<String>,
         private val fallbackType: JsonField<FallbackType>,
         private val foreignExchangeContract: JsonField<String>,
         private val foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>,
@@ -1554,6 +1582,9 @@ private constructor(
             @JsonProperty("expires_at")
             @ExcludeMissing
             expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("external_id")
+            @ExcludeMissing
+            externalId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("fallback_type")
             @ExcludeMissing
             fallbackType: JsonField<FallbackType> = JsonMissing.of(),
@@ -1637,6 +1668,7 @@ private constructor(
             description,
             effectiveDate,
             expiresAt,
+            externalId,
             fallbackType,
             foreignExchangeContract,
             foreignExchangeIndicator,
@@ -1775,6 +1807,14 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun expiresAt(): OffsetDateTime? = expiresAt.getNullable("expires_at")
+
+        /**
+         * An optional user-defined 180 character unique identifier.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun externalId(): String? = externalId.getNullable("external_id")
 
         /**
          * A payment type to fallback to if the original type is not valid for the receiving
@@ -2127,6 +2167,15 @@ private constructor(
         fun _expiresAt(): JsonField<OffsetDateTime> = expiresAt
 
         /**
+         * Returns the raw JSON value of [externalId].
+         *
+         * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        fun _externalId(): JsonField<String> = externalId
+
+        /**
          * Returns the raw JSON value of [fallbackType].
          *
          * Unlike [fallbackType], this method doesn't throw if the JSON field has an unexpected
@@ -2403,6 +2452,7 @@ private constructor(
             private var description: JsonField<String> = JsonMissing.of()
             private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
             private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var externalId: JsonField<String> = JsonMissing.of()
             private var fallbackType: JsonField<FallbackType> = JsonMissing.of()
             private var foreignExchangeContract: JsonField<String> = JsonMissing.of()
             private var foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> =
@@ -2445,6 +2495,7 @@ private constructor(
                     description = paymentOrderAsyncCreateRequest.description
                     effectiveDate = paymentOrderAsyncCreateRequest.effectiveDate
                     expiresAt = paymentOrderAsyncCreateRequest.expiresAt
+                    externalId = paymentOrderAsyncCreateRequest.externalId
                     fallbackType = paymentOrderAsyncCreateRequest.fallbackType
                     foreignExchangeContract = paymentOrderAsyncCreateRequest.foreignExchangeContract
                     foreignExchangeIndicator =
@@ -2673,6 +2724,18 @@ private constructor(
             fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply {
                 this.expiresAt = expiresAt
             }
+
+            /** An optional user-defined 180 character unique identifier. */
+            fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+            /**
+             * Sets [Builder.externalId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.externalId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
             /**
              * A payment type to fallback to if the original type is not valid for the receiving
@@ -3171,6 +3234,7 @@ private constructor(
                     description,
                     effectiveDate,
                     expiresAt,
+                    externalId,
                     fallbackType,
                     foreignExchangeContract,
                     foreignExchangeIndicator,
@@ -3218,6 +3282,7 @@ private constructor(
             description()
             effectiveDate()
             expiresAt()
+            externalId()
             fallbackType()?.validate()
             foreignExchangeContract()
             foreignExchangeIndicator()?.validate()
@@ -3272,6 +3337,7 @@ private constructor(
                 (if (description.asKnown() == null) 0 else 1) +
                 (if (effectiveDate.asKnown() == null) 0 else 1) +
                 (if (expiresAt.asKnown() == null) 0 else 1) +
+                (if (externalId.asKnown() == null) 0 else 1) +
                 (fallbackType.asKnown()?.validity() ?: 0) +
                 (if (foreignExchangeContract.asKnown() == null) 0 else 1) +
                 (foreignExchangeIndicator.asKnown()?.validity() ?: 0) +
@@ -3315,6 +3381,7 @@ private constructor(
                 description == other.description &&
                 effectiveDate == other.effectiveDate &&
                 expiresAt == other.expiresAt &&
+                externalId == other.externalId &&
                 fallbackType == other.fallbackType &&
                 foreignExchangeContract == other.foreignExchangeContract &&
                 foreignExchangeIndicator == other.foreignExchangeIndicator &&
@@ -3356,6 +3423,7 @@ private constructor(
                 description,
                 effectiveDate,
                 expiresAt,
+                externalId,
                 fallbackType,
                 foreignExchangeContract,
                 foreignExchangeIndicator,
@@ -3387,7 +3455,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PaymentOrderAsyncCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, effectiveDate=$effectiveDate, expiresAt=$expiresAt, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
+            "PaymentOrderAsyncCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
     }
 
     /**
