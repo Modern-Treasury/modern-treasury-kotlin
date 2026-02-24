@@ -599,6 +599,7 @@ internal class CounterpartyServiceTest {
                 CounterpartyUpdateParams.builder()
                     .id("id")
                     .email("dev@stainless.com")
+                    .externalId("external_id")
                     .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(
                         CounterpartyUpdateParams.Metadata.builder()

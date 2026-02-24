@@ -42,6 +42,7 @@ internal class PaymentOrderCreateParamsTest {
             )
             .effectiveDate(LocalDate.parse("2019-12-27"))
             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .externalId("external_id")
             .fallbackType(PaymentOrderCreateParams.FallbackType.ACH)
             .foreignExchangeContract("foreign_exchange_contract")
             .foreignExchangeIndicator(
@@ -251,6 +252,7 @@ internal class PaymentOrderCreateParamsTest {
                 )
                 .effectiveDate(LocalDate.parse("2019-12-27"))
                 .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .externalId("external_id")
                 .fallbackType(PaymentOrderCreateParams.FallbackType.ACH)
                 .foreignExchangeContract("foreign_exchange_contract")
                 .foreignExchangeIndicator(
@@ -487,6 +489,7 @@ internal class PaymentOrderCreateParamsTest {
                         "effective_date" to MultipartField.of(LocalDate.parse("2019-12-27")),
                         "expires_at" to
                             MultipartField.of(OffsetDateTime.parse("2019-12-27T18:11:19.117Z")),
+                        "external_id" to MultipartField.of("external_id"),
                         "fallback_type" to
                             MultipartField.of(PaymentOrderCreateParams.FallbackType.ACH),
                         "foreign_exchange_contract" to

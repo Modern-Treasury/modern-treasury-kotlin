@@ -13,6 +13,7 @@ internal class CounterpartyUpdateParamsTest {
         CounterpartyUpdateParams.builder()
             .id("id")
             .email("dev@stainless.com")
+            .externalId("external_id")
             .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .metadata(
                 CounterpartyUpdateParams.Metadata.builder()
@@ -40,6 +41,7 @@ internal class CounterpartyUpdateParamsTest {
             CounterpartyUpdateParams.builder()
                 .id("id")
                 .email("dev@stainless.com")
+                .externalId("external_id")
                 .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .metadata(
                     CounterpartyUpdateParams.Metadata.builder()
@@ -54,6 +56,7 @@ internal class CounterpartyUpdateParamsTest {
         val body = params._body()
 
         assertThat(body.email()).isEqualTo("dev@stainless.com")
+        assertThat(body.externalId()).isEqualTo("external_id")
         assertThat(body.legalEntityId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.metadata())
             .isEqualTo(
