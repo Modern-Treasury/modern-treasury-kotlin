@@ -38,6 +38,14 @@ private constructor(
     fun description(): String? = body.description()
 
     /**
+     * An optional user-defined 180 character unique identifier.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun externalId(): String? = body.externalId()
+
+    /**
      * Additional data represented as key-value pairs. Both the key and value must be strings.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -59,6 +67,13 @@ private constructor(
      * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _description(): JsonField<String> = body._description()
+
+    /**
+     * Returns the raw JSON value of [externalId].
+     *
+     * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _externalId(): JsonField<String> = body._externalId()
 
     /**
      * Returns the raw JSON value of [metadata].
@@ -121,6 +136,7 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [description]
+         * - [externalId]
          * - [metadata]
          * - [name]
          */
@@ -137,6 +153,18 @@ private constructor(
          * value.
          */
         fun description(description: JsonField<String>) = apply { body.description(description) }
+
+        /** An optional user-defined 180 character unique identifier. */
+        fun externalId(externalId: String?) = apply { body.externalId(externalId) }
+
+        /**
+         * Sets [Builder.externalId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun externalId(externalId: JsonField<String>) = apply { body.externalId(externalId) }
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -310,6 +338,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val description: JsonField<String>,
+        private val externalId: JsonField<String>,
         private val metadata: JsonField<Metadata>,
         private val name: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -320,11 +349,14 @@ private constructor(
             @JsonProperty("description")
             @ExcludeMissing
             description: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("external_id")
+            @ExcludeMissing
+            externalId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("metadata")
             @ExcludeMissing
             metadata: JsonField<Metadata> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        ) : this(description, metadata, name, mutableMapOf())
+        ) : this(description, externalId, metadata, name, mutableMapOf())
 
         /**
          * The description of the ledger account category.
@@ -333,6 +365,14 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun description(): String? = description.getNullable("description")
+
+        /**
+         * An optional user-defined 180 character unique identifier.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun externalId(): String? = externalId.getNullable("external_id")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
@@ -358,6 +398,15 @@ private constructor(
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
+
+        /**
+         * Returns the raw JSON value of [externalId].
+         *
+         * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        fun _externalId(): JsonField<String> = externalId
 
         /**
          * Returns the raw JSON value of [metadata].
@@ -398,6 +447,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var description: JsonField<String> = JsonMissing.of()
+            private var externalId: JsonField<String> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -406,6 +456,7 @@ private constructor(
                 ledgerAccountCategoryUpdateRequest: LedgerAccountCategoryUpdateRequest
             ) = apply {
                 description = ledgerAccountCategoryUpdateRequest.description
+                externalId = ledgerAccountCategoryUpdateRequest.externalId
                 metadata = ledgerAccountCategoryUpdateRequest.metadata
                 name = ledgerAccountCategoryUpdateRequest.name
                 additionalProperties =
@@ -425,6 +476,18 @@ private constructor(
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
+
+            /** An optional user-defined 180 character unique identifier. */
+            fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+            /**
+             * Sets [Builder.externalId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.externalId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
@@ -480,6 +543,7 @@ private constructor(
             fun build(): LedgerAccountCategoryUpdateRequest =
                 LedgerAccountCategoryUpdateRequest(
                     description,
+                    externalId,
                     metadata,
                     name,
                     additionalProperties.toMutableMap(),
@@ -494,6 +558,7 @@ private constructor(
             }
 
             description()
+            externalId()
             metadata()?.validate()
             name()
             validated = true
@@ -515,6 +580,7 @@ private constructor(
          */
         internal fun validity(): Int =
             (if (description.asKnown() == null) 0 else 1) +
+                (if (externalId.asKnown() == null) 0 else 1) +
                 (metadata.asKnown()?.validity() ?: 0) +
                 (if (name.asKnown() == null) 0 else 1)
 
@@ -525,19 +591,20 @@ private constructor(
 
             return other is LedgerAccountCategoryUpdateRequest &&
                 description == other.description &&
+                externalId == other.externalId &&
                 metadata == other.metadata &&
                 name == other.name &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(description, metadata, name, additionalProperties)
+            Objects.hash(description, externalId, metadata, name, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerAccountCategoryUpdateRequest{description=$description, metadata=$metadata, name=$name, additionalProperties=$additionalProperties}"
+            "LedgerAccountCategoryUpdateRequest{description=$description, externalId=$externalId, metadata=$metadata, name=$name, additionalProperties=$additionalProperties}"
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */

@@ -15,6 +15,7 @@ internal class LedgerTransactionUpdateParamsTest {
             .id("id")
             .description("description")
             .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .externalId("external_id")
             .addLedgerEntry(
                 LedgerEntryCreateRequest.builder()
                     .amount(0L)
@@ -76,6 +77,7 @@ internal class LedgerTransactionUpdateParamsTest {
                 .id("id")
                 .description("description")
                 .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .externalId("external_id")
                 .addLedgerEntry(
                     LedgerEntryCreateRequest.builder()
                         .amount(0L)
@@ -124,6 +126,7 @@ internal class LedgerTransactionUpdateParamsTest {
 
         assertThat(body.description()).isEqualTo("description")
         assertThat(body.effectiveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(body.externalId()).isEqualTo("external_id")
         assertThat(body.ledgerEntries())
             .containsExactly(
                 LedgerEntryCreateRequest.builder()

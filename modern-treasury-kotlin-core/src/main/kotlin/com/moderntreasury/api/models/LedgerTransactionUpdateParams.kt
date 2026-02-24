@@ -50,6 +50,15 @@ private constructor(
     fun effectiveAt(): OffsetDateTime? = body.effectiveAt()
 
     /**
+     * A unique string to represent the ledger transaction. Only one pending or posted ledger
+     * transaction may have this ID in the ledger.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun externalId(): String? = body.externalId()
+
+    /**
      * An array of ledger entry objects.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -105,6 +114,13 @@ private constructor(
      * Unlike [effectiveAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _effectiveAt(): JsonField<OffsetDateTime> = body._effectiveAt()
+
+    /**
+     * Returns the raw JSON value of [externalId].
+     *
+     * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _externalId(): JsonField<String> = body._externalId()
 
     /**
      * Returns the raw JSON value of [ledgerEntries].
@@ -187,9 +203,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [description]
          * - [effectiveAt]
+         * - [externalId]
          * - [ledgerEntries]
          * - [ledgerableId]
-         * - [ledgerableType]
          * - etc.
          */
         fun body(body: LedgerTransactionUpdateRequest) = apply { this.body = body.toBuilder() }
@@ -222,6 +238,21 @@ private constructor(
         fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
             body.effectiveAt(effectiveAt)
         }
+
+        /**
+         * A unique string to represent the ledger transaction. Only one pending or posted ledger
+         * transaction may have this ID in the ledger.
+         */
+        fun externalId(externalId: String?) = apply { body.externalId(externalId) }
+
+        /**
+         * Sets [Builder.externalId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun externalId(externalId: JsonField<String>) = apply { body.externalId(externalId) }
 
         /** An array of ledger entry objects. */
         fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) = apply {
@@ -458,6 +489,7 @@ private constructor(
     private constructor(
         private val description: JsonField<String>,
         private val effectiveAt: JsonField<OffsetDateTime>,
+        private val externalId: JsonField<String>,
         private val ledgerEntries: JsonField<List<LedgerEntryCreateRequest>>,
         private val ledgerableId: JsonField<String>,
         private val ledgerableType: JsonField<LedgerableType>,
@@ -474,6 +506,9 @@ private constructor(
             @JsonProperty("effective_at")
             @ExcludeMissing
             effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("external_id")
+            @ExcludeMissing
+            externalId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("ledger_entries")
             @ExcludeMissing
             ledgerEntries: JsonField<List<LedgerEntryCreateRequest>> = JsonMissing.of(),
@@ -490,6 +525,7 @@ private constructor(
         ) : this(
             description,
             effectiveAt,
+            externalId,
             ledgerEntries,
             ledgerableId,
             ledgerableType,
@@ -514,6 +550,15 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun effectiveAt(): OffsetDateTime? = effectiveAt.getNullable("effective_at")
+
+        /**
+         * A unique string to represent the ledger transaction. Only one pending or posted ledger
+         * transaction may have this ID in the ledger.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun externalId(): String? = externalId.getNullable("external_id")
 
         /**
          * An array of ledger entry objects.
@@ -576,6 +621,15 @@ private constructor(
         @JsonProperty("effective_at")
         @ExcludeMissing
         fun _effectiveAt(): JsonField<OffsetDateTime> = effectiveAt
+
+        /**
+         * Returns the raw JSON value of [externalId].
+         *
+         * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        fun _externalId(): JsonField<String> = externalId
 
         /**
          * Returns the raw JSON value of [ledgerEntries].
@@ -647,6 +701,7 @@ private constructor(
 
             private var description: JsonField<String> = JsonMissing.of()
             private var effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var externalId: JsonField<String> = JsonMissing.of()
             private var ledgerEntries: JsonField<MutableList<LedgerEntryCreateRequest>>? = null
             private var ledgerableId: JsonField<String> = JsonMissing.of()
             private var ledgerableType: JsonField<LedgerableType> = JsonMissing.of()
@@ -658,6 +713,7 @@ private constructor(
                 apply {
                     description = ledgerTransactionUpdateRequest.description
                     effectiveAt = ledgerTransactionUpdateRequest.effectiveAt
+                    externalId = ledgerTransactionUpdateRequest.externalId
                     ledgerEntries =
                         ledgerTransactionUpdateRequest.ledgerEntries.map { it.toMutableList() }
                     ledgerableId = ledgerTransactionUpdateRequest.ledgerableId
@@ -698,6 +754,21 @@ private constructor(
             fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
                 this.effectiveAt = effectiveAt
             }
+
+            /**
+             * A unique string to represent the ledger transaction. Only one pending or posted
+             * ledger transaction may have this ID in the ledger.
+             */
+            fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+            /**
+             * Sets [Builder.externalId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.externalId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
             /** An array of ledger entry objects. */
             fun ledgerEntries(ledgerEntries: List<LedgerEntryCreateRequest>) =
@@ -817,6 +888,7 @@ private constructor(
                 LedgerTransactionUpdateRequest(
                     description,
                     effectiveAt,
+                    externalId,
                     (ledgerEntries ?: JsonMissing.of()).map { it.toImmutable() },
                     ledgerableId,
                     ledgerableType,
@@ -835,6 +907,7 @@ private constructor(
 
             description()
             effectiveAt()
+            externalId()
             ledgerEntries()?.forEach { it.validate() }
             ledgerableId()
             ledgerableType()?.validate()
@@ -860,6 +933,7 @@ private constructor(
         internal fun validity(): Int =
             (if (description.asKnown() == null) 0 else 1) +
                 (if (effectiveAt.asKnown() == null) 0 else 1) +
+                (if (externalId.asKnown() == null) 0 else 1) +
                 (ledgerEntries.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (ledgerableId.asKnown() == null) 0 else 1) +
                 (ledgerableType.asKnown()?.validity() ?: 0) +
@@ -874,6 +948,7 @@ private constructor(
             return other is LedgerTransactionUpdateRequest &&
                 description == other.description &&
                 effectiveAt == other.effectiveAt &&
+                externalId == other.externalId &&
                 ledgerEntries == other.ledgerEntries &&
                 ledgerableId == other.ledgerableId &&
                 ledgerableType == other.ledgerableType &&
@@ -886,6 +961,7 @@ private constructor(
             Objects.hash(
                 description,
                 effectiveAt,
+                externalId,
                 ledgerEntries,
                 ledgerableId,
                 ledgerableType,
@@ -898,7 +974,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LedgerTransactionUpdateRequest{description=$description, effectiveAt=$effectiveAt, ledgerEntries=$ledgerEntries, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
+            "LedgerTransactionUpdateRequest{description=$description, effectiveAt=$effectiveAt, externalId=$externalId, ledgerEntries=$ledgerEntries, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
     }
 
     /**

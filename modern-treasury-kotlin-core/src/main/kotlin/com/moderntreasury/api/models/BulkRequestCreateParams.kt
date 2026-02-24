@@ -1661,6 +1661,7 @@ private constructor(
             private val description: JsonField<String>,
             private val effectiveDate: JsonField<LocalDate>,
             private val expiresAt: JsonField<OffsetDateTime>,
+            private val externalId: JsonField<String>,
             private val fallbackType: JsonField<FallbackType>,
             private val foreignExchangeContract: JsonField<String>,
             private val foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>,
@@ -1724,6 +1725,9 @@ private constructor(
                 @JsonProperty("expires_at")
                 @ExcludeMissing
                 expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("external_id")
+                @ExcludeMissing
+                externalId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("fallback_type")
                 @ExcludeMissing
                 fallbackType: JsonField<FallbackType> = JsonMissing.of(),
@@ -1809,6 +1813,7 @@ private constructor(
                 description,
                 effectiveDate,
                 expiresAt,
+                externalId,
                 fallbackType,
                 foreignExchangeContract,
                 foreignExchangeIndicator,
@@ -1951,6 +1956,14 @@ private constructor(
              *   (e.g. if the server responded with an unexpected value).
              */
             fun expiresAt(): OffsetDateTime? = expiresAt.getNullable("expires_at")
+
+            /**
+             * An optional user-defined 180 character unique identifier.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
+             */
+            fun externalId(): String? = externalId.getNullable("external_id")
 
             /**
              * A payment type to fallback to if the original type is not valid for the receiving
@@ -2317,6 +2330,16 @@ private constructor(
             fun _expiresAt(): JsonField<OffsetDateTime> = expiresAt
 
             /**
+             * Returns the raw JSON value of [externalId].
+             *
+             * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("external_id")
+            @ExcludeMissing
+            fun _externalId(): JsonField<String> = externalId
+
+            /**
              * Returns the raw JSON value of [fallbackType].
              *
              * Unlike [fallbackType], this method doesn't throw if the JSON field has an unexpected
@@ -2600,6 +2623,7 @@ private constructor(
                 private var description: JsonField<String> = JsonMissing.of()
                 private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
                 private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var externalId: JsonField<String> = JsonMissing.of()
                 private var fallbackType: JsonField<FallbackType> = JsonMissing.of()
                 private var foreignExchangeContract: JsonField<String> = JsonMissing.of()
                 private var foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> =
@@ -2643,6 +2667,7 @@ private constructor(
                         description = paymentOrderAsyncCreateRequest.description
                         effectiveDate = paymentOrderAsyncCreateRequest.effectiveDate
                         expiresAt = paymentOrderAsyncCreateRequest.expiresAt
+                        externalId = paymentOrderAsyncCreateRequest.externalId
                         fallbackType = paymentOrderAsyncCreateRequest.fallbackType
                         foreignExchangeContract =
                             paymentOrderAsyncCreateRequest.foreignExchangeContract
@@ -2879,6 +2904,20 @@ private constructor(
                  */
                 fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply {
                     this.expiresAt = expiresAt
+                }
+
+                /** An optional user-defined 180 character unique identifier. */
+                fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+                /**
+                 * Sets [Builder.externalId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.externalId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun externalId(externalId: JsonField<String>) = apply {
+                    this.externalId = externalId
                 }
 
                 /**
@@ -3391,6 +3430,7 @@ private constructor(
                         description,
                         effectiveDate,
                         expiresAt,
+                        externalId,
                         fallbackType,
                         foreignExchangeContract,
                         foreignExchangeIndicator,
@@ -3438,6 +3478,7 @@ private constructor(
                 description()
                 effectiveDate()
                 expiresAt()
+                externalId()
                 fallbackType()?.validate()
                 foreignExchangeContract()
                 foreignExchangeIndicator()?.validate()
@@ -3492,6 +3533,7 @@ private constructor(
                     (if (description.asKnown() == null) 0 else 1) +
                     (if (effectiveDate.asKnown() == null) 0 else 1) +
                     (if (expiresAt.asKnown() == null) 0 else 1) +
+                    (if (externalId.asKnown() == null) 0 else 1) +
                     (fallbackType.asKnown()?.validity() ?: 0) +
                     (if (foreignExchangeContract.asKnown() == null) 0 else 1) +
                     (foreignExchangeIndicator.asKnown()?.validity() ?: 0) +
@@ -7394,6 +7436,7 @@ private constructor(
                     description == other.description &&
                     effectiveDate == other.effectiveDate &&
                     expiresAt == other.expiresAt &&
+                    externalId == other.externalId &&
                     fallbackType == other.fallbackType &&
                     foreignExchangeContract == other.foreignExchangeContract &&
                     foreignExchangeIndicator == other.foreignExchangeIndicator &&
@@ -7436,6 +7479,7 @@ private constructor(
                     description,
                     effectiveDate,
                     expiresAt,
+                    externalId,
                     fallbackType,
                     foreignExchangeContract,
                     foreignExchangeIndicator,
@@ -7467,7 +7511,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "PaymentOrderAsyncCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, effectiveDate=$effectiveDate, expiresAt=$expiresAt, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
+                "PaymentOrderAsyncCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
         }
 
         class ExpectedPaymentCreateRequest
@@ -10950,6 +10994,7 @@ private constructor(
             private val direction: JsonField<Direction>,
             private val effectiveDate: JsonField<LocalDate>,
             private val expiresAt: JsonField<OffsetDateTime>,
+            private val externalId: JsonField<String>,
             private val fallbackType: JsonField<FallbackType>,
             private val foreignExchangeContract: JsonField<String>,
             private val foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>,
@@ -11011,6 +11056,9 @@ private constructor(
                 @JsonProperty("expires_at")
                 @ExcludeMissing
                 expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("external_id")
+                @ExcludeMissing
+                externalId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("fallback_type")
                 @ExcludeMissing
                 fallbackType: JsonField<FallbackType> = JsonMissing.of(),
@@ -11096,6 +11144,7 @@ private constructor(
                 direction,
                 effectiveDate,
                 expiresAt,
+                externalId,
                 fallbackType,
                 foreignExchangeContract,
                 foreignExchangeIndicator,
@@ -11229,6 +11278,14 @@ private constructor(
              *   (e.g. if the server responded with an unexpected value).
              */
             fun expiresAt(): OffsetDateTime? = expiresAt.getNullable("expires_at")
+
+            /**
+             * An optional user-defined 180 character unique identifier.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
+             */
+            fun externalId(): String? = externalId.getNullable("external_id")
 
             /**
              * A payment type to fallback to if the original type is not valid for the receiving
@@ -11598,6 +11655,16 @@ private constructor(
             fun _expiresAt(): JsonField<OffsetDateTime> = expiresAt
 
             /**
+             * Returns the raw JSON value of [externalId].
+             *
+             * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("external_id")
+            @ExcludeMissing
+            fun _externalId(): JsonField<String> = externalId
+
+            /**
              * Returns the raw JSON value of [fallbackType].
              *
              * Unlike [fallbackType], this method doesn't throw if the JSON field has an unexpected
@@ -11866,6 +11933,7 @@ private constructor(
                 private var direction: JsonField<Direction> = JsonMissing.of()
                 private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
                 private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var externalId: JsonField<String> = JsonMissing.of()
                 private var fallbackType: JsonField<FallbackType> = JsonMissing.of()
                 private var foreignExchangeContract: JsonField<String> = JsonMissing.of()
                 private var foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> =
@@ -11909,6 +11977,7 @@ private constructor(
                     direction = paymentOrderUpdateRequestWithId.direction
                     effectiveDate = paymentOrderUpdateRequestWithId.effectiveDate
                     expiresAt = paymentOrderUpdateRequestWithId.expiresAt
+                    externalId = paymentOrderUpdateRequestWithId.externalId
                     fallbackType = paymentOrderUpdateRequestWithId.fallbackType
                     foreignExchangeContract =
                         paymentOrderUpdateRequestWithId.foreignExchangeContract
@@ -12138,6 +12207,20 @@ private constructor(
                  */
                 fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply {
                     this.expiresAt = expiresAt
+                }
+
+                /** An optional user-defined 180 character unique identifier. */
+                fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+                /**
+                 * Sets [Builder.externalId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.externalId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun externalId(externalId: JsonField<String>) = apply {
+                    this.externalId = externalId
                 }
 
                 /**
@@ -12642,6 +12725,7 @@ private constructor(
                         direction,
                         effectiveDate,
                         expiresAt,
+                        externalId,
                         fallbackType,
                         foreignExchangeContract,
                         foreignExchangeIndicator,
@@ -12689,6 +12773,7 @@ private constructor(
                 direction()?.validate()
                 effectiveDate()
                 expiresAt()
+                externalId()
                 fallbackType()?.validate()
                 foreignExchangeContract()
                 foreignExchangeIndicator()?.validate()
@@ -12743,6 +12828,7 @@ private constructor(
                     (direction.asKnown()?.validity() ?: 0) +
                     (if (effectiveDate.asKnown() == null) 0 else 1) +
                     (if (expiresAt.asKnown() == null) 0 else 1) +
+                    (if (externalId.asKnown() == null) 0 else 1) +
                     (fallbackType.asKnown()?.validity() ?: 0) +
                     (if (foreignExchangeContract.asKnown() == null) 0 else 1) +
                     (foreignExchangeIndicator.asKnown()?.validity() ?: 0) +
@@ -16846,6 +16932,7 @@ private constructor(
                     direction == other.direction &&
                     effectiveDate == other.effectiveDate &&
                     expiresAt == other.expiresAt &&
+                    externalId == other.externalId &&
                     fallbackType == other.fallbackType &&
                     foreignExchangeContract == other.foreignExchangeContract &&
                     foreignExchangeIndicator == other.foreignExchangeIndicator &&
@@ -16888,6 +16975,7 @@ private constructor(
                     direction,
                     effectiveDate,
                     expiresAt,
+                    externalId,
                     fallbackType,
                     foreignExchangeContract,
                     foreignExchangeIndicator,
@@ -16919,7 +17007,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "PaymentOrderUpdateRequestWithId{id=$id, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, amount=$amount, chargeBearer=$chargeBearer, counterpartyId=$counterpartyId, currency=$currency, description=$description, direction=$direction, effectiveDate=$effectiveDate, expiresAt=$expiresAt, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingAccountId=$originatingAccountId, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, status=$status, subtype=$subtype, type=$type, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
+                "PaymentOrderUpdateRequestWithId{id=$id, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, amount=$amount, chargeBearer=$chargeBearer, counterpartyId=$counterpartyId, currency=$currency, description=$description, direction=$direction, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingAccountId=$originatingAccountId, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, status=$status, subtype=$subtype, type=$type, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
         }
 
         class ExpectedPaymentUpdateRequestWithId
@@ -19092,6 +19180,7 @@ private constructor(
             private val id: JsonField<String>,
             private val description: JsonField<String>,
             private val effectiveAt: JsonField<OffsetDateTime>,
+            private val externalId: JsonField<String>,
             private val ledgerEntries: JsonField<List<LedgerEntryCreateRequest>>,
             private val ledgerableId: JsonField<String>,
             private val ledgerableType: JsonField<LedgerableType>,
@@ -19109,6 +19198,9 @@ private constructor(
                 @JsonProperty("effective_at")
                 @ExcludeMissing
                 effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("external_id")
+                @ExcludeMissing
+                externalId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("ledger_entries")
                 @ExcludeMissing
                 ledgerEntries: JsonField<List<LedgerEntryCreateRequest>> = JsonMissing.of(),
@@ -19126,6 +19218,7 @@ private constructor(
                 id,
                 description,
                 effectiveAt,
+                externalId,
                 ledgerEntries,
                 ledgerableId,
                 ledgerableType,
@@ -19156,6 +19249,15 @@ private constructor(
              *   (e.g. if the server responded with an unexpected value).
              */
             fun effectiveAt(): OffsetDateTime? = effectiveAt.getNullable("effective_at")
+
+            /**
+             * A unique string to represent the ledger transaction. Only one pending or posted
+             * ledger transaction may have this ID in the ledger.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
+             */
+            fun externalId(): String? = externalId.getNullable("external_id")
 
             /**
              * An array of ledger entry objects.
@@ -19228,6 +19330,16 @@ private constructor(
             @JsonProperty("effective_at")
             @ExcludeMissing
             fun _effectiveAt(): JsonField<OffsetDateTime> = effectiveAt
+
+            /**
+             * Returns the raw JSON value of [externalId].
+             *
+             * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("external_id")
+            @ExcludeMissing
+            fun _externalId(): JsonField<String> = externalId
 
             /**
              * Returns the raw JSON value of [ledgerEntries].
@@ -19303,6 +19415,7 @@ private constructor(
                 private var id: JsonField<String> = JsonMissing.of()
                 private var description: JsonField<String> = JsonMissing.of()
                 private var effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var externalId: JsonField<String> = JsonMissing.of()
                 private var ledgerEntries: JsonField<MutableList<LedgerEntryCreateRequest>>? = null
                 private var ledgerableId: JsonField<String> = JsonMissing.of()
                 private var ledgerableType: JsonField<LedgerableType> = JsonMissing.of()
@@ -19316,6 +19429,7 @@ private constructor(
                     id = ledgerTransactionUpdateRequestWithId.id
                     description = ledgerTransactionUpdateRequestWithId.description
                     effectiveAt = ledgerTransactionUpdateRequestWithId.effectiveAt
+                    externalId = ledgerTransactionUpdateRequestWithId.externalId
                     ledgerEntries =
                         ledgerTransactionUpdateRequestWithId.ledgerEntries.map {
                             it.toMutableList()
@@ -19370,6 +19484,23 @@ private constructor(
                  */
                 fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
                     this.effectiveAt = effectiveAt
+                }
+
+                /**
+                 * A unique string to represent the ledger transaction. Only one pending or posted
+                 * ledger transaction may have this ID in the ledger.
+                 */
+                fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+                /**
+                 * Sets [Builder.externalId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.externalId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun externalId(externalId: JsonField<String>) = apply {
+                    this.externalId = externalId
                 }
 
                 /** An array of ledger entry objects. */
@@ -19495,6 +19626,7 @@ private constructor(
                         id,
                         description,
                         effectiveAt,
+                        externalId,
                         (ledgerEntries ?: JsonMissing.of()).map { it.toImmutable() },
                         ledgerableId,
                         ledgerableType,
@@ -19514,6 +19646,7 @@ private constructor(
                 id()
                 description()
                 effectiveAt()
+                externalId()
                 ledgerEntries()?.forEach { it.validate() }
                 ledgerableId()
                 ledgerableType()?.validate()
@@ -19540,6 +19673,7 @@ private constructor(
                 (if (id.asKnown() == null) 0 else 1) +
                     (if (description.asKnown() == null) 0 else 1) +
                     (if (effectiveAt.asKnown() == null) 0 else 1) +
+                    (if (externalId.asKnown() == null) 0 else 1) +
                     (ledgerEntries.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                     (if (ledgerableId.asKnown() == null) 0 else 1) +
                     (ledgerableType.asKnown()?.validity() ?: 0) +
@@ -19957,6 +20091,7 @@ private constructor(
                     id == other.id &&
                     description == other.description &&
                     effectiveAt == other.effectiveAt &&
+                    externalId == other.externalId &&
                     ledgerEntries == other.ledgerEntries &&
                     ledgerableId == other.ledgerableId &&
                     ledgerableType == other.ledgerableType &&
@@ -19970,6 +20105,7 @@ private constructor(
                     id,
                     description,
                     effectiveAt,
+                    externalId,
                     ledgerEntries,
                     ledgerableId,
                     ledgerableType,
@@ -19982,7 +20118,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "LedgerTransactionUpdateRequestWithId{id=$id, description=$description, effectiveAt=$effectiveAt, ledgerEntries=$ledgerEntries, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
+                "LedgerTransactionUpdateRequestWithId{id=$id, description=$description, effectiveAt=$effectiveAt, externalId=$externalId, ledgerEntries=$ledgerEntries, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
         }
     }
 

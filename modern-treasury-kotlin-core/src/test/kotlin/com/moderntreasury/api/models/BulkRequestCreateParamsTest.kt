@@ -41,6 +41,7 @@ internal class BulkRequestCreateParamsTest {
                     .description("description")
                     .effectiveDate(LocalDate.parse("2019-12-27"))
                     .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .externalId("external_id")
                     .fallbackType(
                         BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.FallbackType
                             .ACH
@@ -318,6 +319,7 @@ internal class BulkRequestCreateParamsTest {
                         .description("description")
                         .effectiveDate(LocalDate.parse("2019-12-27"))
                         .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .externalId("external_id")
                         .fallbackType(
                             BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                 .FallbackType
@@ -605,6 +607,7 @@ internal class BulkRequestCreateParamsTest {
                         .description("description")
                         .effectiveDate(LocalDate.parse("2019-12-27"))
                         .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .externalId("external_id")
                         .fallbackType(
                             BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                 .FallbackType

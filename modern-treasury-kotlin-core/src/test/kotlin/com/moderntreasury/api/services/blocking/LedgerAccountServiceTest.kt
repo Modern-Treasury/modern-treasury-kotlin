@@ -97,6 +97,7 @@ internal class LedgerAccountServiceTest {
                 LedgerAccountUpdateParams.builder()
                     .id("id")
                     .description("description")
+                    .externalId("external_id")
                     .metadata(
                         LedgerAccountUpdateParams.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
