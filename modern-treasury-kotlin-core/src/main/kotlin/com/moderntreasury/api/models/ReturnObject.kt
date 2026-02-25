@@ -2980,10 +2980,6 @@ private constructor(
 
                 val LOB_CHECK_ID = of("lob_check_id")
 
-                val MT_FLOW_ACH_NOC_ID = of("mt_flow_ach_noc_id")
-
-                val MT_FLOW_TRANSFER_ID = of("mt_flow_transfer_id")
-
                 val OTHER = of("other")
 
                 val PARTIAL_SWIFT_MIR = of("partial_swift_mir")
@@ -3113,8 +3109,6 @@ private constructor(
                 JPMC_PAYMENT_RETURNED_DATETIME,
                 JPMC_TRANSACTION_REFERENCE_NUMBER,
                 LOB_CHECK_ID,
-                MT_FLOW_ACH_NOC_ID,
-                MT_FLOW_TRANSFER_ID,
                 OTHER,
                 PARTIAL_SWIFT_MIR,
                 PAXOS_GROUP_ID,
@@ -3218,8 +3212,6 @@ private constructor(
                 JPMC_PAYMENT_RETURNED_DATETIME,
                 JPMC_TRANSACTION_REFERENCE_NUMBER,
                 LOB_CHECK_ID,
-                MT_FLOW_ACH_NOC_ID,
-                MT_FLOW_TRANSFER_ID,
                 OTHER,
                 PARTIAL_SWIFT_MIR,
                 PAXOS_GROUP_ID,
@@ -3327,8 +3319,6 @@ private constructor(
                     JPMC_PAYMENT_RETURNED_DATETIME -> Value.JPMC_PAYMENT_RETURNED_DATETIME
                     JPMC_TRANSACTION_REFERENCE_NUMBER -> Value.JPMC_TRANSACTION_REFERENCE_NUMBER
                     LOB_CHECK_ID -> Value.LOB_CHECK_ID
-                    MT_FLOW_ACH_NOC_ID -> Value.MT_FLOW_ACH_NOC_ID
-                    MT_FLOW_TRANSFER_ID -> Value.MT_FLOW_TRANSFER_ID
                     OTHER -> Value.OTHER
                     PARTIAL_SWIFT_MIR -> Value.PARTIAL_SWIFT_MIR
                     PAXOS_GROUP_ID -> Value.PAXOS_GROUP_ID
@@ -3436,8 +3426,6 @@ private constructor(
                     JPMC_PAYMENT_RETURNED_DATETIME -> Known.JPMC_PAYMENT_RETURNED_DATETIME
                     JPMC_TRANSACTION_REFERENCE_NUMBER -> Known.JPMC_TRANSACTION_REFERENCE_NUMBER
                     LOB_CHECK_ID -> Known.LOB_CHECK_ID
-                    MT_FLOW_ACH_NOC_ID -> Known.MT_FLOW_ACH_NOC_ID
-                    MT_FLOW_TRANSFER_ID -> Known.MT_FLOW_TRANSFER_ID
                     OTHER -> Known.OTHER
                     PARTIAL_SWIFT_MIR -> Known.PARTIAL_SWIFT_MIR
                     PAXOS_GROUP_ID -> Known.PAXOS_GROUP_ID
