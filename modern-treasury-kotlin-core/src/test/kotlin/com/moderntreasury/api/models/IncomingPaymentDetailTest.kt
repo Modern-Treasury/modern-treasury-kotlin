@@ -138,6 +138,8 @@ internal class IncomingPaymentDetailTest {
                 )
                 .originatingPartyName("originating_party_name")
                 .originatingPartyVendorIdentifier("originating_party_vendor_identifier")
+                .receivingAccountNumber("receiving_account_number")
+                .receivingAccountNumberSafe("receiving_account_number_safe")
                 .build()
 
         assertThat(incomingPaymentDetail.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -277,6 +279,10 @@ internal class IncomingPaymentDetailTest {
         assertThat(incomingPaymentDetail.originatingPartyName()).isEqualTo("originating_party_name")
         assertThat(incomingPaymentDetail.originatingPartyVendorIdentifier())
             .isEqualTo("originating_party_vendor_identifier")
+        assertThat(incomingPaymentDetail.receivingAccountNumber())
+            .isEqualTo("receiving_account_number")
+        assertThat(incomingPaymentDetail.receivingAccountNumberSafe())
+            .isEqualTo("receiving_account_number_safe")
     }
 
     @Test
@@ -406,6 +412,8 @@ internal class IncomingPaymentDetailTest {
                 )
                 .originatingPartyName("originating_party_name")
                 .originatingPartyVendorIdentifier("originating_party_vendor_identifier")
+                .receivingAccountNumber("receiving_account_number")
+                .receivingAccountNumberSafe("receiving_account_number_safe")
                 .build()
 
         val roundtrippedIncomingPaymentDetail =
