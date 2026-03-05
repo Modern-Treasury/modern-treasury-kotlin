@@ -1,5 +1,32 @@
 # Changelog
 
+## 7.21.0 (2026-03-05)
+
+Full Changelog: [v7.20.0...v7.21.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.20.0...v7.21.0)
+
+### Features
+
+* **api:** api update ([5fa0317](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5fa03176371bb783fd5acb1908c59b0a0007ee5c))
+* **api:** api update ([fb87a56](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/fb87a56cdcfcb9f3b93b3f8da4eac213a0b4f92b))
+* **api:** api update ([13058ff](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/13058ff0c7288a1b38dd7d0cf744f719b63dda89))
+* **api:** api update ([085f093](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/085f0937a84086f8c68f1b7883f9a8848b293f2a))
+* **api:** api update ([465acf5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/465acf59d2fa58a2d4536b9d7bd45ebc9dd546d4))
+* **api:** api update ([e87aebd](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e87aebddc92ca1acbef0897de435b677a1debfc8))
+
+
+### Bug Fixes
+
+* fix request delays for retrying to be more respectful of high requested delays ([2b4ae6c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2b4ae6c184feb29aff9350be9e20412b0dfe5daf))
+
+
+### Chores
+
+* **api:** remove an obsolete reviewer ([daf916e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/daf916e387dd8574649151749bed59ccfc854141))
+* drop apache dependency ([9fd404e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9fd404e3af157cd182b5bcfd916794a2da381d31))
+* **internal:** bump palantir-java-format ([1e88c88](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1e88c88924f763e0ec7f882fffea2dca7b5ffcff))
+* **internal:** expand imports ([5f85e95](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5f85e95e475916aecdf217b2a30e137969d402f9))
+* **test:** do not count install time for mock server timeout ([0926027](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/09260270f20a90811b57da5ed2dc48b6c9adcda9))
+
 ## 7.20.0 (2026-02-23)
 
 Full Changelog: [v7.19.0...v7.20.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.19.0...v7.20.0)
