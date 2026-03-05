@@ -2891,6 +2891,8 @@ private constructor(
 
                 val CHECK_NUMBER = of("check_number")
 
+                val CHIPS_UID = of("chips_uid")
+
                 val CITIBANK_REFERENCE_NUMBER = of("citibank_reference_number")
 
                 val CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER =
@@ -3065,6 +3067,7 @@ private constructor(
                 BOFA_TRANSACTION_ID,
                 BRALE_TRANSFER_ID,
                 CHECK_NUMBER,
+                CHIPS_UID,
                 CITIBANK_REFERENCE_NUMBER,
                 CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER,
                 COLUMN_FX_QUOTE_ID,
@@ -3168,6 +3171,7 @@ private constructor(
                 BOFA_TRANSACTION_ID,
                 BRALE_TRANSFER_ID,
                 CHECK_NUMBER,
+                CHIPS_UID,
                 CITIBANK_REFERENCE_NUMBER,
                 CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER,
                 COLUMN_FX_QUOTE_ID,
@@ -3274,6 +3278,7 @@ private constructor(
                     BOFA_TRANSACTION_ID -> Value.BOFA_TRANSACTION_ID
                     BRALE_TRANSFER_ID -> Value.BRALE_TRANSFER_ID
                     CHECK_NUMBER -> Value.CHECK_NUMBER
+                    CHIPS_UID -> Value.CHIPS_UID
                     CITIBANK_REFERENCE_NUMBER -> Value.CITIBANK_REFERENCE_NUMBER
                     CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER ->
                         Value.CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER
@@ -3381,6 +3386,7 @@ private constructor(
                     BOFA_TRANSACTION_ID -> Known.BOFA_TRANSACTION_ID
                     BRALE_TRANSFER_ID -> Known.BRALE_TRANSFER_ID
                     CHECK_NUMBER -> Known.CHECK_NUMBER
+                    CHIPS_UID -> Known.CHIPS_UID
                     CITIBANK_REFERENCE_NUMBER -> Known.CITIBANK_REFERENCE_NUMBER
                     CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER ->
                         Known.CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER
