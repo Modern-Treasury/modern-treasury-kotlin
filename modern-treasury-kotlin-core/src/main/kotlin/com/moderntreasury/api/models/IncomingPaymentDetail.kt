@@ -51,6 +51,8 @@ private constructor(
     private val originatingPartyAddress: JsonField<Address>,
     private val originatingPartyName: JsonField<String>,
     private val originatingPartyVendorIdentifier: JsonField<String>,
+    private val receivingAccountNumber: JsonField<String>,
+    private val receivingAccountNumberSafe: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -123,6 +125,12 @@ private constructor(
         @JsonProperty("originating_party_vendor_identifier")
         @ExcludeMissing
         originatingPartyVendorIdentifier: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("receiving_account_number")
+        @ExcludeMissing
+        receivingAccountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("receiving_account_number_safe")
+        @ExcludeMissing
+        receivingAccountNumberSafe: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
         amount,
@@ -153,6 +161,8 @@ private constructor(
         originatingPartyAddress,
         originatingPartyName,
         originatingPartyVendorIdentifier,
+        receivingAccountNumber,
+        receivingAccountNumberSafe,
         mutableMapOf(),
     )
 
@@ -392,6 +402,24 @@ private constructor(
      */
     fun originatingPartyVendorIdentifier(): String? =
         originatingPartyVendorIdentifier.getNullable("originating_party_vendor_identifier")
+
+    /**
+     * The account number of the receiving account for the incoming payment detail, or `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun receivingAccountNumber(): String? =
+        receivingAccountNumber.getNullable("receiving_account_number")
+
+    /**
+     * The last 4 digits of the receiving account number for the incoming payment detail, or `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun receivingAccountNumberSafe(): String? =
+        receivingAccountNumberSafe.getNullable("receiving_account_number_safe")
 
     /**
      * Returns the raw JSON value of [id].
@@ -647,6 +675,26 @@ private constructor(
     @ExcludeMissing
     fun _originatingPartyVendorIdentifier(): JsonField<String> = originatingPartyVendorIdentifier
 
+    /**
+     * Returns the raw JSON value of [receivingAccountNumber].
+     *
+     * Unlike [receivingAccountNumber], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("receiving_account_number")
+    @ExcludeMissing
+    fun _receivingAccountNumber(): JsonField<String> = receivingAccountNumber
+
+    /**
+     * Returns the raw JSON value of [receivingAccountNumberSafe].
+     *
+     * Unlike [receivingAccountNumberSafe], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("receiving_account_number_safe")
+    @ExcludeMissing
+    fun _receivingAccountNumberSafe(): JsonField<String> = receivingAccountNumberSafe
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -728,6 +776,8 @@ private constructor(
         private var originatingPartyAddress: JsonField<Address> = JsonMissing.of()
         private var originatingPartyName: JsonField<String> = JsonMissing.of()
         private var originatingPartyVendorIdentifier: JsonField<String> = JsonMissing.of()
+        private var receivingAccountNumber: JsonField<String> = JsonMissing.of()
+        private var receivingAccountNumberSafe: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(incomingPaymentDetail: IncomingPaymentDetail) = apply {
@@ -761,6 +811,8 @@ private constructor(
             originatingPartyName = incomingPaymentDetail.originatingPartyName
             originatingPartyVendorIdentifier =
                 incomingPaymentDetail.originatingPartyVendorIdentifier
+            receivingAccountNumber = incomingPaymentDetail.receivingAccountNumber
+            receivingAccountNumberSafe = incomingPaymentDetail.receivingAccountNumberSafe
             additionalProperties = incomingPaymentDetail.additionalProperties.toMutableMap()
         }
 
@@ -1169,6 +1221,41 @@ private constructor(
                 this.originatingPartyVendorIdentifier = originatingPartyVendorIdentifier
             }
 
+        /**
+         * The account number of the receiving account for the incoming payment detail, or `null`.
+         */
+        fun receivingAccountNumber(receivingAccountNumber: String?) =
+            receivingAccountNumber(JsonField.ofNullable(receivingAccountNumber))
+
+        /**
+         * Sets [Builder.receivingAccountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.receivingAccountNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun receivingAccountNumber(receivingAccountNumber: JsonField<String>) = apply {
+            this.receivingAccountNumber = receivingAccountNumber
+        }
+
+        /**
+         * The last 4 digits of the receiving account number for the incoming payment detail, or
+         * `null`.
+         */
+        fun receivingAccountNumberSafe(receivingAccountNumberSafe: String?) =
+            receivingAccountNumberSafe(JsonField.ofNullable(receivingAccountNumberSafe))
+
+        /**
+         * Sets [Builder.receivingAccountNumberSafe] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.receivingAccountNumberSafe] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun receivingAccountNumberSafe(receivingAccountNumberSafe: JsonField<String>) = apply {
+            this.receivingAccountNumberSafe = receivingAccountNumberSafe
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -1255,6 +1342,8 @@ private constructor(
                 originatingPartyAddress,
                 originatingPartyName,
                 originatingPartyVendorIdentifier,
+                receivingAccountNumber,
+                receivingAccountNumberSafe,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -1295,6 +1384,8 @@ private constructor(
         originatingPartyAddress()?.validate()
         originatingPartyName()
         originatingPartyVendorIdentifier()
+        receivingAccountNumber()
+        receivingAccountNumberSafe()
         validated = true
     }
 
@@ -1340,7 +1431,9 @@ private constructor(
             (if (originatingAccountNumber.asKnown() == null) 0 else 1) +
             (originatingPartyAddress.asKnown()?.validity() ?: 0) +
             (if (originatingPartyName.asKnown() == null) 0 else 1) +
-            (if (originatingPartyVendorIdentifier.asKnown() == null) 0 else 1)
+            (if (originatingPartyVendorIdentifier.asKnown() == null) 0 else 1) +
+            (if (receivingAccountNumber.asKnown() == null) 0 else 1) +
+            (if (receivingAccountNumberSafe.asKnown() == null) 0 else 1)
 
     /** The raw data from the payment pre-notification file that we get from the bank. */
     class Data
@@ -2539,6 +2632,8 @@ private constructor(
             originatingPartyAddress == other.originatingPartyAddress &&
             originatingPartyName == other.originatingPartyName &&
             originatingPartyVendorIdentifier == other.originatingPartyVendorIdentifier &&
+            receivingAccountNumber == other.receivingAccountNumber &&
+            receivingAccountNumberSafe == other.receivingAccountNumberSafe &&
             additionalProperties == other.additionalProperties
     }
 
@@ -2573,6 +2668,8 @@ private constructor(
             originatingPartyAddress,
             originatingPartyName,
             originatingPartyVendorIdentifier,
+            receivingAccountNumber,
+            receivingAccountNumberSafe,
             additionalProperties,
         )
     }
@@ -2580,5 +2677,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "IncomingPaymentDetail{id=$id, amount=$amount, asOfDate=$asOfDate, createdAt=$createdAt, currency=$currency, data=$data, direction=$direction, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, originatingAccountNumberSafe=$originatingAccountNumberSafe, originatingAccountNumberType=$originatingAccountNumberType, originatingRoutingNumber=$originatingRoutingNumber, originatingRoutingNumberType=$originatingRoutingNumberType, reconciliationStatus=$reconciliationStatus, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, vendorId=$vendorId, virtualAccount=$virtualAccount, virtualAccountId=$virtualAccountId, originatingAccountNumber=$originatingAccountNumber, originatingPartyAddress=$originatingPartyAddress, originatingPartyName=$originatingPartyName, originatingPartyVendorIdentifier=$originatingPartyVendorIdentifier, additionalProperties=$additionalProperties}"
+        "IncomingPaymentDetail{id=$id, amount=$amount, asOfDate=$asOfDate, createdAt=$createdAt, currency=$currency, data=$data, direction=$direction, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, originatingAccountNumberSafe=$originatingAccountNumberSafe, originatingAccountNumberType=$originatingAccountNumberType, originatingRoutingNumber=$originatingRoutingNumber, originatingRoutingNumberType=$originatingRoutingNumberType, reconciliationStatus=$reconciliationStatus, status=$status, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, vendorId=$vendorId, virtualAccount=$virtualAccount, virtualAccountId=$virtualAccountId, originatingAccountNumber=$originatingAccountNumber, originatingPartyAddress=$originatingPartyAddress, originatingPartyName=$originatingPartyName, originatingPartyVendorIdentifier=$originatingPartyVendorIdentifier, receivingAccountNumber=$receivingAccountNumber, receivingAccountNumberSafe=$receivingAccountNumberSafe, additionalProperties=$additionalProperties}"
 }
