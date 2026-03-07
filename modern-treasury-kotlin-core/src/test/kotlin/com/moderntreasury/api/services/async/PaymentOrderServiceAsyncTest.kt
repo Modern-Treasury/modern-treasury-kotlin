@@ -56,7 +56,7 @@ internal class PaymentOrderServiceAsyncTest {
                     .description("description")
                     .addDocument(
                         PaymentOrderCreateParams.DocumentCreateRequest.builder()
-                            .file("some content".byteInputStream())
+                            .file("Example data".byteInputStream())
                             .documentType("document_type")
                             .documentableId("documentable_id")
                             .documentableType(
