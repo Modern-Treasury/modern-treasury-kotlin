@@ -26,7 +26,7 @@ internal class DocumentServiceTest {
         val document =
             documentService.create(
                 DocumentCreateParams.builder()
-                    .file("some content".byteInputStream())
+                    .file("Example data".byteInputStream())
                     .documentType("document_type")
                     .documentableId("documentable_id")
                     .documentableType(DocumentCreateParams.DocumentableType.CONNECTIONS)
