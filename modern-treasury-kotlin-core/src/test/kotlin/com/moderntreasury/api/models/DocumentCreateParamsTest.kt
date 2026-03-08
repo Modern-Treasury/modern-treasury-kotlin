@@ -12,7 +12,7 @@ internal class DocumentCreateParamsTest {
     @Test
     fun create() {
         DocumentCreateParams.builder()
-            .file("some content".byteInputStream())
+            .file("Example data".byteInputStream())
             .documentType("document_type")
             .documentableId("documentable_id")
             .documentableType(DocumentCreateParams.DocumentableType.CONNECTIONS)
@@ -23,7 +23,7 @@ internal class DocumentCreateParamsTest {
     fun body() {
         val params =
             DocumentCreateParams.builder()
-                .file("some content".byteInputStream())
+                .file("Example data".byteInputStream())
                 .documentType("document_type")
                 .documentableId("documentable_id")
                 .documentableType(DocumentCreateParams.DocumentableType.CONNECTIONS)
@@ -41,7 +41,7 @@ internal class DocumentCreateParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "file" to MultipartField.of("some content".byteInputStream()),
+                        "file" to MultipartField.of("Example data".byteInputStream()),
                         "document_type" to MultipartField.of("document_type"),
                         "documentable_id" to MultipartField.of("documentable_id"),
                         "documentable_type" to
@@ -55,7 +55,7 @@ internal class DocumentCreateParamsTest {
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = DocumentCreateParams.builder().file("some content".byteInputStream()).build()
+        val params = DocumentCreateParams.builder().file("Example data".byteInputStream()).build()
 
         val body = params._body()
 
@@ -68,7 +68,7 @@ internal class DocumentCreateParamsTest {
                 InputStream::class.java,
             )
             .isEqualTo(
-                mapOf("file" to MultipartField.of("some content".byteInputStream())).mapValues {
+                mapOf("file" to MultipartField.of("Example data".byteInputStream())).mapValues {
                     (_, field) ->
                     field.map { (it as? ByteArray)?.inputStream() ?: it }
                 }
