@@ -54,6 +54,16 @@ internal class LegalEntityUpdateParamsTest {
                 IdentificationCreateRequest.builder()
                     .idNumber("id_number")
                     .idType(IdentificationCreateRequest.IdType.AR_CUIL)
+                    .addDocument(
+                        IdentificationCreateRequest.Document.builder()
+                            .documentType(
+                                IdentificationCreateRequest.Document.DocumentType
+                                    .ARTICLES_OF_INCORPORATION
+                            )
+                            .fileData("file_data")
+                            .filename("filename")
+                            .build()
+                    )
                     .expirationDate(LocalDate.parse("2019-12-27"))
                     .issuingCountry("issuing_country")
                     .issuingRegion("issuing_region")
@@ -206,6 +216,16 @@ internal class LegalEntityUpdateParamsTest {
                     IdentificationCreateRequest.builder()
                         .idNumber("id_number")
                         .idType(IdentificationCreateRequest.IdType.AR_CUIL)
+                        .addDocument(
+                            IdentificationCreateRequest.Document.builder()
+                                .documentType(
+                                    IdentificationCreateRequest.Document.DocumentType
+                                        .ARTICLES_OF_INCORPORATION
+                                )
+                                .fileData("file_data")
+                                .filename("filename")
+                                .build()
+                        )
                         .expirationDate(LocalDate.parse("2019-12-27"))
                         .issuingCountry("issuing_country")
                         .issuingRegion("issuing_region")
@@ -353,6 +373,16 @@ internal class LegalEntityUpdateParamsTest {
                 IdentificationCreateRequest.builder()
                     .idNumber("id_number")
                     .idType(IdentificationCreateRequest.IdType.AR_CUIL)
+                    .addDocument(
+                        IdentificationCreateRequest.Document.builder()
+                            .documentType(
+                                IdentificationCreateRequest.Document.DocumentType
+                                    .ARTICLES_OF_INCORPORATION
+                            )
+                            .fileData("file_data")
+                            .filename("filename")
+                            .build()
+                    )
                     .expirationDate(LocalDate.parse("2019-12-27"))
                     .issuingCountry("issuing_country")
                     .issuingRegion("issuing_region")

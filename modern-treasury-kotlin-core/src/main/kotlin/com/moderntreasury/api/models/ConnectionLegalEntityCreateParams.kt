@@ -580,6 +580,7 @@ private constructor(
         private val countryOfIncorporation: JsonField<String>,
         private val dateFormed: JsonField<LocalDate>,
         private val dateOfBirth: JsonField<LocalDate>,
+        private val documents: JsonField<List<Document>>,
         private val doingBusinessAsNames: JsonField<List<String>>,
         private val email: JsonField<String>,
         private val expectedActivityVolume: JsonField<Long>,
@@ -641,6 +642,9 @@ private constructor(
             @JsonProperty("date_of_birth")
             @ExcludeMissing
             dateOfBirth: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("documents")
+            @ExcludeMissing
+            documents: JsonField<List<Document>> = JsonMissing.of(),
             @JsonProperty("doing_business_as_names")
             @ExcludeMissing
             doingBusinessAsNames: JsonField<List<String>> = JsonMissing.of(),
@@ -731,6 +735,7 @@ private constructor(
             countryOfIncorporation,
             dateFormed,
             dateOfBirth,
+            documents,
             doingBusinessAsNames,
             email,
             expectedActivityVolume,
@@ -837,6 +842,15 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun dateOfBirth(): LocalDate? = dateOfBirth.getNullable("date_of_birth")
+
+        /**
+         * A list of documents to attach to the legal entity (e.g. articles of incorporation,
+         * certificate of good standing, proof of address).
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun documents(): List<Document>? = documents.getNullable("documents")
 
         /**
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -1162,6 +1176,15 @@ private constructor(
         fun _dateOfBirth(): JsonField<LocalDate> = dateOfBirth
 
         /**
+         * Returns the raw JSON value of [documents].
+         *
+         * Unlike [documents], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("documents")
+        @ExcludeMissing
+        fun _documents(): JsonField<List<Document>> = documents
+
+        /**
          * Returns the raw JSON value of [doingBusinessAsNames].
          *
          * Unlike [doingBusinessAsNames], this method doesn't throw if the JSON field has an
@@ -1455,6 +1478,7 @@ private constructor(
             private var countryOfIncorporation: JsonField<String> = JsonMissing.of()
             private var dateFormed: JsonField<LocalDate> = JsonMissing.of()
             private var dateOfBirth: JsonField<LocalDate> = JsonMissing.of()
+            private var documents: JsonField<MutableList<Document>>? = null
             private var doingBusinessAsNames: JsonField<MutableList<String>>? = null
             private var email: JsonField<String> = JsonMissing.of()
             private var expectedActivityVolume: JsonField<Long> = JsonMissing.of()
@@ -1501,6 +1525,7 @@ private constructor(
                 countryOfIncorporation = legalEntity.countryOfIncorporation
                 dateFormed = legalEntity.dateFormed
                 dateOfBirth = legalEntity.dateOfBirth
+                documents = legalEntity.documents.map { it.toMutableList() }
                 doingBusinessAsNames = legalEntity.doingBusinessAsNames.map { it.toMutableList() }
                 email = legalEntity.email
                 expectedActivityVolume = legalEntity.expectedActivityVolume
@@ -1688,6 +1713,35 @@ private constructor(
              */
             fun dateOfBirth(dateOfBirth: JsonField<LocalDate>) = apply {
                 this.dateOfBirth = dateOfBirth
+            }
+
+            /**
+             * A list of documents to attach to the legal entity (e.g. articles of incorporation,
+             * certificate of good standing, proof of address).
+             */
+            fun documents(documents: List<Document>) = documents(JsonField.of(documents))
+
+            /**
+             * Sets [Builder.documents] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.documents] with a well-typed `List<Document>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun documents(documents: JsonField<List<Document>>) = apply {
+                this.documents = documents.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Document] to [documents].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addDocument(document: Document) = apply {
+                documents =
+                    (documents ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("documents", it).add(document)
+                    }
             }
 
             fun doingBusinessAsNames(doingBusinessAsNames: List<String>) =
@@ -2259,6 +2313,7 @@ private constructor(
                     countryOfIncorporation,
                     dateFormed,
                     dateOfBirth,
+                    (documents ?: JsonMissing.of()).map { it.toImmutable() },
                     (doingBusinessAsNames ?: JsonMissing.of()).map { it.toImmutable() },
                     email,
                     expectedActivityVolume,
@@ -2308,6 +2363,7 @@ private constructor(
             countryOfIncorporation()
             dateFormed()
             dateOfBirth()
+            documents()?.forEach { it.validate() }
             doingBusinessAsNames()
             email()
             expectedActivityVolume()
@@ -2364,6 +2420,7 @@ private constructor(
                 (if (countryOfIncorporation.asKnown() == null) 0 else 1) +
                 (if (dateFormed.asKnown() == null) 0 else 1) +
                 (if (dateOfBirth.asKnown() == null) 0 else 1) +
+                (documents.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (doingBusinessAsNames.asKnown()?.size ?: 0) +
                 (if (email.asKnown() == null) 0 else 1) +
                 (if (expectedActivityVolume.asKnown() == null) 0 else 1) +
@@ -3015,6 +3072,416 @@ private constructor(
 
             override fun toString() =
                 "LegalEntityBankSetting{id=$id, backupWithholdingPercentage=$backupWithholdingPercentage, createdAt=$createdAt, discardedAt=$discardedAt, enableBackupWithholding=$enableBackupWithholding, liveMode=$liveMode, object_=$object_, privacyOptOut=$privacyOptOut, regulationO=$regulationO, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        }
+
+        class Document
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val documentType: JsonField<DocumentType>,
+            private val fileData: JsonField<String>,
+            private val filename: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("document_type")
+                @ExcludeMissing
+                documentType: JsonField<DocumentType> = JsonMissing.of(),
+                @JsonProperty("file_data")
+                @ExcludeMissing
+                fileData: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("filename")
+                @ExcludeMissing
+                filename: JsonField<String> = JsonMissing.of(),
+            ) : this(documentType, fileData, filename, mutableMapOf())
+
+            /**
+             * A category given to the document, can be `null`.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun documentType(): DocumentType = documentType.getRequired("document_type")
+
+            /**
+             * Base64-encoded file content for the document.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun fileData(): String = fileData.getRequired("file_data")
+
+            /**
+             * The original filename of the document.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
+             */
+            fun filename(): String? = filename.getNullable("filename")
+
+            /**
+             * Returns the raw JSON value of [documentType].
+             *
+             * Unlike [documentType], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("document_type")
+            @ExcludeMissing
+            fun _documentType(): JsonField<DocumentType> = documentType
+
+            /**
+             * Returns the raw JSON value of [fileData].
+             *
+             * Unlike [fileData], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("file_data") @ExcludeMissing fun _fileData(): JsonField<String> = fileData
+
+            /**
+             * Returns the raw JSON value of [filename].
+             *
+             * Unlike [filename], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("filename") @ExcludeMissing fun _filename(): JsonField<String> = filename
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Document].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .documentType()
+                 * .fileData()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [Document]. */
+            class Builder internal constructor() {
+
+                private var documentType: JsonField<DocumentType>? = null
+                private var fileData: JsonField<String>? = null
+                private var filename: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(document: Document) = apply {
+                    documentType = document.documentType
+                    fileData = document.fileData
+                    filename = document.filename
+                    additionalProperties = document.additionalProperties.toMutableMap()
+                }
+
+                /** A category given to the document, can be `null`. */
+                fun documentType(documentType: DocumentType) =
+                    documentType(JsonField.of(documentType))
+
+                /**
+                 * Sets [Builder.documentType] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.documentType] with a well-typed [DocumentType]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun documentType(documentType: JsonField<DocumentType>) = apply {
+                    this.documentType = documentType
+                }
+
+                /** Base64-encoded file content for the document. */
+                fun fileData(fileData: String) = fileData(JsonField.of(fileData))
+
+                /**
+                 * Sets [Builder.fileData] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.fileData] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun fileData(fileData: JsonField<String>) = apply { this.fileData = fileData }
+
+                /** The original filename of the document. */
+                fun filename(filename: String) = filename(JsonField.of(filename))
+
+                /**
+                 * Sets [Builder.filename] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.filename] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun filename(filename: JsonField<String>) = apply { this.filename = filename }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Document].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .documentType()
+                 * .fileData()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Document =
+                    Document(
+                        checkRequired("documentType", documentType),
+                        checkRequired("fileData", fileData),
+                        filename,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Document = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                documentType().validate()
+                fileData()
+                filename()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: ModernTreasuryInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (documentType.asKnown()?.validity() ?: 0) +
+                    (if (fileData.asKnown() == null) 0 else 1) +
+                    (if (filename.asKnown() == null) 0 else 1)
+
+            /** A category given to the document, can be `null`. */
+            class DocumentType
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    val ARTICLES_OF_INCORPORATION = of("articles_of_incorporation")
+
+                    val CERTIFICATE_OF_GOOD_STANDING = of("certificate_of_good_standing")
+
+                    val EIN_LETTER = of("ein_letter")
+
+                    val IDENTIFICATION_BACK = of("identification_back")
+
+                    val IDENTIFICATION_FRONT = of("identification_front")
+
+                    val PROOF_OF_ADDRESS = of("proof_of_address")
+
+                    fun of(value: String) = DocumentType(JsonField.of(value))
+                }
+
+                /** An enum containing [DocumentType]'s known values. */
+                enum class Known {
+                    ARTICLES_OF_INCORPORATION,
+                    CERTIFICATE_OF_GOOD_STANDING,
+                    EIN_LETTER,
+                    IDENTIFICATION_BACK,
+                    IDENTIFICATION_FRONT,
+                    PROOF_OF_ADDRESS,
+                }
+
+                /**
+                 * An enum containing [DocumentType]'s known values, as well as an [_UNKNOWN]
+                 * member.
+                 *
+                 * An instance of [DocumentType] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    ARTICLES_OF_INCORPORATION,
+                    CERTIFICATE_OF_GOOD_STANDING,
+                    EIN_LETTER,
+                    IDENTIFICATION_BACK,
+                    IDENTIFICATION_FRONT,
+                    PROOF_OF_ADDRESS,
+                    /**
+                     * An enum member indicating that [DocumentType] was instantiated with an
+                     * unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        ARTICLES_OF_INCORPORATION -> Value.ARTICLES_OF_INCORPORATION
+                        CERTIFICATE_OF_GOOD_STANDING -> Value.CERTIFICATE_OF_GOOD_STANDING
+                        EIN_LETTER -> Value.EIN_LETTER
+                        IDENTIFICATION_BACK -> Value.IDENTIFICATION_BACK
+                        IDENTIFICATION_FRONT -> Value.IDENTIFICATION_FRONT
+                        PROOF_OF_ADDRESS -> Value.PROOF_OF_ADDRESS
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
+                 *   not a known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        ARTICLES_OF_INCORPORATION -> Known.ARTICLES_OF_INCORPORATION
+                        CERTIFICATE_OF_GOOD_STANDING -> Known.CERTIFICATE_OF_GOOD_STANDING
+                        EIN_LETTER -> Known.EIN_LETTER
+                        IDENTIFICATION_BACK -> Known.IDENTIFICATION_BACK
+                        IDENTIFICATION_FRONT -> Known.IDENTIFICATION_FRONT
+                        PROOF_OF_ADDRESS -> Known.PROOF_OF_ADDRESS
+                        else ->
+                            throw ModernTreasuryInvalidDataException("Unknown DocumentType: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
+                 *   not have the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString()
+                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): DocumentType = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: ModernTreasuryInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is DocumentType && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Document &&
+                    documentType == other.documentType &&
+                    fileData == other.fileData &&
+                    filename == other.filename &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(documentType, fileData, filename, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Document{documentType=$documentType, fileData=$fileData, filename=$filename, additionalProperties=$additionalProperties}"
         }
 
         /** The type of legal entity. */
@@ -6702,6 +7169,7 @@ private constructor(
                 countryOfIncorporation == other.countryOfIncorporation &&
                 dateFormed == other.dateFormed &&
                 dateOfBirth == other.dateOfBirth &&
+                documents == other.documents &&
                 doingBusinessAsNames == other.doingBusinessAsNames &&
                 email == other.email &&
                 expectedActivityVolume == other.expectedActivityVolume &&
@@ -6745,6 +7213,7 @@ private constructor(
                 countryOfIncorporation,
                 dateFormed,
                 dateOfBirth,
+                documents,
                 doingBusinessAsNames,
                 email,
                 expectedActivityVolume,
@@ -6781,7 +7250,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LegalEntity{addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalEntityType=$legalEntityType, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, status=$status, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
+            "LegalEntity{addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalEntityType=$legalEntityType, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, status=$status, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
