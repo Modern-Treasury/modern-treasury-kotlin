@@ -16,6 +16,16 @@ internal class IdentificationCreateRequestTest {
             IdentificationCreateRequest.builder()
                 .idNumber("id_number")
                 .idType(IdentificationCreateRequest.IdType.AR_CUIL)
+                .addDocument(
+                    IdentificationCreateRequest.Document.builder()
+                        .documentType(
+                            IdentificationCreateRequest.Document.DocumentType
+                                .ARTICLES_OF_INCORPORATION
+                        )
+                        .fileData("file_data")
+                        .filename("filename")
+                        .build()
+                )
                 .expirationDate(LocalDate.parse("2019-12-27"))
                 .issuingCountry("issuing_country")
                 .issuingRegion("issuing_region")
@@ -24,6 +34,16 @@ internal class IdentificationCreateRequestTest {
         assertThat(identificationCreateRequest.idNumber()).isEqualTo("id_number")
         assertThat(identificationCreateRequest.idType())
             .isEqualTo(IdentificationCreateRequest.IdType.AR_CUIL)
+        assertThat(identificationCreateRequest.documents())
+            .containsExactly(
+                IdentificationCreateRequest.Document.builder()
+                    .documentType(
+                        IdentificationCreateRequest.Document.DocumentType.ARTICLES_OF_INCORPORATION
+                    )
+                    .fileData("file_data")
+                    .filename("filename")
+                    .build()
+            )
         assertThat(identificationCreateRequest.expirationDate())
             .isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(identificationCreateRequest.issuingCountry()).isEqualTo("issuing_country")
@@ -37,6 +57,16 @@ internal class IdentificationCreateRequestTest {
             IdentificationCreateRequest.builder()
                 .idNumber("id_number")
                 .idType(IdentificationCreateRequest.IdType.AR_CUIL)
+                .addDocument(
+                    IdentificationCreateRequest.Document.builder()
+                        .documentType(
+                            IdentificationCreateRequest.Document.DocumentType
+                                .ARTICLES_OF_INCORPORATION
+                        )
+                        .fileData("file_data")
+                        .filename("filename")
+                        .build()
+                )
                 .expirationDate(LocalDate.parse("2019-12-27"))
                 .issuingCountry("issuing_country")
                 .issuingRegion("issuing_region")
