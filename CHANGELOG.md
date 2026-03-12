@@ -1,5 +1,19 @@
 # Changelog
 
+## 7.24.0 (2026-03-12)
+
+Full Changelog: [v7.23.0...v7.24.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.23.0...v7.24.0)
+
+### Features
+
+* **api:** api update ([d2b6a9d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d2b6a9d33f9ee721d67561692755d1b69e54241c))
+* **api:** api update ([8ec7410](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8ec74109948691884c15f411fafa1d54ab91915e))
+
+
+### Bug Fixes
+
+* **client:** incorrect `Retry-After` parsing ([5723ea6](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5723ea6114aed9b0a20641ec0822ca0867bb679b))
+
 ## 7.23.0 (2026-03-10)
 
 Full Changelog: [v7.22.0...v7.23.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.22.0...v7.23.0)
