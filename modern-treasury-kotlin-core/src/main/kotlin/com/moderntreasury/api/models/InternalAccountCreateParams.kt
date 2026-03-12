@@ -104,6 +104,14 @@ private constructor(
     fun legalEntityId(): String? = body.legalEntityId()
 
     /**
+     * Additional data represented as key-value pairs. Both the key and value must be strings.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun metadata(): Metadata? = body.metadata()
+
+    /**
      * The parent internal account of this new account.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -191,6 +199,13 @@ private constructor(
      * Unlike [legalEntityId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _legalEntityId(): JsonField<String> = body._legalEntityId()
+
+    /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _metadata(): JsonField<Metadata> = body._metadata()
 
     /**
      * Returns the raw JSON value of [parentAccountId].
@@ -401,6 +416,20 @@ private constructor(
             body.legalEntityId(legalEntityId)
         }
 
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         */
+        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+
+        /**
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
+
         /** The parent internal account of this new account. */
         fun parentAccountId(parentAccountId: String) = apply {
             body.parentAccountId(parentAccountId)
@@ -608,6 +637,7 @@ private constructor(
         private val counterpartyId: JsonField<String>,
         private val externalId: JsonField<String>,
         private val legalEntityId: JsonField<String>,
+        private val metadata: JsonField<Metadata>,
         private val parentAccountId: JsonField<String>,
         private val partyAddress: JsonField<PartyAddress>,
         private val vendorAttributes: JsonField<VendorAttributes>,
@@ -641,6 +671,9 @@ private constructor(
             @JsonProperty("legal_entity_id")
             @ExcludeMissing
             legalEntityId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("metadata")
+            @ExcludeMissing
+            metadata: JsonField<Metadata> = JsonMissing.of(),
             @JsonProperty("parent_account_id")
             @ExcludeMissing
             parentAccountId: JsonField<String> = JsonMissing.of(),
@@ -660,6 +693,7 @@ private constructor(
             counterpartyId,
             externalId,
             legalEntityId,
+            metadata,
             parentAccountId,
             partyAddress,
             vendorAttributes,
@@ -739,6 +773,14 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun legalEntityId(): String? = legalEntityId.getNullable("legal_entity_id")
+
+        /**
+         * Additional data represented as key-value pairs. Both the key and value must be strings.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /**
          * The parent internal account of this new account.
@@ -846,6 +888,13 @@ private constructor(
         fun _legalEntityId(): JsonField<String> = legalEntityId
 
         /**
+         * Returns the raw JSON value of [metadata].
+         *
+         * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+
+        /**
          * Returns the raw JSON value of [parentAccountId].
          *
          * Unlike [parentAccountId], this method doesn't throw if the JSON field has an unexpected
@@ -916,6 +965,7 @@ private constructor(
             private var counterpartyId: JsonField<String> = JsonMissing.of()
             private var externalId: JsonField<String> = JsonMissing.of()
             private var legalEntityId: JsonField<String> = JsonMissing.of()
+            private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var parentAccountId: JsonField<String> = JsonMissing.of()
             private var partyAddress: JsonField<PartyAddress> = JsonMissing.of()
             private var vendorAttributes: JsonField<VendorAttributes> = JsonMissing.of()
@@ -932,6 +982,7 @@ private constructor(
                 counterpartyId = internalAccountCreateRequest.counterpartyId
                 externalId = internalAccountCreateRequest.externalId
                 legalEntityId = internalAccountCreateRequest.legalEntityId
+                metadata = internalAccountCreateRequest.metadata
                 parentAccountId = internalAccountCreateRequest.parentAccountId
                 partyAddress = internalAccountCreateRequest.partyAddress
                 vendorAttributes = internalAccountCreateRequest.vendorAttributes
@@ -1078,6 +1129,21 @@ private constructor(
                 this.legalEntityId = legalEntityId
             }
 
+            /**
+             * Additional data represented as key-value pairs. Both the key and value must be
+             * strings.
+             */
+            fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+            /**
+             * Sets [Builder.metadata] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
             /** The parent internal account of this new account. */
             fun parentAccountId(parentAccountId: String) =
                 parentAccountId(JsonField.of(parentAccountId))
@@ -1170,6 +1236,7 @@ private constructor(
                     counterpartyId,
                     externalId,
                     legalEntityId,
+                    metadata,
                     parentAccountId,
                     partyAddress,
                     vendorAttributes,
@@ -1193,6 +1260,7 @@ private constructor(
             counterpartyId()
             externalId()
             legalEntityId()
+            metadata()?.validate()
             parentAccountId()
             partyAddress()?.validate()
             vendorAttributes()?.validate()
@@ -1223,6 +1291,7 @@ private constructor(
                 (if (counterpartyId.asKnown() == null) 0 else 1) +
                 (if (externalId.asKnown() == null) 0 else 1) +
                 (if (legalEntityId.asKnown() == null) 0 else 1) +
+                (metadata.asKnown()?.validity() ?: 0) +
                 (if (parentAccountId.asKnown() == null) 0 else 1) +
                 (partyAddress.asKnown()?.validity() ?: 0) +
                 (vendorAttributes.asKnown()?.validity() ?: 0)
@@ -1242,6 +1311,7 @@ private constructor(
                 counterpartyId == other.counterpartyId &&
                 externalId == other.externalId &&
                 legalEntityId == other.legalEntityId &&
+                metadata == other.metadata &&
                 parentAccountId == other.parentAccountId &&
                 partyAddress == other.partyAddress &&
                 vendorAttributes == other.vendorAttributes &&
@@ -1259,6 +1329,7 @@ private constructor(
                 counterpartyId,
                 externalId,
                 legalEntityId,
+                metadata,
                 parentAccountId,
                 partyAddress,
                 vendorAttributes,
@@ -1269,7 +1340,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InternalAccountCreateRequest{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, accountCapabilities=$accountCapabilities, accountType=$accountType, counterpartyId=$counterpartyId, externalId=$externalId, legalEntityId=$legalEntityId, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
+            "InternalAccountCreateRequest{connectionId=$connectionId, currency=$currency, name=$name, partyName=$partyName, accountCapabilities=$accountCapabilities, accountType=$accountType, counterpartyId=$counterpartyId, externalId=$externalId, legalEntityId=$legalEntityId, metadata=$metadata, parentAccountId=$parentAccountId, partyAddress=$partyAddress, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
     }
 
     /** Either "USD" or "CAD". Internal accounts created at Increase only supports "USD". */
@@ -2433,6 +2504,104 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+    class Metadata
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Metadata]. */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [Metadata]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(metadata: Metadata) = apply {
+                additionalProperties = metadata.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Metadata].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Metadata = Metadata(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Metadata = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Metadata && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
     /** The address associated with the owner or null. */
