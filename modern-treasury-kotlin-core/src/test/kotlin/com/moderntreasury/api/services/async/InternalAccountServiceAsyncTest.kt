@@ -52,6 +52,11 @@ internal class InternalAccountServiceAsyncTest {
                     .counterpartyId("counterparty_id")
                     .externalId("external_id")
                     .legalEntityId("legal_entity_id")
+                    .metadata(
+                        InternalAccountCreateParams.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .parentAccountId("parent_account_id")
                     .partyAddress(
                         InternalAccountCreateParams.PartyAddress.builder()
