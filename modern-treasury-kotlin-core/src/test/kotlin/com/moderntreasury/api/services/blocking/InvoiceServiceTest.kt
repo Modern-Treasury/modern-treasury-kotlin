@@ -98,6 +98,7 @@ internal class InvoiceServiceTest {
                             .line2("line2")
                             .build()
                     )
+                    .invoicerName("invoicer_name")
                     .metadata(
                         InvoiceCreateParams.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
@@ -214,6 +215,7 @@ internal class InvoiceServiceTest {
                             .line2("line2")
                             .build()
                     )
+                    .invoicerName("invoicer_name")
                     .metadata(
                         InvoiceUpdateParams.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))

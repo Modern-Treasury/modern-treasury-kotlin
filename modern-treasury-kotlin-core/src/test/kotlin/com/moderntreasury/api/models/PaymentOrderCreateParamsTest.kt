@@ -213,10 +213,22 @@ internal class PaymentOrderCreateParamsTest {
             .statementDescriptor("statement_descriptor")
             .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
             .transactionMonitoringEnabled(true)
+            .ultimateOriginatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+            .ultimateOriginatingPartyAddress(
+                PaymentOrderCreateParams.UltimateOriginatingPartyAddress.builder()
+                    .country("country")
+                    .line1("line1")
+                    .line2("line2")
+                    .locality("locality")
+                    .postalCode("postal_code")
+                    .region("region")
+                    .build()
+            )
             .ultimateOriginatingPartyIdentifier("ultimate_originating_party_identifier")
             .ultimateOriginatingPartyName("ultimate_originating_party_name")
             .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
             .ultimateReceivingPartyName("ultimate_receiving_party_name")
+            .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
             .build()
     }
 
@@ -428,10 +440,22 @@ internal class PaymentOrderCreateParamsTest {
                 .statementDescriptor("statement_descriptor")
                 .subtype(PaymentOrderSubtype.BACS_NEW_INSTRUCTION)
                 .transactionMonitoringEnabled(true)
+                .ultimateOriginatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .ultimateOriginatingPartyAddress(
+                    PaymentOrderCreateParams.UltimateOriginatingPartyAddress.builder()
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
+                        .build()
+                )
                 .ultimateOriginatingPartyIdentifier("ultimate_originating_party_identifier")
                 .ultimateOriginatingPartyName("ultimate_originating_party_name")
                 .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                 .ultimateReceivingPartyName("ultimate_receiving_party_name")
+                .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
                 .build()
 
         val body = params._body()
@@ -728,6 +752,19 @@ internal class PaymentOrderCreateParamsTest {
                         "statement_descriptor" to MultipartField.of("statement_descriptor"),
                         "subtype" to MultipartField.of(PaymentOrderSubtype.BACS_NEW_INSTRUCTION),
                         "transaction_monitoring_enabled" to MultipartField.of(true),
+                        "ultimate_originating_account_id" to
+                            MultipartField.of("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),
+                        "ultimate_originating_party_address" to
+                            MultipartField.of(
+                                PaymentOrderCreateParams.UltimateOriginatingPartyAddress.builder()
+                                    .country("country")
+                                    .line1("line1")
+                                    .line2("line2")
+                                    .locality("locality")
+                                    .postalCode("postal_code")
+                                    .region("region")
+                                    .build()
+                            ),
                         "ultimate_originating_party_identifier" to
                             MultipartField.of("ultimate_originating_party_identifier"),
                         "ultimate_originating_party_name" to
@@ -736,6 +773,8 @@ internal class PaymentOrderCreateParamsTest {
                             MultipartField.of("ultimate_receiving_party_identifier"),
                         "ultimate_receiving_party_name" to
                             MultipartField.of("ultimate_receiving_party_name"),
+                        "vendor_attributes" to
+                            MultipartField.of(JsonValue.from(mapOf<String, Any>())),
                     )
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }

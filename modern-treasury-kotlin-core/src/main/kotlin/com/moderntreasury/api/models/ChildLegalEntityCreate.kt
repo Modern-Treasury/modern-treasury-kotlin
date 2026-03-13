@@ -28,6 +28,7 @@ private constructor(
     private val businessDescription: JsonField<String>,
     private val businessName: JsonField<String>,
     private val citizenshipCountry: JsonField<String>,
+    private val complianceDetails: JsonValue,
     private val connectionId: JsonField<String>,
     private val countryOfIncorporation: JsonField<String>,
     private val dateFormed: JsonField<LocalDate>,
@@ -82,6 +83,9 @@ private constructor(
         @JsonProperty("citizenship_country")
         @ExcludeMissing
         citizenshipCountry: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("compliance_details")
+        @ExcludeMissing
+        complianceDetails: JsonValue = JsonMissing.of(),
         @JsonProperty("connection_id")
         @ExcludeMissing
         connectionId: JsonField<String> = JsonMissing.of(),
@@ -176,6 +180,7 @@ private constructor(
         businessDescription,
         businessName,
         citizenshipCountry,
+        complianceDetails,
         connectionId,
         countryOfIncorporation,
         dateFormed,
@@ -250,6 +255,17 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun citizenshipCountry(): String? = citizenshipCountry.getNullable("citizenship_country")
+
+    /**
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```kotlin
+     * val myObject: MyClass = childLegalEntityCreate.complianceDetails().convert(MyClass::class.java)
+     * ```
+     */
+    @Deprecated("deprecated")
+    @JsonProperty("compliance_details")
+    @ExcludeMissing
+    fun _complianceDetails(): JsonValue = complianceDetails
 
     /**
      * The connection ID for the connection the legal entity is associated with. Defaults to the id
@@ -905,6 +921,7 @@ private constructor(
         private var businessDescription: JsonField<String> = JsonMissing.of()
         private var businessName: JsonField<String> = JsonMissing.of()
         private var citizenshipCountry: JsonField<String> = JsonMissing.of()
+        private var complianceDetails: JsonValue = JsonMissing.of()
         private var connectionId: JsonField<String> = JsonMissing.of()
         private var countryOfIncorporation: JsonField<String> = JsonMissing.of()
         private var dateFormed: JsonField<LocalDate> = JsonMissing.of()
@@ -952,6 +969,7 @@ private constructor(
             businessDescription = childLegalEntityCreate.businessDescription
             businessName = childLegalEntityCreate.businessName
             citizenshipCountry = childLegalEntityCreate.citizenshipCountry
+            complianceDetails = childLegalEntityCreate.complianceDetails
             connectionId = childLegalEntityCreate.connectionId
             countryOfIncorporation = childLegalEntityCreate.countryOfIncorporation
             dateFormed = childLegalEntityCreate.dateFormed
@@ -1077,6 +1095,11 @@ private constructor(
          */
         fun citizenshipCountry(citizenshipCountry: JsonField<String>) = apply {
             this.citizenshipCountry = citizenshipCountry
+        }
+
+        @Deprecated("deprecated")
+        fun complianceDetails(complianceDetails: JsonValue) = apply {
+            this.complianceDetails = complianceDetails
         }
 
         /**
@@ -1718,6 +1741,7 @@ private constructor(
                 businessDescription,
                 businessName,
                 citizenshipCountry,
+                complianceDetails,
                 connectionId,
                 countryOfIncorporation,
                 dateFormed,
@@ -3791,6 +3815,8 @@ private constructor(
 
             val CLOSED = of("closed")
 
+            val DENIED = of("denied")
+
             val PENDING = of("pending")
 
             val SUSPENDED = of("suspended")
@@ -3802,6 +3828,7 @@ private constructor(
         enum class Known {
             ACTIVE,
             CLOSED,
+            DENIED,
             PENDING,
             SUSPENDED,
         }
@@ -3818,6 +3845,7 @@ private constructor(
         enum class Value {
             ACTIVE,
             CLOSED,
+            DENIED,
             PENDING,
             SUSPENDED,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
@@ -3835,6 +3863,7 @@ private constructor(
             when (this) {
                 ACTIVE -> Value.ACTIVE
                 CLOSED -> Value.CLOSED
+                DENIED -> Value.DENIED
                 PENDING -> Value.PENDING
                 SUSPENDED -> Value.SUSPENDED
                 else -> Value._UNKNOWN
@@ -3853,6 +3882,7 @@ private constructor(
             when (this) {
                 ACTIVE -> Known.ACTIVE
                 CLOSED -> Known.CLOSED
+                DENIED -> Known.DENIED
                 PENDING -> Known.PENDING
                 SUSPENDED -> Known.SUSPENDED
                 else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
@@ -6458,6 +6488,7 @@ private constructor(
             businessDescription == other.businessDescription &&
             businessName == other.businessName &&
             citizenshipCountry == other.citizenshipCountry &&
+            complianceDetails == other.complianceDetails &&
             connectionId == other.connectionId &&
             countryOfIncorporation == other.countryOfIncorporation &&
             dateFormed == other.dateFormed &&
@@ -6502,6 +6533,7 @@ private constructor(
             businessDescription,
             businessName,
             citizenshipCountry,
+            complianceDetails,
             connectionId,
             countryOfIncorporation,
             dateFormed,
@@ -6543,5 +6575,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ChildLegalEntityCreate{addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalEntityType=$legalEntityType, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, status=$status, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
+        "ChildLegalEntityCreate{addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalEntityType=$legalEntityType, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, status=$status, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
 }

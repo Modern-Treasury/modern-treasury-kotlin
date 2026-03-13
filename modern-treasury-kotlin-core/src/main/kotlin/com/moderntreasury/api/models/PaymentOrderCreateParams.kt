@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
+import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.MultipartField
 import com.moderntreasury.api.core.Params
@@ -350,6 +351,23 @@ private constructor(
     fun transactionMonitoringEnabled(): Boolean? = body.transactionMonitoringEnabled()
 
     /**
+     * The ultimate originating account ID. Can be a `virtual_account` or `internal_account`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun ultimateOriginatingAccountId(): String? = body.ultimateOriginatingAccountId()
+
+    /**
+     * Address of the ultimate originator of the payment order.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun ultimateOriginatingPartyAddress(): UltimateOriginatingPartyAddress? =
+        body.ultimateOriginatingPartyAddress()
+
+    /**
      * Identifier of the ultimate originator of the payment order.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -380,6 +398,17 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun ultimateReceivingPartyName(): String? = body.ultimateReceivingPartyName()
+
+    /**
+     * Additional vendor specific fields for this payment. Data must be represented as key-value
+     * pairs.
+     *
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```kotlin
+     * val myObject: MyClass = paymentOrderCreateParams.vendorAttributes().convert(MyClass::class.java)
+     * ```
+     */
+    fun _vendorAttributes(): JsonValue = body._vendorAttributes()
 
     /**
      * Returns the raw multipart value of [amount].
@@ -645,6 +674,24 @@ private constructor(
     @Deprecated("deprecated")
     fun _transactionMonitoringEnabled(): MultipartField<Boolean> =
         body._transactionMonitoringEnabled()
+
+    /**
+     * Returns the raw multipart value of [ultimateOriginatingAccountId].
+     *
+     * Unlike [ultimateOriginatingAccountId], this method doesn't throw if the multipart field has
+     * an unexpected type.
+     */
+    fun _ultimateOriginatingAccountId(): MultipartField<String> =
+        body._ultimateOriginatingAccountId()
+
+    /**
+     * Returns the raw multipart value of [ultimateOriginatingPartyAddress].
+     *
+     * Unlike [ultimateOriginatingPartyAddress], this method doesn't throw if the multipart field
+     * has an unexpected type.
+     */
+    fun _ultimateOriginatingPartyAddress(): MultipartField<UltimateOriginatingPartyAddress> =
+        body._ultimateOriginatingPartyAddress()
 
     /**
      * Returns the raw multipart value of [ultimateOriginatingPartyIdentifier].
@@ -1350,6 +1397,41 @@ private constructor(
                 body.transactionMonitoringEnabled(transactionMonitoringEnabled)
             }
 
+        /**
+         * The ultimate originating account ID. Can be a `virtual_account` or `internal_account`.
+         */
+        fun ultimateOriginatingAccountId(ultimateOriginatingAccountId: String) = apply {
+            body.ultimateOriginatingAccountId(ultimateOriginatingAccountId)
+        }
+
+        /**
+         * Sets [Builder.ultimateOriginatingAccountId] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.ultimateOriginatingAccountId] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun ultimateOriginatingAccountId(ultimateOriginatingAccountId: MultipartField<String>) =
+            apply {
+                body.ultimateOriginatingAccountId(ultimateOriginatingAccountId)
+            }
+
+        /** Address of the ultimate originator of the payment order. */
+        fun ultimateOriginatingPartyAddress(
+            ultimateOriginatingPartyAddress: UltimateOriginatingPartyAddress?
+        ) = apply { body.ultimateOriginatingPartyAddress(ultimateOriginatingPartyAddress) }
+
+        /**
+         * Sets [Builder.ultimateOriginatingPartyAddress] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.ultimateOriginatingPartyAddress] with a well-typed
+         * [UltimateOriginatingPartyAddress] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun ultimateOriginatingPartyAddress(
+            ultimateOriginatingPartyAddress: MultipartField<UltimateOriginatingPartyAddress>
+        ) = apply { body.ultimateOriginatingPartyAddress(ultimateOriginatingPartyAddress) }
+
         /** Identifier of the ultimate originator of the payment order. */
         fun ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier: String?) =
             apply {
@@ -1414,6 +1496,14 @@ private constructor(
          */
         fun ultimateReceivingPartyName(ultimateReceivingPartyName: MultipartField<String>) = apply {
             body.ultimateReceivingPartyName(ultimateReceivingPartyName)
+        }
+
+        /**
+         * Additional vendor specific fields for this payment. Data must be represented as key-value
+         * pairs.
+         */
+        fun vendorAttributes(vendorAttributes: JsonValue) = apply {
+            body.vendorAttributes(vendorAttributes)
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -1592,10 +1682,13 @@ private constructor(
                 "statement_descriptor" to _statementDescriptor(),
                 "subtype" to _subtype(),
                 "transaction_monitoring_enabled" to _transactionMonitoringEnabled(),
+                "ultimate_originating_account_id" to _ultimateOriginatingAccountId(),
+                "ultimate_originating_party_address" to _ultimateOriginatingPartyAddress(),
                 "ultimate_originating_party_identifier" to _ultimateOriginatingPartyIdentifier(),
                 "ultimate_originating_party_name" to _ultimateOriginatingPartyName(),
                 "ultimate_receiving_party_identifier" to _ultimateReceivingPartyIdentifier(),
                 "ultimate_receiving_party_name" to _ultimateReceivingPartyName(),
+                "vendor_attributes" to _vendorAttributes(),
             ) + _additionalBodyProperties().mapValues { (_, value) -> MultipartField.of(value) })
             .toImmutable()
 
@@ -1639,10 +1732,14 @@ private constructor(
         private val statementDescriptor: MultipartField<String>,
         private val subtype: MultipartField<PaymentOrderSubtype>,
         private val transactionMonitoringEnabled: MultipartField<Boolean>,
+        private val ultimateOriginatingAccountId: MultipartField<String>,
+        private val ultimateOriginatingPartyAddress:
+            MultipartField<UltimateOriginatingPartyAddress>,
         private val ultimateOriginatingPartyIdentifier: MultipartField<String>,
         private val ultimateOriginatingPartyName: MultipartField<String>,
         private val ultimateReceivingPartyIdentifier: MultipartField<String>,
         private val ultimateReceivingPartyName: MultipartField<String>,
+        private val vendorAttributes: JsonValue,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -1982,6 +2079,24 @@ private constructor(
             transactionMonitoringEnabled.value.getNullable("transaction_monitoring_enabled")
 
         /**
+         * The ultimate originating account ID. Can be a `virtual_account` or `internal_account`.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun ultimateOriginatingAccountId(): String? =
+            ultimateOriginatingAccountId.value.getNullable("ultimate_originating_account_id")
+
+        /**
+         * Address of the ultimate originator of the payment order.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun ultimateOriginatingPartyAddress(): UltimateOriginatingPartyAddress? =
+            ultimateOriginatingPartyAddress.value.getNullable("ultimate_originating_party_address")
+
+        /**
          * Identifier of the ultimate originator of the payment order.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -2020,6 +2135,19 @@ private constructor(
          */
         fun ultimateReceivingPartyName(): String? =
             ultimateReceivingPartyName.value.getNullable("ultimate_receiving_party_name")
+
+        /**
+         * Additional vendor specific fields for this payment. Data must be represented as key-value
+         * pairs.
+         *
+         * This arbitrary value can be deserialized into a custom type using the `convert` method:
+         * ```kotlin
+         * val myObject: MyClass = paymentOrderCreateRequest.vendorAttributes().convert(MyClass::class.java)
+         * ```
+         */
+        @JsonProperty("vendor_attributes")
+        @ExcludeMissing
+        fun _vendorAttributes(): JsonValue = vendorAttributes
 
         /**
          * Returns the raw multipart value of [amount].
@@ -2359,6 +2487,27 @@ private constructor(
         fun _transactionMonitoringEnabled(): MultipartField<Boolean> = transactionMonitoringEnabled
 
         /**
+         * Returns the raw multipart value of [ultimateOriginatingAccountId].
+         *
+         * Unlike [ultimateOriginatingAccountId], this method doesn't throw if the multipart field
+         * has an unexpected type.
+         */
+        @JsonProperty("ultimate_originating_account_id")
+        @ExcludeMissing
+        fun _ultimateOriginatingAccountId(): MultipartField<String> = ultimateOriginatingAccountId
+
+        /**
+         * Returns the raw multipart value of [ultimateOriginatingPartyAddress].
+         *
+         * Unlike [ultimateOriginatingPartyAddress], this method doesn't throw if the multipart
+         * field has an unexpected type.
+         */
+        @JsonProperty("ultimate_originating_party_address")
+        @ExcludeMissing
+        fun _ultimateOriginatingPartyAddress(): MultipartField<UltimateOriginatingPartyAddress> =
+            ultimateOriginatingPartyAddress
+
+        /**
          * Returns the raw multipart value of [ultimateOriginatingPartyIdentifier].
          *
          * Unlike [ultimateOriginatingPartyIdentifier], this method doesn't throw if the multipart
@@ -2470,6 +2619,11 @@ private constructor(
             private var subtype: MultipartField<PaymentOrderSubtype> = MultipartField.of(null)
             private var transactionMonitoringEnabled: MultipartField<Boolean> =
                 MultipartField.of(null)
+            private var ultimateOriginatingAccountId: MultipartField<String> =
+                MultipartField.of(null)
+            private var ultimateOriginatingPartyAddress:
+                MultipartField<UltimateOriginatingPartyAddress> =
+                MultipartField.of(null)
             private var ultimateOriginatingPartyIdentifier: MultipartField<String> =
                 MultipartField.of(null)
             private var ultimateOriginatingPartyName: MultipartField<String> =
@@ -2477,6 +2631,7 @@ private constructor(
             private var ultimateReceivingPartyIdentifier: MultipartField<String> =
                 MultipartField.of(null)
             private var ultimateReceivingPartyName: MultipartField<String> = MultipartField.of(null)
+            private var vendorAttributes: JsonValue = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(paymentOrderCreateRequest: PaymentOrderCreateRequest) = apply {
@@ -2515,6 +2670,10 @@ private constructor(
                 subtype = paymentOrderCreateRequest.subtype
                 transactionMonitoringEnabled =
                     paymentOrderCreateRequest.transactionMonitoringEnabled
+                ultimateOriginatingAccountId =
+                    paymentOrderCreateRequest.ultimateOriginatingAccountId
+                ultimateOriginatingPartyAddress =
+                    paymentOrderCreateRequest.ultimateOriginatingPartyAddress
                 ultimateOriginatingPartyIdentifier =
                     paymentOrderCreateRequest.ultimateOriginatingPartyIdentifier
                 ultimateOriginatingPartyName =
@@ -2522,6 +2681,7 @@ private constructor(
                 ultimateReceivingPartyIdentifier =
                     paymentOrderCreateRequest.ultimateReceivingPartyIdentifier
                 ultimateReceivingPartyName = paymentOrderCreateRequest.ultimateReceivingPartyName
+                vendorAttributes = paymentOrderCreateRequest.vendorAttributes
                 additionalProperties = paymentOrderCreateRequest.additionalProperties.toMutableMap()
             }
 
@@ -3159,6 +3319,41 @@ private constructor(
                 transactionMonitoringEnabled: MultipartField<Boolean>
             ) = apply { this.transactionMonitoringEnabled = transactionMonitoringEnabled }
 
+            /**
+             * The ultimate originating account ID. Can be a `virtual_account` or
+             * `internal_account`.
+             */
+            fun ultimateOriginatingAccountId(ultimateOriginatingAccountId: String) =
+                ultimateOriginatingAccountId(MultipartField.of(ultimateOriginatingAccountId))
+
+            /**
+             * Sets [Builder.ultimateOriginatingAccountId] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.ultimateOriginatingAccountId] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun ultimateOriginatingAccountId(ultimateOriginatingAccountId: MultipartField<String>) =
+                apply {
+                    this.ultimateOriginatingAccountId = ultimateOriginatingAccountId
+                }
+
+            /** Address of the ultimate originator of the payment order. */
+            fun ultimateOriginatingPartyAddress(
+                ultimateOriginatingPartyAddress: UltimateOriginatingPartyAddress?
+            ) = ultimateOriginatingPartyAddress(MultipartField.of(ultimateOriginatingPartyAddress))
+
+            /**
+             * Sets [Builder.ultimateOriginatingPartyAddress] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.ultimateOriginatingPartyAddress] with a well-typed
+             * [UltimateOriginatingPartyAddress] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun ultimateOriginatingPartyAddress(
+                ultimateOriginatingPartyAddress: MultipartField<UltimateOriginatingPartyAddress>
+            ) = apply { this.ultimateOriginatingPartyAddress = ultimateOriginatingPartyAddress }
+
             /** Identifier of the ultimate originator of the payment order. */
             fun ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier: String?) =
                 ultimateOriginatingPartyIdentifier(
@@ -3226,6 +3421,14 @@ private constructor(
                 apply {
                     this.ultimateReceivingPartyName = ultimateReceivingPartyName
                 }
+
+            /**
+             * Additional vendor specific fields for this payment. Data must be represented as
+             * key-value pairs.
+             */
+            fun vendorAttributes(vendorAttributes: JsonValue) = apply {
+                this.vendorAttributes = vendorAttributes
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -3297,10 +3500,13 @@ private constructor(
                     statementDescriptor,
                     subtype,
                     transactionMonitoringEnabled,
+                    ultimateOriginatingAccountId,
+                    ultimateOriginatingPartyAddress,
                     ultimateOriginatingPartyIdentifier,
                     ultimateOriginatingPartyName,
                     ultimateReceivingPartyIdentifier,
                     ultimateReceivingPartyName,
+                    vendorAttributes,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -3346,6 +3552,8 @@ private constructor(
             statementDescriptor()
             subtype()?.validate()
             transactionMonitoringEnabled()
+            ultimateOriginatingAccountId()
+            ultimateOriginatingPartyAddress()?.validate()
             ultimateOriginatingPartyIdentifier()
             ultimateOriginatingPartyName()
             ultimateReceivingPartyIdentifier()
@@ -3401,10 +3609,13 @@ private constructor(
                 statementDescriptor == other.statementDescriptor &&
                 subtype == other.subtype &&
                 transactionMonitoringEnabled == other.transactionMonitoringEnabled &&
+                ultimateOriginatingAccountId == other.ultimateOriginatingAccountId &&
+                ultimateOriginatingPartyAddress == other.ultimateOriginatingPartyAddress &&
                 ultimateOriginatingPartyIdentifier == other.ultimateOriginatingPartyIdentifier &&
                 ultimateOriginatingPartyName == other.ultimateOriginatingPartyName &&
                 ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier &&
                 ultimateReceivingPartyName == other.ultimateReceivingPartyName &&
+                vendorAttributes == other.vendorAttributes &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -3444,10 +3655,13 @@ private constructor(
                 statementDescriptor,
                 subtype,
                 transactionMonitoringEnabled,
+                ultimateOriginatingAccountId,
+                ultimateOriginatingPartyAddress,
                 ultimateOriginatingPartyIdentifier,
                 ultimateOriginatingPartyName,
                 ultimateReceivingPartyIdentifier,
                 ultimateReceivingPartyName,
+                vendorAttributes,
                 additionalProperties,
             )
         }
@@ -3455,7 +3669,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PaymentOrderCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, documents=$documents, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
+            "PaymentOrderCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, documents=$documents, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingPartyAddress=$ultimateOriginatingPartyAddress, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -7459,6 +7673,310 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    /** Address of the ultimate originator of the payment order. */
+    class UltimateOriginatingPartyAddress
+    private constructor(
+        private val country: MultipartField<String>,
+        private val line1: MultipartField<String>,
+        private val line2: MultipartField<String>,
+        private val locality: MultipartField<String>,
+        private val postalCode: MultipartField<String>,
+        private val region: MultipartField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        /**
+         * Country code conforms to [ISO 3166-1 alpha-2]
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun country(): String? = country.value.getNullable("country")
+
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun line1(): String? = line1.value.getNullable("line1")
+
+        /**
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun line2(): String? = line2.value.getNullable("line2")
+
+        /**
+         * Locality or City.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun locality(): String? = locality.value.getNullable("locality")
+
+        /**
+         * The postal code of the address.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun postalCode(): String? = postalCode.value.getNullable("postal_code")
+
+        /**
+         * Region or State.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun region(): String? = region.value.getNullable("region")
+
+        /**
+         * Returns the raw multipart value of [country].
+         *
+         * Unlike [country], this method doesn't throw if the multipart field has an unexpected
+         * type.
+         */
+        @JsonProperty("country") @ExcludeMissing fun _country(): MultipartField<String> = country
+
+        /**
+         * Returns the raw multipart value of [line1].
+         *
+         * Unlike [line1], this method doesn't throw if the multipart field has an unexpected type.
+         */
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): MultipartField<String> = line1
+
+        /**
+         * Returns the raw multipart value of [line2].
+         *
+         * Unlike [line2], this method doesn't throw if the multipart field has an unexpected type.
+         */
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): MultipartField<String> = line2
+
+        /**
+         * Returns the raw multipart value of [locality].
+         *
+         * Unlike [locality], this method doesn't throw if the multipart field has an unexpected
+         * type.
+         */
+        @JsonProperty("locality") @ExcludeMissing fun _locality(): MultipartField<String> = locality
+
+        /**
+         * Returns the raw multipart value of [postalCode].
+         *
+         * Unlike [postalCode], this method doesn't throw if the multipart field has an unexpected
+         * type.
+         */
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode(): MultipartField<String> = postalCode
+
+        /**
+         * Returns the raw multipart value of [region].
+         *
+         * Unlike [region], this method doesn't throw if the multipart field has an unexpected type.
+         */
+        @JsonProperty("region") @ExcludeMissing fun _region(): MultipartField<String> = region
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [UltimateOriginatingPartyAddress].
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [UltimateOriginatingPartyAddress]. */
+        class Builder internal constructor() {
+
+            private var country: MultipartField<String> = MultipartField.of(null)
+            private var line1: MultipartField<String> = MultipartField.of(null)
+            private var line2: MultipartField<String> = MultipartField.of(null)
+            private var locality: MultipartField<String> = MultipartField.of(null)
+            private var postalCode: MultipartField<String> = MultipartField.of(null)
+            private var region: MultipartField<String> = MultipartField.of(null)
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(ultimateOriginatingPartyAddress: UltimateOriginatingPartyAddress) =
+                apply {
+                    country = ultimateOriginatingPartyAddress.country
+                    line1 = ultimateOriginatingPartyAddress.line1
+                    line2 = ultimateOriginatingPartyAddress.line2
+                    locality = ultimateOriginatingPartyAddress.locality
+                    postalCode = ultimateOriginatingPartyAddress.postalCode
+                    region = ultimateOriginatingPartyAddress.region
+                    additionalProperties =
+                        ultimateOriginatingPartyAddress.additionalProperties.toMutableMap()
+                }
+
+            /** Country code conforms to [ISO 3166-1 alpha-2] */
+            fun country(country: String) = country(MultipartField.of(country))
+
+            /**
+             * Sets [Builder.country] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.country] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun country(country: MultipartField<String>) = apply { this.country = country }
+
+            fun line1(line1: String) = line1(MultipartField.of(line1))
+
+            /**
+             * Sets [Builder.line1] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.line1] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun line1(line1: MultipartField<String>) = apply { this.line1 = line1 }
+
+            fun line2(line2: String) = line2(MultipartField.of(line2))
+
+            /**
+             * Sets [Builder.line2] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.line2] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun line2(line2: MultipartField<String>) = apply { this.line2 = line2 }
+
+            /** Locality or City. */
+            fun locality(locality: String) = locality(MultipartField.of(locality))
+
+            /**
+             * Sets [Builder.locality] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.locality] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun locality(locality: MultipartField<String>) = apply { this.locality = locality }
+
+            /** The postal code of the address. */
+            fun postalCode(postalCode: String) = postalCode(MultipartField.of(postalCode))
+
+            /**
+             * Sets [Builder.postalCode] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.postalCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun postalCode(postalCode: MultipartField<String>) = apply {
+                this.postalCode = postalCode
+            }
+
+            /** Region or State. */
+            fun region(region: String) = region(MultipartField.of(region))
+
+            /**
+             * Sets [Builder.region] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.region] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun region(region: MultipartField<String>) = apply { this.region = region }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [UltimateOriginatingPartyAddress].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): UltimateOriginatingPartyAddress =
+                UltimateOriginatingPartyAddress(
+                    country,
+                    line1,
+                    line2,
+                    locality,
+                    postalCode,
+                    region,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): UltimateOriginatingPartyAddress = apply {
+            if (validated) {
+                return@apply
+            }
+
+            country()
+            line1()
+            line2()
+            locality()
+            postalCode()
+            region()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is UltimateOriginatingPartyAddress &&
+                country == other.country &&
+                line1 == other.line1 &&
+                line2 == other.line2 &&
+                locality == other.locality &&
+                postalCode == other.postalCode &&
+                region == other.region &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(country, line1, line2, locality, postalCode, region, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "UltimateOriginatingPartyAddress{country=$country, line1=$line1, line2=$line2, locality=$locality, postalCode=$postalCode, region=$region, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

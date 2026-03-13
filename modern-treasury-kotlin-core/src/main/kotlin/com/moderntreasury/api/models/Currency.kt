@@ -303,6 +303,8 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
 
         val SKK = of("SKK")
 
+        val SLE = of("SLE")
+
         val SLL = of("SLL")
 
         val SOS = of("SOS")
@@ -312,6 +314,8 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         val SSP = of("SSP")
 
         val STD = of("STD")
+
+        val STN = of("STN")
 
         val SVC = of("SVC")
 
@@ -385,6 +389,8 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
 
         val XCD = of("XCD")
 
+        val XCG = of("XCG")
+
         val XDR = of("XDR")
 
         val XFU = of("XFU")
@@ -408,6 +414,8 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         val ZMW = of("ZMW")
 
         val ZWD = of("ZWD")
+
+        val ZWG = of("ZWG")
 
         val ZWL = of("ZWL")
 
@@ -561,11 +569,13 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         SGD,
         SHP,
         SKK,
+        SLE,
         SLL,
         SOS,
         SRD,
         SSP,
         STD,
+        STN,
         SVC,
         SYP,
         SZL,
@@ -602,6 +612,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         XBC,
         XBD,
         XCD,
+        XCG,
         XDR,
         XFU,
         XOF,
@@ -614,6 +625,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         ZMK,
         ZMW,
         ZWD,
+        ZWG,
         ZWL,
         ZWN,
         ZWR,
@@ -770,11 +782,13 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         SGD,
         SHP,
         SKK,
+        SLE,
         SLL,
         SOS,
         SRD,
         SSP,
         STD,
+        STN,
         SVC,
         SYP,
         SZL,
@@ -811,6 +825,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         XBC,
         XBD,
         XCD,
+        XCG,
         XDR,
         XFU,
         XOF,
@@ -823,6 +838,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         ZMK,
         ZMW,
         ZWD,
+        ZWG,
         ZWL,
         ZWN,
         ZWR,
@@ -980,11 +996,13 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
             SGD -> Value.SGD
             SHP -> Value.SHP
             SKK -> Value.SKK
+            SLE -> Value.SLE
             SLL -> Value.SLL
             SOS -> Value.SOS
             SRD -> Value.SRD
             SSP -> Value.SSP
             STD -> Value.STD
+            STN -> Value.STN
             SVC -> Value.SVC
             SYP -> Value.SYP
             SZL -> Value.SZL
@@ -1021,6 +1039,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
             XBC -> Value.XBC
             XBD -> Value.XBD
             XCD -> Value.XCD
+            XCG -> Value.XCG
             XDR -> Value.XDR
             XFU -> Value.XFU
             XOF -> Value.XOF
@@ -1033,6 +1052,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
             ZMK -> Value.ZMK
             ZMW -> Value.ZMW
             ZWD -> Value.ZWD
+            ZWG -> Value.ZWG
             ZWL -> Value.ZWL
             ZWN -> Value.ZWN
             ZWR -> Value.ZWR
@@ -1191,11 +1211,13 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
             SGD -> Known.SGD
             SHP -> Known.SHP
             SKK -> Known.SKK
+            SLE -> Known.SLE
             SLL -> Known.SLL
             SOS -> Known.SOS
             SRD -> Known.SRD
             SSP -> Known.SSP
             STD -> Known.STD
+            STN -> Known.STN
             SVC -> Known.SVC
             SYP -> Known.SYP
             SZL -> Known.SZL
@@ -1232,6 +1254,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
             XBC -> Known.XBC
             XBD -> Known.XBD
             XCD -> Known.XCD
+            XCG -> Known.XCG
             XDR -> Known.XDR
             XFU -> Known.XFU
             XOF -> Known.XOF
@@ -1244,6 +1267,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
             ZMK -> Known.ZMK
             ZMW -> Known.ZMW
             ZWD -> Known.ZWD
+            ZWG -> Known.ZWG
             ZWL -> Known.ZWL
             ZWN -> Known.ZWN
             ZWR -> Known.ZWR
