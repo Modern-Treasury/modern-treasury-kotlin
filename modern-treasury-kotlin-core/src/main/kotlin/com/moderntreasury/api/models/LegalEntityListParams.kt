@@ -501,6 +501,8 @@ private constructor(
 
             val CLOSED = of("closed")
 
+            val DENIED = of("denied")
+
             fun of(value: String) = Status(JsonField.of(value))
         }
 
@@ -510,6 +512,7 @@ private constructor(
             ACTIVE,
             SUSPENDED,
             CLOSED,
+            DENIED,
         }
 
         /**
@@ -526,6 +529,7 @@ private constructor(
             ACTIVE,
             SUSPENDED,
             CLOSED,
+            DENIED,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -543,6 +547,7 @@ private constructor(
                 ACTIVE -> Value.ACTIVE
                 SUSPENDED -> Value.SUSPENDED
                 CLOSED -> Value.CLOSED
+                DENIED -> Value.DENIED
                 else -> Value._UNKNOWN
             }
 
@@ -561,6 +566,7 @@ private constructor(
                 ACTIVE -> Known.ACTIVE
                 SUSPENDED -> Known.SUSPENDED
                 CLOSED -> Known.CLOSED
+                DENIED -> Known.DENIED
                 else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
             }
 

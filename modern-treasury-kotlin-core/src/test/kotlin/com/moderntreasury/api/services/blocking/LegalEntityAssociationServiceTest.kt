@@ -70,6 +70,7 @@ internal class LegalEntityAssociationServiceTest {
                             .businessDescription("business_description")
                             .businessName("business_name")
                             .citizenshipCountry("citizenship_country")
+                            .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                             .connectionId("connection_id")
                             .countryOfIncorporation("country_of_incorporation")
                             .dateFormed(LocalDate.parse("2019-12-27"))
