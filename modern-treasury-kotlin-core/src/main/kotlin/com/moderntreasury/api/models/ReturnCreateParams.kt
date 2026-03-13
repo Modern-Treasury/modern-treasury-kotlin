@@ -90,6 +90,16 @@ private constructor(
     fun dateOfDeath(): LocalDate? = body.dateOfDeath()
 
     /**
+     * Specifies a ledger transaction object that will be created with the return. If the ledger
+     * transaction cannot be created, then the return creation will fail. The resulting ledger
+     * transaction will mirror the status of the return.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun ledgerTransaction(): LedgerTransactionCreateRequest? = body.ledgerTransaction()
+
+    /**
      * An optional description of the reason for the return. This is for internal usage and will not
      * be transmitted to the bank.”
      *
@@ -148,6 +158,14 @@ private constructor(
      * Unlike [dateOfDeath], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _dateOfDeath(): JsonField<LocalDate> = body._dateOfDeath()
+
+    /**
+     * Returns the raw JSON value of [ledgerTransaction].
+     *
+     * Unlike [ledgerTransaction], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _ledgerTransaction(): JsonField<LedgerTransactionCreateRequest> = body._ledgerTransaction()
 
     /**
      * Returns the raw JSON value of [reason].
@@ -312,6 +330,27 @@ private constructor(
          * supported value.
          */
         fun dateOfDeath(dateOfDeath: JsonField<LocalDate>) = apply { body.dateOfDeath(dateOfDeath) }
+
+        /**
+         * Specifies a ledger transaction object that will be created with the return. If the ledger
+         * transaction cannot be created, then the return creation will fail. The resulting ledger
+         * transaction will mirror the status of the return.
+         */
+        fun ledgerTransaction(ledgerTransaction: LedgerTransactionCreateRequest) = apply {
+            body.ledgerTransaction(ledgerTransaction)
+        }
+
+        /**
+         * Sets [Builder.ledgerTransaction] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ledgerTransaction] with a well-typed
+         * [LedgerTransactionCreateRequest] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun ledgerTransaction(ledgerTransaction: JsonField<LedgerTransactionCreateRequest>) =
+            apply {
+                body.ledgerTransaction(ledgerTransaction)
+            }
 
         /**
          * An optional description of the reason for the return. This is for internal usage and will
@@ -497,6 +536,7 @@ private constructor(
         private val corrections: JsonField<Corrections>,
         private val data: JsonValue,
         private val dateOfDeath: JsonField<LocalDate>,
+        private val ledgerTransaction: JsonField<LedgerTransactionCreateRequest>,
         private val reason: JsonField<String>,
         private val reconciliationStatus: JsonField<ReconciliationStatus>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -521,6 +561,9 @@ private constructor(
             @JsonProperty("date_of_death")
             @ExcludeMissing
             dateOfDeath: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("ledger_transaction")
+            @ExcludeMissing
+            ledgerTransaction: JsonField<LedgerTransactionCreateRequest> = JsonMissing.of(),
             @JsonProperty("reason") @ExcludeMissing reason: JsonField<String> = JsonMissing.of(),
             @JsonProperty("reconciliation_status")
             @ExcludeMissing
@@ -533,6 +576,7 @@ private constructor(
             corrections,
             data,
             dateOfDeath,
+            ledgerTransaction,
             reason,
             reconciliationStatus,
             mutableMapOf(),
@@ -600,6 +644,17 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun dateOfDeath(): LocalDate? = dateOfDeath.getNullable("date_of_death")
+
+        /**
+         * Specifies a ledger transaction object that will be created with the return. If the ledger
+         * transaction cannot be created, then the return creation will fail. The resulting ledger
+         * transaction will mirror the status of the return.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun ledgerTransaction(): LedgerTransactionCreateRequest? =
+            ledgerTransaction.getNullable("ledger_transaction")
 
         /**
          * An optional description of the reason for the return. This is for internal usage and will
@@ -675,6 +730,16 @@ private constructor(
         fun _dateOfDeath(): JsonField<LocalDate> = dateOfDeath
 
         /**
+         * Returns the raw JSON value of [ledgerTransaction].
+         *
+         * Unlike [ledgerTransaction], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("ledger_transaction")
+        @ExcludeMissing
+        fun _ledgerTransaction(): JsonField<LedgerTransactionCreateRequest> = ledgerTransaction
+
+        /**
          * Returns the raw JSON value of [reason].
          *
          * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
@@ -727,6 +792,8 @@ private constructor(
             private var corrections: JsonField<Corrections> = JsonMissing.of()
             private var data: JsonValue = JsonMissing.of()
             private var dateOfDeath: JsonField<LocalDate> = JsonMissing.of()
+            private var ledgerTransaction: JsonField<LedgerTransactionCreateRequest> =
+                JsonMissing.of()
             private var reason: JsonField<String> = JsonMissing.of()
             private var reconciliationStatus: JsonField<ReconciliationStatus> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -739,6 +806,7 @@ private constructor(
                 corrections = returnCreateRequest.corrections
                 data = returnCreateRequest.data
                 dateOfDeath = returnCreateRequest.dateOfDeath
+                ledgerTransaction = returnCreateRequest.ledgerTransaction
                 reason = returnCreateRequest.reason
                 reconciliationStatus = returnCreateRequest.reconciliationStatus
                 additionalProperties = returnCreateRequest.additionalProperties.toMutableMap()
@@ -848,6 +916,26 @@ private constructor(
             }
 
             /**
+             * Specifies a ledger transaction object that will be created with the return. If the
+             * ledger transaction cannot be created, then the return creation will fail. The
+             * resulting ledger transaction will mirror the status of the return.
+             */
+            fun ledgerTransaction(ledgerTransaction: LedgerTransactionCreateRequest) =
+                ledgerTransaction(JsonField.of(ledgerTransaction))
+
+            /**
+             * Sets [Builder.ledgerTransaction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ledgerTransaction] with a well-typed
+             * [LedgerTransactionCreateRequest] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun ledgerTransaction(ledgerTransaction: JsonField<LedgerTransactionCreateRequest>) =
+                apply {
+                    this.ledgerTransaction = ledgerTransaction
+                }
+
+            /**
              * An optional description of the reason for the return. This is for internal usage and
              * will not be transmitted to the bank.”
              */
@@ -919,6 +1007,7 @@ private constructor(
                     corrections,
                     data,
                     dateOfDeath,
+                    ledgerTransaction,
                     reason,
                     reconciliationStatus,
                     additionalProperties.toMutableMap(),
@@ -938,6 +1027,7 @@ private constructor(
             code()?.validate()
             corrections()?.validate()
             dateOfDeath()
+            ledgerTransaction()?.validate()
             reason()
             reconciliationStatus()?.validate()
             validated = true
@@ -964,6 +1054,7 @@ private constructor(
                 (code.asKnown()?.validity() ?: 0) +
                 (corrections.asKnown()?.validity() ?: 0) +
                 (if (dateOfDeath.asKnown() == null) 0 else 1) +
+                (ledgerTransaction.asKnown()?.validity() ?: 0) +
                 (if (reason.asKnown() == null) 0 else 1) +
                 (reconciliationStatus.asKnown()?.validity() ?: 0)
 
@@ -980,6 +1071,7 @@ private constructor(
                 corrections == other.corrections &&
                 data == other.data &&
                 dateOfDeath == other.dateOfDeath &&
+                ledgerTransaction == other.ledgerTransaction &&
                 reason == other.reason &&
                 reconciliationStatus == other.reconciliationStatus &&
                 additionalProperties == other.additionalProperties
@@ -994,6 +1086,7 @@ private constructor(
                 corrections,
                 data,
                 dateOfDeath,
+                ledgerTransaction,
                 reason,
                 reconciliationStatus,
                 additionalProperties,
@@ -1003,7 +1096,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ReturnCreateRequest{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, corrections=$corrections, data=$data, dateOfDeath=$dateOfDeath, reason=$reason, reconciliationStatus=$reconciliationStatus, additionalProperties=$additionalProperties}"
+            "ReturnCreateRequest{returnableId=$returnableId, returnableType=$returnableType, additionalInformation=$additionalInformation, code=$code, corrections=$corrections, data=$data, dateOfDeath=$dateOfDeath, ledgerTransaction=$ledgerTransaction, reason=$reason, reconciliationStatus=$reconciliationStatus, additionalProperties=$additionalProperties}"
     }
 
     /** The type of object being returned. Currently, this may only be incoming_payment_detail. */

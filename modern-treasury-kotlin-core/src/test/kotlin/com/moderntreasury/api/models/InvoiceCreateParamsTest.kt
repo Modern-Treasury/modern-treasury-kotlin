@@ -79,6 +79,7 @@ internal class InvoiceCreateParamsTest {
                     .line2("line2")
                     .build()
             )
+            .invoicerName("invoicer_name")
             .metadata(
                 InvoiceCreateParams.Metadata.builder()
                     .putAdditionalProperty("key", JsonValue.from("value"))
@@ -169,6 +170,7 @@ internal class InvoiceCreateParamsTest {
                         .line2("line2")
                         .build()
                 )
+                .invoicerName("invoicer_name")
                 .metadata(
                     InvoiceCreateParams.Metadata.builder()
                         .putAdditionalProperty("key", JsonValue.from("value"))
@@ -261,6 +263,7 @@ internal class InvoiceCreateParamsTest {
                     .line2("line2")
                     .build()
             )
+        assertThat(body.invoicerName()).isEqualTo("invoicer_name")
         assertThat(body.metadata())
             .isEqualTo(
                 InvoiceCreateParams.Metadata.builder()
