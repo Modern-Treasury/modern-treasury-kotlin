@@ -78,6 +78,14 @@ private constructor(
     fun citizenshipCountry(): String? = body.citizenshipCountry()
 
     /**
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```kotlin
+     * val myObject: MyClass = legalEntityCreateParams.complianceDetails().convert(MyClass::class.java)
+     * ```
+     */
+    @Deprecated("deprecated") fun _complianceDetails(): JsonValue = body._complianceDetails()
+
+    /**
      * The connection ID for the connection the legal entity is associated with. Defaults to the id
      * of the connection designated with an is_default value of true or the id of an existing
      * operational connection if only one is available. Pass in a value of null to prevent the
@@ -782,6 +790,11 @@ private constructor(
          */
         fun citizenshipCountry(citizenshipCountry: JsonField<String>) = apply {
             body.citizenshipCountry(citizenshipCountry)
+        }
+
+        @Deprecated("deprecated")
+        fun complianceDetails(complianceDetails: JsonValue) = apply {
+            body.complianceDetails(complianceDetails)
         }
 
         /**
@@ -1498,6 +1511,7 @@ private constructor(
         private val businessDescription: JsonField<String>,
         private val businessName: JsonField<String>,
         private val citizenshipCountry: JsonField<String>,
+        private val complianceDetails: JsonValue,
         private val connectionId: JsonField<String>,
         private val countryOfIncorporation: JsonField<String>,
         private val dateFormed: JsonField<LocalDate>,
@@ -1554,6 +1568,9 @@ private constructor(
             @JsonProperty("citizenship_country")
             @ExcludeMissing
             citizenshipCountry: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("compliance_details")
+            @ExcludeMissing
+            complianceDetails: JsonValue = JsonMissing.of(),
             @JsonProperty("connection_id")
             @ExcludeMissing
             connectionId: JsonField<String> = JsonMissing.of(),
@@ -1653,6 +1670,7 @@ private constructor(
             businessDescription,
             businessName,
             citizenshipCountry,
+            complianceDetails,
             connectionId,
             countryOfIncorporation,
             dateFormed,
@@ -1734,6 +1752,17 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun citizenshipCountry(): String? = citizenshipCountry.getNullable("citizenship_country")
+
+        /**
+         * This arbitrary value can be deserialized into a custom type using the `convert` method:
+         * ```kotlin
+         * val myObject: MyClass = legalEntityCreateRequest.complianceDetails().convert(MyClass::class.java)
+         * ```
+         */
+        @Deprecated("deprecated")
+        @JsonProperty("compliance_details")
+        @ExcludeMissing
+        fun _complianceDetails(): JsonValue = complianceDetails
 
         /**
          * The connection ID for the connection the legal entity is associated with. Defaults to the
@@ -2403,6 +2432,7 @@ private constructor(
             private var businessDescription: JsonField<String> = JsonMissing.of()
             private var businessName: JsonField<String> = JsonMissing.of()
             private var citizenshipCountry: JsonField<String> = JsonMissing.of()
+            private var complianceDetails: JsonValue = JsonMissing.of()
             private var connectionId: JsonField<String> = JsonMissing.of()
             private var countryOfIncorporation: JsonField<String> = JsonMissing.of()
             private var dateFormed: JsonField<LocalDate> = JsonMissing.of()
@@ -2450,6 +2480,7 @@ private constructor(
                 businessDescription = legalEntityCreateRequest.businessDescription
                 businessName = legalEntityCreateRequest.businessName
                 citizenshipCountry = legalEntityCreateRequest.citizenshipCountry
+                complianceDetails = legalEntityCreateRequest.complianceDetails
                 connectionId = legalEntityCreateRequest.connectionId
                 countryOfIncorporation = legalEntityCreateRequest.countryOfIncorporation
                 dateFormed = legalEntityCreateRequest.dateFormed
@@ -2591,6 +2622,11 @@ private constructor(
              */
             fun citizenshipCountry(citizenshipCountry: JsonField<String>) = apply {
                 this.citizenshipCountry = citizenshipCountry
+            }
+
+            @Deprecated("deprecated")
+            fun complianceDetails(complianceDetails: JsonValue) = apply {
+                this.complianceDetails = complianceDetails
             }
 
             /**
@@ -3247,6 +3283,7 @@ private constructor(
                     businessDescription,
                     businessName,
                     citizenshipCountry,
+                    complianceDetails,
                     connectionId,
                     countryOfIncorporation,
                     dateFormed,
@@ -3400,6 +3437,7 @@ private constructor(
                 businessDescription == other.businessDescription &&
                 businessName == other.businessName &&
                 citizenshipCountry == other.citizenshipCountry &&
+                complianceDetails == other.complianceDetails &&
                 connectionId == other.connectionId &&
                 countryOfIncorporation == other.countryOfIncorporation &&
                 dateFormed == other.dateFormed &&
@@ -3444,6 +3482,7 @@ private constructor(
                 businessDescription,
                 businessName,
                 citizenshipCountry,
+                complianceDetails,
                 connectionId,
                 countryOfIncorporation,
                 dateFormed,
@@ -3484,7 +3523,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LegalEntityCreateRequest{legalEntityType=$legalEntityType, addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, status=$status, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
+            "LegalEntityCreateRequest{legalEntityType=$legalEntityType, addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, status=$status, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
     }
 
     /** The type of legal entity. */
@@ -5419,6 +5458,8 @@ private constructor(
 
             val CLOSED = of("closed")
 
+            val DENIED = of("denied")
+
             val PENDING = of("pending")
 
             val SUSPENDED = of("suspended")
@@ -5430,6 +5471,7 @@ private constructor(
         enum class Known {
             ACTIVE,
             CLOSED,
+            DENIED,
             PENDING,
             SUSPENDED,
         }
@@ -5446,6 +5488,7 @@ private constructor(
         enum class Value {
             ACTIVE,
             CLOSED,
+            DENIED,
             PENDING,
             SUSPENDED,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
@@ -5463,6 +5506,7 @@ private constructor(
             when (this) {
                 ACTIVE -> Value.ACTIVE
                 CLOSED -> Value.CLOSED
+                DENIED -> Value.DENIED
                 PENDING -> Value.PENDING
                 SUSPENDED -> Value.SUSPENDED
                 else -> Value._UNKNOWN
@@ -5481,6 +5525,7 @@ private constructor(
             when (this) {
                 ACTIVE -> Known.ACTIVE
                 CLOSED -> Known.CLOSED
+                DENIED -> Known.DENIED
                 PENDING -> Known.PENDING
                 SUSPENDED -> Known.SUSPENDED
                 else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
