@@ -5456,8 +5456,6 @@ private constructor(
 
             val ACTIVE = of("active")
 
-            val CLOSED = of("closed")
-
             val DENIED = of("denied")
 
             val PENDING = of("pending")
@@ -5470,7 +5468,6 @@ private constructor(
         /** An enum containing [Status]'s known values. */
         enum class Known {
             ACTIVE,
-            CLOSED,
             DENIED,
             PENDING,
             SUSPENDED,
@@ -5487,7 +5484,6 @@ private constructor(
          */
         enum class Value {
             ACTIVE,
-            CLOSED,
             DENIED,
             PENDING,
             SUSPENDED,
@@ -5505,7 +5501,6 @@ private constructor(
         fun value(): Value =
             when (this) {
                 ACTIVE -> Value.ACTIVE
-                CLOSED -> Value.CLOSED
                 DENIED -> Value.DENIED
                 PENDING -> Value.PENDING
                 SUSPENDED -> Value.SUSPENDED
@@ -5524,7 +5519,6 @@ private constructor(
         fun known(): Known =
             when (this) {
                 ACTIVE -> Known.ACTIVE
-                CLOSED -> Known.CLOSED
                 DENIED -> Known.DENIED
                 PENDING -> Known.PENDING
                 SUSPENDED -> Known.SUSPENDED

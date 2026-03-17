@@ -235,8 +235,6 @@ private constructor(
 
         companion object {
 
-            val CLOSED = of("closed")
-
             val COMPLETED = of("completed")
 
             val DENIED = of("denied")
@@ -252,7 +250,6 @@ private constructor(
 
         /** An enum containing [Status]'s known values. */
         enum class Known {
-            CLOSED,
             COMPLETED,
             DENIED,
             FAILED,
@@ -270,7 +267,6 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            CLOSED,
             COMPLETED,
             DENIED,
             FAILED,
@@ -289,7 +285,6 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                CLOSED -> Value.CLOSED
                 COMPLETED -> Value.COMPLETED
                 DENIED -> Value.DENIED
                 FAILED -> Value.FAILED
@@ -309,7 +304,6 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                CLOSED -> Known.CLOSED
                 COMPLETED -> Known.COMPLETED
                 DENIED -> Known.DENIED
                 FAILED -> Known.FAILED

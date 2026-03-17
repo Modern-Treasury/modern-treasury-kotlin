@@ -15,7 +15,7 @@ internal class ConnectionLegalEntityListParamsTest {
             .connectionId("connection_id")
             .legalEntityId("legal_entity_id")
             .perPage(0L)
-            .status(ConnectionLegalEntityListParams.Status.CLOSED)
+            .status(ConnectionLegalEntityListParams.Status.COMPLETED)
             .build()
     }
 
@@ -27,7 +27,7 @@ internal class ConnectionLegalEntityListParamsTest {
                 .connectionId("connection_id")
                 .legalEntityId("legal_entity_id")
                 .perPage(0L)
-                .status(ConnectionLegalEntityListParams.Status.CLOSED)
+                .status(ConnectionLegalEntityListParams.Status.COMPLETED)
                 .build()
 
         val queryParams = params._queryParams()
@@ -39,7 +39,7 @@ internal class ConnectionLegalEntityListParamsTest {
                     .put("connection_id", "connection_id")
                     .put("legal_entity_id", "legal_entity_id")
                     .put("per_page", "0")
-                    .put("status", "closed")
+                    .put("status", "completed")
                     .build()
             )
     }
