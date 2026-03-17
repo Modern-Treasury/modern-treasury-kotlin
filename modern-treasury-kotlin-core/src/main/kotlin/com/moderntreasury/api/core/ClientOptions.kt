@@ -419,18 +419,19 @@ private constructor(
             headers.put("X-Stainless-Runtime", "JRE")
             headers.put("X-Stainless-Runtime-Version", getJavaVersion())
             headers.put("X-Stainless-Kotlin-Version", KotlinVersion.CURRENT.toString())
+            // We replace after all the default headers to allow end-users to overwrite them.
+            headers.replaceAll(this.headers.build())
+            queryParams.replaceAll(this.queryParams.build())
             organizationId.let { username ->
                 apiKey.let { password ->
                     if (!username.isEmpty() && !password.isEmpty()) {
-                        headers.put(
+                        headers.replace(
                             "Authorization",
                             "Basic ${Base64.getEncoder().encodeToString("$username:$password".toByteArray())}",
                         )
                     }
                 }
             }
-            headers.replaceAll(this.headers.build())
-            queryParams.replaceAll(this.queryParams.build())
 
             return ClientOptions(
                 httpClient,
