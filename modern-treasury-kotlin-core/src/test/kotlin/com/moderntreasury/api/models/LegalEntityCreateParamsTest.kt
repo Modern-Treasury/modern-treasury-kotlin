@@ -216,7 +216,6 @@ internal class LegalEntityCreateParamsTest {
                                     .build()
                             )
                             .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
-                            .status(ChildLegalEntityCreate.Status.ACTIVE)
                             .suffix("suffix")
                             .thirdPartyVerification(
                                 ChildLegalEntityCreate.ThirdPartyVerification.builder()
@@ -307,7 +306,6 @@ internal class LegalEntityCreateParamsTest {
                     .build()
             )
             .riskRating(LegalEntityCreateParams.RiskRating.LOW)
-            .status(LegalEntityCreateParams.Status.ACTIVE)
             .suffix("suffix")
             .thirdPartyVerification(
                 LegalEntityCreateParams.ThirdPartyVerification.builder()
@@ -575,7 +573,6 @@ internal class LegalEntityCreateParamsTest {
                                         .build()
                                 )
                                 .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
-                                .status(ChildLegalEntityCreate.Status.ACTIVE)
                                 .suffix("suffix")
                                 .thirdPartyVerification(
                                     ChildLegalEntityCreate.ThirdPartyVerification.builder()
@@ -672,7 +669,6 @@ internal class LegalEntityCreateParamsTest {
                         .build()
                 )
                 .riskRating(LegalEntityCreateParams.RiskRating.LOW)
-                .status(LegalEntityCreateParams.Status.ACTIVE)
                 .suffix("suffix")
                 .thirdPartyVerification(
                     LegalEntityCreateParams.ThirdPartyVerification.builder()
@@ -937,7 +933,6 @@ internal class LegalEntityCreateParamsTest {
                                     .build()
                             )
                             .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
-                            .status(ChildLegalEntityCreate.Status.ACTIVE)
                             .suffix("suffix")
                             .thirdPartyVerification(
                                 ChildLegalEntityCreate.ThirdPartyVerification.builder()
@@ -1032,7 +1027,6 @@ internal class LegalEntityCreateParamsTest {
                     .build()
             )
         assertThat(body.riskRating()).isEqualTo(LegalEntityCreateParams.RiskRating.LOW)
-        assertThat(body.status()).isEqualTo(LegalEntityCreateParams.Status.ACTIVE)
         assertThat(body.suffix()).isEqualTo("suffix")
         assertThat(body.thirdPartyVerification())
             .isEqualTo(
