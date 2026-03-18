@@ -1,5 +1,32 @@
 # Changelog
 
+## 7.25.0 (2026-03-18)
+
+Full Changelog: [v7.24.0...v7.25.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.24.0...v7.25.0)
+
+### Features
+
+* **api:** api update ([c81224d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c81224d3cf19bdb28890bbde55e784a2204acf4f))
+* **api:** api update ([2b76646](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2b76646d12bda654af2bdd23d9a6b1b53dadc5f5))
+* **api:** api update ([2477c53](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2477c53f14b1efc7e56e1d709756a468ce78e6f7))
+* **api:** api update ([fea7803](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/fea78036a872b1e0c3cb4d088b8aa06753680ed1))
+* **api:** disable breaking change detection ([c2ed452](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c2ed4525df43b80842026fce621b30d8f5dd32f0))
+* **api:** User MultipartField for _vendorAttributes ([e2a7777](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e2a777719bc42233a3920cf64818aa71d31e09ca))
+* **tests:** enable breaking change detection ([683c2d8](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/683c2d8d9774d6c1e379174e6c934bb9ed52f9b5))
+* **tests:** fix lint errors and build errors ([38c7f84](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/38c7f84064fe164f4e148a76bb8bcf683c5440ec))
+* **tests:** updates tests with multipart ([aa468ff](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/aa468ff51560e94d4fc49777a63bc1e8ae4b1f6e))
+
+
+### Bug Fixes
+
+* **client:** allow updating header/query affecting fields in `toBuilder()` ([1fad6c5](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1fad6c53aa54d72a5473aa46b93222d0dd156e43))
+
+
+### Chores
+
+* **internal:** tweak CI branches ([54048c9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/54048c979d92c3017545d6ab657200d6617f6d59))
+* **internal:** update retry delay tests ([bc562a8](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/bc562a85101506f8336f2a283646ce96f21f3dd7))
+
 ## 7.24.0 (2026-03-12)
 
 Full Changelog: [v7.23.0...v7.24.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.23.0...v7.24.0)
