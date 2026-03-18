@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.26.0 (2026-03-18)
+
+Full Changelog: [v7.25.0...v7.26.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.25.0...v7.26.0)
+
+### Features
+
+* **api:** api update ([2f87c04](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2f87c04a80095bbb598c86098c73656872616d87))
+
 ## 7.25.0 (2026-03-18)
 
 Full Changelog: [v7.24.0...v7.25.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.24.0...v7.25.0)
