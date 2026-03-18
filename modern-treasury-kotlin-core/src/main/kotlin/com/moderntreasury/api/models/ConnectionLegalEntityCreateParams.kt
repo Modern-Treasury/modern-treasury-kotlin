@@ -605,7 +605,6 @@ private constructor(
         private val primarySocialMediaSites: JsonField<List<String>>,
         private val regulators: JsonField<List<LegalEntityRegulator>>,
         private val riskRating: JsonField<RiskRating>,
-        private val status: JsonField<Status>,
         private val suffix: JsonField<String>,
         private val thirdPartyVerification: JsonField<ThirdPartyVerification>,
         private val tickerSymbol: JsonField<String>,
@@ -716,7 +715,6 @@ private constructor(
             @JsonProperty("risk_rating")
             @ExcludeMissing
             riskRating: JsonField<RiskRating> = JsonMissing.of(),
-            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
             @JsonProperty("suffix") @ExcludeMissing suffix: JsonField<String> = JsonMissing.of(),
             @JsonProperty("third_party_verification")
             @ExcludeMissing
@@ -764,7 +762,6 @@ private constructor(
             primarySocialMediaSites,
             regulators,
             riskRating,
-            status,
             suffix,
             thirdPartyVerification,
             tickerSymbol,
@@ -1055,14 +1052,6 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun riskRating(): RiskRating? = riskRating.getNullable("risk_rating")
-
-        /**
-         * The activation status of the legal entity. One of pending, active, suspended, or closed.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun status(): Status? = status.getNullable("status")
 
         /**
          * An individual's suffix.
@@ -1413,13 +1402,6 @@ private constructor(
         fun _riskRating(): JsonField<RiskRating> = riskRating
 
         /**
-         * Returns the raw JSON value of [status].
-         *
-         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
-
-        /**
          * Returns the raw JSON value of [suffix].
          *
          * Unlike [suffix], this method doesn't throw if the JSON field has an unexpected type.
@@ -1523,7 +1505,6 @@ private constructor(
             private var primarySocialMediaSites: JsonField<MutableList<String>>? = null
             private var regulators: JsonField<MutableList<LegalEntityRegulator>>? = null
             private var riskRating: JsonField<RiskRating> = JsonMissing.of()
-            private var status: JsonField<Status> = JsonMissing.of()
             private var suffix: JsonField<String> = JsonMissing.of()
             private var thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of()
             private var tickerSymbol: JsonField<String> = JsonMissing.of()
@@ -1571,7 +1552,6 @@ private constructor(
                     legalEntity.primarySocialMediaSites.map { it.toMutableList() }
                 regulators = legalEntity.regulators.map { it.toMutableList() }
                 riskRating = legalEntity.riskRating
-                status = legalEntity.status
                 suffix = legalEntity.suffix
                 thirdPartyVerification = legalEntity.thirdPartyVerification
                 tickerSymbol = legalEntity.tickerSymbol
@@ -2216,21 +2196,6 @@ private constructor(
                 this.riskRating = riskRating
             }
 
-            /**
-             * The activation status of the legal entity. One of pending, active, suspended, or
-             * closed.
-             */
-            fun status(status: Status?) = status(JsonField.ofNullable(status))
-
-            /**
-             * Sets [Builder.status] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.status] with a well-typed [Status] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun status(status: JsonField<Status>) = apply { this.status = status }
-
             /** An individual's suffix. */
             fun suffix(suffix: String?) = suffix(JsonField.ofNullable(suffix))
 
@@ -2361,7 +2326,6 @@ private constructor(
                     (primarySocialMediaSites ?: JsonMissing.of()).map { it.toImmutable() },
                     (regulators ?: JsonMissing.of()).map { it.toImmutable() },
                     riskRating,
-                    status,
                     suffix,
                     thirdPartyVerification,
                     tickerSymbol,
@@ -2411,7 +2375,6 @@ private constructor(
             primarySocialMediaSites()
             regulators()?.forEach { it.validate() }
             riskRating()?.validate()
-            status()?.validate()
             suffix()
             thirdPartyVerification()?.validate()
             tickerSymbol()
@@ -2468,7 +2431,6 @@ private constructor(
                 (primarySocialMediaSites.asKnown()?.size ?: 0) +
                 (regulators.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (riskRating.asKnown()?.validity() ?: 0) +
-                (status.asKnown()?.validity() ?: 0) +
                 (if (suffix.asKnown() == null) 0 else 1) +
                 (thirdPartyVerification.asKnown()?.validity() ?: 0) +
                 (if (tickerSymbol.asKnown() == null) 0 else 1) +
@@ -4440,149 +4402,6 @@ private constructor(
                 }
 
                 return other is RiskRating && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        /**
-         * The activation status of the legal entity. One of pending, active, suspended, or closed.
-         */
-        class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                val ACTIVE = of("active")
-
-                val DENIED = of("denied")
-
-                val PENDING = of("pending")
-
-                val SUSPENDED = of("suspended")
-
-                fun of(value: String) = Status(JsonField.of(value))
-            }
-
-            /** An enum containing [Status]'s known values. */
-            enum class Known {
-                ACTIVE,
-                DENIED,
-                PENDING,
-                SUSPENDED,
-            }
-
-            /**
-             * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Status] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                ACTIVE,
-                DENIED,
-                PENDING,
-                SUSPENDED,
-                /**
-                 * An enum member indicating that [Status] was instantiated with an unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    ACTIVE -> Value.ACTIVE
-                    DENIED -> Value.DENIED
-                    PENDING -> Value.PENDING
-                    SUSPENDED -> Value.SUSPENDED
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-             *   known member.
-             */
-            fun known(): Known =
-                when (this) {
-                    ACTIVE -> Known.ACTIVE
-                    DENIED -> Known.DENIED
-                    PENDING -> Known.PENDING
-                    SUSPENDED -> Known.SUSPENDED
-                    else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value does not
-             *   have the expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString()
-                    ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-            private var validated: Boolean = false
-
-            fun validate(): Status = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: ModernTreasuryInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Status && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -7218,7 +7037,6 @@ private constructor(
                 primarySocialMediaSites == other.primarySocialMediaSites &&
                 regulators == other.regulators &&
                 riskRating == other.riskRating &&
-                status == other.status &&
                 suffix == other.suffix &&
                 thirdPartyVerification == other.thirdPartyVerification &&
                 tickerSymbol == other.tickerSymbol &&
@@ -7263,7 +7081,6 @@ private constructor(
                 primarySocialMediaSites,
                 regulators,
                 riskRating,
-                status,
                 suffix,
                 thirdPartyVerification,
                 tickerSymbol,
@@ -7276,7 +7093,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LegalEntity{addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalEntityType=$legalEntityType, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, status=$status, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
+            "LegalEntity{addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalEntityType=$legalEntityType, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

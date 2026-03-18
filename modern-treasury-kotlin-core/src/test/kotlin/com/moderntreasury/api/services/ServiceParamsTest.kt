@@ -386,7 +386,6 @@ internal class ServiceParamsTest {
                                                 .build()
                                         )
                                         .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
-                                        .status(ChildLegalEntityCreate.Status.ACTIVE)
                                         .suffix("suffix")
                                         .thirdPartyVerification(
                                             ChildLegalEntityCreate.ThirdPartyVerification.builder()
@@ -500,7 +499,6 @@ internal class ServiceParamsTest {
                         .riskRating(
                             CounterpartyCreateParams.LegalEntityCreateRequest.RiskRating.LOW
                         )
-                        .status(CounterpartyCreateParams.LegalEntityCreateRequest.Status.ACTIVE)
                         .suffix("suffix")
                         .thirdPartyVerification(
                             CounterpartyCreateParams.LegalEntityCreateRequest.ThirdPartyVerification

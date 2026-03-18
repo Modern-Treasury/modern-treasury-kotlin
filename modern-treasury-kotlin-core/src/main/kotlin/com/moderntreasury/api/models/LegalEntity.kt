@@ -529,7 +529,7 @@ private constructor(
     fun riskRating(): RiskRating? = riskRating.getNullable("risk_rating")
 
     /**
-     * The activation status of the legal entity. One of pending, active, suspended, or closed.
+     * The activation status of the legal entity. One of pending, active, suspended, or denied.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -1769,7 +1769,7 @@ private constructor(
         fun riskRating(riskRating: JsonField<RiskRating>) = apply { this.riskRating = riskRating }
 
         /**
-         * The activation status of the legal entity. One of pending, active, suspended, or closed.
+         * The activation status of the legal entity. One of pending, active, suspended, or denied.
          */
         fun status(status: Status?) = status(JsonField.ofNullable(status))
 
@@ -5333,7 +5333,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** The activation status of the legal entity. One of pending, active, suspended, or closed. */
+    /** The activation status of the legal entity. One of pending, active, suspended, or denied. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
