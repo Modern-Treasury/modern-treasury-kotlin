@@ -605,6 +605,8 @@ private constructor(
 
             val CONTROL_PERSON = of("control_person")
 
+            val SERVICE_CUSTOMER = of("service_customer")
+
             fun of(value: String) = RelationshipType(JsonField.of(value))
         }
 
@@ -613,6 +615,7 @@ private constructor(
             AUTHORIZED_SIGNER,
             BENEFICIAL_OWNER,
             CONTROL_PERSON,
+            SERVICE_CUSTOMER,
         }
 
         /**
@@ -628,6 +631,7 @@ private constructor(
             AUTHORIZED_SIGNER,
             BENEFICIAL_OWNER,
             CONTROL_PERSON,
+            SERVICE_CUSTOMER,
             /**
              * An enum member indicating that [RelationshipType] was instantiated with an unknown
              * value.
@@ -647,6 +651,7 @@ private constructor(
                 AUTHORIZED_SIGNER -> Value.AUTHORIZED_SIGNER
                 BENEFICIAL_OWNER -> Value.BENEFICIAL_OWNER
                 CONTROL_PERSON -> Value.CONTROL_PERSON
+                SERVICE_CUSTOMER -> Value.SERVICE_CUSTOMER
                 else -> Value._UNKNOWN
             }
 
@@ -664,6 +669,7 @@ private constructor(
                 AUTHORIZED_SIGNER -> Known.AUTHORIZED_SIGNER
                 BENEFICIAL_OWNER -> Known.BENEFICIAL_OWNER
                 CONTROL_PERSON -> Known.CONTROL_PERSON
+                SERVICE_CUSTOMER -> Known.SERVICE_CUSTOMER
                 else -> throw ModernTreasuryInvalidDataException("Unknown RelationshipType: $value")
             }
 
