@@ -6,7 +6,6 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
-import com.moderntreasury.api.models.AsyncResponse
 import com.moderntreasury.api.models.IncomingPaymentDetail
 import com.moderntreasury.api.models.IncomingPaymentDetailCreateAsyncParams
 import com.moderntreasury.api.models.IncomingPaymentDetailListPage
@@ -77,10 +76,10 @@ interface IncomingPaymentDetailService {
         params: IncomingPaymentDetailCreateAsyncParams =
             IncomingPaymentDetailCreateAsyncParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AsyncResponse
+    ): IncomingPaymentDetail
 
     /** @see createAsync */
-    fun createAsync(requestOptions: RequestOptions): AsyncResponse =
+    fun createAsync(requestOptions: RequestOptions): IncomingPaymentDetail =
         createAsync(IncomingPaymentDetailCreateAsyncParams.none(), requestOptions)
 
     /**
@@ -178,11 +177,11 @@ interface IncomingPaymentDetailService {
             params: IncomingPaymentDetailCreateAsyncParams =
                 IncomingPaymentDetailCreateAsyncParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AsyncResponse>
+        ): HttpResponseFor<IncomingPaymentDetail>
 
         /** @see createAsync */
         @MustBeClosed
-        fun createAsync(requestOptions: RequestOptions): HttpResponseFor<AsyncResponse> =
+        fun createAsync(requestOptions: RequestOptions): HttpResponseFor<IncomingPaymentDetail> =
             createAsync(IncomingPaymentDetailCreateAsyncParams.none(), requestOptions)
     }
 }
