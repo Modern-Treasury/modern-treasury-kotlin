@@ -119,6 +119,8 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
 
         val ETB = of("ETB")
 
+        val ETH = of("ETH")
+
         val EUR = of("EUR")
 
         val EURC = of("EURC")
@@ -258,6 +260,8 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         val NZD = of("NZD")
 
         val OMR = of("OMR")
+
+        val OP = of("OP")
 
         val PAB = of("PAB")
 
@@ -477,6 +481,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         EGP,
         ERN,
         ETB,
+        ETH,
         EUR,
         EURC,
         FJD,
@@ -547,6 +552,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         NPR,
         NZD,
         OMR,
+        OP,
         PAB,
         PEN,
         PGK,
@@ -690,6 +696,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         EGP,
         ERN,
         ETB,
+        ETH,
         EUR,
         EURC,
         FJD,
@@ -760,6 +767,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         NPR,
         NZD,
         OMR,
+        OP,
         PAB,
         PEN,
         PGK,
@@ -904,6 +912,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
             EGP -> Value.EGP
             ERN -> Value.ERN
             ETB -> Value.ETB
+            ETH -> Value.ETH
             EUR -> Value.EUR
             EURC -> Value.EURC
             FJD -> Value.FJD
@@ -974,6 +983,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
             NPR -> Value.NPR
             NZD -> Value.NZD
             OMR -> Value.OMR
+            OP -> Value.OP
             PAB -> Value.PAB
             PEN -> Value.PEN
             PGK -> Value.PGK
@@ -1119,6 +1129,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
             EGP -> Known.EGP
             ERN -> Known.ERN
             ETB -> Known.ETB
+            ETH -> Known.ETH
             EUR -> Known.EUR
             EURC -> Known.EURC
             FJD -> Known.FJD
@@ -1189,6 +1200,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
             NPR -> Known.NPR
             NZD -> Known.NZD
             OMR -> Known.OMR
+            OP -> Known.OP
             PAB -> Known.PAB
             PEN -> Known.PEN
             PGK -> Known.PGK
