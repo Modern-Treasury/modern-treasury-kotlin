@@ -1,5 +1,33 @@
 # Changelog
 
+## 7.27.0 (2026-03-25)
+
+Full Changelog: [v7.26.0...v7.27.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.26.0...v7.27.0)
+
+### Features
+
+* **api:** api update ([5c97fda](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5c97fda35e866fd45d9db35bf9cc63f810923a80))
+* **api:** api update ([3134d7d](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3134d7d50d5f247bdf8203c31f6170c63e732712))
+* **api:** api update ([e3075f8](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e3075f87d943866e6eb144e9b51873fa1cf15537))
+* **api:** api update ([7f7e7f3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7f7e7f3fe8ca1ec6ed5f7ddf533af24666b15669))
+* **api:** switch back to prism mock server ([ca3d32e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ca3d32ef396bd87ea0ebcfd0114bc5d4cfd61da9))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([06a2ef4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/06a2ef4ebb2cebe712f7834576a9f28e06f32da5))
+* **internal:** bump ktfmt ([4fb9fce](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4fb9fce9b211ff015916058f5f0540391ddc1644))
+* **internal:** update gitignore ([4486ce3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4486ce3e35140303fcfb17a86ef94df39b9c1bca))
+* **tests:** bump steady to v0.19.4 ([1aefe8a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1aefe8a94e6daf8acf076acdb32c67235cd6cd3c))
+* **tests:** bump steady to v0.19.5 ([7c90a21](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7c90a21e0a8277f1e91831286fb3b4d8ac98d66b))
+* **tests:** bump steady to v0.19.6 ([6596f22](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/6596f22b3f87e94c431739b3541c6339e9358e12))
+* **tests:** bump steady to v0.19.7 ([060618a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/060618afa4b1994d984e188bdb21c83d9cc4fa5a))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([a038207](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a03820756958aa89c04369835726330318da1ebc))
+
 ## 7.26.0 (2026-03-18)
 
 Full Changelog: [v7.25.0...v7.26.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.25.0...v7.26.0)
