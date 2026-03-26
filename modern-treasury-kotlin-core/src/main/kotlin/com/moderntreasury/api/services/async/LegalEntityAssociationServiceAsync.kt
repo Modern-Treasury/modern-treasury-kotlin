@@ -2,12 +2,7 @@
 
 package com.moderntreasury.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.ClientOptions
-import com.moderntreasury.api.core.RequestOptions
-import com.moderntreasury.api.core.http.HttpResponseFor
-import com.moderntreasury.api.models.LegalEntityAssociation
-import com.moderntreasury.api.models.LegalEntityAssociationCreateParams
 
 interface LegalEntityAssociationServiceAsync {
 
@@ -23,12 +18,6 @@ interface LegalEntityAssociationServiceAsync {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LegalEntityAssociationServiceAsync
 
-    /** create legal_entity_association */
-    suspend fun create(
-        params: LegalEntityAssociationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): LegalEntityAssociation
-
     /**
      * A view of [LegalEntityAssociationServiceAsync] that provides access to raw HTTP responses for
      * each method.
@@ -43,15 +32,5 @@ interface LegalEntityAssociationServiceAsync {
         fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
         ): LegalEntityAssociationServiceAsync.WithRawResponse
-
-        /**
-         * Returns a raw HTTP response for `post /api/legal_entity_associations`, but is otherwise
-         * the same as [LegalEntityAssociationServiceAsync.create].
-         */
-        @MustBeClosed
-        suspend fun create(
-            params: LegalEntityAssociationCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LegalEntityAssociation>
     }
 }

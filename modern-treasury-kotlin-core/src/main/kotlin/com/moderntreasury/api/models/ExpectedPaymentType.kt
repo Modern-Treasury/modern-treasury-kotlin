@@ -90,6 +90,8 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
 
         val SOLANA = of("solana")
 
+        val STABLECOIN = of("stablecoin")
+
         val WIRE = of("wire")
 
         val ZENGIN = of("zengin")
@@ -132,6 +134,7 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
         SIGNET,
         SKNBI,
         SOLANA,
+        STABLECOIN,
         WIRE,
         ZENGIN,
     }
@@ -179,6 +182,7 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
         SIGNET,
         SKNBI,
         SOLANA,
+        STABLECOIN,
         WIRE,
         ZENGIN,
         /**
@@ -230,6 +234,7 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
             SIGNET -> Value.SIGNET
             SKNBI -> Value.SKNBI
             SOLANA -> Value.SOLANA
+            STABLECOIN -> Value.STABLECOIN
             WIRE -> Value.WIRE
             ZENGIN -> Value.ZENGIN
             else -> Value._UNKNOWN
@@ -279,6 +284,7 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
             SIGNET -> Known.SIGNET
             SKNBI -> Known.SKNBI
             SOLANA -> Known.SOLANA
+            STABLECOIN -> Known.STABLECOIN
             WIRE -> Known.WIRE
             ZENGIN -> Known.ZENGIN
             else -> throw ModernTreasuryInvalidDataException("Unknown ExpectedPaymentType: $value")

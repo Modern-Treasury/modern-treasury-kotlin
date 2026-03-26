@@ -56,6 +56,8 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
 
         val EFT = of("eft")
 
+        val ETHEREUM = of("ethereum")
+
         val HU_ICS = of("hu_ics")
 
         val MASAV = of("masav")
@@ -82,6 +84,8 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
 
         val SKNBI = of("sknbi")
 
+        val SOLANA = of("solana")
+
         val ZENGIN = of("zengin")
 
         fun of(value: String) = PaymentOrderSubtype(JsonField.of(value))
@@ -104,6 +108,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         CHATS,
         DK_NETS,
         EFT,
+        ETHEREUM,
         HU_ICS,
         MASAV,
         MX_CCEN,
@@ -117,6 +122,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         SG_GIRO,
         SIC,
         SKNBI,
+        SOLANA,
         ZENGIN,
     }
 
@@ -145,6 +151,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         CHATS,
         DK_NETS,
         EFT,
+        ETHEREUM,
         HU_ICS,
         MASAV,
         MX_CCEN,
@@ -158,6 +165,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         SG_GIRO,
         SIC,
         SKNBI,
+        SOLANA,
         ZENGIN,
         /**
          * An enum member indicating that [PaymentOrderSubtype] was instantiated with an unknown
@@ -190,6 +198,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             CHATS -> Value.CHATS
             DK_NETS -> Value.DK_NETS
             EFT -> Value.EFT
+            ETHEREUM -> Value.ETHEREUM
             HU_ICS -> Value.HU_ICS
             MASAV -> Value.MASAV
             MX_CCEN -> Value.MX_CCEN
@@ -203,6 +212,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             SG_GIRO -> Value.SG_GIRO
             SIC -> Value.SIC
             SKNBI -> Value.SKNBI
+            SOLANA -> Value.SOLANA
             ZENGIN -> Value.ZENGIN
             else -> Value._UNKNOWN
         }
@@ -233,6 +243,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             CHATS -> Known.CHATS
             DK_NETS -> Known.DK_NETS
             EFT -> Known.EFT
+            ETHEREUM -> Known.ETHEREUM
             HU_ICS -> Known.HU_ICS
             MASAV -> Known.MASAV
             MX_CCEN -> Known.MX_CCEN
@@ -246,6 +257,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             SG_GIRO -> Known.SG_GIRO
             SIC -> Known.SIC
             SKNBI -> Known.SKNBI
+            SOLANA -> Known.SOLANA
             ZENGIN -> Known.ZENGIN
             else -> throw ModernTreasuryInvalidDataException("Unknown PaymentOrderSubtype: $value")
         }
