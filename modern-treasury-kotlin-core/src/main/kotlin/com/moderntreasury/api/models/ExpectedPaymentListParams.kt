@@ -668,6 +668,8 @@ private constructor(
 
             val SOLANA = of("solana")
 
+            val STABLECOIN = of("stablecoin")
+
             val WIRE = of("wire")
 
             val ZENGIN = of("zengin")
@@ -710,6 +712,7 @@ private constructor(
             SIGNET,
             SKNBI,
             SOLANA,
+            STABLECOIN,
             WIRE,
             ZENGIN,
         }
@@ -757,6 +760,7 @@ private constructor(
             SIGNET,
             SKNBI,
             SOLANA,
+            STABLECOIN,
             WIRE,
             ZENGIN,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
@@ -805,6 +809,7 @@ private constructor(
                 SIGNET -> Value.SIGNET
                 SKNBI -> Value.SKNBI
                 SOLANA -> Value.SOLANA
+                STABLECOIN -> Value.STABLECOIN
                 WIRE -> Value.WIRE
                 ZENGIN -> Value.ZENGIN
                 else -> Value._UNKNOWN
@@ -854,6 +859,7 @@ private constructor(
                 SIGNET -> Known.SIGNET
                 SKNBI -> Known.SKNBI
                 SOLANA -> Known.SOLANA
+                STABLECOIN -> Known.STABLECOIN
                 WIRE -> Known.WIRE
                 ZENGIN -> Known.ZENGIN
                 else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
