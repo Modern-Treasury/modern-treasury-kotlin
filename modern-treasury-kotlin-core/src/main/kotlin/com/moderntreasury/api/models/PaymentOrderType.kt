@@ -92,6 +92,8 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
 
         val SOLANA = of("solana")
 
+        val STABLECOIN = of("stablecoin")
+
         val WIRE = of("wire")
 
         val ZENGIN = of("zengin")
@@ -134,6 +136,7 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
         SIGNET,
         SKNBI,
         SOLANA,
+        STABLECOIN,
         WIRE,
         ZENGIN,
     }
@@ -181,6 +184,7 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
         SIGNET,
         SKNBI,
         SOLANA,
+        STABLECOIN,
         WIRE,
         ZENGIN,
         /**
@@ -231,6 +235,7 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
             SIGNET -> Value.SIGNET
             SKNBI -> Value.SKNBI
             SOLANA -> Value.SOLANA
+            STABLECOIN -> Value.STABLECOIN
             WIRE -> Value.WIRE
             ZENGIN -> Value.ZENGIN
             else -> Value._UNKNOWN
@@ -280,6 +285,7 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
             SIGNET -> Known.SIGNET
             SKNBI -> Known.SKNBI
             SOLANA -> Known.SOLANA
+            STABLECOIN -> Known.STABLECOIN
             WIRE -> Known.WIRE
             ZENGIN -> Known.ZENGIN
             else -> throw ModernTreasuryInvalidDataException("Unknown PaymentOrderType: $value")
