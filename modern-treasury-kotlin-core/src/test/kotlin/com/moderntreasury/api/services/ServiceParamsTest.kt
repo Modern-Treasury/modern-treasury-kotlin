@@ -386,6 +386,9 @@ internal class ServiceParamsTest {
                                                 .build()
                                         )
                                         .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
+                                        .serviceProviderLegalEntityId(
+                                            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
+                                        )
                                         .suffix("suffix")
                                         .thirdPartyVerification(
                                             ChildLegalEntityCreate.ThirdPartyVerification.builder()
@@ -499,6 +502,7 @@ internal class ServiceParamsTest {
                         .riskRating(
                             CounterpartyCreateParams.LegalEntityCreateRequest.RiskRating.LOW
                         )
+                        .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .suffix("suffix")
                         .thirdPartyVerification(
                             CounterpartyCreateParams.LegalEntityCreateRequest.ThirdPartyVerification

@@ -244,6 +244,9 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                             .build()
                                     )
                                     .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
+                                    .serviceProviderLegalEntityId(
+                                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
+                                    )
                                     .suffix("suffix")
                                     .thirdPartyVerification(
                                         ChildLegalEntityCreate.ThirdPartyVerification.builder()
@@ -355,6 +358,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                             .build()
                     )
                     .riskRating(ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW)
+                    .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .suffix("suffix")
                     .thirdPartyVerification(
                         ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
@@ -672,6 +676,9 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                                 .build()
                                         )
                                         .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
+                                        .serviceProviderLegalEntityId(
+                                            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
+                                        )
                                         .suffix("suffix")
                                         .thirdPartyVerification(
                                             ChildLegalEntityCreate.ThirdPartyVerification.builder()
@@ -785,6 +792,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                 .build()
                         )
                         .riskRating(ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW)
+                        .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .suffix("suffix")
                         .thirdPartyVerification(
                             ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
@@ -1093,6 +1101,9 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                             .build()
                                     )
                                     .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
+                                    .serviceProviderLegalEntityId(
+                                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
+                                    )
                                     .suffix("suffix")
                                     .thirdPartyVerification(
                                         ChildLegalEntityCreate.ThirdPartyVerification.builder()
@@ -1204,6 +1215,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                             .build()
                     )
                     .riskRating(ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW)
+                    .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .suffix("suffix")
                     .thirdPartyVerification(
                         ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification

@@ -109,6 +109,7 @@ internal class LegalEntityUpdateParamsTest {
                     .build()
             )
             .riskRating(LegalEntityUpdateParams.RiskRating.LOW)
+            .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .suffix("suffix")
             .thirdPartyVerification(
                 LegalEntityUpdateParams.ThirdPartyVerification.builder()
@@ -274,6 +275,7 @@ internal class LegalEntityUpdateParamsTest {
                         .build()
                 )
                 .riskRating(LegalEntityUpdateParams.RiskRating.LOW)
+                .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .suffix("suffix")
                 .thirdPartyVerification(
                     LegalEntityUpdateParams.ThirdPartyVerification.builder()
@@ -431,6 +433,8 @@ internal class LegalEntityUpdateParamsTest {
                     .build()
             )
         assertThat(body.riskRating()).isEqualTo(LegalEntityUpdateParams.RiskRating.LOW)
+        assertThat(body.serviceProviderLegalEntityId())
+            .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.suffix()).isEqualTo("suffix")
         assertThat(body.thirdPartyVerification())
             .isEqualTo(

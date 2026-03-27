@@ -135,6 +135,7 @@ internal class ChildLegalEntityCreateTest {
                         .build()
                 )
                 .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
+                .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .suffix("suffix")
                 .thirdPartyVerification(
                     ChildLegalEntityCreate.ThirdPartyVerification.builder()
@@ -318,6 +319,8 @@ internal class ChildLegalEntityCreateTest {
             )
         assertThat(childLegalEntityCreate.riskRating())
             .isEqualTo(ChildLegalEntityCreate.RiskRating.LOW)
+        assertThat(childLegalEntityCreate.serviceProviderLegalEntityId())
+            .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(childLegalEntityCreate.suffix()).isEqualTo("suffix")
         assertThat(childLegalEntityCreate.thirdPartyVerification())
             .isEqualTo(
@@ -494,6 +497,7 @@ internal class ChildLegalEntityCreateTest {
                         .build()
                 )
                 .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
+                .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .suffix("suffix")
                 .thirdPartyVerification(
                     ChildLegalEntityCreate.ThirdPartyVerification.builder()
