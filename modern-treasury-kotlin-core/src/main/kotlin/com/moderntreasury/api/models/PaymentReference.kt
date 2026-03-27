@@ -626,6 +626,8 @@ private constructor(
 
             val PARTIAL_SWIFT_MIR = of("partial_swift_mir")
 
+            val PAXOS_FIAT_WITHDRAWAL_ID = of("paxos_fiat_withdrawal_id")
+
             val PAXOS_GROUP_ID = of("paxos_group_id")
 
             val PAXOS_ORCHESTRATION_ID = of("paxos_orchestration_id")
@@ -752,6 +754,7 @@ private constructor(
             LOB_CHECK_ID,
             OTHER,
             PARTIAL_SWIFT_MIR,
+            PAXOS_FIAT_WITHDRAWAL_ID,
             PAXOS_GROUP_ID,
             PAXOS_ORCHESTRATION_ID,
             PAXOS_TRANSFER_ID,
@@ -852,6 +855,7 @@ private constructor(
             LOB_CHECK_ID,
             OTHER,
             PARTIAL_SWIFT_MIR,
+            PAXOS_FIAT_WITHDRAWAL_ID,
             PAXOS_GROUP_ID,
             PAXOS_ORCHESTRATION_ID,
             PAXOS_TRANSFER_ID,
@@ -958,6 +962,7 @@ private constructor(
                 LOB_CHECK_ID -> Value.LOB_CHECK_ID
                 OTHER -> Value.OTHER
                 PARTIAL_SWIFT_MIR -> Value.PARTIAL_SWIFT_MIR
+                PAXOS_FIAT_WITHDRAWAL_ID -> Value.PAXOS_FIAT_WITHDRAWAL_ID
                 PAXOS_GROUP_ID -> Value.PAXOS_GROUP_ID
                 PAXOS_ORCHESTRATION_ID -> Value.PAXOS_ORCHESTRATION_ID
                 PAXOS_TRANSFER_ID -> Value.PAXOS_TRANSFER_ID
@@ -1064,6 +1069,7 @@ private constructor(
                 LOB_CHECK_ID -> Known.LOB_CHECK_ID
                 OTHER -> Known.OTHER
                 PARTIAL_SWIFT_MIR -> Known.PARTIAL_SWIFT_MIR
+                PAXOS_FIAT_WITHDRAWAL_ID -> Known.PAXOS_FIAT_WITHDRAWAL_ID
                 PAXOS_GROUP_ID -> Known.PAXOS_GROUP_ID
                 PAXOS_ORCHESTRATION_ID -> Known.PAXOS_ORCHESTRATION_ID
                 PAXOS_TRANSFER_ID -> Known.PAXOS_TRANSFER_ID
