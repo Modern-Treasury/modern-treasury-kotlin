@@ -305,6 +305,14 @@ private constructor(
     fun riskRating(): RiskRating? = body.riskRating()
 
     /**
+     * The UUID of the parent legal entity in the service provider tree.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun serviceProviderLegalEntityId(): String? = body.serviceProviderLegalEntityId()
+
+    /**
      * An individual's suffix.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -585,6 +593,14 @@ private constructor(
      * Unlike [riskRating], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _riskRating(): JsonField<RiskRating> = body._riskRating()
+
+    /**
+     * Returns the raw JSON value of [serviceProviderLegalEntityId].
+     *
+     * Unlike [serviceProviderLegalEntityId], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _serviceProviderLegalEntityId(): JsonField<String> = body._serviceProviderLegalEntityId()
 
     /**
      * Returns the raw JSON value of [suffix].
@@ -1263,6 +1279,22 @@ private constructor(
          */
         fun riskRating(riskRating: JsonField<RiskRating>) = apply { body.riskRating(riskRating) }
 
+        /** The UUID of the parent legal entity in the service provider tree. */
+        fun serviceProviderLegalEntityId(serviceProviderLegalEntityId: String?) = apply {
+            body.serviceProviderLegalEntityId(serviceProviderLegalEntityId)
+        }
+
+        /**
+         * Sets [Builder.serviceProviderLegalEntityId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.serviceProviderLegalEntityId] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun serviceProviderLegalEntityId(serviceProviderLegalEntityId: JsonField<String>) = apply {
+            body.serviceProviderLegalEntityId(serviceProviderLegalEntityId)
+        }
+
         /** An individual's suffix. */
         fun suffix(suffix: String?) = apply { body.suffix(suffix) }
 
@@ -1511,6 +1543,7 @@ private constructor(
         private val primarySocialMediaSites: JsonField<List<String>>,
         private val regulators: JsonField<List<LegalEntityRegulator>>,
         private val riskRating: JsonField<RiskRating>,
+        private val serviceProviderLegalEntityId: JsonField<String>,
         private val suffix: JsonField<String>,
         private val thirdPartyVerification: JsonField<ThirdPartyVerification>,
         private val tickerSymbol: JsonField<String>,
@@ -1621,6 +1654,9 @@ private constructor(
             @JsonProperty("risk_rating")
             @ExcludeMissing
             riskRating: JsonField<RiskRating> = JsonMissing.of(),
+            @JsonProperty("service_provider_legal_entity_id")
+            @ExcludeMissing
+            serviceProviderLegalEntityId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("suffix") @ExcludeMissing suffix: JsonField<String> = JsonMissing.of(),
             @JsonProperty("third_party_verification")
             @ExcludeMissing
@@ -1668,6 +1704,7 @@ private constructor(
             primarySocialMediaSites,
             regulators,
             riskRating,
+            serviceProviderLegalEntityId,
             suffix,
             thirdPartyVerification,
             tickerSymbol,
@@ -1958,6 +1995,15 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun riskRating(): RiskRating? = riskRating.getNullable("risk_rating")
+
+        /**
+         * The UUID of the parent legal entity in the service provider tree.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun serviceProviderLegalEntityId(): String? =
+            serviceProviderLegalEntityId.getNullable("service_provider_legal_entity_id")
 
         /**
          * An individual's suffix.
@@ -2308,6 +2354,16 @@ private constructor(
         fun _riskRating(): JsonField<RiskRating> = riskRating
 
         /**
+         * Returns the raw JSON value of [serviceProviderLegalEntityId].
+         *
+         * Unlike [serviceProviderLegalEntityId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("service_provider_legal_entity_id")
+        @ExcludeMissing
+        fun _serviceProviderLegalEntityId(): JsonField<String> = serviceProviderLegalEntityId
+
+        /**
          * Returns the raw JSON value of [suffix].
          *
          * Unlike [suffix], this method doesn't throw if the JSON field has an unexpected type.
@@ -2418,6 +2474,7 @@ private constructor(
             private var primarySocialMediaSites: JsonField<MutableList<String>>? = null
             private var regulators: JsonField<MutableList<LegalEntityRegulator>>? = null
             private var riskRating: JsonField<RiskRating> = JsonMissing.of()
+            private var serviceProviderLegalEntityId: JsonField<String> = JsonMissing.of()
             private var suffix: JsonField<String> = JsonMissing.of()
             private var thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of()
             private var tickerSymbol: JsonField<String> = JsonMissing.of()
@@ -2467,6 +2524,7 @@ private constructor(
                     legalEntityCreateRequest.primarySocialMediaSites.map { it.toMutableList() }
                 regulators = legalEntityCreateRequest.regulators.map { it.toMutableList() }
                 riskRating = legalEntityCreateRequest.riskRating
+                serviceProviderLegalEntityId = legalEntityCreateRequest.serviceProviderLegalEntityId
                 suffix = legalEntityCreateRequest.suffix
                 thirdPartyVerification = legalEntityCreateRequest.thirdPartyVerification
                 tickerSymbol = legalEntityCreateRequest.tickerSymbol
@@ -3111,6 +3169,22 @@ private constructor(
                 this.riskRating = riskRating
             }
 
+            /** The UUID of the parent legal entity in the service provider tree. */
+            fun serviceProviderLegalEntityId(serviceProviderLegalEntityId: String?) =
+                serviceProviderLegalEntityId(JsonField.ofNullable(serviceProviderLegalEntityId))
+
+            /**
+             * Sets [Builder.serviceProviderLegalEntityId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.serviceProviderLegalEntityId] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun serviceProviderLegalEntityId(serviceProviderLegalEntityId: JsonField<String>) =
+                apply {
+                    this.serviceProviderLegalEntityId = serviceProviderLegalEntityId
+                }
+
             /** An individual's suffix. */
             fun suffix(suffix: String?) = suffix(JsonField.ofNullable(suffix))
 
@@ -3248,6 +3322,7 @@ private constructor(
                     (primarySocialMediaSites ?: JsonMissing.of()).map { it.toImmutable() },
                     (regulators ?: JsonMissing.of()).map { it.toImmutable() },
                     riskRating,
+                    serviceProviderLegalEntityId,
                     suffix,
                     thirdPartyVerification,
                     tickerSymbol,
@@ -3297,6 +3372,7 @@ private constructor(
             primarySocialMediaSites()
             regulators()?.forEach { it.validate() }
             riskRating()?.validate()
+            serviceProviderLegalEntityId()
             suffix()
             thirdPartyVerification()?.validate()
             tickerSymbol()
@@ -3353,6 +3429,7 @@ private constructor(
                 (primarySocialMediaSites.asKnown()?.size ?: 0) +
                 (regulators.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (riskRating.asKnown()?.validity() ?: 0) +
+                (if (serviceProviderLegalEntityId.asKnown() == null) 0 else 1) +
                 (if (suffix.asKnown() == null) 0 else 1) +
                 (thirdPartyVerification.asKnown()?.validity() ?: 0) +
                 (if (tickerSymbol.asKnown() == null) 0 else 1) +
@@ -3399,6 +3476,7 @@ private constructor(
                 primarySocialMediaSites == other.primarySocialMediaSites &&
                 regulators == other.regulators &&
                 riskRating == other.riskRating &&
+                serviceProviderLegalEntityId == other.serviceProviderLegalEntityId &&
                 suffix == other.suffix &&
                 thirdPartyVerification == other.thirdPartyVerification &&
                 tickerSymbol == other.tickerSymbol &&
@@ -3443,6 +3521,7 @@ private constructor(
                 primarySocialMediaSites,
                 regulators,
                 riskRating,
+                serviceProviderLegalEntityId,
                 suffix,
                 thirdPartyVerification,
                 tickerSymbol,
@@ -3455,7 +3534,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LegalEntityCreateRequest{legalEntityType=$legalEntityType, addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
+            "LegalEntityCreateRequest{legalEntityType=$legalEntityType, addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, serviceProviderLegalEntityId=$serviceProviderLegalEntityId, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
     }
 
     /** The type of legal entity. */

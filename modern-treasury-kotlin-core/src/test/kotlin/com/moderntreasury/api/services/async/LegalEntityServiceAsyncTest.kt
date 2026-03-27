@@ -261,6 +261,9 @@ internal class LegalEntityServiceAsyncTest {
                                             .build()
                                     )
                                     .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
+                                    .serviceProviderLegalEntityId(
+                                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
+                                    )
                                     .suffix("suffix")
                                     .thirdPartyVerification(
                                         ChildLegalEntityCreate.ThirdPartyVerification.builder()
@@ -367,6 +370,7 @@ internal class LegalEntityServiceAsyncTest {
                             .build()
                     )
                     .riskRating(LegalEntityCreateParams.RiskRating.LOW)
+                    .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .suffix("suffix")
                     .thirdPartyVerification(
                         LegalEntityCreateParams.ThirdPartyVerification.builder()
@@ -554,6 +558,7 @@ internal class LegalEntityServiceAsyncTest {
                             .build()
                     )
                     .riskRating(LegalEntityUpdateParams.RiskRating.LOW)
+                    .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .suffix("suffix")
                     .thirdPartyVerification(
                         LegalEntityUpdateParams.ThirdPartyVerification.builder()
