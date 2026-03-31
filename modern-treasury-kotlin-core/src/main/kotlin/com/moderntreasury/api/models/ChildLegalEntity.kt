@@ -4208,6 +4208,8 @@ private constructor(
 
                 val HN_RTN = of("hn_rtn")
 
+                val IE_PPS = of("ie_pps")
+
                 val IN_LEI = of("in_lei")
 
                 val KR_BRN = of("kr_brn")
@@ -4247,6 +4249,7 @@ private constructor(
                 DRIVERS_LICENSE,
                 HN_ID,
                 HN_RTN,
+                IE_PPS,
                 IN_LEI,
                 KR_BRN,
                 KR_CRN,
@@ -4282,6 +4285,7 @@ private constructor(
                 DRIVERS_LICENSE,
                 HN_ID,
                 HN_RTN,
+                IE_PPS,
                 IN_LEI,
                 KR_BRN,
                 KR_CRN,
@@ -4320,6 +4324,7 @@ private constructor(
                     DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
                     HN_ID -> Value.HN_ID
                     HN_RTN -> Value.HN_RTN
+                    IE_PPS -> Value.IE_PPS
                     IN_LEI -> Value.IN_LEI
                     KR_BRN -> Value.KR_BRN
                     KR_CRN -> Value.KR_CRN
@@ -4357,6 +4362,7 @@ private constructor(
                     DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
                     HN_ID -> Known.HN_ID
                     HN_RTN -> Known.HN_RTN
+                    IE_PPS -> Known.IE_PPS
                     IN_LEI -> Known.IN_LEI
                     KR_BRN -> Known.KR_BRN
                     KR_CRN -> Known.KR_CRN
