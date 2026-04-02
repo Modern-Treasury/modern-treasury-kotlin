@@ -50,6 +50,8 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
 
         val BACS = of("bacs")
 
+        val BASE = of("base")
+
         val CHATS = of("chats")
 
         val DK_NETS = of("dk_nets")
@@ -71,6 +73,8 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         val NZ_BECS = of("nz_becs")
 
         val PL_ELIXIR = of("pl_elixir")
+
+        val POLYGON = of("polygon")
 
         val RO_SENT = of("ro_sent")
 
@@ -105,6 +109,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         WEB,
         AU_BECS,
         BACS,
+        BASE,
         CHATS,
         DK_NETS,
         EFT,
@@ -116,6 +121,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         NICS,
         NZ_BECS,
         PL_ELIXIR,
+        POLYGON,
         RO_SENT,
         SE_BANKGIROT,
         SEPA,
@@ -148,6 +154,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         WEB,
         AU_BECS,
         BACS,
+        BASE,
         CHATS,
         DK_NETS,
         EFT,
@@ -159,6 +166,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         NICS,
         NZ_BECS,
         PL_ELIXIR,
+        POLYGON,
         RO_SENT,
         SE_BANKGIROT,
         SEPA,
@@ -195,6 +203,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             WEB -> Value.WEB
             AU_BECS -> Value.AU_BECS
             BACS -> Value.BACS
+            BASE -> Value.BASE
             CHATS -> Value.CHATS
             DK_NETS -> Value.DK_NETS
             EFT -> Value.EFT
@@ -206,6 +215,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             NICS -> Value.NICS
             NZ_BECS -> Value.NZ_BECS
             PL_ELIXIR -> Value.PL_ELIXIR
+            POLYGON -> Value.POLYGON
             RO_SENT -> Value.RO_SENT
             SE_BANKGIROT -> Value.SE_BANKGIROT
             SEPA -> Value.SEPA
@@ -240,6 +250,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             WEB -> Known.WEB
             AU_BECS -> Known.AU_BECS
             BACS -> Known.BACS
+            BASE -> Known.BASE
             CHATS -> Known.CHATS
             DK_NETS -> Known.DK_NETS
             EFT -> Known.EFT
@@ -251,6 +262,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             NICS -> Known.NICS
             NZ_BECS -> Known.NZ_BECS
             PL_ELIXIR -> Known.PL_ELIXIR
+            POLYGON -> Known.POLYGON
             RO_SENT -> Known.RO_SENT
             SE_BANKGIROT -> Known.SE_BANKGIROT
             SEPA -> Known.SEPA
