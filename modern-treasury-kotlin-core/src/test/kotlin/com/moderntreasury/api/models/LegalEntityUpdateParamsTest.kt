@@ -112,28 +112,22 @@ internal class LegalEntityUpdateParamsTest {
             .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .suffix("suffix")
             .thirdPartyVerification(
-                LegalEntityUpdateParams.ThirdPartyVerification.builder()
-                    .outcome(LegalEntityUpdateParams.ThirdPartyVerification.Outcome.PASSED)
-                    .vendor(LegalEntityUpdateParams.ThirdPartyVerification.Vendor.PERSONA)
+                ThirdPartyVerification.builder()
+                    .outcome(ThirdPartyVerification.Outcome.PASSED)
+                    .vendor(ThirdPartyVerification.Vendor.PERSONA)
                     .vendorVerificationId("vendor_verification_id")
-                    .verificationCategory(
-                        LegalEntityUpdateParams.ThirdPartyVerification.VerificationCategory
-                            .LEGAL_NAME
-                    )
+                    .verificationCategory(ThirdPartyVerification.VerificationCategory.LEGAL_NAME)
                     .verificationMethod("verification_method")
                     .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .comment("comment")
                     .build()
             )
             .addThirdPartyVerification(
-                LegalEntityUpdateParams.ThirdPartyVerification.builder()
-                    .outcome(LegalEntityUpdateParams.ThirdPartyVerification.Outcome.PASSED)
-                    .vendor(LegalEntityUpdateParams.ThirdPartyVerification.Vendor.PERSONA)
+                ThirdPartyVerification.builder()
+                    .outcome(ThirdPartyVerification.Outcome.PASSED)
+                    .vendor(ThirdPartyVerification.Vendor.PERSONA)
                     .vendorVerificationId("vendor_verification_id")
-                    .verificationCategory(
-                        LegalEntityUpdateParams.ThirdPartyVerification.VerificationCategory
-                            .LEGAL_NAME
-                    )
+                    .verificationCategory(ThirdPartyVerification.VerificationCategory.LEGAL_NAME)
                     .verificationMethod("verification_method")
                     .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .comment("comment")
@@ -300,13 +294,12 @@ internal class LegalEntityUpdateParamsTest {
                 .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .suffix("suffix")
                 .thirdPartyVerification(
-                    LegalEntityUpdateParams.ThirdPartyVerification.builder()
-                        .outcome(LegalEntityUpdateParams.ThirdPartyVerification.Outcome.PASSED)
-                        .vendor(LegalEntityUpdateParams.ThirdPartyVerification.Vendor.PERSONA)
+                    ThirdPartyVerification.builder()
+                        .outcome(ThirdPartyVerification.Outcome.PASSED)
+                        .vendor(ThirdPartyVerification.Vendor.PERSONA)
                         .vendorVerificationId("vendor_verification_id")
                         .verificationCategory(
-                            LegalEntityUpdateParams.ThirdPartyVerification.VerificationCategory
-                                .LEGAL_NAME
+                            ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                         )
                         .verificationMethod("verification_method")
                         .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -314,13 +307,12 @@ internal class LegalEntityUpdateParamsTest {
                         .build()
                 )
                 .addThirdPartyVerification(
-                    LegalEntityUpdateParams.ThirdPartyVerification.builder()
-                        .outcome(LegalEntityUpdateParams.ThirdPartyVerification.Outcome.PASSED)
-                        .vendor(LegalEntityUpdateParams.ThirdPartyVerification.Vendor.PERSONA)
+                    ThirdPartyVerification.builder()
+                        .outcome(ThirdPartyVerification.Outcome.PASSED)
+                        .vendor(ThirdPartyVerification.Vendor.PERSONA)
                         .vendorVerificationId("vendor_verification_id")
                         .verificationCategory(
-                            LegalEntityUpdateParams.ThirdPartyVerification.VerificationCategory
-                                .LEGAL_NAME
+                            ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                         )
                         .verificationMethod("verification_method")
                         .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -482,14 +474,11 @@ internal class LegalEntityUpdateParamsTest {
         assertThat(body.suffix()).isEqualTo("suffix")
         assertThat(body.thirdPartyVerification())
             .isEqualTo(
-                LegalEntityUpdateParams.ThirdPartyVerification.builder()
-                    .outcome(LegalEntityUpdateParams.ThirdPartyVerification.Outcome.PASSED)
-                    .vendor(LegalEntityUpdateParams.ThirdPartyVerification.Vendor.PERSONA)
+                ThirdPartyVerification.builder()
+                    .outcome(ThirdPartyVerification.Outcome.PASSED)
+                    .vendor(ThirdPartyVerification.Vendor.PERSONA)
                     .vendorVerificationId("vendor_verification_id")
-                    .verificationCategory(
-                        LegalEntityUpdateParams.ThirdPartyVerification.VerificationCategory
-                            .LEGAL_NAME
-                    )
+                    .verificationCategory(ThirdPartyVerification.VerificationCategory.LEGAL_NAME)
                     .verificationMethod("verification_method")
                     .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .comment("comment")
@@ -497,14 +486,11 @@ internal class LegalEntityUpdateParamsTest {
             )
         assertThat(body.thirdPartyVerifications())
             .containsExactly(
-                LegalEntityUpdateParams.ThirdPartyVerification.builder()
-                    .outcome(LegalEntityUpdateParams.ThirdPartyVerification.Outcome.PASSED)
-                    .vendor(LegalEntityUpdateParams.ThirdPartyVerification.Vendor.PERSONA)
+                ThirdPartyVerification.builder()
+                    .outcome(ThirdPartyVerification.Outcome.PASSED)
+                    .vendor(ThirdPartyVerification.Vendor.PERSONA)
                     .vendorVerificationId("vendor_verification_id")
-                    .verificationCategory(
-                        LegalEntityUpdateParams.ThirdPartyVerification.VerificationCategory
-                            .LEGAL_NAME
-                    )
+                    .verificationCategory(ThirdPartyVerification.VerificationCategory.LEGAL_NAME)
                     .verificationMethod("verification_method")
                     .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .comment("comment")
