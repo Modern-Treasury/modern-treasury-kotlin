@@ -249,20 +249,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                     )
                                     .suffix("suffix")
                                     .thirdPartyVerification(
-                                        ChildLegalEntityCreate.ThirdPartyVerification.builder()
-                                            .outcome(
-                                                ChildLegalEntityCreate.ThirdPartyVerification
-                                                    .Outcome
-                                                    .PASSED
-                                            )
-                                            .vendor(
-                                                ChildLegalEntityCreate.ThirdPartyVerification.Vendor
-                                                    .PERSONA
-                                            )
+                                        ThirdPartyVerification.builder()
+                                            .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                            .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                             .vendorVerificationId("vendor_verification_id")
                                             .verificationCategory(
-                                                ChildLegalEntityCreate.ThirdPartyVerification
-                                                    .VerificationCategory
+                                                ThirdPartyVerification.VerificationCategory
                                                     .LEGAL_NAME
                                             )
                                             .verificationMethod("verification_method")
@@ -273,20 +265,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                             .build()
                                     )
                                     .addThirdPartyVerification(
-                                        ChildLegalEntityCreate.ThirdPartyVerification.builder()
-                                            .outcome(
-                                                ChildLegalEntityCreate.ThirdPartyVerification
-                                                    .Outcome
-                                                    .PASSED
-                                            )
-                                            .vendor(
-                                                ChildLegalEntityCreate.ThirdPartyVerification.Vendor
-                                                    .PERSONA
-                                            )
+                                        ThirdPartyVerification.builder()
+                                            .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                            .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                             .vendorVerificationId("vendor_verification_id")
                                             .verificationCategory(
-                                                ChildLegalEntityCreate.ThirdPartyVerification
-                                                    .VerificationCategory
+                                                ThirdPartyVerification.VerificationCategory
                                                     .LEGAL_NAME
                                             )
                                             .verificationMethod("verification_method")
@@ -400,23 +384,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                     .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .suffix("suffix")
                     .thirdPartyVerification(
-                        ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                            .builder()
-                            .outcome(
-                                ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                                    .Outcome
-                                    .PASSED
-                            )
-                            .vendor(
-                                ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                                    .Vendor
-                                    .PERSONA
-                            )
+                        ThirdPartyVerification.builder()
+                            .outcome(ThirdPartyVerification.Outcome.PASSED)
+                            .vendor(ThirdPartyVerification.Vendor.PERSONA)
                             .vendorVerificationId("vendor_verification_id")
                             .verificationCategory(
-                                ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                                    .VerificationCategory
-                                    .LEGAL_NAME
+                                ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                             )
                             .verificationMethod("verification_method")
                             .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -424,23 +397,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                             .build()
                     )
                     .addThirdPartyVerification(
-                        ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                            .builder()
-                            .outcome(
-                                ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                                    .Outcome
-                                    .PASSED
-                            )
-                            .vendor(
-                                ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                                    .Vendor
-                                    .PERSONA
-                            )
+                        ThirdPartyVerification.builder()
+                            .outcome(ThirdPartyVerification.Outcome.PASSED)
+                            .vendor(ThirdPartyVerification.Vendor.PERSONA)
                             .vendorVerificationId("vendor_verification_id")
                             .verificationCategory(
-                                ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                                    .VerificationCategory
-                                    .LEGAL_NAME
+                                ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                             )
                             .verificationMethod("verification_method")
                             .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -757,21 +719,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                         )
                                         .suffix("suffix")
                                         .thirdPartyVerification(
-                                            ChildLegalEntityCreate.ThirdPartyVerification.builder()
-                                                .outcome(
-                                                    ChildLegalEntityCreate.ThirdPartyVerification
-                                                        .Outcome
-                                                        .PASSED
-                                                )
-                                                .vendor(
-                                                    ChildLegalEntityCreate.ThirdPartyVerification
-                                                        .Vendor
-                                                        .PERSONA
-                                                )
+                                            ThirdPartyVerification.builder()
+                                                .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                                .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                                 .vendorVerificationId("vendor_verification_id")
                                                 .verificationCategory(
-                                                    ChildLegalEntityCreate.ThirdPartyVerification
-                                                        .VerificationCategory
+                                                    ThirdPartyVerification.VerificationCategory
                                                         .LEGAL_NAME
                                                 )
                                                 .verificationMethod("verification_method")
@@ -782,21 +735,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                                 .build()
                                         )
                                         .addThirdPartyVerification(
-                                            ChildLegalEntityCreate.ThirdPartyVerification.builder()
-                                                .outcome(
-                                                    ChildLegalEntityCreate.ThirdPartyVerification
-                                                        .Outcome
-                                                        .PASSED
-                                                )
-                                                .vendor(
-                                                    ChildLegalEntityCreate.ThirdPartyVerification
-                                                        .Vendor
-                                                        .PERSONA
-                                                )
+                                            ThirdPartyVerification.builder()
+                                                .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                                .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                                 .vendorVerificationId("vendor_verification_id")
                                                 .verificationCategory(
-                                                    ChildLegalEntityCreate.ThirdPartyVerification
-                                                        .VerificationCategory
+                                                    ThirdPartyVerification.VerificationCategory
                                                         .LEGAL_NAME
                                                 )
                                                 .verificationMethod("verification_method")
@@ -911,26 +855,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                         .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .suffix("suffix")
                         .thirdPartyVerification(
-                            ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                                .builder()
-                                .outcome(
-                                    ConnectionLegalEntityCreateParams.LegalEntity
-                                        .ThirdPartyVerification
-                                        .Outcome
-                                        .PASSED
-                                )
-                                .vendor(
-                                    ConnectionLegalEntityCreateParams.LegalEntity
-                                        .ThirdPartyVerification
-                                        .Vendor
-                                        .PERSONA
-                                )
+                            ThirdPartyVerification.builder()
+                                .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                 .vendorVerificationId("vendor_verification_id")
                                 .verificationCategory(
-                                    ConnectionLegalEntityCreateParams.LegalEntity
-                                        .ThirdPartyVerification
-                                        .VerificationCategory
-                                        .LEGAL_NAME
+                                    ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                                 )
                                 .verificationMethod("verification_method")
                                 .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -938,26 +868,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                 .build()
                         )
                         .addThirdPartyVerification(
-                            ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                                .builder()
-                                .outcome(
-                                    ConnectionLegalEntityCreateParams.LegalEntity
-                                        .ThirdPartyVerification
-                                        .Outcome
-                                        .PASSED
-                                )
-                                .vendor(
-                                    ConnectionLegalEntityCreateParams.LegalEntity
-                                        .ThirdPartyVerification
-                                        .Vendor
-                                        .PERSONA
-                                )
+                            ThirdPartyVerification.builder()
+                                .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                 .vendorVerificationId("vendor_verification_id")
                                 .verificationCategory(
-                                    ConnectionLegalEntityCreateParams.LegalEntity
-                                        .ThirdPartyVerification
-                                        .VerificationCategory
-                                        .LEGAL_NAME
+                                    ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                                 )
                                 .verificationMethod("verification_method")
                                 .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -1264,20 +1180,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                     )
                                     .suffix("suffix")
                                     .thirdPartyVerification(
-                                        ChildLegalEntityCreate.ThirdPartyVerification.builder()
-                                            .outcome(
-                                                ChildLegalEntityCreate.ThirdPartyVerification
-                                                    .Outcome
-                                                    .PASSED
-                                            )
-                                            .vendor(
-                                                ChildLegalEntityCreate.ThirdPartyVerification.Vendor
-                                                    .PERSONA
-                                            )
+                                        ThirdPartyVerification.builder()
+                                            .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                            .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                             .vendorVerificationId("vendor_verification_id")
                                             .verificationCategory(
-                                                ChildLegalEntityCreate.ThirdPartyVerification
-                                                    .VerificationCategory
+                                                ThirdPartyVerification.VerificationCategory
                                                     .LEGAL_NAME
                                             )
                                             .verificationMethod("verification_method")
@@ -1288,20 +1196,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                             .build()
                                     )
                                     .addThirdPartyVerification(
-                                        ChildLegalEntityCreate.ThirdPartyVerification.builder()
-                                            .outcome(
-                                                ChildLegalEntityCreate.ThirdPartyVerification
-                                                    .Outcome
-                                                    .PASSED
-                                            )
-                                            .vendor(
-                                                ChildLegalEntityCreate.ThirdPartyVerification.Vendor
-                                                    .PERSONA
-                                            )
+                                        ThirdPartyVerification.builder()
+                                            .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                            .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                             .vendorVerificationId("vendor_verification_id")
                                             .verificationCategory(
-                                                ChildLegalEntityCreate.ThirdPartyVerification
-                                                    .VerificationCategory
+                                                ThirdPartyVerification.VerificationCategory
                                                     .LEGAL_NAME
                                             )
                                             .verificationMethod("verification_method")
@@ -1415,23 +1315,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                     .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .suffix("suffix")
                     .thirdPartyVerification(
-                        ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                            .builder()
-                            .outcome(
-                                ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                                    .Outcome
-                                    .PASSED
-                            )
-                            .vendor(
-                                ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                                    .Vendor
-                                    .PERSONA
-                            )
+                        ThirdPartyVerification.builder()
+                            .outcome(ThirdPartyVerification.Outcome.PASSED)
+                            .vendor(ThirdPartyVerification.Vendor.PERSONA)
                             .vendorVerificationId("vendor_verification_id")
                             .verificationCategory(
-                                ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                                    .VerificationCategory
-                                    .LEGAL_NAME
+                                ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                             )
                             .verificationMethod("verification_method")
                             .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -1439,23 +1328,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                             .build()
                     )
                     .addThirdPartyVerification(
-                        ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                            .builder()
-                            .outcome(
-                                ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                                    .Outcome
-                                    .PASSED
-                            )
-                            .vendor(
-                                ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                                    .Vendor
-                                    .PERSONA
-                            )
+                        ThirdPartyVerification.builder()
+                            .outcome(ThirdPartyVerification.Outcome.PASSED)
+                            .vendor(ThirdPartyVerification.Vendor.PERSONA)
                             .vendorVerificationId("vendor_verification_id")
                             .verificationCategory(
-                                ConnectionLegalEntityCreateParams.LegalEntity.ThirdPartyVerification
-                                    .VerificationCategory
-                                    .LEGAL_NAME
+                                ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                             )
                             .verificationMethod("verification_method")
                             .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
