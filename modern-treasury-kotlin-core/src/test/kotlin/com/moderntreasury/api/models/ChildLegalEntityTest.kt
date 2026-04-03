@@ -388,18 +388,12 @@ internal class ChildLegalEntityTest {
                                 .status(ChildLegalEntity.Status.ACTIVE)
                                 .suffix("suffix")
                                 .thirdPartyVerification(
-                                    ChildLegalEntity.ThirdPartyVerification.builder()
-                                        .outcome(
-                                            ChildLegalEntity.ThirdPartyVerification.Outcome.PASSED
-                                        )
-                                        .vendor(
-                                            ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA
-                                        )
+                                    ThirdPartyVerification.builder()
+                                        .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                        .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                         .vendorVerificationId("vendor_verification_id")
                                         .verificationCategory(
-                                            ChildLegalEntity.ThirdPartyVerification
-                                                .VerificationCategory
-                                                .LEGAL_NAME
+                                            ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                                         )
                                         .verificationMethod("verification_method")
                                         .verificationTime(
@@ -409,18 +403,12 @@ internal class ChildLegalEntityTest {
                                         .build()
                                 )
                                 .addThirdPartyVerification(
-                                    ChildLegalEntity.ThirdPartyVerification.builder()
-                                        .outcome(
-                                            ChildLegalEntity.ThirdPartyVerification.Outcome.PASSED
-                                        )
-                                        .vendor(
-                                            ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA
-                                        )
+                                    ThirdPartyVerification.builder()
+                                        .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                        .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                         .vendorVerificationId("vendor_verification_id")
                                         .verificationCategory(
-                                            ChildLegalEntity.ThirdPartyVerification
-                                                .VerificationCategory
-                                                .LEGAL_NAME
+                                            ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                                         )
                                         .verificationMethod("verification_method")
                                         .verificationTime(
@@ -528,12 +516,12 @@ internal class ChildLegalEntityTest {
                 .status(ChildLegalEntity.Status.ACTIVE)
                 .suffix("suffix")
                 .thirdPartyVerification(
-                    ChildLegalEntity.ThirdPartyVerification.builder()
-                        .outcome(ChildLegalEntity.ThirdPartyVerification.Outcome.PASSED)
-                        .vendor(ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA)
+                    ThirdPartyVerification.builder()
+                        .outcome(ThirdPartyVerification.Outcome.PASSED)
+                        .vendor(ThirdPartyVerification.Vendor.PERSONA)
                         .vendorVerificationId("vendor_verification_id")
                         .verificationCategory(
-                            ChildLegalEntity.ThirdPartyVerification.VerificationCategory.LEGAL_NAME
+                            ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                         )
                         .verificationMethod("verification_method")
                         .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -541,12 +529,12 @@ internal class ChildLegalEntityTest {
                         .build()
                 )
                 .addThirdPartyVerification(
-                    ChildLegalEntity.ThirdPartyVerification.builder()
-                        .outcome(ChildLegalEntity.ThirdPartyVerification.Outcome.PASSED)
-                        .vendor(ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA)
+                    ThirdPartyVerification.builder()
+                        .outcome(ThirdPartyVerification.Outcome.PASSED)
+                        .vendor(ThirdPartyVerification.Vendor.PERSONA)
                         .vendorVerificationId("vendor_verification_id")
                         .verificationCategory(
-                            ChildLegalEntity.ThirdPartyVerification.VerificationCategory.LEGAL_NAME
+                            ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                         )
                         .verificationMethod("verification_method")
                         .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -955,13 +943,12 @@ internal class ChildLegalEntityTest {
                             .status(ChildLegalEntity.Status.ACTIVE)
                             .suffix("suffix")
                             .thirdPartyVerification(
-                                ChildLegalEntity.ThirdPartyVerification.builder()
-                                    .outcome(ChildLegalEntity.ThirdPartyVerification.Outcome.PASSED)
-                                    .vendor(ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA)
+                                ThirdPartyVerification.builder()
+                                    .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                    .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                     .vendorVerificationId("vendor_verification_id")
                                     .verificationCategory(
-                                        ChildLegalEntity.ThirdPartyVerification.VerificationCategory
-                                            .LEGAL_NAME
+                                        ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                                     )
                                     .verificationMethod("verification_method")
                                     .verificationTime(
@@ -971,13 +958,12 @@ internal class ChildLegalEntityTest {
                                     .build()
                             )
                             .addThirdPartyVerification(
-                                ChildLegalEntity.ThirdPartyVerification.builder()
-                                    .outcome(ChildLegalEntity.ThirdPartyVerification.Outcome.PASSED)
-                                    .vendor(ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA)
+                                ThirdPartyVerification.builder()
+                                    .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                    .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                     .vendorVerificationId("vendor_verification_id")
                                     .verificationCategory(
-                                        ChildLegalEntity.ThirdPartyVerification.VerificationCategory
-                                            .LEGAL_NAME
+                                        ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                                     )
                                     .verificationMethod("verification_method")
                                     .verificationTime(
@@ -1087,13 +1073,11 @@ internal class ChildLegalEntityTest {
         assertThat(childLegalEntity.suffix()).isEqualTo("suffix")
         assertThat(childLegalEntity.thirdPartyVerification())
             .isEqualTo(
-                ChildLegalEntity.ThirdPartyVerification.builder()
-                    .outcome(ChildLegalEntity.ThirdPartyVerification.Outcome.PASSED)
-                    .vendor(ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA)
+                ThirdPartyVerification.builder()
+                    .outcome(ThirdPartyVerification.Outcome.PASSED)
+                    .vendor(ThirdPartyVerification.Vendor.PERSONA)
                     .vendorVerificationId("vendor_verification_id")
-                    .verificationCategory(
-                        ChildLegalEntity.ThirdPartyVerification.VerificationCategory.LEGAL_NAME
-                    )
+                    .verificationCategory(ThirdPartyVerification.VerificationCategory.LEGAL_NAME)
                     .verificationMethod("verification_method")
                     .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .comment("comment")
@@ -1101,13 +1085,11 @@ internal class ChildLegalEntityTest {
             )
         assertThat(childLegalEntity.thirdPartyVerifications())
             .containsExactly(
-                ChildLegalEntity.ThirdPartyVerification.builder()
-                    .outcome(ChildLegalEntity.ThirdPartyVerification.Outcome.PASSED)
-                    .vendor(ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA)
+                ThirdPartyVerification.builder()
+                    .outcome(ThirdPartyVerification.Outcome.PASSED)
+                    .vendor(ThirdPartyVerification.Vendor.PERSONA)
                     .vendorVerificationId("vendor_verification_id")
-                    .verificationCategory(
-                        ChildLegalEntity.ThirdPartyVerification.VerificationCategory.LEGAL_NAME
-                    )
+                    .verificationCategory(ThirdPartyVerification.VerificationCategory.LEGAL_NAME)
                     .verificationMethod("verification_method")
                     .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .comment("comment")
@@ -1533,18 +1515,12 @@ internal class ChildLegalEntityTest {
                                 .status(ChildLegalEntity.Status.ACTIVE)
                                 .suffix("suffix")
                                 .thirdPartyVerification(
-                                    ChildLegalEntity.ThirdPartyVerification.builder()
-                                        .outcome(
-                                            ChildLegalEntity.ThirdPartyVerification.Outcome.PASSED
-                                        )
-                                        .vendor(
-                                            ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA
-                                        )
+                                    ThirdPartyVerification.builder()
+                                        .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                        .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                         .vendorVerificationId("vendor_verification_id")
                                         .verificationCategory(
-                                            ChildLegalEntity.ThirdPartyVerification
-                                                .VerificationCategory
-                                                .LEGAL_NAME
+                                            ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                                         )
                                         .verificationMethod("verification_method")
                                         .verificationTime(
@@ -1554,18 +1530,12 @@ internal class ChildLegalEntityTest {
                                         .build()
                                 )
                                 .addThirdPartyVerification(
-                                    ChildLegalEntity.ThirdPartyVerification.builder()
-                                        .outcome(
-                                            ChildLegalEntity.ThirdPartyVerification.Outcome.PASSED
-                                        )
-                                        .vendor(
-                                            ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA
-                                        )
+                                    ThirdPartyVerification.builder()
+                                        .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                        .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                         .vendorVerificationId("vendor_verification_id")
                                         .verificationCategory(
-                                            ChildLegalEntity.ThirdPartyVerification
-                                                .VerificationCategory
-                                                .LEGAL_NAME
+                                            ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                                         )
                                         .verificationMethod("verification_method")
                                         .verificationTime(
@@ -1673,12 +1643,12 @@ internal class ChildLegalEntityTest {
                 .status(ChildLegalEntity.Status.ACTIVE)
                 .suffix("suffix")
                 .thirdPartyVerification(
-                    ChildLegalEntity.ThirdPartyVerification.builder()
-                        .outcome(ChildLegalEntity.ThirdPartyVerification.Outcome.PASSED)
-                        .vendor(ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA)
+                    ThirdPartyVerification.builder()
+                        .outcome(ThirdPartyVerification.Outcome.PASSED)
+                        .vendor(ThirdPartyVerification.Vendor.PERSONA)
                         .vendorVerificationId("vendor_verification_id")
                         .verificationCategory(
-                            ChildLegalEntity.ThirdPartyVerification.VerificationCategory.LEGAL_NAME
+                            ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                         )
                         .verificationMethod("verification_method")
                         .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -1686,12 +1656,12 @@ internal class ChildLegalEntityTest {
                         .build()
                 )
                 .addThirdPartyVerification(
-                    ChildLegalEntity.ThirdPartyVerification.builder()
-                        .outcome(ChildLegalEntity.ThirdPartyVerification.Outcome.PASSED)
-                        .vendor(ChildLegalEntity.ThirdPartyVerification.Vendor.PERSONA)
+                    ThirdPartyVerification.builder()
+                        .outcome(ThirdPartyVerification.Outcome.PASSED)
+                        .vendor(ThirdPartyVerification.Vendor.PERSONA)
                         .vendorVerificationId("vendor_verification_id")
                         .verificationCategory(
-                            ChildLegalEntity.ThirdPartyVerification.VerificationCategory.LEGAL_NAME
+                            ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                         )
                         .verificationMethod("verification_method")
                         .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

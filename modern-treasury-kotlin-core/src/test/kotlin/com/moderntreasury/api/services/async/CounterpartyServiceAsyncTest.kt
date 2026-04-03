@@ -17,6 +17,7 @@ import com.moderntreasury.api.models.LedgerAccountCreateRequest
 import com.moderntreasury.api.models.LegalEntityAddressCreateRequest
 import com.moderntreasury.api.models.LegalEntityAssociationInlineCreate
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
+import com.moderntreasury.api.models.ThirdPartyVerification
 import com.moderntreasury.api.models.TransactionDirection
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -404,25 +405,12 @@ internal class CounterpartyServiceAsyncTest {
                                             )
                                             .suffix("suffix")
                                             .thirdPartyVerification(
-                                                ChildLegalEntityCreate.ThirdPartyVerification
-                                                    .builder()
-                                                    .outcome(
-                                                        ChildLegalEntityCreate
-                                                            .ThirdPartyVerification
-                                                            .Outcome
-                                                            .PASSED
-                                                    )
-                                                    .vendor(
-                                                        ChildLegalEntityCreate
-                                                            .ThirdPartyVerification
-                                                            .Vendor
-                                                            .PERSONA
-                                                    )
+                                                ThirdPartyVerification.builder()
+                                                    .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                                    .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                                     .vendorVerificationId("vendor_verification_id")
                                                     .verificationCategory(
-                                                        ChildLegalEntityCreate
-                                                            .ThirdPartyVerification
-                                                            .VerificationCategory
+                                                        ThirdPartyVerification.VerificationCategory
                                                             .LEGAL_NAME
                                                     )
                                                     .verificationMethod("verification_method")
@@ -435,25 +423,12 @@ internal class CounterpartyServiceAsyncTest {
                                                     .build()
                                             )
                                             .addThirdPartyVerification(
-                                                ChildLegalEntityCreate.ThirdPartyVerification
-                                                    .builder()
-                                                    .outcome(
-                                                        ChildLegalEntityCreate
-                                                            .ThirdPartyVerification
-                                                            .Outcome
-                                                            .PASSED
-                                                    )
-                                                    .vendor(
-                                                        ChildLegalEntityCreate
-                                                            .ThirdPartyVerification
-                                                            .Vendor
-                                                            .PERSONA
-                                                    )
+                                                ThirdPartyVerification.builder()
+                                                    .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                                    .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                                     .vendorVerificationId("vendor_verification_id")
                                                     .verificationCategory(
-                                                        ChildLegalEntityCreate
-                                                            .ThirdPartyVerification
-                                                            .VerificationCategory
+                                                        ThirdPartyVerification.VerificationCategory
                                                             .LEGAL_NAME
                                                     )
                                                     .verificationMethod("verification_method")
@@ -579,27 +554,12 @@ internal class CounterpartyServiceAsyncTest {
                             .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .suffix("suffix")
                             .thirdPartyVerification(
-                                CounterpartyCreateParams.LegalEntityCreateRequest
-                                    .ThirdPartyVerification
-                                    .builder()
-                                    .outcome(
-                                        CounterpartyCreateParams.LegalEntityCreateRequest
-                                            .ThirdPartyVerification
-                                            .Outcome
-                                            .PASSED
-                                    )
-                                    .vendor(
-                                        CounterpartyCreateParams.LegalEntityCreateRequest
-                                            .ThirdPartyVerification
-                                            .Vendor
-                                            .PERSONA
-                                    )
+                                ThirdPartyVerification.builder()
+                                    .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                    .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                     .vendorVerificationId("vendor_verification_id")
                                     .verificationCategory(
-                                        CounterpartyCreateParams.LegalEntityCreateRequest
-                                            .ThirdPartyVerification
-                                            .VerificationCategory
-                                            .LEGAL_NAME
+                                        ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                                     )
                                     .verificationMethod("verification_method")
                                     .verificationTime(
@@ -609,27 +569,12 @@ internal class CounterpartyServiceAsyncTest {
                                     .build()
                             )
                             .addThirdPartyVerification(
-                                CounterpartyCreateParams.LegalEntityCreateRequest
-                                    .ThirdPartyVerification
-                                    .builder()
-                                    .outcome(
-                                        CounterpartyCreateParams.LegalEntityCreateRequest
-                                            .ThirdPartyVerification
-                                            .Outcome
-                                            .PASSED
-                                    )
-                                    .vendor(
-                                        CounterpartyCreateParams.LegalEntityCreateRequest
-                                            .ThirdPartyVerification
-                                            .Vendor
-                                            .PERSONA
-                                    )
+                                ThirdPartyVerification.builder()
+                                    .outcome(ThirdPartyVerification.Outcome.PASSED)
+                                    .vendor(ThirdPartyVerification.Vendor.PERSONA)
                                     .vendorVerificationId("vendor_verification_id")
                                     .verificationCategory(
-                                        CounterpartyCreateParams.LegalEntityCreateRequest
-                                            .ThirdPartyVerification
-                                            .VerificationCategory
-                                            .LEGAL_NAME
+                                        ThirdPartyVerification.VerificationCategory.LEGAL_NAME
                                     )
                                     .verificationMethod("verification_method")
                                     .verificationTime(
