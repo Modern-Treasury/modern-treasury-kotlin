@@ -113,8 +113,30 @@ internal class LegalEntityUpdateParamsTest {
             .suffix("suffix")
             .thirdPartyVerification(
                 LegalEntityUpdateParams.ThirdPartyVerification.builder()
+                    .outcome(LegalEntityUpdateParams.ThirdPartyVerification.Outcome.PASSED)
                     .vendor(LegalEntityUpdateParams.ThirdPartyVerification.Vendor.PERSONA)
                     .vendorVerificationId("vendor_verification_id")
+                    .verificationCategory(
+                        LegalEntityUpdateParams.ThirdPartyVerification.VerificationCategory
+                            .LEGAL_NAME
+                    )
+                    .verificationMethod("verification_method")
+                    .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .comment("comment")
+                    .build()
+            )
+            .addThirdPartyVerification(
+                LegalEntityUpdateParams.ThirdPartyVerification.builder()
+                    .outcome(LegalEntityUpdateParams.ThirdPartyVerification.Outcome.PASSED)
+                    .vendor(LegalEntityUpdateParams.ThirdPartyVerification.Vendor.PERSONA)
+                    .vendorVerificationId("vendor_verification_id")
+                    .verificationCategory(
+                        LegalEntityUpdateParams.ThirdPartyVerification.VerificationCategory
+                            .LEGAL_NAME
+                    )
+                    .verificationMethod("verification_method")
+                    .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .comment("comment")
                     .build()
             )
             .tickerSymbol("ticker_symbol")
@@ -279,8 +301,30 @@ internal class LegalEntityUpdateParamsTest {
                 .suffix("suffix")
                 .thirdPartyVerification(
                     LegalEntityUpdateParams.ThirdPartyVerification.builder()
+                        .outcome(LegalEntityUpdateParams.ThirdPartyVerification.Outcome.PASSED)
                         .vendor(LegalEntityUpdateParams.ThirdPartyVerification.Vendor.PERSONA)
                         .vendorVerificationId("vendor_verification_id")
+                        .verificationCategory(
+                            LegalEntityUpdateParams.ThirdPartyVerification.VerificationCategory
+                                .LEGAL_NAME
+                        )
+                        .verificationMethod("verification_method")
+                        .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .comment("comment")
+                        .build()
+                )
+                .addThirdPartyVerification(
+                    LegalEntityUpdateParams.ThirdPartyVerification.builder()
+                        .outcome(LegalEntityUpdateParams.ThirdPartyVerification.Outcome.PASSED)
+                        .vendor(LegalEntityUpdateParams.ThirdPartyVerification.Vendor.PERSONA)
+                        .vendorVerificationId("vendor_verification_id")
+                        .verificationCategory(
+                            LegalEntityUpdateParams.ThirdPartyVerification.VerificationCategory
+                                .LEGAL_NAME
+                        )
+                        .verificationMethod("verification_method")
+                        .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .comment("comment")
                         .build()
                 )
                 .tickerSymbol("ticker_symbol")
@@ -439,8 +483,31 @@ internal class LegalEntityUpdateParamsTest {
         assertThat(body.thirdPartyVerification())
             .isEqualTo(
                 LegalEntityUpdateParams.ThirdPartyVerification.builder()
+                    .outcome(LegalEntityUpdateParams.ThirdPartyVerification.Outcome.PASSED)
                     .vendor(LegalEntityUpdateParams.ThirdPartyVerification.Vendor.PERSONA)
                     .vendorVerificationId("vendor_verification_id")
+                    .verificationCategory(
+                        LegalEntityUpdateParams.ThirdPartyVerification.VerificationCategory
+                            .LEGAL_NAME
+                    )
+                    .verificationMethod("verification_method")
+                    .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .comment("comment")
+                    .build()
+            )
+        assertThat(body.thirdPartyVerifications())
+            .containsExactly(
+                LegalEntityUpdateParams.ThirdPartyVerification.builder()
+                    .outcome(LegalEntityUpdateParams.ThirdPartyVerification.Outcome.PASSED)
+                    .vendor(LegalEntityUpdateParams.ThirdPartyVerification.Vendor.PERSONA)
+                    .vendorVerificationId("vendor_verification_id")
+                    .verificationCategory(
+                        LegalEntityUpdateParams.ThirdPartyVerification.VerificationCategory
+                            .LEGAL_NAME
+                    )
+                    .verificationMethod("verification_method")
+                    .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .comment("comment")
                     .build()
             )
         assertThat(body.tickerSymbol()).isEqualTo("ticker_symbol")

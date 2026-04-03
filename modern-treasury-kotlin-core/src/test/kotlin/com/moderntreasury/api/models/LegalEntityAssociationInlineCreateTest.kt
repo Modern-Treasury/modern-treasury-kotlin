@@ -140,10 +140,40 @@ internal class LegalEntityAssociationInlineCreateTest {
                         .suffix("suffix")
                         .thirdPartyVerification(
                             ChildLegalEntityCreate.ThirdPartyVerification.builder()
+                                .outcome(
+                                    ChildLegalEntityCreate.ThirdPartyVerification.Outcome.PASSED
+                                )
                                 .vendor(
                                     ChildLegalEntityCreate.ThirdPartyVerification.Vendor.PERSONA
                                 )
                                 .vendorVerificationId("vendor_verification_id")
+                                .verificationCategory(
+                                    ChildLegalEntityCreate.ThirdPartyVerification
+                                        .VerificationCategory
+                                        .LEGAL_NAME
+                                )
+                                .verificationMethod("verification_method")
+                                .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .comment("comment")
+                                .build()
+                        )
+                        .addThirdPartyVerification(
+                            ChildLegalEntityCreate.ThirdPartyVerification.builder()
+                                .outcome(
+                                    ChildLegalEntityCreate.ThirdPartyVerification.Outcome.PASSED
+                                )
+                                .vendor(
+                                    ChildLegalEntityCreate.ThirdPartyVerification.Vendor.PERSONA
+                                )
+                                .vendorVerificationId("vendor_verification_id")
+                                .verificationCategory(
+                                    ChildLegalEntityCreate.ThirdPartyVerification
+                                        .VerificationCategory
+                                        .LEGAL_NAME
+                                )
+                                .verificationMethod("verification_method")
+                                .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .comment("comment")
                                 .build()
                         )
                         .tickerSymbol("ticker_symbol")
@@ -323,8 +353,30 @@ internal class LegalEntityAssociationInlineCreateTest {
                     .suffix("suffix")
                     .thirdPartyVerification(
                         ChildLegalEntityCreate.ThirdPartyVerification.builder()
+                            .outcome(ChildLegalEntityCreate.ThirdPartyVerification.Outcome.PASSED)
                             .vendor(ChildLegalEntityCreate.ThirdPartyVerification.Vendor.PERSONA)
                             .vendorVerificationId("vendor_verification_id")
+                            .verificationCategory(
+                                ChildLegalEntityCreate.ThirdPartyVerification.VerificationCategory
+                                    .LEGAL_NAME
+                            )
+                            .verificationMethod("verification_method")
+                            .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .comment("comment")
+                            .build()
+                    )
+                    .addThirdPartyVerification(
+                        ChildLegalEntityCreate.ThirdPartyVerification.builder()
+                            .outcome(ChildLegalEntityCreate.ThirdPartyVerification.Outcome.PASSED)
+                            .vendor(ChildLegalEntityCreate.ThirdPartyVerification.Vendor.PERSONA)
+                            .vendorVerificationId("vendor_verification_id")
+                            .verificationCategory(
+                                ChildLegalEntityCreate.ThirdPartyVerification.VerificationCategory
+                                    .LEGAL_NAME
+                            )
+                            .verificationMethod("verification_method")
+                            .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .comment("comment")
                             .build()
                     )
                     .tickerSymbol("ticker_symbol")
@@ -510,10 +562,40 @@ internal class LegalEntityAssociationInlineCreateTest {
                         .suffix("suffix")
                         .thirdPartyVerification(
                             ChildLegalEntityCreate.ThirdPartyVerification.builder()
+                                .outcome(
+                                    ChildLegalEntityCreate.ThirdPartyVerification.Outcome.PASSED
+                                )
                                 .vendor(
                                     ChildLegalEntityCreate.ThirdPartyVerification.Vendor.PERSONA
                                 )
                                 .vendorVerificationId("vendor_verification_id")
+                                .verificationCategory(
+                                    ChildLegalEntityCreate.ThirdPartyVerification
+                                        .VerificationCategory
+                                        .LEGAL_NAME
+                                )
+                                .verificationMethod("verification_method")
+                                .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .comment("comment")
+                                .build()
+                        )
+                        .addThirdPartyVerification(
+                            ChildLegalEntityCreate.ThirdPartyVerification.builder()
+                                .outcome(
+                                    ChildLegalEntityCreate.ThirdPartyVerification.Outcome.PASSED
+                                )
+                                .vendor(
+                                    ChildLegalEntityCreate.ThirdPartyVerification.Vendor.PERSONA
+                                )
+                                .vendorVerificationId("vendor_verification_id")
+                                .verificationCategory(
+                                    ChildLegalEntityCreate.ThirdPartyVerification
+                                        .VerificationCategory
+                                        .LEGAL_NAME
+                                )
+                                .verificationMethod("verification_method")
+                                .verificationTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .comment("comment")
                                 .build()
                         )
                         .tickerSymbol("ticker_symbol")
