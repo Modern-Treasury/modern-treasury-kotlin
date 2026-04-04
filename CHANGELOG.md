@@ -1,5 +1,21 @@
 # Changelog
 
+## 7.28.0 (2026-04-04)
+
+Full Changelog: [v7.27.0...v7.28.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.27.0...v7.28.0)
+
+### Features
+
+* **api:** add third_party_verification model ([1fe2d15](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1fe2d1547398384d8ee69f9fb0f5254b58d988c9))
+* **api:** api update ([bf9471c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/bf9471c27428ba937d2ec91c4b33fd366e4c8cc2))
+* **api:** api update ([b169546](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/b1695461d4fde3b656ebfb10a314b79f2f967c25))
+* **api:** api update ([0a0b0a1](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0a0b0a1c11772b1fc78745c5ed3187d74a90d21e))
+* **api:** api update ([af0d90e](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/af0d90e1f516a9c739add12a9f972fa60f613772))
+* **api:** api update ([10538be](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/10538becd29b5eb15c0ae9f98a6387b2172ae4c3))
+* **api:** api update ([1270da3](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1270da3f7c4b9817d3c832d1b8775615d1d8c40e))
+* **api:** api update ([0e477a4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0e477a4c2a9590840888c51e4ed3f8f8f72fff8a))
+* **api:** api update ([d2e9698](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d2e9698c34d2dd3da50e8a776d915615aaa6c5f0))
+
 ## 7.27.0 (2026-03-25)
 
 Full Changelog: [v7.26.0...v7.27.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.26.0...v7.27.0)
