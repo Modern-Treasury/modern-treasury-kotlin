@@ -8,7 +8,7 @@ repositories {
 
 allprojects {
     group = "com.moderntreasury"
-    version = "7.27.0" // x-release-please-version
+    version = "7.28.0" // x-release-please-version
 }
 
 subprojects {
