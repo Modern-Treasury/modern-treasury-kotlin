@@ -2882,6 +2882,8 @@ private constructor(
 
                 val BUSINESS = of("business")
 
+                val BUSINESS_REGISTERED = of("business_registered")
+
                 val MAILING = of("mailing")
 
                 val OTHER = of("other")
@@ -2896,6 +2898,7 @@ private constructor(
             /** An enum containing [AddressType]'s known values. */
             enum class Known {
                 BUSINESS,
+                BUSINESS_REGISTERED,
                 MAILING,
                 OTHER,
                 PO_BOX,
@@ -2913,6 +2916,7 @@ private constructor(
              */
             enum class Value {
                 BUSINESS,
+                BUSINESS_REGISTERED,
                 MAILING,
                 OTHER,
                 PO_BOX,
@@ -2934,6 +2938,7 @@ private constructor(
             fun value(): Value =
                 when (this) {
                     BUSINESS -> Value.BUSINESS
+                    BUSINESS_REGISTERED -> Value.BUSINESS_REGISTERED
                     MAILING -> Value.MAILING
                     OTHER -> Value.OTHER
                     PO_BOX -> Value.PO_BOX
@@ -2953,6 +2958,7 @@ private constructor(
             fun known(): Known =
                 when (this) {
                     BUSINESS -> Known.BUSINESS
+                    BUSINESS_REGISTERED -> Known.BUSINESS_REGISTERED
                     MAILING -> Known.MAILING
                     OTHER -> Known.OTHER
                     PO_BOX -> Known.PO_BOX
