@@ -2799,6 +2799,8 @@ private constructor(
 
                 val EIN_LETTER = of("ein_letter")
 
+                val GENERIC = of("generic")
+
                 val IDENTIFICATION_BACK = of("identification_back")
 
                 val IDENTIFICATION_FRONT = of("identification_front")
@@ -2813,6 +2815,7 @@ private constructor(
                 ARTICLES_OF_INCORPORATION,
                 CERTIFICATE_OF_GOOD_STANDING,
                 EIN_LETTER,
+                GENERIC,
                 IDENTIFICATION_BACK,
                 IDENTIFICATION_FRONT,
                 PROOF_OF_ADDRESS,
@@ -2831,6 +2834,7 @@ private constructor(
                 ARTICLES_OF_INCORPORATION,
                 CERTIFICATE_OF_GOOD_STANDING,
                 EIN_LETTER,
+                GENERIC,
                 IDENTIFICATION_BACK,
                 IDENTIFICATION_FRONT,
                 PROOF_OF_ADDRESS,
@@ -2853,6 +2857,7 @@ private constructor(
                     ARTICLES_OF_INCORPORATION -> Value.ARTICLES_OF_INCORPORATION
                     CERTIFICATE_OF_GOOD_STANDING -> Value.CERTIFICATE_OF_GOOD_STANDING
                     EIN_LETTER -> Value.EIN_LETTER
+                    GENERIC -> Value.GENERIC
                     IDENTIFICATION_BACK -> Value.IDENTIFICATION_BACK
                     IDENTIFICATION_FRONT -> Value.IDENTIFICATION_FRONT
                     PROOF_OF_ADDRESS -> Value.PROOF_OF_ADDRESS
@@ -2873,6 +2878,7 @@ private constructor(
                     ARTICLES_OF_INCORPORATION -> Known.ARTICLES_OF_INCORPORATION
                     CERTIFICATE_OF_GOOD_STANDING -> Known.CERTIFICATE_OF_GOOD_STANDING
                     EIN_LETTER -> Known.EIN_LETTER
+                    GENERIC -> Known.GENERIC
                     IDENTIFICATION_BACK -> Known.IDENTIFICATION_BACK
                     IDENTIFICATION_FRONT -> Known.IDENTIFICATION_FRONT
                     PROOF_OF_ADDRESS -> Known.PROOF_OF_ADDRESS
