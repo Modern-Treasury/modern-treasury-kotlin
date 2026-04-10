@@ -90,6 +90,7 @@ internal class IncomingPaymentDetailServiceAsyncTest {
                     .description("description")
                     .direction(IncomingPaymentDetailCreateAsyncParams.Direction.CREDIT)
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .subtype("subtype")
                     .type(IncomingPaymentDetailCreateAsyncParams.Type.ACH)
                     .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
