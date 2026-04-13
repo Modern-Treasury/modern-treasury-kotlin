@@ -291,8 +291,6 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
 
         val SAR = of("SAR")
 
-        val SBC = of("SBC")
-
         val SBD = of("SBD")
 
         val SCR = of("SCR")
@@ -567,7 +565,6 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         RUB,
         RWF,
         SAR,
-        SBC,
         SBD,
         SCR,
         SDG,
@@ -782,7 +779,6 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         RUB,
         RWF,
         SAR,
-        SBC,
         SBD,
         SCR,
         SDG,
@@ -998,7 +994,6 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
             RUB -> Value.RUB
             RWF -> Value.RWF
             SAR -> Value.SAR
-            SBC -> Value.SBC
             SBD -> Value.SBD
             SCR -> Value.SCR
             SDG -> Value.SDG
@@ -1215,7 +1210,6 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
             RUB -> Known.RUB
             RWF -> Known.RWF
             SAR -> Known.SAR
-            SBC -> Known.SBC
             SBD -> Known.SBD
             SCR -> Known.SCR
             SDG -> Known.SDG

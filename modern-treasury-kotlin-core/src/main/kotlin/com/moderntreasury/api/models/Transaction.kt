@@ -1717,8 +1717,6 @@ private constructor(
 
             val BNK_DEV = of("bnk_dev")
 
-            val BRALE = of("brale")
-
             val CLEARTOUCH = of("cleartouch")
 
             val COINBASE_PRIME = of("coinbase_prime")
@@ -1774,7 +1772,6 @@ private constructor(
             BANKING_CIRCLE,
             BANKPROV,
             BNK_DEV,
-            BRALE,
             CLEARTOUCH,
             COINBASE_PRIME,
             COLUMN,
@@ -1814,7 +1811,6 @@ private constructor(
             BANKING_CIRCLE,
             BANKPROV,
             BNK_DEV,
-            BRALE,
             CLEARTOUCH,
             COINBASE_PRIME,
             COLUMN,
@@ -1858,7 +1854,6 @@ private constructor(
                 BANKING_CIRCLE -> Value.BANKING_CIRCLE
                 BANKPROV -> Value.BANKPROV
                 BNK_DEV -> Value.BNK_DEV
-                BRALE -> Value.BRALE
                 CLEARTOUCH -> Value.CLEARTOUCH
                 COINBASE_PRIME -> Value.COINBASE_PRIME
                 COLUMN -> Value.COLUMN
@@ -1900,7 +1895,6 @@ private constructor(
                 BANKING_CIRCLE -> Known.BANKING_CIRCLE
                 BANKPROV -> Known.BANKPROV
                 BNK_DEV -> Known.BNK_DEV
-                BRALE -> Known.BRALE
                 CLEARTOUCH -> Known.CLEARTOUCH
                 COINBASE_PRIME -> Known.COINBASE_PRIME
                 COLUMN -> Known.COLUMN
