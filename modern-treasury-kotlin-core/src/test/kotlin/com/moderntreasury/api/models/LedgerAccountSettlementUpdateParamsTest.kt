@@ -20,6 +20,7 @@ internal class LedgerAccountSettlementUpdateParamsTest {
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
+            .skipSettlementLedgerTransaction(true)
             .status(LedgerAccountSettlementUpdateParams.Status.POSTED)
             .build()
     }
@@ -46,6 +47,7 @@ internal class LedgerAccountSettlementUpdateParamsTest {
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
+                .skipSettlementLedgerTransaction(true)
                 .status(LedgerAccountSettlementUpdateParams.Status.POSTED)
                 .build()
 
@@ -60,6 +62,7 @@ internal class LedgerAccountSettlementUpdateParamsTest {
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
+        assertThat(body.skipSettlementLedgerTransaction()).isEqualTo(true)
         assertThat(body.status()).isEqualTo(LedgerAccountSettlementUpdateParams.Status.POSTED)
     }
 
