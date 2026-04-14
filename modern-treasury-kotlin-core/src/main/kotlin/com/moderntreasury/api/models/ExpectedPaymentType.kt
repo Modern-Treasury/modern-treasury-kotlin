@@ -30,8 +30,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
 
         val BACS = of("bacs")
 
-        val BASE = of("base")
-
         val BOOK = of("book")
 
         val CARD = of("card")
@@ -45,8 +43,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
         val DK_NETS = of("dk_nets")
 
         val EFT = of("eft")
-
-        val ETHEREUM = of("ethereum")
 
         val GB_FPS = of("gb_fps")
 
@@ -65,8 +61,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
         val NZ_BECS = of("nz_becs")
 
         val PL_ELIXIR = of("pl_elixir")
-
-        val POLYGON = of("polygon")
 
         val PROVXCHANGE = of("provxchange")
 
@@ -88,8 +82,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
 
         val SKNBI = of("sknbi")
 
-        val SOLANA = of("solana")
-
         val STABLECOIN = of("stablecoin")
 
         val WIRE = of("wire")
@@ -104,7 +96,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
         ACH,
         AU_BECS,
         BACS,
-        BASE,
         BOOK,
         CARD,
         CHATS,
@@ -112,7 +103,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
         CROSS_BORDER,
         DK_NETS,
         EFT,
-        ETHEREUM,
         GB_FPS,
         HU_ICS,
         INTERAC,
@@ -122,7 +112,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
         NICS,
         NZ_BECS,
         PL_ELIXIR,
-        POLYGON,
         PROVXCHANGE,
         RO_SENT,
         RTP,
@@ -133,7 +122,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
         SIC,
         SIGNET,
         SKNBI,
-        SOLANA,
         STABLECOIN,
         WIRE,
         ZENGIN,
@@ -152,7 +140,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
         ACH,
         AU_BECS,
         BACS,
-        BASE,
         BOOK,
         CARD,
         CHATS,
@@ -160,7 +147,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
         CROSS_BORDER,
         DK_NETS,
         EFT,
-        ETHEREUM,
         GB_FPS,
         HU_ICS,
         INTERAC,
@@ -170,7 +156,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
         NICS,
         NZ_BECS,
         PL_ELIXIR,
-        POLYGON,
         PROVXCHANGE,
         RO_SENT,
         RTP,
@@ -181,7 +166,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
         SIC,
         SIGNET,
         SKNBI,
-        SOLANA,
         STABLECOIN,
         WIRE,
         ZENGIN,
@@ -204,7 +188,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
             ACH -> Value.ACH
             AU_BECS -> Value.AU_BECS
             BACS -> Value.BACS
-            BASE -> Value.BASE
             BOOK -> Value.BOOK
             CARD -> Value.CARD
             CHATS -> Value.CHATS
@@ -212,7 +195,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
             CROSS_BORDER -> Value.CROSS_BORDER
             DK_NETS -> Value.DK_NETS
             EFT -> Value.EFT
-            ETHEREUM -> Value.ETHEREUM
             GB_FPS -> Value.GB_FPS
             HU_ICS -> Value.HU_ICS
             INTERAC -> Value.INTERAC
@@ -222,7 +204,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
             NICS -> Value.NICS
             NZ_BECS -> Value.NZ_BECS
             PL_ELIXIR -> Value.PL_ELIXIR
-            POLYGON -> Value.POLYGON
             PROVXCHANGE -> Value.PROVXCHANGE
             RO_SENT -> Value.RO_SENT
             RTP -> Value.RTP
@@ -233,7 +214,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
             SIC -> Value.SIC
             SIGNET -> Value.SIGNET
             SKNBI -> Value.SKNBI
-            SOLANA -> Value.SOLANA
             STABLECOIN -> Value.STABLECOIN
             WIRE -> Value.WIRE
             ZENGIN -> Value.ZENGIN
@@ -254,7 +234,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
             ACH -> Known.ACH
             AU_BECS -> Known.AU_BECS
             BACS -> Known.BACS
-            BASE -> Known.BASE
             BOOK -> Known.BOOK
             CARD -> Known.CARD
             CHATS -> Known.CHATS
@@ -262,7 +241,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
             CROSS_BORDER -> Known.CROSS_BORDER
             DK_NETS -> Known.DK_NETS
             EFT -> Known.EFT
-            ETHEREUM -> Known.ETHEREUM
             GB_FPS -> Known.GB_FPS
             HU_ICS -> Known.HU_ICS
             INTERAC -> Known.INTERAC
@@ -272,7 +250,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
             NICS -> Known.NICS
             NZ_BECS -> Known.NZ_BECS
             PL_ELIXIR -> Known.PL_ELIXIR
-            POLYGON -> Known.POLYGON
             PROVXCHANGE -> Known.PROVXCHANGE
             RO_SENT -> Known.RO_SENT
             RTP -> Known.RTP
@@ -283,7 +260,6 @@ class ExpectedPaymentType @JsonCreator private constructor(private val value: Js
             SIC -> Known.SIC
             SIGNET -> Known.SIGNET
             SKNBI -> Known.SKNBI
-            SOLANA -> Known.SOLANA
             STABLECOIN -> Known.STABLECOIN
             WIRE -> Known.WIRE
             ZENGIN -> Known.ZENGIN
