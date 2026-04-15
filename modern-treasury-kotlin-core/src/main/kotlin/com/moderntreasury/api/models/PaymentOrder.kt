@@ -5084,6 +5084,8 @@ private constructor(
 
                 val BLOCKCHAIN_TRANSACTION_HASH = of("blockchain_transaction_hash")
 
+                val BLOCKCHAIN_TRANSACTION_INDEX = of("blockchain_transaction_index")
+
                 val BNK_DEV_PRENOTIFICATION_ID = of("bnk_dev_prenotification_id")
 
                 val BNK_DEV_TRANSFER_ID = of("bnk_dev_transfer_id")
@@ -5188,6 +5190,8 @@ private constructor(
 
                 val PARTIAL_SWIFT_MIR = of("partial_swift_mir")
 
+                val PAXOS_CRYPTO_WITHDRAWAL_ID = of("paxos_crypto_withdrawal_id")
+
                 val PAXOS_FIAT_WITHDRAWAL_ID = of("paxos_fiat_withdrawal_id")
 
                 val PAXOS_GROUP_ID = of("paxos_group_id")
@@ -5264,6 +5268,7 @@ private constructor(
                 BANKPROV_PAYMENT_ACTIVITY_DATE,
                 BANKPROV_PAYMENT_ID,
                 BLOCKCHAIN_TRANSACTION_HASH,
+                BLOCKCHAIN_TRANSACTION_INDEX,
                 BNK_DEV_PRENOTIFICATION_ID,
                 BNK_DEV_TRANSFER_ID,
                 BNY_MELLON_TRANSACTION_REFERENCE_NUMBER,
@@ -5315,6 +5320,7 @@ private constructor(
                 LOB_CHECK_ID,
                 OTHER,
                 PARTIAL_SWIFT_MIR,
+                PAXOS_CRYPTO_WITHDRAWAL_ID,
                 PAXOS_FIAT_WITHDRAWAL_ID,
                 PAXOS_GROUP_ID,
                 PAXOS_ORCHESTRATION_ID,
@@ -5366,6 +5372,7 @@ private constructor(
                 BANKPROV_PAYMENT_ACTIVITY_DATE,
                 BANKPROV_PAYMENT_ID,
                 BLOCKCHAIN_TRANSACTION_HASH,
+                BLOCKCHAIN_TRANSACTION_INDEX,
                 BNK_DEV_PRENOTIFICATION_ID,
                 BNK_DEV_TRANSFER_ID,
                 BNY_MELLON_TRANSACTION_REFERENCE_NUMBER,
@@ -5417,6 +5424,7 @@ private constructor(
                 LOB_CHECK_ID,
                 OTHER,
                 PARTIAL_SWIFT_MIR,
+                PAXOS_CRYPTO_WITHDRAWAL_ID,
                 PAXOS_FIAT_WITHDRAWAL_ID,
                 PAXOS_GROUP_ID,
                 PAXOS_ORCHESTRATION_ID,
@@ -5470,6 +5478,7 @@ private constructor(
                     BANKPROV_PAYMENT_ACTIVITY_DATE -> Value.BANKPROV_PAYMENT_ACTIVITY_DATE
                     BANKPROV_PAYMENT_ID -> Value.BANKPROV_PAYMENT_ID
                     BLOCKCHAIN_TRANSACTION_HASH -> Value.BLOCKCHAIN_TRANSACTION_HASH
+                    BLOCKCHAIN_TRANSACTION_INDEX -> Value.BLOCKCHAIN_TRANSACTION_INDEX
                     BNK_DEV_PRENOTIFICATION_ID -> Value.BNK_DEV_PRENOTIFICATION_ID
                     BNK_DEV_TRANSFER_ID -> Value.BNK_DEV_TRANSFER_ID
                     BNY_MELLON_TRANSACTION_REFERENCE_NUMBER ->
@@ -5523,6 +5532,7 @@ private constructor(
                     LOB_CHECK_ID -> Value.LOB_CHECK_ID
                     OTHER -> Value.OTHER
                     PARTIAL_SWIFT_MIR -> Value.PARTIAL_SWIFT_MIR
+                    PAXOS_CRYPTO_WITHDRAWAL_ID -> Value.PAXOS_CRYPTO_WITHDRAWAL_ID
                     PAXOS_FIAT_WITHDRAWAL_ID -> Value.PAXOS_FIAT_WITHDRAWAL_ID
                     PAXOS_GROUP_ID -> Value.PAXOS_GROUP_ID
                     PAXOS_ORCHESTRATION_ID -> Value.PAXOS_ORCHESTRATION_ID
@@ -5576,6 +5586,7 @@ private constructor(
                     BANKPROV_PAYMENT_ACTIVITY_DATE -> Known.BANKPROV_PAYMENT_ACTIVITY_DATE
                     BANKPROV_PAYMENT_ID -> Known.BANKPROV_PAYMENT_ID
                     BLOCKCHAIN_TRANSACTION_HASH -> Known.BLOCKCHAIN_TRANSACTION_HASH
+                    BLOCKCHAIN_TRANSACTION_INDEX -> Known.BLOCKCHAIN_TRANSACTION_INDEX
                     BNK_DEV_PRENOTIFICATION_ID -> Known.BNK_DEV_PRENOTIFICATION_ID
                     BNK_DEV_TRANSFER_ID -> Known.BNK_DEV_TRANSFER_ID
                     BNY_MELLON_TRANSACTION_REFERENCE_NUMBER ->
@@ -5629,6 +5640,7 @@ private constructor(
                     LOB_CHECK_ID -> Known.LOB_CHECK_ID
                     OTHER -> Known.OTHER
                     PARTIAL_SWIFT_MIR -> Known.PARTIAL_SWIFT_MIR
+                    PAXOS_CRYPTO_WITHDRAWAL_ID -> Known.PAXOS_CRYPTO_WITHDRAWAL_ID
                     PAXOS_FIAT_WITHDRAWAL_ID -> Known.PAXOS_FIAT_WITHDRAWAL_ID
                     PAXOS_GROUP_ID -> Known.PAXOS_GROUP_ID
                     PAXOS_ORCHESTRATION_ID -> Known.PAXOS_ORCHESTRATION_ID
