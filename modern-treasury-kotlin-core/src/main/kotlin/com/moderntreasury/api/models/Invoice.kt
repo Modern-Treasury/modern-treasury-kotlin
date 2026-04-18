@@ -39,6 +39,7 @@ private constructor(
     private val hostedUrl: JsonField<String>,
     private val invoicerAddress: JsonField<InvoicerAddress>,
     private val invoicerName: JsonField<String>,
+    private val issuedAt: JsonField<OffsetDateTime>,
     private val ledgerAccountSettlementId: JsonField<String>,
     private val liveMode: JsonField<Boolean>,
     private val metadata: JsonField<Metadata>,
@@ -47,6 +48,7 @@ private constructor(
     private val number: JsonField<String>,
     private val object_: JsonField<String>,
     private val originatingAccountId: JsonField<String>,
+    private val paidAt: JsonField<OffsetDateTime>,
     private val paymentEffectiveDate: JsonField<LocalDate>,
     private val paymentMethod: JsonField<PaymentMethod>,
     private val paymentOrders: JsonField<List<PaymentOrder>>,
@@ -61,6 +63,7 @@ private constructor(
     private val transactionLineItemIds: JsonField<List<String>>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val virtualAccountId: JsonField<String>,
+    private val voidedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -106,6 +109,9 @@ private constructor(
         @JsonProperty("invoicer_name")
         @ExcludeMissing
         invoicerName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("issued_at")
+        @ExcludeMissing
+        issuedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("ledger_account_settlement_id")
         @ExcludeMissing
         ledgerAccountSettlementId: JsonField<String> = JsonMissing.of(),
@@ -122,6 +128,9 @@ private constructor(
         @JsonProperty("originating_account_id")
         @ExcludeMissing
         originatingAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("paid_at")
+        @ExcludeMissing
+        paidAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("payment_effective_date")
         @ExcludeMissing
         paymentEffectiveDate: JsonField<LocalDate> = JsonMissing.of(),
@@ -160,6 +169,9 @@ private constructor(
         @JsonProperty("virtual_account_id")
         @ExcludeMissing
         virtualAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("voided_at")
+        @ExcludeMissing
+        voidedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     ) : this(
         id,
         amountPaid,
@@ -177,6 +189,7 @@ private constructor(
         hostedUrl,
         invoicerAddress,
         invoicerName,
+        issuedAt,
         ledgerAccountSettlementId,
         liveMode,
         metadata,
@@ -185,6 +198,7 @@ private constructor(
         number,
         object_,
         originatingAccountId,
+        paidAt,
         paymentEffectiveDate,
         paymentMethod,
         paymentOrders,
@@ -199,6 +213,7 @@ private constructor(
         transactionLineItemIds,
         updatedAt,
         virtualAccountId,
+        voidedAt,
         mutableMapOf(),
     )
 
@@ -334,6 +349,14 @@ private constructor(
     fun invoicerName(): String? = invoicerName.getNullable("invoicer_name")
 
     /**
+     * Translation missing: en.openapi.descriptions.invoice.schema.issued_at
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun issuedAt(): OffsetDateTime? = issuedAt.getNullable("issued_at")
+
+    /**
      * The ledger account settlement object linked to the invoice.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -401,6 +424,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun originatingAccountId(): String = originatingAccountId.getRequired("originating_account_id")
+
+    /**
+     * Translation missing: en.openapi.descriptions.invoice.schema.paid_at
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun paidAt(): OffsetDateTime? = paidAt.getNullable("paid_at")
 
     /**
      * Date transactions are to be posted to the participants' account. Defaults to the current
@@ -521,6 +552,14 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun virtualAccountId(): String? = virtualAccountId.getNullable("virtual_account_id")
+
+    /**
+     * Translation missing: en.openapi.descriptions.invoice.schema.voided_at
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun voidedAt(): OffsetDateTime? = voidedAt.getNullable("voided_at")
 
     /**
      * Returns the raw JSON value of [id].
@@ -661,6 +700,13 @@ private constructor(
     fun _invoicerName(): JsonField<String> = invoicerName
 
     /**
+     * Returns the raw JSON value of [issuedAt].
+     *
+     * Unlike [issuedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("issued_at") @ExcludeMissing fun _issuedAt(): JsonField<OffsetDateTime> = issuedAt
+
+    /**
      * Returns the raw JSON value of [ledgerAccountSettlementId].
      *
      * Unlike [ledgerAccountSettlementId], this method doesn't throw if the JSON field has an
@@ -728,6 +774,13 @@ private constructor(
     @JsonProperty("originating_account_id")
     @ExcludeMissing
     fun _originatingAccountId(): JsonField<String> = originatingAccountId
+
+    /**
+     * Returns the raw JSON value of [paidAt].
+     *
+     * Unlike [paidAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("paid_at") @ExcludeMissing fun _paidAt(): JsonField<OffsetDateTime> = paidAt
 
     /**
      * Returns the raw JSON value of [paymentEffectiveDate].
@@ -854,6 +907,13 @@ private constructor(
     @ExcludeMissing
     fun _virtualAccountId(): JsonField<String> = virtualAccountId
 
+    /**
+     * Returns the raw JSON value of [voidedAt].
+     *
+     * Unlike [voidedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("voided_at") @ExcludeMissing fun _voidedAt(): JsonField<OffsetDateTime> = voidedAt
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -889,6 +949,7 @@ private constructor(
          * .hostedUrl()
          * .invoicerAddress()
          * .invoicerName()
+         * .issuedAt()
          * .ledgerAccountSettlementId()
          * .liveMode()
          * .metadata()
@@ -897,6 +958,7 @@ private constructor(
          * .number()
          * .object_()
          * .originatingAccountId()
+         * .paidAt()
          * .paymentEffectiveDate()
          * .paymentMethod()
          * .paymentOrders()
@@ -911,6 +973,7 @@ private constructor(
          * .transactionLineItemIds()
          * .updatedAt()
          * .virtualAccountId()
+         * .voidedAt()
          * ```
          */
         fun builder() = Builder()
@@ -935,6 +998,7 @@ private constructor(
         private var hostedUrl: JsonField<String>? = null
         private var invoicerAddress: JsonField<InvoicerAddress>? = null
         private var invoicerName: JsonField<String>? = null
+        private var issuedAt: JsonField<OffsetDateTime>? = null
         private var ledgerAccountSettlementId: JsonField<String>? = null
         private var liveMode: JsonField<Boolean>? = null
         private var metadata: JsonField<Metadata>? = null
@@ -943,6 +1007,7 @@ private constructor(
         private var number: JsonField<String>? = null
         private var object_: JsonField<String>? = null
         private var originatingAccountId: JsonField<String>? = null
+        private var paidAt: JsonField<OffsetDateTime>? = null
         private var paymentEffectiveDate: JsonField<LocalDate>? = null
         private var paymentMethod: JsonField<PaymentMethod>? = null
         private var paymentOrders: JsonField<MutableList<PaymentOrder>>? = null
@@ -957,6 +1022,7 @@ private constructor(
         private var transactionLineItemIds: JsonField<MutableList<String>>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var virtualAccountId: JsonField<String>? = null
+        private var voidedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(invoice: Invoice) = apply {
@@ -976,6 +1042,7 @@ private constructor(
             hostedUrl = invoice.hostedUrl
             invoicerAddress = invoice.invoicerAddress
             invoicerName = invoice.invoicerName
+            issuedAt = invoice.issuedAt
             ledgerAccountSettlementId = invoice.ledgerAccountSettlementId
             liveMode = invoice.liveMode
             metadata = invoice.metadata
@@ -985,6 +1052,7 @@ private constructor(
             number = invoice.number
             object_ = invoice.object_
             originatingAccountId = invoice.originatingAccountId
+            paidAt = invoice.paidAt
             paymentEffectiveDate = invoice.paymentEffectiveDate
             paymentMethod = invoice.paymentMethod
             paymentOrders = invoice.paymentOrders.map { it.toMutableList() }
@@ -999,6 +1067,7 @@ private constructor(
             transactionLineItemIds = invoice.transactionLineItemIds.map { it.toMutableList() }
             updatedAt = invoice.updatedAt
             virtualAccountId = invoice.virtualAccountId
+            voidedAt = invoice.voidedAt
             additionalProperties = invoice.additionalProperties.toMutableMap()
         }
 
@@ -1247,6 +1316,18 @@ private constructor(
             this.invoicerName = invoicerName
         }
 
+        /** Translation missing: en.openapi.descriptions.invoice.schema.issued_at */
+        fun issuedAt(issuedAt: OffsetDateTime?) = issuedAt(JsonField.ofNullable(issuedAt))
+
+        /**
+         * Sets [Builder.issuedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.issuedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun issuedAt(issuedAt: JsonField<OffsetDateTime>) = apply { this.issuedAt = issuedAt }
+
         /** The ledger account settlement object linked to the invoice. */
         @Deprecated("deprecated")
         fun ledgerAccountSettlementId(ledgerAccountSettlementId: String?) =
@@ -1379,6 +1460,18 @@ private constructor(
         fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
             this.originatingAccountId = originatingAccountId
         }
+
+        /** Translation missing: en.openapi.descriptions.invoice.schema.paid_at */
+        fun paidAt(paidAt: OffsetDateTime?) = paidAt(JsonField.ofNullable(paidAt))
+
+        /**
+         * Sets [Builder.paidAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.paidAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun paidAt(paidAt: JsonField<OffsetDateTime>) = apply { this.paidAt = paidAt }
 
         /**
          * Date transactions are to be posted to the participants' account. Defaults to the current
@@ -1629,6 +1722,18 @@ private constructor(
             this.virtualAccountId = virtualAccountId
         }
 
+        /** Translation missing: en.openapi.descriptions.invoice.schema.voided_at */
+        fun voidedAt(voidedAt: OffsetDateTime?) = voidedAt(JsonField.ofNullable(voidedAt))
+
+        /**
+         * Sets [Builder.voidedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.voidedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun voidedAt(voidedAt: JsonField<OffsetDateTime>) = apply { this.voidedAt = voidedAt }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -1671,6 +1776,7 @@ private constructor(
          * .hostedUrl()
          * .invoicerAddress()
          * .invoicerName()
+         * .issuedAt()
          * .ledgerAccountSettlementId()
          * .liveMode()
          * .metadata()
@@ -1679,6 +1785,7 @@ private constructor(
          * .number()
          * .object_()
          * .originatingAccountId()
+         * .paidAt()
          * .paymentEffectiveDate()
          * .paymentMethod()
          * .paymentOrders()
@@ -1693,6 +1800,7 @@ private constructor(
          * .transactionLineItemIds()
          * .updatedAt()
          * .virtualAccountId()
+         * .voidedAt()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -1715,6 +1823,7 @@ private constructor(
                 checkRequired("hostedUrl", hostedUrl),
                 checkRequired("invoicerAddress", invoicerAddress),
                 checkRequired("invoicerName", invoicerName),
+                checkRequired("issuedAt", issuedAt),
                 checkRequired("ledgerAccountSettlementId", ledgerAccountSettlementId),
                 checkRequired("liveMode", liveMode),
                 checkRequired("metadata", metadata),
@@ -1725,6 +1834,7 @@ private constructor(
                 checkRequired("number", number),
                 checkRequired("object_", object_),
                 checkRequired("originatingAccountId", originatingAccountId),
+                checkRequired("paidAt", paidAt),
                 checkRequired("paymentEffectiveDate", paymentEffectiveDate),
                 checkRequired("paymentMethod", paymentMethod),
                 checkRequired("paymentOrders", paymentOrders).map { it.toImmutable() },
@@ -1743,6 +1853,7 @@ private constructor(
                 },
                 checkRequired("updatedAt", updatedAt),
                 checkRequired("virtualAccountId", virtualAccountId),
+                checkRequired("voidedAt", voidedAt),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -1770,6 +1881,7 @@ private constructor(
         hostedUrl()
         invoicerAddress()?.validate()
         invoicerName()
+        issuedAt()
         ledgerAccountSettlementId()
         liveMode()
         metadata()?.validate()
@@ -1778,6 +1890,7 @@ private constructor(
         number()
         object_()
         originatingAccountId()
+        paidAt()
         paymentEffectiveDate()
         paymentMethod()?.validate()
         paymentOrders().forEach { it.validate() }
@@ -1792,6 +1905,7 @@ private constructor(
         transactionLineItemIds()
         updatedAt()
         virtualAccountId()
+        voidedAt()
         validated = true
     }
 
@@ -1825,6 +1939,7 @@ private constructor(
             (if (hostedUrl.asKnown() == null) 0 else 1) +
             (invoicerAddress.asKnown()?.validity() ?: 0) +
             (if (invoicerName.asKnown() == null) 0 else 1) +
+            (if (issuedAt.asKnown() == null) 0 else 1) +
             (if (ledgerAccountSettlementId.asKnown() == null) 0 else 1) +
             (if (liveMode.asKnown() == null) 0 else 1) +
             (metadata.asKnown()?.validity() ?: 0) +
@@ -1833,6 +1948,7 @@ private constructor(
             (if (number.asKnown() == null) 0 else 1) +
             (if (object_.asKnown() == null) 0 else 1) +
             (if (originatingAccountId.asKnown() == null) 0 else 1) +
+            (if (paidAt.asKnown() == null) 0 else 1) +
             (if (paymentEffectiveDate.asKnown() == null) 0 else 1) +
             (paymentMethod.asKnown()?.validity() ?: 0) +
             (paymentOrders.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
@@ -1846,7 +1962,8 @@ private constructor(
             (if (totalAmount.asKnown() == null) 0 else 1) +
             (transactionLineItemIds.asKnown()?.size ?: 0) +
             (if (updatedAt.asKnown() == null) 0 else 1) +
-            (if (virtualAccountId.asKnown() == null) 0 else 1)
+            (if (virtualAccountId.asKnown() == null) 0 else 1) +
+            (if (voidedAt.asKnown() == null) 0 else 1)
 
     /** The counterparty's billing address. */
     class CounterpartyBillingAddress
@@ -3425,6 +3542,7 @@ private constructor(
             hostedUrl == other.hostedUrl &&
             invoicerAddress == other.invoicerAddress &&
             invoicerName == other.invoicerName &&
+            issuedAt == other.issuedAt &&
             ledgerAccountSettlementId == other.ledgerAccountSettlementId &&
             liveMode == other.liveMode &&
             metadata == other.metadata &&
@@ -3433,6 +3551,7 @@ private constructor(
             number == other.number &&
             object_ == other.object_ &&
             originatingAccountId == other.originatingAccountId &&
+            paidAt == other.paidAt &&
             paymentEffectiveDate == other.paymentEffectiveDate &&
             paymentMethod == other.paymentMethod &&
             paymentOrders == other.paymentOrders &&
@@ -3447,6 +3566,7 @@ private constructor(
             transactionLineItemIds == other.transactionLineItemIds &&
             updatedAt == other.updatedAt &&
             virtualAccountId == other.virtualAccountId &&
+            voidedAt == other.voidedAt &&
             additionalProperties == other.additionalProperties
     }
 
@@ -3468,6 +3588,7 @@ private constructor(
             hostedUrl,
             invoicerAddress,
             invoicerName,
+            issuedAt,
             ledgerAccountSettlementId,
             liveMode,
             metadata,
@@ -3476,6 +3597,7 @@ private constructor(
             number,
             object_,
             originatingAccountId,
+            paidAt,
             paymentEffectiveDate,
             paymentMethod,
             paymentOrders,
@@ -3490,6 +3612,7 @@ private constructor(
             transactionLineItemIds,
             updatedAt,
             virtualAccountId,
+            voidedAt,
             additionalProperties,
         )
     }
@@ -3497,5 +3620,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Invoice{id=$id, amountPaid=$amountPaid, amountRemaining=$amountRemaining, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, createdAt=$createdAt, currency=$currency, description=$description, dueDate=$dueDate, expectedPayments=$expectedPayments, fallbackPaymentMethod=$fallbackPaymentMethod, hostedUrl=$hostedUrl, invoicerAddress=$invoicerAddress, invoicerName=$invoicerName, ledgerAccountSettlementId=$ledgerAccountSettlementId, liveMode=$liveMode, metadata=$metadata, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, number=$number, object_=$object_, originatingAccountId=$originatingAccountId, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentOrders=$paymentOrders, paymentType=$paymentType, pdfUrl=$pdfUrl, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, status=$status, totalAmount=$totalAmount, transactionLineItemIds=$transactionLineItemIds, updatedAt=$updatedAt, virtualAccountId=$virtualAccountId, additionalProperties=$additionalProperties}"
+        "Invoice{id=$id, amountPaid=$amountPaid, amountRemaining=$amountRemaining, contactDetails=$contactDetails, counterpartyBillingAddress=$counterpartyBillingAddress, counterpartyId=$counterpartyId, counterpartyShippingAddress=$counterpartyShippingAddress, createdAt=$createdAt, currency=$currency, description=$description, dueDate=$dueDate, expectedPayments=$expectedPayments, fallbackPaymentMethod=$fallbackPaymentMethod, hostedUrl=$hostedUrl, invoicerAddress=$invoicerAddress, invoicerName=$invoicerName, issuedAt=$issuedAt, ledgerAccountSettlementId=$ledgerAccountSettlementId, liveMode=$liveMode, metadata=$metadata, notificationEmailAddresses=$notificationEmailAddresses, notificationsEnabled=$notificationsEnabled, number=$number, object_=$object_, originatingAccountId=$originatingAccountId, paidAt=$paidAt, paymentEffectiveDate=$paymentEffectiveDate, paymentMethod=$paymentMethod, paymentOrders=$paymentOrders, paymentType=$paymentType, pdfUrl=$pdfUrl, receivingAccountId=$receivingAccountId, recipientEmail=$recipientEmail, recipientName=$recipientName, remindAfterOverdueDays=$remindAfterOverdueDays, status=$status, totalAmount=$totalAmount, transactionLineItemIds=$transactionLineItemIds, updatedAt=$updatedAt, virtualAccountId=$virtualAccountId, voidedAt=$voidedAt, additionalProperties=$additionalProperties}"
 }
