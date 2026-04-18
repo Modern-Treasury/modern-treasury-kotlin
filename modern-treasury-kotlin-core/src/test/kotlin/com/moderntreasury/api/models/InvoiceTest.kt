@@ -129,6 +129,7 @@ internal class InvoiceTest {
                         .build()
                 )
                 .invoicerName("invoicer_name")
+                .issuedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
                 .metadata(
@@ -143,6 +144,7 @@ internal class InvoiceTest {
                 .number("number")
                 .object_("object")
                 .originatingAccountId("originating_account_id")
+                .paidAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
                 .paymentMethod(Invoice.PaymentMethod.UI)
                 .addPaymentOrder(
@@ -399,6 +401,7 @@ internal class InvoiceTest {
                 .addTransactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .voidedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
         assertThat(invoice.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -517,6 +520,7 @@ internal class InvoiceTest {
                     .build()
             )
         assertThat(invoice.invoicerName()).isEqualTo("invoicer_name")
+        assertThat(invoice.issuedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(invoice.ledgerAccountSettlementId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(invoice.liveMode()).isEqualTo(true)
@@ -533,6 +537,7 @@ internal class InvoiceTest {
         assertThat(invoice.number()).isEqualTo("number")
         assertThat(invoice.object_()).isEqualTo("object")
         assertThat(invoice.originatingAccountId()).isEqualTo("originating_account_id")
+        assertThat(invoice.paidAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(invoice.paymentEffectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(invoice.paymentMethod()).isEqualTo(Invoice.PaymentMethod.UI)
         assertThat(invoice.paymentOrders())
@@ -783,6 +788,7 @@ internal class InvoiceTest {
             .containsExactly("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(invoice.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(invoice.virtualAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        assertThat(invoice.voidedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
     @Test
@@ -903,6 +909,7 @@ internal class InvoiceTest {
                         .build()
                 )
                 .invoicerName("invoicer_name")
+                .issuedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .ledgerAccountSettlementId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .liveMode(true)
                 .metadata(
@@ -917,6 +924,7 @@ internal class InvoiceTest {
                 .number("number")
                 .object_("object")
                 .originatingAccountId("originating_account_id")
+                .paidAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .paymentEffectiveDate(LocalDate.parse("2019-12-27"))
                 .paymentMethod(Invoice.PaymentMethod.UI)
                 .addPaymentOrder(
@@ -1173,6 +1181,7 @@ internal class InvoiceTest {
                 .addTransactionLineItemId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .virtualAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .voidedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
         val roundtrippedInvoice =
