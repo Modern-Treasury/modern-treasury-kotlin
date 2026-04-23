@@ -4295,6 +4295,8 @@ private constructor(
 
                 val US_SSN = of("us_ssn")
 
+                val UY_RUT = of("uy_rut")
+
                 val VN_TIN = of("vn_tin")
 
                 fun of(value: String) = IdType(JsonField.of(value))
@@ -4325,6 +4327,7 @@ private constructor(
                 US_EIN,
                 US_ITIN,
                 US_SSN,
+                UY_RUT,
                 VN_TIN,
             }
 
@@ -4361,6 +4364,7 @@ private constructor(
                 US_EIN,
                 US_ITIN,
                 US_SSN,
+                UY_RUT,
                 VN_TIN,
                 /**
                  * An enum member indicating that [IdType] was instantiated with an unknown value.
@@ -4400,6 +4404,7 @@ private constructor(
                     US_EIN -> Value.US_EIN
                     US_ITIN -> Value.US_ITIN
                     US_SSN -> Value.US_SSN
+                    UY_RUT -> Value.UY_RUT
                     VN_TIN -> Value.VN_TIN
                     else -> Value._UNKNOWN
                 }
@@ -4438,6 +4443,7 @@ private constructor(
                     US_EIN -> Known.US_EIN
                     US_ITIN -> Known.US_ITIN
                     US_SSN -> Known.US_SSN
+                    UY_RUT -> Known.UY_RUT
                     VN_TIN -> Known.VN_TIN
                     else -> throw ModernTreasuryInvalidDataException("Unknown IdType: $value")
                 }
