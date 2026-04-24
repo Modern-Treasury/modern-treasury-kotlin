@@ -4292,6 +4292,12 @@ private constructor(
 
                 val KR_RRN = of("kr_rrn")
 
+                val MX_CURP = of("mx_curp")
+
+                val MX_INE = of("mx_ine")
+
+                val MX_RFC = of("mx_rfc")
+
                 val PASSPORT = of("passport")
 
                 val SA_TIN = of("sa_tin")
@@ -4330,6 +4336,9 @@ private constructor(
                 KR_BRN,
                 KR_CRN,
                 KR_RRN,
+                MX_CURP,
+                MX_INE,
+                MX_RFC,
                 PASSPORT,
                 SA_TIN,
                 SA_VAT,
@@ -4367,6 +4376,9 @@ private constructor(
                 KR_BRN,
                 KR_CRN,
                 KR_RRN,
+                MX_CURP,
+                MX_INE,
+                MX_RFC,
                 PASSPORT,
                 SA_TIN,
                 SA_VAT,
@@ -4407,6 +4419,9 @@ private constructor(
                     KR_BRN -> Value.KR_BRN
                     KR_CRN -> Value.KR_CRN
                     KR_RRN -> Value.KR_RRN
+                    MX_CURP -> Value.MX_CURP
+                    MX_INE -> Value.MX_INE
+                    MX_RFC -> Value.MX_RFC
                     PASSPORT -> Value.PASSPORT
                     SA_TIN -> Value.SA_TIN
                     SA_VAT -> Value.SA_VAT
@@ -4446,6 +4461,9 @@ private constructor(
                     KR_BRN -> Known.KR_BRN
                     KR_CRN -> Known.KR_CRN
                     KR_RRN -> Known.KR_RRN
+                    MX_CURP -> Known.MX_CURP
+                    MX_INE -> Known.MX_INE
+                    MX_RFC -> Known.MX_RFC
                     PASSPORT -> Known.PASSPORT
                     SA_TIN -> Known.SA_TIN
                     SA_VAT -> Known.SA_VAT
