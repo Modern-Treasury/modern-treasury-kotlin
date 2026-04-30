@@ -4283,6 +4283,12 @@ private constructor(
 
                 val KR_RRN = of("kr_rrn")
 
+                val MX_CURP = of("mx_curp")
+
+                val MX_INE = of("mx_ine")
+
+                val MX_RFC = of("mx_rfc")
+
                 val PASSPORT = of("passport")
 
                 val SA_TIN = of("sa_tin")
@@ -4294,6 +4300,8 @@ private constructor(
                 val US_ITIN = of("us_itin")
 
                 val US_SSN = of("us_ssn")
+
+                val UY_RUT = of("uy_rut")
 
                 val VN_TIN = of("vn_tin")
 
@@ -4319,12 +4327,16 @@ private constructor(
                 KR_BRN,
                 KR_CRN,
                 KR_RRN,
+                MX_CURP,
+                MX_INE,
+                MX_RFC,
                 PASSPORT,
                 SA_TIN,
                 SA_VAT,
                 US_EIN,
                 US_ITIN,
                 US_SSN,
+                UY_RUT,
                 VN_TIN,
             }
 
@@ -4355,12 +4367,16 @@ private constructor(
                 KR_BRN,
                 KR_CRN,
                 KR_RRN,
+                MX_CURP,
+                MX_INE,
+                MX_RFC,
                 PASSPORT,
                 SA_TIN,
                 SA_VAT,
                 US_EIN,
                 US_ITIN,
                 US_SSN,
+                UY_RUT,
                 VN_TIN,
                 /**
                  * An enum member indicating that [IdType] was instantiated with an unknown value.
@@ -4394,12 +4410,16 @@ private constructor(
                     KR_BRN -> Value.KR_BRN
                     KR_CRN -> Value.KR_CRN
                     KR_RRN -> Value.KR_RRN
+                    MX_CURP -> Value.MX_CURP
+                    MX_INE -> Value.MX_INE
+                    MX_RFC -> Value.MX_RFC
                     PASSPORT -> Value.PASSPORT
                     SA_TIN -> Value.SA_TIN
                     SA_VAT -> Value.SA_VAT
                     US_EIN -> Value.US_EIN
                     US_ITIN -> Value.US_ITIN
                     US_SSN -> Value.US_SSN
+                    UY_RUT -> Value.UY_RUT
                     VN_TIN -> Value.VN_TIN
                     else -> Value._UNKNOWN
                 }
@@ -4432,12 +4452,16 @@ private constructor(
                     KR_BRN -> Known.KR_BRN
                     KR_CRN -> Known.KR_CRN
                     KR_RRN -> Known.KR_RRN
+                    MX_CURP -> Known.MX_CURP
+                    MX_INE -> Known.MX_INE
+                    MX_RFC -> Known.MX_RFC
                     PASSPORT -> Known.PASSPORT
                     SA_TIN -> Known.SA_TIN
                     SA_VAT -> Known.SA_VAT
                     US_EIN -> Known.US_EIN
                     US_ITIN -> Known.US_ITIN
                     US_SSN -> Known.US_SSN
+                    UY_RUT -> Known.UY_RUT
                     VN_TIN -> Known.VN_TIN
                     else -> throw ModernTreasuryInvalidDataException("Unknown IdType: $value")
                 }

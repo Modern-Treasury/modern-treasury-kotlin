@@ -387,6 +387,14 @@ private constructor(
             (System.getProperty("moderntreasury.webhookKey")
                     ?: System.getenv("MODERN_TREASURY_WEBHOOK_KEY"))
                 ?.let { webhookKey(it) }
+            System.getenv("MODERN_TREASURY_CUSTOM_HEADERS")?.let { customHeadersEnv ->
+                for (line in customHeadersEnv.split("\n")) {
+                    val colon = line.indexOf(':')
+                    if (colon >= 0) {
+                        putHeader(line.substring(0, colon).trim(), line.substring(colon + 1).trim())
+                    }
+                }
+            }
         }
 
         /**
