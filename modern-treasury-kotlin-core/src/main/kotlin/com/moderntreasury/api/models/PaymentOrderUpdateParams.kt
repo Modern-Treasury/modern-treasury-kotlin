@@ -61,7 +61,7 @@ private constructor(
 
     /**
      * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000 (cents).
-     * For RTP, the maximum amount allowed by the network is $100,000.
+     * For RTP, the maximum amount allowed by the network is $10,000,000.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -746,7 +746,7 @@ private constructor(
 
         /**
          * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
-         * (cents). For RTP, the maximum amount allowed by the network is $100,000.
+         * (cents). For RTP, the maximum amount allowed by the network is $10,000,000.
          */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
@@ -1682,7 +1682,7 @@ private constructor(
 
         /**
          * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
-         * (cents). For RTP, the maximum amount allowed by the network is $100,000.
+         * (cents). For RTP, the maximum amount allowed by the network is $10,000,000.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -2505,7 +2505,7 @@ private constructor(
 
             /**
              * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
-             * (cents). For RTP, the maximum amount allowed by the network is $100,000.
+             * (cents). For RTP, the maximum amount allowed by the network is $10,000,000.
              */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
