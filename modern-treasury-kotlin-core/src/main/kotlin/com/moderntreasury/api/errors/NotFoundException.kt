@@ -5,10 +5,14 @@ package com.moderntreasury.api.errors
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.core.jsonMapper
 
 class NotFoundException
 private constructor(private val headers: Headers, private val body: JsonValue, cause: Throwable?) :
-    ModernTreasuryServiceException("404: $body", cause) {
+    ModernTreasuryServiceException(
+        "404: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = 404
 
