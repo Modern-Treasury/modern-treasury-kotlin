@@ -5,6 +5,7 @@ package com.moderntreasury.api.errors
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.core.jsonMapper
 
 class UnexpectedStatusCodeException
 private constructor(
@@ -12,7 +13,11 @@ private constructor(
     private val headers: Headers,
     private val body: JsonValue,
     cause: Throwable?,
-) : ModernTreasuryServiceException("$statusCode: $body", cause) {
+) :
+    ModernTreasuryServiceException(
+        "$statusCode: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = statusCode
 
