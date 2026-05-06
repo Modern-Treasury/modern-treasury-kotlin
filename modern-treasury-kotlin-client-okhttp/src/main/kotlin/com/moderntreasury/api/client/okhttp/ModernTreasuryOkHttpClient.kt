@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper
 import com.moderntreasury.api.client.ModernTreasuryClient
 import com.moderntreasury.api.client.ModernTreasuryClientImpl
 import com.moderntreasury.api.core.ClientOptions
+import com.moderntreasury.api.core.LogLevel
 import com.moderntreasury.api.core.Sleeper
 import com.moderntreasury.api.core.Timeout
 import com.moderntreasury.api.core.http.Headers
@@ -233,6 +234,15 @@ class ModernTreasuryOkHttpClient private constructor() {
          * Defaults to 2.
          */
         fun maxRetries(maxRetries: Int) = apply { clientOptions.maxRetries(maxRetries) }
+
+        /**
+         * The level at which to log request and response information.
+         *
+         * [fromEnv] will set the level from environment variables. See [LogLevel.fromEnv].
+         *
+         * Defaults to [LogLevel.fromEnv].
+         */
+        fun logLevel(logLevel: LogLevel) = apply { clientOptions.logLevel(logLevel) }
 
         fun apiKey(apiKey: String) = apply { clientOptions.apiKey(apiKey) }
 
