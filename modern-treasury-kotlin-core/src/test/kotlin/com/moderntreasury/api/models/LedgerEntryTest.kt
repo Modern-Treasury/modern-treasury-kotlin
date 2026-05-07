@@ -17,6 +17,7 @@ internal class LedgerEntryTest {
             LedgerEntry.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .amount(0L)
+                .amountString("amount_string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .direction(TransactionDirection.CREDIT)
                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -72,6 +73,7 @@ internal class LedgerEntryTest {
 
         assertThat(ledgerEntry.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(ledgerEntry.amount()).isEqualTo(0L)
+        assertThat(ledgerEntry.amountString()).isEqualTo("amount_string")
         assertThat(ledgerEntry.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(ledgerEntry.direction()).isEqualTo(TransactionDirection.CREDIT)
@@ -138,6 +140,7 @@ internal class LedgerEntryTest {
             LedgerEntry.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .amount(0L)
+                .amountString("amount_string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .direction(TransactionDirection.CREDIT)
                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
