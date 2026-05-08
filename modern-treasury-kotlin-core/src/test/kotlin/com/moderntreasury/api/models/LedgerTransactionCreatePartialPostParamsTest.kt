@@ -16,13 +16,14 @@ internal class LedgerTransactionCreatePartialPostParamsTest {
             .addPostedLedgerEntry(
                 LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
                     .builder()
-                    .amount(0L)
                     .direction(
                         LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
                             .Direction
                             .CREDIT
                     )
                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .amount(0L)
+                    .amountString("amount_string")
                     .availableBalanceAmount(
                         LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
                             .AvailableBalanceAmount
@@ -77,7 +78,6 @@ internal class LedgerTransactionCreatePartialPostParamsTest {
                 .addPostedLedgerEntry(
                     LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
                         .builder()
-                        .amount(0L)
                         .direction(
                             LedgerTransactionCreatePartialPostParams
                                 .LedgerEntryPartialPostCreateRequest
@@ -102,7 +102,6 @@ internal class LedgerTransactionCreatePartialPostParamsTest {
                 .addPostedLedgerEntry(
                     LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
                         .builder()
-                        .amount(0L)
                         .direction(
                             LedgerTransactionCreatePartialPostParams
                                 .LedgerEntryPartialPostCreateRequest
@@ -110,6 +109,8 @@ internal class LedgerTransactionCreatePartialPostParamsTest {
                                 .CREDIT
                         )
                         .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .amount(0L)
+                        .amountString("amount_string")
                         .availableBalanceAmount(
                             LedgerTransactionCreatePartialPostParams
                                 .LedgerEntryPartialPostCreateRequest
@@ -165,13 +166,14 @@ internal class LedgerTransactionCreatePartialPostParamsTest {
             .containsExactly(
                 LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
                     .builder()
-                    .amount(0L)
                     .direction(
                         LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
                             .Direction
                             .CREDIT
                     )
                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .amount(0L)
+                    .amountString("amount_string")
                     .availableBalanceAmount(
                         LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
                             .AvailableBalanceAmount
@@ -226,7 +228,6 @@ internal class LedgerTransactionCreatePartialPostParamsTest {
                 .addPostedLedgerEntry(
                     LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
                         .builder()
-                        .amount(0L)
                         .direction(
                             LedgerTransactionCreatePartialPostParams
                                 .LedgerEntryPartialPostCreateRequest
@@ -244,7 +245,6 @@ internal class LedgerTransactionCreatePartialPostParamsTest {
             .containsExactly(
                 LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
                     .builder()
-                    .amount(0L)
                     .direction(
                         LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
                             .Direction
