@@ -1,5 +1,38 @@
 # Changelog
 
+## 7.32.0 (2026-05-08)
+
+Full Changelog: [v7.31.0...v7.32.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.31.0...v7.32.0)
+
+### Features
+
+* **api:** api update ([1467aba](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/1467aba650b2bb2d158674dcee94999b3f1e88ad))
+* **api:** api update ([a32b9ae](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a32b9ae90b0f7ff8da6d5eff94a5adeec3fd9808))
+* **api:** api update ([423343f](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/423343f44c8593af230fb98f014e0d292c9361ce))
+* **api:** api update ([e879bd7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e879bd7118e5cc626bcc1ea4d71fec0434b0555d))
+* **api:** api update ([9ef48d2](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9ef48d22c4960f7600d836fdbeb8fcc08edee0b3))
+* **api:** api update ([4ff0123](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4ff012327fe7ca17feac94e5cbddc2d3de4ba27d))
+* **client:** improve logging ([349d13c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/349d13c5e756c164d701c3b4b5f603d8c1d05f29))
+* **client:** more robust error parsing ([120a670](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/120a670868c1346aa173427b92a104b1957f650d))
+* **client:** support proxy authentication ([8b8735a](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8b8735ab976ebaa9ceffa043abb8238dff3b9055))
+* support setting headers via env ([489edf6](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/489edf6c73de48e8c192ae306216ade61e628143))
+
+
+### Performance Improvements
+
+* **client:** create one json mapper ([d899138](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d899138d6bce8d0df4e47c4ddbf33dbe3eb76c5c))
+
+
+### Chores
+
+* redact api-key headers in debug logs ([150a84c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/150a84cf2cc1fafc46c65892bd4dad3d0c5d7745))
+* remove duplicated dokka setup ([ae232cc](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ae232cc49b3b95e988785e4e7ac057967e054196))
+
+
+### Documentation
+
+* clarify forwards compat behavior ([8bf1f51](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8bf1f51fe5579fcb59b257e24c4a7a8eec9d3bd6))
+
 ## 7.31.0 (2026-04-21)
 
 Full Changelog: [v7.30.0...v7.31.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.30.0...v7.31.0)
