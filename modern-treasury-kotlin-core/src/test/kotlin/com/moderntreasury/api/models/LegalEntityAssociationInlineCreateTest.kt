@@ -32,6 +32,7 @@ internal class LegalEntityAssociationInlineCreateTest {
                                     LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                 )
                                 .line2("line2")
+                                .primary(true)
                                 .build()
                         )
                         .bankSettings(
@@ -213,6 +214,7 @@ internal class LegalEntityAssociationInlineCreateTest {
                             .region("region")
                             .addAddressType(LegalEntityAddressCreateRequest.AddressType.BUSINESS)
                             .line2("line2")
+                            .primary(true)
                             .build()
                     )
                     .bankSettings(
@@ -398,6 +400,7 @@ internal class LegalEntityAssociationInlineCreateTest {
                                     LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                 )
                                 .line2("line2")
+                                .primary(true)
                                 .build()
                         )
                         .bankSettings(

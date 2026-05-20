@@ -23,6 +23,7 @@ internal class LegalEntityCreateParamsTest {
                     .region("region")
                     .addAddressType(LegalEntityAddressCreateRequest.AddressType.BUSINESS)
                     .line2("line2")
+                    .primary(true)
                     .build()
             )
             .bankSettings(
@@ -112,6 +113,7 @@ internal class LegalEntityCreateParamsTest {
                                         LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                     )
                                     .line2("line2")
+                                    .primary(true)
                                     .build()
                             )
                             .bankSettings(
@@ -376,6 +378,7 @@ internal class LegalEntityCreateParamsTest {
                         .region("region")
                         .addAddressType(LegalEntityAddressCreateRequest.AddressType.BUSINESS)
                         .line2("line2")
+                        .primary(true)
                         .build()
                 )
                 .bankSettings(
@@ -467,6 +470,7 @@ internal class LegalEntityCreateParamsTest {
                                             LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                         )
                                         .line2("line2")
+                                        .primary(true)
                                         .build()
                                 )
                                 .bankSettings(
@@ -750,6 +754,7 @@ internal class LegalEntityCreateParamsTest {
                     .region("region")
                     .addAddressType(LegalEntityAddressCreateRequest.AddressType.BUSINESS)
                     .line2("line2")
+                    .primary(true)
                     .build()
             )
         assertThat(body.bankSettings())
@@ -844,6 +849,7 @@ internal class LegalEntityCreateParamsTest {
                                         LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                     )
                                     .line2("line2")
+                                    .primary(true)
                                     .build()
                             )
                             .bankSettings(
