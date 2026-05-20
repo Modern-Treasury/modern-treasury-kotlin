@@ -50,6 +50,7 @@ internal class ConnectionLegalEntityServiceTest {
                                         LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                     )
                                     .line2("line2")
+                                    .primary(true)
                                     .build()
                             )
                             .bankSettings(
@@ -145,6 +146,7 @@ internal class ConnectionLegalEntityServiceTest {
                                                             .BUSINESS
                                                     )
                                                     .line2("line2")
+                                                    .primary(true)
                                                     .build()
                                             )
                                             .bankSettings(

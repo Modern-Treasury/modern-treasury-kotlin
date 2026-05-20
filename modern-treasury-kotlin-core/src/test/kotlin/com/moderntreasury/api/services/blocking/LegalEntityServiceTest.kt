@@ -48,6 +48,7 @@ internal class LegalEntityServiceTest {
                             .region("region")
                             .addAddressType(LegalEntityAddressCreateRequest.AddressType.BUSINESS)
                             .line2("line2")
+                            .primary(true)
                             .build()
                     )
                     .bankSettings(
@@ -141,6 +142,7 @@ internal class LegalEntityServiceTest {
                                                 LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                             )
                                             .line2("line2")
+                                            .primary(true)
                                             .build()
                                     )
                                     .bankSettings(
@@ -477,6 +479,7 @@ internal class LegalEntityServiceTest {
                             .region("region")
                             .addAddressType(LegalEntityAddressCreateRequest.AddressType.BUSINESS)
                             .line2("line2")
+                            .primary(true)
                             .build()
                     )
                     .bankSettings(
