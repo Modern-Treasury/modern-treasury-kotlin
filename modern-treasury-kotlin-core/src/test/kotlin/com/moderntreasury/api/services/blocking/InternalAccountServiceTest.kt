@@ -50,6 +50,7 @@ internal class InternalAccountServiceTest {
                     )
                     .accountType(InternalAccountCreateParams.AccountType.CHECKING)
                     .counterpartyId("counterparty_id")
+                    .debitable(true)
                     .externalId("external_id")
                     .legalEntityId("legal_entity_id")
                     .metadata(
