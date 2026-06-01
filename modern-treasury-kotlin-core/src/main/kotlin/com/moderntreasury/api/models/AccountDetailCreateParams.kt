@@ -42,8 +42,8 @@ private constructor(
     fun accountNumber(): String = body.accountNumber()
 
     /**
-     * One of `iban`, `clabe`, or `other`. Use `other` if the bank account number is in a generic
-     * format.
+     * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account number
+     * is in a generic format.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -135,8 +135,8 @@ private constructor(
         }
 
         /**
-         * One of `iban`, `clabe`, or `other`. Use `other` if the bank account number is in a
-         * generic format.
+         * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
+         * number is in a generic format.
          */
         fun accountNumberType(accountNumberType: AccountNumberType) = apply {
             body.accountNumberType(accountNumberType)
@@ -333,8 +333,8 @@ private constructor(
         fun accountNumber(): String = accountNumber.getRequired("account_number")
 
         /**
-         * One of `iban`, `clabe`, or `other`. Use `other` if the bank account number is in a
-         * generic format.
+         * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
+         * number is in a generic format.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -417,8 +417,8 @@ private constructor(
             }
 
             /**
-             * One of `iban`, `clabe`, or `other`. Use `other` if the bank account number is in a
-             * generic format.
+             * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account
+             * number is in a generic format.
              */
             fun accountNumberType(accountNumberType: AccountNumberType) =
                 accountNumberType(JsonField.of(accountNumberType))
@@ -534,8 +534,8 @@ private constructor(
     }
 
     /**
-     * One of `iban`, `clabe`, or `other`. Use `other` if the bank account number is in a generic
-     * format.
+     * One of `iban`, `clabe`, `wallet_address`, or `other`. Use `other` if the bank account number
+     * is in a generic format.
      */
     class AccountNumberType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
@@ -580,6 +580,8 @@ private constructor(
 
             val SOLANA_ADDRESS = of("solana_address")
 
+            val WALLET_ADDRESS = of("wallet_address")
+
             fun of(value: String) = AccountNumberType(JsonField.of(value))
         }
 
@@ -599,6 +601,7 @@ private constructor(
             POLYGON_ADDRESS,
             SG_NUMBER,
             SOLANA_ADDRESS,
+            WALLET_ADDRESS,
         }
 
         /**
@@ -625,6 +628,7 @@ private constructor(
             POLYGON_ADDRESS,
             SG_NUMBER,
             SOLANA_ADDRESS,
+            WALLET_ADDRESS,
             /**
              * An enum member indicating that [AccountNumberType] was instantiated with an unknown
              * value.
@@ -655,6 +659,7 @@ private constructor(
                 POLYGON_ADDRESS -> Value.POLYGON_ADDRESS
                 SG_NUMBER -> Value.SG_NUMBER
                 SOLANA_ADDRESS -> Value.SOLANA_ADDRESS
+                WALLET_ADDRESS -> Value.WALLET_ADDRESS
                 else -> Value._UNKNOWN
             }
 
@@ -683,6 +688,7 @@ private constructor(
                 POLYGON_ADDRESS -> Known.POLYGON_ADDRESS
                 SG_NUMBER -> Known.SG_NUMBER
                 SOLANA_ADDRESS -> Known.SOLANA_ADDRESS
+                WALLET_ADDRESS -> Known.WALLET_ADDRESS
                 else ->
                     throw ModernTreasuryInvalidDataException("Unknown AccountNumberType: $value")
             }
