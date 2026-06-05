@@ -282,11 +282,11 @@ private constructor(
 
         /**
          * Alias for calling [status] with
-         * `Status.ofUnnamedSchemaWithArrayParent0s(unnamedSchemaWithArrayParent0s)`.
+         * `Status.ofUnnamedSchemaWithArrayParent1s(unnamedSchemaWithArrayParent1s)`.
          */
-        fun statusOfUnnamedSchemaWithArrayParent0s(
-            unnamedSchemaWithArrayParent0s: List<Status.UnnamedSchemaWithArrayParent0>
-        ) = status(Status.ofUnnamedSchemaWithArrayParent0s(unnamedSchemaWithArrayParent0s))
+        fun statusOfUnnamedSchemaWithArrayParent1s(
+            unnamedSchemaWithArrayParent1s: List<Status.UnnamedSchemaWithArrayParent1>
+        ) = status(Status.ofUnnamedSchemaWithArrayParent1s(unnamedSchemaWithArrayParent1s))
 
         /**
          * Use `gt` (>), `gte` (>=), `lt` (<), `lte` (<=), or `eq` (=) to filter by the posted at
@@ -499,11 +499,11 @@ private constructor(
                             put("status", unionMember0.toString())
                         }
 
-                        override fun visitUnnamedSchemaWithArrayParent0s(
-                            unnamedSchemaWithArrayParent0s:
-                                List<Status.UnnamedSchemaWithArrayParent0>
+                        override fun visitUnnamedSchemaWithArrayParent1s(
+                            unnamedSchemaWithArrayParent1s:
+                                List<Status.UnnamedSchemaWithArrayParent1>
                         ) {
-                            unnamedSchemaWithArrayParent0s.forEach {
+                            unnamedSchemaWithArrayParent1s.forEach {
                                 put("status[]", it.toString())
                             }
                         }
@@ -1652,22 +1652,22 @@ private constructor(
     class Status
     private constructor(
         private val unionMember0: UnionMember0? = null,
-        private val unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>? = null,
+        private val unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>? = null,
     ) {
 
         fun unionMember0(): UnionMember0? = unionMember0
 
-        fun unnamedSchemaWithArrayParent0s(): List<UnnamedSchemaWithArrayParent0>? =
-            unnamedSchemaWithArrayParent0s
+        fun unnamedSchemaWithArrayParent1s(): List<UnnamedSchemaWithArrayParent1>? =
+            unnamedSchemaWithArrayParent1s
 
         fun isUnionMember0(): Boolean = unionMember0 != null
 
-        fun isUnnamedSchemaWithArrayParent0s(): Boolean = unnamedSchemaWithArrayParent0s != null
+        fun isUnnamedSchemaWithArrayParent1s(): Boolean = unnamedSchemaWithArrayParent1s != null
 
         fun asUnionMember0(): UnionMember0 = unionMember0.getOrThrow("unionMember0")
 
-        fun asUnnamedSchemaWithArrayParent0s(): List<UnnamedSchemaWithArrayParent0> =
-            unnamedSchemaWithArrayParent0s.getOrThrow("unnamedSchemaWithArrayParent0s")
+        fun asUnnamedSchemaWithArrayParent1s(): List<UnnamedSchemaWithArrayParent1> =
+            unnamedSchemaWithArrayParent1s.getOrThrow("unnamedSchemaWithArrayParent1s")
 
         /**
          * Maps this instance's current variant to a value of type [T] using the given [visitor].
@@ -1675,8 +1675,8 @@ private constructor(
         fun <T> accept(visitor: Visitor<T>): T =
             when {
                 unionMember0 != null -> visitor.visitUnionMember0(unionMember0)
-                unnamedSchemaWithArrayParent0s != null ->
-                    visitor.visitUnnamedSchemaWithArrayParent0s(unnamedSchemaWithArrayParent0s)
+                unnamedSchemaWithArrayParent1s != null ->
+                    visitor.visitUnnamedSchemaWithArrayParent1s(unnamedSchemaWithArrayParent1s)
                 else -> throw IllegalStateException("Invalid Status")
             }
 
@@ -1687,16 +1687,16 @@ private constructor(
 
             return other is Status &&
                 unionMember0 == other.unionMember0 &&
-                unnamedSchemaWithArrayParent0s == other.unnamedSchemaWithArrayParent0s
+                unnamedSchemaWithArrayParent1s == other.unnamedSchemaWithArrayParent1s
         }
 
-        override fun hashCode(): Int = Objects.hash(unionMember0, unnamedSchemaWithArrayParent0s)
+        override fun hashCode(): Int = Objects.hash(unionMember0, unnamedSchemaWithArrayParent1s)
 
         override fun toString(): String =
             when {
                 unionMember0 != null -> "Status{unionMember0=$unionMember0}"
-                unnamedSchemaWithArrayParent0s != null ->
-                    "Status{unnamedSchemaWithArrayParent0s=$unnamedSchemaWithArrayParent0s}"
+                unnamedSchemaWithArrayParent1s != null ->
+                    "Status{unnamedSchemaWithArrayParent1s=$unnamedSchemaWithArrayParent1s}"
                 else -> throw IllegalStateException("Invalid Status")
             }
 
@@ -1704,11 +1704,11 @@ private constructor(
 
             fun ofUnionMember0(unionMember0: UnionMember0) = Status(unionMember0 = unionMember0)
 
-            fun ofUnnamedSchemaWithArrayParent0s(
-                unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>
+            fun ofUnnamedSchemaWithArrayParent1s(
+                unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>
             ) =
                 Status(
-                    unnamedSchemaWithArrayParent0s = unnamedSchemaWithArrayParent0s.toImmutable()
+                    unnamedSchemaWithArrayParent1s = unnamedSchemaWithArrayParent1s.toImmutable()
                 )
         }
 
@@ -1717,8 +1717,8 @@ private constructor(
 
             fun visitUnionMember0(unionMember0: UnionMember0): T
 
-            fun visitUnnamedSchemaWithArrayParent0s(
-                unnamedSchemaWithArrayParent0s: List<UnnamedSchemaWithArrayParent0>
+            fun visitUnnamedSchemaWithArrayParent1s(
+                unnamedSchemaWithArrayParent1s: List<UnnamedSchemaWithArrayParent1>
             ): T
         }
 
