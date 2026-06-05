@@ -331,8 +331,8 @@ private constructor(
         transactionLineItemId.getNullable("transaction_line_item_id")
 
     /**
-     * The type of return. Can be one of: `ach`, `ach_noc`, `au_becs`, `bacs`, `eft`, `interac`,
-     * `manual`, `paper_item`, `wire`.
+     * The type of return. Can be one of: `ach`, `ach_noc`, `au_becs`, `bacs`, `eft`, `manual`,
+     * `paper_item`, `wire`.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1030,8 +1030,8 @@ private constructor(
         }
 
         /**
-         * The type of return. Can be one of: `ach`, `ach_noc`, `au_becs`, `bacs`, `eft`, `interac`,
-         * `manual`, `paper_item`, `wire`.
+         * The type of return. Can be one of: `ach`, `ach_noc`, `au_becs`, `bacs`, `eft`, `manual`,
+         * `paper_item`, `wire`.
          */
         fun type(type: Type) = type(JsonField.of(type))
 
@@ -4073,8 +4073,8 @@ private constructor(
     }
 
     /**
-     * The type of return. Can be one of: `ach`, `ach_noc`, `au_becs`, `bacs`, `eft`, `interac`,
-     * `manual`, `paper_item`, `wire`.
+     * The type of return. Can be one of: `ach`, `ach_noc`, `au_becs`, `bacs`, `eft`, `manual`,
+     * `paper_item`, `wire`.
      */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -4108,8 +4108,6 @@ private constructor(
 
             val GB_FPS = of("gb_fps")
 
-            val INTERAC = of("interac")
-
             val MANUAL = of("manual")
 
             val NEFT = of("neft")
@@ -4119,8 +4117,6 @@ private constructor(
             val RTP = of("rtp")
 
             val SEPA = of("sepa")
-
-            val SIGNET = of("signet")
 
             val STABLECOIN = of("stablecoin")
 
@@ -4142,13 +4138,11 @@ private constructor(
             CROSS_BORDER,
             EFT,
             GB_FPS,
-            INTERAC,
             MANUAL,
             NEFT,
             NZ_BECS,
             RTP,
             SEPA,
-            SIGNET,
             STABLECOIN,
             WIRE,
             ZENGIN,
@@ -4173,13 +4167,11 @@ private constructor(
             CROSS_BORDER,
             EFT,
             GB_FPS,
-            INTERAC,
             MANUAL,
             NEFT,
             NZ_BECS,
             RTP,
             SEPA,
-            SIGNET,
             STABLECOIN,
             WIRE,
             ZENGIN,
@@ -4205,13 +4197,11 @@ private constructor(
                 CROSS_BORDER -> Value.CROSS_BORDER
                 EFT -> Value.EFT
                 GB_FPS -> Value.GB_FPS
-                INTERAC -> Value.INTERAC
                 MANUAL -> Value.MANUAL
                 NEFT -> Value.NEFT
                 NZ_BECS -> Value.NZ_BECS
                 RTP -> Value.RTP
                 SEPA -> Value.SEPA
-                SIGNET -> Value.SIGNET
                 STABLECOIN -> Value.STABLECOIN
                 WIRE -> Value.WIRE
                 ZENGIN -> Value.ZENGIN
@@ -4238,13 +4228,11 @@ private constructor(
                 CROSS_BORDER -> Known.CROSS_BORDER
                 EFT -> Known.EFT
                 GB_FPS -> Known.GB_FPS
-                INTERAC -> Known.INTERAC
                 MANUAL -> Known.MANUAL
                 NEFT -> Known.NEFT
                 NZ_BECS -> Known.NZ_BECS
                 RTP -> Known.RTP
                 SEPA -> Known.SEPA
-                SIGNET -> Known.SIGNET
                 STABLECOIN -> Known.STABLECOIN
                 WIRE -> Known.WIRE
                 ZENGIN -> Known.ZENGIN
