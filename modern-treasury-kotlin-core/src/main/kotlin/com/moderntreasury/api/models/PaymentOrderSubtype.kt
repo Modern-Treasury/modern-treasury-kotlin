@@ -60,8 +60,6 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
 
         val ETHEREUM = of("ethereum")
 
-        val HU_ICS = of("hu_ics")
-
         val MASAV = of("masav")
 
         val MX_CCEN = of("mx_ccen")
@@ -76,8 +74,6 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
 
         val POLYGON = of("polygon")
 
-        val RO_SENT = of("ro_sent")
-
         val SE_BANKGIROT = of("se_bankgirot")
 
         val SEPA = of("sepa")
@@ -85,8 +81,6 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         val SG_GIRO = of("sg_giro")
 
         val SIC = of("sic")
-
-        val SKNBI = of("sknbi")
 
         val SOLANA = of("solana")
 
@@ -114,7 +108,6 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         DK_NETS,
         EFT,
         ETHEREUM,
-        HU_ICS,
         MASAV,
         MX_CCEN,
         NEFT,
@@ -122,12 +115,10 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         NZ_BECS,
         PL_ELIXIR,
         POLYGON,
-        RO_SENT,
         SE_BANKGIROT,
         SEPA,
         SG_GIRO,
         SIC,
-        SKNBI,
         SOLANA,
         ZENGIN,
     }
@@ -159,7 +150,6 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         DK_NETS,
         EFT,
         ETHEREUM,
-        HU_ICS,
         MASAV,
         MX_CCEN,
         NEFT,
@@ -167,12 +157,10 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         NZ_BECS,
         PL_ELIXIR,
         POLYGON,
-        RO_SENT,
         SE_BANKGIROT,
         SEPA,
         SG_GIRO,
         SIC,
-        SKNBI,
         SOLANA,
         ZENGIN,
         /**
@@ -208,7 +196,6 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             DK_NETS -> Value.DK_NETS
             EFT -> Value.EFT
             ETHEREUM -> Value.ETHEREUM
-            HU_ICS -> Value.HU_ICS
             MASAV -> Value.MASAV
             MX_CCEN -> Value.MX_CCEN
             NEFT -> Value.NEFT
@@ -216,12 +203,10 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             NZ_BECS -> Value.NZ_BECS
             PL_ELIXIR -> Value.PL_ELIXIR
             POLYGON -> Value.POLYGON
-            RO_SENT -> Value.RO_SENT
             SE_BANKGIROT -> Value.SE_BANKGIROT
             SEPA -> Value.SEPA
             SG_GIRO -> Value.SG_GIRO
             SIC -> Value.SIC
-            SKNBI -> Value.SKNBI
             SOLANA -> Value.SOLANA
             ZENGIN -> Value.ZENGIN
             else -> Value._UNKNOWN
@@ -255,7 +240,6 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             DK_NETS -> Known.DK_NETS
             EFT -> Known.EFT
             ETHEREUM -> Known.ETHEREUM
-            HU_ICS -> Known.HU_ICS
             MASAV -> Known.MASAV
             MX_CCEN -> Known.MX_CCEN
             NEFT -> Known.NEFT
@@ -263,12 +247,10 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             NZ_BECS -> Known.NZ_BECS
             PL_ELIXIR -> Known.PL_ELIXIR
             POLYGON -> Known.POLYGON
-            RO_SENT -> Known.RO_SENT
             SE_BANKGIROT -> Known.SE_BANKGIROT
             SEPA -> Known.SEPA
             SG_GIRO -> Known.SG_GIRO
             SIC -> Known.SIC
-            SKNBI -> Known.SKNBI
             SOLANA -> Known.SOLANA
             ZENGIN -> Known.ZENGIN
             else -> throw ModernTreasuryInvalidDataException("Unknown PaymentOrderSubtype: $value")
