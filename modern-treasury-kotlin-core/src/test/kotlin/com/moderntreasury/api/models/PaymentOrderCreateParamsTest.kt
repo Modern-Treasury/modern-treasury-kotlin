@@ -229,7 +229,7 @@ internal class PaymentOrderCreateParamsTest {
             .ultimateOriginatingPartyName("ultimate_originating_party_name")
             .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
             .ultimateReceivingPartyName("ultimate_receiving_party_name")
-            .vendorAttributes(MultipartField.of(JsonValue.from(mapOf<String, Any>())))
+            .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
             .build()
     }
 
@@ -457,7 +457,7 @@ internal class PaymentOrderCreateParamsTest {
                 .ultimateOriginatingPartyName("ultimate_originating_party_name")
                 .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                 .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                .vendorAttributes(MultipartField.of(JsonValue.from(mapOf<String, Any>())))
+                .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
                 .build()
 
         val body = params._body()
