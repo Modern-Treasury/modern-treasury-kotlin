@@ -5,6 +5,7 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.core.MultipartField
 import com.moderntreasury.api.models.AddressRequest
 import com.moderntreasury.api.models.ContactDetailCreateRequest
 import com.moderntreasury.api.models.Currency
@@ -269,7 +270,7 @@ internal class PaymentOrderServiceTest {
                     .ultimateOriginatingPartyName("ultimate_originating_party_name")
                     .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                     .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                    .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
+                    .vendorAttributes(MultipartField.of(JsonValue.from(mapOf<String, Any>())))
                     .build()
             )
 
