@@ -18,6 +18,7 @@ import com.moderntreasury.api.models.PaymentOrderSubtype
 import com.moderntreasury.api.models.PaymentOrderType
 import com.moderntreasury.api.models.PaymentOrderUpdateParams
 import com.moderntreasury.api.models.TransactionDirection
+import com.moderntreasury.api.models.VendorAttributes
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
@@ -77,10 +78,9 @@ internal class PaymentOrderServiceTest {
                         LedgerTransactionCreateRequest.builder()
                             .addLedgerEntry(
                                 LedgerEntryCreateRequest.builder()
+                                    .amount(0L)
                                     .direction(TransactionDirection.CREDIT)
                                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .amount(0L)
-                                    .amountString("amount_string")
                                     .availableBalanceAmount(
                                         LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                                             .putAdditionalProperty("foo", JsonValue.from(0))
@@ -269,7 +269,7 @@ internal class PaymentOrderServiceTest {
                     .ultimateOriginatingPartyName("ultimate_originating_party_name")
                     .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                     .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                    .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
+                    .vendorAttributes(VendorAttributes.builder().build())
                     .build()
             )
 
@@ -518,10 +518,9 @@ internal class PaymentOrderServiceTest {
                         LedgerTransactionCreateRequest.builder()
                             .addLedgerEntry(
                                 LedgerEntryCreateRequest.builder()
+                                    .amount(0L)
                                     .direction(TransactionDirection.CREDIT)
                                     .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .amount(0L)
-                                    .amountString("amount_string")
                                     .availableBalanceAmount(
                                         LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                                             .putAdditionalProperty("foo", JsonValue.from(0))

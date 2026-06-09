@@ -40,10 +40,9 @@ internal class PaymentOrderCreateAsyncParamsTest {
                 LedgerTransactionCreateRequest.builder()
                     .addLedgerEntry(
                         LedgerEntryCreateRequest.builder()
+                            .amount(0L)
                             .direction(TransactionDirection.CREDIT)
                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .amount(0L)
-                            .amountString("amount_string")
                             .availableBalanceAmount(
                                 LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                                     .putAdditionalProperty("foo", JsonValue.from(0))
@@ -253,10 +252,9 @@ internal class PaymentOrderCreateAsyncParamsTest {
                     LedgerTransactionCreateRequest.builder()
                         .addLedgerEntry(
                             LedgerEntryCreateRequest.builder()
+                                .amount(0L)
                                 .direction(TransactionDirection.CREDIT)
                                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .amount(0L)
-                                .amountString("amount_string")
                                 .availableBalanceAmount(
                                     LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                                         .putAdditionalProperty("foo", JsonValue.from(0))
@@ -472,10 +470,9 @@ internal class PaymentOrderCreateAsyncParamsTest {
                 LedgerTransactionCreateRequest.builder()
                     .addLedgerEntry(
                         LedgerEntryCreateRequest.builder()
+                            .amount(0L)
                             .direction(TransactionDirection.CREDIT)
                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .amount(0L)
-                            .amountString("amount_string")
                             .availableBalanceAmount(
                                 LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                                     .putAdditionalProperty("foo", JsonValue.from(0))

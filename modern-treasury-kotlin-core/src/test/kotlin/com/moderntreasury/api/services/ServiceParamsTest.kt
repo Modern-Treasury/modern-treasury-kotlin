@@ -164,7 +164,6 @@ internal class ServiceParamsTest {
                                     LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                 )
                                 .line2("line2")
-                                .primary(true)
                                 .build()
                         )
                         .bankSettings(
@@ -260,7 +259,6 @@ internal class ServiceParamsTest {
                                                         .BUSINESS
                                                 )
                                                 .line2("line2")
-                                                .primary(true)
                                                 .build()
                                         )
                                         .bankSettings(

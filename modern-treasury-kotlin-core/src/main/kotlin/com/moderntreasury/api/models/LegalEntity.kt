@@ -2268,7 +2268,6 @@ private constructor(
         private val locality: JsonField<String>,
         private val object_: JsonField<String>,
         private val postalCode: JsonField<String>,
-        private val primary: JsonField<Boolean>,
         private val region: JsonField<String>,
         private val updatedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2299,7 +2298,6 @@ private constructor(
             @JsonProperty("postal_code")
             @ExcludeMissing
             postalCode: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("primary") @ExcludeMissing primary: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("region") @ExcludeMissing region: JsonField<String> = JsonMissing.of(),
             @JsonProperty("updated_at")
             @ExcludeMissing
@@ -2316,7 +2314,6 @@ private constructor(
             locality,
             object_,
             postalCode,
-            primary,
             region,
             updatedAt,
             mutableMapOf(),
@@ -2398,14 +2395,6 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun postalCode(): String? = postalCode.getNullable("postal_code")
-
-        /**
-         * Whether this address is the primary address for the legal entity.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun primary(): Boolean? = primary.getNullable("primary")
 
         /**
          * Region or State.
@@ -2508,13 +2497,6 @@ private constructor(
         fun _postalCode(): JsonField<String> = postalCode
 
         /**
-         * Returns the raw JSON value of [primary].
-         *
-         * Unlike [primary], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("primary") @ExcludeMissing fun _primary(): JsonField<Boolean> = primary
-
-        /**
          * Returns the raw JSON value of [region].
          *
          * Unlike [region], this method doesn't throw if the JSON field has an unexpected type.
@@ -2560,7 +2542,6 @@ private constructor(
              * .locality()
              * .object_()
              * .postalCode()
-             * .primary()
              * .region()
              * .updatedAt()
              * ```
@@ -2582,7 +2563,6 @@ private constructor(
             private var locality: JsonField<String>? = null
             private var object_: JsonField<String>? = null
             private var postalCode: JsonField<String>? = null
-            private var primary: JsonField<Boolean>? = null
             private var region: JsonField<String>? = null
             private var updatedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -2599,7 +2579,6 @@ private constructor(
                 locality = legalEntityAddress.locality
                 object_ = legalEntityAddress.object_
                 postalCode = legalEntityAddress.postalCode
-                primary = legalEntityAddress.primary
                 region = legalEntityAddress.region
                 updatedAt = legalEntityAddress.updatedAt
                 additionalProperties = legalEntityAddress.additionalProperties.toMutableMap()
@@ -2754,25 +2733,6 @@ private constructor(
              */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
-            /** Whether this address is the primary address for the legal entity. */
-            fun primary(primary: Boolean?) = primary(JsonField.ofNullable(primary))
-
-            /**
-             * Alias for [Builder.primary].
-             *
-             * This unboxed primitive overload exists for backwards compatibility.
-             */
-            fun primary(primary: Boolean) = primary(primary as Boolean?)
-
-            /**
-             * Sets [Builder.primary] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.primary] with a well-typed [Boolean] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun primary(primary: JsonField<Boolean>) = apply { this.primary = primary }
-
             /** Region or State. */
             fun region(region: String?) = region(JsonField.ofNullable(region))
 
@@ -2835,7 +2795,6 @@ private constructor(
              * .locality()
              * .object_()
              * .postalCode()
-             * .primary()
              * .region()
              * .updatedAt()
              * ```
@@ -2855,7 +2814,6 @@ private constructor(
                     checkRequired("locality", locality),
                     checkRequired("object_", object_),
                     checkRequired("postalCode", postalCode),
-                    checkRequired("primary", primary),
                     checkRequired("region", region),
                     checkRequired("updatedAt", updatedAt),
                     additionalProperties.toMutableMap(),
@@ -2889,7 +2847,6 @@ private constructor(
             locality()
             object_()
             postalCode()
-            primary()
             region()
             updatedAt()
             validated = true
@@ -2921,7 +2878,6 @@ private constructor(
                 (if (locality.asKnown() == null) 0 else 1) +
                 (if (object_.asKnown() == null) 0 else 1) +
                 (if (postalCode.asKnown() == null) 0 else 1) +
-                (if (primary.asKnown() == null) 0 else 1) +
                 (if (region.asKnown() == null) 0 else 1) +
                 (if (updatedAt.asKnown() == null) 0 else 1)
 
@@ -3106,7 +3062,6 @@ private constructor(
                 locality == other.locality &&
                 object_ == other.object_ &&
                 postalCode == other.postalCode &&
-                primary == other.primary &&
                 region == other.region &&
                 updatedAt == other.updatedAt &&
                 additionalProperties == other.additionalProperties
@@ -3125,7 +3080,6 @@ private constructor(
                 locality,
                 object_,
                 postalCode,
-                primary,
                 region,
                 updatedAt,
                 additionalProperties,
@@ -3135,7 +3089,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LegalEntityAddress{id=$id, addressTypes=$addressTypes, country=$country, createdAt=$createdAt, discardedAt=$discardedAt, line1=$line1, line2=$line2, liveMode=$liveMode, locality=$locality, object_=$object_, postalCode=$postalCode, primary=$primary, region=$region, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+            "LegalEntityAddress{id=$id, addressTypes=$addressTypes, country=$country, createdAt=$createdAt, discardedAt=$discardedAt, line1=$line1, line2=$line2, liveMode=$liveMode, locality=$locality, object_=$object_, postalCode=$postalCode, region=$region, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
     }
 
     class Identification
@@ -3732,29 +3686,11 @@ private constructor(
 
                 val AR_CUIT = of("ar_cuit")
 
-                val AT_ATIN = of("at_atin")
-
-                val AT_VAT = of("at_vat")
-
-                val AU_ABN = of("au_abn")
-
-                val AU_TFN = of("au_tfn")
-
-                val BE_ENT = of("be_ent")
-
-                val BE_NRN = of("be_nrn")
-
                 val BR_CNPJ = of("br_cnpj")
 
                 val BR_CPF = of("br_cpf")
 
-                val CA_BN = of("ca_bn")
-
                 val CA_SIN = of("ca_sin")
-
-                val CH_AHV = of("ch_ahv")
-
-                val CH_UID = of("ch_uid")
 
                 val CL_RUN = of("cl_run")
 
@@ -3764,75 +3700,15 @@ private constructor(
 
                 val CO_NIT = of("co_nit")
 
-                val CY_TIN = of("cy_tin")
-
-                val CZ_ICO = of("cz_ico")
-
-                val CZ_RC = of("cz_rc")
-
-                val DE_STID = of("de_stid")
-
-                val DE_STNR = of("de_stnr")
-
-                val DE_VAT = of("de_vat")
-
-                val DK_CPR = of("dk_cpr")
-
-                val DK_CVR = of("dk_cvr")
-
                 val DRIVERS_LICENSE = of("drivers_license")
-
-                val EE_IK = of("ee_ik")
-
-                val EE_RK = of("ee_rk")
-
-                val ES_NIE = of("es_nie")
-
-                val ES_NIF = of("es_nif")
-
-                val FI_HETU = of("fi_hetu")
-
-                val FI_YTJ = of("fi_ytj")
-
-                val FR_NIF = of("fr_nif")
-
-                val FR_SIREN = of("fr_siren")
-
-                val FR_VAT = of("fr_vat")
-
-                val GB_NINO = of("gb_nino")
-
-                val GB_UTR = of("gb_utr")
-
-                val GB_VAT = of("gb_vat")
-
-                val GR_VAT = of("gr_vat")
 
                 val HN_ID = of("hn_id")
 
                 val HN_RTN = of("hn_rtn")
 
-                val HR_OIB = of("hr_oib")
-
-                val HU_ADJ = of("hu_adj")
-
-                val HU_ANUM = of("hu_anum")
-
                 val IE_PPS = of("ie_pps")
 
-                val IE_TRN = of("ie_trn")
-
                 val IN_LEI = of("in_lei")
-
-                val IS_KNT = of("is_knt")
-
-                val IT_CF = of("it_cf")
-
-                val IT_PIVA = of("it_piva")
-
-                val JP_HB = of("jp_hb")
-
-                val JP_MN = of("jp_mn")
 
                 val KR_BRN = of("kr_brn")
 
@@ -3840,85 +3716,17 @@ private constructor(
 
                 val KR_RRN = of("kr_rrn")
 
-                val LI_PEID = of("li_peid")
-
-                val LT_AK = of("lt_ak")
-
-                val LT_JAK = of("lt_jak")
-
-                val LU_MTC = of("lu_mtc")
-
-                val LU_VAT = of("lu_vat")
-
-                val LV_PK = of("lv_pk")
-
-                val LV_RN = of("lv_rn")
-
-                val MT_TIN = of("mt_tin")
-
-                val MT_VAT = of("mt_vat")
-
-                val MX_CURP = of("mx_curp")
-
-                val MX_INE = of("mx_ine")
-
-                val MX_RFC = of("mx_rfc")
-
-                val NL_BSN = of("nl_bsn")
-
-                val NL_BTW = of("nl_btw")
-
-                val NL_RSIN = of("nl_rsin")
-
-                val NO_FDN = of("no_fdn")
-
-                val NO_MVA = of("no_mva")
-
-                val NO_ORGNR = of("no_orgnr")
-
-                val NZ_IRD = of("nz_ird")
-
                 val PASSPORT = of("passport")
-
-                val PL_NIP = of("pl_nip")
-
-                val PL_PESEL = of("pl_pesel")
-
-                val PT_NIF = of("pt_nif")
-
-                val RO_CNP = of("ro_cnp")
-
-                val RO_CUI = of("ro_cui")
 
                 val SA_TIN = of("sa_tin")
 
                 val SA_VAT = of("sa_vat")
-
-                val SE_ORGNR = of("se_orgnr")
-
-                val SE_PNMR = of("se_pnmr")
-
-                val SG_FIN = of("sg_fin")
-
-                val SG_NRIC = of("sg_nric")
-
-                val SG_UEN = of("sg_uen")
-
-                val SI_DAV = of("si_dav")
-
-                val SI_TIN = of("si_tin")
-
-                val SK_ICO = of("sk_ico")
-
-                val SK_RC = of("sk_rc")
 
                 val US_EIN = of("us_ein")
 
                 val US_ITIN = of("us_itin")
 
                 val US_SSN = of("us_ssn")
-
-                val UY_RUT = of("uy_rut")
 
                 val VN_TIN = of("vn_tin")
 
@@ -3929,100 +3737,27 @@ private constructor(
             enum class Known {
                 AR_CUIL,
                 AR_CUIT,
-                AT_ATIN,
-                AT_VAT,
-                AU_ABN,
-                AU_TFN,
-                BE_ENT,
-                BE_NRN,
                 BR_CNPJ,
                 BR_CPF,
-                CA_BN,
                 CA_SIN,
-                CH_AHV,
-                CH_UID,
                 CL_RUN,
                 CL_RUT,
                 CO_CEDULAS,
                 CO_NIT,
-                CY_TIN,
-                CZ_ICO,
-                CZ_RC,
-                DE_STID,
-                DE_STNR,
-                DE_VAT,
-                DK_CPR,
-                DK_CVR,
                 DRIVERS_LICENSE,
-                EE_IK,
-                EE_RK,
-                ES_NIE,
-                ES_NIF,
-                FI_HETU,
-                FI_YTJ,
-                FR_NIF,
-                FR_SIREN,
-                FR_VAT,
-                GB_NINO,
-                GB_UTR,
-                GB_VAT,
-                GR_VAT,
                 HN_ID,
                 HN_RTN,
-                HR_OIB,
-                HU_ADJ,
-                HU_ANUM,
                 IE_PPS,
-                IE_TRN,
                 IN_LEI,
-                IS_KNT,
-                IT_CF,
-                IT_PIVA,
-                JP_HB,
-                JP_MN,
                 KR_BRN,
                 KR_CRN,
                 KR_RRN,
-                LI_PEID,
-                LT_AK,
-                LT_JAK,
-                LU_MTC,
-                LU_VAT,
-                LV_PK,
-                LV_RN,
-                MT_TIN,
-                MT_VAT,
-                MX_CURP,
-                MX_INE,
-                MX_RFC,
-                NL_BSN,
-                NL_BTW,
-                NL_RSIN,
-                NO_FDN,
-                NO_MVA,
-                NO_ORGNR,
-                NZ_IRD,
                 PASSPORT,
-                PL_NIP,
-                PL_PESEL,
-                PT_NIF,
-                RO_CNP,
-                RO_CUI,
                 SA_TIN,
                 SA_VAT,
-                SE_ORGNR,
-                SE_PNMR,
-                SG_FIN,
-                SG_NRIC,
-                SG_UEN,
-                SI_DAV,
-                SI_TIN,
-                SK_ICO,
-                SK_RC,
                 US_EIN,
                 US_ITIN,
                 US_SSN,
-                UY_RUT,
                 VN_TIN,
             }
 
@@ -4038,100 +3773,27 @@ private constructor(
             enum class Value {
                 AR_CUIL,
                 AR_CUIT,
-                AT_ATIN,
-                AT_VAT,
-                AU_ABN,
-                AU_TFN,
-                BE_ENT,
-                BE_NRN,
                 BR_CNPJ,
                 BR_CPF,
-                CA_BN,
                 CA_SIN,
-                CH_AHV,
-                CH_UID,
                 CL_RUN,
                 CL_RUT,
                 CO_CEDULAS,
                 CO_NIT,
-                CY_TIN,
-                CZ_ICO,
-                CZ_RC,
-                DE_STID,
-                DE_STNR,
-                DE_VAT,
-                DK_CPR,
-                DK_CVR,
                 DRIVERS_LICENSE,
-                EE_IK,
-                EE_RK,
-                ES_NIE,
-                ES_NIF,
-                FI_HETU,
-                FI_YTJ,
-                FR_NIF,
-                FR_SIREN,
-                FR_VAT,
-                GB_NINO,
-                GB_UTR,
-                GB_VAT,
-                GR_VAT,
                 HN_ID,
                 HN_RTN,
-                HR_OIB,
-                HU_ADJ,
-                HU_ANUM,
                 IE_PPS,
-                IE_TRN,
                 IN_LEI,
-                IS_KNT,
-                IT_CF,
-                IT_PIVA,
-                JP_HB,
-                JP_MN,
                 KR_BRN,
                 KR_CRN,
                 KR_RRN,
-                LI_PEID,
-                LT_AK,
-                LT_JAK,
-                LU_MTC,
-                LU_VAT,
-                LV_PK,
-                LV_RN,
-                MT_TIN,
-                MT_VAT,
-                MX_CURP,
-                MX_INE,
-                MX_RFC,
-                NL_BSN,
-                NL_BTW,
-                NL_RSIN,
-                NO_FDN,
-                NO_MVA,
-                NO_ORGNR,
-                NZ_IRD,
                 PASSPORT,
-                PL_NIP,
-                PL_PESEL,
-                PT_NIF,
-                RO_CNP,
-                RO_CUI,
                 SA_TIN,
                 SA_VAT,
-                SE_ORGNR,
-                SE_PNMR,
-                SG_FIN,
-                SG_NRIC,
-                SG_UEN,
-                SI_DAV,
-                SI_TIN,
-                SK_ICO,
-                SK_RC,
                 US_EIN,
                 US_ITIN,
                 US_SSN,
-                UY_RUT,
                 VN_TIN,
                 /**
                  * An enum member indicating that [IdType] was instantiated with an unknown value.
@@ -4150,100 +3812,27 @@ private constructor(
                 when (this) {
                     AR_CUIL -> Value.AR_CUIL
                     AR_CUIT -> Value.AR_CUIT
-                    AT_ATIN -> Value.AT_ATIN
-                    AT_VAT -> Value.AT_VAT
-                    AU_ABN -> Value.AU_ABN
-                    AU_TFN -> Value.AU_TFN
-                    BE_ENT -> Value.BE_ENT
-                    BE_NRN -> Value.BE_NRN
                     BR_CNPJ -> Value.BR_CNPJ
                     BR_CPF -> Value.BR_CPF
-                    CA_BN -> Value.CA_BN
                     CA_SIN -> Value.CA_SIN
-                    CH_AHV -> Value.CH_AHV
-                    CH_UID -> Value.CH_UID
                     CL_RUN -> Value.CL_RUN
                     CL_RUT -> Value.CL_RUT
                     CO_CEDULAS -> Value.CO_CEDULAS
                     CO_NIT -> Value.CO_NIT
-                    CY_TIN -> Value.CY_TIN
-                    CZ_ICO -> Value.CZ_ICO
-                    CZ_RC -> Value.CZ_RC
-                    DE_STID -> Value.DE_STID
-                    DE_STNR -> Value.DE_STNR
-                    DE_VAT -> Value.DE_VAT
-                    DK_CPR -> Value.DK_CPR
-                    DK_CVR -> Value.DK_CVR
                     DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
-                    EE_IK -> Value.EE_IK
-                    EE_RK -> Value.EE_RK
-                    ES_NIE -> Value.ES_NIE
-                    ES_NIF -> Value.ES_NIF
-                    FI_HETU -> Value.FI_HETU
-                    FI_YTJ -> Value.FI_YTJ
-                    FR_NIF -> Value.FR_NIF
-                    FR_SIREN -> Value.FR_SIREN
-                    FR_VAT -> Value.FR_VAT
-                    GB_NINO -> Value.GB_NINO
-                    GB_UTR -> Value.GB_UTR
-                    GB_VAT -> Value.GB_VAT
-                    GR_VAT -> Value.GR_VAT
                     HN_ID -> Value.HN_ID
                     HN_RTN -> Value.HN_RTN
-                    HR_OIB -> Value.HR_OIB
-                    HU_ADJ -> Value.HU_ADJ
-                    HU_ANUM -> Value.HU_ANUM
                     IE_PPS -> Value.IE_PPS
-                    IE_TRN -> Value.IE_TRN
                     IN_LEI -> Value.IN_LEI
-                    IS_KNT -> Value.IS_KNT
-                    IT_CF -> Value.IT_CF
-                    IT_PIVA -> Value.IT_PIVA
-                    JP_HB -> Value.JP_HB
-                    JP_MN -> Value.JP_MN
                     KR_BRN -> Value.KR_BRN
                     KR_CRN -> Value.KR_CRN
                     KR_RRN -> Value.KR_RRN
-                    LI_PEID -> Value.LI_PEID
-                    LT_AK -> Value.LT_AK
-                    LT_JAK -> Value.LT_JAK
-                    LU_MTC -> Value.LU_MTC
-                    LU_VAT -> Value.LU_VAT
-                    LV_PK -> Value.LV_PK
-                    LV_RN -> Value.LV_RN
-                    MT_TIN -> Value.MT_TIN
-                    MT_VAT -> Value.MT_VAT
-                    MX_CURP -> Value.MX_CURP
-                    MX_INE -> Value.MX_INE
-                    MX_RFC -> Value.MX_RFC
-                    NL_BSN -> Value.NL_BSN
-                    NL_BTW -> Value.NL_BTW
-                    NL_RSIN -> Value.NL_RSIN
-                    NO_FDN -> Value.NO_FDN
-                    NO_MVA -> Value.NO_MVA
-                    NO_ORGNR -> Value.NO_ORGNR
-                    NZ_IRD -> Value.NZ_IRD
                     PASSPORT -> Value.PASSPORT
-                    PL_NIP -> Value.PL_NIP
-                    PL_PESEL -> Value.PL_PESEL
-                    PT_NIF -> Value.PT_NIF
-                    RO_CNP -> Value.RO_CNP
-                    RO_CUI -> Value.RO_CUI
                     SA_TIN -> Value.SA_TIN
                     SA_VAT -> Value.SA_VAT
-                    SE_ORGNR -> Value.SE_ORGNR
-                    SE_PNMR -> Value.SE_PNMR
-                    SG_FIN -> Value.SG_FIN
-                    SG_NRIC -> Value.SG_NRIC
-                    SG_UEN -> Value.SG_UEN
-                    SI_DAV -> Value.SI_DAV
-                    SI_TIN -> Value.SI_TIN
-                    SK_ICO -> Value.SK_ICO
-                    SK_RC -> Value.SK_RC
                     US_EIN -> Value.US_EIN
                     US_ITIN -> Value.US_ITIN
                     US_SSN -> Value.US_SSN
-                    UY_RUT -> Value.UY_RUT
                     VN_TIN -> Value.VN_TIN
                     else -> Value._UNKNOWN
                 }
@@ -4261,100 +3850,27 @@ private constructor(
                 when (this) {
                     AR_CUIL -> Known.AR_CUIL
                     AR_CUIT -> Known.AR_CUIT
-                    AT_ATIN -> Known.AT_ATIN
-                    AT_VAT -> Known.AT_VAT
-                    AU_ABN -> Known.AU_ABN
-                    AU_TFN -> Known.AU_TFN
-                    BE_ENT -> Known.BE_ENT
-                    BE_NRN -> Known.BE_NRN
                     BR_CNPJ -> Known.BR_CNPJ
                     BR_CPF -> Known.BR_CPF
-                    CA_BN -> Known.CA_BN
                     CA_SIN -> Known.CA_SIN
-                    CH_AHV -> Known.CH_AHV
-                    CH_UID -> Known.CH_UID
                     CL_RUN -> Known.CL_RUN
                     CL_RUT -> Known.CL_RUT
                     CO_CEDULAS -> Known.CO_CEDULAS
                     CO_NIT -> Known.CO_NIT
-                    CY_TIN -> Known.CY_TIN
-                    CZ_ICO -> Known.CZ_ICO
-                    CZ_RC -> Known.CZ_RC
-                    DE_STID -> Known.DE_STID
-                    DE_STNR -> Known.DE_STNR
-                    DE_VAT -> Known.DE_VAT
-                    DK_CPR -> Known.DK_CPR
-                    DK_CVR -> Known.DK_CVR
                     DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
-                    EE_IK -> Known.EE_IK
-                    EE_RK -> Known.EE_RK
-                    ES_NIE -> Known.ES_NIE
-                    ES_NIF -> Known.ES_NIF
-                    FI_HETU -> Known.FI_HETU
-                    FI_YTJ -> Known.FI_YTJ
-                    FR_NIF -> Known.FR_NIF
-                    FR_SIREN -> Known.FR_SIREN
-                    FR_VAT -> Known.FR_VAT
-                    GB_NINO -> Known.GB_NINO
-                    GB_UTR -> Known.GB_UTR
-                    GB_VAT -> Known.GB_VAT
-                    GR_VAT -> Known.GR_VAT
                     HN_ID -> Known.HN_ID
                     HN_RTN -> Known.HN_RTN
-                    HR_OIB -> Known.HR_OIB
-                    HU_ADJ -> Known.HU_ADJ
-                    HU_ANUM -> Known.HU_ANUM
                     IE_PPS -> Known.IE_PPS
-                    IE_TRN -> Known.IE_TRN
                     IN_LEI -> Known.IN_LEI
-                    IS_KNT -> Known.IS_KNT
-                    IT_CF -> Known.IT_CF
-                    IT_PIVA -> Known.IT_PIVA
-                    JP_HB -> Known.JP_HB
-                    JP_MN -> Known.JP_MN
                     KR_BRN -> Known.KR_BRN
                     KR_CRN -> Known.KR_CRN
                     KR_RRN -> Known.KR_RRN
-                    LI_PEID -> Known.LI_PEID
-                    LT_AK -> Known.LT_AK
-                    LT_JAK -> Known.LT_JAK
-                    LU_MTC -> Known.LU_MTC
-                    LU_VAT -> Known.LU_VAT
-                    LV_PK -> Known.LV_PK
-                    LV_RN -> Known.LV_RN
-                    MT_TIN -> Known.MT_TIN
-                    MT_VAT -> Known.MT_VAT
-                    MX_CURP -> Known.MX_CURP
-                    MX_INE -> Known.MX_INE
-                    MX_RFC -> Known.MX_RFC
-                    NL_BSN -> Known.NL_BSN
-                    NL_BTW -> Known.NL_BTW
-                    NL_RSIN -> Known.NL_RSIN
-                    NO_FDN -> Known.NO_FDN
-                    NO_MVA -> Known.NO_MVA
-                    NO_ORGNR -> Known.NO_ORGNR
-                    NZ_IRD -> Known.NZ_IRD
                     PASSPORT -> Known.PASSPORT
-                    PL_NIP -> Known.PL_NIP
-                    PL_PESEL -> Known.PL_PESEL
-                    PT_NIF -> Known.PT_NIF
-                    RO_CNP -> Known.RO_CNP
-                    RO_CUI -> Known.RO_CUI
                     SA_TIN -> Known.SA_TIN
                     SA_VAT -> Known.SA_VAT
-                    SE_ORGNR -> Known.SE_ORGNR
-                    SE_PNMR -> Known.SE_PNMR
-                    SG_FIN -> Known.SG_FIN
-                    SG_NRIC -> Known.SG_NRIC
-                    SG_UEN -> Known.SG_UEN
-                    SI_DAV -> Known.SI_DAV
-                    SI_TIN -> Known.SI_TIN
-                    SK_ICO -> Known.SK_ICO
-                    SK_RC -> Known.SK_RC
                     US_EIN -> Known.US_EIN
                     US_ITIN -> Known.US_ITIN
                     US_SSN -> Known.US_SSN
-                    UY_RUT -> Known.UY_RUT
                     VN_TIN -> Known.VN_TIN
                     else -> throw ModernTreasuryInvalidDataException("Unknown IdType: $value")
                 }
