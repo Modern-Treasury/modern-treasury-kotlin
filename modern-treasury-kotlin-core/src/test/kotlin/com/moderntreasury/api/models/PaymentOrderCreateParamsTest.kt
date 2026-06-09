@@ -52,10 +52,9 @@ internal class PaymentOrderCreateParamsTest {
                 LedgerTransactionCreateRequest.builder()
                     .addLedgerEntry(
                         LedgerEntryCreateRequest.builder()
+                            .amount(0L)
                             .direction(TransactionDirection.CREDIT)
                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .amount(0L)
-                            .amountString("amount_string")
                             .availableBalanceAmount(
                                 LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                                     .putAdditionalProperty("foo", JsonValue.from(0))
@@ -229,7 +228,7 @@ internal class PaymentOrderCreateParamsTest {
             .ultimateOriginatingPartyName("ultimate_originating_party_name")
             .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
             .ultimateReceivingPartyName("ultimate_receiving_party_name")
-            .vendorAttributes(MultipartField.of(JsonValue.from(mapOf<String, Any>())))
+            .vendorAttributes(VendorAttributes.builder().build())
             .build()
     }
 
@@ -275,10 +274,9 @@ internal class PaymentOrderCreateParamsTest {
                     LedgerTransactionCreateRequest.builder()
                         .addLedgerEntry(
                             LedgerEntryCreateRequest.builder()
+                                .amount(0L)
                                 .direction(TransactionDirection.CREDIT)
                                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .amount(0L)
-                                .amountString("amount_string")
                                 .availableBalanceAmount(
                                     LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                                         .putAdditionalProperty("foo", JsonValue.from(0))
@@ -457,7 +455,7 @@ internal class PaymentOrderCreateParamsTest {
                 .ultimateOriginatingPartyName("ultimate_originating_party_name")
                 .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                 .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                .vendorAttributes(MultipartField.of(JsonValue.from(mapOf<String, Any>())))
+                .vendorAttributes(VendorAttributes.builder().build())
                 .build()
 
         val body = params._body()
@@ -529,10 +527,9 @@ internal class PaymentOrderCreateParamsTest {
                                 LedgerTransactionCreateRequest.builder()
                                     .addLedgerEntry(
                                         LedgerEntryCreateRequest.builder()
+                                            .amount(0L)
                                             .direction(TransactionDirection.CREDIT)
                                             .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                            .amount(0L)
-                                            .amountString("amount_string")
                                             .availableBalanceAmount(
                                                 LedgerEntryCreateRequest.AvailableBalanceAmount
                                                     .builder()
@@ -776,8 +773,7 @@ internal class PaymentOrderCreateParamsTest {
                             MultipartField.of("ultimate_receiving_party_identifier"),
                         "ultimate_receiving_party_name" to
                             MultipartField.of("ultimate_receiving_party_name"),
-                        "vendor_attributes" to
-                            MultipartField.of(JsonValue.from(mapOf<String, Any>())),
+                        "vendor_attributes" to MultipartField.of(VendorAttributes.builder().build()),
                     )
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }

@@ -156,7 +156,6 @@ internal class CounterpartyServiceTest {
                                         LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                     )
                                     .line2("line2")
-                                    .primary(true)
                                     .build()
                             )
                             .bankSettings(
@@ -252,7 +251,6 @@ internal class CounterpartyServiceTest {
                                                             .BUSINESS
                                                     )
                                                     .line2("line2")
-                                                    .primary(true)
                                                     .build()
                                             )
                                             .bankSettings(

@@ -421,12 +421,6 @@ private constructor(
 
             val DRIVERS_LICENSE = of("drivers_license")
 
-            val ES_NIF = of("es_nif")
-
-            val GB_NINO = of("gb_nino")
-
-            val GB_UTR = of("gb_utr")
-
             val HN_ID = of("hn_id")
 
             val HN_RTN = of("hn_rtn")
@@ -441,12 +435,6 @@ private constructor(
 
             val KR_RRN = of("kr_rrn")
 
-            val MX_CURP = of("mx_curp")
-
-            val MX_INE = of("mx_ine")
-
-            val MX_RFC = of("mx_rfc")
-
             val PASSPORT = of("passport")
 
             val SA_TIN = of("sa_tin")
@@ -458,8 +446,6 @@ private constructor(
             val US_ITIN = of("us_itin")
 
             val US_SSN = of("us_ssn")
-
-            val UY_RUT = of("uy_rut")
 
             val VN_TIN = of("vn_tin")
 
@@ -478,9 +464,6 @@ private constructor(
             CO_CEDULAS,
             CO_NIT,
             DRIVERS_LICENSE,
-            ES_NIF,
-            GB_NINO,
-            GB_UTR,
             HN_ID,
             HN_RTN,
             IE_PPS,
@@ -488,16 +471,12 @@ private constructor(
             KR_BRN,
             KR_CRN,
             KR_RRN,
-            MX_CURP,
-            MX_INE,
-            MX_RFC,
             PASSPORT,
             SA_TIN,
             SA_VAT,
             US_EIN,
             US_ITIN,
             US_SSN,
-            UY_RUT,
             VN_TIN,
         }
 
@@ -521,9 +500,6 @@ private constructor(
             CO_CEDULAS,
             CO_NIT,
             DRIVERS_LICENSE,
-            ES_NIF,
-            GB_NINO,
-            GB_UTR,
             HN_ID,
             HN_RTN,
             IE_PPS,
@@ -531,16 +507,12 @@ private constructor(
             KR_BRN,
             KR_CRN,
             KR_RRN,
-            MX_CURP,
-            MX_INE,
-            MX_RFC,
             PASSPORT,
             SA_TIN,
             SA_VAT,
             US_EIN,
             US_ITIN,
             US_SSN,
-            UY_RUT,
             VN_TIN,
             /** An enum member indicating that [IdType] was instantiated with an unknown value. */
             _UNKNOWN,
@@ -565,9 +537,6 @@ private constructor(
                 CO_CEDULAS -> Value.CO_CEDULAS
                 CO_NIT -> Value.CO_NIT
                 DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
-                ES_NIF -> Value.ES_NIF
-                GB_NINO -> Value.GB_NINO
-                GB_UTR -> Value.GB_UTR
                 HN_ID -> Value.HN_ID
                 HN_RTN -> Value.HN_RTN
                 IE_PPS -> Value.IE_PPS
@@ -575,16 +544,12 @@ private constructor(
                 KR_BRN -> Value.KR_BRN
                 KR_CRN -> Value.KR_CRN
                 KR_RRN -> Value.KR_RRN
-                MX_CURP -> Value.MX_CURP
-                MX_INE -> Value.MX_INE
-                MX_RFC -> Value.MX_RFC
                 PASSPORT -> Value.PASSPORT
                 SA_TIN -> Value.SA_TIN
                 SA_VAT -> Value.SA_VAT
                 US_EIN -> Value.US_EIN
                 US_ITIN -> Value.US_ITIN
                 US_SSN -> Value.US_SSN
-                UY_RUT -> Value.UY_RUT
                 VN_TIN -> Value.VN_TIN
                 else -> Value._UNKNOWN
             }
@@ -610,9 +575,6 @@ private constructor(
                 CO_CEDULAS -> Known.CO_CEDULAS
                 CO_NIT -> Known.CO_NIT
                 DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
-                ES_NIF -> Known.ES_NIF
-                GB_NINO -> Known.GB_NINO
-                GB_UTR -> Known.GB_UTR
                 HN_ID -> Known.HN_ID
                 HN_RTN -> Known.HN_RTN
                 IE_PPS -> Known.IE_PPS
@@ -620,16 +582,12 @@ private constructor(
                 KR_BRN -> Known.KR_BRN
                 KR_CRN -> Known.KR_CRN
                 KR_RRN -> Known.KR_RRN
-                MX_CURP -> Known.MX_CURP
-                MX_INE -> Known.MX_INE
-                MX_RFC -> Known.MX_RFC
                 PASSPORT -> Known.PASSPORT
                 SA_TIN -> Known.SA_TIN
                 SA_VAT -> Known.SA_VAT
                 US_EIN -> Known.US_EIN
                 US_ITIN -> Known.US_ITIN
                 US_SSN -> Known.US_SSN
-                UY_RUT -> Known.UY_RUT
                 VN_TIN -> Known.VN_TIN
                 else -> throw ModernTreasuryInvalidDataException("Unknown IdType: $value")
             }

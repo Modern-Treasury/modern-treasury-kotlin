@@ -15,10 +15,9 @@ internal class LedgerEntryCreateRequestTest {
     fun create() {
         val ledgerEntryCreateRequest =
             LedgerEntryCreateRequest.builder()
+                .amount(0L)
                 .direction(TransactionDirection.CREDIT)
                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .amount(0L)
-                .amountString("amount_string")
                 .availableBalanceAmount(
                     LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                         .putAdditionalProperty("foo", JsonValue.from(0))
@@ -46,11 +45,10 @@ internal class LedgerEntryCreateRequestTest {
                 .showResultingLedgerAccountBalances(true)
                 .build()
 
+        assertThat(ledgerEntryCreateRequest.amount()).isEqualTo(0L)
         assertThat(ledgerEntryCreateRequest.direction()).isEqualTo(TransactionDirection.CREDIT)
         assertThat(ledgerEntryCreateRequest.ledgerAccountId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(ledgerEntryCreateRequest.amount()).isEqualTo(0L)
-        assertThat(ledgerEntryCreateRequest.amountString()).isEqualTo("amount_string")
         assertThat(ledgerEntryCreateRequest.availableBalanceAmount())
             .isEqualTo(
                 LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
@@ -88,10 +86,9 @@ internal class LedgerEntryCreateRequestTest {
         val jsonMapper = jsonMapper()
         val ledgerEntryCreateRequest =
             LedgerEntryCreateRequest.builder()
+                .amount(0L)
                 .direction(TransactionDirection.CREDIT)
                 .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .amount(0L)
-                .amountString("amount_string")
                 .availableBalanceAmount(
                     LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
                         .putAdditionalProperty("foo", JsonValue.from(0))
