@@ -5298,8 +5298,6 @@ private constructor(
 
                 val GOLDMAN_SACHS_UNIQUE_PAYMENT_ID = of("goldman_sachs_unique_payment_id")
 
-                val INTERAC_MESSAGE_ID = of("interac_message_id")
-
                 val JPMC_CCN = of("jpmc_ccn")
 
                 val JPMC_CLEARING_SYSTEM_REFERENCE = of("jpmc_clearing_system_reference")
@@ -5353,12 +5351,6 @@ private constructor(
                 val RBC_WIRE_REFERENCE_ID = of("rbc_wire_reference_id")
 
                 val RTP_INSTRUCTION_ID = of("rtp_instruction_id")
-
-                val SIGNET_API_REFERENCE_ID = of("signet_api_reference_id")
-
-                val SIGNET_CONFIRMATION_ID = of("signet_confirmation_id")
-
-                val SIGNET_REQUEST_ID = of("signet_request_id")
 
                 val SILVERGATE_PAYMENT_ID = of("silvergate_payment_id")
 
@@ -5444,7 +5436,6 @@ private constructor(
                 GOLDMAN_SACHS_PAYMENT_REQUEST_ID,
                 GOLDMAN_SACHS_REQUEST_ID,
                 GOLDMAN_SACHS_UNIQUE_PAYMENT_ID,
-                INTERAC_MESSAGE_ID,
                 JPMC_CCN,
                 JPMC_CLEARING_SYSTEM_REFERENCE,
                 JPMC_CUSTOMER_REFERENCE_ID,
@@ -5472,9 +5463,6 @@ private constructor(
                 PNC_TRANSACTION_REFERENCE_NUMBER,
                 RBC_WIRE_REFERENCE_ID,
                 RTP_INSTRUCTION_ID,
-                SIGNET_API_REFERENCE_ID,
-                SIGNET_CONFIRMATION_ID,
-                SIGNET_REQUEST_ID,
                 SILVERGATE_PAYMENT_ID,
                 SVB_END_TO_END_ID,
                 SVB_PAYMENT_ID,
@@ -5549,7 +5537,6 @@ private constructor(
                 GOLDMAN_SACHS_PAYMENT_REQUEST_ID,
                 GOLDMAN_SACHS_REQUEST_ID,
                 GOLDMAN_SACHS_UNIQUE_PAYMENT_ID,
-                INTERAC_MESSAGE_ID,
                 JPMC_CCN,
                 JPMC_CLEARING_SYSTEM_REFERENCE,
                 JPMC_CUSTOMER_REFERENCE_ID,
@@ -5577,9 +5564,6 @@ private constructor(
                 PNC_TRANSACTION_REFERENCE_NUMBER,
                 RBC_WIRE_REFERENCE_ID,
                 RTP_INSTRUCTION_ID,
-                SIGNET_API_REFERENCE_ID,
-                SIGNET_CONFIRMATION_ID,
-                SIGNET_REQUEST_ID,
                 SILVERGATE_PAYMENT_ID,
                 SVB_END_TO_END_ID,
                 SVB_PAYMENT_ID,
@@ -5658,7 +5642,6 @@ private constructor(
                     GOLDMAN_SACHS_PAYMENT_REQUEST_ID -> Value.GOLDMAN_SACHS_PAYMENT_REQUEST_ID
                     GOLDMAN_SACHS_REQUEST_ID -> Value.GOLDMAN_SACHS_REQUEST_ID
                     GOLDMAN_SACHS_UNIQUE_PAYMENT_ID -> Value.GOLDMAN_SACHS_UNIQUE_PAYMENT_ID
-                    INTERAC_MESSAGE_ID -> Value.INTERAC_MESSAGE_ID
                     JPMC_CCN -> Value.JPMC_CCN
                     JPMC_CLEARING_SYSTEM_REFERENCE -> Value.JPMC_CLEARING_SYSTEM_REFERENCE
                     JPMC_CUSTOMER_REFERENCE_ID -> Value.JPMC_CUSTOMER_REFERENCE_ID
@@ -5686,9 +5669,6 @@ private constructor(
                     PNC_TRANSACTION_REFERENCE_NUMBER -> Value.PNC_TRANSACTION_REFERENCE_NUMBER
                     RBC_WIRE_REFERENCE_ID -> Value.RBC_WIRE_REFERENCE_ID
                     RTP_INSTRUCTION_ID -> Value.RTP_INSTRUCTION_ID
-                    SIGNET_API_REFERENCE_ID -> Value.SIGNET_API_REFERENCE_ID
-                    SIGNET_CONFIRMATION_ID -> Value.SIGNET_CONFIRMATION_ID
-                    SIGNET_REQUEST_ID -> Value.SIGNET_REQUEST_ID
                     SILVERGATE_PAYMENT_ID -> Value.SILVERGATE_PAYMENT_ID
                     SVB_END_TO_END_ID -> Value.SVB_END_TO_END_ID
                     SVB_PAYMENT_ID -> Value.SVB_PAYMENT_ID
@@ -5767,7 +5747,6 @@ private constructor(
                     GOLDMAN_SACHS_PAYMENT_REQUEST_ID -> Known.GOLDMAN_SACHS_PAYMENT_REQUEST_ID
                     GOLDMAN_SACHS_REQUEST_ID -> Known.GOLDMAN_SACHS_REQUEST_ID
                     GOLDMAN_SACHS_UNIQUE_PAYMENT_ID -> Known.GOLDMAN_SACHS_UNIQUE_PAYMENT_ID
-                    INTERAC_MESSAGE_ID -> Known.INTERAC_MESSAGE_ID
                     JPMC_CCN -> Known.JPMC_CCN
                     JPMC_CLEARING_SYSTEM_REFERENCE -> Known.JPMC_CLEARING_SYSTEM_REFERENCE
                     JPMC_CUSTOMER_REFERENCE_ID -> Known.JPMC_CUSTOMER_REFERENCE_ID
@@ -5795,9 +5774,6 @@ private constructor(
                     PNC_TRANSACTION_REFERENCE_NUMBER -> Known.PNC_TRANSACTION_REFERENCE_NUMBER
                     RBC_WIRE_REFERENCE_ID -> Known.RBC_WIRE_REFERENCE_ID
                     RTP_INSTRUCTION_ID -> Known.RTP_INSTRUCTION_ID
-                    SIGNET_API_REFERENCE_ID -> Known.SIGNET_API_REFERENCE_ID
-                    SIGNET_CONFIRMATION_ID -> Known.SIGNET_CONFIRMATION_ID
-                    SIGNET_REQUEST_ID -> Known.SIGNET_REQUEST_ID
                     SILVERGATE_PAYMENT_ID -> Known.SILVERGATE_PAYMENT_ID
                     SVB_END_TO_END_ID -> Known.SVB_END_TO_END_ID
                     SVB_PAYMENT_ID -> Known.SVB_PAYMENT_ID
