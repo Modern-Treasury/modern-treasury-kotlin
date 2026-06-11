@@ -62,7 +62,7 @@ internal class PaymentOrderServiceAsyncTest {
                             .documentableId("documentable_id")
                             .documentableType(
                                 PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
-                                    .CONNECTIONS
+                                    .CONNECTION
                             )
                             .build()
                     )
