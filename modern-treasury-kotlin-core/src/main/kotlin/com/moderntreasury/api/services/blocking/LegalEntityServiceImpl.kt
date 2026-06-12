@@ -22,6 +22,7 @@ import com.moderntreasury.api.models.LegalEntityListPage
 import com.moderntreasury.api.models.LegalEntityListParams
 import com.moderntreasury.api.models.LegalEntityRetrieveParams
 import com.moderntreasury.api.models.LegalEntityUpdateParams
+import com.moderntreasury.api.models.LegalEntityUpdateStatusParams
 
 class LegalEntityServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     LegalEntityService {
@@ -62,6 +63,13 @@ class LegalEntityServiceImpl internal constructor(private val clientOptions: Cli
     ): LegalEntityListPage =
         // get /api/legal_entities
         withRawResponse().list(params, requestOptions).parse()
+
+    override fun updateStatus(
+        params: LegalEntityUpdateStatusParams,
+        requestOptions: RequestOptions,
+    ): LegalEntity =
+        // patch /api/simulations/legal_entities/{id}/update_status
+        withRawResponse().updateStatus(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         LegalEntityService.WithRawResponse {
@@ -196,6 +204,43 @@ class LegalEntityServiceImpl internal constructor(private val clientOptions: Cli
                             .headers(response.headers())
                             .items(it)
                             .build()
+                    }
+            }
+        }
+
+        private val updateStatusHandler: Handler<LegalEntity> =
+            jsonHandler<LegalEntity>(clientOptions.jsonMapper)
+
+        override fun updateStatus(
+            params: LegalEntityUpdateStatusParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LegalEntity> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "api",
+                        "simulations",
+                        "legal_entities",
+                        params._pathParam(0),
+                        "update_status",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateStatusHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }
