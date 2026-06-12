@@ -13,6 +13,7 @@ import com.moderntreasury.api.models.LegalEntityAssociationInlineCreate
 import com.moderntreasury.api.models.LegalEntityCreateParams
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
 import com.moderntreasury.api.models.LegalEntityUpdateParams
+import com.moderntreasury.api.models.LegalEntityUpdateStatusParams
 import com.moderntreasury.api.models.ThirdPartyVerification
 import com.moderntreasury.api.models.WealthAndEmploymentDetails
 import java.time.LocalDate
@@ -641,5 +642,26 @@ internal class LegalEntityServiceTest {
         val page = legalEntityService.list()
 
         page.items().forEach { it.validate() }
+    }
+
+    @Test
+    fun updateStatus() {
+        val client =
+            ModernTreasuryOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .organizationId("my-organization-ID")
+                .build()
+        val legalEntityService = client.legalEntities()
+
+        val legalEntity =
+            legalEntityService.updateStatus(
+                LegalEntityUpdateStatusParams.builder()
+                    .id("id")
+                    .status(LegalEntityUpdateStatusParams.Status.ACTIVE)
+                    .build()
+            )
+
+        legalEntity.validate()
     }
 }

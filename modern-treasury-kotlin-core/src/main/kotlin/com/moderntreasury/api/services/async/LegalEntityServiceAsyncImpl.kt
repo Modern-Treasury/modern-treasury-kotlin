@@ -22,6 +22,7 @@ import com.moderntreasury.api.models.LegalEntityListPageAsync
 import com.moderntreasury.api.models.LegalEntityListParams
 import com.moderntreasury.api.models.LegalEntityRetrieveParams
 import com.moderntreasury.api.models.LegalEntityUpdateParams
+import com.moderntreasury.api.models.LegalEntityUpdateStatusParams
 
 class LegalEntityServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     LegalEntityServiceAsync {
@@ -62,6 +63,13 @@ class LegalEntityServiceAsyncImpl internal constructor(private val clientOptions
     ): LegalEntityListPageAsync =
         // get /api/legal_entities
         withRawResponse().list(params, requestOptions).parse()
+
+    override suspend fun updateStatus(
+        params: LegalEntityUpdateStatusParams,
+        requestOptions: RequestOptions,
+    ): LegalEntity =
+        // patch /api/simulations/legal_entities/{id}/update_status
+        withRawResponse().updateStatus(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         LegalEntityServiceAsync.WithRawResponse {
@@ -196,6 +204,43 @@ class LegalEntityServiceAsyncImpl internal constructor(private val clientOptions
                             .headers(response.headers())
                             .items(it)
                             .build()
+                    }
+            }
+        }
+
+        private val updateStatusHandler: Handler<LegalEntity> =
+            jsonHandler<LegalEntity>(clientOptions.jsonMapper)
+
+        override suspend fun updateStatus(
+            params: LegalEntityUpdateStatusParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LegalEntity> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("id", params.id())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "api",
+                        "simulations",
+                        "legal_entities",
+                        params._pathParam(0),
+                        "update_status",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateStatusHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }
