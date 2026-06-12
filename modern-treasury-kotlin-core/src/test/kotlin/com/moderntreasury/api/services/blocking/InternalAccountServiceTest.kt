@@ -32,7 +32,6 @@ internal class InternalAccountServiceTest {
                     .connectionId("connection_id")
                     .currency(InternalAccountCreateParams.Currency.USD)
                     .name("name")
-                    .partyName("party_name")
                     .addAccountCapability(
                         InternalAccountCreateParams.AccountCapability.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -69,6 +68,7 @@ internal class InternalAccountServiceTest {
                             .line2("line2")
                             .build()
                     )
+                    .partyName("party_name")
                     .vendorAttributes(
                         InternalAccountCreateParams.VendorAttributes.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
