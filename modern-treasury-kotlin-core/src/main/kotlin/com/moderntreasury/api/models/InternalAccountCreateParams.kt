@@ -1465,11 +1465,11 @@ private constructor(
 
             val USDC = of("USDC")
 
-            val USDG = of("USDG")
-
             val USDT = of("USDT")
 
             val PYUSD = of("PYUSD")
+
+            val USDG = of("USDG")
 
             fun of(value: String) = Currency(JsonField.of(value))
         }
@@ -1479,9 +1479,9 @@ private constructor(
             USD,
             CAD,
             USDC,
-            USDG,
             USDT,
             PYUSD,
+            USDG,
         }
 
         /**
@@ -1497,9 +1497,9 @@ private constructor(
             USD,
             CAD,
             USDC,
-            USDG,
             USDT,
             PYUSD,
+            USDG,
             /** An enum member indicating that [Currency] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1516,9 +1516,9 @@ private constructor(
                 USD -> Value.USD
                 CAD -> Value.CAD
                 USDC -> Value.USDC
-                USDG -> Value.USDG
                 USDT -> Value.USDT
                 PYUSD -> Value.PYUSD
+                USDG -> Value.USDG
                 else -> Value._UNKNOWN
             }
 
@@ -1536,9 +1536,9 @@ private constructor(
                 USD -> Known.USD
                 CAD -> Known.CAD
                 USDC -> Known.USDC
-                USDG -> Known.USDG
                 USDT -> Known.USDT
                 PYUSD -> Known.PYUSD
+                USDG -> Known.USDG
                 else -> throw ModernTreasuryInvalidDataException("Unknown Currency: $value")
             }
 
