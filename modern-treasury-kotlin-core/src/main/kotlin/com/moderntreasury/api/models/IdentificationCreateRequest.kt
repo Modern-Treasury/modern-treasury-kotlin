@@ -479,6 +479,8 @@ private constructor(
 
             val GB_VAT = of("gb_vat")
 
+            val GENERIC_INTERNATIONAL = of("generic_international")
+
             val GR_VAT = of("gr_vat")
 
             val HN_ID = of("hn_id")
@@ -641,6 +643,7 @@ private constructor(
             GB_NINO,
             GB_UTR,
             GB_VAT,
+            GENERIC_INTERNATIONAL,
             GR_VAT,
             HN_ID,
             HN_RTN,
@@ -751,6 +754,7 @@ private constructor(
             GB_NINO,
             GB_UTR,
             GB_VAT,
+            GENERIC_INTERNATIONAL,
             GR_VAT,
             HN_ID,
             HN_RTN,
@@ -862,6 +866,7 @@ private constructor(
                 GB_NINO -> Value.GB_NINO
                 GB_UTR -> Value.GB_UTR
                 GB_VAT -> Value.GB_VAT
+                GENERIC_INTERNATIONAL -> Value.GENERIC_INTERNATIONAL
                 GR_VAT -> Value.GR_VAT
                 HN_ID -> Value.HN_ID
                 HN_RTN -> Value.HN_RTN
@@ -974,6 +979,7 @@ private constructor(
                 GB_NINO -> Known.GB_NINO
                 GB_UTR -> Known.GB_UTR
                 GB_VAT -> Known.GB_VAT
+                GENERIC_INTERNATIONAL -> Known.GENERIC_INTERNATIONAL
                 GR_VAT -> Known.GR_VAT
                 HN_ID -> Known.HN_ID
                 HN_RTN -> Known.HN_RTN

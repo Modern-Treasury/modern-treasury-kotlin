@@ -24,6 +24,7 @@ class Transaction
 private constructor(
     private val id: JsonField<String>,
     private val amount: JsonField<Long>,
+    private val amountString: JsonField<String>,
     private val asOfDate: JsonField<LocalDate>,
     private val asOfTime: JsonField<String>,
     private val asOfTimezone: JsonField<String>,
@@ -54,6 +55,9 @@ private constructor(
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("amount_string")
+        @ExcludeMissing
+        amountString: JsonField<String> = JsonMissing.of(),
         @JsonProperty("as_of_date")
         @ExcludeMissing
         asOfDate: JsonField<LocalDate> = JsonMissing.of(),
@@ -106,6 +110,7 @@ private constructor(
     ) : this(
         id,
         amount,
+        amountString,
         asOfDate,
         asOfTime,
         asOfTimezone,
@@ -145,6 +150,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amount(): Long = amount.getRequired("amount")
+
+    /**
+     * The amount of the transaction as a string, preserving full precision for values that may
+     * exceed safe integer limits in some languages.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun amountString(): String = amountString.getRequired("amount_string")
 
     /**
      * The date on which the transaction occurred.
@@ -353,6 +367,15 @@ private constructor(
     @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
+     * Returns the raw JSON value of [amountString].
+     *
+     * Unlike [amountString], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("amount_string")
+    @ExcludeMissing
+    fun _amountString(): JsonField<String> = amountString
+
+    /**
      * Returns the raw JSON value of [asOfDate].
      *
      * Unlike [asOfDate], this method doesn't throw if the JSON field has an unexpected type.
@@ -559,6 +582,7 @@ private constructor(
          * ```kotlin
          * .id()
          * .amount()
+         * .amountString()
          * .asOfDate()
          * .asOfTime()
          * .asOfTimezone()
@@ -590,6 +614,7 @@ private constructor(
 
         private var id: JsonField<String>? = null
         private var amount: JsonField<Long>? = null
+        private var amountString: JsonField<String>? = null
         private var asOfDate: JsonField<LocalDate>? = null
         private var asOfTime: JsonField<String>? = null
         private var asOfTimezone: JsonField<String>? = null
@@ -618,6 +643,7 @@ private constructor(
         internal fun from(transaction: Transaction) = apply {
             id = transaction.id
             amount = transaction.amount
+            amountString = transaction.amountString
             asOfDate = transaction.asOfDate
             asOfTime = transaction.asOfTime
             asOfTimezone = transaction.asOfTimezone
@@ -664,6 +690,23 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        /**
+         * The amount of the transaction as a string, preserving full precision for values that may
+         * exceed safe integer limits in some languages.
+         */
+        fun amountString(amountString: String) = amountString(JsonField.of(amountString))
+
+        /**
+         * Sets [Builder.amountString] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amountString] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun amountString(amountString: JsonField<String>) = apply {
+            this.amountString = amountString
+        }
 
         /** The date on which the transaction occurred. */
         fun asOfDate(asOfDate: LocalDate?) = asOfDate(JsonField.ofNullable(asOfDate))
@@ -1019,6 +1062,7 @@ private constructor(
          * ```kotlin
          * .id()
          * .amount()
+         * .amountString()
          * .asOfDate()
          * .asOfTime()
          * .asOfTimezone()
@@ -1048,6 +1092,7 @@ private constructor(
             Transaction(
                 checkRequired("id", id),
                 checkRequired("amount", amount),
+                checkRequired("amountString", amountString),
                 checkRequired("asOfDate", asOfDate),
                 checkRequired("asOfTime", asOfTime),
                 checkRequired("asOfTimezone", asOfTimezone),
@@ -1092,6 +1137,7 @@ private constructor(
 
         id()
         amount()
+        amountString()
         asOfDate()
         asOfTime()
         asOfTimezone()
@@ -1134,6 +1180,7 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown() == null) 0 else 1) +
             (if (amount.asKnown() == null) 0 else 1) +
+            (if (amountString.asKnown() == null) 0 else 1) +
             (if (asOfDate.asKnown() == null) 0 else 1) +
             (if (asOfTime.asKnown() == null) 0 else 1) +
             (if (asOfTimezone.asKnown() == null) 0 else 1) +
@@ -1723,6 +1770,8 @@ private constructor(
 
             val SWIFT = of("swift")
 
+            val TURNKEY = of("turnkey")
+
             val US_BANK = of("us_bank")
 
             val USER = of("user")
@@ -1757,6 +1806,7 @@ private constructor(
             PNC,
             SILVERGATE,
             SWIFT,
+            TURNKEY,
             US_BANK,
             USER,
             WESTERN_ALLIANCE,
@@ -1795,6 +1845,7 @@ private constructor(
             PNC,
             SILVERGATE,
             SWIFT,
+            TURNKEY,
             US_BANK,
             USER,
             WESTERN_ALLIANCE,
@@ -1837,6 +1888,7 @@ private constructor(
                 PNC -> Value.PNC
                 SILVERGATE -> Value.SILVERGATE
                 SWIFT -> Value.SWIFT
+                TURNKEY -> Value.TURNKEY
                 US_BANK -> Value.US_BANK
                 USER -> Value.USER
                 WESTERN_ALLIANCE -> Value.WESTERN_ALLIANCE
@@ -1877,6 +1929,7 @@ private constructor(
                 PNC -> Known.PNC
                 SILVERGATE -> Known.SILVERGATE
                 SWIFT -> Known.SWIFT
+                TURNKEY -> Known.TURNKEY
                 US_BANK -> Known.US_BANK
                 USER -> Known.USER
                 WESTERN_ALLIANCE -> Known.WESTERN_ALLIANCE
@@ -2066,6 +2119,7 @@ private constructor(
         return other is Transaction &&
             id == other.id &&
             amount == other.amount &&
+            amountString == other.amountString &&
             asOfDate == other.asOfDate &&
             asOfTime == other.asOfTime &&
             asOfTimezone == other.asOfTimezone &&
@@ -2096,6 +2150,7 @@ private constructor(
         Objects.hash(
             id,
             amount,
+            amountString,
             asOfDate,
             asOfTime,
             asOfTimezone,
@@ -2126,5 +2181,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Transaction{id=$id, amount=$amount, asOfDate=$asOfDate, asOfTime=$asOfTime, asOfTimezone=$asOfTimezone, createdAt=$createdAt, currency=$currency, customIdentifiers=$customIdentifiers, direction=$direction, discardedAt=$discardedAt, foreignExchangeRate=$foreignExchangeRate, internalAccountId=$internalAccountId, liveMode=$liveMode, metadata=$metadata, object_=$object_, posted=$posted, reconciled=$reconciled, type=$type, updatedAt=$updatedAt, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, vendorCustomerId=$vendorCustomerId, vendorId=$vendorId, details=$details, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
+        "Transaction{id=$id, amount=$amount, amountString=$amountString, asOfDate=$asOfDate, asOfTime=$asOfTime, asOfTimezone=$asOfTimezone, createdAt=$createdAt, currency=$currency, customIdentifiers=$customIdentifiers, direction=$direction, discardedAt=$discardedAt, foreignExchangeRate=$foreignExchangeRate, internalAccountId=$internalAccountId, liveMode=$liveMode, metadata=$metadata, object_=$object_, posted=$posted, reconciled=$reconciled, type=$type, updatedAt=$updatedAt, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, vendorCustomerId=$vendorCustomerId, vendorId=$vendorId, details=$details, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
 }

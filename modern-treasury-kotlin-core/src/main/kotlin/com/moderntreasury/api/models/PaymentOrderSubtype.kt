@@ -54,6 +54,8 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
 
         val CHATS = of("chats")
 
+        val DIGITAL = of("digital")
+
         val DK_NETS = of("dk_nets")
 
         val EFT = of("eft")
@@ -73,6 +75,8 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         val PL_ELIXIR = of("pl_elixir")
 
         val POLYGON = of("polygon")
+
+        val PRINT = of("print")
 
         val SE_BANKGIROT = of("se_bankgirot")
 
@@ -105,6 +109,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         BACS,
         BASE,
         CHATS,
+        DIGITAL,
         DK_NETS,
         EFT,
         ETHEREUM,
@@ -115,6 +120,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         NZ_BECS,
         PL_ELIXIR,
         POLYGON,
+        PRINT,
         SE_BANKGIROT,
         SEPA,
         SG_GIRO,
@@ -147,6 +153,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         BACS,
         BASE,
         CHATS,
+        DIGITAL,
         DK_NETS,
         EFT,
         ETHEREUM,
@@ -157,6 +164,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         NZ_BECS,
         PL_ELIXIR,
         POLYGON,
+        PRINT,
         SE_BANKGIROT,
         SEPA,
         SG_GIRO,
@@ -193,6 +201,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             BACS -> Value.BACS
             BASE -> Value.BASE
             CHATS -> Value.CHATS
+            DIGITAL -> Value.DIGITAL
             DK_NETS -> Value.DK_NETS
             EFT -> Value.EFT
             ETHEREUM -> Value.ETHEREUM
@@ -203,6 +212,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             NZ_BECS -> Value.NZ_BECS
             PL_ELIXIR -> Value.PL_ELIXIR
             POLYGON -> Value.POLYGON
+            PRINT -> Value.PRINT
             SE_BANKGIROT -> Value.SE_BANKGIROT
             SEPA -> Value.SEPA
             SG_GIRO -> Value.SG_GIRO
@@ -237,6 +247,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             BACS -> Known.BACS
             BASE -> Known.BASE
             CHATS -> Known.CHATS
+            DIGITAL -> Known.DIGITAL
             DK_NETS -> Known.DK_NETS
             EFT -> Known.EFT
             ETHEREUM -> Known.ETHEREUM
@@ -247,6 +258,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             NZ_BECS -> Known.NZ_BECS
             PL_ELIXIR -> Known.PL_ELIXIR
             POLYGON -> Known.POLYGON
+            PRINT -> Known.PRINT
             SE_BANKGIROT -> Known.SE_BANKGIROT
             SEPA -> Known.SEPA
             SG_GIRO -> Known.SG_GIRO
