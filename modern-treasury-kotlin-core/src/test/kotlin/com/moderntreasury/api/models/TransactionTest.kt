@@ -18,6 +18,7 @@ internal class TransactionTest {
             Transaction.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .amount(0L)
+                .amountString("amount_string")
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .asOfTime("18:11:19.117Z")
                 .asOfTimezone("as_of_timezone")
@@ -71,6 +72,7 @@ internal class TransactionTest {
 
         assertThat(transaction.id()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(transaction.amount()).isEqualTo(0L)
+        assertThat(transaction.amountString()).isEqualTo("amount_string")
         assertThat(transaction.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(transaction.asOfTime()).isEqualTo("18:11:19.117Z")
         assertThat(transaction.asOfTimezone()).isEqualTo("as_of_timezone")
@@ -137,6 +139,7 @@ internal class TransactionTest {
             Transaction.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .amount(0L)
+                .amountString("amount_string")
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .asOfTime("18:11:19.117Z")
                 .asOfTimezone("as_of_timezone")
