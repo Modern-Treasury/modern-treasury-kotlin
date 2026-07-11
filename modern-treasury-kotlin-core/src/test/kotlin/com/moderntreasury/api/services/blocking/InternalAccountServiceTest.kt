@@ -29,7 +29,6 @@ internal class InternalAccountServiceTest {
         val internalAccount =
             internalAccountService.create(
                 InternalAccountCreateParams.builder()
-                    .connectionId("connection_id")
                     .currency(InternalAccountCreateParams.Currency.USD)
                     .name("name")
                     .addAccountCapability(
@@ -48,6 +47,7 @@ internal class InternalAccountServiceTest {
                             .build()
                     )
                     .accountType(InternalAccountCreateParams.AccountType.CHECKING)
+                    .connectionId("connection_id")
                     .counterpartyId("counterparty_id")
                     .debitable(true)
                     .externalId("external_id")

@@ -12,7 +12,6 @@ internal class InternalAccountCreateParamsTest {
     @Test
     fun create() {
         InternalAccountCreateParams.builder()
-            .connectionId("connection_id")
             .currency(InternalAccountCreateParams.Currency.USD)
             .name("name")
             .addAccountCapability(
@@ -29,6 +28,7 @@ internal class InternalAccountCreateParamsTest {
                     .build()
             )
             .accountType(InternalAccountCreateParams.AccountType.CHECKING)
+            .connectionId("connection_id")
             .counterpartyId("counterparty_id")
             .debitable(true)
             .externalId("external_id")
@@ -64,7 +64,6 @@ internal class InternalAccountCreateParamsTest {
     fun body() {
         val params =
             InternalAccountCreateParams.builder()
-                .connectionId("connection_id")
                 .currency(InternalAccountCreateParams.Currency.USD)
                 .name("name")
                 .addAccountCapability(
@@ -81,6 +80,7 @@ internal class InternalAccountCreateParamsTest {
                         .build()
                 )
                 .accountType(InternalAccountCreateParams.AccountType.CHECKING)
+                .connectionId("connection_id")
                 .counterpartyId("counterparty_id")
                 .debitable(true)
                 .externalId("external_id")
@@ -113,7 +113,6 @@ internal class InternalAccountCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.accountCapabilities())
@@ -131,6 +130,7 @@ internal class InternalAccountCreateParamsTest {
                     .build()
             )
         assertThat(body.accountType()).isEqualTo(InternalAccountCreateParams.AccountType.CHECKING)
+        assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.counterpartyId()).isEqualTo("counterparty_id")
         assertThat(body.debitable()).isEqualTo(true)
         assertThat(body.externalId()).isEqualTo("external_id")
@@ -168,14 +168,12 @@ internal class InternalAccountCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             InternalAccountCreateParams.builder()
-                .connectionId("connection_id")
                 .currency(InternalAccountCreateParams.Currency.USD)
                 .name("name")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.currency()).isEqualTo(InternalAccountCreateParams.Currency.USD)
         assertThat(body.name()).isEqualTo("name")
     }
