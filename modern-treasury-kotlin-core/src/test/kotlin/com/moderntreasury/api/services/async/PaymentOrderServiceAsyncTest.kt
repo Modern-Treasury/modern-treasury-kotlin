@@ -5,7 +5,6 @@ package com.moderntreasury.api.services.async
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.core.MultipartField
 import com.moderntreasury.api.models.AddressRequest
 import com.moderntreasury.api.models.ContactDetailCreateRequest
 import com.moderntreasury.api.models.Currency
@@ -21,12 +20,14 @@ import com.moderntreasury.api.models.PaymentOrderUpdateParams
 import com.moderntreasury.api.models.TransactionDirection
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
 internal class PaymentOrderServiceAsyncTest {
 
+    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     suspend fun create() {
         val client =
@@ -270,13 +271,14 @@ internal class PaymentOrderServiceAsyncTest {
                     .ultimateOriginatingPartyName("ultimate_originating_party_name")
                     .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                     .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                    .vendorAttributes(MultipartField.of(JsonValue.from(mapOf<String, Any>())))
+                    .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
 
         paymentOrder.validate()
     }
 
+    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     suspend fun retrieve() {
         val client =
@@ -292,6 +294,7 @@ internal class PaymentOrderServiceAsyncTest {
         paymentOrder.validate()
     }
 
+    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     suspend fun update() {
         val client =
@@ -464,6 +467,7 @@ internal class PaymentOrderServiceAsyncTest {
         paymentOrder.validate()
     }
 
+    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     suspend fun list() {
         val client =

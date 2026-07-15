@@ -22,9 +22,9 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-@Disabled("Prism doesn't generate valid recursive LegalEntityAssociation structures")
 internal class LegalEntityServiceTest {
 
+    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     fun create() {
         val client =
@@ -441,6 +441,7 @@ internal class LegalEntityServiceTest {
         legalEntity.validate()
     }
 
+    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     fun retrieve() {
         val client =
@@ -456,6 +457,7 @@ internal class LegalEntityServiceTest {
         legalEntity.validate()
     }
 
+    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     fun update() {
         val client =
@@ -628,6 +630,7 @@ internal class LegalEntityServiceTest {
         legalEntity.validate()
     }
 
+    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     fun list() {
         val client =

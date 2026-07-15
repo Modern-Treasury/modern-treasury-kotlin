@@ -402,12 +402,10 @@ private constructor(
      * Additional vendor specific fields for this payment. Data must be represented as key-value
      * pairs.
      *
-     * This arbitrary value can be deserialized into a custom type using the `convert` method:
-     * ```kotlin
-     * val myObject: MyClass = paymentOrderCreateParams.vendorAttributes().convert(MyClass::class.java)
-     * ```
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
-    fun _vendorAttributes(): MultipartField<JsonValue> = body._vendorAttributes()
+    fun vendorAttributes(): JsonValue? = body.vendorAttributes()
 
     /**
      * Returns the raw multipart value of [amount].
@@ -726,6 +724,14 @@ private constructor(
      * unexpected type.
      */
     fun _ultimateReceivingPartyName(): MultipartField<String> = body._ultimateReceivingPartyName()
+
+    /**
+     * Returns the raw multipart value of [vendorAttributes].
+     *
+     * Unlike [vendorAttributes], this method doesn't throw if the multipart field has an unexpected
+     * type.
+     */
+    fun _vendorAttributes(): MultipartField<JsonValue> = body._vendorAttributes()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -1501,6 +1507,17 @@ private constructor(
          * Additional vendor specific fields for this payment. Data must be represented as key-value
          * pairs.
          */
+        fun vendorAttributes(vendorAttributes: JsonValue) = apply {
+            body.vendorAttributes(vendorAttributes)
+        }
+
+        /**
+         * Sets [Builder.vendorAttributes] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.vendorAttributes] with a well-typed [JsonValue] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun vendorAttributes(vendorAttributes: MultipartField<JsonValue>) = apply {
             body.vendorAttributes(vendorAttributes)
         }
@@ -2139,14 +2156,10 @@ private constructor(
          * Additional vendor specific fields for this payment. Data must be represented as key-value
          * pairs.
          *
-         * This arbitrary value can be deserialized into a custom type using the `convert` method:
-         * ```kotlin
-         * val myObject: MyClass = paymentOrderCreateRequest.vendorAttributes().convert(MyClass::class.java)
-         * ```
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
-        @JsonProperty("vendor_attributes")
-        @ExcludeMissing
-        fun _vendorAttributes(): MultipartField<JsonValue> = vendorAttributes
+        fun vendorAttributes(): JsonValue? = vendorAttributes.value.getNullable("vendor_attributes")
 
         /**
          * Returns the raw multipart value of [amount].
@@ -2547,6 +2560,16 @@ private constructor(
         @JsonProperty("ultimate_receiving_party_name")
         @ExcludeMissing
         fun _ultimateReceivingPartyName(): MultipartField<String> = ultimateReceivingPartyName
+
+        /**
+         * Returns the raw multipart value of [vendorAttributes].
+         *
+         * Unlike [vendorAttributes], this method doesn't throw if the multipart field has an
+         * unexpected type.
+         */
+        @JsonProperty("vendor_attributes")
+        @ExcludeMissing
+        fun _vendorAttributes(): MultipartField<JsonValue> = vendorAttributes
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -3424,6 +3447,16 @@ private constructor(
             /**
              * Additional vendor specific fields for this payment. Data must be represented as
              * key-value pairs.
+             */
+            fun vendorAttributes(vendorAttributes: JsonValue) =
+                vendorAttributes(MultipartField.of(vendorAttributes))
+
+            /**
+             * Sets [Builder.vendorAttributes] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.vendorAttributes] with a well-typed [JsonValue]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun vendorAttributes(vendorAttributes: MultipartField<JsonValue>) = apply {
                 this.vendorAttributes = vendorAttributes
