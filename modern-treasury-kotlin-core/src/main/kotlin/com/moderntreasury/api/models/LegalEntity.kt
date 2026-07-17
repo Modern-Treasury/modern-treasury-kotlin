@@ -63,6 +63,7 @@ private constructor(
     private val serviceProviderLegalEntityId: JsonField<String>,
     private val status: JsonField<Status>,
     private val suffix: JsonField<String>,
+    private val termsOfUse: JsonField<TermsOfUse>,
     private val thirdPartyVerification: JsonField<ThirdPartyVerification>,
     private val thirdPartyVerifications: JsonField<List<ThirdPartyVerification>>,
     private val tickerSymbol: JsonField<String>,
@@ -176,6 +177,9 @@ private constructor(
         serviceProviderLegalEntityId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("suffix") @ExcludeMissing suffix: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("terms_of_use")
+        @ExcludeMissing
+        termsOfUse: JsonField<TermsOfUse> = JsonMissing.of(),
         @JsonProperty("third_party_verification")
         @ExcludeMissing
         thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of(),
@@ -236,6 +240,7 @@ private constructor(
         serviceProviderLegalEntityId,
         status,
         suffix,
+        termsOfUse,
         thirdPartyVerification,
         thirdPartyVerifications,
         tickerSymbol,
@@ -562,6 +567,14 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun suffix(): String? = suffix.getNullable("suffix")
+
+    /**
+     * Acceptance of terms of use by the legal entity.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun termsOfUse(): TermsOfUse? = termsOfUse.getNullable("terms_of_use")
 
     /**
      * Deprecated. Use `third_party_verifications` instead.
@@ -959,6 +972,15 @@ private constructor(
     @JsonProperty("suffix") @ExcludeMissing fun _suffix(): JsonField<String> = suffix
 
     /**
+     * Returns the raw JSON value of [termsOfUse].
+     *
+     * Unlike [termsOfUse], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("terms_of_use")
+    @ExcludeMissing
+    fun _termsOfUse(): JsonField<TermsOfUse> = termsOfUse
+
+    /**
      * Returns the raw JSON value of [thirdPartyVerification].
      *
      * Unlike [thirdPartyVerification], this method doesn't throw if the JSON field has an
@@ -1086,6 +1108,7 @@ private constructor(
          * .serviceProviderLegalEntityId()
          * .status()
          * .suffix()
+         * .termsOfUse()
          * .thirdPartyVerification()
          * .thirdPartyVerifications()
          * .tickerSymbol()
@@ -1142,6 +1165,7 @@ private constructor(
         private var serviceProviderLegalEntityId: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var suffix: JsonField<String>? = null
+        private var termsOfUse: JsonField<TermsOfUse>? = null
         private var thirdPartyVerification: JsonField<ThirdPartyVerification>? = null
         private var thirdPartyVerifications: JsonField<MutableList<ThirdPartyVerification>>? = null
         private var tickerSymbol: JsonField<String>? = null
@@ -1192,6 +1216,7 @@ private constructor(
             serviceProviderLegalEntityId = legalEntity.serviceProviderLegalEntityId
             status = legalEntity.status
             suffix = legalEntity.suffix
+            termsOfUse = legalEntity.termsOfUse
             thirdPartyVerification = legalEntity.thirdPartyVerification
             thirdPartyVerifications = legalEntity.thirdPartyVerifications.map { it.toMutableList() }
             tickerSymbol = legalEntity.tickerSymbol
@@ -1864,6 +1889,18 @@ private constructor(
          */
         fun suffix(suffix: JsonField<String>) = apply { this.suffix = suffix }
 
+        /** Acceptance of terms of use by the legal entity. */
+        fun termsOfUse(termsOfUse: TermsOfUse?) = termsOfUse(JsonField.ofNullable(termsOfUse))
+
+        /**
+         * Sets [Builder.termsOfUse] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.termsOfUse] with a well-typed [TermsOfUse] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun termsOfUse(termsOfUse: JsonField<TermsOfUse>) = apply { this.termsOfUse = termsOfUse }
+
         /** Deprecated. Use `third_party_verifications` instead. */
         @Deprecated("deprecated")
         fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification?) =
@@ -2056,6 +2093,7 @@ private constructor(
          * .serviceProviderLegalEntityId()
          * .status()
          * .suffix()
+         * .termsOfUse()
          * .thirdPartyVerification()
          * .thirdPartyVerifications()
          * .tickerSymbol()
@@ -2116,6 +2154,7 @@ private constructor(
                 checkRequired("serviceProviderLegalEntityId", serviceProviderLegalEntityId),
                 checkRequired("status", status),
                 checkRequired("suffix", suffix),
+                checkRequired("termsOfUse", termsOfUse),
                 checkRequired("thirdPartyVerification", thirdPartyVerification),
                 checkRequired("thirdPartyVerifications", thirdPartyVerifications).map {
                     it.toImmutable()
@@ -2183,6 +2222,7 @@ private constructor(
         serviceProviderLegalEntityId()
         status()?.validate()
         suffix()
+        termsOfUse()?.validate()
         thirdPartyVerification()?.validate()
         thirdPartyVerifications().forEach { it.validate() }
         tickerSymbol()
@@ -2246,6 +2286,7 @@ private constructor(
             (if (serviceProviderLegalEntityId.asKnown() == null) 0 else 1) +
             (status.asKnown()?.validity() ?: 0) +
             (if (suffix.asKnown() == null) 0 else 1) +
+            (termsOfUse.asKnown()?.validity() ?: 0) +
             (thirdPartyVerification.asKnown()?.validity() ?: 0) +
             (thirdPartyVerifications.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (tickerSymbol.asKnown() == null) 0 else 1) +
@@ -2400,7 +2441,8 @@ private constructor(
         fun postalCode(): String? = postalCode.getNullable("postal_code")
 
         /**
-         * Whether this address is the primary address for the legal entity.
+         * Whether this address is the primary address for the legal entity. Optional; when omitted
+         * it is inferred from the address types.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -2754,7 +2796,10 @@ private constructor(
              */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
-            /** Whether this address is the primary address for the legal entity. */
+            /**
+             * Whether this address is the primary address for the legal entity. Optional; when
+             * omitted it is inferred from the address types.
+             */
             fun primary(primary: Boolean?) = primary(JsonField.ofNullable(primary))
 
             /**
@@ -2942,6 +2987,8 @@ private constructor(
 
                 val BUSINESS = of("business")
 
+                val BUSINESS_PHYSICAL = of("business_physical")
+
                 val BUSINESS_REGISTERED = of("business_registered")
 
                 val MAILING = of("mailing")
@@ -2958,6 +3005,7 @@ private constructor(
             /** An enum containing [AddressType]'s known values. */
             enum class Known {
                 BUSINESS,
+                BUSINESS_PHYSICAL,
                 BUSINESS_REGISTERED,
                 MAILING,
                 OTHER,
@@ -2976,6 +3024,7 @@ private constructor(
              */
             enum class Value {
                 BUSINESS,
+                BUSINESS_PHYSICAL,
                 BUSINESS_REGISTERED,
                 MAILING,
                 OTHER,
@@ -2998,6 +3047,7 @@ private constructor(
             fun value(): Value =
                 when (this) {
                     BUSINESS -> Value.BUSINESS
+                    BUSINESS_PHYSICAL -> Value.BUSINESS_PHYSICAL
                     BUSINESS_REGISTERED -> Value.BUSINESS_REGISTERED
                     MAILING -> Value.MAILING
                     OTHER -> Value.OTHER
@@ -3018,6 +3068,7 @@ private constructor(
             fun known(): Known =
                 when (this) {
                     BUSINESS -> Known.BUSINESS
+                    BUSINESS_PHYSICAL -> Known.BUSINESS_PHYSICAL
                     BUSINESS_REGISTERED -> Known.BUSINESS_REGISTERED
                     MAILING -> Known.MAILING
                     OTHER -> Known.OTHER
@@ -3732,11 +3783,29 @@ private constructor(
 
                 val AR_CUIT = of("ar_cuit")
 
+                val AT_ATIN = of("at_atin")
+
+                val AT_VAT = of("at_vat")
+
+                val AU_ABN = of("au_abn")
+
+                val AU_TFN = of("au_tfn")
+
+                val BE_ENT = of("be_ent")
+
+                val BE_NRN = of("be_nrn")
+
                 val BR_CNPJ = of("br_cnpj")
 
                 val BR_CPF = of("br_cpf")
 
+                val CA_BN = of("ca_bn")
+
                 val CA_SIN = of("ca_sin")
+
+                val CH_AHV = of("ch_ahv")
+
+                val CH_UID = of("ch_uid")
 
                 val CL_RUN = of("cl_run")
 
@@ -3746,21 +3815,77 @@ private constructor(
 
                 val CO_NIT = of("co_nit")
 
+                val CY_TIN = of("cy_tin")
+
+                val CZ_ICO = of("cz_ico")
+
+                val CZ_RC = of("cz_rc")
+
+                val DE_STID = of("de_stid")
+
+                val DE_STNR = of("de_stnr")
+
+                val DE_VAT = of("de_vat")
+
+                val DK_CPR = of("dk_cpr")
+
+                val DK_CVR = of("dk_cvr")
+
                 val DRIVERS_LICENSE = of("drivers_license")
 
+                val EE_IK = of("ee_ik")
+
+                val EE_RK = of("ee_rk")
+
+                val ES_NIE = of("es_nie")
+
                 val ES_NIF = of("es_nif")
+
+                val FI_HETU = of("fi_hetu")
+
+                val FI_YTJ = of("fi_ytj")
+
+                val FR_NIF = of("fr_nif")
+
+                val FR_SIREN = of("fr_siren")
+
+                val FR_VAT = of("fr_vat")
 
                 val GB_NINO = of("gb_nino")
 
                 val GB_UTR = of("gb_utr")
 
+                val GB_VAT = of("gb_vat")
+
+                val GENERIC_INTERNATIONAL = of("generic_international")
+
+                val GR_VAT = of("gr_vat")
+
                 val HN_ID = of("hn_id")
 
                 val HN_RTN = of("hn_rtn")
 
+                val HR_OIB = of("hr_oib")
+
+                val HU_ADJ = of("hu_adj")
+
+                val HU_ANUM = of("hu_anum")
+
                 val IE_PPS = of("ie_pps")
 
+                val IE_TRN = of("ie_trn")
+
                 val IN_LEI = of("in_lei")
+
+                val IS_KNT = of("is_knt")
+
+                val IT_CF = of("it_cf")
+
+                val IT_PIVA = of("it_piva")
+
+                val JP_HB = of("jp_hb")
+
+                val JP_MN = of("jp_mn")
 
                 val KR_BRN = of("kr_brn")
 
@@ -3768,17 +3893,79 @@ private constructor(
 
                 val KR_RRN = of("kr_rrn")
 
+                val LI_PEID = of("li_peid")
+
+                val LT_AK = of("lt_ak")
+
+                val LT_JAK = of("lt_jak")
+
+                val LU_MTC = of("lu_mtc")
+
+                val LU_VAT = of("lu_vat")
+
+                val LV_PK = of("lv_pk")
+
+                val LV_RN = of("lv_rn")
+
+                val MT_TIN = of("mt_tin")
+
+                val MT_VAT = of("mt_vat")
+
                 val MX_CURP = of("mx_curp")
 
                 val MX_INE = of("mx_ine")
 
                 val MX_RFC = of("mx_rfc")
 
+                val NATIONAL_ID = of("national_id")
+
+                val NL_BSN = of("nl_bsn")
+
+                val NL_BTW = of("nl_btw")
+
+                val NL_RSIN = of("nl_rsin")
+
+                val NO_FDN = of("no_fdn")
+
+                val NO_MVA = of("no_mva")
+
+                val NO_ORGNR = of("no_orgnr")
+
+                val NZ_IRD = of("nz_ird")
+
                 val PASSPORT = of("passport")
+
+                val PL_NIP = of("pl_nip")
+
+                val PL_PESEL = of("pl_pesel")
+
+                val PT_NIF = of("pt_nif")
+
+                val RO_CNP = of("ro_cnp")
+
+                val RO_CUI = of("ro_cui")
 
                 val SA_TIN = of("sa_tin")
 
                 val SA_VAT = of("sa_vat")
+
+                val SE_ORGNR = of("se_orgnr")
+
+                val SE_PNMR = of("se_pnmr")
+
+                val SG_FIN = of("sg_fin")
+
+                val SG_NRIC = of("sg_nric")
+
+                val SG_UEN = of("sg_uen")
+
+                val SI_DAV = of("si_dav")
+
+                val SI_TIN = of("si_tin")
+
+                val SK_ICO = of("sk_ico")
+
+                val SK_RC = of("sk_rc")
 
                 val US_EIN = of("us_ein")
 
@@ -3797,30 +3984,98 @@ private constructor(
             enum class Known {
                 AR_CUIL,
                 AR_CUIT,
+                AT_ATIN,
+                AT_VAT,
+                AU_ABN,
+                AU_TFN,
+                BE_ENT,
+                BE_NRN,
                 BR_CNPJ,
                 BR_CPF,
+                CA_BN,
                 CA_SIN,
+                CH_AHV,
+                CH_UID,
                 CL_RUN,
                 CL_RUT,
                 CO_CEDULAS,
                 CO_NIT,
+                CY_TIN,
+                CZ_ICO,
+                CZ_RC,
+                DE_STID,
+                DE_STNR,
+                DE_VAT,
+                DK_CPR,
+                DK_CVR,
                 DRIVERS_LICENSE,
+                EE_IK,
+                EE_RK,
+                ES_NIE,
                 ES_NIF,
+                FI_HETU,
+                FI_YTJ,
+                FR_NIF,
+                FR_SIREN,
+                FR_VAT,
                 GB_NINO,
                 GB_UTR,
+                GB_VAT,
+                GENERIC_INTERNATIONAL,
+                GR_VAT,
                 HN_ID,
                 HN_RTN,
+                HR_OIB,
+                HU_ADJ,
+                HU_ANUM,
                 IE_PPS,
+                IE_TRN,
                 IN_LEI,
+                IS_KNT,
+                IT_CF,
+                IT_PIVA,
+                JP_HB,
+                JP_MN,
                 KR_BRN,
                 KR_CRN,
                 KR_RRN,
+                LI_PEID,
+                LT_AK,
+                LT_JAK,
+                LU_MTC,
+                LU_VAT,
+                LV_PK,
+                LV_RN,
+                MT_TIN,
+                MT_VAT,
                 MX_CURP,
                 MX_INE,
                 MX_RFC,
+                NATIONAL_ID,
+                NL_BSN,
+                NL_BTW,
+                NL_RSIN,
+                NO_FDN,
+                NO_MVA,
+                NO_ORGNR,
+                NZ_IRD,
                 PASSPORT,
+                PL_NIP,
+                PL_PESEL,
+                PT_NIF,
+                RO_CNP,
+                RO_CUI,
                 SA_TIN,
                 SA_VAT,
+                SE_ORGNR,
+                SE_PNMR,
+                SG_FIN,
+                SG_NRIC,
+                SG_UEN,
+                SI_DAV,
+                SI_TIN,
+                SK_ICO,
+                SK_RC,
                 US_EIN,
                 US_ITIN,
                 US_SSN,
@@ -3840,30 +4095,98 @@ private constructor(
             enum class Value {
                 AR_CUIL,
                 AR_CUIT,
+                AT_ATIN,
+                AT_VAT,
+                AU_ABN,
+                AU_TFN,
+                BE_ENT,
+                BE_NRN,
                 BR_CNPJ,
                 BR_CPF,
+                CA_BN,
                 CA_SIN,
+                CH_AHV,
+                CH_UID,
                 CL_RUN,
                 CL_RUT,
                 CO_CEDULAS,
                 CO_NIT,
+                CY_TIN,
+                CZ_ICO,
+                CZ_RC,
+                DE_STID,
+                DE_STNR,
+                DE_VAT,
+                DK_CPR,
+                DK_CVR,
                 DRIVERS_LICENSE,
+                EE_IK,
+                EE_RK,
+                ES_NIE,
                 ES_NIF,
+                FI_HETU,
+                FI_YTJ,
+                FR_NIF,
+                FR_SIREN,
+                FR_VAT,
                 GB_NINO,
                 GB_UTR,
+                GB_VAT,
+                GENERIC_INTERNATIONAL,
+                GR_VAT,
                 HN_ID,
                 HN_RTN,
+                HR_OIB,
+                HU_ADJ,
+                HU_ANUM,
                 IE_PPS,
+                IE_TRN,
                 IN_LEI,
+                IS_KNT,
+                IT_CF,
+                IT_PIVA,
+                JP_HB,
+                JP_MN,
                 KR_BRN,
                 KR_CRN,
                 KR_RRN,
+                LI_PEID,
+                LT_AK,
+                LT_JAK,
+                LU_MTC,
+                LU_VAT,
+                LV_PK,
+                LV_RN,
+                MT_TIN,
+                MT_VAT,
                 MX_CURP,
                 MX_INE,
                 MX_RFC,
+                NATIONAL_ID,
+                NL_BSN,
+                NL_BTW,
+                NL_RSIN,
+                NO_FDN,
+                NO_MVA,
+                NO_ORGNR,
+                NZ_IRD,
                 PASSPORT,
+                PL_NIP,
+                PL_PESEL,
+                PT_NIF,
+                RO_CNP,
+                RO_CUI,
                 SA_TIN,
                 SA_VAT,
+                SE_ORGNR,
+                SE_PNMR,
+                SG_FIN,
+                SG_NRIC,
+                SG_UEN,
+                SI_DAV,
+                SI_TIN,
+                SK_ICO,
+                SK_RC,
                 US_EIN,
                 US_ITIN,
                 US_SSN,
@@ -3886,30 +4209,98 @@ private constructor(
                 when (this) {
                     AR_CUIL -> Value.AR_CUIL
                     AR_CUIT -> Value.AR_CUIT
+                    AT_ATIN -> Value.AT_ATIN
+                    AT_VAT -> Value.AT_VAT
+                    AU_ABN -> Value.AU_ABN
+                    AU_TFN -> Value.AU_TFN
+                    BE_ENT -> Value.BE_ENT
+                    BE_NRN -> Value.BE_NRN
                     BR_CNPJ -> Value.BR_CNPJ
                     BR_CPF -> Value.BR_CPF
+                    CA_BN -> Value.CA_BN
                     CA_SIN -> Value.CA_SIN
+                    CH_AHV -> Value.CH_AHV
+                    CH_UID -> Value.CH_UID
                     CL_RUN -> Value.CL_RUN
                     CL_RUT -> Value.CL_RUT
                     CO_CEDULAS -> Value.CO_CEDULAS
                     CO_NIT -> Value.CO_NIT
+                    CY_TIN -> Value.CY_TIN
+                    CZ_ICO -> Value.CZ_ICO
+                    CZ_RC -> Value.CZ_RC
+                    DE_STID -> Value.DE_STID
+                    DE_STNR -> Value.DE_STNR
+                    DE_VAT -> Value.DE_VAT
+                    DK_CPR -> Value.DK_CPR
+                    DK_CVR -> Value.DK_CVR
                     DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
+                    EE_IK -> Value.EE_IK
+                    EE_RK -> Value.EE_RK
+                    ES_NIE -> Value.ES_NIE
                     ES_NIF -> Value.ES_NIF
+                    FI_HETU -> Value.FI_HETU
+                    FI_YTJ -> Value.FI_YTJ
+                    FR_NIF -> Value.FR_NIF
+                    FR_SIREN -> Value.FR_SIREN
+                    FR_VAT -> Value.FR_VAT
                     GB_NINO -> Value.GB_NINO
                     GB_UTR -> Value.GB_UTR
+                    GB_VAT -> Value.GB_VAT
+                    GENERIC_INTERNATIONAL -> Value.GENERIC_INTERNATIONAL
+                    GR_VAT -> Value.GR_VAT
                     HN_ID -> Value.HN_ID
                     HN_RTN -> Value.HN_RTN
+                    HR_OIB -> Value.HR_OIB
+                    HU_ADJ -> Value.HU_ADJ
+                    HU_ANUM -> Value.HU_ANUM
                     IE_PPS -> Value.IE_PPS
+                    IE_TRN -> Value.IE_TRN
                     IN_LEI -> Value.IN_LEI
+                    IS_KNT -> Value.IS_KNT
+                    IT_CF -> Value.IT_CF
+                    IT_PIVA -> Value.IT_PIVA
+                    JP_HB -> Value.JP_HB
+                    JP_MN -> Value.JP_MN
                     KR_BRN -> Value.KR_BRN
                     KR_CRN -> Value.KR_CRN
                     KR_RRN -> Value.KR_RRN
+                    LI_PEID -> Value.LI_PEID
+                    LT_AK -> Value.LT_AK
+                    LT_JAK -> Value.LT_JAK
+                    LU_MTC -> Value.LU_MTC
+                    LU_VAT -> Value.LU_VAT
+                    LV_PK -> Value.LV_PK
+                    LV_RN -> Value.LV_RN
+                    MT_TIN -> Value.MT_TIN
+                    MT_VAT -> Value.MT_VAT
                     MX_CURP -> Value.MX_CURP
                     MX_INE -> Value.MX_INE
                     MX_RFC -> Value.MX_RFC
+                    NATIONAL_ID -> Value.NATIONAL_ID
+                    NL_BSN -> Value.NL_BSN
+                    NL_BTW -> Value.NL_BTW
+                    NL_RSIN -> Value.NL_RSIN
+                    NO_FDN -> Value.NO_FDN
+                    NO_MVA -> Value.NO_MVA
+                    NO_ORGNR -> Value.NO_ORGNR
+                    NZ_IRD -> Value.NZ_IRD
                     PASSPORT -> Value.PASSPORT
+                    PL_NIP -> Value.PL_NIP
+                    PL_PESEL -> Value.PL_PESEL
+                    PT_NIF -> Value.PT_NIF
+                    RO_CNP -> Value.RO_CNP
+                    RO_CUI -> Value.RO_CUI
                     SA_TIN -> Value.SA_TIN
                     SA_VAT -> Value.SA_VAT
+                    SE_ORGNR -> Value.SE_ORGNR
+                    SE_PNMR -> Value.SE_PNMR
+                    SG_FIN -> Value.SG_FIN
+                    SG_NRIC -> Value.SG_NRIC
+                    SG_UEN -> Value.SG_UEN
+                    SI_DAV -> Value.SI_DAV
+                    SI_TIN -> Value.SI_TIN
+                    SK_ICO -> Value.SK_ICO
+                    SK_RC -> Value.SK_RC
                     US_EIN -> Value.US_EIN
                     US_ITIN -> Value.US_ITIN
                     US_SSN -> Value.US_SSN
@@ -3931,30 +4322,98 @@ private constructor(
                 when (this) {
                     AR_CUIL -> Known.AR_CUIL
                     AR_CUIT -> Known.AR_CUIT
+                    AT_ATIN -> Known.AT_ATIN
+                    AT_VAT -> Known.AT_VAT
+                    AU_ABN -> Known.AU_ABN
+                    AU_TFN -> Known.AU_TFN
+                    BE_ENT -> Known.BE_ENT
+                    BE_NRN -> Known.BE_NRN
                     BR_CNPJ -> Known.BR_CNPJ
                     BR_CPF -> Known.BR_CPF
+                    CA_BN -> Known.CA_BN
                     CA_SIN -> Known.CA_SIN
+                    CH_AHV -> Known.CH_AHV
+                    CH_UID -> Known.CH_UID
                     CL_RUN -> Known.CL_RUN
                     CL_RUT -> Known.CL_RUT
                     CO_CEDULAS -> Known.CO_CEDULAS
                     CO_NIT -> Known.CO_NIT
+                    CY_TIN -> Known.CY_TIN
+                    CZ_ICO -> Known.CZ_ICO
+                    CZ_RC -> Known.CZ_RC
+                    DE_STID -> Known.DE_STID
+                    DE_STNR -> Known.DE_STNR
+                    DE_VAT -> Known.DE_VAT
+                    DK_CPR -> Known.DK_CPR
+                    DK_CVR -> Known.DK_CVR
                     DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
+                    EE_IK -> Known.EE_IK
+                    EE_RK -> Known.EE_RK
+                    ES_NIE -> Known.ES_NIE
                     ES_NIF -> Known.ES_NIF
+                    FI_HETU -> Known.FI_HETU
+                    FI_YTJ -> Known.FI_YTJ
+                    FR_NIF -> Known.FR_NIF
+                    FR_SIREN -> Known.FR_SIREN
+                    FR_VAT -> Known.FR_VAT
                     GB_NINO -> Known.GB_NINO
                     GB_UTR -> Known.GB_UTR
+                    GB_VAT -> Known.GB_VAT
+                    GENERIC_INTERNATIONAL -> Known.GENERIC_INTERNATIONAL
+                    GR_VAT -> Known.GR_VAT
                     HN_ID -> Known.HN_ID
                     HN_RTN -> Known.HN_RTN
+                    HR_OIB -> Known.HR_OIB
+                    HU_ADJ -> Known.HU_ADJ
+                    HU_ANUM -> Known.HU_ANUM
                     IE_PPS -> Known.IE_PPS
+                    IE_TRN -> Known.IE_TRN
                     IN_LEI -> Known.IN_LEI
+                    IS_KNT -> Known.IS_KNT
+                    IT_CF -> Known.IT_CF
+                    IT_PIVA -> Known.IT_PIVA
+                    JP_HB -> Known.JP_HB
+                    JP_MN -> Known.JP_MN
                     KR_BRN -> Known.KR_BRN
                     KR_CRN -> Known.KR_CRN
                     KR_RRN -> Known.KR_RRN
+                    LI_PEID -> Known.LI_PEID
+                    LT_AK -> Known.LT_AK
+                    LT_JAK -> Known.LT_JAK
+                    LU_MTC -> Known.LU_MTC
+                    LU_VAT -> Known.LU_VAT
+                    LV_PK -> Known.LV_PK
+                    LV_RN -> Known.LV_RN
+                    MT_TIN -> Known.MT_TIN
+                    MT_VAT -> Known.MT_VAT
                     MX_CURP -> Known.MX_CURP
                     MX_INE -> Known.MX_INE
                     MX_RFC -> Known.MX_RFC
+                    NATIONAL_ID -> Known.NATIONAL_ID
+                    NL_BSN -> Known.NL_BSN
+                    NL_BTW -> Known.NL_BTW
+                    NL_RSIN -> Known.NL_RSIN
+                    NO_FDN -> Known.NO_FDN
+                    NO_MVA -> Known.NO_MVA
+                    NO_ORGNR -> Known.NO_ORGNR
+                    NZ_IRD -> Known.NZ_IRD
                     PASSPORT -> Known.PASSPORT
+                    PL_NIP -> Known.PL_NIP
+                    PL_PESEL -> Known.PL_PESEL
+                    PT_NIF -> Known.PT_NIF
+                    RO_CNP -> Known.RO_CNP
+                    RO_CUI -> Known.RO_CUI
                     SA_TIN -> Known.SA_TIN
                     SA_VAT -> Known.SA_VAT
+                    SE_ORGNR -> Known.SE_ORGNR
+                    SE_PNMR -> Known.SE_PNMR
+                    SG_FIN -> Known.SG_FIN
+                    SG_NRIC -> Known.SG_NRIC
+                    SG_UEN -> Known.SG_UEN
+                    SI_DAV -> Known.SI_DAV
+                    SI_TIN -> Known.SI_TIN
+                    SK_ICO -> Known.SK_ICO
+                    SK_RC -> Known.SK_RC
                     US_EIN -> Known.US_EIN
                     US_ITIN -> Known.US_ITIN
                     US_SSN -> Known.US_SSN
@@ -4089,8 +4548,6 @@ private constructor(
 
             val INDIVIDUAL = of("individual")
 
-            val JOINT = of("joint")
-
             fun of(value: String) = LegalEntityType(JsonField.of(value))
         }
 
@@ -4098,7 +4555,6 @@ private constructor(
         enum class Known {
             BUSINESS,
             INDIVIDUAL,
-            JOINT,
         }
 
         /**
@@ -4113,7 +4569,6 @@ private constructor(
         enum class Value {
             BUSINESS,
             INDIVIDUAL,
-            JOINT,
             /**
              * An enum member indicating that [LegalEntityType] was instantiated with an unknown
              * value.
@@ -4132,7 +4587,6 @@ private constructor(
             when (this) {
                 BUSINESS -> Value.BUSINESS
                 INDIVIDUAL -> Value.INDIVIDUAL
-                JOINT -> Value.JOINT
                 else -> Value._UNKNOWN
             }
 
@@ -4149,7 +4603,6 @@ private constructor(
             when (this) {
                 BUSINESS -> Known.BUSINESS
                 INDIVIDUAL -> Known.INDIVIDUAL
-                JOINT -> Known.JOINT
                 else -> throw ModernTreasuryInvalidDataException("Unknown LegalEntityType: $value")
             }
 
@@ -5190,6 +5643,206 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** Acceptance of terms of use by the legal entity. */
+    class TermsOfUse
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val acceptedAt: JsonField<OffsetDateTime>,
+        private val ipAddress: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("accepted_at")
+            @ExcludeMissing
+            acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("ip_address")
+            @ExcludeMissing
+            ipAddress: JsonField<String> = JsonMissing.of(),
+        ) : this(acceptedAt, ipAddress, mutableMapOf())
+
+        /**
+         * The ISO 8601 timestamp indicating when the terms of use were accepted.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun acceptedAt(): OffsetDateTime? = acceptedAt.getNullable("accepted_at")
+
+        /**
+         * The IP address from which the terms of use were accepted. Supports both IPv4 and IPv6
+         * formats.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun ipAddress(): String? = ipAddress.getNullable("ip_address")
+
+        /**
+         * Returns the raw JSON value of [acceptedAt].
+         *
+         * Unlike [acceptedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("accepted_at")
+        @ExcludeMissing
+        fun _acceptedAt(): JsonField<OffsetDateTime> = acceptedAt
+
+        /**
+         * Returns the raw JSON value of [ipAddress].
+         *
+         * Unlike [ipAddress], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("ip_address") @ExcludeMissing fun _ipAddress(): JsonField<String> = ipAddress
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [TermsOfUse]. */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [TermsOfUse]. */
+        class Builder internal constructor() {
+
+            private var acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var ipAddress: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(termsOfUse: TermsOfUse) = apply {
+                acceptedAt = termsOfUse.acceptedAt
+                ipAddress = termsOfUse.ipAddress
+                additionalProperties = termsOfUse.additionalProperties.toMutableMap()
+            }
+
+            /** The ISO 8601 timestamp indicating when the terms of use were accepted. */
+            fun acceptedAt(acceptedAt: OffsetDateTime) = acceptedAt(JsonField.of(acceptedAt))
+
+            /**
+             * Sets [Builder.acceptedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.acceptedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun acceptedAt(acceptedAt: JsonField<OffsetDateTime>) = apply {
+                this.acceptedAt = acceptedAt
+            }
+
+            /**
+             * The IP address from which the terms of use were accepted. Supports both IPv4 and IPv6
+             * formats.
+             */
+            fun ipAddress(ipAddress: String) = ipAddress(JsonField.of(ipAddress))
+
+            /**
+             * Sets [Builder.ipAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ipAddress] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun ipAddress(ipAddress: JsonField<String>) = apply { this.ipAddress = ipAddress }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [TermsOfUse].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): TermsOfUse =
+                TermsOfUse(acceptedAt, ipAddress, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
+         *   its expected type.
+         */
+        fun validate(): TermsOfUse = apply {
+            if (validated) {
+                return@apply
+            }
+
+            acceptedAt()
+            ipAddress()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (acceptedAt.asKnown() == null) 0 else 1) +
+                (if (ipAddress.asKnown() == null) 0 else 1)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is TermsOfUse &&
+                acceptedAt == other.acceptedAt &&
+                ipAddress == other.ipAddress &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(acceptedAt, ipAddress, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "TermsOfUse{acceptedAt=$acceptedAt, ipAddress=$ipAddress, additionalProperties=$additionalProperties}"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -5236,6 +5889,7 @@ private constructor(
             serviceProviderLegalEntityId == other.serviceProviderLegalEntityId &&
             status == other.status &&
             suffix == other.suffix &&
+            termsOfUse == other.termsOfUse &&
             thirdPartyVerification == other.thirdPartyVerification &&
             thirdPartyVerifications == other.thirdPartyVerifications &&
             tickerSymbol == other.tickerSymbol &&
@@ -5288,6 +5942,7 @@ private constructor(
             serviceProviderLegalEntityId,
             status,
             suffix,
+            termsOfUse,
             thirdPartyVerification,
             thirdPartyVerifications,
             tickerSymbol,
@@ -5302,5 +5957,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "LegalEntity{id=$id, addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, countryOfIncorporation=$countryOfIncorporation, createdAt=$createdAt, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, discardedAt=$discardedAt, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityType=$legalEntityType, legalStructure=$legalStructure, listedExchange=$listedExchange, liveMode=$liveMode, metadata=$metadata, middleName=$middleName, object_=$object_, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, serviceProviderLegalEntityId=$serviceProviderLegalEntityId, status=$status, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, thirdPartyVerifications=$thirdPartyVerifications, tickerSymbol=$tickerSymbol, updatedAt=$updatedAt, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, legalEntityAssociations=$legalEntityAssociations, additionalProperties=$additionalProperties}"
+        "LegalEntity{id=$id, addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, countryOfIncorporation=$countryOfIncorporation, createdAt=$createdAt, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, discardedAt=$discardedAt, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityType=$legalEntityType, legalStructure=$legalStructure, listedExchange=$listedExchange, liveMode=$liveMode, metadata=$metadata, middleName=$middleName, object_=$object_, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, serviceProviderLegalEntityId=$serviceProviderLegalEntityId, status=$status, suffix=$suffix, termsOfUse=$termsOfUse, thirdPartyVerification=$thirdPartyVerification, thirdPartyVerifications=$thirdPartyVerifications, tickerSymbol=$tickerSymbol, updatedAt=$updatedAt, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, legalEntityAssociations=$legalEntityAssociations, additionalProperties=$additionalProperties}"
 }

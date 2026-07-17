@@ -13,6 +13,7 @@ import com.moderntreasury.api.models.LegalEntityAssociationInlineCreate
 import com.moderntreasury.api.models.LegalEntityCreateParams
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
 import com.moderntreasury.api.models.LegalEntityUpdateParams
+import com.moderntreasury.api.models.LegalEntityUpdateStatusParams
 import com.moderntreasury.api.models.ThirdPartyVerification
 import com.moderntreasury.api.models.WealthAndEmploymentDetails
 import java.time.LocalDate
@@ -25,6 +26,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 @Disabled("Prism doesn't generate valid recursive LegalEntityAssociation structures")
 internal class LegalEntityServiceAsyncTest {
 
+    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     suspend fun create() {
         val client =
@@ -272,6 +274,14 @@ internal class LegalEntityServiceAsyncTest {
                                         "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
                                     )
                                     .suffix("suffix")
+                                    .termsOfUse(
+                                        ChildLegalEntityCreate.TermsOfUse.builder()
+                                            .acceptedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .ipAddress("ip_address")
+                                            .build()
+                                    )
                                     .thirdPartyVerification(
                                         ThirdPartyVerification.builder()
                                             .outcome(ThirdPartyVerification.Outcome.PASSED)
@@ -385,6 +395,12 @@ internal class LegalEntityServiceAsyncTest {
                     .riskRating(LegalEntityCreateParams.RiskRating.LOW)
                     .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .suffix("suffix")
+                    .termsOfUse(
+                        LegalEntityCreateParams.TermsOfUse.builder()
+                            .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .ipAddress("ip_address")
+                            .build()
+                    )
                     .thirdPartyVerification(
                         ThirdPartyVerification.builder()
                             .outcome(ThirdPartyVerification.Outcome.PASSED)
@@ -441,6 +457,7 @@ internal class LegalEntityServiceAsyncTest {
         legalEntity.validate()
     }
 
+    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     suspend fun retrieve() {
         val client =
@@ -456,6 +473,7 @@ internal class LegalEntityServiceAsyncTest {
         legalEntity.validate()
     }
 
+    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     suspend fun update() {
         val client =
@@ -572,6 +590,12 @@ internal class LegalEntityServiceAsyncTest {
                     .riskRating(LegalEntityUpdateParams.RiskRating.LOW)
                     .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .suffix("suffix")
+                    .termsOfUse(
+                        LegalEntityUpdateParams.TermsOfUse.builder()
+                            .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .ipAddress("ip_address")
+                            .build()
+                    )
                     .thirdPartyVerification(
                         ThirdPartyVerification.builder()
                             .outcome(ThirdPartyVerification.Outcome.PASSED)
@@ -628,6 +652,7 @@ internal class LegalEntityServiceAsyncTest {
         legalEntity.validate()
     }
 
+    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     suspend fun list() {
         val client =
@@ -641,5 +666,27 @@ internal class LegalEntityServiceAsyncTest {
         val page = legalEntityServiceAsync.list()
 
         page.items().forEach { it.validate() }
+    }
+
+    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
+    @Test
+    suspend fun updateStatus() {
+        val client =
+            ModernTreasuryOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .organizationId("my-organization-ID")
+                .build()
+        val legalEntityServiceAsync = client.legalEntities()
+
+        val legalEntity =
+            legalEntityServiceAsync.updateStatus(
+                LegalEntityUpdateStatusParams.builder()
+                    .id("id")
+                    .status(LegalEntityUpdateStatusParams.Status.ACTIVE)
+                    .build()
+            )
+
+        legalEntity.validate()
     }
 }

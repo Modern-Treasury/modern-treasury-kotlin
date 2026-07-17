@@ -15,7 +15,7 @@ internal class DocumentCreateParamsTest {
             .file("Example data".byteInputStream())
             .documentType("document_type")
             .documentableId("documentable_id")
-            .documentableType(DocumentCreateParams.DocumentableType.CONNECTIONS)
+            .documentableType(DocumentCreateParams.DocumentableType.CONNECTION)
             .build()
     }
 
@@ -26,7 +26,7 @@ internal class DocumentCreateParamsTest {
                 .file("Example data".byteInputStream())
                 .documentType("document_type")
                 .documentableId("documentable_id")
-                .documentableType(DocumentCreateParams.DocumentableType.CONNECTIONS)
+                .documentableType(DocumentCreateParams.DocumentableType.CONNECTION)
                 .build()
 
         val body = params._body()
@@ -45,7 +45,7 @@ internal class DocumentCreateParamsTest {
                         "document_type" to MultipartField.of("document_type"),
                         "documentable_id" to MultipartField.of("documentable_id"),
                         "documentable_type" to
-                            MultipartField.of(DocumentCreateParams.DocumentableType.CONNECTIONS),
+                            MultipartField.of(DocumentCreateParams.DocumentableType.CONNECTION),
                     )
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }
