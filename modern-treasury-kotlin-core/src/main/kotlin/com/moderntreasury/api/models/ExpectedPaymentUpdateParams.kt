@@ -216,8 +216,7 @@ private constructor(
     fun status(): Status? = body.status()
 
     /**
-     * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa, signet,
-     * wire.
+     * One of: ach, au_becs, bacs, book, check, eft, rtp, sepa, wire.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -787,10 +786,7 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { body.status(status) }
 
-        /**
-         * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
-         * signet, wire.
-         */
+        /** One of: ach, au_becs, bacs, book, check, eft, rtp, sepa, wire. */
         fun type(type: ExpectedPaymentType?) = apply { body.type(type) }
 
         /**
@@ -1256,8 +1252,7 @@ private constructor(
         fun status(): Status? = status.getNullable("status")
 
         /**
-         * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
-         * signet, wire.
+         * One of: ach, au_becs, bacs, book, check, eft, rtp, sepa, wire.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -1898,10 +1893,7 @@ private constructor(
              */
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
-            /**
-             * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
-             * signet, wire.
-             */
+            /** One of: ach, au_becs, bacs, book, check, eft, rtp, sepa, wire. */
             fun type(type: ExpectedPaymentType?) = type(JsonField.ofNullable(type))
 
             /**
