@@ -24,7 +24,6 @@ class Transaction
 private constructor(
     private val id: JsonField<String>,
     private val amount: JsonField<Long>,
-    private val amountString: JsonField<String>,
     private val asOfDate: JsonField<LocalDate>,
     private val asOfTime: JsonField<String>,
     private val asOfTimezone: JsonField<String>,
@@ -55,9 +54,6 @@ private constructor(
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("amount_string")
-        @ExcludeMissing
-        amountString: JsonField<String> = JsonMissing.of(),
         @JsonProperty("as_of_date")
         @ExcludeMissing
         asOfDate: JsonField<LocalDate> = JsonMissing.of(),
@@ -110,7 +106,6 @@ private constructor(
     ) : this(
         id,
         amount,
-        amountString,
         asOfDate,
         asOfTime,
         asOfTimezone,
@@ -150,15 +145,6 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amount(): Long = amount.getRequired("amount")
-
-    /**
-     * The amount of the transaction as a string, preserving full precision for values that may
-     * exceed safe integer limits in some languages.
-     *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun amountString(): String = amountString.getRequired("amount_string")
 
     /**
      * The date on which the transaction occurred.
@@ -281,8 +267,8 @@ private constructor(
     fun reconciled(): Boolean = reconciled.getRequired("reconciled")
 
     /**
-     * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`, or
-     * `book`.
+     * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`, `book`,
+     * or `sen`.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -307,7 +293,7 @@ private constructor(
     /**
      * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
      * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`, `goldman_sachs`,
-     * `iso20022`, `jpmc`, `mx`, `silvergate`, `swift`, `us_bank`, or others.
+     * `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or others.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -365,15 +351,6 @@ private constructor(
      * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-    /**
-     * Returns the raw JSON value of [amountString].
-     *
-     * Unlike [amountString], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("amount_string")
-    @ExcludeMissing
-    fun _amountString(): JsonField<String> = amountString
 
     /**
      * Returns the raw JSON value of [asOfDate].
@@ -582,7 +559,6 @@ private constructor(
          * ```kotlin
          * .id()
          * .amount()
-         * .amountString()
          * .asOfDate()
          * .asOfTime()
          * .asOfTimezone()
@@ -614,7 +590,6 @@ private constructor(
 
         private var id: JsonField<String>? = null
         private var amount: JsonField<Long>? = null
-        private var amountString: JsonField<String>? = null
         private var asOfDate: JsonField<LocalDate>? = null
         private var asOfTime: JsonField<String>? = null
         private var asOfTimezone: JsonField<String>? = null
@@ -643,7 +618,6 @@ private constructor(
         internal fun from(transaction: Transaction) = apply {
             id = transaction.id
             amount = transaction.amount
-            amountString = transaction.amountString
             asOfDate = transaction.asOfDate
             asOfTime = transaction.asOfTime
             asOfTimezone = transaction.asOfTimezone
@@ -690,23 +664,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-        /**
-         * The amount of the transaction as a string, preserving full precision for values that may
-         * exceed safe integer limits in some languages.
-         */
-        fun amountString(amountString: String) = amountString(JsonField.of(amountString))
-
-        /**
-         * Sets [Builder.amountString] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.amountString] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun amountString(amountString: JsonField<String>) = apply {
-            this.amountString = amountString
-        }
 
         /** The date on which the transaction occurred. */
         fun asOfDate(asOfDate: LocalDate?) = asOfDate(JsonField.ofNullable(asOfDate))
@@ -914,8 +871,8 @@ private constructor(
         fun reconciled(reconciled: JsonField<Boolean>) = apply { this.reconciled = reconciled }
 
         /**
-         * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`, or
-         * `book`.
+         * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
+         * `book`, or `sen`.
          */
         fun type(type: Type) = type(JsonField.of(type))
 
@@ -956,7 +913,8 @@ private constructor(
         /**
          * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
          * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
-         * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `silvergate`, `swift`, `us_bank`, or others.
+         * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or
+         * others.
          */
         fun vendorCodeType(vendorCodeType: VendorCodeType?) =
             vendorCodeType(JsonField.ofNullable(vendorCodeType))
@@ -1062,7 +1020,6 @@ private constructor(
          * ```kotlin
          * .id()
          * .amount()
-         * .amountString()
          * .asOfDate()
          * .asOfTime()
          * .asOfTimezone()
@@ -1092,7 +1049,6 @@ private constructor(
             Transaction(
                 checkRequired("id", id),
                 checkRequired("amount", amount),
-                checkRequired("amountString", amountString),
                 checkRequired("asOfDate", asOfDate),
                 checkRequired("asOfTime", asOfTime),
                 checkRequired("asOfTimezone", asOfTimezone),
@@ -1137,7 +1093,6 @@ private constructor(
 
         id()
         amount()
-        amountString()
         asOfDate()
         asOfTime()
         asOfTimezone()
@@ -1180,7 +1135,6 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown() == null) 0 else 1) +
             (if (amount.asKnown() == null) 0 else 1) +
-            (if (amountString.asKnown() == null) 0 else 1) +
             (if (asOfDate.asKnown() == null) 0 else 1) +
             (if (asOfTime.asKnown() == null) 0 else 1) +
             (if (asOfTimezone.asKnown() == null) 0 else 1) +
@@ -1423,8 +1377,8 @@ private constructor(
     }
 
     /**
-     * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`, or
-     * `book`.
+     * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`, `book`,
+     * or `sen`.
      */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -1462,6 +1416,10 @@ private constructor(
 
             val GB_FPS = of("gb_fps")
 
+            val HU_ICS = of("hu_ics")
+
+            val INTERAC = of("interac")
+
             val MASAV = of("masav")
 
             val MX_CCEN = of("mx_ccen")
@@ -1474,15 +1432,25 @@ private constructor(
 
             val PL_ELIXIR = of("pl_elixir")
 
+            val PROVXCHANGE = of("provxchange")
+
+            val RO_SENT = of("ro_sent")
+
             val RTP = of("rtp")
 
             val SE_BANKGIROT = of("se_bankgirot")
+
+            val SEN = of("sen")
 
             val SEPA = of("sepa")
 
             val SG_GIRO = of("sg_giro")
 
             val SIC = of("sic")
+
+            val SIGNET = of("signet")
+
+            val SKNBI = of("sknbi")
 
             val STABLECOIN = of("stablecoin")
 
@@ -1508,17 +1476,24 @@ private constructor(
             DK_NETS,
             EFT,
             GB_FPS,
+            HU_ICS,
+            INTERAC,
             MASAV,
             MX_CCEN,
             NEFT,
             NICS,
             NZ_BECS,
             PL_ELIXIR,
+            PROVXCHANGE,
+            RO_SENT,
             RTP,
             SE_BANKGIROT,
+            SEN,
             SEPA,
             SG_GIRO,
             SIC,
+            SIGNET,
+            SKNBI,
             STABLECOIN,
             WIRE,
             ZENGIN,
@@ -1546,17 +1521,24 @@ private constructor(
             DK_NETS,
             EFT,
             GB_FPS,
+            HU_ICS,
+            INTERAC,
             MASAV,
             MX_CCEN,
             NEFT,
             NICS,
             NZ_BECS,
             PL_ELIXIR,
+            PROVXCHANGE,
+            RO_SENT,
             RTP,
             SE_BANKGIROT,
+            SEN,
             SEPA,
             SG_GIRO,
             SIC,
+            SIGNET,
+            SKNBI,
             STABLECOIN,
             WIRE,
             ZENGIN,
@@ -1585,17 +1567,24 @@ private constructor(
                 DK_NETS -> Value.DK_NETS
                 EFT -> Value.EFT
                 GB_FPS -> Value.GB_FPS
+                HU_ICS -> Value.HU_ICS
+                INTERAC -> Value.INTERAC
                 MASAV -> Value.MASAV
                 MX_CCEN -> Value.MX_CCEN
                 NEFT -> Value.NEFT
                 NICS -> Value.NICS
                 NZ_BECS -> Value.NZ_BECS
                 PL_ELIXIR -> Value.PL_ELIXIR
+                PROVXCHANGE -> Value.PROVXCHANGE
+                RO_SENT -> Value.RO_SENT
                 RTP -> Value.RTP
                 SE_BANKGIROT -> Value.SE_BANKGIROT
+                SEN -> Value.SEN
                 SEPA -> Value.SEPA
                 SG_GIRO -> Value.SG_GIRO
                 SIC -> Value.SIC
+                SIGNET -> Value.SIGNET
+                SKNBI -> Value.SKNBI
                 STABLECOIN -> Value.STABLECOIN
                 WIRE -> Value.WIRE
                 ZENGIN -> Value.ZENGIN
@@ -1625,17 +1614,24 @@ private constructor(
                 DK_NETS -> Known.DK_NETS
                 EFT -> Known.EFT
                 GB_FPS -> Known.GB_FPS
+                HU_ICS -> Known.HU_ICS
+                INTERAC -> Known.INTERAC
                 MASAV -> Known.MASAV
                 MX_CCEN -> Known.MX_CCEN
                 NEFT -> Known.NEFT
                 NICS -> Known.NICS
                 NZ_BECS -> Known.NZ_BECS
                 PL_ELIXIR -> Known.PL_ELIXIR
+                PROVXCHANGE -> Known.PROVXCHANGE
+                RO_SENT -> Known.RO_SENT
                 RTP -> Known.RTP
                 SE_BANKGIROT -> Known.SE_BANKGIROT
+                SEN -> Known.SEN
                 SEPA -> Known.SEPA
                 SG_GIRO -> Known.SG_GIRO
                 SIC -> Known.SIC
+                SIGNET -> Known.SIGNET
+                SKNBI -> Known.SKNBI
                 STABLECOIN -> Known.STABLECOIN
                 WIRE -> Known.WIRE
                 ZENGIN -> Known.ZENGIN
@@ -1707,7 +1703,7 @@ private constructor(
     /**
      * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
      * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`, `goldman_sachs`,
-     * `iso20022`, `jpmc`, `mx`, `silvergate`, `swift`, `us_bank`, or others.
+     * `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, `us_bank`, or others.
      */
     class VendorCodeType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
@@ -1766,11 +1762,11 @@ private constructor(
 
             val PNC = of("pnc")
 
+            val SIGNET = of("signet")
+
             val SILVERGATE = of("silvergate")
 
             val SWIFT = of("swift")
-
-            val TURNKEY = of("turnkey")
 
             val US_BANK = of("us_bank")
 
@@ -1804,9 +1800,9 @@ private constructor(
             PAXOS,
             PAYPAL,
             PNC,
+            SIGNET,
             SILVERGATE,
             SWIFT,
-            TURNKEY,
             US_BANK,
             USER,
             WESTERN_ALLIANCE,
@@ -1843,9 +1839,9 @@ private constructor(
             PAXOS,
             PAYPAL,
             PNC,
+            SIGNET,
             SILVERGATE,
             SWIFT,
-            TURNKEY,
             US_BANK,
             USER,
             WESTERN_ALLIANCE,
@@ -1886,9 +1882,9 @@ private constructor(
                 PAXOS -> Value.PAXOS
                 PAYPAL -> Value.PAYPAL
                 PNC -> Value.PNC
+                SIGNET -> Value.SIGNET
                 SILVERGATE -> Value.SILVERGATE
                 SWIFT -> Value.SWIFT
-                TURNKEY -> Value.TURNKEY
                 US_BANK -> Value.US_BANK
                 USER -> Value.USER
                 WESTERN_ALLIANCE -> Value.WESTERN_ALLIANCE
@@ -1927,9 +1923,9 @@ private constructor(
                 PAXOS -> Known.PAXOS
                 PAYPAL -> Known.PAYPAL
                 PNC -> Known.PNC
+                SIGNET -> Known.SIGNET
                 SILVERGATE -> Known.SILVERGATE
                 SWIFT -> Known.SWIFT
-                TURNKEY -> Known.TURNKEY
                 US_BANK -> Known.US_BANK
                 USER -> Known.USER
                 WESTERN_ALLIANCE -> Known.WESTERN_ALLIANCE
@@ -2119,7 +2115,6 @@ private constructor(
         return other is Transaction &&
             id == other.id &&
             amount == other.amount &&
-            amountString == other.amountString &&
             asOfDate == other.asOfDate &&
             asOfTime == other.asOfTime &&
             asOfTimezone == other.asOfTimezone &&
@@ -2150,7 +2145,6 @@ private constructor(
         Objects.hash(
             id,
             amount,
-            amountString,
             asOfDate,
             asOfTime,
             asOfTimezone,
@@ -2181,5 +2175,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Transaction{id=$id, amount=$amount, amountString=$amountString, asOfDate=$asOfDate, asOfTime=$asOfTime, asOfTimezone=$asOfTimezone, createdAt=$createdAt, currency=$currency, customIdentifiers=$customIdentifiers, direction=$direction, discardedAt=$discardedAt, foreignExchangeRate=$foreignExchangeRate, internalAccountId=$internalAccountId, liveMode=$liveMode, metadata=$metadata, object_=$object_, posted=$posted, reconciled=$reconciled, type=$type, updatedAt=$updatedAt, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, vendorCustomerId=$vendorCustomerId, vendorId=$vendorId, details=$details, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
+        "Transaction{id=$id, amount=$amount, asOfDate=$asOfDate, asOfTime=$asOfTime, asOfTimezone=$asOfTimezone, createdAt=$createdAt, currency=$currency, customIdentifiers=$customIdentifiers, direction=$direction, discardedAt=$discardedAt, foreignExchangeRate=$foreignExchangeRate, internalAccountId=$internalAccountId, liveMode=$liveMode, metadata=$metadata, object_=$object_, posted=$posted, reconciled=$reconciled, type=$type, updatedAt=$updatedAt, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, vendorCustomerId=$vendorCustomerId, vendorId=$vendorId, details=$details, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
 }

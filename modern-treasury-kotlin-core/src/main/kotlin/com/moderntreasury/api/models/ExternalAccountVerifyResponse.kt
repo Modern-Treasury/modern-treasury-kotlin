@@ -814,6 +814,10 @@ private constructor(
 
                 val GB_FPS = of("gb_fps")
 
+                val HU_ICS = of("hu_ics")
+
+                val INTERAC = of("interac")
+
                 val MASAV = of("masav")
 
                 val MX_CCEN = of("mx_ccen")
@@ -826,15 +830,25 @@ private constructor(
 
                 val PL_ELIXIR = of("pl_elixir")
 
+                val PROVXCHANGE = of("provxchange")
+
+                val RO_SENT = of("ro_sent")
+
                 val RTP = of("rtp")
 
                 val SE_BANKGIROT = of("se_bankgirot")
+
+                val SEN = of("sen")
 
                 val SEPA = of("sepa")
 
                 val SG_GIRO = of("sg_giro")
 
                 val SIC = of("sic")
+
+                val SIGNET = of("signet")
+
+                val SKNBI = of("sknbi")
 
                 val STABLECOIN = of("stablecoin")
 
@@ -858,17 +872,24 @@ private constructor(
                 DK_NETS,
                 EFT,
                 GB_FPS,
+                HU_ICS,
+                INTERAC,
                 MASAV,
                 MX_CCEN,
                 NEFT,
                 NICS,
                 NZ_BECS,
                 PL_ELIXIR,
+                PROVXCHANGE,
+                RO_SENT,
                 RTP,
                 SE_BANKGIROT,
+                SEN,
                 SEPA,
                 SG_GIRO,
                 SIC,
+                SIGNET,
+                SKNBI,
                 STABLECOIN,
                 WIRE,
                 ZENGIN,
@@ -895,17 +916,24 @@ private constructor(
                 DK_NETS,
                 EFT,
                 GB_FPS,
+                HU_ICS,
+                INTERAC,
                 MASAV,
                 MX_CCEN,
                 NEFT,
                 NICS,
                 NZ_BECS,
                 PL_ELIXIR,
+                PROVXCHANGE,
+                RO_SENT,
                 RTP,
                 SE_BANKGIROT,
+                SEN,
                 SEPA,
                 SG_GIRO,
                 SIC,
+                SIGNET,
+                SKNBI,
                 STABLECOIN,
                 WIRE,
                 ZENGIN,
@@ -936,17 +964,24 @@ private constructor(
                     DK_NETS -> Value.DK_NETS
                     EFT -> Value.EFT
                     GB_FPS -> Value.GB_FPS
+                    HU_ICS -> Value.HU_ICS
+                    INTERAC -> Value.INTERAC
                     MASAV -> Value.MASAV
                     MX_CCEN -> Value.MX_CCEN
                     NEFT -> Value.NEFT
                     NICS -> Value.NICS
                     NZ_BECS -> Value.NZ_BECS
                     PL_ELIXIR -> Value.PL_ELIXIR
+                    PROVXCHANGE -> Value.PROVXCHANGE
+                    RO_SENT -> Value.RO_SENT
                     RTP -> Value.RTP
                     SE_BANKGIROT -> Value.SE_BANKGIROT
+                    SEN -> Value.SEN
                     SEPA -> Value.SEPA
                     SG_GIRO -> Value.SG_GIRO
                     SIC -> Value.SIC
+                    SIGNET -> Value.SIGNET
+                    SKNBI -> Value.SKNBI
                     STABLECOIN -> Value.STABLECOIN
                     WIRE -> Value.WIRE
                     ZENGIN -> Value.ZENGIN
@@ -975,17 +1010,24 @@ private constructor(
                     DK_NETS -> Known.DK_NETS
                     EFT -> Known.EFT
                     GB_FPS -> Known.GB_FPS
+                    HU_ICS -> Known.HU_ICS
+                    INTERAC -> Known.INTERAC
                     MASAV -> Known.MASAV
                     MX_CCEN -> Known.MX_CCEN
                     NEFT -> Known.NEFT
                     NICS -> Known.NICS
                     NZ_BECS -> Known.NZ_BECS
                     PL_ELIXIR -> Known.PL_ELIXIR
+                    PROVXCHANGE -> Known.PROVXCHANGE
+                    RO_SENT -> Known.RO_SENT
                     RTP -> Known.RTP
                     SE_BANKGIROT -> Known.SE_BANKGIROT
+                    SEN -> Known.SEN
                     SEPA -> Known.SEPA
                     SG_GIRO -> Known.SG_GIRO
                     SIC -> Known.SIC
+                    SIGNET -> Known.SIGNET
+                    SKNBI -> Known.SKNBI
                     STABLECOIN -> Known.STABLECOIN
                     WIRE -> Known.WIRE
                     ZENGIN -> Known.ZENGIN

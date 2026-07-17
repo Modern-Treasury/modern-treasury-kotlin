@@ -27,13 +27,12 @@ internal class TransactionServiceAsyncTest {
         val transaction =
             transactionServiceAsync.create(
                 TransactionCreateParams.builder()
+                    .amount(0L)
                     .asOfDate(LocalDate.parse("2019-12-27"))
                     .direction("direction")
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .vendorCode("vendor_code")
                     .vendorCodeType("vendor_code_type")
-                    .amount(0L)
-                    .amountString("amount_string")
                     .metadata(
                         TransactionCreateParams.Metadata.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))

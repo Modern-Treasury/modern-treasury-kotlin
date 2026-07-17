@@ -241,44 +241,44 @@ private constructor(
 
         companion object {
 
-            val CONNECTION = of("connection")
+            val CONNECTIONS = of("connections")
 
-            val COUNTERPARTY = of("counterparty")
+            val COUNTERPARTIES = of("counterparties")
 
-            val EXPECTED_PAYMENT = of("expected_payment")
+            val EXPECTED_PAYMENTS = of("expected_payments")
 
-            val EXTERNAL_ACCOUNT = of("external_account")
+            val EXTERNAL_ACCOUNTS = of("external_accounts")
 
-            val IDENTIFICATION = of("identification")
+            val IDENTIFICATIONS = of("identifications")
 
-            val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
+            val INCOMING_PAYMENT_DETAILS = of("incoming_payment_details")
 
-            val INTERNAL_ACCOUNT = of("internal_account")
+            val INTERNAL_ACCOUNTS = of("internal_accounts")
 
-            val LEGAL_ENTITY = of("legal_entity")
+            val LEGAL_ENTITIES = of("legal_entities")
 
-            val ORGANIZATION = of("organization")
+            val ORGANIZATIONS = of("organizations")
 
-            val PAYMENT_ORDER = of("payment_order")
+            val PAYMENT_ORDERS = of("payment_orders")
 
-            val TRANSACTION = of("transaction")
+            val TRANSACTIONS = of("transactions")
 
             fun of(value: String) = DocumentableType(JsonField.of(value))
         }
 
         /** An enum containing [DocumentableType]'s known values. */
         enum class Known {
-            CONNECTION,
-            COUNTERPARTY,
-            EXPECTED_PAYMENT,
-            EXTERNAL_ACCOUNT,
-            IDENTIFICATION,
-            INCOMING_PAYMENT_DETAIL,
-            INTERNAL_ACCOUNT,
-            LEGAL_ENTITY,
-            ORGANIZATION,
-            PAYMENT_ORDER,
-            TRANSACTION,
+            CONNECTIONS,
+            COUNTERPARTIES,
+            EXPECTED_PAYMENTS,
+            EXTERNAL_ACCOUNTS,
+            IDENTIFICATIONS,
+            INCOMING_PAYMENT_DETAILS,
+            INTERNAL_ACCOUNTS,
+            LEGAL_ENTITIES,
+            ORGANIZATIONS,
+            PAYMENT_ORDERS,
+            TRANSACTIONS,
         }
 
         /**
@@ -291,17 +291,17 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            CONNECTION,
-            COUNTERPARTY,
-            EXPECTED_PAYMENT,
-            EXTERNAL_ACCOUNT,
-            IDENTIFICATION,
-            INCOMING_PAYMENT_DETAIL,
-            INTERNAL_ACCOUNT,
-            LEGAL_ENTITY,
-            ORGANIZATION,
-            PAYMENT_ORDER,
-            TRANSACTION,
+            CONNECTIONS,
+            COUNTERPARTIES,
+            EXPECTED_PAYMENTS,
+            EXTERNAL_ACCOUNTS,
+            IDENTIFICATIONS,
+            INCOMING_PAYMENT_DETAILS,
+            INTERNAL_ACCOUNTS,
+            LEGAL_ENTITIES,
+            ORGANIZATIONS,
+            PAYMENT_ORDERS,
+            TRANSACTIONS,
             /**
              * An enum member indicating that [DocumentableType] was instantiated with an unknown
              * value.
@@ -318,17 +318,17 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                CONNECTION -> Value.CONNECTION
-                COUNTERPARTY -> Value.COUNTERPARTY
-                EXPECTED_PAYMENT -> Value.EXPECTED_PAYMENT
-                EXTERNAL_ACCOUNT -> Value.EXTERNAL_ACCOUNT
-                IDENTIFICATION -> Value.IDENTIFICATION
-                INCOMING_PAYMENT_DETAIL -> Value.INCOMING_PAYMENT_DETAIL
-                INTERNAL_ACCOUNT -> Value.INTERNAL_ACCOUNT
-                LEGAL_ENTITY -> Value.LEGAL_ENTITY
-                ORGANIZATION -> Value.ORGANIZATION
-                PAYMENT_ORDER -> Value.PAYMENT_ORDER
-                TRANSACTION -> Value.TRANSACTION
+                CONNECTIONS -> Value.CONNECTIONS
+                COUNTERPARTIES -> Value.COUNTERPARTIES
+                EXPECTED_PAYMENTS -> Value.EXPECTED_PAYMENTS
+                EXTERNAL_ACCOUNTS -> Value.EXTERNAL_ACCOUNTS
+                IDENTIFICATIONS -> Value.IDENTIFICATIONS
+                INCOMING_PAYMENT_DETAILS -> Value.INCOMING_PAYMENT_DETAILS
+                INTERNAL_ACCOUNTS -> Value.INTERNAL_ACCOUNTS
+                LEGAL_ENTITIES -> Value.LEGAL_ENTITIES
+                ORGANIZATIONS -> Value.ORGANIZATIONS
+                PAYMENT_ORDERS -> Value.PAYMENT_ORDERS
+                TRANSACTIONS -> Value.TRANSACTIONS
                 else -> Value._UNKNOWN
             }
 
@@ -343,17 +343,17 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                CONNECTION -> Known.CONNECTION
-                COUNTERPARTY -> Known.COUNTERPARTY
-                EXPECTED_PAYMENT -> Known.EXPECTED_PAYMENT
-                EXTERNAL_ACCOUNT -> Known.EXTERNAL_ACCOUNT
-                IDENTIFICATION -> Known.IDENTIFICATION
-                INCOMING_PAYMENT_DETAIL -> Known.INCOMING_PAYMENT_DETAIL
-                INTERNAL_ACCOUNT -> Known.INTERNAL_ACCOUNT
-                LEGAL_ENTITY -> Known.LEGAL_ENTITY
-                ORGANIZATION -> Known.ORGANIZATION
-                PAYMENT_ORDER -> Known.PAYMENT_ORDER
-                TRANSACTION -> Known.TRANSACTION
+                CONNECTIONS -> Known.CONNECTIONS
+                COUNTERPARTIES -> Known.COUNTERPARTIES
+                EXPECTED_PAYMENTS -> Known.EXPECTED_PAYMENTS
+                EXTERNAL_ACCOUNTS -> Known.EXTERNAL_ACCOUNTS
+                IDENTIFICATIONS -> Known.IDENTIFICATIONS
+                INCOMING_PAYMENT_DETAILS -> Known.INCOMING_PAYMENT_DETAILS
+                INTERNAL_ACCOUNTS -> Known.INTERNAL_ACCOUNTS
+                LEGAL_ENTITIES -> Known.LEGAL_ENTITIES
+                ORGANIZATIONS -> Known.ORGANIZATIONS
+                PAYMENT_ORDERS -> Known.PAYMENT_ORDERS
+                TRANSACTIONS -> Known.TRANSACTIONS
                 else -> throw ModernTreasuryInvalidDataException("Unknown DocumentableType: $value")
             }
 

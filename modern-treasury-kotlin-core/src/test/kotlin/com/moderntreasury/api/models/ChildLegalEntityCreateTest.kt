@@ -138,12 +138,6 @@ internal class ChildLegalEntityCreateTest {
                 .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
                 .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .suffix("suffix")
-                .termsOfUse(
-                    ChildLegalEntityCreate.TermsOfUse.builder()
-                        .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .ipAddress("ip_address")
-                        .build()
-                )
                 .thirdPartyVerification(
                     ThirdPartyVerification.builder()
                         .outcome(ThirdPartyVerification.Outcome.PASSED)
@@ -331,13 +325,6 @@ internal class ChildLegalEntityCreateTest {
         assertThat(childLegalEntityCreate.serviceProviderLegalEntityId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(childLegalEntityCreate.suffix()).isEqualTo("suffix")
-        assertThat(childLegalEntityCreate.termsOfUse())
-            .isEqualTo(
-                ChildLegalEntityCreate.TermsOfUse.builder()
-                    .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .ipAddress("ip_address")
-                    .build()
-            )
         assertThat(childLegalEntityCreate.thirdPartyVerification())
             .isEqualTo(
                 ThirdPartyVerification.builder()
@@ -516,12 +503,6 @@ internal class ChildLegalEntityCreateTest {
                 .riskRating(ChildLegalEntityCreate.RiskRating.LOW)
                 .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .suffix("suffix")
-                .termsOfUse(
-                    ChildLegalEntityCreate.TermsOfUse.builder()
-                        .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .ipAddress("ip_address")
-                        .build()
-                )
                 .thirdPartyVerification(
                     ThirdPartyVerification.builder()
                         .outcome(ThirdPartyVerification.Outcome.PASSED)
