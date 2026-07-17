@@ -479,8 +479,6 @@ private constructor(
 
             val GB_VAT = of("gb_vat")
 
-            val GENERIC_INTERNATIONAL = of("generic_international")
-
             val GR_VAT = of("gr_vat")
 
             val HN_ID = of("hn_id")
@@ -538,8 +536,6 @@ private constructor(
             val MX_INE = of("mx_ine")
 
             val MX_RFC = of("mx_rfc")
-
-            val NATIONAL_ID = of("national_id")
 
             val NL_BSN = of("nl_bsn")
 
@@ -643,7 +639,6 @@ private constructor(
             GB_NINO,
             GB_UTR,
             GB_VAT,
-            GENERIC_INTERNATIONAL,
             GR_VAT,
             HN_ID,
             HN_RTN,
@@ -673,7 +668,6 @@ private constructor(
             MX_CURP,
             MX_INE,
             MX_RFC,
-            NATIONAL_ID,
             NL_BSN,
             NL_BTW,
             NL_RSIN,
@@ -754,7 +748,6 @@ private constructor(
             GB_NINO,
             GB_UTR,
             GB_VAT,
-            GENERIC_INTERNATIONAL,
             GR_VAT,
             HN_ID,
             HN_RTN,
@@ -784,7 +777,6 @@ private constructor(
             MX_CURP,
             MX_INE,
             MX_RFC,
-            NATIONAL_ID,
             NL_BSN,
             NL_BTW,
             NL_RSIN,
@@ -866,7 +858,6 @@ private constructor(
                 GB_NINO -> Value.GB_NINO
                 GB_UTR -> Value.GB_UTR
                 GB_VAT -> Value.GB_VAT
-                GENERIC_INTERNATIONAL -> Value.GENERIC_INTERNATIONAL
                 GR_VAT -> Value.GR_VAT
                 HN_ID -> Value.HN_ID
                 HN_RTN -> Value.HN_RTN
@@ -896,7 +887,6 @@ private constructor(
                 MX_CURP -> Value.MX_CURP
                 MX_INE -> Value.MX_INE
                 MX_RFC -> Value.MX_RFC
-                NATIONAL_ID -> Value.NATIONAL_ID
                 NL_BSN -> Value.NL_BSN
                 NL_BTW -> Value.NL_BTW
                 NL_RSIN -> Value.NL_RSIN
@@ -979,7 +969,6 @@ private constructor(
                 GB_NINO -> Known.GB_NINO
                 GB_UTR -> Known.GB_UTR
                 GB_VAT -> Known.GB_VAT
-                GENERIC_INTERNATIONAL -> Known.GENERIC_INTERNATIONAL
                 GR_VAT -> Known.GR_VAT
                 HN_ID -> Known.HN_ID
                 HN_RTN -> Known.HN_RTN
@@ -1009,7 +998,6 @@ private constructor(
                 MX_CURP -> Known.MX_CURP
                 MX_INE -> Known.MX_INE
                 MX_RFC -> Known.MX_RFC
-                NATIONAL_ID -> Known.NATIONAL_ID
                 NL_BSN -> Known.NL_BSN
                 NL_BTW -> Known.NL_BTW
                 NL_RSIN -> Known.NL_RSIN

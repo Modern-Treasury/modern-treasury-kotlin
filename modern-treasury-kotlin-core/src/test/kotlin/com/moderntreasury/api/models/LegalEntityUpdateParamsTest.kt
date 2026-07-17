@@ -112,12 +112,6 @@ internal class LegalEntityUpdateParamsTest {
             .riskRating(LegalEntityUpdateParams.RiskRating.LOW)
             .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .suffix("suffix")
-            .termsOfUse(
-                LegalEntityUpdateParams.TermsOfUse.builder()
-                    .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .ipAddress("ip_address")
-                    .build()
-            )
             .thirdPartyVerification(
                 ThirdPartyVerification.builder()
                     .outcome(ThirdPartyVerification.Outcome.PASSED)
@@ -283,12 +277,6 @@ internal class LegalEntityUpdateParamsTest {
                 .riskRating(LegalEntityUpdateParams.RiskRating.LOW)
                 .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .suffix("suffix")
-                .termsOfUse(
-                    LegalEntityUpdateParams.TermsOfUse.builder()
-                        .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .ipAddress("ip_address")
-                        .build()
-                )
                 .thirdPartyVerification(
                     ThirdPartyVerification.builder()
                         .outcome(ThirdPartyVerification.Outcome.PASSED)
@@ -450,13 +438,6 @@ internal class LegalEntityUpdateParamsTest {
         assertThat(body.serviceProviderLegalEntityId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.suffix()).isEqualTo("suffix")
-        assertThat(body.termsOfUse())
-            .isEqualTo(
-                LegalEntityUpdateParams.TermsOfUse.builder()
-                    .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .ipAddress("ip_address")
-                    .build()
-            )
         assertThat(body.thirdPartyVerification())
             .isEqualTo(
                 ThirdPartyVerification.builder()

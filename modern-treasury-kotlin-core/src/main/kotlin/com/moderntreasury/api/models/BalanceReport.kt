@@ -91,10 +91,10 @@ private constructor(
     /**
      * The time (24-hour clock) of the balance report in local time.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
-    fun asOfTime(): String = asOfTime.getRequired("as_of_time")
+    fun asOfTime(): String? = asOfTime.getNullable("as_of_time")
 
     /**
      * The specific type of balance report. One of `intraday`, `previous_day`, `real_time`, or
@@ -315,7 +315,7 @@ private constructor(
         fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
 
         /** The time (24-hour clock) of the balance report in local time. */
-        fun asOfTime(asOfTime: String) = asOfTime(JsonField.of(asOfTime))
+        fun asOfTime(asOfTime: String?) = asOfTime(JsonField.ofNullable(asOfTime))
 
         /**
          * Sets [Builder.asOfTime] to an arbitrary JSON value.
@@ -700,7 +700,6 @@ private constructor(
     private constructor(
         private val id: JsonField<String>,
         private val amount: JsonField<Long>,
-        private val amountString: JsonField<String>,
         private val asOfDate: JsonField<LocalDate>,
         private val asOfTime: JsonField<String>,
         private val balanceType: JsonField<BalanceType>,
@@ -719,9 +718,6 @@ private constructor(
         private constructor(
             @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("amount_string")
-            @ExcludeMissing
-            amountString: JsonField<String> = JsonMissing.of(),
             @JsonProperty("as_of_date")
             @ExcludeMissing
             asOfDate: JsonField<LocalDate> = JsonMissing.of(),
@@ -756,7 +752,6 @@ private constructor(
         ) : this(
             id,
             amount,
-            amountString,
             asOfDate,
             asOfTime,
             balanceType,
@@ -784,15 +779,6 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun amount(): Long = amount.getRequired("amount")
-
-        /**
-         * The amount of the balance as a string, preserving full precision for values that may
-         * exceed safe integer limits in some languages.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun amountString(): String = amountString.getRequired("amount_string")
 
         /**
          * The date on which the balance became true for the account.
@@ -874,7 +860,7 @@ private constructor(
         /**
          * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`, `bnk_dev`,
          * `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`, `evolve`,
-         * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `silvergate`, `swift`, or `us_bank`.
+         * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`, or `us_bank`.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -894,16 +880,6 @@ private constructor(
          * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-        /**
-         * Returns the raw JSON value of [amountString].
-         *
-         * Unlike [amountString], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("amount_string")
-        @ExcludeMissing
-        fun _amountString(): JsonField<String> = amountString
 
         /**
          * Returns the raw JSON value of [asOfDate].
@@ -1016,7 +992,6 @@ private constructor(
              * ```kotlin
              * .id()
              * .amount()
-             * .amountString()
              * .asOfDate()
              * .asOfTime()
              * .balanceType()
@@ -1038,7 +1013,6 @@ private constructor(
 
             private var id: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
-            private var amountString: JsonField<String>? = null
             private var asOfDate: JsonField<LocalDate>? = null
             private var asOfTime: JsonField<String>? = null
             private var balanceType: JsonField<BalanceType>? = null
@@ -1055,7 +1029,6 @@ private constructor(
             internal fun from(balance: Balance) = apply {
                 id = balance.id
                 amount = balance.amount
-                amountString = balance.amountString
                 asOfDate = balance.asOfDate
                 asOfTime = balance.asOfTime
                 balanceType = balance.balanceType
@@ -1092,23 +1065,6 @@ private constructor(
              * value.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-            /**
-             * The amount of the balance as a string, preserving full precision for values that may
-             * exceed safe integer limits in some languages.
-             */
-            fun amountString(amountString: String) = amountString(JsonField.of(amountString))
-
-            /**
-             * Sets [Builder.amountString] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.amountString] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun amountString(amountString: JsonField<String>) = apply {
-                this.amountString = amountString
-            }
 
             /** The date on which the balance became true for the account. */
             fun asOfDate(asOfDate: LocalDate?) = asOfDate(JsonField.ofNullable(asOfDate))
@@ -1243,8 +1199,8 @@ private constructor(
             /**
              * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`,
              * `bnk_dev`, `cleartouch`, `currencycloud`, `cross_river`, `dc_bank`, `dwolla`,
-             * `evolve`, `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `silvergate`, `swift`, or
-             * `us_bank`.
+             * `evolve`, `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `signet`, `silvergate`, `swift`,
+             * or `us_bank`.
              */
             fun vendorCodeType(vendorCodeType: String?) =
                 vendorCodeType(JsonField.ofNullable(vendorCodeType))
@@ -1288,7 +1244,6 @@ private constructor(
              * ```kotlin
              * .id()
              * .amount()
-             * .amountString()
              * .asOfDate()
              * .asOfTime()
              * .balanceType()
@@ -1308,7 +1263,6 @@ private constructor(
                 Balance(
                     checkRequired("id", id),
                     checkRequired("amount", amount),
-                    checkRequired("amountString", amountString),
                     checkRequired("asOfDate", asOfDate),
                     checkRequired("asOfTime", asOfTime),
                     checkRequired("balanceType", balanceType),
@@ -1342,7 +1296,6 @@ private constructor(
 
             id()
             amount()
-            amountString()
             asOfDate()
             asOfTime()
             balanceType().validate()
@@ -1374,7 +1327,6 @@ private constructor(
         internal fun validity(): Int =
             (if (id.asKnown() == null) 0 else 1) +
                 (if (amount.asKnown() == null) 0 else 1) +
-                (if (amountString.asKnown() == null) 0 else 1) +
                 (if (asOfDate.asKnown() == null) 0 else 1) +
                 (if (asOfTime.asKnown() == null) 0 else 1) +
                 (balanceType.asKnown()?.validity() ?: 0) +
@@ -1582,7 +1534,6 @@ private constructor(
             return other is Balance &&
                 id == other.id &&
                 amount == other.amount &&
-                amountString == other.amountString &&
                 asOfDate == other.asOfDate &&
                 asOfTime == other.asOfTime &&
                 balanceType == other.balanceType &&
@@ -1601,7 +1552,6 @@ private constructor(
             Objects.hash(
                 id,
                 amount,
-                amountString,
                 asOfDate,
                 asOfTime,
                 balanceType,
@@ -1620,7 +1570,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Balance{id=$id, amount=$amount, amountString=$amountString, asOfDate=$asOfDate, asOfTime=$asOfTime, balanceType=$balanceType, createdAt=$createdAt, currency=$currency, liveMode=$liveMode, object_=$object_, updatedAt=$updatedAt, valueDate=$valueDate, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, additionalProperties=$additionalProperties}"
+            "Balance{id=$id, amount=$amount, asOfDate=$asOfDate, asOfTime=$asOfTime, balanceType=$balanceType, createdAt=$createdAt, currency=$currency, liveMode=$liveMode, object_=$object_, updatedAt=$updatedAt, valueDate=$valueDate, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
