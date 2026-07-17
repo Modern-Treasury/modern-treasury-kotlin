@@ -33,14 +33,13 @@ internal class BalanceReportServiceAsyncTest {
                     .balanceReportType(BalanceReportCreateParams.BalanceReportType.INTRADAY)
                     .addBalance(
                         BalanceReportCreateParams.BalanceCreateRequest.builder()
+                            .amount(0L)
                             .balanceType(
                                 BalanceReportCreateParams.BalanceCreateRequest.BalanceType
                                     .CLOSING_AVAILABLE
                             )
                             .vendorCode("vendor_code")
                             .vendorCodeType("vendor_code_type")
-                            .amount(0L)
-                            .amountString("amount_string")
                             .build()
                     )
                     .build()

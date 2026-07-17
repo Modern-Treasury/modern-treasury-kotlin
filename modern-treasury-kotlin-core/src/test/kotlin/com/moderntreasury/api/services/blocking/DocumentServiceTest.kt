@@ -29,7 +29,7 @@ internal class DocumentServiceTest {
                     .file("Example data".byteInputStream())
                     .documentType("document_type")
                     .documentableId("documentable_id")
-                    .documentableType(DocumentCreateParams.DocumentableType.CONNECTION)
+                    .documentableType(DocumentCreateParams.DocumentableType.CONNECTIONS)
                     .build()
             )
 

@@ -349,7 +349,7 @@ private constructor(
     fun invoicerName(): String? = invoicerName.getNullable("invoicer_name")
 
     /**
-     * The time at which the invoice was issued.
+     * Translation missing: en.openapi.descriptions.invoice.schema.issued_at
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -426,7 +426,7 @@ private constructor(
     fun originatingAccountId(): String = originatingAccountId.getRequired("originating_account_id")
 
     /**
-     * The time at which the invoice was paid.
+     * Translation missing: en.openapi.descriptions.invoice.schema.paid_at
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -554,7 +554,7 @@ private constructor(
     fun virtualAccountId(): String? = virtualAccountId.getNullable("virtual_account_id")
 
     /**
-     * The time at which the invoice was voided.
+     * Translation missing: en.openapi.descriptions.invoice.schema.voided_at
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -1316,7 +1316,7 @@ private constructor(
             this.invoicerName = invoicerName
         }
 
-        /** The time at which the invoice was issued. */
+        /** Translation missing: en.openapi.descriptions.invoice.schema.issued_at */
         fun issuedAt(issuedAt: OffsetDateTime?) = issuedAt(JsonField.ofNullable(issuedAt))
 
         /**
@@ -1461,7 +1461,7 @@ private constructor(
             this.originatingAccountId = originatingAccountId
         }
 
-        /** The time at which the invoice was paid. */
+        /** Translation missing: en.openapi.descriptions.invoice.schema.paid_at */
         fun paidAt(paidAt: OffsetDateTime?) = paidAt(JsonField.ofNullable(paidAt))
 
         /**
@@ -1722,7 +1722,7 @@ private constructor(
             this.virtualAccountId = virtualAccountId
         }
 
-        /** The time at which the invoice was voided. */
+        /** Translation missing: en.openapi.descriptions.invoice.schema.voided_at */
         fun voidedAt(voidedAt: OffsetDateTime?) = voidedAt(JsonField.ofNullable(voidedAt))
 
         /**

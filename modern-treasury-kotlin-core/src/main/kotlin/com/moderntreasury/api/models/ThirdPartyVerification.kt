@@ -574,10 +574,6 @@ private constructor(
 
             val ALLOY = of("alloy")
 
-            val IDOLOGY = of("idology")
-
-            val SOCURE = of("socure")
-
             val SUMSUB = of("sumsub")
 
             val VERIFF = of("veriff")
@@ -590,8 +586,6 @@ private constructor(
             PERSONA,
             MIDDESK,
             ALLOY,
-            IDOLOGY,
-            SOCURE,
             SUMSUB,
             VERIFF,
         }
@@ -609,8 +603,6 @@ private constructor(
             PERSONA,
             MIDDESK,
             ALLOY,
-            IDOLOGY,
-            SOCURE,
             SUMSUB,
             VERIFF,
             /** An enum member indicating that [Vendor] was instantiated with an unknown value. */
@@ -629,8 +621,6 @@ private constructor(
                 PERSONA -> Value.PERSONA
                 MIDDESK -> Value.MIDDESK
                 ALLOY -> Value.ALLOY
-                IDOLOGY -> Value.IDOLOGY
-                SOCURE -> Value.SOCURE
                 SUMSUB -> Value.SUMSUB
                 VERIFF -> Value.VERIFF
                 else -> Value._UNKNOWN
@@ -650,8 +640,6 @@ private constructor(
                 PERSONA -> Known.PERSONA
                 MIDDESK -> Known.MIDDESK
                 ALLOY -> Known.ALLOY
-                IDOLOGY -> Known.IDOLOGY
-                SOCURE -> Known.SOCURE
                 SUMSUB -> Known.SUMSUB
                 VERIFF -> Known.VERIFF
                 else -> throw ModernTreasuryInvalidDataException("Unknown Vendor: $value")
