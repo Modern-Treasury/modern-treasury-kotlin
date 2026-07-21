@@ -72,7 +72,7 @@ internal class LegalEntityServiceTest {
                     .citizenshipCountry("citizenship_country")
                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                     .connectionId("connection_id")
-                    .countryOfIncorporation("country_of_incorporation")
+                    .countryOfIncorporation("US")
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .addDocument(
@@ -172,7 +172,7 @@ internal class LegalEntityServiceTest {
                                     .citizenshipCountry("citizenship_country")
                                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                                     .connectionId("connection_id")
-                                    .countryOfIncorporation("country_of_incorporation")
+                                    .countryOfIncorporation("US")
                                     .dateFormed(LocalDate.parse("2019-12-27"))
                                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                                     .addDocument(
@@ -252,7 +252,8 @@ internal class LegalEntityServiceTest {
                                             .build()
                                     )
                                     .middleName("middle_name")
-                                    .addOperatingJurisdiction("string")
+                                    .addOperatingJurisdiction("US")
+                                    .addOperatingJurisdiction("CA")
                                     .addPhoneNumber(
                                         ChildLegalEntityCreate.PhoneNumber.builder()
                                             .phoneNumber("phone_number")
@@ -375,7 +376,8 @@ internal class LegalEntityServiceTest {
                             .build()
                     )
                     .middleName("middle_name")
-                    .addOperatingJurisdiction("string")
+                    .addOperatingJurisdiction("US")
+                    .addOperatingJurisdiction("CA")
                     .addPhoneNumber(
                         LegalEntityCreateParams.PhoneNumber.builder()
                             .phoneNumber("phone_number")
@@ -517,7 +519,7 @@ internal class LegalEntityServiceTest {
                     .businessDescription("business_description")
                     .businessName("business_name")
                     .citizenshipCountry("citizenship_country")
-                    .countryOfIncorporation("country_of_incorporation")
+                    .countryOfIncorporation("US")
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .addDoingBusinessAsName("string")
@@ -570,7 +572,8 @@ internal class LegalEntityServiceTest {
                             .build()
                     )
                     .middleName("middle_name")
-                    .addOperatingJurisdiction("string")
+                    .addOperatingJurisdiction("US")
+                    .addOperatingJurisdiction("CA")
                     .addPhoneNumber(
                         LegalEntityUpdateParams.PhoneNumber.builder()
                             .phoneNumber("phone_number")
