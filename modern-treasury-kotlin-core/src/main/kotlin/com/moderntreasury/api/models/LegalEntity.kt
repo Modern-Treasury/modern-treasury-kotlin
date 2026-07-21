@@ -307,8 +307,8 @@ private constructor(
     fun _complianceDetails(): JsonValue = complianceDetails
 
     /**
-     * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or alpha-3
-     * formats.
+     * The country where the business is incorporated, as an ISO 3166-1 alpha-2 country code (e.g.
+     * US).
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -479,7 +479,8 @@ private constructor(
     fun object_(): String = object_.getRequired("object")
 
     /**
-     * A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3 codes).
+     * A list of countries where the business operates, as ISO 3166-1 alpha-2 country codes (e.g.
+     * ["US", "CA"]).
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1327,8 +1328,8 @@ private constructor(
         }
 
         /**
-         * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or alpha-3
-         * formats.
+         * The country where the business is incorporated, as an ISO 3166-1 alpha-2 country code
+         * (e.g. US).
          */
         fun countryOfIncorporation(countryOfIncorporation: String?) =
             countryOfIncorporation(JsonField.ofNullable(countryOfIncorporation))
@@ -1682,7 +1683,8 @@ private constructor(
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
-         * A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3 codes).
+         * A list of countries where the business operates, as ISO 3166-1 alpha-2 country codes
+         * (e.g. ["US", "CA"]).
          */
         fun operatingJurisdictions(operatingJurisdictions: List<String>) =
             operatingJurisdictions(JsonField.of(operatingJurisdictions))
