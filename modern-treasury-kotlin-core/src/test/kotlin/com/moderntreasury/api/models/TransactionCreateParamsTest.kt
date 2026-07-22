@@ -12,12 +12,13 @@ internal class TransactionCreateParamsTest {
     @Test
     fun create() {
         TransactionCreateParams.builder()
-            .amount(0L)
             .asOfDate(LocalDate.parse("2019-12-27"))
             .direction("direction")
             .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .vendorCode("vendor_code")
             .vendorCodeType("vendor_code_type")
+            .amount(0L)
+            .amountString("amount_string")
             .metadata(
                 TransactionCreateParams.Metadata.builder()
                     .putAdditionalProperty("key", JsonValue.from("value"))
@@ -36,12 +37,13 @@ internal class TransactionCreateParamsTest {
     fun body() {
         val params =
             TransactionCreateParams.builder()
-                .amount(0L)
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .direction("direction")
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .vendorCode("vendor_code")
                 .vendorCodeType("vendor_code_type")
+                .amount(0L)
+                .amountString("amount_string")
                 .metadata(
                     TransactionCreateParams.Metadata.builder()
                         .putAdditionalProperty("key", JsonValue.from("value"))
@@ -57,12 +59,13 @@ internal class TransactionCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.direction()).isEqualTo("direction")
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.vendorCode()).isEqualTo("vendor_code")
         assertThat(body.vendorCodeType()).isEqualTo("vendor_code_type")
+        assertThat(body.amount()).isEqualTo(0L)
+        assertThat(body.amountString()).isEqualTo("amount_string")
         assertThat(body.metadata())
             .isEqualTo(
                 TransactionCreateParams.Metadata.builder()
@@ -81,7 +84,6 @@ internal class TransactionCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             TransactionCreateParams.builder()
-                .amount(0L)
                 .asOfDate(LocalDate.parse("2019-12-27"))
                 .direction("direction")
                 .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -91,7 +93,6 @@ internal class TransactionCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.asOfDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.direction()).isEqualTo("direction")
         assertThat(body.internalAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
