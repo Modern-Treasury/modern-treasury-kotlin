@@ -19,6 +19,7 @@ import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
@@ -72,8 +73,8 @@ private constructor(
     fun citizenshipCountry(): String? = body.citizenshipCountry()
 
     /**
-     * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or alpha-3
-     * formats.
+     * The country where the business is incorporated, as an ISO 3166-1 alpha-2 country code (e.g.
+     * US).
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -200,7 +201,8 @@ private constructor(
     fun middleName(): String? = body.middleName()
 
     /**
-     * A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3 codes).
+     * A list of countries where the business operates, as ISO 3166-1 alpha-2 country codes (e.g.
+     * ["US", "CA"]).
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -276,6 +278,14 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun suffix(): String? = body.suffix()
+
+    /**
+     * Acceptance of terms of use by the legal entity.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun termsOfUse(): TermsOfUse? = body.termsOfUse()
 
     /**
      * Deprecated. Use `third_party_verifications` instead.
@@ -546,6 +556,13 @@ private constructor(
     fun _suffix(): JsonField<String> = body._suffix()
 
     /**
+     * Returns the raw JSON value of [termsOfUse].
+     *
+     * Unlike [termsOfUse], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _termsOfUse(): JsonField<TermsOfUse> = body._termsOfUse()
+
+    /**
      * Returns the raw JSON value of [thirdPartyVerification].
      *
      * Unlike [thirdPartyVerification], this method doesn't throw if the JSON field has an
@@ -721,8 +738,8 @@ private constructor(
         }
 
         /**
-         * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or alpha-3
-         * formats.
+         * The country where the business is incorporated, as an ISO 3166-1 alpha-2 country code
+         * (e.g. US).
          */
         fun countryOfIncorporation(countryOfIncorporation: String?) = apply {
             body.countryOfIncorporation(countryOfIncorporation)
@@ -977,7 +994,8 @@ private constructor(
         fun middleName(middleName: JsonField<String>) = apply { body.middleName(middleName) }
 
         /**
-         * A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3 codes).
+         * A list of countries where the business operates, as ISO 3166-1 alpha-2 country codes
+         * (e.g. ["US", "CA"]).
          */
         fun operatingJurisdictions(operatingJurisdictions: List<String>) = apply {
             body.operatingJurisdictions(operatingJurisdictions)
@@ -1160,6 +1178,18 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun suffix(suffix: JsonField<String>) = apply { body.suffix(suffix) }
+
+        /** Acceptance of terms of use by the legal entity. */
+        fun termsOfUse(termsOfUse: TermsOfUse?) = apply { body.termsOfUse(termsOfUse) }
+
+        /**
+         * Sets [Builder.termsOfUse] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.termsOfUse] with a well-typed [TermsOfUse] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun termsOfUse(termsOfUse: JsonField<TermsOfUse>) = apply { body.termsOfUse(termsOfUse) }
 
         /** Deprecated. Use `third_party_verifications` instead. */
         @Deprecated("deprecated")
@@ -1423,6 +1453,7 @@ private constructor(
         private val riskRating: JsonField<RiskRating>,
         private val serviceProviderLegalEntityId: JsonField<String>,
         private val suffix: JsonField<String>,
+        private val termsOfUse: JsonField<TermsOfUse>,
         private val thirdPartyVerification: JsonField<ThirdPartyVerification>,
         private val thirdPartyVerifications: JsonField<List<ThirdPartyVerification>>,
         private val tickerSymbol: JsonField<String>,
@@ -1521,6 +1552,9 @@ private constructor(
             @ExcludeMissing
             serviceProviderLegalEntityId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("suffix") @ExcludeMissing suffix: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("terms_of_use")
+            @ExcludeMissing
+            termsOfUse: JsonField<TermsOfUse> = JsonMissing.of(),
             @JsonProperty("third_party_verification")
             @ExcludeMissing
             thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of(),
@@ -1566,6 +1600,7 @@ private constructor(
             riskRating,
             serviceProviderLegalEntityId,
             suffix,
+            termsOfUse,
             thirdPartyVerification,
             thirdPartyVerifications,
             tickerSymbol,
@@ -1613,8 +1648,8 @@ private constructor(
         fun citizenshipCountry(): String? = citizenshipCountry.getNullable("citizenship_country")
 
         /**
-         * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or alpha-3
-         * formats.
+         * The country where the business is incorporated, as an ISO 3166-1 alpha-2 country code
+         * (e.g. US).
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -1745,7 +1780,8 @@ private constructor(
         fun middleName(): String? = middleName.getNullable("middle_name")
 
         /**
-         * A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3 codes).
+         * A list of countries where the business operates, as ISO 3166-1 alpha-2 country codes
+         * (e.g. ["US", "CA"]).
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -1825,6 +1861,14 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun suffix(): String? = suffix.getNullable("suffix")
+
+        /**
+         * Acceptance of terms of use by the legal entity.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun termsOfUse(): TermsOfUse? = termsOfUse.getNullable("terms_of_use")
 
         /**
          * Deprecated. Use `third_party_verifications` instead.
@@ -2154,6 +2198,15 @@ private constructor(
         @JsonProperty("suffix") @ExcludeMissing fun _suffix(): JsonField<String> = suffix
 
         /**
+         * Returns the raw JSON value of [termsOfUse].
+         *
+         * Unlike [termsOfUse], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("terms_of_use")
+        @ExcludeMissing
+        fun _termsOfUse(): JsonField<TermsOfUse> = termsOfUse
+
+        /**
          * Returns the raw JSON value of [thirdPartyVerification].
          *
          * Unlike [thirdPartyVerification], this method doesn't throw if the JSON field has an
@@ -2259,6 +2312,7 @@ private constructor(
             private var riskRating: JsonField<RiskRating> = JsonMissing.of()
             private var serviceProviderLegalEntityId: JsonField<String> = JsonMissing.of()
             private var suffix: JsonField<String> = JsonMissing.of()
+            private var termsOfUse: JsonField<TermsOfUse> = JsonMissing.of()
             private var thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of()
             private var thirdPartyVerifications: JsonField<MutableList<ThirdPartyVerification>>? =
                 null
@@ -2305,6 +2359,7 @@ private constructor(
                 riskRating = legalEntityUpdateRequest.riskRating
                 serviceProviderLegalEntityId = legalEntityUpdateRequest.serviceProviderLegalEntityId
                 suffix = legalEntityUpdateRequest.suffix
+                termsOfUse = legalEntityUpdateRequest.termsOfUse
                 thirdPartyVerification = legalEntityUpdateRequest.thirdPartyVerification
                 thirdPartyVerifications =
                     legalEntityUpdateRequest.thirdPartyVerifications.map { it.toMutableList() }
@@ -2401,8 +2456,8 @@ private constructor(
             }
 
             /**
-             * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or
-             * alpha-3 formats.
+             * The country where the business is incorporated, as an ISO 3166-1 alpha-2 country code
+             * (e.g. US).
              */
             fun countryOfIncorporation(countryOfIncorporation: String?) =
                 countryOfIncorporation(JsonField.ofNullable(countryOfIncorporation))
@@ -2676,8 +2731,8 @@ private constructor(
             fun middleName(middleName: JsonField<String>) = apply { this.middleName = middleName }
 
             /**
-             * A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3
-             * codes).
+             * A list of countries where the business operates, as ISO 3166-1 alpha-2 country codes
+             * (e.g. ["US", "CA"]).
              */
             fun operatingJurisdictions(operatingJurisdictions: List<String>) =
                 operatingJurisdictions(JsonField.of(operatingJurisdictions))
@@ -2877,6 +2932,20 @@ private constructor(
              */
             fun suffix(suffix: JsonField<String>) = apply { this.suffix = suffix }
 
+            /** Acceptance of terms of use by the legal entity. */
+            fun termsOfUse(termsOfUse: TermsOfUse?) = termsOfUse(JsonField.ofNullable(termsOfUse))
+
+            /**
+             * Sets [Builder.termsOfUse] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.termsOfUse] with a well-typed [TermsOfUse] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun termsOfUse(termsOfUse: JsonField<TermsOfUse>) = apply {
+                this.termsOfUse = termsOfUse
+            }
+
             /** Deprecated. Use `third_party_verifications` instead. */
             @Deprecated("deprecated")
             fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification?) =
@@ -3023,6 +3092,7 @@ private constructor(
                     riskRating,
                     serviceProviderLegalEntityId,
                     suffix,
+                    termsOfUse,
                     thirdPartyVerification,
                     (thirdPartyVerifications ?: JsonMissing.of()).map { it.toImmutable() },
                     tickerSymbol,
@@ -3079,6 +3149,7 @@ private constructor(
             riskRating()?.validate()
             serviceProviderLegalEntityId()
             suffix()
+            termsOfUse()?.validate()
             thirdPartyVerification()?.validate()
             thirdPartyVerifications()?.forEach { it.validate() }
             tickerSymbol()
@@ -3133,6 +3204,7 @@ private constructor(
                 (riskRating.asKnown()?.validity() ?: 0) +
                 (if (serviceProviderLegalEntityId.asKnown() == null) 0 else 1) +
                 (if (suffix.asKnown() == null) 0 else 1) +
+                (termsOfUse.asKnown()?.validity() ?: 0) +
                 (thirdPartyVerification.asKnown()?.validity() ?: 0) +
                 (thirdPartyVerifications.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (tickerSymbol.asKnown() == null) 0 else 1) +
@@ -3176,6 +3248,7 @@ private constructor(
                 riskRating == other.riskRating &&
                 serviceProviderLegalEntityId == other.serviceProviderLegalEntityId &&
                 suffix == other.suffix &&
+                termsOfUse == other.termsOfUse &&
                 thirdPartyVerification == other.thirdPartyVerification &&
                 thirdPartyVerifications == other.thirdPartyVerifications &&
                 tickerSymbol == other.tickerSymbol &&
@@ -3217,6 +3290,7 @@ private constructor(
                 riskRating,
                 serviceProviderLegalEntityId,
                 suffix,
+                termsOfUse,
                 thirdPartyVerification,
                 thirdPartyVerifications,
                 tickerSymbol,
@@ -3229,7 +3303,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LegalEntityUpdateRequest{addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, serviceProviderLegalEntityId=$serviceProviderLegalEntityId, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, thirdPartyVerifications=$thirdPartyVerifications, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
+            "LegalEntityUpdateRequest{addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, serviceProviderLegalEntityId=$serviceProviderLegalEntityId, suffix=$suffix, termsOfUse=$termsOfUse, thirdPartyVerification=$thirdPartyVerification, thirdPartyVerifications=$thirdPartyVerifications, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
     }
 
     /** The business's legal structure. */
@@ -3518,6 +3592,9 @@ private constructor(
         ) : this(phoneNumber, mutableMapOf())
 
         /**
+         * A phone number in E.164 format. This format is strictly validated: include a leading +
+         * and country code, followed by digits only (no spaces or dashes), e.g. +12025551234.
+         *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
          */
@@ -3561,6 +3638,11 @@ private constructor(
                 additionalProperties = phoneNumber.additionalProperties.toMutableMap()
             }
 
+            /**
+             * A phone number in E.164 format. This format is strictly validated: include a
+             * leading + and country code, followed by digits only (no spaces or dashes), e.g.
+             * +12025551234.
+             */
             fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
 
             /**
@@ -4059,6 +4141,206 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    /** Acceptance of terms of use by the legal entity. */
+    class TermsOfUse
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val acceptedAt: JsonField<OffsetDateTime>,
+        private val ipAddress: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("accepted_at")
+            @ExcludeMissing
+            acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("ip_address")
+            @ExcludeMissing
+            ipAddress: JsonField<String> = JsonMissing.of(),
+        ) : this(acceptedAt, ipAddress, mutableMapOf())
+
+        /**
+         * The ISO 8601 timestamp indicating when the terms of use were accepted.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun acceptedAt(): OffsetDateTime? = acceptedAt.getNullable("accepted_at")
+
+        /**
+         * The IP address from which the terms of use were accepted. Supports both IPv4 and IPv6
+         * formats.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun ipAddress(): String? = ipAddress.getNullable("ip_address")
+
+        /**
+         * Returns the raw JSON value of [acceptedAt].
+         *
+         * Unlike [acceptedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("accepted_at")
+        @ExcludeMissing
+        fun _acceptedAt(): JsonField<OffsetDateTime> = acceptedAt
+
+        /**
+         * Returns the raw JSON value of [ipAddress].
+         *
+         * Unlike [ipAddress], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("ip_address") @ExcludeMissing fun _ipAddress(): JsonField<String> = ipAddress
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [TermsOfUse]. */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [TermsOfUse]. */
+        class Builder internal constructor() {
+
+            private var acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var ipAddress: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(termsOfUse: TermsOfUse) = apply {
+                acceptedAt = termsOfUse.acceptedAt
+                ipAddress = termsOfUse.ipAddress
+                additionalProperties = termsOfUse.additionalProperties.toMutableMap()
+            }
+
+            /** The ISO 8601 timestamp indicating when the terms of use were accepted. */
+            fun acceptedAt(acceptedAt: OffsetDateTime) = acceptedAt(JsonField.of(acceptedAt))
+
+            /**
+             * Sets [Builder.acceptedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.acceptedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun acceptedAt(acceptedAt: JsonField<OffsetDateTime>) = apply {
+                this.acceptedAt = acceptedAt
+            }
+
+            /**
+             * The IP address from which the terms of use were accepted. Supports both IPv4 and IPv6
+             * formats.
+             */
+            fun ipAddress(ipAddress: String) = ipAddress(JsonField.of(ipAddress))
+
+            /**
+             * Sets [Builder.ipAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ipAddress] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun ipAddress(ipAddress: JsonField<String>) = apply { this.ipAddress = ipAddress }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [TermsOfUse].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): TermsOfUse =
+                TermsOfUse(acceptedAt, ipAddress, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
+         *   its expected type.
+         */
+        fun validate(): TermsOfUse = apply {
+            if (validated) {
+                return@apply
+            }
+
+            acceptedAt()
+            ipAddress()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (acceptedAt.asKnown() == null) 0 else 1) +
+                (if (ipAddress.asKnown() == null) 0 else 1)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is TermsOfUse &&
+                acceptedAt == other.acceptedAt &&
+                ipAddress == other.ipAddress &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(acceptedAt, ipAddress, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "TermsOfUse{acceptedAt=$acceptedAt, ipAddress=$ipAddress, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

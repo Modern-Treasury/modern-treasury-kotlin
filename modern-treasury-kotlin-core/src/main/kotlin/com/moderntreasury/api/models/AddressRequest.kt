@@ -59,7 +59,7 @@ private constructor(
     fun line2(): String? = line2.getNullable("line2")
 
     /**
-     * Locality or City.
+     * Locality or City. Use the full city name rather than an abbreviation (e.g. San Francisco).
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -75,7 +75,8 @@ private constructor(
     fun postalCode(): String? = postalCode.getNullable("postal_code")
 
     /**
-     * Region or State.
+     * Region or State. This field is free-form; for US states, we recommend a two-letter code (e.g.
+     * CA). Full state names are also accepted.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -194,7 +195,10 @@ private constructor(
          */
         fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
-        /** Locality or City. */
+        /**
+         * Locality or City. Use the full city name rather than an abbreviation (e.g. San
+         * Francisco).
+         */
         fun locality(locality: String?) = locality(JsonField.ofNullable(locality))
 
         /**
@@ -217,7 +221,10 @@ private constructor(
          */
         fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
-        /** Region or State. */
+        /**
+         * Region or State. This field is free-form; for US states, we recommend a two-letter code
+         * (e.g. CA). Full state names are also accepted.
+         */
         fun region(region: String?) = region(JsonField.ofNullable(region))
 
         /**
