@@ -34,13 +34,13 @@ private constructor(
 
     fun perPage(): Long? = perPage
 
-    /** Translation missing: en.openapi.descriptions.payment_order.query_params.status */
+    /** Only return holds for a specific status. */
     fun status(): Status? = status
 
-    /** Translation missing: en.openapi.descriptions.payment_order.query_params.target_id */
+    /** Only return holds for a specific target ID. */
     fun targetId(): String? = targetId
 
-    /** Translation missing: en.openapi.descriptions.payment_order.query_params.target_type */
+    /** Only return holds for a specific target type. */
     fun targetType(): TargetType? = targetType
 
     /** Additional headers to send with the request. */
@@ -99,13 +99,13 @@ private constructor(
          */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
-        /** Translation missing: en.openapi.descriptions.payment_order.query_params.status */
+        /** Only return holds for a specific status. */
         fun status(status: Status?) = apply { this.status = status }
 
-        /** Translation missing: en.openapi.descriptions.payment_order.query_params.target_id */
+        /** Only return holds for a specific target ID. */
         fun targetId(targetId: String?) = apply { this.targetId = targetId }
 
-        /** Translation missing: en.openapi.descriptions.payment_order.query_params.target_type */
+        /** Only return holds for a specific target type. */
         fun targetType(targetType: TargetType?) = apply { this.targetType = targetType }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -343,7 +343,7 @@ private constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
-    /** Translation missing: en.openapi.descriptions.payment_order.query_params.status */
+    /** Only return holds for a specific status. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -478,7 +478,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** Translation missing: en.openapi.descriptions.payment_order.query_params.target_type */
+    /** Only return holds for a specific target type. */
     class TargetType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
