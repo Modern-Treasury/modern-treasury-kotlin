@@ -23,7 +23,7 @@ import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-/** create legal_entity */
+/** Create a legal entity. All country fields use ISO 3166-1 alpha-2 (e.g. US). */
 class LegalEntityCreateParams
 private constructor(
     private val body: LegalEntityCreateRequest,
@@ -97,8 +97,8 @@ private constructor(
     fun connectionId(): String? = body.connectionId()
 
     /**
-     * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or alpha-3
-     * formats.
+     * The country where the business is incorporated, as an ISO 3166-1 alpha-2 country code (e.g.
+     * US).
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -243,7 +243,8 @@ private constructor(
     fun middleName(): String? = body.middleName()
 
     /**
-     * A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3 codes).
+     * A list of countries where the business operates, as ISO 3166-1 alpha-2 country codes (e.g.
+     * ["US", "CA"]).
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -850,8 +851,8 @@ private constructor(
         }
 
         /**
-         * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or alpha-3
-         * formats.
+         * The country where the business is incorporated, as an ISO 3166-1 alpha-2 country code
+         * (e.g. US).
          */
         fun countryOfIncorporation(countryOfIncorporation: String?) = apply {
             body.countryOfIncorporation(countryOfIncorporation)
@@ -1154,7 +1155,8 @@ private constructor(
         fun middleName(middleName: JsonField<String>) = apply { body.middleName(middleName) }
 
         /**
-         * A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3 codes).
+         * A list of countries where the business operates, as ISO 3166-1 alpha-2 country codes
+         * (e.g. ["US", "CA"]).
          */
         fun operatingJurisdictions(operatingJurisdictions: List<String>) = apply {
             body.operatingJurisdictions(operatingJurisdictions)
@@ -1863,8 +1865,8 @@ private constructor(
         fun connectionId(): String? = connectionId.getNullable("connection_id")
 
         /**
-         * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or alpha-3
-         * formats.
+         * The country where the business is incorporated, as an ISO 3166-1 alpha-2 country code
+         * (e.g. US).
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -2013,7 +2015,8 @@ private constructor(
         fun middleName(): String? = middleName.getNullable("middle_name")
 
         /**
-         * A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3 codes).
+         * A list of countries where the business operates, as ISO 3166-1 alpha-2 country codes
+         * (e.g. ["US", "CA"]).
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -2786,8 +2789,8 @@ private constructor(
             }
 
             /**
-             * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or
-             * alpha-3 formats.
+             * The country where the business is incorporated, as an ISO 3166-1 alpha-2 country code
+             * (e.g. US).
              */
             fun countryOfIncorporation(countryOfIncorporation: String?) =
                 countryOfIncorporation(JsonField.ofNullable(countryOfIncorporation))
@@ -3122,8 +3125,8 @@ private constructor(
             fun middleName(middleName: JsonField<String>) = apply { this.middleName = middleName }
 
             /**
-             * A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3
-             * codes).
+             * A list of countries where the business operates, as ISO 3166-1 alpha-2 country codes
+             * (e.g. ["US", "CA"]).
              */
             fun operatingJurisdictions(operatingJurisdictions: List<String>) =
                 operatingJurisdictions(JsonField.of(operatingJurisdictions))
@@ -4574,6 +4577,9 @@ private constructor(
         ) : this(phoneNumber, mutableMapOf())
 
         /**
+         * A phone number in E.164 format. This format is strictly validated: include a leading +
+         * and country code, followed by digits only (no spaces or dashes), e.g. +12025551234.
+         *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
          */
@@ -4617,6 +4623,11 @@ private constructor(
                 additionalProperties = phoneNumber.additionalProperties.toMutableMap()
             }
 
+            /**
+             * A phone number in E.164 format. This format is strictly validated: include a
+             * leading + and country code, followed by digits only (no spaces or dashes), e.g.
+             * +12025551234.
+             */
             fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
 
             /**

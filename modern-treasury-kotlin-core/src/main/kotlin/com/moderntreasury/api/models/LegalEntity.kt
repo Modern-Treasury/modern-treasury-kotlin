@@ -307,8 +307,8 @@ private constructor(
     fun _complianceDetails(): JsonValue = complianceDetails
 
     /**
-     * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or alpha-3
-     * formats.
+     * The country where the business is incorporated, as an ISO 3166-1 alpha-2 country code (e.g.
+     * US).
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -479,7 +479,8 @@ private constructor(
     fun object_(): String = object_.getRequired("object")
 
     /**
-     * A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3 codes).
+     * A list of countries where the business operates, as ISO 3166-1 alpha-2 country codes (e.g.
+     * ["US", "CA"]).
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1327,8 +1328,8 @@ private constructor(
         }
 
         /**
-         * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or alpha-3
-         * formats.
+         * The country where the business is incorporated, as an ISO 3166-1 alpha-2 country code
+         * (e.g. US).
          */
         fun countryOfIncorporation(countryOfIncorporation: String?) =
             countryOfIncorporation(JsonField.ofNullable(countryOfIncorporation))
@@ -1682,7 +1683,8 @@ private constructor(
         fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
 
         /**
-         * A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3 codes).
+         * A list of countries where the business operates, as ISO 3166-1 alpha-2 country codes
+         * (e.g. ["US", "CA"]).
          */
         fun operatingJurisdictions(operatingJurisdictions: List<String>) =
             operatingJurisdictions(JsonField.of(operatingJurisdictions))
@@ -2419,7 +2421,8 @@ private constructor(
         fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
         /**
-         * Locality or City.
+         * Locality or City. Use the full city name rather than an abbreviation (e.g. San
+         * Francisco).
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -2450,7 +2453,8 @@ private constructor(
         fun primary(): Boolean? = primary.getNullable("primary")
 
         /**
-         * Region or State.
+         * Region or State. This field is free-form; for US states, we recommend a two-letter code
+         * (e.g. CA). Full state names are also accepted.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -2761,7 +2765,10 @@ private constructor(
              */
             fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
 
-            /** Locality or City. */
+            /**
+             * Locality or City. Use the full city name rather than an abbreviation (e.g. San
+             * Francisco).
+             */
             fun locality(locality: String?) = locality(JsonField.ofNullable(locality))
 
             /**
@@ -2818,7 +2825,10 @@ private constructor(
              */
             fun primary(primary: JsonField<Boolean>) = apply { this.primary = primary }
 
-            /** Region or State. */
+            /**
+             * Region or State. This field is free-form; for US states, we recommend a two-letter
+             * code (e.g. CA). Full state names are also accepted.
+             */
             fun region(region: String?) = region(JsonField.ofNullable(region))
 
             /**
@@ -3861,6 +3871,10 @@ private constructor(
 
                 val GR_VAT = of("gr_vat")
 
+                val HK_BRN = of("hk_brn")
+
+                val HK_HKID = of("hk_hkid")
+
                 val HN_ID = of("hn_id")
 
                 val HN_RTN = of("hn_rtn")
@@ -4023,6 +4037,8 @@ private constructor(
                 GB_VAT,
                 GENERIC_INTERNATIONAL,
                 GR_VAT,
+                HK_BRN,
+                HK_HKID,
                 HN_ID,
                 HN_RTN,
                 HR_OIB,
@@ -4134,6 +4150,8 @@ private constructor(
                 GB_VAT,
                 GENERIC_INTERNATIONAL,
                 GR_VAT,
+                HK_BRN,
+                HK_HKID,
                 HN_ID,
                 HN_RTN,
                 HR_OIB,
@@ -4248,6 +4266,8 @@ private constructor(
                     GB_VAT -> Value.GB_VAT
                     GENERIC_INTERNATIONAL -> Value.GENERIC_INTERNATIONAL
                     GR_VAT -> Value.GR_VAT
+                    HK_BRN -> Value.HK_BRN
+                    HK_HKID -> Value.HK_HKID
                     HN_ID -> Value.HN_ID
                     HN_RTN -> Value.HN_RTN
                     HR_OIB -> Value.HR_OIB
@@ -4361,6 +4381,8 @@ private constructor(
                     GB_VAT -> Known.GB_VAT
                     GENERIC_INTERNATIONAL -> Known.GENERIC_INTERNATIONAL
                     GR_VAT -> Known.GR_VAT
+                    HK_BRN -> Known.HK_BRN
+                    HK_HKID -> Known.HK_HKID
                     HN_ID -> Known.HN_ID
                     HN_RTN -> Known.HN_RTN
                     HR_OIB -> Known.HR_OIB
@@ -4953,6 +4975,9 @@ private constructor(
         ) : this(phoneNumber, mutableMapOf())
 
         /**
+         * A phone number in E.164 format. This format is strictly validated: include a leading +
+         * and country code, followed by digits only (no spaces or dashes), e.g. +12025551234.
+         *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
          */
@@ -4996,6 +5021,11 @@ private constructor(
                 additionalProperties = phoneNumber.additionalProperties.toMutableMap()
             }
 
+            /**
+             * A phone number in E.164 format. This format is strictly validated: include a
+             * leading + and country code, followed by digits only (no spaces or dashes), e.g.
+             * +12025551234.
+             */
             fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
 
             /**

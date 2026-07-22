@@ -72,7 +72,7 @@ internal class ConnectionLegalEntityServiceTest {
                             .citizenshipCountry("citizenship_country")
                             .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                             .connectionId("connection_id")
-                            .countryOfIncorporation("country_of_incorporation")
+                            .countryOfIncorporation("US")
                             .dateFormed(LocalDate.parse("2019-12-27"))
                             .dateOfBirth(LocalDate.parse("2019-12-27"))
                             .addDocument(
@@ -180,7 +180,7 @@ internal class ConnectionLegalEntityServiceTest {
                                             .citizenshipCountry("citizenship_country")
                                             .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                                             .connectionId("connection_id")
-                                            .countryOfIncorporation("country_of_incorporation")
+                                            .countryOfIncorporation("US")
                                             .dateFormed(LocalDate.parse("2019-12-27"))
                                             .dateOfBirth(LocalDate.parse("2019-12-27"))
                                             .addDocument(
@@ -276,7 +276,8 @@ internal class ConnectionLegalEntityServiceTest {
                                                     .build()
                                             )
                                             .middleName("middle_name")
-                                            .addOperatingJurisdiction("string")
+                                            .addOperatingJurisdiction("US")
+                                            .addOperatingJurisdiction("CA")
                                             .addPhoneNumber(
                                                 ChildLegalEntityCreate.PhoneNumber.builder()
                                                     .phoneNumber("phone_number")
@@ -423,7 +424,8 @@ internal class ConnectionLegalEntityServiceTest {
                                     .build()
                             )
                             .middleName("middle_name")
-                            .addOperatingJurisdiction("string")
+                            .addOperatingJurisdiction("US")
+                            .addOperatingJurisdiction("CA")
                             .addPhoneNumber(
                                 ConnectionLegalEntityCreateParams.LegalEntity.PhoneNumber.builder()
                                     .phoneNumber("phone_number")

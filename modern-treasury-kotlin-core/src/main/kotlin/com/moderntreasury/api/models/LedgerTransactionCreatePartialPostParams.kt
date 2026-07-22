@@ -733,6 +733,7 @@ private constructor(
             "LedgerTransactionPartialPostCreateRequest{postedLedgerEntries=$postedLedgerEntries, description=$description, effectiveAt=$effectiveAt, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
+    /** At least one of "amount" or "amount_string" is required. */
     class LedgerEntryPartialPostCreateRequest
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
