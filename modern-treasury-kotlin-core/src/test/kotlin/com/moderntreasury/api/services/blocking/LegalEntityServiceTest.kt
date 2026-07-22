@@ -13,7 +13,6 @@ import com.moderntreasury.api.models.LegalEntityAssociationInlineCreate
 import com.moderntreasury.api.models.LegalEntityCreateParams
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
 import com.moderntreasury.api.models.LegalEntityUpdateParams
-import com.moderntreasury.api.models.LegalEntityUpdateStatusParams
 import com.moderntreasury.api.models.ThirdPartyVerification
 import com.moderntreasury.api.models.WealthAndEmploymentDetails
 import java.time.LocalDate
@@ -23,7 +22,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-@Disabled("Prism doesn't generate valid recursive LegalEntityAssociation structures")
 internal class LegalEntityServiceTest {
 
     @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
@@ -72,7 +70,7 @@ internal class LegalEntityServiceTest {
                     .citizenshipCountry("citizenship_country")
                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                     .connectionId("connection_id")
-                    .countryOfIncorporation("country_of_incorporation")
+                    .countryOfIncorporation("US")
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .addDocument(
@@ -172,7 +170,7 @@ internal class LegalEntityServiceTest {
                                     .citizenshipCountry("citizenship_country")
                                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                                     .connectionId("connection_id")
-                                    .countryOfIncorporation("country_of_incorporation")
+                                    .countryOfIncorporation("US")
                                     .dateFormed(LocalDate.parse("2019-12-27"))
                                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                                     .addDocument(
@@ -252,7 +250,8 @@ internal class LegalEntityServiceTest {
                                             .build()
                                     )
                                     .middleName("middle_name")
-                                    .addOperatingJurisdiction("string")
+                                    .addOperatingJurisdiction("US")
+                                    .addOperatingJurisdiction("CA")
                                     .addPhoneNumber(
                                         ChildLegalEntityCreate.PhoneNumber.builder()
                                             .phoneNumber("phone_number")
@@ -375,7 +374,8 @@ internal class LegalEntityServiceTest {
                             .build()
                     )
                     .middleName("middle_name")
-                    .addOperatingJurisdiction("string")
+                    .addOperatingJurisdiction("US")
+                    .addOperatingJurisdiction("CA")
                     .addPhoneNumber(
                         LegalEntityCreateParams.PhoneNumber.builder()
                             .phoneNumber("phone_number")
@@ -517,7 +517,7 @@ internal class LegalEntityServiceTest {
                     .businessDescription("business_description")
                     .businessName("business_name")
                     .citizenshipCountry("citizenship_country")
-                    .countryOfIncorporation("country_of_incorporation")
+                    .countryOfIncorporation("US")
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .addDoingBusinessAsName("string")
@@ -570,7 +570,8 @@ internal class LegalEntityServiceTest {
                             .build()
                     )
                     .middleName("middle_name")
-                    .addOperatingJurisdiction("string")
+                    .addOperatingJurisdiction("US")
+                    .addOperatingJurisdiction("CA")
                     .addPhoneNumber(
                         LegalEntityUpdateParams.PhoneNumber.builder()
                             .phoneNumber("phone_number")
@@ -666,27 +667,5 @@ internal class LegalEntityServiceTest {
         val page = legalEntityService.list()
 
         page.items().forEach { it.validate() }
-    }
-
-    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
-    @Test
-    fun updateStatus() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val legalEntityService = client.legalEntities()
-
-        val legalEntity =
-            legalEntityService.updateStatus(
-                LegalEntityUpdateStatusParams.builder()
-                    .id("id")
-                    .status(LegalEntityUpdateStatusParams.Status.ACTIVE)
-                    .build()
-            )
-
-        legalEntity.validate()
     }
 }
