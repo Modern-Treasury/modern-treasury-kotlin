@@ -69,6 +69,9 @@ internal class InternalAccountServiceAsyncTest {
                             .build()
                     )
                     .partyName("party_name")
+                    .addRequestedAccountNumberType(
+                        InternalAccountCreateParams.RequestedAccountNumberType.ETHEREUM_ADDRESS
+                    )
                     .vendorAttributes(
                         InternalAccountCreateParams.VendorAttributes.builder()
                             .putAdditionalProperty("key", JsonValue.from("value"))
