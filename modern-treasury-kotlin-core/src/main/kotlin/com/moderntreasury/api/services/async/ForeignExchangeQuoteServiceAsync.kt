@@ -11,12 +11,11 @@ import com.moderntreasury.api.models.ForeignExchangeQuoteCreateParams
 import com.moderntreasury.api.models.ForeignExchangeQuoteListPageAsync
 import com.moderntreasury.api.models.ForeignExchangeQuoteListParams
 import com.moderntreasury.api.models.ForeignExchangeQuoteRetrieveParams
+import com.moderntreasury.api.services.async.ForeignExchangeQuoteServiceAsync
 
 interface ForeignExchangeQuoteServiceAsync {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -27,42 +26,37 @@ interface ForeignExchangeQuoteServiceAsync {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ForeignExchangeQuoteServiceAsync
 
     /** create foreign_exchange_quote */
-    suspend fun create(
-        params: ForeignExchangeQuoteCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ForeignExchangeQuote
+    suspend fun create(params: ForeignExchangeQuoteCreateParams, requestOptions: RequestOptions = RequestOptions.none()): ForeignExchangeQuote
 
     /** get foreign_exchange_quote */
-    suspend fun retrieve(
-        id: String,
-        params: ForeignExchangeQuoteRetrieveParams = ForeignExchangeQuoteRetrieveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ForeignExchangeQuote = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun retrieve(id: String, params: ForeignExchangeQuoteRetrieveParams = ForeignExchangeQuoteRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): ForeignExchangeQuote =
+        retrieve(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see retrieve */
-    suspend fun retrieve(
-        params: ForeignExchangeQuoteRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ForeignExchangeQuote
+    suspend fun retrieve(params: ForeignExchangeQuoteRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): ForeignExchangeQuote
 
     /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): ForeignExchangeQuote =
-        retrieve(id, ForeignExchangeQuoteRetrieveParams.none(), requestOptions)
+        retrieve(
+          id,
+          ForeignExchangeQuoteRetrieveParams.none(),
+          requestOptions,
+        )
 
     /** list foreign_exchange_quotes */
-    suspend fun list(
-        params: ForeignExchangeQuoteListParams = ForeignExchangeQuoteListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ForeignExchangeQuoteListPageAsync
+    suspend fun list(params: ForeignExchangeQuoteListParams = ForeignExchangeQuoteListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): ForeignExchangeQuoteListPageAsync
 
     /** @see list */
     suspend fun list(requestOptions: RequestOptions): ForeignExchangeQuoteListPageAsync =
-        list(ForeignExchangeQuoteListParams.none(), requestOptions)
+        list(
+          ForeignExchangeQuoteListParams.none(), requestOptions
+        )
 
-    /**
-     * A view of [ForeignExchangeQuoteServiceAsync] that provides access to raw HTTP responses for
-     * each method.
-     */
+    /** A view of [ForeignExchangeQuoteServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -70,62 +64,43 @@ interface ForeignExchangeQuoteServiceAsync {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): ForeignExchangeQuoteServiceAsync.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ForeignExchangeQuoteServiceAsync.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `post /api/foreign_exchange_quotes`, but is otherwise the
-         * same as [ForeignExchangeQuoteServiceAsync.create].
-         */
+        /** Returns a raw HTTP response for `post /api/foreign_exchange_quotes`, but is otherwise the             same as [ForeignExchangeQuoteServiceAsync.create]. */
         @MustBeClosed
-        suspend fun create(
-            params: ForeignExchangeQuoteCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ForeignExchangeQuote>
+        suspend fun create(params: ForeignExchangeQuoteCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ForeignExchangeQuote>
 
-        /**
-         * Returns a raw HTTP response for `get /api/foreign_exchange_quotes/{id}`, but is otherwise
-         * the same as [ForeignExchangeQuoteServiceAsync.retrieve].
-         */
+        /** Returns a raw HTTP response for `get /api/foreign_exchange_quotes/{id}`, but is otherwise the             same as [ForeignExchangeQuoteServiceAsync.retrieve]. */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            params: ForeignExchangeQuoteRetrieveParams = ForeignExchangeQuoteRetrieveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ForeignExchangeQuote> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun retrieve(id: String, params: ForeignExchangeQuoteRetrieveParams = ForeignExchangeQuoteRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ForeignExchangeQuote> =
+            retrieve(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            params: ForeignExchangeQuoteRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ForeignExchangeQuote>
+        suspend fun retrieve(params: ForeignExchangeQuoteRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ForeignExchangeQuote>
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ForeignExchangeQuote> =
-            retrieve(id, ForeignExchangeQuoteRetrieveParams.none(), requestOptions)
+        suspend fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<ForeignExchangeQuote> =
+            retrieve(
+              id,
+              ForeignExchangeQuoteRetrieveParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `get /api/foreign_exchange_quotes`, but is otherwise the
-         * same as [ForeignExchangeQuoteServiceAsync.list].
-         */
+        /** Returns a raw HTTP response for `get /api/foreign_exchange_quotes`, but is otherwise the             same as [ForeignExchangeQuoteServiceAsync.list]. */
         @MustBeClosed
-        suspend fun list(
-            params: ForeignExchangeQuoteListParams = ForeignExchangeQuoteListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ForeignExchangeQuoteListPageAsync>
+        suspend fun list(params: ForeignExchangeQuoteListParams = ForeignExchangeQuoteListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ForeignExchangeQuoteListPageAsync>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<ForeignExchangeQuoteListPageAsync> =
-            list(ForeignExchangeQuoteListParams.none(), requestOptions)
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ForeignExchangeQuoteListPageAsync> =
+            list(
+              ForeignExchangeQuoteListParams.none(), requestOptions
+            )
     }
 }

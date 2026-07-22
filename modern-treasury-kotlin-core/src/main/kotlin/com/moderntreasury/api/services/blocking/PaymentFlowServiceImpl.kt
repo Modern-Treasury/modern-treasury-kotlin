@@ -22,182 +22,169 @@ import com.moderntreasury.api.models.PaymentFlowListPage
 import com.moderntreasury.api.models.PaymentFlowListParams
 import com.moderntreasury.api.models.PaymentFlowRetrieveParams
 import com.moderntreasury.api.models.PaymentFlowUpdateParams
+import com.moderntreasury.api.services.blocking.PaymentFlowService
+import com.moderntreasury.api.services.blocking.PaymentFlowServiceImpl
 
-class PaymentFlowServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    PaymentFlowService {
+class PaymentFlowServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: PaymentFlowService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : PaymentFlowService {
+
+    private val withRawResponse: PaymentFlowService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): PaymentFlowService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentFlowService =
-        PaymentFlowServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentFlowService = PaymentFlowServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun create(
-        params: PaymentFlowCreateParams,
-        requestOptions: RequestOptions,
-    ): PaymentFlow =
+    override fun create(params: PaymentFlowCreateParams, requestOptions: RequestOptions): PaymentFlow =
         // post /api/payment_flows
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(
-        params: PaymentFlowRetrieveParams,
-        requestOptions: RequestOptions,
-    ): PaymentFlow =
+    override fun retrieve(params: PaymentFlowRetrieveParams, requestOptions: RequestOptions): PaymentFlow =
         // get /api/payment_flows/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun update(
-        params: PaymentFlowUpdateParams,
-        requestOptions: RequestOptions,
-    ): PaymentFlow =
+    override fun update(params: PaymentFlowUpdateParams, requestOptions: RequestOptions): PaymentFlow =
         // patch /api/payment_flows/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: PaymentFlowListParams,
-        requestOptions: RequestOptions,
-    ): PaymentFlowListPage =
+    override fun list(params: PaymentFlowListParams, requestOptions: RequestOptions): PaymentFlowListPage =
         // get /api/payment_flows
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        PaymentFlowService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : PaymentFlowService.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): PaymentFlowService.WithRawResponse =
-            PaymentFlowServiceImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentFlowService.WithRawResponse = PaymentFlowServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val createHandler: Handler<PaymentFlow> = jsonHandler<PaymentFlow>(clientOptions.jsonMapper)
+
+        override fun create(params: PaymentFlowCreateParams, requestOptions: RequestOptions): HttpResponseFor<PaymentFlow> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "payment_flows")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
             )
-
-        private val createHandler: Handler<PaymentFlow> =
-            jsonHandler<PaymentFlow>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: PaymentFlowCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PaymentFlow> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "payment_flows")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<PaymentFlow> =
-            jsonHandler<PaymentFlow>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<PaymentFlow> = jsonHandler<PaymentFlow>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: PaymentFlowRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PaymentFlow> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "payment_flows", params._pathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: PaymentFlowRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<PaymentFlow> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "payment_flows", params._pathParam(0))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val updateHandler: Handler<PaymentFlow> =
-            jsonHandler<PaymentFlow>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<PaymentFlow> = jsonHandler<PaymentFlow>(clientOptions.jsonMapper)
 
-        override fun update(
-            params: PaymentFlowUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PaymentFlow> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "payment_flows", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun update(params: PaymentFlowUpdateParams, requestOptions: RequestOptions): HttpResponseFor<PaymentFlow> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PATCH)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "payment_flows", params._pathParam(0))
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  updateHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<PaymentFlow>> =
-            jsonHandler<List<PaymentFlow>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<PaymentFlow>> = jsonHandler<List<PaymentFlow>>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: PaymentFlowListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PaymentFlowListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "payment_flows")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        PaymentFlowListPage.builder()
-                            .service(PaymentFlowServiceImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override fun list(params: PaymentFlowListParams, requestOptions: RequestOptions): HttpResponseFor<PaymentFlowListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "payment_flows")
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  PaymentFlowListPage.builder()
+                      .service(PaymentFlowServiceImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
     }
 }

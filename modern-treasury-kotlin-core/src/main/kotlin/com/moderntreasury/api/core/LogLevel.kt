@@ -11,8 +11,8 @@ enum class LogLevel {
     /** [INFO] logs plus details about request failures. */
     ERROR,
     /**
-     * Full request and response logs. Sensitive headers are redacted, but sensitive data in request
-     * and response bodies may still be visible.
+     * Full request and response logs. Sensitive headers are redacted, but sensitive data in request and
+     * response bodies may still be visible.
      */
     DEBUG;
 

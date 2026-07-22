@@ -15,14 +15,14 @@ import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.LedgerEntry
+import com.moderntreasury.api.models.LedgerTransaction
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-class LedgerTransaction
-@JsonCreator(mode = JsonCreator.Mode.DISABLED)
-private constructor(
+class LedgerTransaction @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
     private val id: JsonField<String>,
     private val archivedReason: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -44,245 +44,177 @@ private constructor(
     private val status: JsonField<Status>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
+
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("archived_reason")
-        @ExcludeMissing
-        archivedReason: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("description")
-        @ExcludeMissing
-        description: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("effective_at")
-        @ExcludeMissing
-        effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("effective_date")
-        @ExcludeMissing
-        effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonProperty("external_id")
-        @ExcludeMissing
-        externalId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("ledger_entries")
-        @ExcludeMissing
-        ledgerEntries: JsonField<List<LedgerEntry>> = JsonMissing.of(),
+        @JsonProperty("archived_reason") @ExcludeMissing archivedReason: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("description") @ExcludeMissing description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("effective_at") @ExcludeMissing effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("effective_date") @ExcludeMissing effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("external_id") @ExcludeMissing externalId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ledger_entries") @ExcludeMissing ledgerEntries: JsonField<List<LedgerEntry>> = JsonMissing.of(),
         @JsonProperty("ledger_id") @ExcludeMissing ledgerId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("ledgerable_id")
-        @ExcludeMissing
-        ledgerableId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("ledgerable_type")
-        @ExcludeMissing
-        ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
+        @JsonProperty("ledgerable_id") @ExcludeMissing ledgerableId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ledgerable_type") @ExcludeMissing ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
         @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("partially_posts_ledger_transaction_id")
-        @ExcludeMissing
-        partiallyPostsLedgerTransactionId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("posted_at")
-        @ExcludeMissing
-        postedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("reversed_by_ledger_transaction_id")
-        @ExcludeMissing
-        reversedByLedgerTransactionId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("reverses_ledger_transaction_id")
-        @ExcludeMissing
-        reversesLedgerTransactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("partially_posts_ledger_transaction_id") @ExcludeMissing partiallyPostsLedgerTransactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("posted_at") @ExcludeMissing postedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("reversed_by_ledger_transaction_id") @ExcludeMissing reversedByLedgerTransactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("reverses_ledger_transaction_id") @ExcludeMissing reversesLedgerTransactionId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
     ) : this(
-        id,
-        archivedReason,
-        createdAt,
-        description,
-        effectiveAt,
-        effectiveDate,
-        externalId,
-        ledgerEntries,
-        ledgerId,
-        ledgerableId,
-        ledgerableType,
-        liveMode,
-        metadata,
-        object_,
-        partiallyPostsLedgerTransactionId,
-        postedAt,
-        reversedByLedgerTransactionId,
-        reversesLedgerTransactionId,
-        status,
-        updatedAt,
-        mutableMapOf(),
+      id,
+      archivedReason,
+      createdAt,
+      description,
+      effectiveAt,
+      effectiveDate,
+      externalId,
+      ledgerEntries,
+      ledgerId,
+      ledgerableId,
+      ledgerableType,
+      liveMode,
+      metadata,
+      object_,
+      partiallyPostsLedgerTransactionId,
+      postedAt,
+      reversedByLedgerTransactionId,
+      reversesLedgerTransactionId,
+      status,
+      updatedAt,
+      mutableMapOf(),
     )
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun id(): String = id.getRequired("id")
 
     /**
-     * System-set reason why the ledger transaction was archived; currently only
-     * 'balance_lock_failure' for transactions that violated balance constraints. Only populated
-     * when archive_on_balance_lock_failure is true and a balance lock violation occurs, otherwise
-     * null.
+     * System-set reason why the ledger transaction was archived; currently only 'balance_lock_failure' for transactions that violated balance constraints. Only populated when archive_on_balance_lock_failure is true and a balance lock violation occurs, otherwise null.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun archivedReason(): String? = archivedReason.getNullable("archived_reason")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * An optional description for internal use.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun description(): String? = description.getNullable("description")
 
     /**
-     * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
-     * purposes.
+     * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting purposes.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun effectiveAt(): OffsetDateTime = effectiveAt.getRequired("effective_at")
 
     /**
      * The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
 
     /**
-     * A unique string to represent the ledger transaction. Only one pending or posted ledger
-     * transaction may have this ID in the ledger.
+     * A unique string to represent the ledger transaction. Only one pending or posted ledger transaction may have this ID in the ledger.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun externalId(): String? = externalId.getNullable("external_id")
 
     /**
      * An array of ledger entry objects.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun ledgerEntries(): List<LedgerEntry> = ledgerEntries.getRequired("ledger_entries")
 
     /**
      * The ID of the ledger this ledger transaction belongs to.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun ledgerId(): String = ledgerId.getRequired("ledger_id")
 
     /**
-     * If the ledger transaction can be reconciled to another object in Modern Treasury, the id will
-     * be populated here, otherwise null.
+     * If the ledger transaction can be reconciled to another object in Modern Treasury, the id will be populated here, otherwise null.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun ledgerableId(): String? = ledgerableId.getNullable("ledgerable_id")
 
     /**
-     * If the ledger transaction can be reconciled to another object in Modern Treasury, the type
-     * will be populated here, otherwise null. This can be one of payment_order,
-     * incoming_payment_detail, expected_payment, return, or reversal.
+     * If the ledger transaction can be reconciled to another object in Modern Treasury, the type will be populated here, otherwise null. This can be one of payment_order, incoming_payment_detail, expected_payment, return, or reversal.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun ledgerableType(): LedgerableType? = ledgerableType.getNullable("ledgerable_type")
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * This field will be true if this object exists in the live environment or false if it exists in the test environment.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
     /**
      * Additional data represented as key-value pairs. Both the key and value must be strings.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun metadata(): Metadata = metadata.getRequired("metadata")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun object_(): String = object_.getRequired("object")
 
     /**
      * The ID of the ledger transaction that this ledger transaction partially posts.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
-    fun partiallyPostsLedgerTransactionId(): String? =
-        partiallyPostsLedgerTransactionId.getNullable("partially_posts_ledger_transaction_id")
+    fun partiallyPostsLedgerTransactionId(): String? = partiallyPostsLedgerTransactionId.getNullable("partially_posts_ledger_transaction_id")
 
     /**
-     * The time on which the ledger transaction posted. This is null if the ledger transaction is
-     * pending.
+     * The time on which the ledger transaction posted. This is null if the ledger transaction is pending.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun postedAt(): OffsetDateTime? = postedAt.getNullable("posted_at")
 
     /**
      * The ID of the ledger transaction that reversed this ledger transaction.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
-    fun reversedByLedgerTransactionId(): String? =
-        reversedByLedgerTransactionId.getNullable("reversed_by_ledger_transaction_id")
+    fun reversedByLedgerTransactionId(): String? = reversedByLedgerTransactionId.getNullable("reversed_by_ledger_transaction_id")
 
     /**
      * The ID of the original ledger transaction that this ledger transaction reverses.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
-    fun reversesLedgerTransactionId(): String? =
-        reversesLedgerTransactionId.getNullable("reverses_ledger_transaction_id")
+    fun reversesLedgerTransactionId(): String? = reversesLedgerTransactionId.getNullable("reverses_ledger_transaction_id")
 
     /**
      * To post a ledger transaction at creation, use `posted`.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun status(): Status = status.getRequired("status")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /**
@@ -290,7 +222,9 @@ private constructor(
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id(): JsonField<String> = id
 
     /**
      * Returns the raw JSON value of [archivedReason].
@@ -315,7 +249,9 @@ private constructor(
      *
      * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
+    @JsonProperty("description")
+    @ExcludeMissing
+    fun _description(): JsonField<String> = description
 
     /**
      * Returns the raw JSON value of [effectiveAt].
@@ -340,7 +276,9 @@ private constructor(
      *
      * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("external_id") @ExcludeMissing fun _externalId(): JsonField<String> = externalId
+    @JsonProperty("external_id")
+    @ExcludeMissing
+    fun _externalId(): JsonField<String> = externalId
 
     /**
      * Returns the raw JSON value of [ledgerEntries].
@@ -356,7 +294,9 @@ private constructor(
      *
      * Unlike [ledgerId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("ledger_id") @ExcludeMissing fun _ledgerId(): JsonField<String> = ledgerId
+    @JsonProperty("ledger_id")
+    @ExcludeMissing
+    fun _ledgerId(): JsonField<String> = ledgerId
 
     /**
      * Returns the raw JSON value of [ledgerableId].
@@ -381,27 +321,32 @@ private constructor(
      *
      * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    fun _liveMode(): JsonField<Boolean> = liveMode
 
     /**
      * Returns the raw JSON value of [metadata].
      *
      * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+    @JsonProperty("metadata")
+    @ExcludeMissing
+    fun _metadata(): JsonField<Metadata> = metadata
 
     /**
      * Returns the raw JSON value of [object_].
      *
      * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
+    @JsonProperty("object")
+    @ExcludeMissing
+    fun _object_(): JsonField<String> = object_
 
     /**
      * Returns the raw JSON value of [partiallyPostsLedgerTransactionId].
      *
-     * Unlike [partiallyPostsLedgerTransactionId], this method doesn't throw if the JSON field has
-     * an unexpected type.
+     * Unlike [partiallyPostsLedgerTransactionId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("partially_posts_ledger_transaction_id")
     @ExcludeMissing
@@ -412,13 +357,14 @@ private constructor(
      *
      * Unlike [postedAt], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("posted_at") @ExcludeMissing fun _postedAt(): JsonField<OffsetDateTime> = postedAt
+    @JsonProperty("posted_at")
+    @ExcludeMissing
+    fun _postedAt(): JsonField<OffsetDateTime> = postedAt
 
     /**
      * Returns the raw JSON value of [reversedByLedgerTransactionId].
      *
-     * Unlike [reversedByLedgerTransactionId], this method doesn't throw if the JSON field has an
-     * unexpected type.
+     * Unlike [reversedByLedgerTransactionId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("reversed_by_ledger_transaction_id")
     @ExcludeMissing
@@ -427,8 +373,7 @@ private constructor(
     /**
      * Returns the raw JSON value of [reversesLedgerTransactionId].
      *
-     * Unlike [reversesLedgerTransactionId], this method doesn't throw if the JSON field has an
-     * unexpected type.
+     * Unlike [reversesLedgerTransactionId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("reverses_ledger_transaction_id")
     @ExcludeMissing
@@ -439,7 +384,9 @@ private constructor(
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status(): JsonField<Status> = status
 
     /**
      * Returns the raw JSON value of [updatedAt].
@@ -452,13 +399,12 @@ private constructor(
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
-        additionalProperties.put(key, value)
+      additionalProperties.put(key, value)
     }
 
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> =
-        Collections.unmodifiableMap(additionalProperties)
+    fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -468,6 +414,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [LedgerTransaction].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .id()
          * .archivedReason()
@@ -519,70 +466,70 @@ private constructor(
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(ledgerTransaction: LedgerTransaction) = apply {
-            id = ledgerTransaction.id
-            archivedReason = ledgerTransaction.archivedReason
-            createdAt = ledgerTransaction.createdAt
-            description = ledgerTransaction.description
-            effectiveAt = ledgerTransaction.effectiveAt
-            effectiveDate = ledgerTransaction.effectiveDate
-            externalId = ledgerTransaction.externalId
-            ledgerEntries = ledgerTransaction.ledgerEntries.map { it.toMutableList() }
-            ledgerId = ledgerTransaction.ledgerId
-            ledgerableId = ledgerTransaction.ledgerableId
-            ledgerableType = ledgerTransaction.ledgerableType
-            liveMode = ledgerTransaction.liveMode
-            metadata = ledgerTransaction.metadata
-            object_ = ledgerTransaction.object_
-            partiallyPostsLedgerTransactionId = ledgerTransaction.partiallyPostsLedgerTransactionId
-            postedAt = ledgerTransaction.postedAt
-            reversedByLedgerTransactionId = ledgerTransaction.reversedByLedgerTransactionId
-            reversesLedgerTransactionId = ledgerTransaction.reversesLedgerTransactionId
-            status = ledgerTransaction.status
-            updatedAt = ledgerTransaction.updatedAt
-            additionalProperties = ledgerTransaction.additionalProperties.toMutableMap()
-        }
+        internal fun from(ledgerTransaction: LedgerTransaction) =
+            apply {
+                id = ledgerTransaction.id
+                archivedReason = ledgerTransaction.archivedReason
+                createdAt = ledgerTransaction.createdAt
+                description = ledgerTransaction.description
+                effectiveAt = ledgerTransaction.effectiveAt
+                effectiveDate = ledgerTransaction.effectiveDate
+                externalId = ledgerTransaction.externalId
+                ledgerEntries = ledgerTransaction.ledgerEntries.map { it.toMutableList() }
+                ledgerId = ledgerTransaction.ledgerId
+                ledgerableId = ledgerTransaction.ledgerableId
+                ledgerableType = ledgerTransaction.ledgerableType
+                liveMode = ledgerTransaction.liveMode
+                metadata = ledgerTransaction.metadata
+                object_ = ledgerTransaction.object_
+                partiallyPostsLedgerTransactionId = ledgerTransaction.partiallyPostsLedgerTransactionId
+                postedAt = ledgerTransaction.postedAt
+                reversedByLedgerTransactionId = ledgerTransaction.reversedByLedgerTransactionId
+                reversesLedgerTransactionId = ledgerTransaction.reversesLedgerTransactionId
+                status = ledgerTransaction.status
+                updatedAt = ledgerTransaction.updatedAt
+                additionalProperties = ledgerTransaction.additionalProperties.toMutableMap()
+            }
 
         fun id(id: String) = id(JsonField.of(id))
 
         /**
          * Sets [Builder.id] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.id] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) =
+            apply {
+                this.id = id
+            }
 
-        /**
-         * System-set reason why the ledger transaction was archived; currently only
-         * 'balance_lock_failure' for transactions that violated balance constraints. Only populated
-         * when archive_on_balance_lock_failure is true and a balance lock violation occurs,
-         * otherwise null.
-         */
-        fun archivedReason(archivedReason: String?) =
-            archivedReason(JsonField.ofNullable(archivedReason))
+        /** System-set reason why the ledger transaction was archived; currently only 'balance_lock_failure' for transactions that violated balance constraints. Only populated when archive_on_balance_lock_failure is true and a balance lock violation occurs, otherwise null. */
+        fun archivedReason(archivedReason: String?) = archivedReason(JsonField.ofNullable(archivedReason))
 
         /**
          * Sets [Builder.archivedReason] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.archivedReason] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.archivedReason] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun archivedReason(archivedReason: JsonField<String>) = apply {
-            this.archivedReason = archivedReason
-        }
+        fun archivedReason(archivedReason: JsonField<String>) =
+            apply {
+                this.archivedReason = archivedReason
+            }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
          * Sets [Builder.createdAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.createdAt = createdAt
+            }
 
         /** An optional description for internal use. */
         fun description(description: String?) = description(JsonField.ofNullable(description))
@@ -590,86 +537,81 @@ private constructor(
         /**
          * Sets [Builder.description] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.description] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.description] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun description(description: JsonField<String>) = apply { this.description = description }
+        fun description(description: JsonField<String>) =
+            apply {
+                this.description = description
+            }
 
-        /**
-         * The timestamp (ISO8601 format) at which the ledger transaction happened for reporting
-         * purposes.
-         */
+        /** The timestamp (ISO8601 format) at which the ledger transaction happened for reporting purposes. */
         fun effectiveAt(effectiveAt: OffsetDateTime) = effectiveAt(JsonField.of(effectiveAt))
 
         /**
          * Sets [Builder.effectiveAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.effectiveAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.effectiveAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) = apply {
-            this.effectiveAt = effectiveAt
-        }
+        fun effectiveAt(effectiveAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.effectiveAt = effectiveAt
+            }
 
-        /**
-         * The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes.
-         */
+        /** The date (YYYY-MM-DD) on which the ledger transaction happened for reporting purposes. */
         fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
 
         /**
          * Sets [Builder.effectiveDate] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.effectiveDate] with a well-typed [LocalDate] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.effectiveDate] with a well-typed [LocalDate] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
-            this.effectiveDate = effectiveDate
-        }
+        fun effectiveDate(effectiveDate: JsonField<LocalDate>) =
+            apply {
+                this.effectiveDate = effectiveDate
+            }
 
-        /**
-         * A unique string to represent the ledger transaction. Only one pending or posted ledger
-         * transaction may have this ID in the ledger.
-         */
+        /** A unique string to represent the ledger transaction. Only one pending or posted ledger transaction may have this ID in the ledger. */
         fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
 
         /**
          * Sets [Builder.externalId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
+        fun externalId(externalId: JsonField<String>) =
+            apply {
+                this.externalId = externalId
+            }
 
         /** An array of ledger entry objects. */
-        fun ledgerEntries(ledgerEntries: List<LedgerEntry>) =
-            ledgerEntries(JsonField.of(ledgerEntries))
+        fun ledgerEntries(ledgerEntries: List<LedgerEntry>) = ledgerEntries(JsonField.of(ledgerEntries))
 
         /**
          * Sets [Builder.ledgerEntries] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.ledgerEntries] with a well-typed `List<LedgerEntry>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.ledgerEntries] with a well-typed `List<LedgerEntry>` value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun ledgerEntries(ledgerEntries: JsonField<List<LedgerEntry>>) = apply {
-            this.ledgerEntries = ledgerEntries.map { it.toMutableList() }
-        }
+        fun ledgerEntries(ledgerEntries: JsonField<List<LedgerEntry>>) =
+            apply {
+                this.ledgerEntries = ledgerEntries.map { it.toMutableList() }
+            }
 
         /**
          * Adds a single [LedgerEntry] to [ledgerEntries].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addLedgerEntry(ledgerEntry: LedgerEntry) = apply {
-            ledgerEntries =
-                (ledgerEntries ?: JsonField.of(mutableListOf())).also {
+        fun addLedgerEntry(ledgerEntry: LedgerEntry) =
+            apply {
+                ledgerEntries = (ledgerEntries ?: JsonField.of(mutableListOf())).also {
                     checkKnown("ledgerEntries", it).add(ledgerEntry)
                 }
-        }
+            }
 
         /** The ID of the ledger this ledger transaction belongs to. */
         fun ledgerId(ledgerId: String) = ledgerId(JsonField.of(ledgerId))
@@ -677,128 +619,119 @@ private constructor(
         /**
          * Sets [Builder.ledgerId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.ledgerId] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.ledgerId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun ledgerId(ledgerId: JsonField<String>) = apply { this.ledgerId = ledgerId }
+        fun ledgerId(ledgerId: JsonField<String>) =
+            apply {
+                this.ledgerId = ledgerId
+            }
 
-        /**
-         * If the ledger transaction can be reconciled to another object in Modern Treasury, the id
-         * will be populated here, otherwise null.
-         */
+        /** If the ledger transaction can be reconciled to another object in Modern Treasury, the id will be populated here, otherwise null. */
         fun ledgerableId(ledgerableId: String?) = ledgerableId(JsonField.ofNullable(ledgerableId))
 
         /**
          * Sets [Builder.ledgerableId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.ledgerableId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.ledgerableId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun ledgerableId(ledgerableId: JsonField<String>) = apply {
-            this.ledgerableId = ledgerableId
-        }
+        fun ledgerableId(ledgerableId: JsonField<String>) =
+            apply {
+                this.ledgerableId = ledgerableId
+            }
 
-        /**
-         * If the ledger transaction can be reconciled to another object in Modern Treasury, the
-         * type will be populated here, otherwise null. This can be one of payment_order,
-         * incoming_payment_detail, expected_payment, return, or reversal.
-         */
-        fun ledgerableType(ledgerableType: LedgerableType?) =
-            ledgerableType(JsonField.ofNullable(ledgerableType))
+        /** If the ledger transaction can be reconciled to another object in Modern Treasury, the type will be populated here, otherwise null. This can be one of payment_order, incoming_payment_detail, expected_payment, return, or reversal. */
+        fun ledgerableType(ledgerableType: LedgerableType?) = ledgerableType(JsonField.ofNullable(ledgerableType))
 
         /**
          * Sets [Builder.ledgerableType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.ledgerableType] with a well-typed [LedgerableType] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.ledgerableType] with a well-typed [LedgerableType] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun ledgerableType(ledgerableType: JsonField<LedgerableType>) = apply {
-            this.ledgerableType = ledgerableType
-        }
+        fun ledgerableType(ledgerableType: JsonField<LedgerableType>) =
+            apply {
+                this.ledgerableType = ledgerableType
+            }
 
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
+        /** This field will be true if this object exists in the live environment or false if it exists in the test environment. */
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
          * Sets [Builder.liveMode] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+        fun liveMode(liveMode: JsonField<Boolean>) =
+            apply {
+                this.liveMode = liveMode
+            }
 
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
+        /** Additional data represented as key-value pairs. Both the key and value must be strings. */
         fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
         /**
          * Sets [Builder.metadata] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+        fun metadata(metadata: JsonField<Metadata>) =
+            apply {
+                this.metadata = metadata
+            }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
         /**
          * Sets [Builder.object_] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun object_(object_: JsonField<String>) =
+            apply {
+                this.object_ = object_
+            }
 
         /** The ID of the ledger transaction that this ledger transaction partially posts. */
-        fun partiallyPostsLedgerTransactionId(partiallyPostsLedgerTransactionId: String?) =
-            partiallyPostsLedgerTransactionId(
-                JsonField.ofNullable(partiallyPostsLedgerTransactionId)
-            )
+        fun partiallyPostsLedgerTransactionId(partiallyPostsLedgerTransactionId: String?) = partiallyPostsLedgerTransactionId(JsonField.ofNullable(partiallyPostsLedgerTransactionId))
 
         /**
          * Sets [Builder.partiallyPostsLedgerTransactionId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.partiallyPostsLedgerTransactionId] with a well-typed
-         * [String] value instead. This method is primarily for setting the field to an undocumented
-         * or not yet supported value.
+         * You should usually call [Builder.partiallyPostsLedgerTransactionId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun partiallyPostsLedgerTransactionId(
-            partiallyPostsLedgerTransactionId: JsonField<String>
-        ) = apply { this.partiallyPostsLedgerTransactionId = partiallyPostsLedgerTransactionId }
+        fun partiallyPostsLedgerTransactionId(partiallyPostsLedgerTransactionId: JsonField<String>) =
+            apply {
+                this.partiallyPostsLedgerTransactionId = partiallyPostsLedgerTransactionId
+            }
 
-        /**
-         * The time on which the ledger transaction posted. This is null if the ledger transaction
-         * is pending.
-         */
+        /** The time on which the ledger transaction posted. This is null if the ledger transaction is pending. */
         fun postedAt(postedAt: OffsetDateTime?) = postedAt(JsonField.ofNullable(postedAt))
 
         /**
          * Sets [Builder.postedAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.postedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.postedAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun postedAt(postedAt: JsonField<OffsetDateTime>) = apply { this.postedAt = postedAt }
+        fun postedAt(postedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.postedAt = postedAt
+            }
 
         /** The ID of the ledger transaction that reversed this ledger transaction. */
-        fun reversedByLedgerTransactionId(reversedByLedgerTransactionId: String?) =
-            reversedByLedgerTransactionId(JsonField.ofNullable(reversedByLedgerTransactionId))
+        fun reversedByLedgerTransactionId(reversedByLedgerTransactionId: String?) = reversedByLedgerTransactionId(JsonField.ofNullable(reversedByLedgerTransactionId))
 
         /**
          * Sets [Builder.reversedByLedgerTransactionId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.reversedByLedgerTransactionId] with a well-typed
-         * [String] value instead. This method is primarily for setting the field to an undocumented
-         * or not yet supported value.
+         * You should usually call [Builder.reversedByLedgerTransactionId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun reversedByLedgerTransactionId(reversedByLedgerTransactionId: JsonField<String>) =
             apply {
@@ -806,19 +739,18 @@ private constructor(
             }
 
         /** The ID of the original ledger transaction that this ledger transaction reverses. */
-        fun reversesLedgerTransactionId(reversesLedgerTransactionId: String?) =
-            reversesLedgerTransactionId(JsonField.ofNullable(reversesLedgerTransactionId))
+        fun reversesLedgerTransactionId(reversesLedgerTransactionId: String?) = reversesLedgerTransactionId(JsonField.ofNullable(reversesLedgerTransactionId))
 
         /**
          * Sets [Builder.reversesLedgerTransactionId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.reversesLedgerTransactionId] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.reversesLedgerTransactionId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun reversesLedgerTransactionId(reversesLedgerTransactionId: JsonField<String>) = apply {
-            this.reversesLedgerTransactionId = reversesLedgerTransactionId
-        }
+        fun reversesLedgerTransactionId(reversesLedgerTransactionId: JsonField<String>) =
+            apply {
+                this.reversesLedgerTransactionId = reversesLedgerTransactionId
+            }
 
         /** To post a ledger transaction at creation, use `posted`. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -826,40 +758,52 @@ private constructor(
         /**
          * Sets [Builder.status] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) =
+            apply {
+                this.status = status
+            }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
          * Sets [Builder.updatedAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.updatedAt = updatedAt
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         /**
          * Returns an immutable instance of [LedgerTransaction].
@@ -867,6 +811,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .id()
          * .archivedReason()
@@ -894,30 +839,67 @@ private constructor(
          */
         fun build(): LedgerTransaction =
             LedgerTransaction(
-                checkRequired("id", id),
-                checkRequired("archivedReason", archivedReason),
-                checkRequired("createdAt", createdAt),
-                checkRequired("description", description),
-                checkRequired("effectiveAt", effectiveAt),
-                checkRequired("effectiveDate", effectiveDate),
-                checkRequired("externalId", externalId),
-                checkRequired("ledgerEntries", ledgerEntries).map { it.toImmutable() },
-                checkRequired("ledgerId", ledgerId),
-                checkRequired("ledgerableId", ledgerableId),
-                checkRequired("ledgerableType", ledgerableType),
-                checkRequired("liveMode", liveMode),
-                checkRequired("metadata", metadata),
-                checkRequired("object_", object_),
-                checkRequired(
-                    "partiallyPostsLedgerTransactionId",
-                    partiallyPostsLedgerTransactionId,
-                ),
-                checkRequired("postedAt", postedAt),
-                checkRequired("reversedByLedgerTransactionId", reversedByLedgerTransactionId),
-                checkRequired("reversesLedgerTransactionId", reversesLedgerTransactionId),
-                checkRequired("status", status),
-                checkRequired("updatedAt", updatedAt),
-                additionalProperties.toMutableMap(),
+              checkRequired(
+                "id", id
+              ),
+              checkRequired(
+                "archivedReason", archivedReason
+              ),
+              checkRequired(
+                "createdAt", createdAt
+              ),
+              checkRequired(
+                "description", description
+              ),
+              checkRequired(
+                "effectiveAt", effectiveAt
+              ),
+              checkRequired(
+                "effectiveDate", effectiveDate
+              ),
+              checkRequired(
+                "externalId", externalId
+              ),
+              checkRequired(
+                "ledgerEntries", ledgerEntries
+              ).map { it.toImmutable() },
+              checkRequired(
+                "ledgerId", ledgerId
+              ),
+              checkRequired(
+                "ledgerableId", ledgerableId
+              ),
+              checkRequired(
+                "ledgerableType", ledgerableType
+              ),
+              checkRequired(
+                "liveMode", liveMode
+              ),
+              checkRequired(
+                "metadata", metadata
+              ),
+              checkRequired(
+                "object_", object_
+              ),
+              checkRequired(
+                "partiallyPostsLedgerTransactionId", partiallyPostsLedgerTransactionId
+              ),
+              checkRequired(
+                "postedAt", postedAt
+              ),
+              checkRequired(
+                "reversedByLedgerTransactionId", reversedByLedgerTransactionId
+              ),
+              checkRequired(
+                "reversesLedgerTransactionId", reversesLedgerTransactionId
+              ),
+              checkRequired(
+                "status", status
+              ),
+              checkRequired(
+                "updatedAt", updatedAt
+              ),
+              additionalProperties.toMutableMap(),
             )
     }
 
@@ -931,33 +913,34 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): LedgerTransaction = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): LedgerTransaction =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        id()
-        archivedReason()
-        createdAt()
-        description()
-        effectiveAt()
-        effectiveDate()
-        externalId()
-        ledgerEntries().forEach { it.validate() }
-        ledgerId()
-        ledgerableId()
-        ledgerableType()?.validate()
-        liveMode()
-        metadata().validate()
-        object_()
-        partiallyPostsLedgerTransactionId()
-        postedAt()
-        reversedByLedgerTransactionId()
-        reversesLedgerTransactionId()
-        status().validate()
-        updatedAt()
-        validated = true
-    }
+            id()
+            archivedReason()
+            createdAt()
+            description()
+            effectiveAt()
+            effectiveDate()
+            externalId()
+            ledgerEntries().forEach { it.validate() }
+            ledgerId()
+            ledgerableId()
+            ledgerableType()?.validate()
+            liveMode()
+            metadata().validate()
+            object_()
+            partiallyPostsLedgerTransactionId()
+            postedAt()
+            reversedByLedgerTransactionId()
+            reversesLedgerTransactionId()
+            status().validate()
+            updatedAt()
+            validated = true
+        }
 
     fun isValid(): Boolean =
         try {
@@ -972,45 +955,23 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    internal fun validity(): Int =
-        (if (id.asKnown() == null) 0 else 1) +
-            (if (archivedReason.asKnown() == null) 0 else 1) +
-            (if (createdAt.asKnown() == null) 0 else 1) +
-            (if (description.asKnown() == null) 0 else 1) +
-            (if (effectiveAt.asKnown() == null) 0 else 1) +
-            (if (effectiveDate.asKnown() == null) 0 else 1) +
-            (if (externalId.asKnown() == null) 0 else 1) +
-            (ledgerEntries.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-            (if (ledgerId.asKnown() == null) 0 else 1) +
-            (if (ledgerableId.asKnown() == null) 0 else 1) +
-            (ledgerableType.asKnown()?.validity() ?: 0) +
-            (if (liveMode.asKnown() == null) 0 else 1) +
-            (metadata.asKnown()?.validity() ?: 0) +
-            (if (object_.asKnown() == null) 0 else 1) +
-            (if (partiallyPostsLedgerTransactionId.asKnown() == null) 0 else 1) +
-            (if (postedAt.asKnown() == null) 0 else 1) +
-            (if (reversedByLedgerTransactionId.asKnown() == null) 0 else 1) +
-            (if (reversesLedgerTransactionId.asKnown() == null) 0 else 1) +
-            (status.asKnown()?.validity() ?: 0) +
-            (if (updatedAt.asKnown() == null) 0 else 1)
+    internal fun validity(): Int = (if (id.asKnown() == null) 0 else 1) + (if (archivedReason.asKnown() == null) 0 else 1) + (if (createdAt.asKnown() == null) 0 else 1) + (if (description.asKnown() == null) 0 else 1) + (if (effectiveAt.asKnown() == null) 0 else 1) + (if (effectiveDate.asKnown() == null) 0 else 1) + (if (externalId.asKnown() == null) 0 else 1) + (ledgerEntries.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (if (ledgerId.asKnown() == null) 0 else 1) + (if (ledgerableId.asKnown() == null) 0 else 1) + (ledgerableType.asKnown()?.validity() ?: 0) + (if (liveMode.asKnown() == null) 0 else 1) + (metadata.asKnown()?.validity() ?: 0) + (if (object_.asKnown() == null) 0 else 1) + (if (partiallyPostsLedgerTransactionId.asKnown() == null) 0 else 1) + (if (postedAt.asKnown() == null) 0 else 1) + (if (reversedByLedgerTransactionId.asKnown() == null) 0 else 1) + (if (reversesLedgerTransactionId.asKnown() == null) 0 else 1) + (status.asKnown()?.validity() ?: 0) + (if (updatedAt.asKnown() == null) 0 else 1)
 
-    /**
-     * If the ledger transaction can be reconciled to another object in Modern Treasury, the type
-     * will be populated here, otherwise null. This can be one of payment_order,
-     * incoming_payment_detail, expected_payment, return, or reversal.
-     */
-    class LedgerableType @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
+    /** If the ledger transaction can be reconciled to another object in Modern Treasury, the type will be populated here, otherwise null. This can be one of payment_order, incoming_payment_detail, expected_payment, return, or reversal. */
+    class LedgerableType @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -1040,9 +1001,11 @@ private constructor(
          * An enum containing [LedgerableType]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [LedgerableType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -1051,19 +1014,16 @@ private constructor(
             PAYMENT_ORDER,
             RETURN,
             REVERSAL,
-            /**
-             * An enum member indicating that [LedgerableType] was instantiated with an unknown
-             * value.
-             */
+            /** An enum member indicating that [LedgerableType] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -1078,11 +1038,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -1097,34 +1056,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): LedgerableType = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): LedgerableType =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1135,19 +1093,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is LedgerableType && value == other.value
+          return other is LedgerableType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1156,11 +1113,9 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    class Metadata
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
+    class Metadata @JsonCreator private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         @JsonAnyGetter
@@ -1180,28 +1135,36 @@ private constructor(
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties = metadata.additionalProperties.toMutableMap()
-            }
+            internal fun from(metadata: Metadata) =
+                apply {
+                    additionalProperties = metadata.additionalProperties.toMutableMap()
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperty(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
             /**
              * Returns an immutable instance of [Metadata].
@@ -1214,21 +1177,21 @@ private constructor(
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Metadata =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            validated = true
-        }
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1239,20 +1202,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+        internal fun validity(): Int = additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Metadata && additionalProperties == other.additionalProperties
+          return other is Metadata && additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
@@ -1263,17 +1224,20 @@ private constructor(
     }
 
     /** To post a ledger transaction at creation, use `posted`. */
-    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Status @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -1297,9 +1261,11 @@ private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -1311,11 +1277,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -1328,11 +1294,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -1345,34 +1310,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Status = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Status =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1383,19 +1347,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && value == other.value
+          return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1404,62 +1367,16 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is LedgerTransaction &&
-            id == other.id &&
-            archivedReason == other.archivedReason &&
-            createdAt == other.createdAt &&
-            description == other.description &&
-            effectiveAt == other.effectiveAt &&
-            effectiveDate == other.effectiveDate &&
-            externalId == other.externalId &&
-            ledgerEntries == other.ledgerEntries &&
-            ledgerId == other.ledgerId &&
-            ledgerableId == other.ledgerableId &&
-            ledgerableType == other.ledgerableType &&
-            liveMode == other.liveMode &&
-            metadata == other.metadata &&
-            object_ == other.object_ &&
-            partiallyPostsLedgerTransactionId == other.partiallyPostsLedgerTransactionId &&
-            postedAt == other.postedAt &&
-            reversedByLedgerTransactionId == other.reversedByLedgerTransactionId &&
-            reversesLedgerTransactionId == other.reversesLedgerTransactionId &&
-            status == other.status &&
-            updatedAt == other.updatedAt &&
-            additionalProperties == other.additionalProperties
+      return other is LedgerTransaction && id == other.id && archivedReason == other.archivedReason && createdAt == other.createdAt && description == other.description && effectiveAt == other.effectiveAt && effectiveDate == other.effectiveDate && externalId == other.externalId && ledgerEntries == other.ledgerEntries && ledgerId == other.ledgerId && ledgerableId == other.ledgerableId && ledgerableType == other.ledgerableType && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && partiallyPostsLedgerTransactionId == other.partiallyPostsLedgerTransactionId && postedAt == other.postedAt && reversedByLedgerTransactionId == other.reversedByLedgerTransactionId && reversesLedgerTransactionId == other.reversesLedgerTransactionId && status == other.status && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy {
-        Objects.hash(
-            id,
-            archivedReason,
-            createdAt,
-            description,
-            effectiveAt,
-            effectiveDate,
-            externalId,
-            ledgerEntries,
-            ledgerId,
-            ledgerableId,
-            ledgerableType,
-            liveMode,
-            metadata,
-            object_,
-            partiallyPostsLedgerTransactionId,
-            postedAt,
-            reversedByLedgerTransactionId,
-            reversesLedgerTransactionId,
-            status,
-            updatedAt,
-            additionalProperties,
-        )
-    }
+    private val hashCode: Int by lazy { Objects.hash(id, archivedReason, createdAt, description, effectiveAt, effectiveDate, externalId, ledgerEntries, ledgerId, ledgerableId, ledgerableType, liveMode, metadata, object_, partiallyPostsLedgerTransactionId, postedAt, reversedByLedgerTransactionId, reversesLedgerTransactionId, status, updatedAt, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "LedgerTransaction{id=$id, archivedReason=$archivedReason, createdAt=$createdAt, description=$description, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerEntries=$ledgerEntries, ledgerId=$ledgerId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, liveMode=$liveMode, metadata=$metadata, object_=$object_, partiallyPostsLedgerTransactionId=$partiallyPostsLedgerTransactionId, postedAt=$postedAt, reversedByLedgerTransactionId=$reversedByLedgerTransactionId, reversesLedgerTransactionId=$reversesLedgerTransactionId, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+    override fun toString() = "LedgerTransaction{id=$id, archivedReason=$archivedReason, createdAt=$createdAt, description=$description, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, externalId=$externalId, ledgerEntries=$ledgerEntries, ledgerId=$ledgerId, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, liveMode=$liveMode, metadata=$metadata, object_=$object_, partiallyPostsLedgerTransactionId=$partiallyPostsLedgerTransactionId, postedAt=$postedAt, reversedByLedgerTransactionId=$reversedByLedgerTransactionId, reversesLedgerTransactionId=$reversesLedgerTransactionId, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

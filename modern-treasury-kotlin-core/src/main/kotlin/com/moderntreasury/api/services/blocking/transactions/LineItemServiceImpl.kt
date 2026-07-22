@@ -23,173 +23,165 @@ import com.moderntreasury.api.models.TransactionLineItemDeleteParams
 import com.moderntreasury.api.models.TransactionLineItemListPage
 import com.moderntreasury.api.models.TransactionLineItemListParams
 import com.moderntreasury.api.models.TransactionLineItemRetrieveParams
+import com.moderntreasury.api.services.blocking.transactions.LineItemService
+import com.moderntreasury.api.services.blocking.transactions.LineItemServiceImpl
 
-class LineItemServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    LineItemService {
+class LineItemServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: LineItemService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : LineItemService {
+
+    private val withRawResponse: LineItemService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): LineItemService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LineItemService =
-        LineItemServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LineItemService = LineItemServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun create(
-        params: TransactionLineItemCreateParams,
-        requestOptions: RequestOptions,
-    ): TransactionLineItem =
+    override fun create(params: TransactionLineItemCreateParams, requestOptions: RequestOptions): TransactionLineItem =
         // post /api/transaction_line_items
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(
-        params: TransactionLineItemRetrieveParams,
-        requestOptions: RequestOptions,
-    ): TransactionLineItem =
+    override fun retrieve(params: TransactionLineItemRetrieveParams, requestOptions: RequestOptions): TransactionLineItem =
         // get /api/transaction_line_items/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: TransactionLineItemListParams,
-        requestOptions: RequestOptions,
-    ): TransactionLineItemListPage =
+    override fun list(params: TransactionLineItemListParams, requestOptions: RequestOptions): TransactionLineItemListPage =
         // get /api/transaction_line_items
         withRawResponse().list(params, requestOptions).parse()
 
     override fun delete(params: TransactionLineItemDeleteParams, requestOptions: RequestOptions) {
-        // delete /api/transaction_line_items/{id}
-        withRawResponse().delete(params, requestOptions)
+      // delete /api/transaction_line_items/{id}
+      withRawResponse().delete(params, requestOptions)
     }
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        LineItemService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : LineItemService.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): LineItemService.WithRawResponse =
-            LineItemServiceImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LineItemService.WithRawResponse = LineItemServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val createHandler: Handler<TransactionLineItem> = jsonHandler<TransactionLineItem>(clientOptions.jsonMapper)
+
+        override fun create(params: TransactionLineItemCreateParams, requestOptions: RequestOptions): HttpResponseFor<TransactionLineItem> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "transaction_line_items")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
             )
-
-        private val createHandler: Handler<TransactionLineItem> =
-            jsonHandler<TransactionLineItem>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: TransactionLineItemCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<TransactionLineItem> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "transaction_line_items")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<TransactionLineItem> =
-            jsonHandler<TransactionLineItem>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<TransactionLineItem> = jsonHandler<TransactionLineItem>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: TransactionLineItemRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<TransactionLineItem> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "transaction_line_items", params._pathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: TransactionLineItemRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<TransactionLineItem> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "transaction_line_items", params._pathParam(0))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<TransactionLineItem>> =
-            jsonHandler<List<TransactionLineItem>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<TransactionLineItem>> = jsonHandler<List<TransactionLineItem>>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: TransactionLineItemListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<TransactionLineItemListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "transaction_line_items")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        TransactionLineItemListPage.builder()
-                            .service(LineItemServiceImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override fun list(params: TransactionLineItemListParams, requestOptions: RequestOptions): HttpResponseFor<TransactionLineItemListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "transaction_line_items")
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  TransactionLineItemListPage.builder()
+                      .service(LineItemServiceImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
 
         private val deleteHandler: Handler<Void?> = emptyHandler()
 
-        override fun delete(
-            params: TransactionLineItemDeleteParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "transaction_line_items", params._pathParam(0))
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { deleteHandler.handle(it) }
-            }
+        override fun delete(params: TransactionLineItemDeleteParams, requestOptions: RequestOptions): HttpResponse {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.DELETE)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "transaction_line_items", params._pathParam(0))
+            .apply { params._body()?.let{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  deleteHandler.handle(it)
+              }
+          }
         }
     }
 }

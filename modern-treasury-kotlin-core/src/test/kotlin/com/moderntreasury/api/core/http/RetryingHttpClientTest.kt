@@ -18,6 +18,11 @@ import com.github.tomakehurst.wiremock.stubbing.Scenario
 import com.moderntreasury.api.client.okhttp.OkHttpClient
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.Sleeper
+import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.core.http.HttpClient
+import com.moderntreasury.api.core.http.HttpMethod
+import com.moderntreasury.api.core.http.HttpRequest
+import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.errors.ModernTreasuryRetryableException
 import java.io.InputStream
 import java.time.Clock
@@ -25,6 +30,7 @@ import java.time.Duration
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import java.util.concurrent.CompletableFuture
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -63,12 +69,12 @@ internal class RetryingHttpClientTest {
 
                 override fun execute(
                     request: HttpRequest,
-                    requestOptions: RequestOptions,
+                    requestOptions: RequestOptions
                 ): HttpResponse = trackClose(okHttpClient.execute(request, requestOptions))
 
                 override suspend fun executeAsync(
                     request: HttpRequest,
-                    requestOptions: RequestOptions,
+                    requestOptions: RequestOptions
                 ): HttpResponse = trackClose(okHttpClient.executeAsync(request, requestOptions))
 
                 override fun close() = okHttpClient.close()
@@ -113,7 +119,7 @@ internal class RetryingHttpClientTest {
                     .baseUrl(baseUrl)
                     .addPathSegment("something")
                     .build(),
-                async,
+                async
             )
 
         assertThat(response.statusCode()).isEqualTo(200)
@@ -132,10 +138,7 @@ internal class RetryingHttpClientTest {
         )
         val sleeper = RecordingSleeper()
         val retryingClient =
-            retryingHttpClientBuilder(sleeper)
-                .maxRetries(2)
-                .idempotencyHeader("X-Some-Header")
-                .build()
+            retryingHttpClientBuilder(sleeper).maxRetries(2).idempotencyHeader("X-Some-Header").build()
 
         val response =
             retryingClient.execute(
@@ -144,7 +147,7 @@ internal class RetryingHttpClientTest {
                     .baseUrl(baseUrl)
                     .addPathSegment("something")
                     .build(),
-                async,
+                async
             )
 
         assertThat(response.statusCode()).isEqualTo(200)
@@ -162,7 +165,9 @@ internal class RetryingHttpClientTest {
                 // First we fail with a retry after header given as a date
                 .inScenario("foo")
                 .whenScenarioStateIs(Scenario.STARTED)
-                .willReturn(serviceUnavailable().withHeader("Retry-After", retryAfterDate))
+                .willReturn(
+                    serviceUnavailable().withHeader("Retry-After", retryAfterDate)
+                )
                 .willSetStateTo("RETRY_AFTER_DATE")
         )
         stubFor(
@@ -185,7 +190,8 @@ internal class RetryingHttpClientTest {
         // deterministic.
         val retryAfterDateTime =
             OffsetDateTime.parse(retryAfterDate, DateTimeFormatter.RFC_1123_DATE_TIME)
-        val clock = Clock.fixed(retryAfterDateTime.minusSeconds(5).toInstant(), ZoneOffset.UTC)
+        val clock =
+            Clock.fixed(retryAfterDateTime.minusSeconds(5).toInstant(), ZoneOffset.UTC)
         val sleeper = RecordingSleeper()
         val retryingClient = retryingHttpClientBuilder(sleeper, clock).maxRetries(2).build()
 
@@ -196,27 +202,30 @@ internal class RetryingHttpClientTest {
                     .baseUrl(baseUrl)
                     .addPathSegment("something")
                     .build(),
-                async,
+                async
             )
 
         assertThat(response.statusCode()).isEqualTo(200)
         verify(
             1,
             postRequestedFor(urlPathEqualTo("/something"))
-                .withHeader("x-stainless-retry-count", equalTo("0")),
+                .withHeader("x-stainless-retry-count", equalTo("0"))
         )
         verify(
             1,
             postRequestedFor(urlPathEqualTo("/something"))
-                .withHeader("x-stainless-retry-count", equalTo("1")),
+                .withHeader("x-stainless-retry-count", equalTo("1"))
         )
         verify(
             1,
             postRequestedFor(urlPathEqualTo("/something"))
-                .withHeader("x-stainless-retry-count", equalTo("2")),
+                .withHeader("x-stainless-retry-count", equalTo("2"))
         )
         assertThat(sleeper.durations)
-            .containsExactly(Duration.ofSeconds(5), Duration.ofMillis(1234))
+            .containsExactly(
+                Duration.ofSeconds(5),
+                Duration.ofMillis(1234),
+            )
         assertNoResponseLeaks()
     }
 
@@ -228,7 +237,9 @@ internal class RetryingHttpClientTest {
             post(urlPathEqualTo("/something"))
                 .inScenario("foo") // first we fail with a retry after header given as a date
                 .whenScenarioStateIs(Scenario.STARTED)
-                .willReturn(serviceUnavailable().withHeader("Retry-After", retryAfterDate))
+                .willReturn(
+                    serviceUnavailable().withHeader("Retry-After", retryAfterDate)
+                )
                 .willSetStateTo("RETRY_AFTER_DATE")
         )
         stubFor(
@@ -240,7 +251,8 @@ internal class RetryingHttpClientTest {
         )
         val retryAfterDateTime =
             OffsetDateTime.parse(retryAfterDate, DateTimeFormatter.RFC_1123_DATE_TIME)
-        val clock = Clock.fixed(retryAfterDateTime.minusSeconds(5).toInstant(), ZoneOffset.UTC)
+        val clock =
+            Clock.fixed(retryAfterDateTime.minusSeconds(5).toInstant(), ZoneOffset.UTC)
         val sleeper = RecordingSleeper()
         val retryingClient = retryingHttpClientBuilder(sleeper, clock).maxRetries(2).build()
 
@@ -252,14 +264,14 @@ internal class RetryingHttpClientTest {
                     .addPathSegment("something")
                     .putHeader("x-stainless-retry-count", "42")
                     .build(),
-                async,
+                async
             )
 
         assertThat(response.statusCode()).isEqualTo(200)
         verify(
             2,
             postRequestedFor(urlPathEqualTo("/something"))
-                .withHeader("x-stainless-retry-count", equalTo("42")),
+                .withHeader("x-stainless-retry-count", equalTo("42"))
         )
         assertThat(sleeper.durations).containsExactly(Duration.ofSeconds(5))
         assertNoResponseLeaks()
@@ -292,7 +304,7 @@ internal class RetryingHttpClientTest {
                     .baseUrl(baseUrl)
                     .addPathSegment("something")
                     .build(),
-                async,
+                async
             )
 
         assertThat(response.statusCode()).isEqualTo(200)
@@ -307,40 +319,32 @@ internal class RetryingHttpClientTest {
         stubFor(post(urlPathEqualTo("/something")).willReturn(ok()))
 
         var callCount = 0
-        val failingHttpClient =
-            object : HttpClient {
-                override fun execute(
-                    request: HttpRequest,
-                    requestOptions: RequestOptions,
-                ): HttpResponse {
-                    callCount++
-                    if (callCount == 1) {
-                        throw ModernTreasuryRetryableException("Simulated retryable failure")
-                    }
-                    return httpClient.execute(request, requestOptions)
+        val failingHttpClient = object : HttpClient {
+            override fun execute(request: HttpRequest, requestOptions: RequestOptions): HttpResponse {
+                callCount++
+                if (callCount == 1) {
+                    throw ModernTreasuryRetryableException("Simulated retryable failure")
                 }
-
-                override suspend fun executeAsync(
-                    request: HttpRequest,
-                    requestOptions: RequestOptions,
-                ): HttpResponse {
-                    callCount++
-                    if (callCount == 1) {
-                        throw ModernTreasuryRetryableException("Simulated retryable failure")
-                    }
-                    return httpClient.executeAsync(request, requestOptions)
-                }
-
-                override fun close() = httpClient.close()
+                return httpClient.execute(request, requestOptions)
             }
 
+            override suspend fun executeAsync(request: HttpRequest, requestOptions: RequestOptions): HttpResponse {
+                callCount++
+                if (callCount == 1) {
+                    throw ModernTreasuryRetryableException("Simulated retryable failure")
+                }
+                return httpClient.executeAsync(request, requestOptions)
+            }
+
+            override fun close() = httpClient.close()
+        }
+
         val sleeper = RecordingSleeper()
-        val retryingClient =
-            RetryingHttpClient.builder()
-                .httpClient(failingHttpClient)
-                .maxRetries(2)
-                .sleeper(sleeper)
-                .build()
+        val retryingClient = RetryingHttpClient.builder()
+            .httpClient(failingHttpClient)
+            .maxRetries(2)
+            .sleeper(sleeper)
+            .build()
 
         val response =
             retryingClient.execute(
@@ -349,23 +353,16 @@ internal class RetryingHttpClientTest {
                     .baseUrl(baseUrl)
                     .addPathSegment("something")
                     .build(),
-                async,
+                async
             )
 
         assertThat(response.statusCode()).isEqualTo(200)
-        verify(
-            1,
-            postRequestedFor(urlPathEqualTo("/something"))
-                .withHeader("x-stainless-retry-count", equalTo("1")),
-        )
-        verify(
-            0,
-            postRequestedFor(urlPathEqualTo("/something"))
-                .withHeader("x-stainless-retry-count", equalTo("0")),
-        )
+        verify(1, postRequestedFor(urlPathEqualTo("/something")).withHeader("x-stainless-retry-count", equalTo("1")))
+        verify(0, postRequestedFor(urlPathEqualTo("/something")).withHeader("x-stainless-retry-count", equalTo("0")))
         // Exponential backoff with jitter: 0.5s * jitter where jitter is in [0.75, 1.0].
         assertThat(sleeper.durations).hasSize(1)
-        assertThat(sleeper.durations[0]).isBetween(Duration.ofMillis(375), Duration.ofMillis(500))
+        assertThat(sleeper.durations[0])
+            .isBetween(Duration.ofMillis(375), Duration.ofMillis(500))
         assertNoResponseLeaks()
     }
 
@@ -383,7 +380,7 @@ internal class RetryingHttpClientTest {
                     .baseUrl(baseUrl)
                     .addPathSegment("something")
                     .build(),
-                async,
+                async
             )
 
         // All retries exhausted; the last 503 response is returned.
@@ -393,11 +390,14 @@ internal class RetryingHttpClientTest {
         // jitter is in [0.75, 1.0].
         assertThat(sleeper.durations).hasSize(3)
         // retries=1: 0.5s * [0.75, 1.0]
-        assertThat(sleeper.durations[0]).isBetween(Duration.ofMillis(375), Duration.ofMillis(500))
+        assertThat(sleeper.durations[0])
+            .isBetween(Duration.ofMillis(375), Duration.ofMillis(500))
         // retries=2: 1s * [0.75, 1.0]
-        assertThat(sleeper.durations[1]).isBetween(Duration.ofMillis(750), Duration.ofMillis(1000))
+        assertThat(sleeper.durations[1])
+            .isBetween(Duration.ofMillis(750), Duration.ofMillis(1000))
         // retries=3: 2s * [0.75, 1.0]
-        assertThat(sleeper.durations[2]).isBetween(Duration.ofMillis(1500), Duration.ofMillis(2000))
+        assertThat(sleeper.durations[2])
+            .isBetween(Duration.ofMillis(1500), Duration.ofMillis(2000))
         assertNoResponseLeaks()
     }
 
@@ -415,16 +415,18 @@ internal class RetryingHttpClientTest {
                     .baseUrl(baseUrl)
                     .addPathSegment("something")
                     .build(),
-                async,
+                async
             )
 
         assertThat(response.statusCode()).isEqualTo(503)
         verify(7, postRequestedFor(urlPathEqualTo("/something")))
         assertThat(sleeper.durations).hasSize(6)
         // retries=5: backoff hits the 8s cap * [0.75, 1.0]
-        assertThat(sleeper.durations[4]).isBetween(Duration.ofMillis(6000), Duration.ofMillis(8000))
+        assertThat(sleeper.durations[4])
+            .isBetween(Duration.ofMillis(6000), Duration.ofMillis(8000))
         // retries=6: still capped at 8s * [0.75, 1.0]
-        assertThat(sleeper.durations[5]).isBetween(Duration.ofMillis(6000), Duration.ofMillis(8000))
+        assertThat(sleeper.durations[5])
+            .isBetween(Duration.ofMillis(6000), Duration.ofMillis(8000))
         assertNoResponseLeaks()
     }
 
@@ -459,7 +461,7 @@ internal class RetryingHttpClientTest {
                     .baseUrl(baseUrl)
                     .addPathSegment("something")
                     .build(),
-                async,
+                async
             )
 
         assertThat(response.statusCode()).isEqualTo(200)
@@ -475,7 +477,9 @@ internal class RetryingHttpClientTest {
             post(urlPathEqualTo("/something"))
                 .inScenario("foo")
                 .whenScenarioStateIs(Scenario.STARTED)
-                .willReturn(serviceUnavailable().withHeader("Retry-After", "not-a-date-or-number"))
+                .willReturn(
+                    serviceUnavailable().withHeader("Retry-After", "not-a-date-or-number")
+                )
                 .willSetStateTo("RETRY")
         )
         stubFor(
@@ -495,20 +499,25 @@ internal class RetryingHttpClientTest {
                     .baseUrl(baseUrl)
                     .addPathSegment("something")
                     .build(),
-                async,
+                async
             )
 
         assertThat(response.statusCode()).isEqualTo(200)
         // Unparseable Retry-After falls through to exponential backoff.
         assertThat(sleeper.durations).hasSize(1)
-        assertThat(sleeper.durations[0]).isBetween(Duration.ofMillis(375), Duration.ofMillis(500))
+        assertThat(sleeper.durations[0])
+            .isBetween(Duration.ofMillis(375), Duration.ofMillis(500))
         assertNoResponseLeaks()
     }
 
     private fun retryingHttpClientBuilder(
         sleeper: RecordingSleeper,
         clock: Clock = Clock.systemUTC(),
-    ) = RetryingHttpClient.builder().httpClient(httpClient).sleeper(sleeper).clock(clock)
+    ) =
+        RetryingHttpClient.builder()
+            .httpClient(httpClient)
+            .sleeper(sleeper)
+            .clock(clock)
 
     private fun HttpClient.execute(request: HttpRequest, async: Boolean): HttpResponse =
         if (async) runBlocking { executeAsync(request) } else execute(request)

@@ -17,171 +17,143 @@ import com.moderntreasury.api.core.http.json
 import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepareAsync
 import com.moderntreasury.api.models.LineItem
+import com.moderntreasury.api.models.LineItemListPage
 import com.moderntreasury.api.models.LineItemListPageAsync
 import com.moderntreasury.api.models.LineItemListParams
 import com.moderntreasury.api.models.LineItemRetrieveParams
 import com.moderntreasury.api.models.LineItemUpdateParams
+import com.moderntreasury.api.services.async.LineItemServiceAsync
+import com.moderntreasury.api.services.async.LineItemServiceAsyncImpl
 
-class LineItemServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
-    LineItemServiceAsync {
+class LineItemServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: LineItemServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : LineItemServiceAsync {
+
+    private val withRawResponse: LineItemServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): LineItemServiceAsync.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LineItemServiceAsync =
-        LineItemServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LineItemServiceAsync = LineItemServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override suspend fun retrieve(
-        params: LineItemRetrieveParams,
-        requestOptions: RequestOptions,
-    ): LineItem =
+    override suspend fun retrieve(params: LineItemRetrieveParams, requestOptions: RequestOptions): LineItem =
         // get /api/{itemizable_type}/{itemizable_id}/line_items/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override suspend fun update(
-        params: LineItemUpdateParams,
-        requestOptions: RequestOptions,
-    ): LineItem =
+    override suspend fun update(params: LineItemUpdateParams, requestOptions: RequestOptions): LineItem =
         // patch /api/{itemizable_type}/{itemizable_id}/line_items/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override suspend fun list(
-        params: LineItemListParams,
-        requestOptions: RequestOptions,
-    ): LineItemListPageAsync =
+    override suspend fun list(params: LineItemListParams, requestOptions: RequestOptions): LineItemListPageAsync =
         // get /api/{itemizable_type}/{itemizable_id}/line_items
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        LineItemServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : LineItemServiceAsync.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): LineItemServiceAsync.WithRawResponse =
-            LineItemServiceAsyncImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LineItemServiceAsync.WithRawResponse = LineItemServiceAsyncImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val retrieveHandler: Handler<LineItem> = jsonHandler<LineItem>(clientOptions.jsonMapper)
+
+        override suspend fun retrieve(params: LineItemRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<LineItem> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", params._pathParam(0), params._pathParam(1), "line_items", params._pathParam(2))
+            .build()
+            .prepareAsync(
+              clientOptions, params
             )
-
-        private val retrieveHandler: Handler<LineItem> =
-            jsonHandler<LineItem>(clientOptions.jsonMapper)
-
-        override suspend fun retrieve(
-            params: LineItemRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LineItem> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "line_items",
-                        params._pathParam(2),
-                    )
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val updateHandler: Handler<LineItem> =
-            jsonHandler<LineItem>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<LineItem> = jsonHandler<LineItem>(clientOptions.jsonMapper)
 
-        override suspend fun update(
-            params: LineItemUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LineItem> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "line_items",
-                        params._pathParam(2),
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override suspend fun update(params: LineItemUpdateParams, requestOptions: RequestOptions): HttpResponseFor<LineItem> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PATCH)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", params._pathParam(0), params._pathParam(1), "line_items", params._pathParam(2))
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  updateHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<LineItem>> =
-            jsonHandler<List<LineItem>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<LineItem>> = jsonHandler<List<LineItem>>(clientOptions.jsonMapper)
 
-        override suspend fun list(
-            params: LineItemListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LineItemListPageAsync> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("itemizableId", params.itemizableId())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "line_items",
-                    )
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        LineItemListPageAsync.builder()
-                            .service(LineItemServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override suspend fun list(params: LineItemListParams, requestOptions: RequestOptions): HttpResponseFor<LineItemListPageAsync> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("itemizableId", params.itemizableId())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", params._pathParam(0), params._pathParam(1), "line_items")
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  LineItemListPageAsync.builder()
+                      .service(LineItemServiceAsyncImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
     }
 }

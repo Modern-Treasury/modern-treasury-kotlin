@@ -4,6 +4,13 @@ package com.moderntreasury.api.core.http
 
 import com.moderntreasury.api.core.LogLevel
 import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.core.http.HttpClient
+import com.moderntreasury.api.core.http.HttpMethod
+import com.moderntreasury.api.core.http.HttpRequest
+import com.moderntreasury.api.core.http.HttpRequestBody
+import com.moderntreasury.api.core.http.HttpResponse
+import com.moderntreasury.api.core.http.LoggingHttpClient
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -14,6 +21,7 @@ import java.nio.charset.StandardCharsets
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneOffset
+import java.util.concurrent.CompletableFuture
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -680,7 +688,10 @@ internal class LoggingHttpClientTest {
     @ValueSource(booleans = [false, true])
     fun infoLevel_doesNotLogRequestFailure(async: Boolean) {
         val client =
-            loggingClient(failingHttpClient(IOException("Connection refused")), LogLevel.INFO)
+            loggingClient(
+                failingHttpClient(IOException("Connection refused")),
+                LogLevel.INFO,
+            )
 
         assertThatThrownBy { client.execute(simpleGetRequest(), async) }
 
@@ -697,7 +708,10 @@ internal class LoggingHttpClientTest {
     @ValueSource(booleans = [false, true])
     fun debugLevel_logsRequestFailureAfterHeaders(async: Boolean) {
         val client =
-            loggingClient(failingHttpClient(IOException("Connection refused")), LogLevel.DEBUG)
+            loggingClient(
+                failingHttpClient(IOException("Connection refused")),
+                LogLevel.DEBUG,
+            )
 
         assertThatThrownBy { client.execute(simpleGetRequest(), async) }
 
@@ -716,7 +730,11 @@ internal class LoggingHttpClientTest {
     @ParameterizedTest
     @ValueSource(booleans = [false, true])
     fun errorLevel_logsRequestFailureWithoutMessage(async: Boolean) {
-        val client = loggingClient(failingHttpClient(IOException()), LogLevel.ERROR)
+        val client =
+            loggingClient(
+                failingHttpClient(IOException()),
+                LogLevel.ERROR,
+            )
 
         assertThatThrownBy { client.execute(simpleGetRequest(), async) }
 
@@ -734,7 +752,10 @@ internal class LoggingHttpClientTest {
     @ValueSource(booleans = [false, true])
     fun offLevel_doesNotLogRequestFailure(async: Boolean) {
         val client =
-            loggingClient(failingHttpClient(IOException("Connection refused")), LogLevel.OFF)
+            loggingClient(
+                failingHttpClient(IOException("Connection refused")),
+                LogLevel.OFF,
+            )
 
         assertThatThrownBy { client.execute(simpleGetRequest(), async) }
 
@@ -837,8 +858,7 @@ internal class LoggingHttpClientTest {
         httpClient: HttpClient,
         level: LogLevel,
         clock: Clock = clockFrom(Instant.parse("1998-04-21T00:00:00Z")),
-        redactedHeaders: Set<String> =
-            setOf("authorization", "api-key", "x-api-key", "cookie", "set-cookie"),
+        redactedHeaders: Set<String> = setOf("authorization", "api-key", "x-api-key", "cookie", "set-cookie"),
     ): LoggingHttpClient =
         LoggingHttpClient.builder()
             .httpClient(httpClient)

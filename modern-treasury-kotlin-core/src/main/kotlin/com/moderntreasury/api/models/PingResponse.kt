@@ -15,22 +15,20 @@ import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-class PingResponse
-@JsonCreator(mode = JsonCreator.Mode.DISABLED)
-private constructor(
+class PingResponse @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
     private val ping: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
+
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("ping") @ExcludeMissing ping: JsonField<String> = JsonMissing.of()
-    ) : this(ping, mutableMapOf())
+    ) : this(
+      ping, mutableMapOf()
+    )
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun ping(): String = ping.getRequired("ping")
 
     /**
@@ -38,17 +36,18 @@ private constructor(
      *
      * Unlike [ping], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("ping") @ExcludeMissing fun _ping(): JsonField<String> = ping
+    @JsonProperty("ping")
+    @ExcludeMissing
+    fun _ping(): JsonField<String> = ping
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
-        additionalProperties.put(key, value)
+      additionalProperties.put(key, value)
     }
 
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> =
-        Collections.unmodifiableMap(additionalProperties)
+    fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -58,6 +57,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [PingResponse].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .ping()
          * ```
@@ -71,39 +71,50 @@ private constructor(
         private var ping: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(pingResponse: PingResponse) = apply {
-            ping = pingResponse.ping
-            additionalProperties = pingResponse.additionalProperties.toMutableMap()
-        }
+        internal fun from(pingResponse: PingResponse) =
+            apply {
+                ping = pingResponse.ping
+                additionalProperties = pingResponse.additionalProperties.toMutableMap()
+            }
 
         fun ping(ping: String) = ping(JsonField.of(ping))
 
         /**
          * Sets [Builder.ping] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.ping] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.ping] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun ping(ping: JsonField<String>) = apply { this.ping = ping }
+        fun ping(ping: JsonField<String>) =
+            apply {
+                this.ping = ping
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         /**
          * Returns an immutable instance of [PingResponse].
@@ -111,6 +122,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .ping()
          * ```
@@ -118,7 +130,11 @@ private constructor(
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PingResponse =
-            PingResponse(checkRequired("ping", ping), additionalProperties.toMutableMap())
+            PingResponse(
+              checkRequired(
+                "ping", ping
+              ), additionalProperties.toMutableMap()
+            )
     }
 
     private var validated: Boolean = false
@@ -131,14 +147,15 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): PingResponse = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): PingResponse =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        ping()
-        validated = true
-    }
+            ping()
+            validated = true
+        }
 
     fun isValid(): Boolean =
         try {
@@ -156,13 +173,11 @@ private constructor(
     internal fun validity(): Int = (if (ping.asKnown() == null) 0 else 1)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is PingResponse &&
-            ping == other.ping &&
-            additionalProperties == other.additionalProperties
+      return other is PingResponse && ping == other.ping && additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy { Objects.hash(ping, additionalProperties) }

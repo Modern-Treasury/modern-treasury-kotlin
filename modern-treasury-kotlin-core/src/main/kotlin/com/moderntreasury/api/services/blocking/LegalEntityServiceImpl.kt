@@ -22,182 +22,169 @@ import com.moderntreasury.api.models.LegalEntityListPage
 import com.moderntreasury.api.models.LegalEntityListParams
 import com.moderntreasury.api.models.LegalEntityRetrieveParams
 import com.moderntreasury.api.models.LegalEntityUpdateParams
+import com.moderntreasury.api.services.blocking.LegalEntityService
+import com.moderntreasury.api.services.blocking.LegalEntityServiceImpl
 
-class LegalEntityServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    LegalEntityService {
+class LegalEntityServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: LegalEntityService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : LegalEntityService {
+
+    private val withRawResponse: LegalEntityService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): LegalEntityService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LegalEntityService =
-        LegalEntityServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LegalEntityService = LegalEntityServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun create(
-        params: LegalEntityCreateParams,
-        requestOptions: RequestOptions,
-    ): LegalEntity =
+    override fun create(params: LegalEntityCreateParams, requestOptions: RequestOptions): LegalEntity =
         // post /api/legal_entities
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(
-        params: LegalEntityRetrieveParams,
-        requestOptions: RequestOptions,
-    ): LegalEntity =
+    override fun retrieve(params: LegalEntityRetrieveParams, requestOptions: RequestOptions): LegalEntity =
         // get /api/legal_entities/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun update(
-        params: LegalEntityUpdateParams,
-        requestOptions: RequestOptions,
-    ): LegalEntity =
+    override fun update(params: LegalEntityUpdateParams, requestOptions: RequestOptions): LegalEntity =
         // patch /api/legal_entities/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: LegalEntityListParams,
-        requestOptions: RequestOptions,
-    ): LegalEntityListPage =
+    override fun list(params: LegalEntityListParams, requestOptions: RequestOptions): LegalEntityListPage =
         // get /api/legal_entities
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        LegalEntityService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : LegalEntityService.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): LegalEntityService.WithRawResponse =
-            LegalEntityServiceImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LegalEntityService.WithRawResponse = LegalEntityServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val createHandler: Handler<LegalEntity> = jsonHandler<LegalEntity>(clientOptions.jsonMapper)
+
+        override fun create(params: LegalEntityCreateParams, requestOptions: RequestOptions): HttpResponseFor<LegalEntity> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "legal_entities")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
             )
-
-        private val createHandler: Handler<LegalEntity> =
-            jsonHandler<LegalEntity>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: LegalEntityCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LegalEntity> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "legal_entities")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<LegalEntity> =
-            jsonHandler<LegalEntity>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<LegalEntity> = jsonHandler<LegalEntity>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: LegalEntityRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LegalEntity> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "legal_entities", params._pathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: LegalEntityRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<LegalEntity> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "legal_entities", params._pathParam(0))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val updateHandler: Handler<LegalEntity> =
-            jsonHandler<LegalEntity>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<LegalEntity> = jsonHandler<LegalEntity>(clientOptions.jsonMapper)
 
-        override fun update(
-            params: LegalEntityUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LegalEntity> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "legal_entities", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun update(params: LegalEntityUpdateParams, requestOptions: RequestOptions): HttpResponseFor<LegalEntity> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PATCH)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "legal_entities", params._pathParam(0))
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  updateHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<LegalEntity>> =
-            jsonHandler<List<LegalEntity>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<LegalEntity>> = jsonHandler<List<LegalEntity>>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: LegalEntityListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LegalEntityListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "legal_entities")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        LegalEntityListPage.builder()
-                            .service(LegalEntityServiceImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override fun list(params: LegalEntityListParams, requestOptions: RequestOptions): HttpResponseFor<LegalEntityListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "legal_entities")
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  LegalEntityListPage.builder()
+                      .service(LegalEntityServiceImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
     }
 }

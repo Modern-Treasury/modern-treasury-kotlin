@@ -34,7 +34,9 @@ internal fun <K : Comparable<K>, V> SortedMap<K, V>.toImmutable(): SortedMap<K, 
  * This is similar to [Sequence.maxByOrNull] except it returns _all_ elements that yield the largest
  * value; not just the first one.
  */
-internal fun <T, R : Comparable<R>> Sequence<T>.allMaxBy(selector: (T) -> R): List<T> {
+internal fun <T, R : Comparable<R>> Sequence<T>.allMaxBy(
+    selector: (T) -> R
+): List<T> {
     var maxValue: R? = null
     val maxElements = mutableListOf<T>()
 
@@ -57,25 +59,24 @@ internal fun <T, R : Comparable<R>> Sequence<T>.allMaxBy(selector: (T) -> R): Li
 /**
  * Returns whether [this] is equal to [other].
  *
- * This differs from [Object.equals] because it also deeply equates arrays based on their contents,
- * even when there are arrays directly nested within other arrays.
+ * This differs from [Object.equals] because it also deeply equates arrays based on their contents, even when
+ * there are arrays directly nested within other arrays.
  */
-internal infix fun Any?.contentEquals(other: Any?): Boolean =
-    arrayOf(this).contentDeepEquals(arrayOf(other))
+internal infix fun Any?.contentEquals(other: Any?): Boolean = arrayOf(this).contentDeepEquals(arrayOf(other))
 
 /**
  * Returns a hash of the given sequence of [values].
  *
- * This differs from [java.util.Objects.hash] because it also deeply hashes arrays based on their
- * contents, even when there are arrays directly nested within other arrays.
+ * This differs from [java.util.Objects.hash] because it also deeply hashes arrays based on their contents,
+ * even when there are arrays directly nested within other arrays.
  */
 internal fun contentHash(vararg values: Any?): Int = values.contentDeepHashCode()
 
 /**
  * Returns a [String] representation of [this].
  *
- * This differs from [Object.toString] because it also deeply stringifies arrays based on their
- * contents, even when there are arrays directly nested within other arrays.
+ * This differs from [Object.toString] because it also deeply stringifies arrays based on their contents, even
+ * when there are arrays directly nested within other arrays.
  */
 internal fun Any?.contentToString(): String {
     var string = arrayOf(this).contentDeepToString()
@@ -97,7 +98,9 @@ internal interface Enum
  * @param action the suspending function to execute while holding the lock
  * @return the result of executing the action
  */
-internal suspend fun <T> Lock.withLockAsync(action: suspend () -> T): T {
+internal suspend fun <T> Lock.withLockAsync(
+    action: suspend () -> T,
+): T {
     lock()
     return try {
         action()

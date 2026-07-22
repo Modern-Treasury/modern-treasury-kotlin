@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.models.DocumentListParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -10,43 +11,39 @@ internal class DocumentListParamsTest {
 
     @Test
     fun create() {
-        DocumentListParams.builder()
-            .afterCursor("after_cursor")
-            .documentableId("documentable_id")
-            .documentableType(DocumentListParams.DocumentableType.CONNECTIONS)
-            .perPage(0L)
-            .build()
+      DocumentListParams.builder()
+          .afterCursor("after_cursor")
+          .documentableId("documentable_id")
+          .documentableType(DocumentListParams.DocumentableType.CONNECTION)
+          .perPage(0L)
+          .build()
     }
 
     @Test
     fun queryParams() {
-        val params =
-            DocumentListParams.builder()
-                .afterCursor("after_cursor")
-                .documentableId("documentable_id")
-                .documentableType(DocumentListParams.DocumentableType.CONNECTIONS)
-                .perPage(0L)
-                .build()
+      val params = DocumentListParams.builder()
+          .afterCursor("after_cursor")
+          .documentableId("documentable_id")
+          .documentableType(DocumentListParams.DocumentableType.CONNECTION)
+          .perPage(0L)
+          .build()
 
-        val queryParams = params._queryParams()
+      val queryParams = params._queryParams()
 
-        assertThat(queryParams)
-            .isEqualTo(
-                QueryParams.builder()
-                    .put("after_cursor", "after_cursor")
-                    .put("documentable_id", "documentable_id")
-                    .put("documentable_type", "connections")
-                    .put("per_page", "0")
-                    .build()
-            )
+      assertThat(queryParams).isEqualTo(QueryParams.builder()
+          .put("after_cursor", "after_cursor")
+          .put("documentable_id", "documentable_id")
+          .put("documentable_type", "connection")
+          .put("per_page", "0")
+          .build())
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = DocumentListParams.builder().build()
+      val params = DocumentListParams.builder().build()
 
-        val queryParams = params._queryParams()
+      val queryParams = params._queryParams()
 
-        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
+      assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

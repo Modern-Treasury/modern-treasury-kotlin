@@ -13,13 +13,12 @@ import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.ConnectionLegalEntity
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-class ConnectionLegalEntity
-@JsonCreator(mode = JsonCreator.Mode.DISABLED)
-private constructor(
+class ConnectionLegalEntity @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
     private val id: JsonField<String>,
     private val connectionId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -31,112 +30,82 @@ private constructor(
     private val updatedAt: JsonField<OffsetDateTime>,
     private val vendorId: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
+
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("connection_id")
-        @ExcludeMissing
-        connectionId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("discarded_at")
-        @ExcludeMissing
-        discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("legal_entity_id")
-        @ExcludeMissing
-        legalEntityId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("connection_id") @ExcludeMissing connectionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("discarded_at") @ExcludeMissing discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("legal_entity_id") @ExcludeMissing legalEntityId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("vendor_id") @ExcludeMissing vendorId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("vendor_id") @ExcludeMissing vendorId: JsonField<String> = JsonMissing.of()
     ) : this(
-        id,
-        connectionId,
-        createdAt,
-        discardedAt,
-        legalEntityId,
-        liveMode,
-        object_,
-        status,
-        updatedAt,
-        vendorId,
-        mutableMapOf(),
+      id,
+      connectionId,
+      createdAt,
+      discardedAt,
+      legalEntityId,
+      liveMode,
+      object_,
+      status,
+      updatedAt,
+      vendorId,
+      mutableMapOf(),
     )
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun id(): String = id.getRequired("id")
 
     /**
      * The ID of the connection.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun connectionId(): String = connectionId.getRequired("connection_id")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
     fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
     /**
      * The ID of the legal entity.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun legalEntityId(): String = legalEntityId.getRequired("legal_entity_id")
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * This field will be true if this object exists in the live environment or false if it exists in the test environment.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun object_(): String = object_.getRequired("object")
 
     /**
      * The status of the connection legal entity.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun status(): Status = status.getRequired("status")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /**
      * The ID of the legal entity at the vendor.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun vendorId(): String = vendorId.getRequired("vendor_id")
 
@@ -145,7 +114,9 @@ private constructor(
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id(): JsonField<String> = id
 
     /**
      * Returns the raw JSON value of [connectionId].
@@ -188,21 +159,27 @@ private constructor(
      *
      * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    fun _liveMode(): JsonField<Boolean> = liveMode
 
     /**
      * Returns the raw JSON value of [object_].
      *
      * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
+    @JsonProperty("object")
+    @ExcludeMissing
+    fun _object_(): JsonField<String> = object_
 
     /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status(): JsonField<Status> = status
 
     /**
      * Returns the raw JSON value of [updatedAt].
@@ -218,17 +195,18 @@ private constructor(
      *
      * Unlike [vendorId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("vendor_id") @ExcludeMissing fun _vendorId(): JsonField<String> = vendorId
+    @JsonProperty("vendor_id")
+    @ExcludeMissing
+    fun _vendorId(): JsonField<String> = vendorId
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
-        additionalProperties.put(key, value)
+      additionalProperties.put(key, value)
     }
 
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> =
-        Collections.unmodifiableMap(additionalProperties)
+    fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -238,6 +216,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [ConnectionLegalEntity].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .id()
          * .connectionId()
@@ -269,29 +248,33 @@ private constructor(
         private var vendorId: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(connectionLegalEntity: ConnectionLegalEntity) = apply {
-            id = connectionLegalEntity.id
-            connectionId = connectionLegalEntity.connectionId
-            createdAt = connectionLegalEntity.createdAt
-            discardedAt = connectionLegalEntity.discardedAt
-            legalEntityId = connectionLegalEntity.legalEntityId
-            liveMode = connectionLegalEntity.liveMode
-            object_ = connectionLegalEntity.object_
-            status = connectionLegalEntity.status
-            updatedAt = connectionLegalEntity.updatedAt
-            vendorId = connectionLegalEntity.vendorId
-            additionalProperties = connectionLegalEntity.additionalProperties.toMutableMap()
-        }
+        internal fun from(connectionLegalEntity: ConnectionLegalEntity) =
+            apply {
+                id = connectionLegalEntity.id
+                connectionId = connectionLegalEntity.connectionId
+                createdAt = connectionLegalEntity.createdAt
+                discardedAt = connectionLegalEntity.discardedAt
+                legalEntityId = connectionLegalEntity.legalEntityId
+                liveMode = connectionLegalEntity.liveMode
+                object_ = connectionLegalEntity.object_
+                status = connectionLegalEntity.status
+                updatedAt = connectionLegalEntity.updatedAt
+                vendorId = connectionLegalEntity.vendorId
+                additionalProperties = connectionLegalEntity.additionalProperties.toMutableMap()
+            }
 
         fun id(id: String) = id(JsonField.of(id))
 
         /**
          * Sets [Builder.id] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.id] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) =
+            apply {
+                this.id = id
+            }
 
         /** The ID of the connection. */
         fun connectionId(connectionId: String) = connectionId(JsonField.of(connectionId))
@@ -299,38 +282,39 @@ private constructor(
         /**
          * Sets [Builder.connectionId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.connectionId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.connectionId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun connectionId(connectionId: JsonField<String>) = apply {
-            this.connectionId = connectionId
-        }
+        fun connectionId(connectionId: JsonField<String>) =
+            apply {
+                this.connectionId = connectionId
+            }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
          * Sets [Builder.createdAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.createdAt = createdAt
+            }
 
-        fun discardedAt(discardedAt: OffsetDateTime?) =
-            discardedAt(JsonField.ofNullable(discardedAt))
+        fun discardedAt(discardedAt: OffsetDateTime?) = discardedAt(JsonField.ofNullable(discardedAt))
 
         /**
          * Sets [Builder.discardedAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
-            this.discardedAt = discardedAt
-        }
+        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.discardedAt = discardedAt
+            }
 
         /** The ID of the legal entity. */
         fun legalEntityId(legalEntityId: String) = legalEntityId(JsonField.of(legalEntityId))
@@ -338,38 +322,40 @@ private constructor(
         /**
          * Sets [Builder.legalEntityId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.legalEntityId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.legalEntityId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun legalEntityId(legalEntityId: JsonField<String>) = apply {
-            this.legalEntityId = legalEntityId
-        }
+        fun legalEntityId(legalEntityId: JsonField<String>) =
+            apply {
+                this.legalEntityId = legalEntityId
+            }
 
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
+        /** This field will be true if this object exists in the live environment or false if it exists in the test environment. */
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
          * Sets [Builder.liveMode] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+        fun liveMode(liveMode: JsonField<Boolean>) =
+            apply {
+                this.liveMode = liveMode
+            }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
         /**
          * Sets [Builder.object_] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun object_(object_: JsonField<String>) =
+            apply {
+                this.object_ = object_
+            }
 
         /** The status of the connection legal entity. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -377,21 +363,26 @@ private constructor(
         /**
          * Sets [Builder.status] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) =
+            apply {
+                this.status = status
+            }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
          * Sets [Builder.updatedAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.updatedAt = updatedAt
+            }
 
         /** The ID of the legal entity at the vendor. */
         fun vendorId(vendorId: String) = vendorId(JsonField.of(vendorId))
@@ -399,29 +390,39 @@ private constructor(
         /**
          * Sets [Builder.vendorId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.vendorId] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.vendorId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun vendorId(vendorId: JsonField<String>) = apply { this.vendorId = vendorId }
+        fun vendorId(vendorId: JsonField<String>) =
+            apply {
+                this.vendorId = vendorId
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         /**
          * Returns an immutable instance of [ConnectionLegalEntity].
@@ -429,6 +430,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .id()
          * .connectionId()
@@ -446,17 +448,37 @@ private constructor(
          */
         fun build(): ConnectionLegalEntity =
             ConnectionLegalEntity(
-                checkRequired("id", id),
-                checkRequired("connectionId", connectionId),
-                checkRequired("createdAt", createdAt),
-                checkRequired("discardedAt", discardedAt),
-                checkRequired("legalEntityId", legalEntityId),
-                checkRequired("liveMode", liveMode),
-                checkRequired("object_", object_),
-                checkRequired("status", status),
-                checkRequired("updatedAt", updatedAt),
-                checkRequired("vendorId", vendorId),
-                additionalProperties.toMutableMap(),
+              checkRequired(
+                "id", id
+              ),
+              checkRequired(
+                "connectionId", connectionId
+              ),
+              checkRequired(
+                "createdAt", createdAt
+              ),
+              checkRequired(
+                "discardedAt", discardedAt
+              ),
+              checkRequired(
+                "legalEntityId", legalEntityId
+              ),
+              checkRequired(
+                "liveMode", liveMode
+              ),
+              checkRequired(
+                "object_", object_
+              ),
+              checkRequired(
+                "status", status
+              ),
+              checkRequired(
+                "updatedAt", updatedAt
+              ),
+              checkRequired(
+                "vendorId", vendorId
+              ),
+              additionalProperties.toMutableMap(),
             )
     }
 
@@ -470,23 +492,24 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): ConnectionLegalEntity = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): ConnectionLegalEntity =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        id()
-        connectionId()
-        createdAt()
-        discardedAt()
-        legalEntityId()
-        liveMode()
-        object_()
-        status().validate()
-        updatedAt()
-        vendorId()
-        validated = true
-    }
+            id()
+            connectionId()
+            createdAt()
+            discardedAt()
+            legalEntityId()
+            liveMode()
+            object_()
+            status().validate()
+            updatedAt()
+            vendorId()
+            validated = true
+        }
 
     fun isValid(): Boolean =
         try {
@@ -501,30 +524,23 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    internal fun validity(): Int =
-        (if (id.asKnown() == null) 0 else 1) +
-            (if (connectionId.asKnown() == null) 0 else 1) +
-            (if (createdAt.asKnown() == null) 0 else 1) +
-            (if (discardedAt.asKnown() == null) 0 else 1) +
-            (if (legalEntityId.asKnown() == null) 0 else 1) +
-            (if (liveMode.asKnown() == null) 0 else 1) +
-            (if (object_.asKnown() == null) 0 else 1) +
-            (status.asKnown()?.validity() ?: 0) +
-            (if (updatedAt.asKnown() == null) 0 else 1) +
-            (if (vendorId.asKnown() == null) 0 else 1)
+    internal fun validity(): Int = (if (id.asKnown() == null) 0 else 1) + (if (connectionId.asKnown() == null) 0 else 1) + (if (createdAt.asKnown() == null) 0 else 1) + (if (discardedAt.asKnown() == null) 0 else 1) + (if (legalEntityId.asKnown() == null) 0 else 1) + (if (liveMode.asKnown() == null) 0 else 1) + (if (object_.asKnown() == null) 0 else 1) + (status.asKnown()?.validity() ?: 0) + (if (updatedAt.asKnown() == null) 0 else 1) + (if (vendorId.asKnown() == null) 0 else 1)
 
     /** The status of the connection legal entity. */
-    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Status @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -554,9 +570,11 @@ private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -570,11 +588,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -589,11 +607,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -608,34 +625,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Status = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Status =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -646,19 +662,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && value == other.value
+          return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -667,42 +682,16 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is ConnectionLegalEntity &&
-            id == other.id &&
-            connectionId == other.connectionId &&
-            createdAt == other.createdAt &&
-            discardedAt == other.discardedAt &&
-            legalEntityId == other.legalEntityId &&
-            liveMode == other.liveMode &&
-            object_ == other.object_ &&
-            status == other.status &&
-            updatedAt == other.updatedAt &&
-            vendorId == other.vendorId &&
-            additionalProperties == other.additionalProperties
+      return other is ConnectionLegalEntity && id == other.id && connectionId == other.connectionId && createdAt == other.createdAt && discardedAt == other.discardedAt && legalEntityId == other.legalEntityId && liveMode == other.liveMode && object_ == other.object_ && status == other.status && updatedAt == other.updatedAt && vendorId == other.vendorId && additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy {
-        Objects.hash(
-            id,
-            connectionId,
-            createdAt,
-            discardedAt,
-            legalEntityId,
-            liveMode,
-            object_,
-            status,
-            updatedAt,
-            vendorId,
-            additionalProperties,
-        )
-    }
+    private val hashCode: Int by lazy { Objects.hash(id, connectionId, createdAt, discardedAt, legalEntityId, liveMode, object_, status, updatedAt, vendorId, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "ConnectionLegalEntity{id=$id, connectionId=$connectionId, createdAt=$createdAt, discardedAt=$discardedAt, legalEntityId=$legalEntityId, liveMode=$liveMode, object_=$object_, status=$status, updatedAt=$updatedAt, vendorId=$vendorId, additionalProperties=$additionalProperties}"
+    override fun toString() = "ConnectionLegalEntity{id=$id, connectionId=$connectionId, createdAt=$createdAt, discardedAt=$discardedAt, legalEntityId=$legalEntityId, liveMode=$liveMode, object_=$object_, status=$status, updatedAt=$updatedAt, vendorId=$vendorId, additionalProperties=$additionalProperties}"
 }

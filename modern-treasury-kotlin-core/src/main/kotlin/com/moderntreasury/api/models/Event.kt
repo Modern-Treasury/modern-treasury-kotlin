@@ -13,13 +13,12 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.Event
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-class Event
-@JsonCreator(mode = JsonCreator.Mode.DISABLED)
-private constructor(
+class Event @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val data: JsonField<Data>,
@@ -31,111 +30,87 @@ private constructor(
     private val resource: JsonField<String>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
+
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("data") @ExcludeMissing data: JsonField<Data> = JsonMissing.of(),
         @JsonProperty("entity_id") @ExcludeMissing entityId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("event_name") @ExcludeMissing eventName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("event_time")
-        @ExcludeMissing
-        eventTime: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("event_time") @ExcludeMissing eventTime: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
         @JsonProperty("resource") @ExcludeMissing resource: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
     ) : this(
-        id,
-        createdAt,
-        data,
-        entityId,
-        eventName,
-        eventTime,
-        liveMode,
-        object_,
-        resource,
-        updatedAt,
-        mutableMapOf(),
+      id,
+      createdAt,
+      data,
+      entityId,
+      eventName,
+      eventTime,
+      liveMode,
+      object_,
+      resource,
+      updatedAt,
+      mutableMapOf(),
     )
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun id(): String = id.getRequired("id")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * The body of the event.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun data(): Data = data.getRequired("data")
 
     /**
      * The ID of the entity for the event.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun entityId(): String = entityId.getRequired("entity_id")
 
     /**
      * The name of the event.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun eventName(): String = eventName.getRequired("event_name")
 
     /**
      * The time of the event.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun eventTime(): OffsetDateTime = eventTime.getRequired("event_time")
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * This field will be true if this object exists in the live environment or false if it exists in the test environment.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun object_(): String = object_.getRequired("object")
 
     /**
      * The type of resource for the event.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun resource(): String = resource.getRequired("resource")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /**
@@ -143,7 +118,9 @@ private constructor(
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id(): JsonField<String> = id
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -159,21 +136,27 @@ private constructor(
      *
      * Unlike [data], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("data") @ExcludeMissing fun _data(): JsonField<Data> = data
+    @JsonProperty("data")
+    @ExcludeMissing
+    fun _data(): JsonField<Data> = data
 
     /**
      * Returns the raw JSON value of [entityId].
      *
      * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
+    @JsonProperty("entity_id")
+    @ExcludeMissing
+    fun _entityId(): JsonField<String> = entityId
 
     /**
      * Returns the raw JSON value of [eventName].
      *
      * Unlike [eventName], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("event_name") @ExcludeMissing fun _eventName(): JsonField<String> = eventName
+    @JsonProperty("event_name")
+    @ExcludeMissing
+    fun _eventName(): JsonField<String> = eventName
 
     /**
      * Returns the raw JSON value of [eventTime].
@@ -189,21 +172,27 @@ private constructor(
      *
      * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    fun _liveMode(): JsonField<Boolean> = liveMode
 
     /**
      * Returns the raw JSON value of [object_].
      *
      * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
+    @JsonProperty("object")
+    @ExcludeMissing
+    fun _object_(): JsonField<String> = object_
 
     /**
      * Returns the raw JSON value of [resource].
      *
      * Unlike [resource], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("resource") @ExcludeMissing fun _resource(): JsonField<String> = resource
+    @JsonProperty("resource")
+    @ExcludeMissing
+    fun _resource(): JsonField<String> = resource
 
     /**
      * Returns the raw JSON value of [updatedAt].
@@ -216,13 +205,12 @@ private constructor(
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
-        additionalProperties.put(key, value)
+      additionalProperties.put(key, value)
     }
 
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> =
-        Collections.unmodifiableMap(additionalProperties)
+    fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -232,6 +220,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [Event].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .id()
          * .createdAt()
@@ -263,40 +252,46 @@ private constructor(
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(event: Event) = apply {
-            id = event.id
-            createdAt = event.createdAt
-            data = event.data
-            entityId = event.entityId
-            eventName = event.eventName
-            eventTime = event.eventTime
-            liveMode = event.liveMode
-            object_ = event.object_
-            resource = event.resource
-            updatedAt = event.updatedAt
-            additionalProperties = event.additionalProperties.toMutableMap()
-        }
+        internal fun from(event: Event) =
+            apply {
+                id = event.id
+                createdAt = event.createdAt
+                data = event.data
+                entityId = event.entityId
+                eventName = event.eventName
+                eventTime = event.eventTime
+                liveMode = event.liveMode
+                object_ = event.object_
+                resource = event.resource
+                updatedAt = event.updatedAt
+                additionalProperties = event.additionalProperties.toMutableMap()
+            }
 
         fun id(id: String) = id(JsonField.of(id))
 
         /**
          * Sets [Builder.id] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.id] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) =
+            apply {
+                this.id = id
+            }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
          * Sets [Builder.createdAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.createdAt = createdAt
+            }
 
         /** The body of the event. */
         fun data(data: Data) = data(JsonField.of(data))
@@ -304,10 +299,13 @@ private constructor(
         /**
          * Sets [Builder.data] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.data] with a well-typed [Data] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.data] with a well-typed [Data] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun data(data: JsonField<Data>) = apply { this.data = data }
+        fun data(data: JsonField<Data>) =
+            apply {
+                this.data = data
+            }
 
         /** The ID of the entity for the event. */
         fun entityId(entityId: String) = entityId(JsonField.of(entityId))
@@ -315,10 +313,13 @@ private constructor(
         /**
          * Sets [Builder.entityId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.entityId] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.entityId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
+        fun entityId(entityId: JsonField<String>) =
+            apply {
+                this.entityId = entityId
+            }
 
         /** The name of the event. */
         fun eventName(eventName: String) = eventName(JsonField.of(eventName))
@@ -326,11 +327,13 @@ private constructor(
         /**
          * Sets [Builder.eventName] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.eventName] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.eventName] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun eventName(eventName: JsonField<String>) = apply { this.eventName = eventName }
+        fun eventName(eventName: JsonField<String>) =
+            apply {
+                this.eventName = eventName
+            }
 
         /** The time of the event. */
         fun eventTime(eventTime: OffsetDateTime) = eventTime(JsonField.of(eventTime))
@@ -338,36 +341,40 @@ private constructor(
         /**
          * Sets [Builder.eventTime] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.eventTime] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.eventTime] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun eventTime(eventTime: JsonField<OffsetDateTime>) = apply { this.eventTime = eventTime }
+        fun eventTime(eventTime: JsonField<OffsetDateTime>) =
+            apply {
+                this.eventTime = eventTime
+            }
 
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
+        /** This field will be true if this object exists in the live environment or false if it exists in the test environment. */
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
          * Sets [Builder.liveMode] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+        fun liveMode(liveMode: JsonField<Boolean>) =
+            apply {
+                this.liveMode = liveMode
+            }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
         /**
          * Sets [Builder.object_] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun object_(object_: JsonField<String>) =
+            apply {
+                this.object_ = object_
+            }
 
         /** The type of resource for the event. */
         fun resource(resource: String) = resource(JsonField.of(resource))
@@ -375,40 +382,52 @@ private constructor(
         /**
          * Sets [Builder.resource] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.resource] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.resource] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun resource(resource: JsonField<String>) = apply { this.resource = resource }
+        fun resource(resource: JsonField<String>) =
+            apply {
+                this.resource = resource
+            }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
          * Sets [Builder.updatedAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.updatedAt = updatedAt
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         /**
          * Returns an immutable instance of [Event].
@@ -416,6 +435,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .id()
          * .createdAt()
@@ -433,17 +453,37 @@ private constructor(
          */
         fun build(): Event =
             Event(
-                checkRequired("id", id),
-                checkRequired("createdAt", createdAt),
-                checkRequired("data", data),
-                checkRequired("entityId", entityId),
-                checkRequired("eventName", eventName),
-                checkRequired("eventTime", eventTime),
-                checkRequired("liveMode", liveMode),
-                checkRequired("object_", object_),
-                checkRequired("resource", resource),
-                checkRequired("updatedAt", updatedAt),
-                additionalProperties.toMutableMap(),
+              checkRequired(
+                "id", id
+              ),
+              checkRequired(
+                "createdAt", createdAt
+              ),
+              checkRequired(
+                "data", data
+              ),
+              checkRequired(
+                "entityId", entityId
+              ),
+              checkRequired(
+                "eventName", eventName
+              ),
+              checkRequired(
+                "eventTime", eventTime
+              ),
+              checkRequired(
+                "liveMode", liveMode
+              ),
+              checkRequired(
+                "object_", object_
+              ),
+              checkRequired(
+                "resource", resource
+              ),
+              checkRequired(
+                "updatedAt", updatedAt
+              ),
+              additionalProperties.toMutableMap(),
             )
     }
 
@@ -457,23 +497,24 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): Event = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): Event =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        id()
-        createdAt()
-        data().validate()
-        entityId()
-        eventName()
-        eventTime()
-        liveMode()
-        object_()
-        resource()
-        updatedAt()
-        validated = true
-    }
+            id()
+            createdAt()
+            data().validate()
+            entityId()
+            eventName()
+            eventTime()
+            liveMode()
+            object_()
+            resource()
+            updatedAt()
+            validated = true
+        }
 
     fun isValid(): Boolean =
         try {
@@ -488,24 +529,12 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    internal fun validity(): Int =
-        (if (id.asKnown() == null) 0 else 1) +
-            (if (createdAt.asKnown() == null) 0 else 1) +
-            (data.asKnown()?.validity() ?: 0) +
-            (if (entityId.asKnown() == null) 0 else 1) +
-            (if (eventName.asKnown() == null) 0 else 1) +
-            (if (eventTime.asKnown() == null) 0 else 1) +
-            (if (liveMode.asKnown() == null) 0 else 1) +
-            (if (object_.asKnown() == null) 0 else 1) +
-            (if (resource.asKnown() == null) 0 else 1) +
-            (if (updatedAt.asKnown() == null) 0 else 1)
+    internal fun validity(): Int = (if (id.asKnown() == null) 0 else 1) + (if (createdAt.asKnown() == null) 0 else 1) + (data.asKnown()?.validity() ?: 0) + (if (entityId.asKnown() == null) 0 else 1) + (if (eventName.asKnown() == null) 0 else 1) + (if (eventTime.asKnown() == null) 0 else 1) + (if (liveMode.asKnown() == null) 0 else 1) + (if (object_.asKnown() == null) 0 else 1) + (if (resource.asKnown() == null) 0 else 1) + (if (updatedAt.asKnown() == null) 0 else 1)
 
     /** The body of the event. */
-    class Data
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
+    class Data @JsonCreator private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         @JsonAnyGetter
@@ -525,28 +554,36 @@ private constructor(
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(data: Data) = apply {
-                additionalProperties = data.additionalProperties.toMutableMap()
-            }
+            internal fun from(data: Data) =
+                apply {
+                    additionalProperties = data.additionalProperties.toMutableMap()
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperty(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
             /**
              * Returns an immutable instance of [Data].
@@ -559,21 +596,21 @@ private constructor(
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Data = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Data =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            validated = true
-        }
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -584,20 +621,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+        internal fun validity(): Int = additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Data && additionalProperties == other.additionalProperties
+          return other is Data && additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
@@ -608,42 +643,16 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is Event &&
-            id == other.id &&
-            createdAt == other.createdAt &&
-            data == other.data &&
-            entityId == other.entityId &&
-            eventName == other.eventName &&
-            eventTime == other.eventTime &&
-            liveMode == other.liveMode &&
-            object_ == other.object_ &&
-            resource == other.resource &&
-            updatedAt == other.updatedAt &&
-            additionalProperties == other.additionalProperties
+      return other is Event && id == other.id && createdAt == other.createdAt && data == other.data && entityId == other.entityId && eventName == other.eventName && eventTime == other.eventTime && liveMode == other.liveMode && object_ == other.object_ && resource == other.resource && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy {
-        Objects.hash(
-            id,
-            createdAt,
-            data,
-            entityId,
-            eventName,
-            eventTime,
-            liveMode,
-            object_,
-            resource,
-            updatedAt,
-            additionalProperties,
-        )
-    }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, data, entityId, eventName, eventTime, liveMode, object_, resource, updatedAt, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "Event{id=$id, createdAt=$createdAt, data=$data, entityId=$entityId, eventName=$eventName, eventTime=$eventTime, liveMode=$liveMode, object_=$object_, resource=$resource, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+    override fun toString() = "Event{id=$id, createdAt=$createdAt, data=$data, entityId=$entityId, eventName=$eventName, eventTime=$eventTime, liveMode=$liveMode, object_=$object_, resource=$resource, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

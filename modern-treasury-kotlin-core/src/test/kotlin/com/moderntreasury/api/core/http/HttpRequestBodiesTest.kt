@@ -525,8 +525,7 @@ internal class HttpRequestBodiesTest {
 
     @Test
     fun multipartFormData_serializesInputStreamWithFilename() {
-        // Use `.buffered()` to get a non-ByteArrayInputStream, which hits the non-repeatable code
-        // path.
+        // Use `.buffered()` to get a non-ByteArrayInputStream, which hits the non-repeatable code path.
         val inputStream = "file data".byteInputStream().buffered()
         val body =
             multipartFormData(

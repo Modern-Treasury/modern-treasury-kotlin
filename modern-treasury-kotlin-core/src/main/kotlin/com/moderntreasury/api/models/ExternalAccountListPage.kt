@@ -6,16 +6,18 @@ import com.moderntreasury.api.core.AutoPager
 import com.moderntreasury.api.core.Page
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.models.ExternalAccount
+import com.moderntreasury.api.models.ExternalAccountListParams
 import com.moderntreasury.api.services.blocking.ExternalAccountService
 import java.util.Objects
 
 /** @see ExternalAccountService.list */
-class ExternalAccountListPage
-private constructor(
+class ExternalAccountListPage private constructor(
     private val service: ExternalAccountService,
     private val params: ExternalAccountListParams,
     private val headers: Headers,
     private val items: List<ExternalAccount>,
+
 ) : Page<ExternalAccount> {
 
     fun perPage(): String? = headers.values("X-Per-Page").firstOrNull()
@@ -25,9 +27,10 @@ private constructor(
     override fun hasNextPage(): Boolean = afterCursor() != null
 
     fun nextPageParams(): ExternalAccountListParams {
-        val nextCursor =
-            afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
-        return params.toBuilder().afterCursor(nextCursor).build()
+      val nextCursor = afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
+      return params.toBuilder()
+          .afterCursor(nextCursor)
+          .build()
     }
 
     override fun nextPage(): ExternalAccountListPage = service.list(nextPageParams())
@@ -48,6 +51,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [ExternalAccountListPage].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -66,22 +70,35 @@ private constructor(
         private var headers: Headers? = null
         private var items: List<ExternalAccount>? = null
 
-        internal fun from(externalAccountListPage: ExternalAccountListPage) = apply {
-            service = externalAccountListPage.service
-            params = externalAccountListPage.params
-            headers = externalAccountListPage.headers
-            items = externalAccountListPage.items
-        }
+        internal fun from(externalAccountListPage: ExternalAccountListPage) =
+            apply {
+                service = externalAccountListPage.service
+                params = externalAccountListPage.params
+                headers = externalAccountListPage.headers
+                items = externalAccountListPage.items
+            }
 
-        fun service(service: ExternalAccountService) = apply { this.service = service }
+        fun service(service: ExternalAccountService) =
+            apply {
+                this.service = service
+            }
 
         /** The parameters that were used to request this page. */
-        fun params(params: ExternalAccountListParams) = apply { this.params = params }
+        fun params(params: ExternalAccountListParams) =
+            apply {
+                this.params = params
+            }
 
-        fun headers(headers: Headers) = apply { this.headers = headers }
+        fun headers(headers: Headers) =
+            apply {
+                this.headers = headers
+            }
 
         /** The response that this page was parsed from. */
-        fun items(items: List<ExternalAccount>) = apply { this.items = items }
+        fun items(items: List<ExternalAccount>) =
+            apply {
+                this.items = items
+            }
 
         /**
          * Returns an immutable instance of [ExternalAccountListPage].
@@ -89,6 +106,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -100,27 +118,30 @@ private constructor(
          */
         fun build(): ExternalAccountListPage =
             ExternalAccountListPage(
-                checkRequired("service", service),
-                checkRequired("params", params),
-                checkRequired("headers", headers),
-                checkRequired("items", items),
+              checkRequired(
+                "service", service
+              ),
+              checkRequired(
+                "params", params
+              ),
+              checkRequired(
+                "headers", headers
+              ),
+              checkRequired(
+                "items", items
+              ),
             )
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is ExternalAccountListPage &&
-            service == other.service &&
-            params == other.params &&
-            headers == other.headers &&
-            items == other.items
+      return other is ExternalAccountListPage && service == other.service && params == other.params && headers == other.headers && items == other.items
     }
 
     override fun hashCode(): Int = Objects.hash(service, params, headers, items)
 
-    override fun toString() =
-        "ExternalAccountListPage{service=$service, params=$params, headers=$headers, items=$items}"
+    override fun toString() = "ExternalAccountListPage{service=$service, params=$params, headers=$headers, items=$items}"
 }

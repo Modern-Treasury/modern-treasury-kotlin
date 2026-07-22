@@ -8,12 +8,11 @@ import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.RoutingNumberLookupRequest
 import com.moderntreasury.api.models.ValidationValidateRoutingNumberParams
+import com.moderntreasury.api.services.async.ValidationServiceAsync
 
 interface ValidationServiceAsync {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -24,15 +23,9 @@ interface ValidationServiceAsync {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ValidationServiceAsync
 
     /** Validates the routing number information supplied without creating a routing detail */
-    suspend fun validateRoutingNumber(
-        params: ValidationValidateRoutingNumberParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): RoutingNumberLookupRequest
+    suspend fun validateRoutingNumber(params: ValidationValidateRoutingNumberParams, requestOptions: RequestOptions = RequestOptions.none()): RoutingNumberLookupRequest
 
-    /**
-     * A view of [ValidationServiceAsync] that provides access to raw HTTP responses for each
-     * method.
-     */
+    /** A view of [ValidationServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -40,18 +33,10 @@ interface ValidationServiceAsync {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): ValidationServiceAsync.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ValidationServiceAsync.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `get /api/validations/routing_numbers`, but is otherwise
-         * the same as [ValidationServiceAsync.validateRoutingNumber].
-         */
+        /** Returns a raw HTTP response for `get /api/validations/routing_numbers`, but is otherwise the             same as [ValidationServiceAsync.validateRoutingNumber]. */
         @MustBeClosed
-        suspend fun validateRoutingNumber(
-            params: ValidationValidateRoutingNumberParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RoutingNumberLookupRequest>
+        suspend fun validateRoutingNumber(params: ValidationValidateRoutingNumberParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<RoutingNumberLookupRequest>
     }
 }

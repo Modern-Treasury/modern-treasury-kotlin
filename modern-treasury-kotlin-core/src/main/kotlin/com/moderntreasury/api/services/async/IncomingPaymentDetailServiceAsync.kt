@@ -12,12 +12,11 @@ import com.moderntreasury.api.models.IncomingPaymentDetailListPageAsync
 import com.moderntreasury.api.models.IncomingPaymentDetailListParams
 import com.moderntreasury.api.models.IncomingPaymentDetailRetrieveParams
 import com.moderntreasury.api.models.IncomingPaymentDetailUpdateParams
+import com.moderntreasury.api.services.async.IncomingPaymentDetailServiceAsync
 
 interface IncomingPaymentDetailServiceAsync {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -28,64 +27,62 @@ interface IncomingPaymentDetailServiceAsync {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): IncomingPaymentDetailServiceAsync
 
     /** Get an existing Incoming Payment Detail. */
-    suspend fun retrieve(
-        id: String,
-        params: IncomingPaymentDetailRetrieveParams = IncomingPaymentDetailRetrieveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): IncomingPaymentDetail = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun retrieve(id: String, params: IncomingPaymentDetailRetrieveParams = IncomingPaymentDetailRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): IncomingPaymentDetail =
+        retrieve(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see retrieve */
-    suspend fun retrieve(
-        params: IncomingPaymentDetailRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): IncomingPaymentDetail
+    suspend fun retrieve(params: IncomingPaymentDetailRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): IncomingPaymentDetail
 
     /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): IncomingPaymentDetail =
-        retrieve(id, IncomingPaymentDetailRetrieveParams.none(), requestOptions)
+        retrieve(
+          id,
+          IncomingPaymentDetailRetrieveParams.none(),
+          requestOptions,
+        )
 
     /** Update an existing Incoming Payment Detail. */
-    suspend fun update(
-        id: String,
-        params: IncomingPaymentDetailUpdateParams = IncomingPaymentDetailUpdateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): IncomingPaymentDetail = update(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun update(id: String, params: IncomingPaymentDetailUpdateParams = IncomingPaymentDetailUpdateParams.none(), requestOptions: RequestOptions = RequestOptions.none()): IncomingPaymentDetail =
+        update(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see update */
-    suspend fun update(
-        params: IncomingPaymentDetailUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): IncomingPaymentDetail
+    suspend fun update(params: IncomingPaymentDetailUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): IncomingPaymentDetail
 
     /** @see update */
     suspend fun update(id: String, requestOptions: RequestOptions): IncomingPaymentDetail =
-        update(id, IncomingPaymentDetailUpdateParams.none(), requestOptions)
+        update(
+          id,
+          IncomingPaymentDetailUpdateParams.none(),
+          requestOptions,
+        )
 
     /** Get a list of Incoming Payment Details. */
-    suspend fun list(
-        params: IncomingPaymentDetailListParams = IncomingPaymentDetailListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): IncomingPaymentDetailListPageAsync
+    suspend fun list(params: IncomingPaymentDetailListParams = IncomingPaymentDetailListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): IncomingPaymentDetailListPageAsync
 
     /** @see list */
     suspend fun list(requestOptions: RequestOptions): IncomingPaymentDetailListPageAsync =
-        list(IncomingPaymentDetailListParams.none(), requestOptions)
+        list(
+          IncomingPaymentDetailListParams.none(), requestOptions
+        )
 
     /** Simulate Incoming Payment Detail */
-    suspend fun createAsync(
-        params: IncomingPaymentDetailCreateAsyncParams =
-            IncomingPaymentDetailCreateAsyncParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): IncomingPaymentDetail
+    suspend fun createAsync(params: IncomingPaymentDetailCreateAsyncParams = IncomingPaymentDetailCreateAsyncParams.none(), requestOptions: RequestOptions = RequestOptions.none()): IncomingPaymentDetail
 
     /** @see createAsync */
     suspend fun createAsync(requestOptions: RequestOptions): IncomingPaymentDetail =
-        createAsync(IncomingPaymentDetailCreateAsyncParams.none(), requestOptions)
+        createAsync(
+          IncomingPaymentDetailCreateAsyncParams.none(), requestOptions
+        )
 
-    /**
-     * A view of [IncomingPaymentDetailServiceAsync] that provides access to raw HTTP responses for
-     * each method.
-     */
+    /** A view of [IncomingPaymentDetailServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -93,99 +90,72 @@ interface IncomingPaymentDetailServiceAsync {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): IncomingPaymentDetailServiceAsync.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): IncomingPaymentDetailServiceAsync.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `get /api/incoming_payment_details/{id}`, but is
-         * otherwise the same as [IncomingPaymentDetailServiceAsync.retrieve].
-         */
+        /** Returns a raw HTTP response for `get /api/incoming_payment_details/{id}`, but is otherwise the             same as [IncomingPaymentDetailServiceAsync.retrieve]. */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            params: IncomingPaymentDetailRetrieveParams =
-                IncomingPaymentDetailRetrieveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IncomingPaymentDetail> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun retrieve(id: String, params: IncomingPaymentDetailRetrieveParams = IncomingPaymentDetailRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<IncomingPaymentDetail> =
+            retrieve(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            params: IncomingPaymentDetailRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IncomingPaymentDetail>
+        suspend fun retrieve(params: IncomingPaymentDetailRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<IncomingPaymentDetail>
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<IncomingPaymentDetail> =
-            retrieve(id, IncomingPaymentDetailRetrieveParams.none(), requestOptions)
+        suspend fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<IncomingPaymentDetail> =
+            retrieve(
+              id,
+              IncomingPaymentDetailRetrieveParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `patch /api/incoming_payment_details/{id}`, but is
-         * otherwise the same as [IncomingPaymentDetailServiceAsync.update].
-         */
+        /** Returns a raw HTTP response for `patch /api/incoming_payment_details/{id}`, but is otherwise the             same as [IncomingPaymentDetailServiceAsync.update]. */
         @MustBeClosed
-        suspend fun update(
-            id: String,
-            params: IncomingPaymentDetailUpdateParams = IncomingPaymentDetailUpdateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IncomingPaymentDetail> =
-            update(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun update(id: String, params: IncomingPaymentDetailUpdateParams = IncomingPaymentDetailUpdateParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<IncomingPaymentDetail> =
+            update(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see update */
         @MustBeClosed
-        suspend fun update(
-            params: IncomingPaymentDetailUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IncomingPaymentDetail>
+        suspend fun update(params: IncomingPaymentDetailUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<IncomingPaymentDetail>
 
         /** @see update */
         @MustBeClosed
-        suspend fun update(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<IncomingPaymentDetail> =
-            update(id, IncomingPaymentDetailUpdateParams.none(), requestOptions)
+        suspend fun update(id: String, requestOptions: RequestOptions): HttpResponseFor<IncomingPaymentDetail> =
+            update(
+              id,
+              IncomingPaymentDetailUpdateParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `get /api/incoming_payment_details`, but is otherwise the
-         * same as [IncomingPaymentDetailServiceAsync.list].
-         */
+        /** Returns a raw HTTP response for `get /api/incoming_payment_details`, but is otherwise the             same as [IncomingPaymentDetailServiceAsync.list]. */
         @MustBeClosed
-        suspend fun list(
-            params: IncomingPaymentDetailListParams = IncomingPaymentDetailListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IncomingPaymentDetailListPageAsync>
+        suspend fun list(params: IncomingPaymentDetailListParams = IncomingPaymentDetailListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<IncomingPaymentDetailListPageAsync>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<IncomingPaymentDetailListPageAsync> =
-            list(IncomingPaymentDetailListParams.none(), requestOptions)
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<IncomingPaymentDetailListPageAsync> =
+            list(
+              IncomingPaymentDetailListParams.none(), requestOptions
+            )
 
-        /**
-         * Returns a raw HTTP response for `post
-         * /api/simulations/incoming_payment_details/create_async`, but is otherwise the same as
-         * [IncomingPaymentDetailServiceAsync.createAsync].
-         */
+        /** Returns a raw HTTP response for `post /api/simulations/incoming_payment_details/create_async`, but is otherwise the             same as [IncomingPaymentDetailServiceAsync.createAsync]. */
         @MustBeClosed
-        suspend fun createAsync(
-            params: IncomingPaymentDetailCreateAsyncParams =
-                IncomingPaymentDetailCreateAsyncParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IncomingPaymentDetail>
+        suspend fun createAsync(params: IncomingPaymentDetailCreateAsyncParams = IncomingPaymentDetailCreateAsyncParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<IncomingPaymentDetail>
 
         /** @see createAsync */
         @MustBeClosed
-        suspend fun createAsync(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<IncomingPaymentDetail> =
-            createAsync(IncomingPaymentDetailCreateAsyncParams.none(), requestOptions)
+        suspend fun createAsync(requestOptions: RequestOptions): HttpResponseFor<IncomingPaymentDetail> =
+            createAsync(
+              IncomingPaymentDetailCreateAsyncParams.none(), requestOptions
+            )
     }
 }

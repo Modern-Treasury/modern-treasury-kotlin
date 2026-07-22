@@ -10,26 +10,22 @@ import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.ValidationValidateRoutingNumberParams
 import java.util.Objects
 
 /** Validates the routing number information supplied without creating a routing detail */
-class ValidationValidateRoutingNumberParams
-private constructor(
+class ValidationValidateRoutingNumberParams private constructor(
     private val routingNumber: String,
     private val routingNumberType: RoutingNumberType,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+
 ) : Params {
 
     /** The routing number that is being validated. */
     fun routingNumber(): String = routingNumber
 
-    /**
-     * The type of routing number. See
-     * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details. In
-     * sandbox mode we currently only support `aba` and `swift` with routing numbers '123456789' and
-     * 'GRINUST0XXX' respectively.
-     */
+    /** The type of routing number. See https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details. In sandbox mode we currently only support `aba` and `swift` with routing numbers '123456789' and 'GRINUST0XXX' respectively. */
     fun routingNumberType(): RoutingNumberType = routingNumberType
 
     /** Additional headers to send with the request. */
@@ -43,10 +39,10 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [ValidationValidateRoutingNumberParams].
+         * Returns a mutable builder for constructing an instance of [ValidationValidateRoutingNumberParams].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .routingNumber()
          * .routingNumberType()
@@ -63,126 +59,149 @@ private constructor(
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(
-            validationValidateRoutingNumberParams: ValidationValidateRoutingNumberParams
-        ) = apply {
-            routingNumber = validationValidateRoutingNumberParams.routingNumber
-            routingNumberType = validationValidateRoutingNumberParams.routingNumberType
-            additionalHeaders = validationValidateRoutingNumberParams.additionalHeaders.toBuilder()
-            additionalQueryParams =
-                validationValidateRoutingNumberParams.additionalQueryParams.toBuilder()
-        }
+        internal fun from(validationValidateRoutingNumberParams: ValidationValidateRoutingNumberParams) =
+            apply {
+                routingNumber = validationValidateRoutingNumberParams.routingNumber
+                routingNumberType = validationValidateRoutingNumberParams.routingNumberType
+                additionalHeaders = validationValidateRoutingNumberParams.additionalHeaders.toBuilder()
+                additionalQueryParams = validationValidateRoutingNumberParams.additionalQueryParams.toBuilder()
+            }
 
         /** The routing number that is being validated. */
-        fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+        fun routingNumber(routingNumber: String) =
+            apply {
+                this.routingNumber = routingNumber
+            }
 
-        /**
-         * The type of routing number. See
-         * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more
-         * details. In sandbox mode we currently only support `aba` and `swift` with routing numbers
-         * '123456789' and 'GRINUST0XXX' respectively.
-         */
-        fun routingNumberType(routingNumberType: RoutingNumberType) = apply {
-            this.routingNumberType = routingNumberType
-        }
+        /** The type of routing number. See https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details. In sandbox mode we currently only support `aba` and `swift` with routing numbers '123456789' and 'GRINUST0XXX' respectively. */
+        fun routingNumberType(routingNumberType: RoutingNumberType) =
+            apply {
+                this.routingNumberType = routingNumberType
+            }
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun putAdditionalHeader(name: String, value: String) = apply {
-            additionalHeaders.put(name, value)
-        }
+        fun putAdditionalHeader(name: String, value: String) =
+            apply {
+                additionalHeaders.put(name, value)
+            }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.put(name, values)
-        }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.put(name, values)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun replaceAdditionalHeaders(name: String, value: String) = apply {
-            additionalHeaders.replace(name, value)
-        }
+        fun replaceAdditionalHeaders(name: String, value: String) =
+            apply {
+                additionalHeaders.replace(name, value)
+            }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.replace(name, values)
-        }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.replace(name, values)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
+        fun removeAdditionalHeaders(name: String) =
+            apply {
+                additionalHeaders.remove(name)
+            }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
-            additionalHeaders.removeAll(names)
-        }
+        fun removeAllAdditionalHeaders(names: Set<String>) =
+            apply {
+                additionalHeaders.removeAll(names)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun putAdditionalQueryParam(key: String, value: String) = apply {
-            additionalQueryParams.put(key, value)
-        }
+        fun putAdditionalQueryParam(key: String, value: String) =
+            apply {
+                additionalQueryParams.put(key, value)
+            }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.put(key, values)
-        }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.put(key, values)
+            }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.putAll(additionalQueryParams)
-        }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.putAll(additionalQueryParams)
+            }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
-            additionalQueryParams.replace(key, value)
-        }
+        fun replaceAdditionalQueryParams(key: String, value: String) =
+            apply {
+                additionalQueryParams.replace(key, value)
+            }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.replace(key, values)
-        }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.replace(key, values)
+            }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.replaceAll(additionalQueryParams)
-        }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
+        fun removeAdditionalQueryParams(key: String) =
+            apply {
+                additionalQueryParams.remove(key)
+            }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
-            additionalQueryParams.removeAll(keys)
-        }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) =
+            apply {
+                additionalQueryParams.removeAll(keys)
+            }
 
         /**
          * Returns an immutable instance of [ValidationValidateRoutingNumberParams].
@@ -190,6 +209,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .routingNumber()
          * .routingNumberType()
@@ -199,10 +219,14 @@ private constructor(
          */
         fun build(): ValidationValidateRoutingNumberParams =
             ValidationValidateRoutingNumberParams(
-                checkRequired("routingNumber", routingNumber),
-                checkRequired("routingNumberType", routingNumberType),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
+              checkRequired(
+                "routingNumber", routingNumber
+              ),
+              checkRequired(
+                "routingNumberType", routingNumberType
+              ),
+              additionalHeaders.build(),
+              additionalQueryParams.build(),
             )
     }
 
@@ -217,24 +241,21 @@ private constructor(
             }
             .build()
 
-    /**
-     * The type of routing number. See
-     * https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details. In
-     * sandbox mode we currently only support `aba` and `swift` with routing numbers '123456789' and
-     * 'GRINUST0XXX' respectively.
-     */
-    class RoutingNumberType @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
+    /** The type of routing number. See https://docs.moderntreasury.com/platform/reference/routing-detail-object for more details. In sandbox mode we currently only support `aba` and `swift` with routing numbers '123456789' and 'GRINUST0XXX' respectively. */
+    class RoutingNumberType @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -255,10 +276,6 @@ private constructor(
             val GB_SORT_CODE = of("gb_sort_code")
 
             val HK_INTERBANK_CLEARING_CODE = of("hk_interbank_clearing_code")
-
-            val HU_INTERBANK_CLEARING_CODE = of("hu_interbank_clearing_code")
-
-            val ID_SKNBI_CODE = of("id_sknbi_code")
 
             val IL_BANK_CODE = of("il_bank_code")
 
@@ -296,8 +313,6 @@ private constructor(
             DK_INTERBANK_CLEARING_CODE,
             GB_SORT_CODE,
             HK_INTERBANK_CLEARING_CODE,
-            HU_INTERBANK_CLEARING_CODE,
-            ID_SKNBI_CODE,
             IL_BANK_CODE,
             IN_IFSC,
             JP_ZENGIN_CODE,
@@ -315,9 +330,11 @@ private constructor(
          * An enum containing [RoutingNumberType]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [RoutingNumberType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -330,8 +347,6 @@ private constructor(
             DK_INTERBANK_CLEARING_CODE,
             GB_SORT_CODE,
             HK_INTERBANK_CLEARING_CODE,
-            HU_INTERBANK_CLEARING_CODE,
-            ID_SKNBI_CODE,
             IL_BANK_CODE,
             IN_IFSC,
             JP_ZENGIN_CODE,
@@ -343,19 +358,16 @@ private constructor(
             SG_INTERBANK_CLEARING_CODE,
             SWIFT,
             ZA_NATIONAL_CLEARING_CODE,
-            /**
-             * An enum member indicating that [RoutingNumberType] was instantiated with an unknown
-             * value.
-             */
+            /** An enum member indicating that [RoutingNumberType] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -368,8 +380,6 @@ private constructor(
                 DK_INTERBANK_CLEARING_CODE -> Value.DK_INTERBANK_CLEARING_CODE
                 GB_SORT_CODE -> Value.GB_SORT_CODE
                 HK_INTERBANK_CLEARING_CODE -> Value.HK_INTERBANK_CLEARING_CODE
-                HU_INTERBANK_CLEARING_CODE -> Value.HU_INTERBANK_CLEARING_CODE
-                ID_SKNBI_CODE -> Value.ID_SKNBI_CODE
                 IL_BANK_CODE -> Value.IL_BANK_CODE
                 IN_IFSC -> Value.IN_IFSC
                 JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
@@ -387,11 +397,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -404,8 +413,6 @@ private constructor(
                 DK_INTERBANK_CLEARING_CODE -> Known.DK_INTERBANK_CLEARING_CODE
                 GB_SORT_CODE -> Known.GB_SORT_CODE
                 HK_INTERBANK_CLEARING_CODE -> Known.HK_INTERBANK_CLEARING_CODE
-                HU_INTERBANK_CLEARING_CODE -> Known.HU_INTERBANK_CLEARING_CODE
-                ID_SKNBI_CODE -> Known.ID_SKNBI_CODE
                 IL_BANK_CODE -> Known.IL_BANK_CODE
                 IN_IFSC -> Known.IN_IFSC
                 JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
@@ -417,41 +424,39 @@ private constructor(
                 SG_INTERBANK_CLEARING_CODE -> Known.SG_INTERBANK_CLEARING_CODE
                 SWIFT -> Known.SWIFT
                 ZA_NATIONAL_CLEARING_CODE -> Known.ZA_NATIONAL_CLEARING_CODE
-                else ->
-                    throw ModernTreasuryInvalidDataException("Unknown RoutingNumberType: $value")
+                else -> throw ModernTreasuryInvalidDataException("Unknown RoutingNumberType: $value")
             }
 
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): RoutingNumberType = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): RoutingNumberType =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -462,19 +467,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is RoutingNumberType && value == other.value
+          return other is RoutingNumberType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -483,20 +487,14 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is ValidationValidateRoutingNumberParams &&
-            routingNumber == other.routingNumber &&
-            routingNumberType == other.routingNumberType &&
-            additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams
+      return other is ValidationValidateRoutingNumberParams && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int =
-        Objects.hash(routingNumber, routingNumberType, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(routingNumber, routingNumberType, additionalHeaders, additionalQueryParams)
 
-    override fun toString() =
-        "ValidationValidateRoutingNumberParams{routingNumber=$routingNumber, routingNumberType=$routingNumberType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() = "ValidationValidateRoutingNumberParams{routingNumber=$routingNumber, routingNumberType=$routingNumberType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

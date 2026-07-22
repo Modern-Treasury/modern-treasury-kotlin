@@ -13,13 +13,12 @@ import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.PaymentReference
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-class PaymentReference
-@JsonCreator(mode = JsonCreator.Mode.DISABLED)
-private constructor(
+class PaymentReference @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val liveMode: JsonField<Boolean>,
@@ -30,110 +29,78 @@ private constructor(
     private val referenceableType: JsonField<ReferenceableType>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
+
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("reference_number")
-        @ExcludeMissing
-        referenceNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("reference_number_type")
-        @ExcludeMissing
-        referenceNumberType: JsonField<ReferenceNumberType> = JsonMissing.of(),
-        @JsonProperty("referenceable_id")
-        @ExcludeMissing
-        referenceableId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("referenceable_type")
-        @ExcludeMissing
-        referenceableType: JsonField<ReferenceableType> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("reference_number") @ExcludeMissing referenceNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("reference_number_type") @ExcludeMissing referenceNumberType: JsonField<ReferenceNumberType> = JsonMissing.of(),
+        @JsonProperty("referenceable_id") @ExcludeMissing referenceableId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("referenceable_type") @ExcludeMissing referenceableType: JsonField<ReferenceableType> = JsonMissing.of(),
+        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
     ) : this(
-        id,
-        createdAt,
-        liveMode,
-        object_,
-        referenceNumber,
-        referenceNumberType,
-        referenceableId,
-        referenceableType,
-        updatedAt,
-        mutableMapOf(),
+      id,
+      createdAt,
+      liveMode,
+      object_,
+      referenceNumber,
+      referenceNumberType,
+      referenceableId,
+      referenceableType,
+      updatedAt,
+      mutableMapOf(),
     )
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun id(): String = id.getRequired("id")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * This field will be true if this object exists in the live environment or false if it exists in the test environment.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun object_(): String = object_.getRequired("object")
 
     /**
      * The actual reference number assigned by the bank.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun referenceNumber(): String = referenceNumber.getRequired("reference_number")
 
     /**
      * The type of reference number.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun referenceNumberType(): ReferenceNumberType =
-        referenceNumberType.getRequired("reference_number_type")
+    fun referenceNumberType(): ReferenceNumberType = referenceNumberType.getRequired("reference_number_type")
 
     /**
-     * The id of the referenceable to search for. Must be accompanied by the referenceable_type or
-     * will return an error.
+     * The id of the referenceable to search for. Must be accompanied by the referenceable_type or will return an error.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun referenceableId(): String = referenceableId.getRequired("referenceable_id")
 
     /**
-     * One of the referenceable types. This must be accompanied by the id of the referenceable or
-     * will return an error.
+     * One of the referenceable types. This must be accompanied by the id of the referenceable or will return an error.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun referenceableType(): ReferenceableType = referenceableType.getRequired("referenceable_type")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /**
@@ -141,7 +108,9 @@ private constructor(
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id(): JsonField<String> = id
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -157,14 +126,18 @@ private constructor(
      *
      * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    fun _liveMode(): JsonField<Boolean> = liveMode
 
     /**
      * Returns the raw JSON value of [object_].
      *
      * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
+    @JsonProperty("object")
+    @ExcludeMissing
+    fun _object_(): JsonField<String> = object_
 
     /**
      * Returns the raw JSON value of [referenceNumber].
@@ -178,8 +151,7 @@ private constructor(
     /**
      * Returns the raw JSON value of [referenceNumberType].
      *
-     * Unlike [referenceNumberType], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [referenceNumberType], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("reference_number_type")
     @ExcludeMissing
@@ -197,8 +169,7 @@ private constructor(
     /**
      * Returns the raw JSON value of [referenceableType].
      *
-     * Unlike [referenceableType], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [referenceableType], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("referenceable_type")
     @ExcludeMissing
@@ -215,13 +186,12 @@ private constructor(
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
-        additionalProperties.put(key, value)
+      additionalProperties.put(key, value)
     }
 
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> =
-        Collections.unmodifiableMap(additionalProperties)
+    fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -231,6 +201,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [PaymentReference].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .id()
          * .createdAt()
@@ -260,160 +231,167 @@ private constructor(
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(paymentReference: PaymentReference) = apply {
-            id = paymentReference.id
-            createdAt = paymentReference.createdAt
-            liveMode = paymentReference.liveMode
-            object_ = paymentReference.object_
-            referenceNumber = paymentReference.referenceNumber
-            referenceNumberType = paymentReference.referenceNumberType
-            referenceableId = paymentReference.referenceableId
-            referenceableType = paymentReference.referenceableType
-            updatedAt = paymentReference.updatedAt
-            additionalProperties = paymentReference.additionalProperties.toMutableMap()
-        }
+        internal fun from(paymentReference: PaymentReference) =
+            apply {
+                id = paymentReference.id
+                createdAt = paymentReference.createdAt
+                liveMode = paymentReference.liveMode
+                object_ = paymentReference.object_
+                referenceNumber = paymentReference.referenceNumber
+                referenceNumberType = paymentReference.referenceNumberType
+                referenceableId = paymentReference.referenceableId
+                referenceableType = paymentReference.referenceableType
+                updatedAt = paymentReference.updatedAt
+                additionalProperties = paymentReference.additionalProperties.toMutableMap()
+            }
 
         fun id(id: String) = id(JsonField.of(id))
 
         /**
          * Sets [Builder.id] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.id] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) =
+            apply {
+                this.id = id
+            }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
          * Sets [Builder.createdAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.createdAt = createdAt
+            }
 
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
+        /** This field will be true if this object exists in the live environment or false if it exists in the test environment. */
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
          * Sets [Builder.liveMode] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+        fun liveMode(liveMode: JsonField<Boolean>) =
+            apply {
+                this.liveMode = liveMode
+            }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
         /**
          * Sets [Builder.object_] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun object_(object_: JsonField<String>) =
+            apply {
+                this.object_ = object_
+            }
 
         /** The actual reference number assigned by the bank. */
-        fun referenceNumber(referenceNumber: String) =
-            referenceNumber(JsonField.of(referenceNumber))
+        fun referenceNumber(referenceNumber: String) = referenceNumber(JsonField.of(referenceNumber))
 
         /**
          * Sets [Builder.referenceNumber] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.referenceNumber] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.referenceNumber] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun referenceNumber(referenceNumber: JsonField<String>) = apply {
-            this.referenceNumber = referenceNumber
-        }
+        fun referenceNumber(referenceNumber: JsonField<String>) =
+            apply {
+                this.referenceNumber = referenceNumber
+            }
 
         /** The type of reference number. */
-        fun referenceNumberType(referenceNumberType: ReferenceNumberType) =
-            referenceNumberType(JsonField.of(referenceNumberType))
+        fun referenceNumberType(referenceNumberType: ReferenceNumberType) = referenceNumberType(JsonField.of(referenceNumberType))
 
         /**
          * Sets [Builder.referenceNumberType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.referenceNumberType] with a well-typed
-         * [ReferenceNumberType] value instead. This method is primarily for setting the field to an
-         * undocumented or not yet supported value.
+         * You should usually call [Builder.referenceNumberType] with a well-typed [ReferenceNumberType] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun referenceNumberType(referenceNumberType: JsonField<ReferenceNumberType>) = apply {
-            this.referenceNumberType = referenceNumberType
-        }
+        fun referenceNumberType(referenceNumberType: JsonField<ReferenceNumberType>) =
+            apply {
+                this.referenceNumberType = referenceNumberType
+            }
 
-        /**
-         * The id of the referenceable to search for. Must be accompanied by the referenceable_type
-         * or will return an error.
-         */
-        fun referenceableId(referenceableId: String) =
-            referenceableId(JsonField.of(referenceableId))
+        /** The id of the referenceable to search for. Must be accompanied by the referenceable_type or will return an error. */
+        fun referenceableId(referenceableId: String) = referenceableId(JsonField.of(referenceableId))
 
         /**
          * Sets [Builder.referenceableId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.referenceableId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.referenceableId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun referenceableId(referenceableId: JsonField<String>) = apply {
-            this.referenceableId = referenceableId
-        }
+        fun referenceableId(referenceableId: JsonField<String>) =
+            apply {
+                this.referenceableId = referenceableId
+            }
 
-        /**
-         * One of the referenceable types. This must be accompanied by the id of the referenceable
-         * or will return an error.
-         */
-        fun referenceableType(referenceableType: ReferenceableType) =
-            referenceableType(JsonField.of(referenceableType))
+        /** One of the referenceable types. This must be accompanied by the id of the referenceable or will return an error. */
+        fun referenceableType(referenceableType: ReferenceableType) = referenceableType(JsonField.of(referenceableType))
 
         /**
          * Sets [Builder.referenceableType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.referenceableType] with a well-typed [ReferenceableType]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.referenceableType] with a well-typed [ReferenceableType] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun referenceableType(referenceableType: JsonField<ReferenceableType>) = apply {
-            this.referenceableType = referenceableType
-        }
+        fun referenceableType(referenceableType: JsonField<ReferenceableType>) =
+            apply {
+                this.referenceableType = referenceableType
+            }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
          * Sets [Builder.updatedAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.updatedAt = updatedAt
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         /**
          * Returns an immutable instance of [PaymentReference].
@@ -421,6 +399,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .id()
          * .createdAt()
@@ -437,16 +416,34 @@ private constructor(
          */
         fun build(): PaymentReference =
             PaymentReference(
-                checkRequired("id", id),
-                checkRequired("createdAt", createdAt),
-                checkRequired("liveMode", liveMode),
-                checkRequired("object_", object_),
-                checkRequired("referenceNumber", referenceNumber),
-                checkRequired("referenceNumberType", referenceNumberType),
-                checkRequired("referenceableId", referenceableId),
-                checkRequired("referenceableType", referenceableType),
-                checkRequired("updatedAt", updatedAt),
-                additionalProperties.toMutableMap(),
+              checkRequired(
+                "id", id
+              ),
+              checkRequired(
+                "createdAt", createdAt
+              ),
+              checkRequired(
+                "liveMode", liveMode
+              ),
+              checkRequired(
+                "object_", object_
+              ),
+              checkRequired(
+                "referenceNumber", referenceNumber
+              ),
+              checkRequired(
+                "referenceNumberType", referenceNumberType
+              ),
+              checkRequired(
+                "referenceableId", referenceableId
+              ),
+              checkRequired(
+                "referenceableType", referenceableType
+              ),
+              checkRequired(
+                "updatedAt", updatedAt
+              ),
+              additionalProperties.toMutableMap(),
             )
     }
 
@@ -460,22 +457,23 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): PaymentReference = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): PaymentReference =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        id()
-        createdAt()
-        liveMode()
-        object_()
-        referenceNumber()
-        referenceNumberType().validate()
-        referenceableId()
-        referenceableType().validate()
-        updatedAt()
-        validated = true
-    }
+            id()
+            createdAt()
+            liveMode()
+            object_()
+            referenceNumber()
+            referenceNumberType().validate()
+            referenceableId()
+            referenceableType().validate()
+            updatedAt()
+            validated = true
+        }
 
     fun isValid(): Boolean =
         try {
@@ -490,31 +488,23 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    internal fun validity(): Int =
-        (if (id.asKnown() == null) 0 else 1) +
-            (if (createdAt.asKnown() == null) 0 else 1) +
-            (if (liveMode.asKnown() == null) 0 else 1) +
-            (if (object_.asKnown() == null) 0 else 1) +
-            (if (referenceNumber.asKnown() == null) 0 else 1) +
-            (referenceNumberType.asKnown()?.validity() ?: 0) +
-            (if (referenceableId.asKnown() == null) 0 else 1) +
-            (referenceableType.asKnown()?.validity() ?: 0) +
-            (if (updatedAt.asKnown() == null) 0 else 1)
+    internal fun validity(): Int = (if (id.asKnown() == null) 0 else 1) + (if (createdAt.asKnown() == null) 0 else 1) + (if (liveMode.asKnown() == null) 0 else 1) + (if (object_.asKnown() == null) 0 else 1) + (if (referenceNumber.asKnown() == null) 0 else 1) + (referenceNumberType.asKnown()?.validity() ?: 0) + (if (referenceableId.asKnown() == null) 0 else 1) + (referenceableType.asKnown()?.validity() ?: 0) + (if (updatedAt.asKnown() == null) 0 else 1)
 
     /** The type of reference number. */
-    class ReferenceNumberType
-    @JsonCreator
-    private constructor(private val value: JsonField<String>) : Enum {
+    class ReferenceNumberType @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -534,8 +524,7 @@ private constructor(
 
             val BNK_DEV_TRANSFER_ID = of("bnk_dev_transfer_id")
 
-            val BNY_MELLON_TRANSACTION_REFERENCE_NUMBER =
-                of("bny_mellon_transaction_reference_number")
+            val BNY_MELLON_TRANSACTION_REFERENCE_NUMBER = of("bny_mellon_transaction_reference_number")
 
             val BOFA_END_TO_END_ID = of("bofa_end_to_end_id")
 
@@ -549,8 +538,7 @@ private constructor(
 
             val CITIBANK_REFERENCE_NUMBER = of("citibank_reference_number")
 
-            val CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER =
-                of("citibank_worldlink_clearing_system_reference_number")
+            val CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER = of("citibank_worldlink_clearing_system_reference_number")
 
             val COLUMN_FX_QUOTE_ID = of("column_fx_quote_id")
 
@@ -606,8 +594,6 @@ private constructor(
 
             val GOLDMAN_SACHS_UNIQUE_PAYMENT_ID = of("goldman_sachs_unique_payment_id")
 
-            val INTERAC_MESSAGE_ID = of("interac_message_id")
-
             val JPMC_CCN = of("jpmc_ccn")
 
             val JPMC_CLEARING_SYSTEM_REFERENCE = of("jpmc_clearing_system_reference")
@@ -662,12 +648,6 @@ private constructor(
 
             val RTP_INSTRUCTION_ID = of("rtp_instruction_id")
 
-            val SIGNET_API_REFERENCE_ID = of("signet_api_reference_id")
-
-            val SIGNET_CONFIRMATION_ID = of("signet_confirmation_id")
-
-            val SIGNET_REQUEST_ID = of("signet_request_id")
-
             val SILVERGATE_PAYMENT_ID = of("silvergate_payment_id")
 
             val SVB_END_TO_END_ID = of("svb_end_to_end_id")
@@ -678,10 +658,13 @@ private constructor(
 
             val SWIFT_UETR = of("swift_uetr")
 
+            val TURNKEY_ACTIVITY_ID = of("turnkey_activity_id")
+
+            val TURNKEY_SEND_TRANSACTION_STATUS_ID = of("turnkey_send_transaction_status_id")
+
             val UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER = of("umb_product_partner_account_number")
 
-            val USBANK_PAYMENT_APPLICATION_REFERENCE_ID =
-                of("usbank_payment_application_reference_id")
+            val USBANK_PAYMENT_APPLICATION_REFERENCE_ID = of("usbank_payment_application_reference_id")
 
             val USBANK_PAYMENT_ID = of("usbank_payment_id")
 
@@ -701,8 +684,7 @@ private constructor(
 
             val WESTERN_ALLIANCE_TRANSACTION_ID = of("western_alliance_transaction_id")
 
-            val WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER =
-                of("western_alliance_wire_confirmation_number")
+            val WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER = of("western_alliance_wire_confirmation_number")
 
             fun of(value: String) = ReferenceNumberType(JsonField.of(value))
         }
@@ -752,7 +734,6 @@ private constructor(
             GOLDMAN_SACHS_PAYMENT_REQUEST_ID,
             GOLDMAN_SACHS_REQUEST_ID,
             GOLDMAN_SACHS_UNIQUE_PAYMENT_ID,
-            INTERAC_MESSAGE_ID,
             JPMC_CCN,
             JPMC_CLEARING_SYSTEM_REFERENCE,
             JPMC_CUSTOMER_REFERENCE_ID,
@@ -780,14 +761,13 @@ private constructor(
             PNC_TRANSACTION_REFERENCE_NUMBER,
             RBC_WIRE_REFERENCE_ID,
             RTP_INSTRUCTION_ID,
-            SIGNET_API_REFERENCE_ID,
-            SIGNET_CONFIRMATION_ID,
-            SIGNET_REQUEST_ID,
             SILVERGATE_PAYMENT_ID,
             SVB_END_TO_END_ID,
             SVB_PAYMENT_ID,
             SWIFT_MIR,
             SWIFT_UETR,
+            TURNKEY_ACTIVITY_ID,
+            TURNKEY_SEND_TRANSACTION_STATUS_ID,
             UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER,
             USBANK_PAYMENT_APPLICATION_REFERENCE_ID,
             USBANK_PAYMENT_ID,
@@ -806,9 +786,11 @@ private constructor(
          * An enum containing [ReferenceNumberType]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [ReferenceNumberType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -855,7 +837,6 @@ private constructor(
             GOLDMAN_SACHS_PAYMENT_REQUEST_ID,
             GOLDMAN_SACHS_REQUEST_ID,
             GOLDMAN_SACHS_UNIQUE_PAYMENT_ID,
-            INTERAC_MESSAGE_ID,
             JPMC_CCN,
             JPMC_CLEARING_SYSTEM_REFERENCE,
             JPMC_CUSTOMER_REFERENCE_ID,
@@ -883,14 +864,13 @@ private constructor(
             PNC_TRANSACTION_REFERENCE_NUMBER,
             RBC_WIRE_REFERENCE_ID,
             RTP_INSTRUCTION_ID,
-            SIGNET_API_REFERENCE_ID,
-            SIGNET_CONFIRMATION_ID,
-            SIGNET_REQUEST_ID,
             SILVERGATE_PAYMENT_ID,
             SVB_END_TO_END_ID,
             SVB_PAYMENT_ID,
             SWIFT_MIR,
             SWIFT_UETR,
+            TURNKEY_ACTIVITY_ID,
+            TURNKEY_SEND_TRANSACTION_STATUS_ID,
             UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER,
             USBANK_PAYMENT_APPLICATION_REFERENCE_ID,
             USBANK_PAYMENT_ID,
@@ -903,19 +883,16 @@ private constructor(
             WESTERN_ALLIANCE_PAYMENT_ID,
             WESTERN_ALLIANCE_TRANSACTION_ID,
             WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER,
-            /**
-             * An enum member indicating that [ReferenceNumberType] was instantiated with an unknown
-             * value.
-             */
+            /** An enum member indicating that [ReferenceNumberType] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -927,16 +904,14 @@ private constructor(
                 BLOCKCHAIN_TRANSACTION_INDEX -> Value.BLOCKCHAIN_TRANSACTION_INDEX
                 BNK_DEV_PRENOTIFICATION_ID -> Value.BNK_DEV_PRENOTIFICATION_ID
                 BNK_DEV_TRANSFER_ID -> Value.BNK_DEV_TRANSFER_ID
-                BNY_MELLON_TRANSACTION_REFERENCE_NUMBER ->
-                    Value.BNY_MELLON_TRANSACTION_REFERENCE_NUMBER
+                BNY_MELLON_TRANSACTION_REFERENCE_NUMBER -> Value.BNY_MELLON_TRANSACTION_REFERENCE_NUMBER
                 BOFA_END_TO_END_ID -> Value.BOFA_END_TO_END_ID
                 BOFA_NEFT_CLEARING_REFERENCE_NUMBER -> Value.BOFA_NEFT_CLEARING_REFERENCE_NUMBER
                 BOFA_TRANSACTION_ID -> Value.BOFA_TRANSACTION_ID
                 CHECK_NUMBER -> Value.CHECK_NUMBER
                 CHIPS_UID -> Value.CHIPS_UID
                 CITIBANK_REFERENCE_NUMBER -> Value.CITIBANK_REFERENCE_NUMBER
-                CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER ->
-                    Value.CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER
+                CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER -> Value.CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER
                 COLUMN_FX_QUOTE_ID -> Value.COLUMN_FX_QUOTE_ID
                 COLUMN_REVERSAL_PAIR_TRANSFER_ID -> Value.COLUMN_REVERSAL_PAIR_TRANSFER_ID
                 COLUMN_TRANSFER_ID -> Value.COLUMN_TRANSFER_ID
@@ -964,7 +939,6 @@ private constructor(
                 GOLDMAN_SACHS_PAYMENT_REQUEST_ID -> Value.GOLDMAN_SACHS_PAYMENT_REQUEST_ID
                 GOLDMAN_SACHS_REQUEST_ID -> Value.GOLDMAN_SACHS_REQUEST_ID
                 GOLDMAN_SACHS_UNIQUE_PAYMENT_ID -> Value.GOLDMAN_SACHS_UNIQUE_PAYMENT_ID
-                INTERAC_MESSAGE_ID -> Value.INTERAC_MESSAGE_ID
                 JPMC_CCN -> Value.JPMC_CCN
                 JPMC_CLEARING_SYSTEM_REFERENCE -> Value.JPMC_CLEARING_SYSTEM_REFERENCE
                 JPMC_CUSTOMER_REFERENCE_ID -> Value.JPMC_CUSTOMER_REFERENCE_ID
@@ -992,17 +966,15 @@ private constructor(
                 PNC_TRANSACTION_REFERENCE_NUMBER -> Value.PNC_TRANSACTION_REFERENCE_NUMBER
                 RBC_WIRE_REFERENCE_ID -> Value.RBC_WIRE_REFERENCE_ID
                 RTP_INSTRUCTION_ID -> Value.RTP_INSTRUCTION_ID
-                SIGNET_API_REFERENCE_ID -> Value.SIGNET_API_REFERENCE_ID
-                SIGNET_CONFIRMATION_ID -> Value.SIGNET_CONFIRMATION_ID
-                SIGNET_REQUEST_ID -> Value.SIGNET_REQUEST_ID
                 SILVERGATE_PAYMENT_ID -> Value.SILVERGATE_PAYMENT_ID
                 SVB_END_TO_END_ID -> Value.SVB_END_TO_END_ID
                 SVB_PAYMENT_ID -> Value.SVB_PAYMENT_ID
                 SWIFT_MIR -> Value.SWIFT_MIR
                 SWIFT_UETR -> Value.SWIFT_UETR
+                TURNKEY_ACTIVITY_ID -> Value.TURNKEY_ACTIVITY_ID
+                TURNKEY_SEND_TRANSACTION_STATUS_ID -> Value.TURNKEY_SEND_TRANSACTION_STATUS_ID
                 UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER -> Value.UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER
-                USBANK_PAYMENT_APPLICATION_REFERENCE_ID ->
-                    Value.USBANK_PAYMENT_APPLICATION_REFERENCE_ID
+                USBANK_PAYMENT_APPLICATION_REFERENCE_ID -> Value.USBANK_PAYMENT_APPLICATION_REFERENCE_ID
                 USBANK_PAYMENT_ID -> Value.USBANK_PAYMENT_ID
                 USBANK_PENDING_RTP_PAYMENT_ID -> Value.USBANK_PENDING_RTP_PAYMENT_ID
                 USBANK_POSTED_RTP_PAYMENT_ID -> Value.USBANK_POSTED_RTP_PAYMENT_ID
@@ -1012,19 +984,17 @@ private constructor(
                 WELLS_FARGO_UETR -> Value.WELLS_FARGO_UETR
                 WESTERN_ALLIANCE_PAYMENT_ID -> Value.WESTERN_ALLIANCE_PAYMENT_ID
                 WESTERN_ALLIANCE_TRANSACTION_ID -> Value.WESTERN_ALLIANCE_TRANSACTION_ID
-                WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER ->
-                    Value.WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER
+                WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER -> Value.WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER
                 else -> Value._UNKNOWN
             }
 
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -1036,16 +1006,14 @@ private constructor(
                 BLOCKCHAIN_TRANSACTION_INDEX -> Known.BLOCKCHAIN_TRANSACTION_INDEX
                 BNK_DEV_PRENOTIFICATION_ID -> Known.BNK_DEV_PRENOTIFICATION_ID
                 BNK_DEV_TRANSFER_ID -> Known.BNK_DEV_TRANSFER_ID
-                BNY_MELLON_TRANSACTION_REFERENCE_NUMBER ->
-                    Known.BNY_MELLON_TRANSACTION_REFERENCE_NUMBER
+                BNY_MELLON_TRANSACTION_REFERENCE_NUMBER -> Known.BNY_MELLON_TRANSACTION_REFERENCE_NUMBER
                 BOFA_END_TO_END_ID -> Known.BOFA_END_TO_END_ID
                 BOFA_NEFT_CLEARING_REFERENCE_NUMBER -> Known.BOFA_NEFT_CLEARING_REFERENCE_NUMBER
                 BOFA_TRANSACTION_ID -> Known.BOFA_TRANSACTION_ID
                 CHECK_NUMBER -> Known.CHECK_NUMBER
                 CHIPS_UID -> Known.CHIPS_UID
                 CITIBANK_REFERENCE_NUMBER -> Known.CITIBANK_REFERENCE_NUMBER
-                CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER ->
-                    Known.CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER
+                CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER -> Known.CITIBANK_WORLDLINK_CLEARING_SYSTEM_REFERENCE_NUMBER
                 COLUMN_FX_QUOTE_ID -> Known.COLUMN_FX_QUOTE_ID
                 COLUMN_REVERSAL_PAIR_TRANSFER_ID -> Known.COLUMN_REVERSAL_PAIR_TRANSFER_ID
                 COLUMN_TRANSFER_ID -> Known.COLUMN_TRANSFER_ID
@@ -1073,7 +1041,6 @@ private constructor(
                 GOLDMAN_SACHS_PAYMENT_REQUEST_ID -> Known.GOLDMAN_SACHS_PAYMENT_REQUEST_ID
                 GOLDMAN_SACHS_REQUEST_ID -> Known.GOLDMAN_SACHS_REQUEST_ID
                 GOLDMAN_SACHS_UNIQUE_PAYMENT_ID -> Known.GOLDMAN_SACHS_UNIQUE_PAYMENT_ID
-                INTERAC_MESSAGE_ID -> Known.INTERAC_MESSAGE_ID
                 JPMC_CCN -> Known.JPMC_CCN
                 JPMC_CLEARING_SYSTEM_REFERENCE -> Known.JPMC_CLEARING_SYSTEM_REFERENCE
                 JPMC_CUSTOMER_REFERENCE_ID -> Known.JPMC_CUSTOMER_REFERENCE_ID
@@ -1101,17 +1068,15 @@ private constructor(
                 PNC_TRANSACTION_REFERENCE_NUMBER -> Known.PNC_TRANSACTION_REFERENCE_NUMBER
                 RBC_WIRE_REFERENCE_ID -> Known.RBC_WIRE_REFERENCE_ID
                 RTP_INSTRUCTION_ID -> Known.RTP_INSTRUCTION_ID
-                SIGNET_API_REFERENCE_ID -> Known.SIGNET_API_REFERENCE_ID
-                SIGNET_CONFIRMATION_ID -> Known.SIGNET_CONFIRMATION_ID
-                SIGNET_REQUEST_ID -> Known.SIGNET_REQUEST_ID
                 SILVERGATE_PAYMENT_ID -> Known.SILVERGATE_PAYMENT_ID
                 SVB_END_TO_END_ID -> Known.SVB_END_TO_END_ID
                 SVB_PAYMENT_ID -> Known.SVB_PAYMENT_ID
                 SWIFT_MIR -> Known.SWIFT_MIR
                 SWIFT_UETR -> Known.SWIFT_UETR
+                TURNKEY_ACTIVITY_ID -> Known.TURNKEY_ACTIVITY_ID
+                TURNKEY_SEND_TRANSACTION_STATUS_ID -> Known.TURNKEY_SEND_TRANSACTION_STATUS_ID
                 UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER -> Known.UMB_PRODUCT_PARTNER_ACCOUNT_NUMBER
-                USBANK_PAYMENT_APPLICATION_REFERENCE_ID ->
-                    Known.USBANK_PAYMENT_APPLICATION_REFERENCE_ID
+                USBANK_PAYMENT_APPLICATION_REFERENCE_ID -> Known.USBANK_PAYMENT_APPLICATION_REFERENCE_ID
                 USBANK_PAYMENT_ID -> Known.USBANK_PAYMENT_ID
                 USBANK_PENDING_RTP_PAYMENT_ID -> Known.USBANK_PENDING_RTP_PAYMENT_ID
                 USBANK_POSTED_RTP_PAYMENT_ID -> Known.USBANK_POSTED_RTP_PAYMENT_ID
@@ -1121,43 +1086,40 @@ private constructor(
                 WELLS_FARGO_UETR -> Known.WELLS_FARGO_UETR
                 WESTERN_ALLIANCE_PAYMENT_ID -> Known.WESTERN_ALLIANCE_PAYMENT_ID
                 WESTERN_ALLIANCE_TRANSACTION_ID -> Known.WESTERN_ALLIANCE_TRANSACTION_ID
-                WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER ->
-                    Known.WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER
-                else ->
-                    throw ModernTreasuryInvalidDataException("Unknown ReferenceNumberType: $value")
+                WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER -> Known.WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER
+                else -> throw ModernTreasuryInvalidDataException("Unknown ReferenceNumberType: $value")
             }
 
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): ReferenceNumberType = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): ReferenceNumberType =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1168,19 +1130,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is ReferenceNumberType && value == other.value
+          return other is ReferenceNumberType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1188,22 +1149,21 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * One of the referenceable types. This must be accompanied by the id of the referenceable or
-     * will return an error.
-     */
-    class ReferenceableType @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
+    /** One of the referenceable types. This must be accompanied by the id of the referenceable or will return an error. */
+    class ReferenceableType @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -1227,28 +1187,27 @@ private constructor(
          * An enum containing [ReferenceableType]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [ReferenceableType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
             PAYMENT_ORDER,
             REVERSAL,
             RETURN,
-            /**
-             * An enum member indicating that [ReferenceableType] was instantiated with an unknown
-             * value.
-             */
+            /** An enum member indicating that [ReferenceableType] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -1261,52 +1220,49 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
                 PAYMENT_ORDER -> Known.PAYMENT_ORDER
                 REVERSAL -> Known.REVERSAL
                 RETURN -> Known.RETURN
-                else ->
-                    throw ModernTreasuryInvalidDataException("Unknown ReferenceableType: $value")
+                else -> throw ModernTreasuryInvalidDataException("Unknown ReferenceableType: $value")
             }
 
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): ReferenceableType = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): ReferenceableType =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1317,19 +1273,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is ReferenceableType && value == other.value
+          return other is ReferenceableType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1338,40 +1293,16 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is PaymentReference &&
-            id == other.id &&
-            createdAt == other.createdAt &&
-            liveMode == other.liveMode &&
-            object_ == other.object_ &&
-            referenceNumber == other.referenceNumber &&
-            referenceNumberType == other.referenceNumberType &&
-            referenceableId == other.referenceableId &&
-            referenceableType == other.referenceableType &&
-            updatedAt == other.updatedAt &&
-            additionalProperties == other.additionalProperties
+      return other is PaymentReference && id == other.id && createdAt == other.createdAt && liveMode == other.liveMode && object_ == other.object_ && referenceNumber == other.referenceNumber && referenceNumberType == other.referenceNumberType && referenceableId == other.referenceableId && referenceableType == other.referenceableType && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy {
-        Objects.hash(
-            id,
-            createdAt,
-            liveMode,
-            object_,
-            referenceNumber,
-            referenceNumberType,
-            referenceableId,
-            referenceableType,
-            updatedAt,
-            additionalProperties,
-        )
-    }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, liveMode, object_, referenceNumber, referenceNumberType, referenceableId, referenceableType, updatedAt, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "PaymentReference{id=$id, createdAt=$createdAt, liveMode=$liveMode, object_=$object_, referenceNumber=$referenceNumber, referenceNumberType=$referenceNumberType, referenceableId=$referenceableId, referenceableType=$referenceableType, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+    override fun toString() = "PaymentReference{id=$id, createdAt=$createdAt, liveMode=$liveMode, object_=$object_, referenceNumber=$referenceNumber, referenceNumberType=$referenceNumberType, referenceableId=$referenceableId, referenceableType=$referenceableType, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

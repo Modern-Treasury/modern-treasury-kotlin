@@ -14,37 +14,31 @@ internal class AccountEntryServiceTest {
 
     @Test
     fun update() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val accountEntryService = client.ledgerAccountSettlements().accountEntries()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val accountEntryService = client.ledgerAccountSettlements().accountEntries()
 
-        accountEntryService.update(
-            LedgerAccountSettlementAccountEntryUpdateParams.builder()
-                .id("id")
-                .addLedgerEntryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .build()
-        )
+      accountEntryService.update(LedgerAccountSettlementAccountEntryUpdateParams.builder()
+          .id("id")
+          .addLedgerEntryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+          .build())
     }
 
     @Test
     fun delete() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val accountEntryService = client.ledgerAccountSettlements().accountEntries()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val accountEntryService = client.ledgerAccountSettlements().accountEntries()
 
-        accountEntryService.delete(
-            LedgerAccountSettlementAccountEntryDeleteParams.builder()
-                .id("id")
-                .addLedgerEntryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .build()
-        )
+      accountEntryService.delete(LedgerAccountSettlementAccountEntryDeleteParams.builder()
+          .id("id")
+          .addLedgerEntryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+          .build())
     }
 }

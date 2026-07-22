@@ -7,7 +7,8 @@ import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.emitAll
 
-class AutoPagerAsync<T> private constructor(private val firstPage: PageAsync<T>) : Flow<T> {
+class AutoPagerAsync<T>
+private constructor(private val firstPage: PageAsync<T>) : Flow<T> {
 
     companion object {
 

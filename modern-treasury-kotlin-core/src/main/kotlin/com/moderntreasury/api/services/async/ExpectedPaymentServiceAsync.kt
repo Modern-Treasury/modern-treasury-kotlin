@@ -13,12 +13,11 @@ import com.moderntreasury.api.models.ExpectedPaymentListPageAsync
 import com.moderntreasury.api.models.ExpectedPaymentListParams
 import com.moderntreasury.api.models.ExpectedPaymentRetrieveParams
 import com.moderntreasury.api.models.ExpectedPaymentUpdateParams
+import com.moderntreasury.api.services.async.ExpectedPaymentServiceAsync
 
 interface ExpectedPaymentServiceAsync {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -29,80 +28,81 @@ interface ExpectedPaymentServiceAsync {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ExpectedPaymentServiceAsync
 
     /** create expected payment */
-    suspend fun create(
-        params: ExpectedPaymentCreateParams = ExpectedPaymentCreateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExpectedPayment
+    suspend fun create(params: ExpectedPaymentCreateParams = ExpectedPaymentCreateParams.none(), requestOptions: RequestOptions = RequestOptions.none()): ExpectedPayment
 
     /** @see create */
     suspend fun create(requestOptions: RequestOptions): ExpectedPayment =
-        create(ExpectedPaymentCreateParams.none(), requestOptions)
+        create(
+          ExpectedPaymentCreateParams.none(), requestOptions
+        )
 
     /** get expected payment */
-    suspend fun retrieve(
-        id: String,
-        params: ExpectedPaymentRetrieveParams = ExpectedPaymentRetrieveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExpectedPayment = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun retrieve(id: String, params: ExpectedPaymentRetrieveParams = ExpectedPaymentRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): ExpectedPayment =
+        retrieve(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see retrieve */
-    suspend fun retrieve(
-        params: ExpectedPaymentRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExpectedPayment
+    suspend fun retrieve(params: ExpectedPaymentRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): ExpectedPayment
 
     /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): ExpectedPayment =
-        retrieve(id, ExpectedPaymentRetrieveParams.none(), requestOptions)
+        retrieve(
+          id,
+          ExpectedPaymentRetrieveParams.none(),
+          requestOptions,
+        )
 
     /** update expected payment */
-    suspend fun update(
-        id: String,
-        params: ExpectedPaymentUpdateParams = ExpectedPaymentUpdateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExpectedPayment = update(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun update(id: String, params: ExpectedPaymentUpdateParams = ExpectedPaymentUpdateParams.none(), requestOptions: RequestOptions = RequestOptions.none()): ExpectedPayment =
+        update(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see update */
-    suspend fun update(
-        params: ExpectedPaymentUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExpectedPayment
+    suspend fun update(params: ExpectedPaymentUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): ExpectedPayment
 
     /** @see update */
     suspend fun update(id: String, requestOptions: RequestOptions): ExpectedPayment =
-        update(id, ExpectedPaymentUpdateParams.none(), requestOptions)
+        update(
+          id,
+          ExpectedPaymentUpdateParams.none(),
+          requestOptions,
+        )
 
     /** list expected_payments */
-    suspend fun list(
-        params: ExpectedPaymentListParams = ExpectedPaymentListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExpectedPaymentListPageAsync
+    suspend fun list(params: ExpectedPaymentListParams = ExpectedPaymentListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): ExpectedPaymentListPageAsync
 
     /** @see list */
     suspend fun list(requestOptions: RequestOptions): ExpectedPaymentListPageAsync =
-        list(ExpectedPaymentListParams.none(), requestOptions)
+        list(
+          ExpectedPaymentListParams.none(), requestOptions
+        )
 
     /** delete expected payment */
-    suspend fun delete(
-        id: String,
-        params: ExpectedPaymentDeleteParams = ExpectedPaymentDeleteParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExpectedPayment = delete(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun delete(id: String, params: ExpectedPaymentDeleteParams = ExpectedPaymentDeleteParams.none(), requestOptions: RequestOptions = RequestOptions.none()): ExpectedPayment =
+        delete(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see delete */
-    suspend fun delete(
-        params: ExpectedPaymentDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExpectedPayment
+    suspend fun delete(params: ExpectedPaymentDeleteParams, requestOptions: RequestOptions = RequestOptions.none()): ExpectedPayment
 
     /** @see delete */
     suspend fun delete(id: String, requestOptions: RequestOptions): ExpectedPayment =
-        delete(id, ExpectedPaymentDeleteParams.none(), requestOptions)
+        delete(
+          id,
+          ExpectedPaymentDeleteParams.none(),
+          requestOptions,
+        )
 
-    /**
-     * A view of [ExpectedPaymentServiceAsync] that provides access to raw HTTP responses for each
-     * method.
-     */
+    /** A view of [ExpectedPaymentServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -110,121 +110,94 @@ interface ExpectedPaymentServiceAsync {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): ExpectedPaymentServiceAsync.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ExpectedPaymentServiceAsync.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `post /api/expected_payments`, but is otherwise the same
-         * as [ExpectedPaymentServiceAsync.create].
-         */
+        /** Returns a raw HTTP response for `post /api/expected_payments`, but is otherwise the             same as [ExpectedPaymentServiceAsync.create]. */
         @MustBeClosed
-        suspend fun create(
-            params: ExpectedPaymentCreateParams = ExpectedPaymentCreateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExpectedPayment>
+        suspend fun create(params: ExpectedPaymentCreateParams = ExpectedPaymentCreateParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ExpectedPayment>
 
         /** @see create */
         @MustBeClosed
         suspend fun create(requestOptions: RequestOptions): HttpResponseFor<ExpectedPayment> =
-            create(ExpectedPaymentCreateParams.none(), requestOptions)
+            create(
+              ExpectedPaymentCreateParams.none(), requestOptions
+            )
 
-        /**
-         * Returns a raw HTTP response for `get /api/expected_payments/{id}`, but is otherwise the
-         * same as [ExpectedPaymentServiceAsync.retrieve].
-         */
+        /** Returns a raw HTTP response for `get /api/expected_payments/{id}`, but is otherwise the             same as [ExpectedPaymentServiceAsync.retrieve]. */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            params: ExpectedPaymentRetrieveParams = ExpectedPaymentRetrieveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExpectedPayment> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
-
-        /** @see retrieve */
-        @MustBeClosed
-        suspend fun retrieve(
-            params: ExpectedPaymentRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExpectedPayment>
+        suspend fun retrieve(id: String, params: ExpectedPaymentRetrieveParams = ExpectedPaymentRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ExpectedPayment> =
+            retrieve(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ExpectedPayment> =
-            retrieve(id, ExpectedPaymentRetrieveParams.none(), requestOptions)
+        suspend fun retrieve(params: ExpectedPaymentRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ExpectedPayment>
 
-        /**
-         * Returns a raw HTTP response for `patch /api/expected_payments/{id}`, but is otherwise the
-         * same as [ExpectedPaymentServiceAsync.update].
-         */
+        /** @see retrieve */
         @MustBeClosed
-        suspend fun update(
-            id: String,
-            params: ExpectedPaymentUpdateParams = ExpectedPaymentUpdateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExpectedPayment> =
-            update(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<ExpectedPayment> =
+            retrieve(
+              id,
+              ExpectedPaymentRetrieveParams.none(),
+              requestOptions,
+            )
 
-        /** @see update */
+        /** Returns a raw HTTP response for `patch /api/expected_payments/{id}`, but is otherwise the             same as [ExpectedPaymentServiceAsync.update]. */
         @MustBeClosed
-        suspend fun update(
-            params: ExpectedPaymentUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExpectedPayment>
+        suspend fun update(id: String, params: ExpectedPaymentUpdateParams = ExpectedPaymentUpdateParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ExpectedPayment> =
+            update(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see update */
         @MustBeClosed
-        suspend fun update(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ExpectedPayment> =
-            update(id, ExpectedPaymentUpdateParams.none(), requestOptions)
+        suspend fun update(params: ExpectedPaymentUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ExpectedPayment>
 
-        /**
-         * Returns a raw HTTP response for `get /api/expected_payments`, but is otherwise the same
-         * as [ExpectedPaymentServiceAsync.list].
-         */
+        /** @see update */
         @MustBeClosed
-        suspend fun list(
-            params: ExpectedPaymentListParams = ExpectedPaymentListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExpectedPaymentListPageAsync>
+        suspend fun update(id: String, requestOptions: RequestOptions): HttpResponseFor<ExpectedPayment> =
+            update(
+              id,
+              ExpectedPaymentUpdateParams.none(),
+              requestOptions,
+            )
+
+        /** Returns a raw HTTP response for `get /api/expected_payments`, but is otherwise the             same as [ExpectedPaymentServiceAsync.list]. */
+        @MustBeClosed
+        suspend fun list(params: ExpectedPaymentListParams = ExpectedPaymentListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ExpectedPaymentListPageAsync>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<ExpectedPaymentListPageAsync> =
-            list(ExpectedPaymentListParams.none(), requestOptions)
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ExpectedPaymentListPageAsync> =
+            list(
+              ExpectedPaymentListParams.none(), requestOptions
+            )
 
-        /**
-         * Returns a raw HTTP response for `delete /api/expected_payments/{id}`, but is otherwise
-         * the same as [ExpectedPaymentServiceAsync.delete].
-         */
+        /** Returns a raw HTTP response for `delete /api/expected_payments/{id}`, but is otherwise the             same as [ExpectedPaymentServiceAsync.delete]. */
         @MustBeClosed
-        suspend fun delete(
-            id: String,
-            params: ExpectedPaymentDeleteParams = ExpectedPaymentDeleteParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExpectedPayment> =
-            delete(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun delete(id: String, params: ExpectedPaymentDeleteParams = ExpectedPaymentDeleteParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ExpectedPayment> =
+            delete(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see delete */
         @MustBeClosed
-        suspend fun delete(
-            params: ExpectedPaymentDeleteParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExpectedPayment>
+        suspend fun delete(params: ExpectedPaymentDeleteParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ExpectedPayment>
 
         /** @see delete */
         @MustBeClosed
-        suspend fun delete(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ExpectedPayment> =
-            delete(id, ExpectedPaymentDeleteParams.none(), requestOptions)
+        suspend fun delete(id: String, requestOptions: RequestOptions): HttpResponseFor<ExpectedPayment> =
+            delete(
+              id,
+              ExpectedPaymentDeleteParams.none(),
+              requestOptions,
+            )
     }
 }

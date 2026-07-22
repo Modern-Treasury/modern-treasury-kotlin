@@ -21,141 +21,134 @@ import com.moderntreasury.api.models.DocumentCreateParams
 import com.moderntreasury.api.models.DocumentListPage
 import com.moderntreasury.api.models.DocumentListParams
 import com.moderntreasury.api.models.DocumentRetrieveParams
+import com.moderntreasury.api.services.blocking.DocumentService
+import com.moderntreasury.api.services.blocking.DocumentServiceImpl
 
-class DocumentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    DocumentService {
+class DocumentServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: DocumentService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : DocumentService {
+
+    private val withRawResponse: DocumentService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): DocumentService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): DocumentService =
-        DocumentServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): DocumentService = DocumentServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
     override fun create(params: DocumentCreateParams, requestOptions: RequestOptions): Document =
         // post /api/documents
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(
-        params: DocumentRetrieveParams,
-        requestOptions: RequestOptions,
-    ): Document =
+    override fun retrieve(params: DocumentRetrieveParams, requestOptions: RequestOptions): Document =
         // get /api/documents/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: DocumentListParams,
-        requestOptions: RequestOptions,
-    ): DocumentListPage =
+    override fun list(params: DocumentListParams, requestOptions: RequestOptions): DocumentListPage =
         // get /api/documents
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        DocumentService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : DocumentService.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): DocumentService.WithRawResponse =
-            DocumentServiceImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): DocumentService.WithRawResponse = DocumentServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val createHandler: Handler<Document> = jsonHandler<Document>(clientOptions.jsonMapper)
+
+        override fun create(params: DocumentCreateParams, requestOptions: RequestOptions): HttpResponseFor<Document> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "documents")
+            .body(multipartFormData(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
             )
-
-        private val createHandler: Handler<Document> =
-            jsonHandler<Document>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: DocumentCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Document> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "documents")
-                    .body(multipartFormData(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<Document> =
-            jsonHandler<Document>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<Document> = jsonHandler<Document>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: DocumentRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Document> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "documents", params._pathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: DocumentRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<Document> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "documents", params._pathParam(0))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<Document>> =
-            jsonHandler<List<Document>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<Document>> = jsonHandler<List<Document>>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: DocumentListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<DocumentListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "documents")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        DocumentListPage.builder()
-                            .service(DocumentServiceImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override fun list(params: DocumentListParams, requestOptions: RequestOptions): HttpResponseFor<DocumentListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "documents")
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  DocumentListPage.builder()
+                      .service(DocumentServiceImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
     }
 }

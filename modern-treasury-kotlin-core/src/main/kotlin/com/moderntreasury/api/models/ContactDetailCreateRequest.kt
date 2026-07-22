@@ -12,45 +12,37 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.ContactDetailCreateRequest
 import java.util.Collections
 import java.util.Objects
 
-class ContactDetailCreateRequest
-@JsonCreator(mode = JsonCreator.Mode.DISABLED)
-private constructor(
+class ContactDetailCreateRequest @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
     private val contactIdentifier: JsonField<String>,
     private val contactIdentifierType: JsonField<ContactIdentifierType>,
     private val additionalProperties: MutableMap<String, JsonValue>,
+
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("contact_identifier")
-        @ExcludeMissing
-        contactIdentifier: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("contact_identifier_type")
-        @ExcludeMissing
-        contactIdentifierType: JsonField<ContactIdentifierType> = JsonMissing.of(),
-    ) : this(contactIdentifier, contactIdentifierType, mutableMapOf())
+        @JsonProperty("contact_identifier") @ExcludeMissing contactIdentifier: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("contact_identifier_type") @ExcludeMissing contactIdentifierType: JsonField<ContactIdentifierType> = JsonMissing.of()
+    ) : this(
+      contactIdentifier,
+      contactIdentifierType,
+      mutableMapOf(),
+    )
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
     fun contactIdentifier(): String? = contactIdentifier.getNullable("contact_identifier")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
-    fun contactIdentifierType(): ContactIdentifierType? =
-        contactIdentifierType.getNullable("contact_identifier_type")
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
+    fun contactIdentifierType(): ContactIdentifierType? = contactIdentifierType.getNullable("contact_identifier_type")
 
     /**
      * Returns the raw JSON value of [contactIdentifier].
      *
-     * Unlike [contactIdentifier], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [contactIdentifier], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("contact_identifier")
     @ExcludeMissing
@@ -59,8 +51,7 @@ private constructor(
     /**
      * Returns the raw JSON value of [contactIdentifierType].
      *
-     * Unlike [contactIdentifierType], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [contactIdentifierType], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("contact_identifier_type")
     @ExcludeMissing
@@ -68,21 +59,18 @@ private constructor(
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
-        additionalProperties.put(key, value)
+      additionalProperties.put(key, value)
     }
 
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> =
-        Collections.unmodifiableMap(additionalProperties)
+    fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [ContactDetailCreateRequest].
-         */
+        /** Returns a mutable builder for constructing an instance of [ContactDetailCreateRequest]. */
         fun builder() = Builder()
     }
 
@@ -93,58 +81,64 @@ private constructor(
         private var contactIdentifierType: JsonField<ContactIdentifierType> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(contactDetailCreateRequest: ContactDetailCreateRequest) = apply {
-            contactIdentifier = contactDetailCreateRequest.contactIdentifier
-            contactIdentifierType = contactDetailCreateRequest.contactIdentifierType
-            additionalProperties = contactDetailCreateRequest.additionalProperties.toMutableMap()
-        }
+        internal fun from(contactDetailCreateRequest: ContactDetailCreateRequest) =
+            apply {
+                contactIdentifier = contactDetailCreateRequest.contactIdentifier
+                contactIdentifierType = contactDetailCreateRequest.contactIdentifierType
+                additionalProperties = contactDetailCreateRequest.additionalProperties.toMutableMap()
+            }
 
-        fun contactIdentifier(contactIdentifier: String) =
-            contactIdentifier(JsonField.of(contactIdentifier))
+        fun contactIdentifier(contactIdentifier: String) = contactIdentifier(JsonField.of(contactIdentifier))
 
         /**
          * Sets [Builder.contactIdentifier] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.contactIdentifier] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.contactIdentifier] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun contactIdentifier(contactIdentifier: JsonField<String>) = apply {
-            this.contactIdentifier = contactIdentifier
-        }
+        fun contactIdentifier(contactIdentifier: JsonField<String>) =
+            apply {
+                this.contactIdentifier = contactIdentifier
+            }
 
-        fun contactIdentifierType(contactIdentifierType: ContactIdentifierType) =
-            contactIdentifierType(JsonField.of(contactIdentifierType))
+        fun contactIdentifierType(contactIdentifierType: ContactIdentifierType) = contactIdentifierType(JsonField.of(contactIdentifierType))
 
         /**
          * Sets [Builder.contactIdentifierType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.contactIdentifierType] with a well-typed
-         * [ContactIdentifierType] value instead. This method is primarily for setting the field to
-         * an undocumented or not yet supported value.
+         * You should usually call [Builder.contactIdentifierType] with a well-typed [ContactIdentifierType] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun contactIdentifierType(contactIdentifierType: JsonField<ContactIdentifierType>) = apply {
-            this.contactIdentifierType = contactIdentifierType
-        }
+        fun contactIdentifierType(contactIdentifierType: JsonField<ContactIdentifierType>) =
+            apply {
+                this.contactIdentifierType = contactIdentifierType
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         /**
          * Returns an immutable instance of [ContactDetailCreateRequest].
@@ -153,9 +147,9 @@ private constructor(
          */
         fun build(): ContactDetailCreateRequest =
             ContactDetailCreateRequest(
-                contactIdentifier,
-                contactIdentifierType,
-                additionalProperties.toMutableMap(),
+              contactIdentifier,
+              contactIdentifierType,
+              additionalProperties.toMutableMap(),
             )
     }
 
@@ -169,15 +163,16 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): ContactDetailCreateRequest = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): ContactDetailCreateRequest =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        contactIdentifier()
-        contactIdentifierType()?.validate()
-        validated = true
-    }
+            contactIdentifier()
+            contactIdentifierType()?.validate()
+            validated = true
+        }
 
     fun isValid(): Boolean =
         try {
@@ -192,23 +187,22 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    internal fun validity(): Int =
-        (if (contactIdentifier.asKnown() == null) 0 else 1) +
-            (contactIdentifierType.asKnown()?.validity() ?: 0)
+    internal fun validity(): Int = (if (contactIdentifier.asKnown() == null) 0 else 1) + (contactIdentifierType.asKnown()?.validity() ?: 0)
 
-    class ContactIdentifierType
-    @JsonCreator
-    private constructor(private val value: JsonField<String>) : Enum {
+    class ContactIdentifierType @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -229,32 +223,30 @@ private constructor(
         }
 
         /**
-         * An enum containing [ContactIdentifierType]'s known values, as well as an [_UNKNOWN]
-         * member.
+         * An enum containing [ContactIdentifierType]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [ContactIdentifierType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
             EMAIL,
             PHONE_NUMBER,
             WEBSITE,
-            /**
-             * An enum member indicating that [ContactIdentifierType] was instantiated with an
-             * unknown value.
-             */
+            /** An enum member indicating that [ContactIdentifierType] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -267,54 +259,49 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
                 EMAIL -> Known.EMAIL
                 PHONE_NUMBER -> Known.PHONE_NUMBER
                 WEBSITE -> Known.WEBSITE
-                else ->
-                    throw ModernTreasuryInvalidDataException(
-                        "Unknown ContactIdentifierType: $value"
-                    )
+                else -> throw ModernTreasuryInvalidDataException("Unknown ContactIdentifierType: $value")
             }
 
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): ContactIdentifierType = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): ContactIdentifierType =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -325,19 +312,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is ContactIdentifierType && value == other.value
+          return other is ContactIdentifierType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -346,22 +332,16 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is ContactDetailCreateRequest &&
-            contactIdentifier == other.contactIdentifier &&
-            contactIdentifierType == other.contactIdentifierType &&
-            additionalProperties == other.additionalProperties
+      return other is ContactDetailCreateRequest && contactIdentifier == other.contactIdentifier && contactIdentifierType == other.contactIdentifierType && additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy {
-        Objects.hash(contactIdentifier, contactIdentifierType, additionalProperties)
-    }
+    private val hashCode: Int by lazy { Objects.hash(contactIdentifier, contactIdentifierType, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "ContactDetailCreateRequest{contactIdentifier=$contactIdentifier, contactIdentifierType=$contactIdentifierType, additionalProperties=$additionalProperties}"
+    override fun toString() = "ContactDetailCreateRequest{contactIdentifier=$contactIdentifier, contactIdentifierType=$contactIdentifierType, additionalProperties=$additionalProperties}"
 }

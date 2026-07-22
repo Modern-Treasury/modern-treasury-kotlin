@@ -11,12 +11,11 @@ import com.moderntreasury.api.models.BulkRequestCreateParams
 import com.moderntreasury.api.models.BulkRequestListPageAsync
 import com.moderntreasury.api.models.BulkRequestListParams
 import com.moderntreasury.api.models.BulkRequestRetrieveParams
+import com.moderntreasury.api.services.async.BulkRequestServiceAsync
 
 interface BulkRequestServiceAsync {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -27,42 +26,37 @@ interface BulkRequestServiceAsync {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BulkRequestServiceAsync
 
     /** create bulk_request */
-    suspend fun create(
-        params: BulkRequestCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BulkRequest
+    suspend fun create(params: BulkRequestCreateParams, requestOptions: RequestOptions = RequestOptions.none()): BulkRequest
 
     /** get bulk_request */
-    suspend fun retrieve(
-        id: String,
-        params: BulkRequestRetrieveParams = BulkRequestRetrieveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BulkRequest = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun retrieve(id: String, params: BulkRequestRetrieveParams = BulkRequestRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): BulkRequest =
+        retrieve(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see retrieve */
-    suspend fun retrieve(
-        params: BulkRequestRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BulkRequest
+    suspend fun retrieve(params: BulkRequestRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): BulkRequest
 
     /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): BulkRequest =
-        retrieve(id, BulkRequestRetrieveParams.none(), requestOptions)
+        retrieve(
+          id,
+          BulkRequestRetrieveParams.none(),
+          requestOptions,
+        )
 
     /** list bulk_requests */
-    suspend fun list(
-        params: BulkRequestListParams = BulkRequestListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BulkRequestListPageAsync
+    suspend fun list(params: BulkRequestListParams = BulkRequestListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): BulkRequestListPageAsync
 
     /** @see list */
     suspend fun list(requestOptions: RequestOptions): BulkRequestListPageAsync =
-        list(BulkRequestListParams.none(), requestOptions)
+        list(
+          BulkRequestListParams.none(), requestOptions
+        )
 
-    /**
-     * A view of [BulkRequestServiceAsync] that provides access to raw HTTP responses for each
-     * method.
-     */
+    /** A view of [BulkRequestServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -70,62 +64,43 @@ interface BulkRequestServiceAsync {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): BulkRequestServiceAsync.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BulkRequestServiceAsync.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `post /api/bulk_requests`, but is otherwise the same as
-         * [BulkRequestServiceAsync.create].
-         */
+        /** Returns a raw HTTP response for `post /api/bulk_requests`, but is otherwise the             same as [BulkRequestServiceAsync.create]. */
         @MustBeClosed
-        suspend fun create(
-            params: BulkRequestCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BulkRequest>
+        suspend fun create(params: BulkRequestCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<BulkRequest>
 
-        /**
-         * Returns a raw HTTP response for `get /api/bulk_requests/{id}`, but is otherwise the same
-         * as [BulkRequestServiceAsync.retrieve].
-         */
+        /** Returns a raw HTTP response for `get /api/bulk_requests/{id}`, but is otherwise the             same as [BulkRequestServiceAsync.retrieve]. */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            params: BulkRequestRetrieveParams = BulkRequestRetrieveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BulkRequest> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun retrieve(id: String, params: BulkRequestRetrieveParams = BulkRequestRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<BulkRequest> =
+            retrieve(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            params: BulkRequestRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BulkRequest>
+        suspend fun retrieve(params: BulkRequestRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<BulkRequest>
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<BulkRequest> =
-            retrieve(id, BulkRequestRetrieveParams.none(), requestOptions)
+        suspend fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<BulkRequest> =
+            retrieve(
+              id,
+              BulkRequestRetrieveParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `get /api/bulk_requests`, but is otherwise the same as
-         * [BulkRequestServiceAsync.list].
-         */
+        /** Returns a raw HTTP response for `get /api/bulk_requests`, but is otherwise the             same as [BulkRequestServiceAsync.list]. */
         @MustBeClosed
-        suspend fun list(
-            params: BulkRequestListParams = BulkRequestListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BulkRequestListPageAsync>
+        suspend fun list(params: BulkRequestListParams = BulkRequestListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<BulkRequestListPageAsync>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<BulkRequestListPageAsync> =
-            list(BulkRequestListParams.none(), requestOptions)
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<BulkRequestListPageAsync> =
+            list(
+              BulkRequestListParams.none(), requestOptions
+            )
     }
 }

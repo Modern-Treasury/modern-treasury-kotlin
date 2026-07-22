@@ -19,230 +19,209 @@ import com.moderntreasury.api.core.prepareAsync
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitor
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorCreateParams
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorDeleteParams
+import com.moderntreasury.api.models.LedgerAccountBalanceMonitorListPage
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorListPageAsync
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorListParams
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountBalanceMonitorUpdateParams
+import com.moderntreasury.api.services.async.LedgerAccountBalanceMonitorServiceAsync
+import com.moderntreasury.api.services.async.LedgerAccountBalanceMonitorServiceAsyncImpl
 
-class LedgerAccountBalanceMonitorServiceAsyncImpl
-internal constructor(private val clientOptions: ClientOptions) :
-    LedgerAccountBalanceMonitorServiceAsync {
+class LedgerAccountBalanceMonitorServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: LedgerAccountBalanceMonitorServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : LedgerAccountBalanceMonitorServiceAsync {
 
-    override fun withRawResponse(): LedgerAccountBalanceMonitorServiceAsync.WithRawResponse =
-        withRawResponse
+    private val withRawResponse: LedgerAccountBalanceMonitorServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
-    override fun withOptions(
-        modifier: (ClientOptions.Builder) -> Unit
-    ): LedgerAccountBalanceMonitorServiceAsync =
-        LedgerAccountBalanceMonitorServiceAsyncImpl(
-            clientOptions.toBuilder().apply(modifier).build()
-        )
+    override fun withRawResponse(): LedgerAccountBalanceMonitorServiceAsync.WithRawResponse = withRawResponse
 
-    override suspend fun create(
-        params: LedgerAccountBalanceMonitorCreateParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccountBalanceMonitor =
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerAccountBalanceMonitorServiceAsync = LedgerAccountBalanceMonitorServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
+    override suspend fun create(params: LedgerAccountBalanceMonitorCreateParams, requestOptions: RequestOptions): LedgerAccountBalanceMonitor =
         // post /api/ledger_account_balance_monitors
         withRawResponse().create(params, requestOptions).parse()
 
-    override suspend fun retrieve(
-        params: LedgerAccountBalanceMonitorRetrieveParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccountBalanceMonitor =
+    override suspend fun retrieve(params: LedgerAccountBalanceMonitorRetrieveParams, requestOptions: RequestOptions): LedgerAccountBalanceMonitor =
         // get /api/ledger_account_balance_monitors/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override suspend fun update(
-        params: LedgerAccountBalanceMonitorUpdateParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccountBalanceMonitor =
+    override suspend fun update(params: LedgerAccountBalanceMonitorUpdateParams, requestOptions: RequestOptions): LedgerAccountBalanceMonitor =
         // patch /api/ledger_account_balance_monitors/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override suspend fun list(
-        params: LedgerAccountBalanceMonitorListParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccountBalanceMonitorListPageAsync =
+    override suspend fun list(params: LedgerAccountBalanceMonitorListParams, requestOptions: RequestOptions): LedgerAccountBalanceMonitorListPageAsync =
         // get /api/ledger_account_balance_monitors
         withRawResponse().list(params, requestOptions).parse()
 
-    override suspend fun delete(
-        params: LedgerAccountBalanceMonitorDeleteParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccountBalanceMonitor =
+    override suspend fun delete(params: LedgerAccountBalanceMonitorDeleteParams, requestOptions: RequestOptions): LedgerAccountBalanceMonitor =
         // delete /api/ledger_account_balance_monitors/{id}
         withRawResponse().delete(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        LedgerAccountBalanceMonitorServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : LedgerAccountBalanceMonitorServiceAsync.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): LedgerAccountBalanceMonitorServiceAsync.WithRawResponse =
-            LedgerAccountBalanceMonitorServiceAsyncImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerAccountBalanceMonitorServiceAsync.WithRawResponse = LedgerAccountBalanceMonitorServiceAsyncImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val createHandler: Handler<LedgerAccountBalanceMonitor> = jsonHandler<LedgerAccountBalanceMonitor>(clientOptions.jsonMapper)
+
+        override suspend fun create(params: LedgerAccountBalanceMonitorCreateParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccountBalanceMonitor> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_account_balance_monitors")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepareAsync(
+              clientOptions, params
             )
-
-        private val createHandler: Handler<LedgerAccountBalanceMonitor> =
-            jsonHandler<LedgerAccountBalanceMonitor>(clientOptions.jsonMapper)
-
-        override suspend fun create(
-            params: LedgerAccountBalanceMonitorCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountBalanceMonitor> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_account_balance_monitors")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<LedgerAccountBalanceMonitor> =
-            jsonHandler<LedgerAccountBalanceMonitor>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<LedgerAccountBalanceMonitor> = jsonHandler<LedgerAccountBalanceMonitor>(clientOptions.jsonMapper)
 
-        override suspend fun retrieve(
-            params: LedgerAccountBalanceMonitorRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountBalanceMonitor> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_account_balance_monitors", params._pathParam(0))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override suspend fun retrieve(params: LedgerAccountBalanceMonitorRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccountBalanceMonitor> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_account_balance_monitors", params._pathParam(0))
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val updateHandler: Handler<LedgerAccountBalanceMonitor> =
-            jsonHandler<LedgerAccountBalanceMonitor>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<LedgerAccountBalanceMonitor> = jsonHandler<LedgerAccountBalanceMonitor>(clientOptions.jsonMapper)
 
-        override suspend fun update(
-            params: LedgerAccountBalanceMonitorUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountBalanceMonitor> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_account_balance_monitors", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override suspend fun update(params: LedgerAccountBalanceMonitorUpdateParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccountBalanceMonitor> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PATCH)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_account_balance_monitors", params._pathParam(0))
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  updateHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<LedgerAccountBalanceMonitor>> =
-            jsonHandler<List<LedgerAccountBalanceMonitor>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<LedgerAccountBalanceMonitor>> = jsonHandler<List<LedgerAccountBalanceMonitor>>(clientOptions.jsonMapper)
 
-        override suspend fun list(
-            params: LedgerAccountBalanceMonitorListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountBalanceMonitorListPageAsync> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_account_balance_monitors")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        LedgerAccountBalanceMonitorListPageAsync.builder()
-                            .service(LedgerAccountBalanceMonitorServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override suspend fun list(params: LedgerAccountBalanceMonitorListParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccountBalanceMonitorListPageAsync> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_account_balance_monitors")
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  LedgerAccountBalanceMonitorListPageAsync.builder()
+                      .service(LedgerAccountBalanceMonitorServiceAsyncImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
 
-        private val deleteHandler: Handler<LedgerAccountBalanceMonitor> =
-            jsonHandler<LedgerAccountBalanceMonitor>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<LedgerAccountBalanceMonitor> = jsonHandler<LedgerAccountBalanceMonitor>(clientOptions.jsonMapper)
 
-        override suspend fun delete(
-            params: LedgerAccountBalanceMonitorDeleteParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountBalanceMonitor> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_account_balance_monitors", params._pathParam(0))
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { deleteHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override suspend fun delete(params: LedgerAccountBalanceMonitorDeleteParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccountBalanceMonitor> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.DELETE)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_account_balance_monitors", params._pathParam(0))
+            .apply { params._body()?.let{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  deleteHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

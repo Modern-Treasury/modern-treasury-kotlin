@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.models.JournalReportUpdateParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -10,41 +11,44 @@ internal class JournalReportUpdateParamsTest {
 
     @Test
     fun create() {
-        JournalReportUpdateParams.builder()
-            .id("id")
-            .metadata(JsonValue.from(mapOf<String, Any>()))
-            .status("status")
-            .build()
+      JournalReportUpdateParams.builder()
+          .id("id")
+          .metadata(JsonValue.from(mapOf<String, Any>()))
+          .status("status")
+          .build()
     }
 
     @Test
     fun pathParams() {
-        val params = JournalReportUpdateParams.builder().id("id").build()
+      val params = JournalReportUpdateParams.builder()
+          .id("id")
+          .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params._pathParam(1)).isEqualTo("")
+      assertThat(params._pathParam(0)).isEqualTo("id")
+      // out-of-bound path param
+      assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
     fun body() {
-        val params =
-            JournalReportUpdateParams.builder()
-                .id("id")
-                .metadata(JsonValue.from(mapOf<String, Any>()))
-                .status("status")
-                .build()
+      val params = JournalReportUpdateParams.builder()
+          .id("id")
+          .metadata(JsonValue.from(mapOf<String, Any>()))
+          .status("status")
+          .build()
 
-        val body = params._body()
+      val body = params._body()
 
-        assertThat(body._metadata()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
-        assertThat(body.status()).isEqualTo("status")
+      assertThat(body._metadata()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
+      assertThat(body.status()).isEqualTo("status")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = JournalReportUpdateParams.builder().id("id").build()
+      val params = JournalReportUpdateParams.builder()
+          .id("id")
+          .build()
 
-        val body = params._body()
+      val body = params._body()
     }
 }

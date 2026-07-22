@@ -6,6 +6,9 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerCreateParams
+import com.moderntreasury.api.models.LedgerDeleteParams
+import com.moderntreasury.api.models.LedgerListParams
+import com.moderntreasury.api.models.LedgerRetrieveParams
 import com.moderntreasury.api.models.LedgerUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -15,103 +18,88 @@ internal class LedgerServiceAsyncTest {
 
     @Test
     suspend fun create() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val ledgerServiceAsync = client.ledgers()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val ledgerServiceAsync = client.ledgers()
 
-        val ledger =
-            ledgerServiceAsync.create(
-                LedgerCreateParams.builder()
-                    .name("name")
-                    .description("description")
-                    .metadata(
-                        LedgerCreateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                            .build()
-                    )
-                    .build()
-            )
+      val ledger = ledgerServiceAsync.create(LedgerCreateParams.builder()
+          .name("name")
+          .description("description")
+          .metadata(LedgerCreateParams.Metadata.builder()
+              .putAdditionalProperty("key", JsonValue.from("value"))
+              .putAdditionalProperty("foo", JsonValue.from("bar"))
+              .putAdditionalProperty("modern", JsonValue.from("treasury"))
+              .build())
+          .build())
 
-        ledger.validate()
+      ledger.validate()
     }
 
     @Test
     suspend fun retrieve() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val ledgerServiceAsync = client.ledgers()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val ledgerServiceAsync = client.ledgers()
 
-        val ledger = ledgerServiceAsync.retrieve("id")
+      val ledger = ledgerServiceAsync.retrieve("id")
 
-        ledger.validate()
+      ledger.validate()
     }
 
     @Test
     suspend fun update() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val ledgerServiceAsync = client.ledgers()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val ledgerServiceAsync = client.ledgers()
 
-        val ledger =
-            ledgerServiceAsync.update(
-                LedgerUpdateParams.builder()
-                    .id("id")
-                    .description("description")
-                    .metadata(
-                        LedgerUpdateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                            .build()
-                    )
-                    .name("name")
-                    .build()
-            )
+      val ledger = ledgerServiceAsync.update(LedgerUpdateParams.builder()
+          .id("id")
+          .description("description")
+          .metadata(LedgerUpdateParams.Metadata.builder()
+              .putAdditionalProperty("key", JsonValue.from("value"))
+              .putAdditionalProperty("foo", JsonValue.from("bar"))
+              .putAdditionalProperty("modern", JsonValue.from("treasury"))
+              .build())
+          .name("name")
+          .build())
 
-        ledger.validate()
+      ledger.validate()
     }
 
     @Test
     suspend fun list() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val ledgerServiceAsync = client.ledgers()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val ledgerServiceAsync = client.ledgers()
 
-        val page = ledgerServiceAsync.list()
+      val page = ledgerServiceAsync.list()
 
-        page.items().forEach { it.validate() }
+      page.items().forEach { it.validate() }
     }
 
     @Test
     suspend fun delete() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val ledgerServiceAsync = client.ledgers()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val ledgerServiceAsync = client.ledgers()
 
-        val ledger = ledgerServiceAsync.delete("id")
+      val ledger = ledgerServiceAsync.delete("id")
 
-        ledger.validate()
+      ledger.validate()
     }
 }

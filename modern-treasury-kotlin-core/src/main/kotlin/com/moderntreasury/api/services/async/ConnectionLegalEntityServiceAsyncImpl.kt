@@ -18,189 +18,174 @@ import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepareAsync
 import com.moderntreasury.api.models.ConnectionLegalEntity
 import com.moderntreasury.api.models.ConnectionLegalEntityCreateParams
+import com.moderntreasury.api.models.ConnectionLegalEntityListPage
 import com.moderntreasury.api.models.ConnectionLegalEntityListPageAsync
 import com.moderntreasury.api.models.ConnectionLegalEntityListParams
 import com.moderntreasury.api.models.ConnectionLegalEntityRetrieveParams
 import com.moderntreasury.api.models.ConnectionLegalEntityUpdateParams
+import com.moderntreasury.api.services.async.ConnectionLegalEntityServiceAsync
+import com.moderntreasury.api.services.async.ConnectionLegalEntityServiceAsyncImpl
 
-class ConnectionLegalEntityServiceAsyncImpl
-internal constructor(private val clientOptions: ClientOptions) : ConnectionLegalEntityServiceAsync {
+class ConnectionLegalEntityServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: ConnectionLegalEntityServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : ConnectionLegalEntityServiceAsync {
 
-    override fun withRawResponse(): ConnectionLegalEntityServiceAsync.WithRawResponse =
-        withRawResponse
+    private val withRawResponse: ConnectionLegalEntityServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
-    override fun withOptions(
-        modifier: (ClientOptions.Builder) -> Unit
-    ): ConnectionLegalEntityServiceAsync =
-        ConnectionLegalEntityServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withRawResponse(): ConnectionLegalEntityServiceAsync.WithRawResponse = withRawResponse
 
-    override suspend fun create(
-        params: ConnectionLegalEntityCreateParams,
-        requestOptions: RequestOptions,
-    ): ConnectionLegalEntity =
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ConnectionLegalEntityServiceAsync = ConnectionLegalEntityServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
+    override suspend fun create(params: ConnectionLegalEntityCreateParams, requestOptions: RequestOptions): ConnectionLegalEntity =
         // post /api/connection_legal_entities
         withRawResponse().create(params, requestOptions).parse()
 
-    override suspend fun retrieve(
-        params: ConnectionLegalEntityRetrieveParams,
-        requestOptions: RequestOptions,
-    ): ConnectionLegalEntity =
+    override suspend fun retrieve(params: ConnectionLegalEntityRetrieveParams, requestOptions: RequestOptions): ConnectionLegalEntity =
         // get /api/connection_legal_entities/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override suspend fun update(
-        params: ConnectionLegalEntityUpdateParams,
-        requestOptions: RequestOptions,
-    ): ConnectionLegalEntity =
+    override suspend fun update(params: ConnectionLegalEntityUpdateParams, requestOptions: RequestOptions): ConnectionLegalEntity =
         // patch /api/connection_legal_entities/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override suspend fun list(
-        params: ConnectionLegalEntityListParams,
-        requestOptions: RequestOptions,
-    ): ConnectionLegalEntityListPageAsync =
+    override suspend fun list(params: ConnectionLegalEntityListParams, requestOptions: RequestOptions): ConnectionLegalEntityListPageAsync =
         // get /api/connection_legal_entities
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        ConnectionLegalEntityServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : ConnectionLegalEntityServiceAsync.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): ConnectionLegalEntityServiceAsync.WithRawResponse =
-            ConnectionLegalEntityServiceAsyncImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ConnectionLegalEntityServiceAsync.WithRawResponse = ConnectionLegalEntityServiceAsyncImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val createHandler: Handler<ConnectionLegalEntity> = jsonHandler<ConnectionLegalEntity>(clientOptions.jsonMapper)
+
+        override suspend fun create(params: ConnectionLegalEntityCreateParams, requestOptions: RequestOptions): HttpResponseFor<ConnectionLegalEntity> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "connection_legal_entities")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepareAsync(
+              clientOptions, params
             )
-
-        private val createHandler: Handler<ConnectionLegalEntity> =
-            jsonHandler<ConnectionLegalEntity>(clientOptions.jsonMapper)
-
-        override suspend fun create(
-            params: ConnectionLegalEntityCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ConnectionLegalEntity> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "connection_legal_entities")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<ConnectionLegalEntity> =
-            jsonHandler<ConnectionLegalEntity>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<ConnectionLegalEntity> = jsonHandler<ConnectionLegalEntity>(clientOptions.jsonMapper)
 
-        override suspend fun retrieve(
-            params: ConnectionLegalEntityRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ConnectionLegalEntity> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "connection_legal_entities", params._pathParam(0))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override suspend fun retrieve(params: ConnectionLegalEntityRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<ConnectionLegalEntity> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "connection_legal_entities", params._pathParam(0))
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val updateHandler: Handler<ConnectionLegalEntity> =
-            jsonHandler<ConnectionLegalEntity>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<ConnectionLegalEntity> = jsonHandler<ConnectionLegalEntity>(clientOptions.jsonMapper)
 
-        override suspend fun update(
-            params: ConnectionLegalEntityUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ConnectionLegalEntity> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "connection_legal_entities", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override suspend fun update(params: ConnectionLegalEntityUpdateParams, requestOptions: RequestOptions): HttpResponseFor<ConnectionLegalEntity> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PATCH)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "connection_legal_entities", params._pathParam(0))
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  updateHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<ConnectionLegalEntity>> =
-            jsonHandler<List<ConnectionLegalEntity>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<ConnectionLegalEntity>> = jsonHandler<List<ConnectionLegalEntity>>(clientOptions.jsonMapper)
 
-        override suspend fun list(
-            params: ConnectionLegalEntityListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ConnectionLegalEntityListPageAsync> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "connection_legal_entities")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        ConnectionLegalEntityListPageAsync.builder()
-                            .service(ConnectionLegalEntityServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override suspend fun list(params: ConnectionLegalEntityListParams, requestOptions: RequestOptions): HttpResponseFor<ConnectionLegalEntityListPageAsync> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "connection_legal_entities")
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  ConnectionLegalEntityListPageAsync.builder()
+                      .service(ConnectionLegalEntityServiceAsyncImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
     }
 }

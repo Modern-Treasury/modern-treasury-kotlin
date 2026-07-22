@@ -1,5 +1,6 @@
 package com.moderntreasury.api.core
 
+import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonInclude
@@ -25,7 +26,6 @@ import com.fasterxml.jackson.databind.node.JsonNodeType.POJO
 import com.fasterxml.jackson.databind.node.JsonNodeType.STRING
 import com.fasterxml.jackson.databind.ser.std.NullSerializer
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 import java.io.InputStream
 import java.util.*
 import kotlin.reflect.KClass

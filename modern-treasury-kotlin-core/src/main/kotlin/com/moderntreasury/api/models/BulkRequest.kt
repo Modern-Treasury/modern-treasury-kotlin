@@ -14,13 +14,12 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.BulkRequest
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-class BulkRequest
-@JsonCreator(mode = JsonCreator.Mode.DISABLED)
-private constructor(
+class BulkRequest @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
     private val id: JsonField<String>,
     private val actionType: JsonField<ActionType>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -34,140 +33,105 @@ private constructor(
     private val totalResourceCount: JsonField<Long>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
+
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("action_type")
-        @ExcludeMissing
-        actionType: JsonField<ActionType> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("failed_result_count")
-        @ExcludeMissing
-        failedResultCount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("action_type") @ExcludeMissing actionType: JsonField<ActionType> = JsonMissing.of(),
+        @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("failed_result_count") @ExcludeMissing failedResultCount: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("resource_type")
-        @ExcludeMissing
-        resourceType: JsonField<ResourceType> = JsonMissing.of(),
+        @JsonProperty("resource_type") @ExcludeMissing resourceType: JsonField<ResourceType> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-        @JsonProperty("success_result_count")
-        @ExcludeMissing
-        successResultCount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("total_resource_count")
-        @ExcludeMissing
-        totalResourceCount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("success_result_count") @ExcludeMissing successResultCount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("total_resource_count") @ExcludeMissing totalResourceCount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
     ) : this(
-        id,
-        actionType,
-        createdAt,
-        failedResultCount,
-        liveMode,
-        metadata,
-        object_,
-        resourceType,
-        status,
-        successResultCount,
-        totalResourceCount,
-        updatedAt,
-        mutableMapOf(),
+      id,
+      actionType,
+      createdAt,
+      failedResultCount,
+      liveMode,
+      metadata,
+      object_,
+      resourceType,
+      status,
+      successResultCount,
+      totalResourceCount,
+      updatedAt,
+      mutableMapOf(),
     )
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun id(): String = id.getRequired("id")
 
     /**
      * One of create, or update.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun actionType(): ActionType = actionType.getRequired("action_type")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * Total number of failed bulk results so far for this request
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun failedResultCount(): Long = failedResultCount.getRequired("failed_result_count")
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * This field will be true if this object exists in the live environment or false if it exists in the test environment.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
     /**
      * Additional data represented as key-value pairs. Both the key and value must be strings.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun metadata(): Metadata = metadata.getRequired("metadata")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun object_(): String = object_.getRequired("object")
 
     /**
      * One of payment_order, expected_payment, or ledger_transaction.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun resourceType(): ResourceType = resourceType.getRequired("resource_type")
 
     /**
      * One of pending, processing, or completed.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun status(): Status = status.getRequired("status")
 
     /**
      * Total number of successful bulk results so far for this request
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun successResultCount(): Long = successResultCount.getRequired("success_result_count")
 
     /**
-     * Total number of items in the `resources` array. Once a bulk request is completed,
-     * `success_result_count` + `failed_result_count` will be equal to `total_result_count`.
+     * Total number of items in the `resources` array. Once a bulk request is completed, `success_result_count` + `failed_result_count` will be equal to `total_result_count`.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun totalResourceCount(): Long = totalResourceCount.getRequired("total_resource_count")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /**
@@ -175,7 +139,9 @@ private constructor(
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id(): JsonField<String> = id
 
     /**
      * Returns the raw JSON value of [actionType].
@@ -198,8 +164,7 @@ private constructor(
     /**
      * Returns the raw JSON value of [failedResultCount].
      *
-     * Unlike [failedResultCount], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [failedResultCount], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("failed_result_count")
     @ExcludeMissing
@@ -210,21 +175,27 @@ private constructor(
      *
      * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    fun _liveMode(): JsonField<Boolean> = liveMode
 
     /**
      * Returns the raw JSON value of [metadata].
      *
      * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+    @JsonProperty("metadata")
+    @ExcludeMissing
+    fun _metadata(): JsonField<Metadata> = metadata
 
     /**
      * Returns the raw JSON value of [object_].
      *
      * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
+    @JsonProperty("object")
+    @ExcludeMissing
+    fun _object_(): JsonField<String> = object_
 
     /**
      * Returns the raw JSON value of [resourceType].
@@ -240,13 +211,14 @@ private constructor(
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status(): JsonField<Status> = status
 
     /**
      * Returns the raw JSON value of [successResultCount].
      *
-     * Unlike [successResultCount], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [successResultCount], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("success_result_count")
     @ExcludeMissing
@@ -255,8 +227,7 @@ private constructor(
     /**
      * Returns the raw JSON value of [totalResourceCount].
      *
-     * Unlike [totalResourceCount], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [totalResourceCount], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("total_resource_count")
     @ExcludeMissing
@@ -273,13 +244,12 @@ private constructor(
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
-        additionalProperties.put(key, value)
+      additionalProperties.put(key, value)
     }
 
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> =
-        Collections.unmodifiableMap(additionalProperties)
+    fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -289,6 +259,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [BulkRequest].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .id()
          * .actionType()
@@ -324,31 +295,35 @@ private constructor(
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(bulkRequest: BulkRequest) = apply {
-            id = bulkRequest.id
-            actionType = bulkRequest.actionType
-            createdAt = bulkRequest.createdAt
-            failedResultCount = bulkRequest.failedResultCount
-            liveMode = bulkRequest.liveMode
-            metadata = bulkRequest.metadata
-            object_ = bulkRequest.object_
-            resourceType = bulkRequest.resourceType
-            status = bulkRequest.status
-            successResultCount = bulkRequest.successResultCount
-            totalResourceCount = bulkRequest.totalResourceCount
-            updatedAt = bulkRequest.updatedAt
-            additionalProperties = bulkRequest.additionalProperties.toMutableMap()
-        }
+        internal fun from(bulkRequest: BulkRequest) =
+            apply {
+                id = bulkRequest.id
+                actionType = bulkRequest.actionType
+                createdAt = bulkRequest.createdAt
+                failedResultCount = bulkRequest.failedResultCount
+                liveMode = bulkRequest.liveMode
+                metadata = bulkRequest.metadata
+                object_ = bulkRequest.object_
+                resourceType = bulkRequest.resourceType
+                status = bulkRequest.status
+                successResultCount = bulkRequest.successResultCount
+                totalResourceCount = bulkRequest.totalResourceCount
+                updatedAt = bulkRequest.updatedAt
+                additionalProperties = bulkRequest.additionalProperties.toMutableMap()
+            }
 
         fun id(id: String) = id(JsonField.of(id))
 
         /**
          * Sets [Builder.id] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.id] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) =
+            apply {
+                this.id = id
+            }
 
         /** One of create, or update. */
         fun actionType(actionType: ActionType) = actionType(JsonField.of(actionType))
@@ -356,76 +331,81 @@ private constructor(
         /**
          * Sets [Builder.actionType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.actionType] with a well-typed [ActionType] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.actionType] with a well-typed [ActionType] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun actionType(actionType: JsonField<ActionType>) = apply { this.actionType = actionType }
+        fun actionType(actionType: JsonField<ActionType>) =
+            apply {
+                this.actionType = actionType
+            }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
          * Sets [Builder.createdAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.createdAt = createdAt
+            }
 
         /** Total number of failed bulk results so far for this request */
-        fun failedResultCount(failedResultCount: Long) =
-            failedResultCount(JsonField.of(failedResultCount))
+        fun failedResultCount(failedResultCount: Long) = failedResultCount(JsonField.of(failedResultCount))
 
         /**
          * Sets [Builder.failedResultCount] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.failedResultCount] with a well-typed [Long] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.failedResultCount] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun failedResultCount(failedResultCount: JsonField<Long>) = apply {
-            this.failedResultCount = failedResultCount
-        }
+        fun failedResultCount(failedResultCount: JsonField<Long>) =
+            apply {
+                this.failedResultCount = failedResultCount
+            }
 
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
+        /** This field will be true if this object exists in the live environment or false if it exists in the test environment. */
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
          * Sets [Builder.liveMode] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+        fun liveMode(liveMode: JsonField<Boolean>) =
+            apply {
+                this.liveMode = liveMode
+            }
 
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
+        /** Additional data represented as key-value pairs. Both the key and value must be strings. */
         fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
         /**
          * Sets [Builder.metadata] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+        fun metadata(metadata: JsonField<Metadata>) =
+            apply {
+                this.metadata = metadata
+            }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
         /**
          * Sets [Builder.object_] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun object_(object_: JsonField<String>) =
+            apply {
+                this.object_ = object_
+            }
 
         /** One of payment_order, expected_payment, or ledger_transaction. */
         fun resourceType(resourceType: ResourceType) = resourceType(JsonField.of(resourceType))
@@ -433,13 +413,13 @@ private constructor(
         /**
          * Sets [Builder.resourceType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.resourceType] with a well-typed [ResourceType] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.resourceType] with a well-typed [ResourceType] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun resourceType(resourceType: JsonField<ResourceType>) = apply {
-            this.resourceType = resourceType
-        }
+        fun resourceType(resourceType: JsonField<ResourceType>) =
+            apply {
+                this.resourceType = resourceType
+            }
 
         /** One of pending, processing, or completed. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -447,73 +427,80 @@ private constructor(
         /**
          * Sets [Builder.status] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) =
+            apply {
+                this.status = status
+            }
 
         /** Total number of successful bulk results so far for this request */
-        fun successResultCount(successResultCount: Long) =
-            successResultCount(JsonField.of(successResultCount))
+        fun successResultCount(successResultCount: Long) = successResultCount(JsonField.of(successResultCount))
 
         /**
          * Sets [Builder.successResultCount] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.successResultCount] with a well-typed [Long] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.successResultCount] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun successResultCount(successResultCount: JsonField<Long>) = apply {
-            this.successResultCount = successResultCount
-        }
+        fun successResultCount(successResultCount: JsonField<Long>) =
+            apply {
+                this.successResultCount = successResultCount
+            }
 
-        /**
-         * Total number of items in the `resources` array. Once a bulk request is completed,
-         * `success_result_count` + `failed_result_count` will be equal to `total_result_count`.
-         */
-        fun totalResourceCount(totalResourceCount: Long) =
-            totalResourceCount(JsonField.of(totalResourceCount))
+        /** Total number of items in the `resources` array. Once a bulk request is completed, `success_result_count` + `failed_result_count` will be equal to `total_result_count`. */
+        fun totalResourceCount(totalResourceCount: Long) = totalResourceCount(JsonField.of(totalResourceCount))
 
         /**
          * Sets [Builder.totalResourceCount] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.totalResourceCount] with a well-typed [Long] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.totalResourceCount] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun totalResourceCount(totalResourceCount: JsonField<Long>) = apply {
-            this.totalResourceCount = totalResourceCount
-        }
+        fun totalResourceCount(totalResourceCount: JsonField<Long>) =
+            apply {
+                this.totalResourceCount = totalResourceCount
+            }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
          * Sets [Builder.updatedAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.updatedAt = updatedAt
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         /**
          * Returns an immutable instance of [BulkRequest].
@@ -521,6 +508,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .id()
          * .actionType()
@@ -540,19 +528,43 @@ private constructor(
          */
         fun build(): BulkRequest =
             BulkRequest(
-                checkRequired("id", id),
-                checkRequired("actionType", actionType),
-                checkRequired("createdAt", createdAt),
-                checkRequired("failedResultCount", failedResultCount),
-                checkRequired("liveMode", liveMode),
-                checkRequired("metadata", metadata),
-                checkRequired("object_", object_),
-                checkRequired("resourceType", resourceType),
-                checkRequired("status", status),
-                checkRequired("successResultCount", successResultCount),
-                checkRequired("totalResourceCount", totalResourceCount),
-                checkRequired("updatedAt", updatedAt),
-                additionalProperties.toMutableMap(),
+              checkRequired(
+                "id", id
+              ),
+              checkRequired(
+                "actionType", actionType
+              ),
+              checkRequired(
+                "createdAt", createdAt
+              ),
+              checkRequired(
+                "failedResultCount", failedResultCount
+              ),
+              checkRequired(
+                "liveMode", liveMode
+              ),
+              checkRequired(
+                "metadata", metadata
+              ),
+              checkRequired(
+                "object_", object_
+              ),
+              checkRequired(
+                "resourceType", resourceType
+              ),
+              checkRequired(
+                "status", status
+              ),
+              checkRequired(
+                "successResultCount", successResultCount
+              ),
+              checkRequired(
+                "totalResourceCount", totalResourceCount
+              ),
+              checkRequired(
+                "updatedAt", updatedAt
+              ),
+              additionalProperties.toMutableMap(),
             )
     }
 
@@ -566,25 +578,26 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): BulkRequest = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): BulkRequest =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        id()
-        actionType().validate()
-        createdAt()
-        failedResultCount()
-        liveMode()
-        metadata().validate()
-        object_()
-        resourceType().validate()
-        status().validate()
-        successResultCount()
-        totalResourceCount()
-        updatedAt()
-        validated = true
-    }
+            id()
+            actionType().validate()
+            createdAt()
+            failedResultCount()
+            liveMode()
+            metadata().validate()
+            object_()
+            resourceType().validate()
+            status().validate()
+            successResultCount()
+            totalResourceCount()
+            updatedAt()
+            validated = true
+        }
 
     fun isValid(): Boolean =
         try {
@@ -599,32 +612,23 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    internal fun validity(): Int =
-        (if (id.asKnown() == null) 0 else 1) +
-            (actionType.asKnown()?.validity() ?: 0) +
-            (if (createdAt.asKnown() == null) 0 else 1) +
-            (if (failedResultCount.asKnown() == null) 0 else 1) +
-            (if (liveMode.asKnown() == null) 0 else 1) +
-            (metadata.asKnown()?.validity() ?: 0) +
-            (if (object_.asKnown() == null) 0 else 1) +
-            (resourceType.asKnown()?.validity() ?: 0) +
-            (status.asKnown()?.validity() ?: 0) +
-            (if (successResultCount.asKnown() == null) 0 else 1) +
-            (if (totalResourceCount.asKnown() == null) 0 else 1) +
-            (if (updatedAt.asKnown() == null) 0 else 1)
+    internal fun validity(): Int = (if (id.asKnown() == null) 0 else 1) + (actionType.asKnown()?.validity() ?: 0) + (if (createdAt.asKnown() == null) 0 else 1) + (if (failedResultCount.asKnown() == null) 0 else 1) + (if (liveMode.asKnown() == null) 0 else 1) + (metadata.asKnown()?.validity() ?: 0) + (if (object_.asKnown() == null) 0 else 1) + (resourceType.asKnown()?.validity() ?: 0) + (status.asKnown()?.validity() ?: 0) + (if (successResultCount.asKnown() == null) 0 else 1) + (if (totalResourceCount.asKnown() == null) 0 else 1) + (if (updatedAt.asKnown() == null) 0 else 1)
 
     /** One of create, or update. */
-    class ActionType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class ActionType @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -648,27 +652,27 @@ private constructor(
          * An enum containing [ActionType]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [ActionType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
             CREATE,
             UPDATE,
             DELETE,
-            /**
-             * An enum member indicating that [ActionType] was instantiated with an unknown value.
-             */
+            /** An enum member indicating that [ActionType] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -681,11 +685,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -698,34 +701,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): ActionType = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): ActionType =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -736,19 +738,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is ActionType && value == other.value
+          return other is ActionType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -757,11 +758,9 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    class Metadata
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
+    class Metadata @JsonCreator private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         @JsonAnyGetter
@@ -781,28 +780,36 @@ private constructor(
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties = metadata.additionalProperties.toMutableMap()
-            }
+            internal fun from(metadata: Metadata) =
+                apply {
+                    additionalProperties = metadata.additionalProperties.toMutableMap()
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperty(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
             /**
              * Returns an immutable instance of [Metadata].
@@ -815,21 +822,21 @@ private constructor(
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Metadata =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            validated = true
-        }
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -840,20 +847,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+        internal fun validity(): Int = additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Metadata && additionalProperties == other.additionalProperties
+          return other is Metadata && additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
@@ -864,18 +869,20 @@ private constructor(
     }
 
     /** One of payment_order, expected_payment, or ledger_transaction. */
-    class ResourceType @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
+    class ResourceType @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -911,9 +918,11 @@ private constructor(
          * An enum containing [ResourceType]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [ResourceType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -924,18 +933,16 @@ private constructor(
             TRANSACTION,
             TRANSACTION_LINE_ITEM,
             ENTITY_LINK,
-            /**
-             * An enum member indicating that [ResourceType] was instantiated with an unknown value.
-             */
+            /** An enum member indicating that [ResourceType] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -952,11 +959,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -973,34 +979,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): ResourceType = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): ResourceType =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1011,19 +1016,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is ResourceType && value == other.value
+          return other is ResourceType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1032,17 +1036,20 @@ private constructor(
     }
 
     /** One of pending, processing, or completed. */
-    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Status @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -1066,9 +1073,11 @@ private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -1080,11 +1089,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -1097,11 +1106,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -1114,34 +1122,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Status = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Status =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1152,19 +1159,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && value == other.value
+          return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1173,46 +1179,16 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is BulkRequest &&
-            id == other.id &&
-            actionType == other.actionType &&
-            createdAt == other.createdAt &&
-            failedResultCount == other.failedResultCount &&
-            liveMode == other.liveMode &&
-            metadata == other.metadata &&
-            object_ == other.object_ &&
-            resourceType == other.resourceType &&
-            status == other.status &&
-            successResultCount == other.successResultCount &&
-            totalResourceCount == other.totalResourceCount &&
-            updatedAt == other.updatedAt &&
-            additionalProperties == other.additionalProperties
+      return other is BulkRequest && id == other.id && actionType == other.actionType && createdAt == other.createdAt && failedResultCount == other.failedResultCount && liveMode == other.liveMode && metadata == other.metadata && object_ == other.object_ && resourceType == other.resourceType && status == other.status && successResultCount == other.successResultCount && totalResourceCount == other.totalResourceCount && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy {
-        Objects.hash(
-            id,
-            actionType,
-            createdAt,
-            failedResultCount,
-            liveMode,
-            metadata,
-            object_,
-            resourceType,
-            status,
-            successResultCount,
-            totalResourceCount,
-            updatedAt,
-            additionalProperties,
-        )
-    }
+    private val hashCode: Int by lazy { Objects.hash(id, actionType, createdAt, failedResultCount, liveMode, metadata, object_, resourceType, status, successResultCount, totalResourceCount, updatedAt, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "BulkRequest{id=$id, actionType=$actionType, createdAt=$createdAt, failedResultCount=$failedResultCount, liveMode=$liveMode, metadata=$metadata, object_=$object_, resourceType=$resourceType, status=$status, successResultCount=$successResultCount, totalResourceCount=$totalResourceCount, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+    override fun toString() = "BulkRequest{id=$id, actionType=$actionType, createdAt=$createdAt, failedResultCount=$failedResultCount, liveMode=$liveMode, metadata=$metadata, object_=$object_, resourceType=$resourceType, status=$status, successResultCount=$successResultCount, totalResourceCount=$totalResourceCount, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

@@ -6,16 +6,18 @@ import com.moderntreasury.api.core.AutoPager
 import com.moderntreasury.api.core.Page
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.models.LedgerAccountCategory
+import com.moderntreasury.api.models.LedgerAccountCategoryListParams
 import com.moderntreasury.api.services.blocking.LedgerAccountCategoryService
 import java.util.Objects
 
 /** @see LedgerAccountCategoryService.list */
-class LedgerAccountCategoryListPage
-private constructor(
+class LedgerAccountCategoryListPage private constructor(
     private val service: LedgerAccountCategoryService,
     private val params: LedgerAccountCategoryListParams,
     private val headers: Headers,
     private val items: List<LedgerAccountCategory>,
+
 ) : Page<LedgerAccountCategory> {
 
     fun perPage(): String? = headers.values("X-Per-Page").firstOrNull()
@@ -25,9 +27,10 @@ private constructor(
     override fun hasNextPage(): Boolean = afterCursor() != null
 
     fun nextPageParams(): LedgerAccountCategoryListParams {
-        val nextCursor =
-            afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
-        return params.toBuilder().afterCursor(nextCursor).build()
+      val nextCursor = afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
+      return params.toBuilder()
+          .afterCursor(nextCursor)
+          .build()
     }
 
     override fun nextPage(): LedgerAccountCategoryListPage = service.list(nextPageParams())
@@ -45,10 +48,10 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [LedgerAccountCategoryListPage].
+         * Returns a mutable builder for constructing an instance of [LedgerAccountCategoryListPage].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -67,22 +70,35 @@ private constructor(
         private var headers: Headers? = null
         private var items: List<LedgerAccountCategory>? = null
 
-        internal fun from(ledgerAccountCategoryListPage: LedgerAccountCategoryListPage) = apply {
-            service = ledgerAccountCategoryListPage.service
-            params = ledgerAccountCategoryListPage.params
-            headers = ledgerAccountCategoryListPage.headers
-            items = ledgerAccountCategoryListPage.items
-        }
+        internal fun from(ledgerAccountCategoryListPage: LedgerAccountCategoryListPage) =
+            apply {
+                service = ledgerAccountCategoryListPage.service
+                params = ledgerAccountCategoryListPage.params
+                headers = ledgerAccountCategoryListPage.headers
+                items = ledgerAccountCategoryListPage.items
+            }
 
-        fun service(service: LedgerAccountCategoryService) = apply { this.service = service }
+        fun service(service: LedgerAccountCategoryService) =
+            apply {
+                this.service = service
+            }
 
         /** The parameters that were used to request this page. */
-        fun params(params: LedgerAccountCategoryListParams) = apply { this.params = params }
+        fun params(params: LedgerAccountCategoryListParams) =
+            apply {
+                this.params = params
+            }
 
-        fun headers(headers: Headers) = apply { this.headers = headers }
+        fun headers(headers: Headers) =
+            apply {
+                this.headers = headers
+            }
 
         /** The response that this page was parsed from. */
-        fun items(items: List<LedgerAccountCategory>) = apply { this.items = items }
+        fun items(items: List<LedgerAccountCategory>) =
+            apply {
+                this.items = items
+            }
 
         /**
          * Returns an immutable instance of [LedgerAccountCategoryListPage].
@@ -90,6 +106,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -101,27 +118,30 @@ private constructor(
          */
         fun build(): LedgerAccountCategoryListPage =
             LedgerAccountCategoryListPage(
-                checkRequired("service", service),
-                checkRequired("params", params),
-                checkRequired("headers", headers),
-                checkRequired("items", items),
+              checkRequired(
+                "service", service
+              ),
+              checkRequired(
+                "params", params
+              ),
+              checkRequired(
+                "headers", headers
+              ),
+              checkRequired(
+                "items", items
+              ),
             )
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is LedgerAccountCategoryListPage &&
-            service == other.service &&
-            params == other.params &&
-            headers == other.headers &&
-            items == other.items
+      return other is LedgerAccountCategoryListPage && service == other.service && params == other.params && headers == other.headers && items == other.items
     }
 
     override fun hashCode(): Int = Objects.hash(service, params, headers, items)
 
-    override fun toString() =
-        "LedgerAccountCategoryListPage{service=$service, params=$params, headers=$headers, items=$items}"
+    override fun toString() = "LedgerAccountCategoryListPage{service=$service, params=$params, headers=$headers, items=$items}"
 }

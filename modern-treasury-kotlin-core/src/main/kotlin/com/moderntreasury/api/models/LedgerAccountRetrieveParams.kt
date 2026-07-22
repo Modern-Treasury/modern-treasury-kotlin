@@ -5,29 +5,24 @@ package com.moderntreasury.api.models
 import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.models.LedgerAccountRetrieveParams
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
 /** Get details on a single ledger account. */
-class LedgerAccountRetrieveParams
-private constructor(
+class LedgerAccountRetrieveParams private constructor(
     private val id: String?,
     private val balances: Balances?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+
 ) : Params {
 
     fun id(): String? = id
 
-    /**
-     * Use `balances[effective_at_lower_bound]` and `balances[effective_at_upper_bound]` to get the
-     * balances change between the two timestamps. The lower bound is inclusive while the upper
-     * bound is exclusive of the provided timestamps. If no value is supplied the balances will be
-     * retrieved not including that bound. Use `balances[as_of_lock_version]` to retrieve a balance
-     * as of a specific Ledger Account `lock_version`.
-     */
+    /** Use `balances[effective_at_lower_bound]` and `balances[effective_at_upper_bound]` to get the balances change between the two timestamps. The lower bound is inclusive while the upper bound is exclusive of the provided timestamps. If no value is supplied the balances will be retrieved not including that bound. Use `balances[as_of_lock_version]` to retrieve a balance as of a specific Ledger Account `lock_version`. */
     fun balances(): Balances? = balances
 
     /** Additional headers to send with the request. */
@@ -42,9 +37,7 @@ private constructor(
 
         fun none(): LedgerAccountRetrieveParams = builder().build()
 
-        /**
-         * Returns a mutable builder for constructing an instance of [LedgerAccountRetrieveParams].
-         */
+        /** Returns a mutable builder for constructing an instance of [LedgerAccountRetrieveParams]. */
         fun builder() = Builder()
     }
 
@@ -56,121 +49,148 @@ private constructor(
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(ledgerAccountRetrieveParams: LedgerAccountRetrieveParams) = apply {
-            id = ledgerAccountRetrieveParams.id
-            balances = ledgerAccountRetrieveParams.balances
-            additionalHeaders = ledgerAccountRetrieveParams.additionalHeaders.toBuilder()
-            additionalQueryParams = ledgerAccountRetrieveParams.additionalQueryParams.toBuilder()
-        }
+        internal fun from(ledgerAccountRetrieveParams: LedgerAccountRetrieveParams) =
+            apply {
+                id = ledgerAccountRetrieveParams.id
+                balances = ledgerAccountRetrieveParams.balances
+                additionalHeaders = ledgerAccountRetrieveParams.additionalHeaders.toBuilder()
+                additionalQueryParams = ledgerAccountRetrieveParams.additionalQueryParams.toBuilder()
+            }
 
-        fun id(id: String?) = apply { this.id = id }
+        fun id(id: String?) =
+            apply {
+                this.id = id
+            }
 
-        /**
-         * Use `balances[effective_at_lower_bound]` and `balances[effective_at_upper_bound]` to get
-         * the balances change between the two timestamps. The lower bound is inclusive while the
-         * upper bound is exclusive of the provided timestamps. If no value is supplied the balances
-         * will be retrieved not including that bound. Use `balances[as_of_lock_version]` to
-         * retrieve a balance as of a specific Ledger Account `lock_version`.
-         */
-        fun balances(balances: Balances?) = apply { this.balances = balances }
+        /** Use `balances[effective_at_lower_bound]` and `balances[effective_at_upper_bound]` to get the balances change between the two timestamps. The lower bound is inclusive while the upper bound is exclusive of the provided timestamps. If no value is supplied the balances will be retrieved not including that bound. Use `balances[as_of_lock_version]` to retrieve a balance as of a specific Ledger Account `lock_version`. */
+        fun balances(balances: Balances?) =
+            apply {
+                this.balances = balances
+            }
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun putAdditionalHeader(name: String, value: String) = apply {
-            additionalHeaders.put(name, value)
-        }
+        fun putAdditionalHeader(name: String, value: String) =
+            apply {
+                additionalHeaders.put(name, value)
+            }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.put(name, values)
-        }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.put(name, values)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun replaceAdditionalHeaders(name: String, value: String) = apply {
-            additionalHeaders.replace(name, value)
-        }
+        fun replaceAdditionalHeaders(name: String, value: String) =
+            apply {
+                additionalHeaders.replace(name, value)
+            }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.replace(name, values)
-        }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.replace(name, values)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
+        fun removeAdditionalHeaders(name: String) =
+            apply {
+                additionalHeaders.remove(name)
+            }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
-            additionalHeaders.removeAll(names)
-        }
+        fun removeAllAdditionalHeaders(names: Set<String>) =
+            apply {
+                additionalHeaders.removeAll(names)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun putAdditionalQueryParam(key: String, value: String) = apply {
-            additionalQueryParams.put(key, value)
-        }
+        fun putAdditionalQueryParam(key: String, value: String) =
+            apply {
+                additionalQueryParams.put(key, value)
+            }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.put(key, values)
-        }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.put(key, values)
+            }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.putAll(additionalQueryParams)
-        }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.putAll(additionalQueryParams)
+            }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
-            additionalQueryParams.replace(key, value)
-        }
+        fun replaceAdditionalQueryParams(key: String, value: String) =
+            apply {
+                additionalQueryParams.replace(key, value)
+            }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.replace(key, values)
-        }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.replace(key, values)
+            }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.replaceAll(additionalQueryParams)
-        }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
+        fun removeAdditionalQueryParams(key: String) =
+            apply {
+                additionalQueryParams.remove(key)
+            }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
-            additionalQueryParams.removeAll(keys)
-        }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) =
+            apply {
+                additionalQueryParams.removeAll(keys)
+            }
 
         /**
          * Returns an immutable instance of [LedgerAccountRetrieveParams].
@@ -179,10 +199,10 @@ private constructor(
          */
         fun build(): LedgerAccountRetrieveParams =
             LedgerAccountRetrieveParams(
-                id,
-                balances,
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
+              id,
+              balances,
+              additionalHeaders.build(),
+              additionalQueryParams.build(),
             )
     }
 
@@ -197,52 +217,29 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
-                balances?.let {
-                    it.asOfDate()?.let { put("balances[as_of_date]", it.toString()) }
-                    it.asOfLockVersion()?.let { put("balances[as_of_lock_version]", it.toString()) }
-                    it.effectiveAt()?.let {
-                        put(
-                            "balances[effective_at]",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
+                balances?.let { it.asOfDate()?.let { put("balances[as_of_date]", it.toString()) }
+                it.asOfLockVersion()?.let { put("balances[as_of_lock_version]", it.toString()) }
+                it.effectiveAt()?.let { put("balances[effective_at]", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)) }
+                it.effectiveAtLowerBound()?.let { put("balances[effective_at_lower_bound]", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)) }
+                it.effectiveAtUpperBound()?.let { put("balances[effective_at_upper_bound]", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)) }
+                it._additionalProperties().keys().forEach { key ->
+                    it._additionalProperties().values(key).forEach { value ->
+                        put("balances[$key]", value)
                     }
-                    it.effectiveAtLowerBound()?.let {
-                        put(
-                            "balances[effective_at_lower_bound]",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
-                    }
-                    it.effectiveAtUpperBound()?.let {
-                        put(
-                            "balances[effective_at_upper_bound]",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
-                    }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("balances[$key]", value)
-                        }
-                    }
-                }
+                } }
                 putAll(additionalQueryParams)
             }
             .build()
 
-    /**
-     * Use `balances[effective_at_lower_bound]` and `balances[effective_at_upper_bound]` to get the
-     * balances change between the two timestamps. The lower bound is inclusive while the upper
-     * bound is exclusive of the provided timestamps. If no value is supplied the balances will be
-     * retrieved not including that bound. Use `balances[as_of_lock_version]` to retrieve a balance
-     * as of a specific Ledger Account `lock_version`.
-     */
-    class Balances
-    private constructor(
+    /** Use `balances[effective_at_lower_bound]` and `balances[effective_at_upper_bound]` to get the balances change between the two timestamps. The lower bound is inclusive while the upper bound is exclusive of the provided timestamps. If no value is supplied the balances will be retrieved not including that bound. Use `balances[as_of_lock_version]` to retrieve a balance as of a specific Ledger Account `lock_version`. */
+    class Balances private constructor(
         private val asOfDate: LocalDate?,
         private val asOfLockVersion: Long?,
         private val effectiveAt: OffsetDateTime?,
         private val effectiveAtLowerBound: OffsetDateTime?,
         private val effectiveAtUpperBound: OffsetDateTime?,
         private val additionalProperties: QueryParams,
+
     ) {
 
         fun asOfDate(): LocalDate? = asOfDate
@@ -276,20 +273,25 @@ private constructor(
             private var effectiveAtUpperBound: OffsetDateTime? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
-            internal fun from(balances: Balances) = apply {
-                asOfDate = balances.asOfDate
-                asOfLockVersion = balances.asOfLockVersion
-                effectiveAt = balances.effectiveAt
-                effectiveAtLowerBound = balances.effectiveAtLowerBound
-                effectiveAtUpperBound = balances.effectiveAtUpperBound
-                additionalProperties = balances.additionalProperties.toBuilder()
-            }
+            internal fun from(balances: Balances) =
+                apply {
+                    asOfDate = balances.asOfDate
+                    asOfLockVersion = balances.asOfLockVersion
+                    effectiveAt = balances.effectiveAt
+                    effectiveAtLowerBound = balances.effectiveAtLowerBound
+                    effectiveAtUpperBound = balances.effectiveAtUpperBound
+                    additionalProperties = balances.additionalProperties.toBuilder()
+                }
 
-            fun asOfDate(asOfDate: LocalDate?) = apply { this.asOfDate = asOfDate }
+            fun asOfDate(asOfDate: LocalDate?) =
+                apply {
+                    this.asOfDate = asOfDate
+                }
 
-            fun asOfLockVersion(asOfLockVersion: Long?) = apply {
-                this.asOfLockVersion = asOfLockVersion
-            }
+            fun asOfLockVersion(asOfLockVersion: Long?) =
+                apply {
+                    this.asOfLockVersion = asOfLockVersion
+                }
 
             /**
              * Alias for [Builder.asOfLockVersion].
@@ -298,64 +300,82 @@ private constructor(
              */
             fun asOfLockVersion(asOfLockVersion: Long) = asOfLockVersion(asOfLockVersion as Long?)
 
-            fun effectiveAt(effectiveAt: OffsetDateTime?) = apply { this.effectiveAt = effectiveAt }
+            fun effectiveAt(effectiveAt: OffsetDateTime?) =
+                apply {
+                    this.effectiveAt = effectiveAt
+                }
 
-            fun effectiveAtLowerBound(effectiveAtLowerBound: OffsetDateTime?) = apply {
-                this.effectiveAtLowerBound = effectiveAtLowerBound
-            }
+            fun effectiveAtLowerBound(effectiveAtLowerBound: OffsetDateTime?) =
+                apply {
+                    this.effectiveAtLowerBound = effectiveAtLowerBound
+                }
 
-            fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime?) = apply {
-                this.effectiveAtUpperBound = effectiveAtUpperBound
-            }
+            fun effectiveAtUpperBound(effectiveAtUpperBound: OffsetDateTime?) =
+                apply {
+                    this.effectiveAtUpperBound = effectiveAtUpperBound
+                }
 
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: QueryParams) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: String) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
+            fun putAdditionalProperties(key: String, values: Iterable<String>) =
+                apply {
+                    additionalProperties.put(key, values)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
+            fun replaceAdditionalProperties(key: String, value: String) =
+                apply {
+                    additionalProperties.replace(key, value)
+                }
 
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) =
+                apply {
+                    additionalProperties.replace(key, values)
+                }
 
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) =
+                apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
 
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+            fun replaceAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperties(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    additionalProperties.removeAll(keys)
+                }
 
             /**
              * Returns an immutable instance of [Balances].
@@ -364,61 +384,39 @@ private constructor(
              */
             fun build(): Balances =
                 Balances(
-                    asOfDate,
-                    asOfLockVersion,
-                    effectiveAt,
-                    effectiveAtLowerBound,
-                    effectiveAtUpperBound,
-                    additionalProperties.build(),
+                  asOfDate,
+                  asOfLockVersion,
+                  effectiveAt,
+                  effectiveAtLowerBound,
+                  effectiveAtUpperBound,
+                  additionalProperties.build(),
                 )
         }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Balances &&
-                asOfDate == other.asOfDate &&
-                asOfLockVersion == other.asOfLockVersion &&
-                effectiveAt == other.effectiveAt &&
-                effectiveAtLowerBound == other.effectiveAtLowerBound &&
-                effectiveAtUpperBound == other.effectiveAtUpperBound &&
-                additionalProperties == other.additionalProperties
+          return other is Balances && asOfDate == other.asOfDate && asOfLockVersion == other.asOfLockVersion && effectiveAt == other.effectiveAt && effectiveAtLowerBound == other.effectiveAtLowerBound && effectiveAtUpperBound == other.effectiveAtUpperBound && additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(
-                asOfDate,
-                asOfLockVersion,
-                effectiveAt,
-                effectiveAtLowerBound,
-                effectiveAtUpperBound,
-                additionalProperties,
-            )
-        }
+        private val hashCode: Int by lazy { Objects.hash(asOfDate, asOfLockVersion, effectiveAt, effectiveAtLowerBound, effectiveAtUpperBound, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "Balances{asOfDate=$asOfDate, asOfLockVersion=$asOfLockVersion, effectiveAt=$effectiveAt, effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, additionalProperties=$additionalProperties}"
+        override fun toString() = "Balances{asOfDate=$asOfDate, asOfLockVersion=$asOfLockVersion, effectiveAt=$effectiveAt, effectiveAtLowerBound=$effectiveAtLowerBound, effectiveAtUpperBound=$effectiveAtUpperBound, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is LedgerAccountRetrieveParams &&
-            id == other.id &&
-            balances == other.balances &&
-            additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams
+      return other is LedgerAccountRetrieveParams && id == other.id && balances == other.balances && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int =
-        Objects.hash(id, balances, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(id, balances, additionalHeaders, additionalQueryParams)
 
-    override fun toString() =
-        "LedgerAccountRetrieveParams{id=$id, balances=$balances, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() = "LedgerAccountRetrieveParams{id=$id, balances=$balances, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

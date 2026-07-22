@@ -17,86 +17,71 @@ internal class AccountDetailServiceTest {
 
     @Test
     fun create() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val accountDetailService = client.accountDetails()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val accountDetailService = client.accountDetails()
 
-        val accountDetail =
-            accountDetailService.create(
-                AccountDetailCreateParams.builder()
-                    .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
-                    .accountId("account_id")
-                    .accountNumber("account_number")
-                    .accountNumberType(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
-                    .build()
-            )
+      val accountDetail = accountDetailService.create(AccountDetailCreateParams.builder()
+          .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
+          .accountId("account_id")
+          .accountNumber("account_number")
+          .accountNumberType(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
+          .build())
 
-        accountDetail.validate()
+      accountDetail.validate()
     }
 
     @Test
     fun retrieve() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val accountDetailService = client.accountDetails()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val accountDetailService = client.accountDetails()
 
-        val accountDetail =
-            accountDetailService.retrieve(
-                AccountDetailRetrieveParams.builder()
-                    .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
-                    .accountId("account_id")
-                    .id("id")
-                    .build()
-            )
+      val accountDetail = accountDetailService.retrieve(AccountDetailRetrieveParams.builder()
+          .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
+          .accountId("account_id")
+          .id("id")
+          .build())
 
-        accountDetail.validate()
+      accountDetail.validate()
     }
 
     @Test
     fun list() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val accountDetailService = client.accountDetails()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val accountDetailService = client.accountDetails()
 
-        val page =
-            accountDetailService.list(
-                AccountDetailListParams.builder()
-                    .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
-                    .accountId("account_id")
-                    .build()
-            )
+      val page = accountDetailService.list(AccountDetailListParams.builder()
+          .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
+          .accountId("account_id")
+          .build())
 
-        page.items().forEach { it.validate() }
+      page.items().forEach { it.validate() }
     }
 
     @Test
     fun delete() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val accountDetailService = client.accountDetails()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val accountDetailService = client.accountDetails()
 
-        accountDetailService.delete(
-            AccountDetailDeleteParams.builder()
-                .accountsType(AccountDetailDeleteParams.AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("account_id")
-                .id("id")
-                .build()
-        )
+      accountDetailService.delete(AccountDetailDeleteParams.builder()
+          .accountsType(AccountDetailDeleteParams.AccountsType.EXTERNAL_ACCOUNTS)
+          .accountId("account_id")
+          .id("id")
+          .build())
     }
 }

@@ -6,16 +6,18 @@ import com.moderntreasury.api.core.AutoPagerAsync
 import com.moderntreasury.api.core.PageAsync
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.models.InternalAccount
+import com.moderntreasury.api.models.InternalAccountListParams
 import com.moderntreasury.api.services.async.InternalAccountServiceAsync
 import java.util.Objects
 
 /** @see InternalAccountServiceAsync.list */
-class InternalAccountListPageAsync
-private constructor(
+class InternalAccountListPageAsync private constructor(
     private val service: InternalAccountServiceAsync,
     private val params: InternalAccountListParams,
     private val headers: Headers,
     private val items: List<InternalAccount>,
+
 ) : PageAsync<InternalAccount> {
 
     fun perPage(): String? = headers.values("X-Per-Page").firstOrNull()
@@ -25,9 +27,10 @@ private constructor(
     override fun hasNextPage(): Boolean = afterCursor() != null
 
     fun nextPageParams(): InternalAccountListParams {
-        val nextCursor =
-            afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
-        return params.toBuilder().afterCursor(nextCursor).build()
+      val nextCursor = afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
+      return params.toBuilder()
+          .afterCursor(nextCursor)
+          .build()
     }
 
     override suspend fun nextPage(): InternalAccountListPageAsync = service.list(nextPageParams())
@@ -48,6 +51,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [InternalAccountListPageAsync].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -66,22 +70,35 @@ private constructor(
         private var headers: Headers? = null
         private var items: List<InternalAccount>? = null
 
-        internal fun from(internalAccountListPageAsync: InternalAccountListPageAsync) = apply {
-            service = internalAccountListPageAsync.service
-            params = internalAccountListPageAsync.params
-            headers = internalAccountListPageAsync.headers
-            items = internalAccountListPageAsync.items
-        }
+        internal fun from(internalAccountListPageAsync: InternalAccountListPageAsync) =
+            apply {
+                service = internalAccountListPageAsync.service
+                params = internalAccountListPageAsync.params
+                headers = internalAccountListPageAsync.headers
+                items = internalAccountListPageAsync.items
+            }
 
-        fun service(service: InternalAccountServiceAsync) = apply { this.service = service }
+        fun service(service: InternalAccountServiceAsync) =
+            apply {
+                this.service = service
+            }
 
         /** The parameters that were used to request this page. */
-        fun params(params: InternalAccountListParams) = apply { this.params = params }
+        fun params(params: InternalAccountListParams) =
+            apply {
+                this.params = params
+            }
 
-        fun headers(headers: Headers) = apply { this.headers = headers }
+        fun headers(headers: Headers) =
+            apply {
+                this.headers = headers
+            }
 
         /** The response that this page was parsed from. */
-        fun items(items: List<InternalAccount>) = apply { this.items = items }
+        fun items(items: List<InternalAccount>) =
+            apply {
+                this.items = items
+            }
 
         /**
          * Returns an immutable instance of [InternalAccountListPageAsync].
@@ -89,6 +106,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -100,27 +118,30 @@ private constructor(
          */
         fun build(): InternalAccountListPageAsync =
             InternalAccountListPageAsync(
-                checkRequired("service", service),
-                checkRequired("params", params),
-                checkRequired("headers", headers),
-                checkRequired("items", items),
+              checkRequired(
+                "service", service
+              ),
+              checkRequired(
+                "params", params
+              ),
+              checkRequired(
+                "headers", headers
+              ),
+              checkRequired(
+                "items", items
+              ),
             )
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is InternalAccountListPageAsync &&
-            service == other.service &&
-            params == other.params &&
-            headers == other.headers &&
-            items == other.items
+      return other is InternalAccountListPageAsync && service == other.service && params == other.params && headers == other.headers && items == other.items
     }
 
     override fun hashCode(): Int = Objects.hash(service, params, headers, items)
 
-    override fun toString() =
-        "InternalAccountListPageAsync{service=$service, params=$params, headers=$headers, items=$items}"
+    override fun toString() = "InternalAccountListPageAsync{service=$service, params=$params, headers=$headers, items=$items}"
 }

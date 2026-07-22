@@ -6,16 +6,18 @@ import com.moderntreasury.api.core.AutoPager
 import com.moderntreasury.api.core.Page
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.models.Event
+import com.moderntreasury.api.models.EventListParams
 import com.moderntreasury.api.services.blocking.EventService
 import java.util.Objects
 
 /** @see EventService.list */
-class EventListPage
-private constructor(
+class EventListPage private constructor(
     private val service: EventService,
     private val params: EventListParams,
     private val headers: Headers,
     private val items: List<Event>,
+
 ) : Page<Event> {
 
     fun perPage(): String? = headers.values("X-Per-Page").firstOrNull()
@@ -25,9 +27,10 @@ private constructor(
     override fun hasNextPage(): Boolean = afterCursor() != null
 
     fun nextPageParams(): EventListParams {
-        val nextCursor =
-            afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
-        return params.toBuilder().afterCursor(nextCursor).build()
+      val nextCursor = afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
+      return params.toBuilder()
+          .afterCursor(nextCursor)
+          .build()
     }
 
     override fun nextPage(): EventListPage = service.list(nextPageParams())
@@ -48,6 +51,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [EventListPage].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -66,22 +70,35 @@ private constructor(
         private var headers: Headers? = null
         private var items: List<Event>? = null
 
-        internal fun from(eventListPage: EventListPage) = apply {
-            service = eventListPage.service
-            params = eventListPage.params
-            headers = eventListPage.headers
-            items = eventListPage.items
-        }
+        internal fun from(eventListPage: EventListPage) =
+            apply {
+                service = eventListPage.service
+                params = eventListPage.params
+                headers = eventListPage.headers
+                items = eventListPage.items
+            }
 
-        fun service(service: EventService) = apply { this.service = service }
+        fun service(service: EventService) =
+            apply {
+                this.service = service
+            }
 
         /** The parameters that were used to request this page. */
-        fun params(params: EventListParams) = apply { this.params = params }
+        fun params(params: EventListParams) =
+            apply {
+                this.params = params
+            }
 
-        fun headers(headers: Headers) = apply { this.headers = headers }
+        fun headers(headers: Headers) =
+            apply {
+                this.headers = headers
+            }
 
         /** The response that this page was parsed from. */
-        fun items(items: List<Event>) = apply { this.items = items }
+        fun items(items: List<Event>) =
+            apply {
+                this.items = items
+            }
 
         /**
          * Returns an immutable instance of [EventListPage].
@@ -89,6 +106,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -100,27 +118,30 @@ private constructor(
          */
         fun build(): EventListPage =
             EventListPage(
-                checkRequired("service", service),
-                checkRequired("params", params),
-                checkRequired("headers", headers),
-                checkRequired("items", items),
+              checkRequired(
+                "service", service
+              ),
+              checkRequired(
+                "params", params
+              ),
+              checkRequired(
+                "headers", headers
+              ),
+              checkRequired(
+                "items", items
+              ),
             )
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is EventListPage &&
-            service == other.service &&
-            params == other.params &&
-            headers == other.headers &&
-            items == other.items
+      return other is EventListPage && service == other.service && params == other.params && headers == other.headers && items == other.items
     }
 
     override fun hashCode(): Int = Objects.hash(service, params, headers, items)
 
-    override fun toString() =
-        "EventListPage{service=$service, params=$params, headers=$headers, items=$items}"
+    override fun toString() = "EventListPage{service=$service, params=$params, headers=$headers, items=$items}"
 }

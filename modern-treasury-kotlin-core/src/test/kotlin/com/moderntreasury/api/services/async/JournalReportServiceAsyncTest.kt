@@ -6,6 +6,7 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.JournalReportListParams
+import com.moderntreasury.api.models.JournalReportRetrieveParams
 import com.moderntreasury.api.models.JournalReportUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -15,48 +16,43 @@ internal class JournalReportServiceAsyncTest {
 
     @Test
     suspend fun retrieve() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val journalReportServiceAsync = client.journalReports()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val journalReportServiceAsync = client.journalReports()
 
-        journalReportServiceAsync.retrieve("id")
+      journalReportServiceAsync.retrieve("id")
     }
 
     @Test
     suspend fun update() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val journalReportServiceAsync = client.journalReports()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val journalReportServiceAsync = client.journalReports()
 
-        journalReportServiceAsync.update(
-            JournalReportUpdateParams.builder()
-                .id("id")
-                .metadata(JsonValue.from(mapOf<String, Any>()))
-                .status("status")
-                .build()
-        )
+      journalReportServiceAsync.update(JournalReportUpdateParams.builder()
+          .id("id")
+          .metadata(JsonValue.from(mapOf<String, Any>()))
+          .status("status")
+          .build())
     }
 
     @Test
     suspend fun list() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val journalReportServiceAsync = client.journalReports()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val journalReportServiceAsync = client.journalReports()
 
-        journalReportServiceAsync.list(
-            JournalReportListParams.builder().status(JournalReportListParams.Status.DRAFT).build()
-        )
+      journalReportServiceAsync.list(JournalReportListParams.builder()
+          .status(JournalReportListParams.Status.DRAFT)
+          .build())
     }
 }

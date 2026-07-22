@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.models.ConnectionListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -12,16 +13,15 @@ internal class ConnectionServiceTest {
 
     @Test
     fun list() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val connectionService = client.connections()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val connectionService = client.connections()
 
-        val page = connectionService.list()
+      val page = connectionService.list()
 
-        page.items().forEach { it.validate() }
+      page.items().forEach { it.validate() }
     }
 }

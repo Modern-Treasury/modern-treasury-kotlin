@@ -6,8 +6,7 @@ import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 
 /**
- * A delegating wrapper around an [ExecutorService] that shuts it down once it's only phantom
- * reachable.
+ * A delegating wrapper around an [ExecutorService] that shuts it down once it's only phantom reachable.
  *
  * This class ensures the [ExecutorService] is shut down even if the user forgets to do it.
  */

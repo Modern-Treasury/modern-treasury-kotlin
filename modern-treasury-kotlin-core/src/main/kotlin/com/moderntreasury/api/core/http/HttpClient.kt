@@ -1,7 +1,7 @@
 package com.moderntreasury.api.core.http
 
-import com.moderntreasury.api.core.RequestOptions
 import java.lang.AutoCloseable
+import com.moderntreasury.api.core.RequestOptions
 
 interface HttpClient : AutoCloseable {
 

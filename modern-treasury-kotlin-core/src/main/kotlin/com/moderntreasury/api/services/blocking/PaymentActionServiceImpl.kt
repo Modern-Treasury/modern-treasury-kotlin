@@ -25,182 +25,169 @@ import com.moderntreasury.api.models.PaymentActionRetrieveParams
 import com.moderntreasury.api.models.PaymentActionRetrieveResponse
 import com.moderntreasury.api.models.PaymentActionUpdateParams
 import com.moderntreasury.api.models.PaymentActionUpdateResponse
+import com.moderntreasury.api.services.blocking.PaymentActionService
+import com.moderntreasury.api.services.blocking.PaymentActionServiceImpl
 
-class PaymentActionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    PaymentActionService {
+class PaymentActionServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: PaymentActionService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : PaymentActionService {
+
+    private val withRawResponse: PaymentActionService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): PaymentActionService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentActionService =
-        PaymentActionServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentActionService = PaymentActionServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun create(
-        params: PaymentActionCreateParams,
-        requestOptions: RequestOptions,
-    ): PaymentActionCreateResponse =
+    override fun create(params: PaymentActionCreateParams, requestOptions: RequestOptions): PaymentActionCreateResponse =
         // post /api/payment_actions
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(
-        params: PaymentActionRetrieveParams,
-        requestOptions: RequestOptions,
-    ): PaymentActionRetrieveResponse =
+    override fun retrieve(params: PaymentActionRetrieveParams, requestOptions: RequestOptions): PaymentActionRetrieveResponse =
         // get /api/payment_actions/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun update(
-        params: PaymentActionUpdateParams,
-        requestOptions: RequestOptions,
-    ): PaymentActionUpdateResponse =
+    override fun update(params: PaymentActionUpdateParams, requestOptions: RequestOptions): PaymentActionUpdateResponse =
         // patch /api/payment_actions/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: PaymentActionListParams,
-        requestOptions: RequestOptions,
-    ): PaymentActionListPage =
+    override fun list(params: PaymentActionListParams, requestOptions: RequestOptions): PaymentActionListPage =
         // get /api/payment_actions
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        PaymentActionService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : PaymentActionService.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): PaymentActionService.WithRawResponse =
-            PaymentActionServiceImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentActionService.WithRawResponse = PaymentActionServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val createHandler: Handler<PaymentActionCreateResponse> = jsonHandler<PaymentActionCreateResponse>(clientOptions.jsonMapper)
+
+        override fun create(params: PaymentActionCreateParams, requestOptions: RequestOptions): HttpResponseFor<PaymentActionCreateResponse> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "payment_actions")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
             )
-
-        private val createHandler: Handler<PaymentActionCreateResponse> =
-            jsonHandler<PaymentActionCreateResponse>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: PaymentActionCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PaymentActionCreateResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "payment_actions")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<PaymentActionRetrieveResponse> =
-            jsonHandler<PaymentActionRetrieveResponse>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<PaymentActionRetrieveResponse> = jsonHandler<PaymentActionRetrieveResponse>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: PaymentActionRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PaymentActionRetrieveResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "payment_actions", params._pathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: PaymentActionRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<PaymentActionRetrieveResponse> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "payment_actions", params._pathParam(0))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val updateHandler: Handler<PaymentActionUpdateResponse> =
-            jsonHandler<PaymentActionUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<PaymentActionUpdateResponse> = jsonHandler<PaymentActionUpdateResponse>(clientOptions.jsonMapper)
 
-        override fun update(
-            params: PaymentActionUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PaymentActionUpdateResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "payment_actions", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun update(params: PaymentActionUpdateParams, requestOptions: RequestOptions): HttpResponseFor<PaymentActionUpdateResponse> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PATCH)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "payment_actions", params._pathParam(0))
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  updateHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<PaymentActionListResponse>> =
-            jsonHandler<List<PaymentActionListResponse>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<PaymentActionListResponse>> = jsonHandler<List<PaymentActionListResponse>>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: PaymentActionListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PaymentActionListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "payment_actions")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        PaymentActionListPage.builder()
-                            .service(PaymentActionServiceImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override fun list(params: PaymentActionListParams, requestOptions: RequestOptions): HttpResponseFor<PaymentActionListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "payment_actions")
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  PaymentActionListPage.builder()
+                      .service(PaymentActionServiceImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
     }
 }

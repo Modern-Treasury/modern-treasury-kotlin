@@ -9,17 +9,18 @@ import com.moderntreasury.api.core.Params
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.DocumentListParams
 import java.util.Objects
 
 /** Get a list of documents. */
-class DocumentListParams
-private constructor(
+class DocumentListParams private constructor(
     private val afterCursor: String?,
     private val documentableId: String?,
     private val documentableType: DocumentableType?,
     private val perPage: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+
 ) : Params {
 
     fun afterCursor(): String? = afterCursor
@@ -27,11 +28,7 @@ private constructor(
     /** The unique identifier for the associated object. */
     fun documentableId(): String? = documentableId
 
-    /**
-     * The type of the associated object. Currently can be one of `payment_order`, `transaction`,
-     * `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`, `decision`,
-     * or `external_account`.
-     */
+    /** The type of the associated object. Currently can be one of `payment_order`, `transaction`, `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`, `decision`, or `external_account`. */
     fun documentableType(): DocumentableType? = documentableType
 
     fun perPage(): Long? = perPage
@@ -62,30 +59,37 @@ private constructor(
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(documentListParams: DocumentListParams) = apply {
-            afterCursor = documentListParams.afterCursor
-            documentableId = documentListParams.documentableId
-            documentableType = documentListParams.documentableType
-            perPage = documentListParams.perPage
-            additionalHeaders = documentListParams.additionalHeaders.toBuilder()
-            additionalQueryParams = documentListParams.additionalQueryParams.toBuilder()
-        }
+        internal fun from(documentListParams: DocumentListParams) =
+            apply {
+                afterCursor = documentListParams.afterCursor
+                documentableId = documentListParams.documentableId
+                documentableType = documentListParams.documentableType
+                perPage = documentListParams.perPage
+                additionalHeaders = documentListParams.additionalHeaders.toBuilder()
+                additionalQueryParams = documentListParams.additionalQueryParams.toBuilder()
+            }
 
-        fun afterCursor(afterCursor: String?) = apply { this.afterCursor = afterCursor }
+        fun afterCursor(afterCursor: String?) =
+            apply {
+                this.afterCursor = afterCursor
+            }
 
         /** The unique identifier for the associated object. */
-        fun documentableId(documentableId: String?) = apply { this.documentableId = documentableId }
+        fun documentableId(documentableId: String?) =
+            apply {
+                this.documentableId = documentableId
+            }
 
-        /**
-         * The type of the associated object. Currently can be one of `payment_order`,
-         * `transaction`, `expected_payment`, `counterparty`, `organization`, `case`,
-         * `internal_account`, `decision`, or `external_account`.
-         */
-        fun documentableType(documentableType: DocumentableType?) = apply {
-            this.documentableType = documentableType
-        }
+        /** The type of the associated object. Currently can be one of `payment_order`, `transaction`, `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`, `decision`, or `external_account`. */
+        fun documentableType(documentableType: DocumentableType?) =
+            apply {
+                this.documentableType = documentableType
+            }
 
-        fun perPage(perPage: Long?) = apply { this.perPage = perPage }
+        fun perPage(perPage: Long?) =
+            apply {
+                this.perPage = perPage
+            }
 
         /**
          * Alias for [Builder.perPage].
@@ -94,103 +98,129 @@ private constructor(
          */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun putAdditionalHeader(name: String, value: String) = apply {
-            additionalHeaders.put(name, value)
-        }
+        fun putAdditionalHeader(name: String, value: String) =
+            apply {
+                additionalHeaders.put(name, value)
+            }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.put(name, values)
-        }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.put(name, values)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun replaceAdditionalHeaders(name: String, value: String) = apply {
-            additionalHeaders.replace(name, value)
-        }
+        fun replaceAdditionalHeaders(name: String, value: String) =
+            apply {
+                additionalHeaders.replace(name, value)
+            }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.replace(name, values)
-        }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.replace(name, values)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
+        fun removeAdditionalHeaders(name: String) =
+            apply {
+                additionalHeaders.remove(name)
+            }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
-            additionalHeaders.removeAll(names)
-        }
+        fun removeAllAdditionalHeaders(names: Set<String>) =
+            apply {
+                additionalHeaders.removeAll(names)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun putAdditionalQueryParam(key: String, value: String) = apply {
-            additionalQueryParams.put(key, value)
-        }
+        fun putAdditionalQueryParam(key: String, value: String) =
+            apply {
+                additionalQueryParams.put(key, value)
+            }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.put(key, values)
-        }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.put(key, values)
+            }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.putAll(additionalQueryParams)
-        }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.putAll(additionalQueryParams)
+            }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
-            additionalQueryParams.replace(key, value)
-        }
+        fun replaceAdditionalQueryParams(key: String, value: String) =
+            apply {
+                additionalQueryParams.replace(key, value)
+            }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.replace(key, values)
-        }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.replace(key, values)
+            }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.replaceAll(additionalQueryParams)
-        }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
+        fun removeAdditionalQueryParams(key: String) =
+            apply {
+                additionalQueryParams.remove(key)
+            }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
-            additionalQueryParams.removeAll(keys)
-        }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) =
+            apply {
+                additionalQueryParams.removeAll(keys)
+            }
 
         /**
          * Returns an immutable instance of [DocumentListParams].
@@ -199,12 +229,12 @@ private constructor(
          */
         fun build(): DocumentListParams =
             DocumentListParams(
-                afterCursor,
-                documentableId,
-                documentableType,
-                perPage,
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
+              afterCursor,
+              documentableId,
+              documentableType,
+              perPage,
+              additionalHeaders.build(),
+              additionalQueryParams.build(),
             )
     }
 
@@ -221,173 +251,168 @@ private constructor(
             }
             .build()
 
-    /**
-     * The type of the associated object. Currently can be one of `payment_order`, `transaction`,
-     * `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`, `decision`,
-     * or `external_account`.
-     */
-    class DocumentableType @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
+    /** The type of the associated object. Currently can be one of `payment_order`, `transaction`, `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`, `decision`, or `external_account`. */
+    class DocumentableType @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
-            val CONNECTIONS = of("connections")
+            val CONNECTION = of("connection")
 
-            val COUNTERPARTIES = of("counterparties")
+            val COUNTERPARTY = of("counterparty")
 
-            val EXPECTED_PAYMENTS = of("expected_payments")
+            val EXPECTED_PAYMENT = of("expected_payment")
 
-            val EXTERNAL_ACCOUNTS = of("external_accounts")
+            val EXTERNAL_ACCOUNT = of("external_account")
 
-            val IDENTIFICATIONS = of("identifications")
+            val IDENTIFICATION = of("identification")
 
-            val INCOMING_PAYMENT_DETAILS = of("incoming_payment_details")
+            val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
 
-            val INTERNAL_ACCOUNTS = of("internal_accounts")
+            val INTERNAL_ACCOUNT = of("internal_account")
 
-            val LEGAL_ENTITIES = of("legal_entities")
+            val LEGAL_ENTITY = of("legal_entity")
 
-            val ORGANIZATIONS = of("organizations")
+            val ORGANIZATION = of("organization")
 
-            val PAYMENT_ORDERS = of("payment_orders")
+            val PAYMENT_ORDER = of("payment_order")
 
-            val TRANSACTIONS = of("transactions")
+            val TRANSACTION = of("transaction")
 
             fun of(value: String) = DocumentableType(JsonField.of(value))
         }
 
         /** An enum containing [DocumentableType]'s known values. */
         enum class Known {
-            CONNECTIONS,
-            COUNTERPARTIES,
-            EXPECTED_PAYMENTS,
-            EXTERNAL_ACCOUNTS,
-            IDENTIFICATIONS,
-            INCOMING_PAYMENT_DETAILS,
-            INTERNAL_ACCOUNTS,
-            LEGAL_ENTITIES,
-            ORGANIZATIONS,
-            PAYMENT_ORDERS,
-            TRANSACTIONS,
+            CONNECTION,
+            COUNTERPARTY,
+            EXPECTED_PAYMENT,
+            EXTERNAL_ACCOUNT,
+            IDENTIFICATION,
+            INCOMING_PAYMENT_DETAIL,
+            INTERNAL_ACCOUNT,
+            LEGAL_ENTITY,
+            ORGANIZATION,
+            PAYMENT_ORDER,
+            TRANSACTION,
         }
 
         /**
          * An enum containing [DocumentableType]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [DocumentableType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            CONNECTIONS,
-            COUNTERPARTIES,
-            EXPECTED_PAYMENTS,
-            EXTERNAL_ACCOUNTS,
-            IDENTIFICATIONS,
-            INCOMING_PAYMENT_DETAILS,
-            INTERNAL_ACCOUNTS,
-            LEGAL_ENTITIES,
-            ORGANIZATIONS,
-            PAYMENT_ORDERS,
-            TRANSACTIONS,
-            /**
-             * An enum member indicating that [DocumentableType] was instantiated with an unknown
-             * value.
-             */
+            CONNECTION,
+            COUNTERPARTY,
+            EXPECTED_PAYMENT,
+            EXTERNAL_ACCOUNT,
+            IDENTIFICATION,
+            INCOMING_PAYMENT_DETAIL,
+            INTERNAL_ACCOUNT,
+            LEGAL_ENTITY,
+            ORGANIZATION,
+            PAYMENT_ORDER,
+            TRANSACTION,
+            /** An enum member indicating that [DocumentableType] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
-                CONNECTIONS -> Value.CONNECTIONS
-                COUNTERPARTIES -> Value.COUNTERPARTIES
-                EXPECTED_PAYMENTS -> Value.EXPECTED_PAYMENTS
-                EXTERNAL_ACCOUNTS -> Value.EXTERNAL_ACCOUNTS
-                IDENTIFICATIONS -> Value.IDENTIFICATIONS
-                INCOMING_PAYMENT_DETAILS -> Value.INCOMING_PAYMENT_DETAILS
-                INTERNAL_ACCOUNTS -> Value.INTERNAL_ACCOUNTS
-                LEGAL_ENTITIES -> Value.LEGAL_ENTITIES
-                ORGANIZATIONS -> Value.ORGANIZATIONS
-                PAYMENT_ORDERS -> Value.PAYMENT_ORDERS
-                TRANSACTIONS -> Value.TRANSACTIONS
+                CONNECTION -> Value.CONNECTION
+                COUNTERPARTY -> Value.COUNTERPARTY
+                EXPECTED_PAYMENT -> Value.EXPECTED_PAYMENT
+                EXTERNAL_ACCOUNT -> Value.EXTERNAL_ACCOUNT
+                IDENTIFICATION -> Value.IDENTIFICATION
+                INCOMING_PAYMENT_DETAIL -> Value.INCOMING_PAYMENT_DETAIL
+                INTERNAL_ACCOUNT -> Value.INTERNAL_ACCOUNT
+                LEGAL_ENTITY -> Value.LEGAL_ENTITY
+                ORGANIZATION -> Value.ORGANIZATION
+                PAYMENT_ORDER -> Value.PAYMENT_ORDER
+                TRANSACTION -> Value.TRANSACTION
                 else -> Value._UNKNOWN
             }
 
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
-                CONNECTIONS -> Known.CONNECTIONS
-                COUNTERPARTIES -> Known.COUNTERPARTIES
-                EXPECTED_PAYMENTS -> Known.EXPECTED_PAYMENTS
-                EXTERNAL_ACCOUNTS -> Known.EXTERNAL_ACCOUNTS
-                IDENTIFICATIONS -> Known.IDENTIFICATIONS
-                INCOMING_PAYMENT_DETAILS -> Known.INCOMING_PAYMENT_DETAILS
-                INTERNAL_ACCOUNTS -> Known.INTERNAL_ACCOUNTS
-                LEGAL_ENTITIES -> Known.LEGAL_ENTITIES
-                ORGANIZATIONS -> Known.ORGANIZATIONS
-                PAYMENT_ORDERS -> Known.PAYMENT_ORDERS
-                TRANSACTIONS -> Known.TRANSACTIONS
+                CONNECTION -> Known.CONNECTION
+                COUNTERPARTY -> Known.COUNTERPARTY
+                EXPECTED_PAYMENT -> Known.EXPECTED_PAYMENT
+                EXTERNAL_ACCOUNT -> Known.EXTERNAL_ACCOUNT
+                IDENTIFICATION -> Known.IDENTIFICATION
+                INCOMING_PAYMENT_DETAIL -> Known.INCOMING_PAYMENT_DETAIL
+                INTERNAL_ACCOUNT -> Known.INTERNAL_ACCOUNT
+                LEGAL_ENTITY -> Known.LEGAL_ENTITY
+                ORGANIZATION -> Known.ORGANIZATION
+                PAYMENT_ORDER -> Known.PAYMENT_ORDER
+                TRANSACTION -> Known.TRANSACTION
                 else -> throw ModernTreasuryInvalidDataException("Unknown DocumentableType: $value")
             }
 
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): DocumentableType = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): DocumentableType =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -398,19 +423,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is DocumentableType && value == other.value
+          return other is DocumentableType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -419,29 +443,14 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is DocumentListParams &&
-            afterCursor == other.afterCursor &&
-            documentableId == other.documentableId &&
-            documentableType == other.documentableType &&
-            perPage == other.perPage &&
-            additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams
+      return other is DocumentListParams && afterCursor == other.afterCursor && documentableId == other.documentableId && documentableType == other.documentableType && perPage == other.perPage && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int =
-        Objects.hash(
-            afterCursor,
-            documentableId,
-            documentableType,
-            perPage,
-            additionalHeaders,
-            additionalQueryParams,
-        )
+    override fun hashCode(): Int = Objects.hash(afterCursor, documentableId, documentableType, perPage, additionalHeaders, additionalQueryParams)
 
-    override fun toString() =
-        "DocumentListParams{afterCursor=$afterCursor, documentableId=$documentableId, documentableType=$documentableType, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() = "DocumentListParams{afterCursor=$afterCursor, documentableId=$documentableId, documentableType=$documentableType, perPage=$perPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

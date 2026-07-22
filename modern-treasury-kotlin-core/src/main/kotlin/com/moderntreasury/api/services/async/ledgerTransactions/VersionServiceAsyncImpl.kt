@@ -15,74 +15,70 @@ import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepareAsync
 import com.moderntreasury.api.models.LedgerTransactionVersion
+import com.moderntreasury.api.models.LedgerTransactionVersionListPage
 import com.moderntreasury.api.models.LedgerTransactionVersionListPageAsync
 import com.moderntreasury.api.models.LedgerTransactionVersionListParams
+import com.moderntreasury.api.services.async.ledgerTransactions.VersionServiceAsync
+import com.moderntreasury.api.services.async.ledgerTransactions.VersionServiceAsyncImpl
 
-class VersionServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
-    VersionServiceAsync {
+class VersionServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: VersionServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : VersionServiceAsync {
+
+    private val withRawResponse: VersionServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): VersionServiceAsync.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): VersionServiceAsync =
-        VersionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): VersionServiceAsync = VersionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override suspend fun list(
-        params: LedgerTransactionVersionListParams,
-        requestOptions: RequestOptions,
-    ): LedgerTransactionVersionListPageAsync =
+    override suspend fun list(params: LedgerTransactionVersionListParams, requestOptions: RequestOptions): LedgerTransactionVersionListPageAsync =
         // get /api/ledger_transaction_versions
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        VersionServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : VersionServiceAsync.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): VersionServiceAsync.WithRawResponse =
-            VersionServiceAsyncImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): VersionServiceAsync.WithRawResponse = VersionServiceAsyncImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val listHandler: Handler<List<LedgerTransactionVersion>> = jsonHandler<List<LedgerTransactionVersion>>(clientOptions.jsonMapper)
+
+        override suspend fun list(params: LedgerTransactionVersionListParams, requestOptions: RequestOptions): HttpResponseFor<LedgerTransactionVersionListPageAsync> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_transaction_versions")
+            .build()
+            .prepareAsync(
+              clientOptions, params
             )
-
-        private val listHandler: Handler<List<LedgerTransactionVersion>> =
-            jsonHandler<List<LedgerTransactionVersion>>(clientOptions.jsonMapper)
-
-        override suspend fun list(
-            params: LedgerTransactionVersionListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerTransactionVersionListPageAsync> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_transaction_versions")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        LedgerTransactionVersionListPageAsync.builder()
-                            .service(VersionServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  LedgerTransactionVersionListPageAsync.builder()
+                      .service(VersionServiceAsyncImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
     }
 }

@@ -7,17 +7,15 @@ import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.jsonMapper
 
-class UnexpectedStatusCodeException
-private constructor(
+class UnexpectedStatusCodeException private constructor(
     private val statusCode: Int,
     private val headers: Headers,
     private val body: JsonValue,
     cause: Throwable?,
-) :
-    ModernTreasuryServiceException(
-        "$statusCode: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
-        cause,
-    ) {
+
+) : ModernTreasuryServiceException(
+  "$statusCode: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}", cause
+) {
 
     override fun statusCode(): Int = statusCode
 
@@ -30,10 +28,10 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [UnexpectedStatusCodeException].
+         * Returns a mutable builder for constructing an instance of [UnexpectedStatusCodeException].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .statusCode()
          * .headers()
@@ -51,20 +49,33 @@ private constructor(
         private var body: JsonValue? = null
         private var cause: Throwable? = null
 
-        internal fun from(unexpectedStatusCodeException: UnexpectedStatusCodeException) = apply {
-            statusCode = unexpectedStatusCodeException.statusCode
-            headers = unexpectedStatusCodeException.headers
-            body = unexpectedStatusCodeException.body
-            cause = unexpectedStatusCodeException.cause
-        }
+        internal fun from(unexpectedStatusCodeException: UnexpectedStatusCodeException) =
+            apply {
+                statusCode = unexpectedStatusCodeException.statusCode
+                headers = unexpectedStatusCodeException.headers
+                body = unexpectedStatusCodeException.body
+                cause = unexpectedStatusCodeException.cause
+            }
 
-        fun statusCode(statusCode: Int) = apply { this.statusCode = statusCode }
+        fun statusCode(statusCode: Int) =
+            apply {
+                this.statusCode = statusCode
+            }
 
-        fun headers(headers: Headers) = apply { this.headers = headers }
+        fun headers(headers: Headers) =
+            apply {
+                this.headers = headers
+            }
 
-        fun body(body: JsonValue) = apply { this.body = body }
+        fun body(body: JsonValue) =
+            apply {
+                this.body = body
+            }
 
-        fun cause(cause: Throwable?) = apply { this.cause = cause }
+        fun cause(cause: Throwable?) =
+            apply {
+                this.cause = cause
+            }
 
         /**
          * Returns an immutable instance of [UnexpectedStatusCodeException].
@@ -72,6 +83,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .statusCode()
          * .headers()
@@ -82,10 +94,16 @@ private constructor(
          */
         fun build(): UnexpectedStatusCodeException =
             UnexpectedStatusCodeException(
-                checkRequired("statusCode", statusCode),
-                checkRequired("headers", headers),
-                checkRequired("body", body),
-                cause,
+              checkRequired(
+                "statusCode", statusCode
+              ),
+              checkRequired(
+                "headers", headers
+              ),
+              checkRequired(
+                "body", body
+              ),
+              cause,
             )
     }
 }

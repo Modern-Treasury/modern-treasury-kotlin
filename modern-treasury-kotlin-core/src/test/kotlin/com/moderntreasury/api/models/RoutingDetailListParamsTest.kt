@@ -3,6 +3,8 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.models.AccountsType
+import com.moderntreasury.api.models.RoutingDetailListParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -10,59 +12,53 @@ internal class RoutingDetailListParamsTest {
 
     @Test
     fun create() {
-        RoutingDetailListParams.builder()
-            .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
-            .accountId("account_id")
-            .afterCursor("after_cursor")
-            .perPage(0L)
-            .build()
+      RoutingDetailListParams.builder()
+          .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
+          .accountId("account_id")
+          .afterCursor("after_cursor")
+          .perPage(0L)
+          .build()
     }
 
     @Test
     fun pathParams() {
-        val params =
-            RoutingDetailListParams.builder()
-                .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("account_id")
-                .build()
+      val params = RoutingDetailListParams.builder()
+          .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
+          .accountId("account_id")
+          .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("external_accounts")
-        assertThat(params._pathParam(1)).isEqualTo("account_id")
-        // out-of-bound path param
-        assertThat(params._pathParam(2)).isEqualTo("")
+      assertThat(params._pathParam(0)).isEqualTo("external_accounts")
+      assertThat(params._pathParam(1)).isEqualTo("account_id")
+      // out-of-bound path param
+      assertThat(params._pathParam(2)).isEqualTo("")
     }
 
     @Test
     fun queryParams() {
-        val params =
-            RoutingDetailListParams.builder()
-                .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("account_id")
-                .afterCursor("after_cursor")
-                .perPage(0L)
-                .build()
+      val params = RoutingDetailListParams.builder()
+          .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
+          .accountId("account_id")
+          .afterCursor("after_cursor")
+          .perPage(0L)
+          .build()
 
-        val queryParams = params._queryParams()
+      val queryParams = params._queryParams()
 
-        assertThat(queryParams)
-            .isEqualTo(
-                QueryParams.builder()
-                    .put("after_cursor", "after_cursor")
-                    .put("per_page", "0")
-                    .build()
-            )
+      assertThat(queryParams).isEqualTo(QueryParams.builder()
+          .put("after_cursor", "after_cursor")
+          .put("per_page", "0")
+          .build())
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params =
-            RoutingDetailListParams.builder()
-                .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
-                .accountId("account_id")
-                .build()
+      val params = RoutingDetailListParams.builder()
+          .accountsType(AccountsType.EXTERNAL_ACCOUNTS)
+          .accountId("account_id")
+          .build()
 
-        val queryParams = params._queryParams()
+      val queryParams = params._queryParams()
 
-        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
+      assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

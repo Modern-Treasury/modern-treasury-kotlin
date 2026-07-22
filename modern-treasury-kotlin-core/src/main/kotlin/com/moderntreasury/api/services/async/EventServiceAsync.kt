@@ -10,12 +10,11 @@ import com.moderntreasury.api.models.Event
 import com.moderntreasury.api.models.EventListPageAsync
 import com.moderntreasury.api.models.EventListParams
 import com.moderntreasury.api.models.EventRetrieveParams
+import com.moderntreasury.api.services.async.EventServiceAsync
 
 interface EventServiceAsync {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -26,31 +25,32 @@ interface EventServiceAsync {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EventServiceAsync
 
     /** get event */
-    suspend fun retrieve(
-        id: String,
-        params: EventRetrieveParams = EventRetrieveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Event = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun retrieve(id: String, params: EventRetrieveParams = EventRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): Event =
+        retrieve(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see retrieve */
-    suspend fun retrieve(
-        params: EventRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Event
+    suspend fun retrieve(params: EventRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): Event
 
     /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): Event =
-        retrieve(id, EventRetrieveParams.none(), requestOptions)
+        retrieve(
+          id,
+          EventRetrieveParams.none(),
+          requestOptions,
+        )
 
     /** list events */
-    suspend fun list(
-        params: EventListParams = EventListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventListPageAsync
+    suspend fun list(params: EventListParams = EventListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): EventListPageAsync
 
     /** @see list */
     suspend fun list(requestOptions: RequestOptions): EventListPageAsync =
-        list(EventListParams.none(), requestOptions)
+        list(
+          EventListParams.none(), requestOptions
+        )
 
     /** A view of [EventServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -60,46 +60,39 @@ interface EventServiceAsync {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): EventServiceAsync.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EventServiceAsync.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `get /api/events/{id}`, but is otherwise the same as
-         * [EventServiceAsync.retrieve].
-         */
+        /** Returns a raw HTTP response for `get /api/events/{id}`, but is otherwise the             same as [EventServiceAsync.retrieve]. */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            params: EventRetrieveParams = EventRetrieveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Event> = retrieve(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun retrieve(id: String, params: EventRetrieveParams = EventRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Event> =
+            retrieve(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            params: EventRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Event>
+        suspend fun retrieve(params: EventRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Event>
 
         /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<Event> =
-            retrieve(id, EventRetrieveParams.none(), requestOptions)
+            retrieve(
+              id,
+              EventRetrieveParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `get /api/events`, but is otherwise the same as
-         * [EventServiceAsync.list].
-         */
+        /** Returns a raw HTTP response for `get /api/events`, but is otherwise the             same as [EventServiceAsync.list]. */
         @MustBeClosed
-        suspend fun list(
-            params: EventListParams = EventListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventListPageAsync>
+        suspend fun list(params: EventListParams = EventListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<EventListPageAsync>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<EventListPageAsync> =
-            list(EventListParams.none(), requestOptions)
+            list(
+              EventListParams.none(), requestOptions
+            )
     }
 }

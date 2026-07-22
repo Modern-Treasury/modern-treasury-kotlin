@@ -6,6 +6,9 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerCreateParams
+import com.moderntreasury.api.models.LedgerDeleteParams
+import com.moderntreasury.api.models.LedgerListParams
+import com.moderntreasury.api.models.LedgerRetrieveParams
 import com.moderntreasury.api.models.LedgerUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -15,103 +18,88 @@ internal class LedgerServiceTest {
 
     @Test
     fun create() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val ledgerService = client.ledgers()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val ledgerService = client.ledgers()
 
-        val ledger =
-            ledgerService.create(
-                LedgerCreateParams.builder()
-                    .name("name")
-                    .description("description")
-                    .metadata(
-                        LedgerCreateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                            .build()
-                    )
-                    .build()
-            )
+      val ledger = ledgerService.create(LedgerCreateParams.builder()
+          .name("name")
+          .description("description")
+          .metadata(LedgerCreateParams.Metadata.builder()
+              .putAdditionalProperty("key", JsonValue.from("value"))
+              .putAdditionalProperty("foo", JsonValue.from("bar"))
+              .putAdditionalProperty("modern", JsonValue.from("treasury"))
+              .build())
+          .build())
 
-        ledger.validate()
+      ledger.validate()
     }
 
     @Test
     fun retrieve() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val ledgerService = client.ledgers()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val ledgerService = client.ledgers()
 
-        val ledger = ledgerService.retrieve("id")
+      val ledger = ledgerService.retrieve("id")
 
-        ledger.validate()
+      ledger.validate()
     }
 
     @Test
     fun update() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val ledgerService = client.ledgers()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val ledgerService = client.ledgers()
 
-        val ledger =
-            ledgerService.update(
-                LedgerUpdateParams.builder()
-                    .id("id")
-                    .description("description")
-                    .metadata(
-                        LedgerUpdateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                            .build()
-                    )
-                    .name("name")
-                    .build()
-            )
+      val ledger = ledgerService.update(LedgerUpdateParams.builder()
+          .id("id")
+          .description("description")
+          .metadata(LedgerUpdateParams.Metadata.builder()
+              .putAdditionalProperty("key", JsonValue.from("value"))
+              .putAdditionalProperty("foo", JsonValue.from("bar"))
+              .putAdditionalProperty("modern", JsonValue.from("treasury"))
+              .build())
+          .name("name")
+          .build())
 
-        ledger.validate()
+      ledger.validate()
     }
 
     @Test
     fun list() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val ledgerService = client.ledgers()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val ledgerService = client.ledgers()
 
-        val page = ledgerService.list()
+      val page = ledgerService.list()
 
-        page.items().forEach { it.validate() }
+      page.items().forEach { it.validate() }
     }
 
     @Test
     fun delete() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val ledgerService = client.ledgers()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val ledgerService = client.ledgers()
 
-        val ledger = ledgerService.delete("id")
+      val ledger = ledgerService.delete("id")
 
-        ledger.validate()
+      ledger.validate()
     }
 }

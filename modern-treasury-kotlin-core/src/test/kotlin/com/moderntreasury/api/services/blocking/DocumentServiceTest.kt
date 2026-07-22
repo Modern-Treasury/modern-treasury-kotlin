@@ -5,6 +5,9 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.DocumentCreateParams
+import com.moderntreasury.api.models.DocumentListParams
+import com.moderntreasury.api.models.DocumentRetrieveParams
+import java.io.ByteArrayInputStream
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -15,54 +18,48 @@ internal class DocumentServiceTest {
     @Disabled("multipart/form-data not yet supported")
     @Test
     fun create() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val documentService = client.documents()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val documentService = client.documents()
 
-        val document =
-            documentService.create(
-                DocumentCreateParams.builder()
-                    .file("Example data".byteInputStream())
-                    .documentType("document_type")
-                    .documentableId("documentable_id")
-                    .documentableType(DocumentCreateParams.DocumentableType.CONNECTIONS)
-                    .build()
-            )
+      val document = documentService.create(DocumentCreateParams.builder()
+          .file("Example data".byteInputStream())
+          .documentType("document_type")
+          .documentableId("documentable_id")
+          .documentableType(DocumentCreateParams.DocumentableType.CONNECTION)
+          .build())
 
-        document.validate()
+      document.validate()
     }
 
     @Test
     fun retrieve() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val documentService = client.documents()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val documentService = client.documents()
 
-        val document = documentService.retrieve("id")
+      val document = documentService.retrieve("id")
 
-        document.validate()
+      document.validate()
     }
 
     @Test
     fun list() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val documentService = client.documents()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val documentService = client.documents()
 
-        val page = documentService.list()
+      val page = documentService.list()
 
-        page.items().forEach { it.validate() }
+      page.items().forEach { it.validate() }
     }
 }

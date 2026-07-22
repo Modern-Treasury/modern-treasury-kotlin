@@ -4,10 +4,15 @@ package com.moderntreasury.api.errors
 
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.errors.ModernTreasuryException
 
-abstract class ModernTreasuryServiceException
-protected constructor(message: String, cause: Throwable? = null) :
-    ModernTreasuryException(message, cause) {
+abstract class ModernTreasuryServiceException protected constructor(
+    message: String,
+    cause: Throwable? = null,
+
+) : ModernTreasuryException(
+  message, cause
+) {
 
     abstract fun statusCode(): Int
 

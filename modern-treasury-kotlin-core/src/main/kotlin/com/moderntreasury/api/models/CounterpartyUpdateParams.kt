@@ -15,16 +15,17 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.CounterpartyUpdateParams
 import java.util.Collections
 import java.util.Objects
 
 /** Updates a given counterparty with new information. */
-class CounterpartyUpdateParams
-private constructor(
+class CounterpartyUpdateParams private constructor(
     private val id: String?,
     private val body: CounterpartyUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+
 ) : Params {
 
     fun id(): String? = id
@@ -32,58 +33,49 @@ private constructor(
     /**
      * A new email for the counterparty.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun email(): String? = body.email()
 
     /**
      * An optional user-defined 180 character unique identifier.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun externalId(): String? = body.externalId()
 
     /**
      * The id of the legal entity.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun legalEntityId(): String? = body.legalEntityId()
 
     /**
-     * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
-     * string or `null` as the value.
+     * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty string or `null` as the value.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun metadata(): Metadata? = body.metadata()
 
     /**
      * A new name for the counterparty. Will only update if passed.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun name(): String? = body.name()
 
     /**
-     * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
-     * associated payment order is sent to the bank.
+     * If this is `true`, Modern Treasury will send an email to the counterparty whenever an associated payment order is sent to the bank.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun sendRemittanceAdvice(): Boolean? = body.sendRemittanceAdvice()
 
     /**
      * Either a valid SSN or EIN.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun taxpayerIdentifier(): String? = body.taxpayerIdentifier()
 
@@ -125,16 +117,14 @@ private constructor(
     /**
      * Returns the raw JSON value of [sendRemittanceAdvice].
      *
-     * Unlike [sendRemittanceAdvice], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [sendRemittanceAdvice], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _sendRemittanceAdvice(): JsonField<Boolean> = body._sendRemittanceAdvice()
 
     /**
      * Returns the raw JSON value of [taxpayerIdentifier].
      *
-     * Unlike [taxpayerIdentifier], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [taxpayerIdentifier], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _taxpayerIdentifier(): JsonField<String> = body._taxpayerIdentifier()
 
@@ -164,20 +154,24 @@ private constructor(
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(counterpartyUpdateParams: CounterpartyUpdateParams) = apply {
-            id = counterpartyUpdateParams.id
-            body = counterpartyUpdateParams.body.toBuilder()
-            additionalHeaders = counterpartyUpdateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = counterpartyUpdateParams.additionalQueryParams.toBuilder()
-        }
+        internal fun from(counterpartyUpdateParams: CounterpartyUpdateParams) =
+            apply {
+                id = counterpartyUpdateParams.id
+                body = counterpartyUpdateParams.body.toBuilder()
+                additionalHeaders = counterpartyUpdateParams.additionalHeaders.toBuilder()
+                additionalQueryParams = counterpartyUpdateParams.additionalQueryParams.toBuilder()
+            }
 
-        fun id(id: String?) = apply { this.id = id }
+        fun id(id: String?) =
+            apply {
+                this.id = id
+            }
 
         /**
          * Sets the entire request body.
          *
-         * This is generally only useful if you are already constructing the body separately.
-         * Otherwise, it's more convenient to use the top-level setters instead:
+         * This is generally only useful if you are already constructing the body separately. Otherwise,
+         * it's more convenient to use the top-level setters instead:
          * - [email]
          * - [externalId]
          * - [legalEntityId]
@@ -185,222 +179,280 @@ private constructor(
          * - [name]
          * - etc.
          */
-        fun body(body: CounterpartyUpdateRequest) = apply { this.body = body.toBuilder() }
+        fun body(body: CounterpartyUpdateRequest) =
+            apply {
+                this.body = body.toBuilder()
+            }
 
         /** A new email for the counterparty. */
-        fun email(email: String) = apply { body.email(email) }
+        fun email(email: String) =
+            apply {
+                body.email(email)
+            }
 
         /**
          * Sets [Builder.email] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.email] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.email] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun email(email: JsonField<String>) = apply { body.email(email) }
+        fun email(email: JsonField<String>) =
+            apply {
+                body.email(email)
+            }
 
         /** An optional user-defined 180 character unique identifier. */
-        fun externalId(externalId: String?) = apply { body.externalId(externalId) }
+        fun externalId(externalId: String?) =
+            apply {
+                body.externalId(externalId)
+            }
 
         /**
          * Sets [Builder.externalId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun externalId(externalId: JsonField<String>) = apply { body.externalId(externalId) }
+        fun externalId(externalId: JsonField<String>) =
+            apply {
+                body.externalId(externalId)
+            }
 
         /** The id of the legal entity. */
-        fun legalEntityId(legalEntityId: String?) = apply { body.legalEntityId(legalEntityId) }
+        fun legalEntityId(legalEntityId: String?) =
+            apply {
+                body.legalEntityId(legalEntityId)
+            }
 
         /**
          * Sets [Builder.legalEntityId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.legalEntityId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.legalEntityId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun legalEntityId(legalEntityId: JsonField<String>) = apply {
-            body.legalEntityId(legalEntityId)
-        }
+        fun legalEntityId(legalEntityId: JsonField<String>) =
+            apply {
+                body.legalEntityId(legalEntityId)
+            }
 
-        /**
-         * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
-         * string or `null` as the value.
-         */
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+        /** Additional data in the form of key-value pairs. Pairs can be removed by passing an empty string or `null` as the value. */
+        fun metadata(metadata: Metadata) =
+            apply {
+                body.metadata(metadata)
+            }
 
         /**
          * Sets [Builder.metadata] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
+        fun metadata(metadata: JsonField<Metadata>) =
+            apply {
+                body.metadata(metadata)
+            }
 
         /** A new name for the counterparty. Will only update if passed. */
-        fun name(name: String) = apply { body.name(name) }
+        fun name(name: String) =
+            apply {
+                body.name(name)
+            }
 
         /**
          * Sets [Builder.name] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.name] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun name(name: JsonField<String>) = apply { body.name(name) }
+        fun name(name: JsonField<String>) =
+            apply {
+                body.name(name)
+            }
 
-        /**
-         * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
-         * associated payment order is sent to the bank.
-         */
-        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) = apply {
-            body.sendRemittanceAdvice(sendRemittanceAdvice)
-        }
+        /** If this is `true`, Modern Treasury will send an email to the counterparty whenever an associated payment order is sent to the bank. */
+        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) =
+            apply {
+                body.sendRemittanceAdvice(sendRemittanceAdvice)
+            }
 
         /**
          * Sets [Builder.sendRemittanceAdvice] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) = apply {
-            body.sendRemittanceAdvice(sendRemittanceAdvice)
-        }
+        fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) =
+            apply {
+                body.sendRemittanceAdvice(sendRemittanceAdvice)
+            }
 
         /** Either a valid SSN or EIN. */
-        fun taxpayerIdentifier(taxpayerIdentifier: String) = apply {
-            body.taxpayerIdentifier(taxpayerIdentifier)
-        }
+        fun taxpayerIdentifier(taxpayerIdentifier: String) =
+            apply {
+                body.taxpayerIdentifier(taxpayerIdentifier)
+            }
 
         /**
          * Sets [Builder.taxpayerIdentifier] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.taxpayerIdentifier] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.taxpayerIdentifier] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun taxpayerIdentifier(taxpayerIdentifier: JsonField<String>) = apply {
-            body.taxpayerIdentifier(taxpayerIdentifier)
-        }
+        fun taxpayerIdentifier(taxpayerIdentifier: JsonField<String>) =
+            apply {
+                body.taxpayerIdentifier(taxpayerIdentifier)
+            }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.additionalProperties(additionalBodyProperties)
+            }
 
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) =
+            apply {
+                body.putAdditionalProperty(
+                  key, value
+                )
+            }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
                 body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+        fun removeAdditionalBodyProperty(key: String) =
+            apply {
+                body.removeAdditionalProperty(key)
+            }
 
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) =
+            apply {
+                body.removeAllAdditionalProperties(keys)
+            }
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun putAdditionalHeader(name: String, value: String) = apply {
-            additionalHeaders.put(name, value)
-        }
+        fun putAdditionalHeader(name: String, value: String) =
+            apply {
+                additionalHeaders.put(name, value)
+            }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.put(name, values)
-        }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.put(name, values)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun replaceAdditionalHeaders(name: String, value: String) = apply {
-            additionalHeaders.replace(name, value)
-        }
+        fun replaceAdditionalHeaders(name: String, value: String) =
+            apply {
+                additionalHeaders.replace(name, value)
+            }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.replace(name, values)
-        }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.replace(name, values)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
+        fun removeAdditionalHeaders(name: String) =
+            apply {
+                additionalHeaders.remove(name)
+            }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
-            additionalHeaders.removeAll(names)
-        }
+        fun removeAllAdditionalHeaders(names: Set<String>) =
+            apply {
+                additionalHeaders.removeAll(names)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun putAdditionalQueryParam(key: String, value: String) = apply {
-            additionalQueryParams.put(key, value)
-        }
+        fun putAdditionalQueryParam(key: String, value: String) =
+            apply {
+                additionalQueryParams.put(key, value)
+            }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.put(key, values)
-        }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.put(key, values)
+            }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.putAll(additionalQueryParams)
-        }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.putAll(additionalQueryParams)
+            }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
-            additionalQueryParams.replace(key, value)
-        }
+        fun replaceAdditionalQueryParams(key: String, value: String) =
+            apply {
+                additionalQueryParams.replace(key, value)
+            }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.replace(key, values)
-        }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.replace(key, values)
+            }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.replaceAll(additionalQueryParams)
-        }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
+        fun removeAdditionalQueryParams(key: String) =
+            apply {
+                additionalQueryParams.remove(key)
+            }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
-            additionalQueryParams.removeAll(keys)
-        }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) =
+            apply {
+                additionalQueryParams.removeAll(keys)
+            }
 
         /**
          * Returns an immutable instance of [CounterpartyUpdateParams].
@@ -409,10 +461,10 @@ private constructor(
          */
         fun build(): CounterpartyUpdateParams =
             CounterpartyUpdateParams(
-                id,
-                body.build(),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
+              id,
+              body.build(),
+              additionalHeaders.build(),
+              additionalQueryParams.build(),
             )
     }
 
@@ -428,9 +480,7 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    class CounterpartyUpdateRequest
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
+    class CounterpartyUpdateRequest @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
         private val email: JsonField<String>,
         private val externalId: JsonField<String>,
         private val legalEntityId: JsonField<String>,
@@ -439,94 +489,75 @@ private constructor(
         private val sendRemittanceAdvice: JsonField<Boolean>,
         private val taxpayerIdentifier: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
+
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("external_id")
-            @ExcludeMissing
-            externalId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("legal_entity_id")
-            @ExcludeMissing
-            legalEntityId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("metadata")
-            @ExcludeMissing
-            metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("external_id") @ExcludeMissing externalId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("legal_entity_id") @ExcludeMissing legalEntityId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("send_remittance_advice")
-            @ExcludeMissing
-            sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("taxpayer_identifier")
-            @ExcludeMissing
-            taxpayerIdentifier: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("send_remittance_advice") @ExcludeMissing sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("taxpayer_identifier") @ExcludeMissing taxpayerIdentifier: JsonField<String> = JsonMissing.of()
         ) : this(
-            email,
-            externalId,
-            legalEntityId,
-            metadata,
-            name,
-            sendRemittanceAdvice,
-            taxpayerIdentifier,
-            mutableMapOf(),
+          email,
+          externalId,
+          legalEntityId,
+          metadata,
+          name,
+          sendRemittanceAdvice,
+          taxpayerIdentifier,
+          mutableMapOf(),
         )
 
         /**
          * A new email for the counterparty.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun email(): String? = email.getNullable("email")
 
         /**
          * An optional user-defined 180 character unique identifier.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun externalId(): String? = externalId.getNullable("external_id")
 
         /**
          * The id of the legal entity.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun legalEntityId(): String? = legalEntityId.getNullable("legal_entity_id")
 
         /**
-         * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
-         * string or `null` as the value.
+         * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty string or `null` as the value.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /**
          * A new name for the counterparty. Will only update if passed.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun name(): String? = name.getNullable("name")
 
         /**
-         * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
-         * associated payment order is sent to the bank.
+         * If this is `true`, Modern Treasury will send an email to the counterparty whenever an associated payment order is sent to the bank.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun sendRemittanceAdvice(): Boolean? =
-            sendRemittanceAdvice.getNullable("send_remittance_advice")
+        fun sendRemittanceAdvice(): Boolean? = sendRemittanceAdvice.getNullable("send_remittance_advice")
 
         /**
          * Either a valid SSN or EIN.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun taxpayerIdentifier(): String? = taxpayerIdentifier.getNullable("taxpayer_identifier")
 
@@ -535,7 +566,9 @@ private constructor(
          *
          * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
+        @JsonProperty("email")
+        @ExcludeMissing
+        fun _email(): JsonField<String> = email
 
         /**
          * Returns the raw JSON value of [externalId].
@@ -549,8 +582,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [legalEntityId].
          *
-         * Unlike [legalEntityId], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [legalEntityId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("legal_entity_id")
         @ExcludeMissing
@@ -561,20 +593,23 @@ private constructor(
          *
          * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        fun _metadata(): JsonField<Metadata> = metadata
 
         /**
          * Returns the raw JSON value of [name].
          *
          * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+        @JsonProperty("name")
+        @ExcludeMissing
+        fun _name(): JsonField<String> = name
 
         /**
          * Returns the raw JSON value of [sendRemittanceAdvice].
          *
-         * Unlike [sendRemittanceAdvice], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [sendRemittanceAdvice], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("send_remittance_advice")
         @ExcludeMissing
@@ -583,8 +618,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [taxpayerIdentifier].
          *
-         * Unlike [taxpayerIdentifier], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [taxpayerIdentifier], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("taxpayer_identifier")
         @ExcludeMissing
@@ -592,22 +626,18 @@ private constructor(
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
+          additionalProperties.put(key, value)
         }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
+        fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
-            /**
-             * Returns a mutable builder for constructing an instance of
-             * [CounterpartyUpdateRequest].
-             */
+            /** Returns a mutable builder for constructing an instance of [CounterpartyUpdateRequest]. */
             fun builder() = Builder()
         }
 
@@ -623,16 +653,17 @@ private constructor(
             private var taxpayerIdentifier: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(counterpartyUpdateRequest: CounterpartyUpdateRequest) = apply {
-                email = counterpartyUpdateRequest.email
-                externalId = counterpartyUpdateRequest.externalId
-                legalEntityId = counterpartyUpdateRequest.legalEntityId
-                metadata = counterpartyUpdateRequest.metadata
-                name = counterpartyUpdateRequest.name
-                sendRemittanceAdvice = counterpartyUpdateRequest.sendRemittanceAdvice
-                taxpayerIdentifier = counterpartyUpdateRequest.taxpayerIdentifier
-                additionalProperties = counterpartyUpdateRequest.additionalProperties.toMutableMap()
-            }
+            internal fun from(counterpartyUpdateRequest: CounterpartyUpdateRequest) =
+                apply {
+                    email = counterpartyUpdateRequest.email
+                    externalId = counterpartyUpdateRequest.externalId
+                    legalEntityId = counterpartyUpdateRequest.legalEntityId
+                    metadata = counterpartyUpdateRequest.metadata
+                    name = counterpartyUpdateRequest.name
+                    sendRemittanceAdvice = counterpartyUpdateRequest.sendRemittanceAdvice
+                    taxpayerIdentifier = counterpartyUpdateRequest.taxpayerIdentifier
+                    additionalProperties = counterpartyUpdateRequest.additionalProperties.toMutableMap()
+                }
 
             /** A new email for the counterparty. */
             fun email(email: String) = email(JsonField.of(email))
@@ -640,11 +671,13 @@ private constructor(
             /**
              * Sets [Builder.email] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.email] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.email] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun email(email: JsonField<String>) = apply { this.email = email }
+            fun email(email: JsonField<String>) =
+                apply {
+                    this.email = email
+                }
 
             /** An optional user-defined 180 character unique identifier. */
             fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
@@ -652,41 +685,41 @@ private constructor(
             /**
              * Sets [Builder.externalId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.externalId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.externalId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
+            fun externalId(externalId: JsonField<String>) =
+                apply {
+                    this.externalId = externalId
+                }
 
             /** The id of the legal entity. */
-            fun legalEntityId(legalEntityId: String?) =
-                legalEntityId(JsonField.ofNullable(legalEntityId))
+            fun legalEntityId(legalEntityId: String?) = legalEntityId(JsonField.ofNullable(legalEntityId))
 
             /**
              * Sets [Builder.legalEntityId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.legalEntityId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.legalEntityId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun legalEntityId(legalEntityId: JsonField<String>) = apply {
-                this.legalEntityId = legalEntityId
-            }
+            fun legalEntityId(legalEntityId: JsonField<String>) =
+                apply {
+                    this.legalEntityId = legalEntityId
+                }
 
-            /**
-             * Additional data in the form of key-value pairs. Pairs can be removed by passing an
-             * empty string or `null` as the value.
-             */
+            /** Additional data in the form of key-value pairs. Pairs can be removed by passing an empty string or `null` as the value. */
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
              * Sets [Builder.metadata] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+            fun metadata(metadata: JsonField<Metadata>) =
+                apply {
+                    this.metadata = metadata
+                }
 
             /** A new name for the counterparty. Will only update if passed. */
             fun name(name: String) = name(JsonField.of(name))
@@ -694,63 +727,67 @@ private constructor(
             /**
              * Sets [Builder.name] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.name] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun name(name: JsonField<String>) = apply { this.name = name }
+            fun name(name: JsonField<String>) =
+                apply {
+                    this.name = name
+                }
 
-            /**
-             * If this is `true`, Modern Treasury will send an email to the counterparty whenever an
-             * associated payment order is sent to the bank.
-             */
-            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) =
-                sendRemittanceAdvice(JsonField.of(sendRemittanceAdvice))
+            /** If this is `true`, Modern Treasury will send an email to the counterparty whenever an associated payment order is sent to the bank. */
+            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) = sendRemittanceAdvice(JsonField.of(sendRemittanceAdvice))
 
             /**
              * Sets [Builder.sendRemittanceAdvice] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) = apply {
-                this.sendRemittanceAdvice = sendRemittanceAdvice
-            }
+            fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) =
+                apply {
+                    this.sendRemittanceAdvice = sendRemittanceAdvice
+                }
 
             /** Either a valid SSN or EIN. */
-            fun taxpayerIdentifier(taxpayerIdentifier: String) =
-                taxpayerIdentifier(JsonField.of(taxpayerIdentifier))
+            fun taxpayerIdentifier(taxpayerIdentifier: String) = taxpayerIdentifier(JsonField.of(taxpayerIdentifier))
 
             /**
              * Sets [Builder.taxpayerIdentifier] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.taxpayerIdentifier] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.taxpayerIdentifier] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun taxpayerIdentifier(taxpayerIdentifier: JsonField<String>) = apply {
-                this.taxpayerIdentifier = taxpayerIdentifier
-            }
+            fun taxpayerIdentifier(taxpayerIdentifier: JsonField<String>) =
+                apply {
+                    this.taxpayerIdentifier = taxpayerIdentifier
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperty(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
             /**
              * Returns an immutable instance of [CounterpartyUpdateRequest].
@@ -759,42 +796,42 @@ private constructor(
              */
             fun build(): CounterpartyUpdateRequest =
                 CounterpartyUpdateRequest(
-                    email,
-                    externalId,
-                    legalEntityId,
-                    metadata,
-                    name,
-                    sendRemittanceAdvice,
-                    taxpayerIdentifier,
-                    additionalProperties.toMutableMap(),
+                  email,
+                  externalId,
+                  legalEntityId,
+                  metadata,
+                  name,
+                  sendRemittanceAdvice,
+                  taxpayerIdentifier,
+                  additionalProperties.toMutableMap(),
                 )
         }
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): CounterpartyUpdateRequest = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): CounterpartyUpdateRequest =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            email()
-            externalId()
-            legalEntityId()
-            metadata()?.validate()
-            name()
-            sendRemittanceAdvice()
-            taxpayerIdentifier()
-            validated = true
-        }
+                email()
+                externalId()
+                legalEntityId()
+                metadata()?.validate()
+                name()
+                sendRemittanceAdvice()
+                taxpayerIdentifier()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -805,64 +842,31 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            (if (email.asKnown() == null) 0 else 1) +
-                (if (externalId.asKnown() == null) 0 else 1) +
-                (if (legalEntityId.asKnown() == null) 0 else 1) +
-                (metadata.asKnown()?.validity() ?: 0) +
-                (if (name.asKnown() == null) 0 else 1) +
-                (if (sendRemittanceAdvice.asKnown() == null) 0 else 1) +
-                (if (taxpayerIdentifier.asKnown() == null) 0 else 1)
+        internal fun validity(): Int = (if (email.asKnown() == null) 0 else 1) + (if (externalId.asKnown() == null) 0 else 1) + (if (legalEntityId.asKnown() == null) 0 else 1) + (metadata.asKnown()?.validity() ?: 0) + (if (name.asKnown() == null) 0 else 1) + (if (sendRemittanceAdvice.asKnown() == null) 0 else 1) + (if (taxpayerIdentifier.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is CounterpartyUpdateRequest &&
-                email == other.email &&
-                externalId == other.externalId &&
-                legalEntityId == other.legalEntityId &&
-                metadata == other.metadata &&
-                name == other.name &&
-                sendRemittanceAdvice == other.sendRemittanceAdvice &&
-                taxpayerIdentifier == other.taxpayerIdentifier &&
-                additionalProperties == other.additionalProperties
+          return other is CounterpartyUpdateRequest && email == other.email && externalId == other.externalId && legalEntityId == other.legalEntityId && metadata == other.metadata && name == other.name && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(
-                email,
-                externalId,
-                legalEntityId,
-                metadata,
-                name,
-                sendRemittanceAdvice,
-                taxpayerIdentifier,
-                additionalProperties,
-            )
-        }
+        private val hashCode: Int by lazy { Objects.hash(email, externalId, legalEntityId, metadata, name, sendRemittanceAdvice, taxpayerIdentifier, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "CounterpartyUpdateRequest{email=$email, externalId=$externalId, legalEntityId=$legalEntityId, metadata=$metadata, name=$name, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, additionalProperties=$additionalProperties}"
+        override fun toString() = "CounterpartyUpdateRequest{email=$email, externalId=$externalId, legalEntityId=$legalEntityId, metadata=$metadata, name=$name, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, additionalProperties=$additionalProperties}"
     }
 
-    /**
-     * Additional data in the form of key-value pairs. Pairs can be removed by passing an empty
-     * string or `null` as the value.
-     */
-    class Metadata
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
+    /** Additional data in the form of key-value pairs. Pairs can be removed by passing an empty string or `null` as the value. */
+    class Metadata @JsonCreator private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         @JsonAnyGetter
@@ -882,28 +886,36 @@ private constructor(
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties = metadata.additionalProperties.toMutableMap()
-            }
+            internal fun from(metadata: Metadata) =
+                apply {
+                    additionalProperties = metadata.additionalProperties.toMutableMap()
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperty(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
             /**
              * Returns an immutable instance of [Metadata].
@@ -916,21 +928,21 @@ private constructor(
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Metadata =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            validated = true
-        }
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -941,20 +953,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+        internal fun validity(): Int = additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Metadata && additionalProperties == other.additionalProperties
+          return other is Metadata && additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
@@ -965,19 +975,14 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is CounterpartyUpdateParams &&
-            id == other.id &&
-            body == other.body &&
-            additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams
+      return other is CounterpartyUpdateParams && id == other.id && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int = Objects.hash(id, body, additionalHeaders, additionalQueryParams)
 
-    override fun toString() =
-        "CounterpartyUpdateParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() = "CounterpartyUpdateParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

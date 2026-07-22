@@ -33,17 +33,12 @@ fun interface ProxyAuthenticator {
 
     companion object {
 
-        /**
-         * A [ProxyAuthenticator] that uses RFC 7617 Basic authentication with the ISO-8859-1
-         * charset.
-         */
+        /** A [ProxyAuthenticator] that uses RFC 7617 Basic authentication with the ISO-8859-1 charset. */
         @JvmStatic
         fun basic(username: String, password: String): ProxyAuthenticator =
             basic(username, password, StandardCharsets.ISO_8859_1)
 
-        /**
-         * A [ProxyAuthenticator] that uses RFC 7617 Basic authentication with the given [charset].
-         */
+        /** A [ProxyAuthenticator] that uses RFC 7617 Basic authentication with the given [charset]. */
         @JvmStatic
         fun basic(username: String, password: String, charset: Charset): ProxyAuthenticator {
             val token =

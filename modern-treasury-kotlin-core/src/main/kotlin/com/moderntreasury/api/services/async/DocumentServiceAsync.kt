@@ -11,12 +11,11 @@ import com.moderntreasury.api.models.DocumentCreateParams
 import com.moderntreasury.api.models.DocumentListPageAsync
 import com.moderntreasury.api.models.DocumentListParams
 import com.moderntreasury.api.models.DocumentRetrieveParams
+import com.moderntreasury.api.services.async.DocumentServiceAsync
 
 interface DocumentServiceAsync {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -27,41 +26,37 @@ interface DocumentServiceAsync {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): DocumentServiceAsync
 
     /** Create a document. */
-    suspend fun create(
-        params: DocumentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Document
+    suspend fun create(params: DocumentCreateParams, requestOptions: RequestOptions = RequestOptions.none()): Document
 
     /** Get an existing document. */
-    suspend fun retrieve(
-        id: String,
-        params: DocumentRetrieveParams = DocumentRetrieveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Document = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun retrieve(id: String, params: DocumentRetrieveParams = DocumentRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): Document =
+        retrieve(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see retrieve */
-    suspend fun retrieve(
-        params: DocumentRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Document
+    suspend fun retrieve(params: DocumentRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): Document
 
     /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): Document =
-        retrieve(id, DocumentRetrieveParams.none(), requestOptions)
+        retrieve(
+          id,
+          DocumentRetrieveParams.none(),
+          requestOptions,
+        )
 
     /** Get a list of documents. */
-    suspend fun list(
-        params: DocumentListParams = DocumentListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): DocumentListPageAsync
+    suspend fun list(params: DocumentListParams = DocumentListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): DocumentListPageAsync
 
     /** @see list */
     suspend fun list(requestOptions: RequestOptions): DocumentListPageAsync =
-        list(DocumentListParams.none(), requestOptions)
+        list(
+          DocumentListParams.none(), requestOptions
+        )
 
-    /**
-     * A view of [DocumentServiceAsync] that provides access to raw HTTP responses for each method.
-     */
+    /** A view of [DocumentServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -69,58 +64,43 @@ interface DocumentServiceAsync {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): DocumentServiceAsync.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): DocumentServiceAsync.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `post /api/documents`, but is otherwise the same as
-         * [DocumentServiceAsync.create].
-         */
+        /** Returns a raw HTTP response for `post /api/documents`, but is otherwise the             same as [DocumentServiceAsync.create]. */
         @MustBeClosed
-        suspend fun create(
-            params: DocumentCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Document>
+        suspend fun create(params: DocumentCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Document>
 
-        /**
-         * Returns a raw HTTP response for `get /api/documents/{id}`, but is otherwise the same as
-         * [DocumentServiceAsync.retrieve].
-         */
+        /** Returns a raw HTTP response for `get /api/documents/{id}`, but is otherwise the             same as [DocumentServiceAsync.retrieve]. */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            params: DocumentRetrieveParams = DocumentRetrieveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Document> = retrieve(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun retrieve(id: String, params: DocumentRetrieveParams = DocumentRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Document> =
+            retrieve(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            params: DocumentRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Document>
+        suspend fun retrieve(params: DocumentRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Document>
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Document> = retrieve(id, DocumentRetrieveParams.none(), requestOptions)
+        suspend fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<Document> =
+            retrieve(
+              id,
+              DocumentRetrieveParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `get /api/documents`, but is otherwise the same as
-         * [DocumentServiceAsync.list].
-         */
+        /** Returns a raw HTTP response for `get /api/documents`, but is otherwise the             same as [DocumentServiceAsync.list]. */
         @MustBeClosed
-        suspend fun list(
-            params: DocumentListParams = DocumentListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DocumentListPageAsync>
+        suspend fun list(params: DocumentListParams = DocumentListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<DocumentListPageAsync>
 
         /** @see list */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListPageAsync> =
-            list(DocumentListParams.none(), requestOptions)
+            list(
+              DocumentListParams.none(), requestOptions
+            )
     }
 }

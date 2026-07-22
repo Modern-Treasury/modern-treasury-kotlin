@@ -14,13 +14,12 @@ import com.moderntreasury.api.models.PaymentOrderListPage
 import com.moderntreasury.api.models.PaymentOrderListParams
 import com.moderntreasury.api.models.PaymentOrderRetrieveParams
 import com.moderntreasury.api.models.PaymentOrderUpdateParams
+import com.moderntreasury.api.services.blocking.PaymentOrderService
 import com.moderntreasury.api.services.blocking.paymentOrders.ReversalService
 
 interface PaymentOrderService {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -33,64 +32,59 @@ interface PaymentOrderService {
     fun reversals(): ReversalService
 
     /** Create a new Payment Order */
-    fun create(
-        params: PaymentOrderCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentOrder
+    fun create(params: PaymentOrderCreateParams, requestOptions: RequestOptions = RequestOptions.none()): PaymentOrder
 
     /** Get details on a single payment order */
-    fun retrieve(
-        id: String,
-        params: PaymentOrderRetrieveParams = PaymentOrderRetrieveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentOrder = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    fun retrieve(id: String, params: PaymentOrderRetrieveParams = PaymentOrderRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): PaymentOrder =
+        retrieve(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see retrieve */
-    fun retrieve(
-        params: PaymentOrderRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentOrder
+    fun retrieve(params: PaymentOrderRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): PaymentOrder
 
     /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): PaymentOrder =
-        retrieve(id, PaymentOrderRetrieveParams.none(), requestOptions)
+        retrieve(
+          id,
+          PaymentOrderRetrieveParams.none(),
+          requestOptions,
+        )
 
     /** Update a payment order */
-    fun update(
-        id: String,
-        params: PaymentOrderUpdateParams = PaymentOrderUpdateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentOrder = update(params.toBuilder().id(id).build(), requestOptions)
+    fun update(id: String, params: PaymentOrderUpdateParams = PaymentOrderUpdateParams.none(), requestOptions: RequestOptions = RequestOptions.none()): PaymentOrder =
+        update(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see update */
-    fun update(
-        params: PaymentOrderUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentOrder
+    fun update(params: PaymentOrderUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): PaymentOrder
 
     /** @see update */
     fun update(id: String, requestOptions: RequestOptions): PaymentOrder =
-        update(id, PaymentOrderUpdateParams.none(), requestOptions)
+        update(
+          id,
+          PaymentOrderUpdateParams.none(),
+          requestOptions,
+        )
 
     /** Get a list of all payment orders */
-    fun list(
-        params: PaymentOrderListParams = PaymentOrderListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentOrderListPage
+    fun list(params: PaymentOrderListParams = PaymentOrderListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): PaymentOrderListPage
 
     /** @see list */
     fun list(requestOptions: RequestOptions): PaymentOrderListPage =
-        list(PaymentOrderListParams.none(), requestOptions)
+        list(
+          PaymentOrderListParams.none(), requestOptions
+        )
 
     /** Create a new payment order asynchronously */
-    fun createAsync(
-        params: PaymentOrderCreateAsyncParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AsyncResponse
+    fun createAsync(params: PaymentOrderCreateAsyncParams, requestOptions: RequestOptions = RequestOptions.none()): AsyncResponse
 
-    /**
-     * A view of [PaymentOrderService] that provides access to raw HTTP responses for each method.
-     */
+    /** A view of [PaymentOrderService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -98,92 +92,71 @@ interface PaymentOrderService {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): PaymentOrderService.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentOrderService.WithRawResponse
 
         fun reversals(): ReversalService.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `post /api/payment_orders`, but is otherwise the same as
-         * [PaymentOrderService.create].
-         */
+        /** Returns a raw HTTP response for `post /api/payment_orders`, but is otherwise the             same as [PaymentOrderService.create]. */
         @MustBeClosed
-        fun create(
-            params: PaymentOrderCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentOrder>
+        fun create(params: PaymentOrderCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<PaymentOrder>
 
-        /**
-         * Returns a raw HTTP response for `get /api/payment_orders/{id}`, but is otherwise the same
-         * as [PaymentOrderService.retrieve].
-         */
+        /** Returns a raw HTTP response for `get /api/payment_orders/{id}`, but is otherwise the             same as [PaymentOrderService.retrieve]. */
         @MustBeClosed
-        fun retrieve(
-            id: String,
-            params: PaymentOrderRetrieveParams = PaymentOrderRetrieveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentOrder> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
+        fun retrieve(id: String, params: PaymentOrderRetrieveParams = PaymentOrderRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<PaymentOrder> =
+            retrieve(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            params: PaymentOrderRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentOrder>
+        fun retrieve(params: PaymentOrderRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<PaymentOrder>
 
         /** @see retrieve */
         @MustBeClosed
         fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<PaymentOrder> =
-            retrieve(id, PaymentOrderRetrieveParams.none(), requestOptions)
+            retrieve(
+              id,
+              PaymentOrderRetrieveParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `patch /api/payment_orders/{id}`, but is otherwise the
-         * same as [PaymentOrderService.update].
-         */
+        /** Returns a raw HTTP response for `patch /api/payment_orders/{id}`, but is otherwise the             same as [PaymentOrderService.update]. */
         @MustBeClosed
-        fun update(
-            id: String,
-            params: PaymentOrderUpdateParams = PaymentOrderUpdateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentOrder> = update(params.toBuilder().id(id).build(), requestOptions)
+        fun update(id: String, params: PaymentOrderUpdateParams = PaymentOrderUpdateParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<PaymentOrder> =
+            update(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see update */
         @MustBeClosed
-        fun update(
-            params: PaymentOrderUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentOrder>
+        fun update(params: PaymentOrderUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<PaymentOrder>
 
         /** @see update */
         @MustBeClosed
         fun update(id: String, requestOptions: RequestOptions): HttpResponseFor<PaymentOrder> =
-            update(id, PaymentOrderUpdateParams.none(), requestOptions)
+            update(
+              id,
+              PaymentOrderUpdateParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `get /api/payment_orders`, but is otherwise the same as
-         * [PaymentOrderService.list].
-         */
+        /** Returns a raw HTTP response for `get /api/payment_orders`, but is otherwise the             same as [PaymentOrderService.list]. */
         @MustBeClosed
-        fun list(
-            params: PaymentOrderListParams = PaymentOrderListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentOrderListPage>
+        fun list(params: PaymentOrderListParams = PaymentOrderListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<PaymentOrderListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PaymentOrderListPage> =
-            list(PaymentOrderListParams.none(), requestOptions)
+            list(
+              PaymentOrderListParams.none(), requestOptions
+            )
 
-        /**
-         * Returns a raw HTTP response for `post /api/payment_orders/create_async`, but is otherwise
-         * the same as [PaymentOrderService.createAsync].
-         */
+        /** Returns a raw HTTP response for `post /api/payment_orders/create_async`, but is otherwise the             same as [PaymentOrderService.createAsync]. */
         @MustBeClosed
-        fun createAsync(
-            params: PaymentOrderCreateAsyncParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AsyncResponse>
+        fun createAsync(params: PaymentOrderCreateAsyncParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AsyncResponse>
     }
 }

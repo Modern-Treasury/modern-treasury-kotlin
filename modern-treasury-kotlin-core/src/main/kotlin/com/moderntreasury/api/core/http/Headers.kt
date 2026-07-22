@@ -13,7 +13,11 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.toImmutable
 import java.util.TreeMap
 
-class Headers private constructor(private val map: Map<String, List<String>>, val size: Int) {
+class Headers
+private constructor(
+    private val map: Map<String, List<String>>,
+    val size: Int
+) {
 
     fun isEmpty(): Boolean = map.isEmpty()
 
@@ -25,7 +29,7 @@ class Headers private constructor(private val map: Map<String, List<String>>, va
 
     companion object {
 
-        fun builder() = Builder()
+         fun builder() = Builder()
     }
 
     class Builder internal constructor() {
@@ -43,7 +47,9 @@ class Headers private constructor(private val map: Map<String, List<String>>, va
                 is JsonString -> put(name, value.value)
                 is JsonArray -> value.values.forEach { put(name, it) }
                 is JsonObject ->
-                    value.values.forEach { (nestedName, value) -> put("$name.$nestedName", value) }
+                    value.values.forEach { (nestedName, value) ->
+                        put("$name.$nestedName", value)
+                    }
             }
         }
 
@@ -93,7 +99,7 @@ class Headers private constructor(private val map: Map<String, List<String>>, va
                         values.toImmutable()
                     }
                     .toImmutable(),
-                size,
+                size
             )
     }
 

@@ -12,7 +12,11 @@ import com.moderntreasury.api.core.JsonString
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.toImmutable
 
-class QueryParams private constructor(private val map: Map<String, List<String>>, val size: Int) {
+class QueryParams
+private constructor(
+    private val map: Map<String, List<String>>,
+    val size: Int,
+) {
 
     fun isEmpty(): Boolean = map.isEmpty()
 
@@ -24,7 +28,7 @@ class QueryParams private constructor(private val map: Map<String, List<String>>
 
     companion object {
 
-        fun builder() = Builder()
+         fun builder() = Builder()
     }
 
     class Builder internal constructor() {
@@ -41,7 +45,9 @@ class QueryParams private constructor(private val map: Map<String, List<String>>
                 is JsonString -> put(key, value.value)
                 is JsonArray -> value.values.forEach { put("$key[]", it) }
                 is JsonObject ->
-                    value.values.forEach { (nestedKey, value) -> put("$key[$nestedKey]", value) }
+                    value.values.forEach { (nestedKey, value) ->
+                        put("$key[$nestedKey]", value)
+                    }
             }
         }
 
@@ -88,7 +94,10 @@ class QueryParams private constructor(private val map: Map<String, List<String>>
         }
 
         fun build() =
-            QueryParams(map.mapValues { (_, values) -> values.toImmutable() }.toImmutable(), size)
+            QueryParams(
+                map.mapValues { (_, values) -> values.toImmutable() }.toImmutable(),
+                size
+            )
     }
 
     override fun hashCode(): Int = map.hashCode()

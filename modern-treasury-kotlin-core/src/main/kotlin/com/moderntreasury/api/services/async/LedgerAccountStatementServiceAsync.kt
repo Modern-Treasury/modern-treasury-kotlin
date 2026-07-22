@@ -10,12 +10,11 @@ import com.moderntreasury.api.models.LedgerAccountStatementCreateParams
 import com.moderntreasury.api.models.LedgerAccountStatementCreateResponse
 import com.moderntreasury.api.models.LedgerAccountStatementRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountStatementRetrieveResponse
+import com.moderntreasury.api.services.async.LedgerAccountStatementServiceAsync
 
 interface LedgerAccountStatementServiceAsync {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -26,36 +25,28 @@ interface LedgerAccountStatementServiceAsync {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerAccountStatementServiceAsync
 
     /** Create a ledger account statement. */
-    suspend fun create(
-        params: LedgerAccountStatementCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): LedgerAccountStatementCreateResponse
+    suspend fun create(params: LedgerAccountStatementCreateParams, requestOptions: RequestOptions = RequestOptions.none()): LedgerAccountStatementCreateResponse
 
     /** Get details on a single ledger account statement. */
-    suspend fun retrieve(
-        id: String,
-        params: LedgerAccountStatementRetrieveParams = LedgerAccountStatementRetrieveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): LedgerAccountStatementRetrieveResponse =
-        retrieve(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun retrieve(id: String, params: LedgerAccountStatementRetrieveParams = LedgerAccountStatementRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): LedgerAccountStatementRetrieveResponse =
+        retrieve(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see retrieve */
-    suspend fun retrieve(
-        params: LedgerAccountStatementRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): LedgerAccountStatementRetrieveResponse
+    suspend fun retrieve(params: LedgerAccountStatementRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): LedgerAccountStatementRetrieveResponse
 
     /** @see retrieve */
-    suspend fun retrieve(
-        id: String,
-        requestOptions: RequestOptions,
-    ): LedgerAccountStatementRetrieveResponse =
-        retrieve(id, LedgerAccountStatementRetrieveParams.none(), requestOptions)
+    suspend fun retrieve(id: String, requestOptions: RequestOptions): LedgerAccountStatementRetrieveResponse =
+        retrieve(
+          id,
+          LedgerAccountStatementRetrieveParams.none(),
+          requestOptions,
+        )
 
-    /**
-     * A view of [LedgerAccountStatementServiceAsync] that provides access to raw HTTP responses for
-     * each method.
-     */
+    /** A view of [LedgerAccountStatementServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -63,46 +54,32 @@ interface LedgerAccountStatementServiceAsync {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): LedgerAccountStatementServiceAsync.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerAccountStatementServiceAsync.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `post /api/ledger_account_statements`, but is otherwise
-         * the same as [LedgerAccountStatementServiceAsync.create].
-         */
+        /** Returns a raw HTTP response for `post /api/ledger_account_statements`, but is otherwise the             same as [LedgerAccountStatementServiceAsync.create]. */
         @MustBeClosed
-        suspend fun create(
-            params: LedgerAccountStatementCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LedgerAccountStatementCreateResponse>
+        suspend fun create(params: LedgerAccountStatementCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<LedgerAccountStatementCreateResponse>
 
-        /**
-         * Returns a raw HTTP response for `get /api/ledger_account_statements/{id}`, but is
-         * otherwise the same as [LedgerAccountStatementServiceAsync.retrieve].
-         */
+        /** Returns a raw HTTP response for `get /api/ledger_account_statements/{id}`, but is otherwise the             same as [LedgerAccountStatementServiceAsync.retrieve]. */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            params: LedgerAccountStatementRetrieveParams =
-                LedgerAccountStatementRetrieveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun retrieve(id: String, params: LedgerAccountStatementRetrieveParams = LedgerAccountStatementRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<LedgerAccountStatementRetrieveResponse> =
+            retrieve(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            params: LedgerAccountStatementRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse>
+        suspend fun retrieve(params: LedgerAccountStatementRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<LedgerAccountStatementRetrieveResponse>
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountStatementRetrieveResponse> =
-            retrieve(id, LedgerAccountStatementRetrieveParams.none(), requestOptions)
+        suspend fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<LedgerAccountStatementRetrieveResponse> =
+            retrieve(
+              id,
+              LedgerAccountStatementRetrieveParams.none(),
+              requestOptions,
+            )
     }
 }

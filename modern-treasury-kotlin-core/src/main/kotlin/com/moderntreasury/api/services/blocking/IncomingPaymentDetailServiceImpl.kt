@@ -22,189 +22,169 @@ import com.moderntreasury.api.models.IncomingPaymentDetailListPage
 import com.moderntreasury.api.models.IncomingPaymentDetailListParams
 import com.moderntreasury.api.models.IncomingPaymentDetailRetrieveParams
 import com.moderntreasury.api.models.IncomingPaymentDetailUpdateParams
+import com.moderntreasury.api.services.blocking.IncomingPaymentDetailService
+import com.moderntreasury.api.services.blocking.IncomingPaymentDetailServiceImpl
 
-class IncomingPaymentDetailServiceImpl
-internal constructor(private val clientOptions: ClientOptions) : IncomingPaymentDetailService {
+class IncomingPaymentDetailServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: IncomingPaymentDetailService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : IncomingPaymentDetailService {
+
+    private val withRawResponse: IncomingPaymentDetailService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): IncomingPaymentDetailService.WithRawResponse = withRawResponse
 
-    override fun withOptions(
-        modifier: (ClientOptions.Builder) -> Unit
-    ): IncomingPaymentDetailService =
-        IncomingPaymentDetailServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): IncomingPaymentDetailService = IncomingPaymentDetailServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun retrieve(
-        params: IncomingPaymentDetailRetrieveParams,
-        requestOptions: RequestOptions,
-    ): IncomingPaymentDetail =
+    override fun retrieve(params: IncomingPaymentDetailRetrieveParams, requestOptions: RequestOptions): IncomingPaymentDetail =
         // get /api/incoming_payment_details/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun update(
-        params: IncomingPaymentDetailUpdateParams,
-        requestOptions: RequestOptions,
-    ): IncomingPaymentDetail =
+    override fun update(params: IncomingPaymentDetailUpdateParams, requestOptions: RequestOptions): IncomingPaymentDetail =
         // patch /api/incoming_payment_details/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: IncomingPaymentDetailListParams,
-        requestOptions: RequestOptions,
-    ): IncomingPaymentDetailListPage =
+    override fun list(params: IncomingPaymentDetailListParams, requestOptions: RequestOptions): IncomingPaymentDetailListPage =
         // get /api/incoming_payment_details
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun createAsync(
-        params: IncomingPaymentDetailCreateAsyncParams,
-        requestOptions: RequestOptions,
-    ): IncomingPaymentDetail =
+    override fun createAsync(params: IncomingPaymentDetailCreateAsyncParams, requestOptions: RequestOptions): IncomingPaymentDetail =
         // post /api/simulations/incoming_payment_details/create_async
         withRawResponse().createAsync(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        IncomingPaymentDetailService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : IncomingPaymentDetailService.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): IncomingPaymentDetailService.WithRawResponse =
-            IncomingPaymentDetailServiceImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): IncomingPaymentDetailService.WithRawResponse = IncomingPaymentDetailServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val retrieveHandler: Handler<IncomingPaymentDetail> = jsonHandler<IncomingPaymentDetail>(clientOptions.jsonMapper)
+
+        override fun retrieve(params: IncomingPaymentDetailRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<IncomingPaymentDetail> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "incoming_payment_details", params._pathParam(0))
+            .build()
+            .prepare(
+              clientOptions, params
             )
-
-        private val retrieveHandler: Handler<IncomingPaymentDetail> =
-            jsonHandler<IncomingPaymentDetail>(clientOptions.jsonMapper)
-
-        override fun retrieve(
-            params: IncomingPaymentDetailRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<IncomingPaymentDetail> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "incoming_payment_details", params._pathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val updateHandler: Handler<IncomingPaymentDetail> =
-            jsonHandler<IncomingPaymentDetail>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<IncomingPaymentDetail> = jsonHandler<IncomingPaymentDetail>(clientOptions.jsonMapper)
 
-        override fun update(
-            params: IncomingPaymentDetailUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<IncomingPaymentDetail> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "incoming_payment_details", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun update(params: IncomingPaymentDetailUpdateParams, requestOptions: RequestOptions): HttpResponseFor<IncomingPaymentDetail> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PATCH)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "incoming_payment_details", params._pathParam(0))
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  updateHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<IncomingPaymentDetail>> =
-            jsonHandler<List<IncomingPaymentDetail>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<IncomingPaymentDetail>> = jsonHandler<List<IncomingPaymentDetail>>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: IncomingPaymentDetailListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<IncomingPaymentDetailListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "incoming_payment_details")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        IncomingPaymentDetailListPage.builder()
-                            .service(IncomingPaymentDetailServiceImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override fun list(params: IncomingPaymentDetailListParams, requestOptions: RequestOptions): HttpResponseFor<IncomingPaymentDetailListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "incoming_payment_details")
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  IncomingPaymentDetailListPage.builder()
+                      .service(IncomingPaymentDetailServiceImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
 
-        private val createAsyncHandler: Handler<IncomingPaymentDetail> =
-            jsonHandler<IncomingPaymentDetail>(clientOptions.jsonMapper)
+        private val createAsyncHandler: Handler<IncomingPaymentDetail> = jsonHandler<IncomingPaymentDetail>(clientOptions.jsonMapper)
 
-        override fun createAsync(
-            params: IncomingPaymentDetailCreateAsyncParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<IncomingPaymentDetail> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        "simulations",
-                        "incoming_payment_details",
-                        "create_async",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createAsyncHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun createAsync(params: IncomingPaymentDetailCreateAsyncParams, requestOptions: RequestOptions): HttpResponseFor<IncomingPaymentDetail> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "simulations", "incoming_payment_details", "create_async")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  createAsyncHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

@@ -7,22 +7,21 @@ import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 
-/**
- * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
- * `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `signet`,
- * `provexchange`, `zengin`.
- */
-class PaymentOrderType @JsonCreator private constructor(private val value: JsonField<String>) :
-    Enum {
+/** One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `book`, `rtp`, `sepa`, `bacs`, `au_becs`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `zengin`. */
+class PaymentOrderType @JsonCreator private constructor(
+    private val value: JsonField<String>,
+
+) : Enum {
 
     /**
      * Returns this class instance's raw value.
      *
-     * This is usually only useful if this instance was deserialized from data that doesn't match
-     * any known member, and you want to know that value. For example, if the SDK is on an older
-     * version than the API, then the API may respond with new members that the SDK is unaware of.
+     * This is usually only useful if this instance was deserialized from data that doesn't match any known
+     * member, and you want to know that value. For example, if the SDK is on an older version than the
+     * API, then the API may respond with new members that the SDK is unaware of.
      */
-    @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+    @com.fasterxml.jackson.annotation.JsonValue
+    fun _value(): JsonField<String> = value
 
     companion object {
 
@@ -48,10 +47,6 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
 
         val GB_FPS = of("gb_fps")
 
-        val HU_ICS = of("hu_ics")
-
-        val INTERAC = of("interac")
-
         val MASAV = of("masav")
 
         val MX_CCEN = of("mx_ccen")
@@ -64,25 +59,15 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
 
         val PL_ELIXIR = of("pl_elixir")
 
-        val PROVXCHANGE = of("provxchange")
-
-        val RO_SENT = of("ro_sent")
-
         val RTP = of("rtp")
 
         val SE_BANKGIROT = of("se_bankgirot")
-
-        val SEN = of("sen")
 
         val SEPA = of("sepa")
 
         val SG_GIRO = of("sg_giro")
 
         val SIC = of("sic")
-
-        val SIGNET = of("signet")
-
-        val SKNBI = of("sknbi")
 
         val STABLECOIN = of("stablecoin")
 
@@ -106,24 +91,17 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
         DK_NETS,
         EFT,
         GB_FPS,
-        HU_ICS,
-        INTERAC,
         MASAV,
         MX_CCEN,
         NEFT,
         NICS,
         NZ_BECS,
         PL_ELIXIR,
-        PROVXCHANGE,
-        RO_SENT,
         RTP,
         SE_BANKGIROT,
-        SEN,
         SEPA,
         SG_GIRO,
         SIC,
-        SIGNET,
-        SKNBI,
         STABLECOIN,
         WIRE,
         ZENGIN,
@@ -133,9 +111,11 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
      * An enum containing [PaymentOrderType]'s known values, as well as an [_UNKNOWN] member.
      *
      * An instance of [PaymentOrderType] can contain an unknown value in a couple of cases:
-     * - It was deserialized from data that doesn't match any known member. For example, if the SDK
-     *   is on an older version than the API, then the API may respond with new members that the SDK
-     *   is unaware of.
+     *
+     * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+     *   an older version than the API, then the API may respond with new members that the SDK is unaware
+     *   of.
+     *
      * - It was constructed with an arbitrary value using the [of] method.
      */
     enum class Value {
@@ -150,39 +130,30 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
         DK_NETS,
         EFT,
         GB_FPS,
-        HU_ICS,
-        INTERAC,
         MASAV,
         MX_CCEN,
         NEFT,
         NICS,
         NZ_BECS,
         PL_ELIXIR,
-        PROVXCHANGE,
-        RO_SENT,
         RTP,
         SE_BANKGIROT,
-        SEN,
         SEPA,
         SG_GIRO,
         SIC,
-        SIGNET,
-        SKNBI,
         STABLECOIN,
         WIRE,
         ZENGIN,
-        /**
-         * An enum member indicating that [PaymentOrderType] was instantiated with an unknown value.
-         */
+        /** An enum member indicating that [PaymentOrderType] was instantiated with an unknown value. */
         _UNKNOWN,
     }
 
     /**
-     * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if
-     * the class was instantiated with an unknown value.
+     * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+     * class was instantiated with an unknown value.
      *
-     * Use the [known] method instead if you're certain the value is always known or if you want to
-     * throw for the unknown case.
+     * Use the [known] method instead if you're certain the value is always known or if you want to throw
+     * for the unknown case.
      */
     fun value(): Value =
         when (this) {
@@ -197,24 +168,17 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
             DK_NETS -> Value.DK_NETS
             EFT -> Value.EFT
             GB_FPS -> Value.GB_FPS
-            HU_ICS -> Value.HU_ICS
-            INTERAC -> Value.INTERAC
             MASAV -> Value.MASAV
             MX_CCEN -> Value.MX_CCEN
             NEFT -> Value.NEFT
             NICS -> Value.NICS
             NZ_BECS -> Value.NZ_BECS
             PL_ELIXIR -> Value.PL_ELIXIR
-            PROVXCHANGE -> Value.PROVXCHANGE
-            RO_SENT -> Value.RO_SENT
             RTP -> Value.RTP
             SE_BANKGIROT -> Value.SE_BANKGIROT
-            SEN -> Value.SEN
             SEPA -> Value.SEPA
             SG_GIRO -> Value.SG_GIRO
             SIC -> Value.SIC
-            SIGNET -> Value.SIGNET
-            SKNBI -> Value.SKNBI
             STABLECOIN -> Value.STABLECOIN
             WIRE -> Value.WIRE
             ZENGIN -> Value.ZENGIN
@@ -224,11 +188,10 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
     /**
      * Returns an enum member corresponding to this class instance's value.
      *
-     * Use the [value] method instead if you're uncertain the value is always known and don't want
-     * to throw for the unknown case.
+     * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+     * for the unknown case.
      *
-     * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known
-     *   member.
+     * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
      */
     fun known(): Known =
         when (this) {
@@ -243,24 +206,17 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
             DK_NETS -> Known.DK_NETS
             EFT -> Known.EFT
             GB_FPS -> Known.GB_FPS
-            HU_ICS -> Known.HU_ICS
-            INTERAC -> Known.INTERAC
             MASAV -> Known.MASAV
             MX_CCEN -> Known.MX_CCEN
             NEFT -> Known.NEFT
             NICS -> Known.NICS
             NZ_BECS -> Known.NZ_BECS
             PL_ELIXIR -> Known.PL_ELIXIR
-            PROVXCHANGE -> Known.PROVXCHANGE
-            RO_SENT -> Known.RO_SENT
             RTP -> Known.RTP
             SE_BANKGIROT -> Known.SE_BANKGIROT
-            SEN -> Known.SEN
             SEPA -> Known.SEPA
             SG_GIRO -> Known.SG_GIRO
             SIC -> Known.SIC
-            SIGNET -> Known.SIGNET
-            SKNBI -> Known.SKNBI
             STABLECOIN -> Known.STABLECOIN
             WIRE -> Known.WIRE
             ZENGIN -> Known.ZENGIN
@@ -270,14 +226,13 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
     /**
      * Returns this class instance's primitive wire representation.
      *
-     * This differs from the [toString] method because that method is primarily for debugging and
-     * generally doesn't throw.
+     * This differs from the [toString] method because that method is primarily for debugging and generally
+     * doesn't throw.
      *
-     * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the
-     *   expected primitive type.
+     * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+     *   primitive type.
      */
-    fun asString(): String =
-        _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+    fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
     private var validated: Boolean = false
 
@@ -289,14 +244,15 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
      * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): PaymentOrderType = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): PaymentOrderType =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        known()
-        validated = true
-    }
+            known()
+            validated = true
+        }
 
     fun isValid(): Boolean =
         try {
@@ -314,11 +270,11 @@ class PaymentOrderType @JsonCreator private constructor(private val value: JsonF
     internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is PaymentOrderType && value == other.value
+      return other is PaymentOrderType && value == other.value
     }
 
     override fun hashCode() = value.hashCode()

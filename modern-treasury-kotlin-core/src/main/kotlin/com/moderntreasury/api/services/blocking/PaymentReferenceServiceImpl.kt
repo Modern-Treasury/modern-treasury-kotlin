@@ -20,148 +20,137 @@ import com.moderntreasury.api.models.PaymentReferenceListPage
 import com.moderntreasury.api.models.PaymentReferenceListParams
 import com.moderntreasury.api.models.PaymentReferenceRetireveParams
 import com.moderntreasury.api.models.PaymentReferenceRetrieveParams
+import com.moderntreasury.api.services.blocking.PaymentReferenceService
+import com.moderntreasury.api.services.blocking.PaymentReferenceServiceImpl
 
-class PaymentReferenceServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    PaymentReferenceService {
+class PaymentReferenceServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: PaymentReferenceService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : PaymentReferenceService {
+
+    private val withRawResponse: PaymentReferenceService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): PaymentReferenceService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentReferenceService =
-        PaymentReferenceServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentReferenceService = PaymentReferenceServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun retrieve(
-        params: PaymentReferenceRetrieveParams,
-        requestOptions: RequestOptions,
-    ): PaymentReference =
+    override fun retrieve(params: PaymentReferenceRetrieveParams, requestOptions: RequestOptions): PaymentReference =
         // get /api/payment_references/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: PaymentReferenceListParams,
-        requestOptions: RequestOptions,
-    ): PaymentReferenceListPage =
+    override fun list(params: PaymentReferenceListParams, requestOptions: RequestOptions): PaymentReferenceListPage =
         // get /api/payment_references
         withRawResponse().list(params, requestOptions).parse()
 
     @Deprecated("use `retrieve` instead")
-    override fun retireve(
-        params: PaymentReferenceRetireveParams,
-        requestOptions: RequestOptions,
-    ): PaymentReference =
+    override fun retireve(params: PaymentReferenceRetireveParams, requestOptions: RequestOptions): PaymentReference =
         // get /api/payment_references/{id}
         withRawResponse().retireve(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        PaymentReferenceService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : PaymentReferenceService.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): PaymentReferenceService.WithRawResponse =
-            PaymentReferenceServiceImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentReferenceService.WithRawResponse = PaymentReferenceServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val retrieveHandler: Handler<PaymentReference> = jsonHandler<PaymentReference>(clientOptions.jsonMapper)
+
+        override fun retrieve(params: PaymentReferenceRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<PaymentReference> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "payment_references", params._pathParam(0))
+            .build()
+            .prepare(
+              clientOptions, params
             )
-
-        private val retrieveHandler: Handler<PaymentReference> =
-            jsonHandler<PaymentReference>(clientOptions.jsonMapper)
-
-        override fun retrieve(
-            params: PaymentReferenceRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PaymentReference> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "payment_references", params._pathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<PaymentReference>> =
-            jsonHandler<List<PaymentReference>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<PaymentReference>> = jsonHandler<List<PaymentReference>>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: PaymentReferenceListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PaymentReferenceListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "payment_references")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        PaymentReferenceListPage.builder()
-                            .service(PaymentReferenceServiceImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override fun list(params: PaymentReferenceListParams, requestOptions: RequestOptions): HttpResponseFor<PaymentReferenceListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "payment_references")
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  PaymentReferenceListPage.builder()
+                      .service(PaymentReferenceServiceImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
 
-        private val retireveHandler: Handler<PaymentReference> =
-            jsonHandler<PaymentReference>(clientOptions.jsonMapper)
+        private val retireveHandler: Handler<PaymentReference> = jsonHandler<PaymentReference>(clientOptions.jsonMapper)
 
         @Deprecated("use `retrieve` instead")
-        override fun retireve(
-            params: PaymentReferenceRetireveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PaymentReference> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "payment_references", params._pathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retireveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retireve(params: PaymentReferenceRetireveParams, requestOptions: RequestOptions): HttpResponseFor<PaymentReference> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "payment_references", params._pathParam(0))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retireveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

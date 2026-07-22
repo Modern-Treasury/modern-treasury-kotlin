@@ -12,12 +12,11 @@ import com.moderntreasury.api.models.AccountCollectionFlowListPageAsync
 import com.moderntreasury.api.models.AccountCollectionFlowListParams
 import com.moderntreasury.api.models.AccountCollectionFlowRetrieveParams
 import com.moderntreasury.api.models.AccountCollectionFlowUpdateParams
+import com.moderntreasury.api.services.async.AccountCollectionFlowServiceAsync
 
 interface AccountCollectionFlowServiceAsync {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -28,55 +27,48 @@ interface AccountCollectionFlowServiceAsync {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AccountCollectionFlowServiceAsync
 
     /** create account_collection_flow */
-    suspend fun create(
-        params: AccountCollectionFlowCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountCollectionFlow
+    suspend fun create(params: AccountCollectionFlowCreateParams, requestOptions: RequestOptions = RequestOptions.none()): AccountCollectionFlow
 
     /** get account_collection_flow */
-    suspend fun retrieve(
-        id: String,
-        params: AccountCollectionFlowRetrieveParams = AccountCollectionFlowRetrieveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountCollectionFlow = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun retrieve(id: String, params: AccountCollectionFlowRetrieveParams = AccountCollectionFlowRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): AccountCollectionFlow =
+        retrieve(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see retrieve */
-    suspend fun retrieve(
-        params: AccountCollectionFlowRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountCollectionFlow
+    suspend fun retrieve(params: AccountCollectionFlowRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): AccountCollectionFlow
 
     /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): AccountCollectionFlow =
-        retrieve(id, AccountCollectionFlowRetrieveParams.none(), requestOptions)
+        retrieve(
+          id,
+          AccountCollectionFlowRetrieveParams.none(),
+          requestOptions,
+        )
 
     /** update account_collection_flow */
-    suspend fun update(
-        id: String,
-        params: AccountCollectionFlowUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountCollectionFlow = update(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun update(id: String, params: AccountCollectionFlowUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): AccountCollectionFlow =
+        update(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see update */
-    suspend fun update(
-        params: AccountCollectionFlowUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountCollectionFlow
+    suspend fun update(params: AccountCollectionFlowUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): AccountCollectionFlow
 
     /** list account_collection_flows */
-    suspend fun list(
-        params: AccountCollectionFlowListParams = AccountCollectionFlowListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountCollectionFlowListPageAsync
+    suspend fun list(params: AccountCollectionFlowListParams = AccountCollectionFlowListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): AccountCollectionFlowListPageAsync
 
     /** @see list */
     suspend fun list(requestOptions: RequestOptions): AccountCollectionFlowListPageAsync =
-        list(AccountCollectionFlowListParams.none(), requestOptions)
+        list(
+          AccountCollectionFlowListParams.none(), requestOptions
+        )
 
-    /**
-     * A view of [AccountCollectionFlowServiceAsync] that provides access to raw HTTP responses for
-     * each method.
-     */
+    /** A view of [AccountCollectionFlowServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -84,82 +76,56 @@ interface AccountCollectionFlowServiceAsync {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): AccountCollectionFlowServiceAsync.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AccountCollectionFlowServiceAsync.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `post /api/account_collection_flows`, but is otherwise
-         * the same as [AccountCollectionFlowServiceAsync.create].
-         */
+        /** Returns a raw HTTP response for `post /api/account_collection_flows`, but is otherwise the             same as [AccountCollectionFlowServiceAsync.create]. */
         @MustBeClosed
-        suspend fun create(
-            params: AccountCollectionFlowCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountCollectionFlow>
+        suspend fun create(params: AccountCollectionFlowCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AccountCollectionFlow>
 
-        /**
-         * Returns a raw HTTP response for `get /api/account_collection_flows/{id}`, but is
-         * otherwise the same as [AccountCollectionFlowServiceAsync.retrieve].
-         */
+        /** Returns a raw HTTP response for `get /api/account_collection_flows/{id}`, but is otherwise the             same as [AccountCollectionFlowServiceAsync.retrieve]. */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            params: AccountCollectionFlowRetrieveParams =
-                AccountCollectionFlowRetrieveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountCollectionFlow> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun retrieve(id: String, params: AccountCollectionFlowRetrieveParams = AccountCollectionFlowRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AccountCollectionFlow> =
+            retrieve(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            params: AccountCollectionFlowRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountCollectionFlow>
+        suspend fun retrieve(params: AccountCollectionFlowRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AccountCollectionFlow>
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountCollectionFlow> =
-            retrieve(id, AccountCollectionFlowRetrieveParams.none(), requestOptions)
+        suspend fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<AccountCollectionFlow> =
+            retrieve(
+              id,
+              AccountCollectionFlowRetrieveParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `patch /api/account_collection_flows/{id}`, but is
-         * otherwise the same as [AccountCollectionFlowServiceAsync.update].
-         */
+        /** Returns a raw HTTP response for `patch /api/account_collection_flows/{id}`, but is otherwise the             same as [AccountCollectionFlowServiceAsync.update]. */
         @MustBeClosed
-        suspend fun update(
-            id: String,
-            params: AccountCollectionFlowUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountCollectionFlow> =
-            update(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun update(id: String, params: AccountCollectionFlowUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AccountCollectionFlow> =
+            update(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see update */
         @MustBeClosed
-        suspend fun update(
-            params: AccountCollectionFlowUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountCollectionFlow>
+        suspend fun update(params: AccountCollectionFlowUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AccountCollectionFlow>
 
-        /**
-         * Returns a raw HTTP response for `get /api/account_collection_flows`, but is otherwise the
-         * same as [AccountCollectionFlowServiceAsync.list].
-         */
+        /** Returns a raw HTTP response for `get /api/account_collection_flows`, but is otherwise the             same as [AccountCollectionFlowServiceAsync.list]. */
         @MustBeClosed
-        suspend fun list(
-            params: AccountCollectionFlowListParams = AccountCollectionFlowListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountCollectionFlowListPageAsync>
+        suspend fun list(params: AccountCollectionFlowListParams = AccountCollectionFlowListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AccountCollectionFlowListPageAsync>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<AccountCollectionFlowListPageAsync> =
-            list(AccountCollectionFlowListParams.none(), requestOptions)
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<AccountCollectionFlowListPageAsync> =
+            list(
+              AccountCollectionFlowListParams.none(), requestOptions
+            )
     }
 }

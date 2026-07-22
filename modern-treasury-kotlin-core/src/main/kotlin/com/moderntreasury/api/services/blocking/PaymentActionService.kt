@@ -14,12 +14,11 @@ import com.moderntreasury.api.models.PaymentActionRetrieveParams
 import com.moderntreasury.api.models.PaymentActionRetrieveResponse
 import com.moderntreasury.api.models.PaymentActionUpdateParams
 import com.moderntreasury.api.models.PaymentActionUpdateResponse
+import com.moderntreasury.api.services.blocking.PaymentActionService
 
 interface PaymentActionService {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -30,54 +29,48 @@ interface PaymentActionService {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentActionService
 
     /** Create a payment action. */
-    fun create(
-        params: PaymentActionCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentActionCreateResponse
+    fun create(params: PaymentActionCreateParams, requestOptions: RequestOptions = RequestOptions.none()): PaymentActionCreateResponse
 
     /** Get details on a single payment action. */
-    fun retrieve(
-        id: String,
-        params: PaymentActionRetrieveParams = PaymentActionRetrieveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentActionRetrieveResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    fun retrieve(id: String, params: PaymentActionRetrieveParams = PaymentActionRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): PaymentActionRetrieveResponse =
+        retrieve(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see retrieve */
-    fun retrieve(
-        params: PaymentActionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentActionRetrieveResponse
+    fun retrieve(params: PaymentActionRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): PaymentActionRetrieveResponse
 
     /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): PaymentActionRetrieveResponse =
-        retrieve(id, PaymentActionRetrieveParams.none(), requestOptions)
+        retrieve(
+          id,
+          PaymentActionRetrieveParams.none(),
+          requestOptions,
+        )
 
     /** Update a single payment action. */
-    fun update(
-        id: String,
-        params: PaymentActionUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentActionUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
+    fun update(id: String, params: PaymentActionUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): PaymentActionUpdateResponse =
+        update(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see update */
-    fun update(
-        params: PaymentActionUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentActionUpdateResponse
+    fun update(params: PaymentActionUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): PaymentActionUpdateResponse
 
     /** Get a list of all payment actions. */
-    fun list(
-        params: PaymentActionListParams = PaymentActionListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PaymentActionListPage
+    fun list(params: PaymentActionListParams = PaymentActionListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): PaymentActionListPage
 
     /** @see list */
     fun list(requestOptions: RequestOptions): PaymentActionListPage =
-        list(PaymentActionListParams.none(), requestOptions)
+        list(
+          PaymentActionListParams.none(), requestOptions
+        )
 
-    /**
-     * A view of [PaymentActionService] that provides access to raw HTTP responses for each method.
-     */
+    /** A view of [PaymentActionService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -85,79 +78,56 @@ interface PaymentActionService {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): PaymentActionService.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentActionService.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `post /api/payment_actions`, but is otherwise the same as
-         * [PaymentActionService.create].
-         */
+        /** Returns a raw HTTP response for `post /api/payment_actions`, but is otherwise the             same as [PaymentActionService.create]. */
         @MustBeClosed
-        fun create(
-            params: PaymentActionCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentActionCreateResponse>
+        fun create(params: PaymentActionCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<PaymentActionCreateResponse>
 
-        /**
-         * Returns a raw HTTP response for `get /api/payment_actions/{id}`, but is otherwise the
-         * same as [PaymentActionService.retrieve].
-         */
+        /** Returns a raw HTTP response for `get /api/payment_actions/{id}`, but is otherwise the             same as [PaymentActionService.retrieve]. */
         @MustBeClosed
-        fun retrieve(
-            id: String,
-            params: PaymentActionRetrieveParams = PaymentActionRetrieveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentActionRetrieveResponse> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
+        fun retrieve(id: String, params: PaymentActionRetrieveParams = PaymentActionRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<PaymentActionRetrieveResponse> =
+            retrieve(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            params: PaymentActionRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentActionRetrieveResponse>
+        fun retrieve(params: PaymentActionRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<PaymentActionRetrieveResponse>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PaymentActionRetrieveResponse> =
-            retrieve(id, PaymentActionRetrieveParams.none(), requestOptions)
+        fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<PaymentActionRetrieveResponse> =
+            retrieve(
+              id,
+              PaymentActionRetrieveParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `patch /api/payment_actions/{id}`, but is otherwise the
-         * same as [PaymentActionService.update].
-         */
+        /** Returns a raw HTTP response for `patch /api/payment_actions/{id}`, but is otherwise the             same as [PaymentActionService.update]. */
         @MustBeClosed
-        fun update(
-            id: String,
-            params: PaymentActionUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentActionUpdateResponse> =
-            update(params.toBuilder().id(id).build(), requestOptions)
+        fun update(id: String, params: PaymentActionUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<PaymentActionUpdateResponse> =
+            update(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see update */
         @MustBeClosed
-        fun update(
-            params: PaymentActionUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentActionUpdateResponse>
+        fun update(params: PaymentActionUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<PaymentActionUpdateResponse>
 
-        /**
-         * Returns a raw HTTP response for `get /api/payment_actions`, but is otherwise the same as
-         * [PaymentActionService.list].
-         */
+        /** Returns a raw HTTP response for `get /api/payment_actions`, but is otherwise the             same as [PaymentActionService.list]. */
         @MustBeClosed
-        fun list(
-            params: PaymentActionListParams = PaymentActionListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PaymentActionListPage>
+        fun list(params: PaymentActionListParams = PaymentActionListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<PaymentActionListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PaymentActionListPage> =
-            list(PaymentActionListParams.none(), requestOptions)
+            list(
+              PaymentActionListParams.none(), requestOptions
+            )
     }
 }

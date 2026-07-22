@@ -13,13 +13,12 @@ import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.WealthAndEmploymentDetails
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-class WealthAndEmploymentDetails
-@JsonCreator(mode = JsonCreator.Mode.DISABLED)
-private constructor(
+class WealthAndEmploymentDetails @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
     private val id: JsonField<String>,
     private val annualIncome: JsonField<Long>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -39,210 +38,154 @@ private constructor(
     private val updatedAt: JsonField<OffsetDateTime>,
     private val wealthSource: JsonField<WealthSource>,
     private val additionalProperties: MutableMap<String, JsonValue>,
+
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("annual_income")
-        @ExcludeMissing
-        annualIncome: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("discarded_at")
-        @ExcludeMissing
-        discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("employer_country")
-        @ExcludeMissing
-        employerCountry: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("employer_name")
-        @ExcludeMissing
-        employerName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("employer_state")
-        @ExcludeMissing
-        employerState: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("employment_status")
-        @ExcludeMissing
-        employmentStatus: JsonField<EmploymentStatus> = JsonMissing.of(),
-        @JsonProperty("income_country")
-        @ExcludeMissing
-        incomeCountry: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("income_source")
-        @ExcludeMissing
-        incomeSource: JsonField<IncomeSource> = JsonMissing.of(),
-        @JsonProperty("income_state")
-        @ExcludeMissing
-        incomeState: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("annual_income") @ExcludeMissing annualIncome: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("discarded_at") @ExcludeMissing discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("employer_country") @ExcludeMissing employerCountry: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("employer_name") @ExcludeMissing employerName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("employer_state") @ExcludeMissing employerState: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("employment_status") @ExcludeMissing employmentStatus: JsonField<EmploymentStatus> = JsonMissing.of(),
+        @JsonProperty("income_country") @ExcludeMissing incomeCountry: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("income_source") @ExcludeMissing incomeSource: JsonField<IncomeSource> = JsonMissing.of(),
+        @JsonProperty("income_state") @ExcludeMissing incomeState: JsonField<String> = JsonMissing.of(),
         @JsonProperty("industry") @ExcludeMissing industry: JsonField<Industry> = JsonMissing.of(),
         @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("occupation")
-        @ExcludeMissing
-        occupation: JsonField<Occupation> = JsonMissing.of(),
-        @JsonProperty("source_of_funds")
-        @ExcludeMissing
-        sourceOfFunds: JsonField<SourceOfFunds> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("wealth_source")
-        @ExcludeMissing
-        wealthSource: JsonField<WealthSource> = JsonMissing.of(),
+        @JsonProperty("occupation") @ExcludeMissing occupation: JsonField<Occupation> = JsonMissing.of(),
+        @JsonProperty("source_of_funds") @ExcludeMissing sourceOfFunds: JsonField<SourceOfFunds> = JsonMissing.of(),
+        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("wealth_source") @ExcludeMissing wealthSource: JsonField<WealthSource> = JsonMissing.of()
     ) : this(
-        id,
-        annualIncome,
-        createdAt,
-        discardedAt,
-        employerCountry,
-        employerName,
-        employerState,
-        employmentStatus,
-        incomeCountry,
-        incomeSource,
-        incomeState,
-        industry,
-        liveMode,
-        object_,
-        occupation,
-        sourceOfFunds,
-        updatedAt,
-        wealthSource,
-        mutableMapOf(),
+      id,
+      annualIncome,
+      createdAt,
+      discardedAt,
+      employerCountry,
+      employerName,
+      employerState,
+      employmentStatus,
+      incomeCountry,
+      incomeSource,
+      incomeState,
+      industry,
+      liveMode,
+      object_,
+      occupation,
+      sourceOfFunds,
+      updatedAt,
+      wealthSource,
+      mutableMapOf(),
     )
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun id(): String = id.getRequired("id")
 
     /**
      * The annual income of the individual in USD.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun annualIncome(): Long? = annualIncome.getNullable("annual_income")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
     fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
 
     /**
      * The country in which the employer is located.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun employerCountry(): String? = employerCountry.getNullable("employer_country")
 
     /**
      * The name of the employer.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun employerName(): String? = employerName.getNullable("employer_name")
 
     /**
      * The state in which the employer is located.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun employerState(): String? = employerState.getNullable("employer_state")
 
     /**
      * The employment status of the individual.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun employmentStatus(): EmploymentStatus? = employmentStatus.getNullable("employment_status")
 
     /**
      * The country in which the individual's income is earned.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun incomeCountry(): String? = incomeCountry.getNullable("income_country")
 
     /**
      * The source of the individual's income.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun incomeSource(): IncomeSource? = incomeSource.getNullable("income_source")
 
     /**
      * The state in which the individual's income is earned.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun incomeState(): String? = incomeState.getNullable("income_state")
 
     /**
      * The industry of the individual.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun industry(): Industry? = industry.getNullable("industry")
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * This field will be true if this object exists in the live environment or false if it exists in the test environment.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun object_(): String = object_.getRequired("object")
 
     /**
      * The occupation of the individual.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun occupation(): Occupation? = occupation.getNullable("occupation")
 
     /**
      * The source of the individual's funds.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun sourceOfFunds(): SourceOfFunds? = sourceOfFunds.getNullable("source_of_funds")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /**
      * The source of the individual's wealth.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun wealthSource(): WealthSource? = wealthSource.getNullable("wealth_source")
 
@@ -251,7 +194,9 @@ private constructor(
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id(): JsonField<String> = id
 
     /**
      * Returns the raw JSON value of [annualIncome].
@@ -310,8 +255,7 @@ private constructor(
     /**
      * Returns the raw JSON value of [employmentStatus].
      *
-     * Unlike [employmentStatus], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [employmentStatus], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("employment_status")
     @ExcludeMissing
@@ -349,21 +293,27 @@ private constructor(
      *
      * Unlike [industry], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("industry") @ExcludeMissing fun _industry(): JsonField<Industry> = industry
+    @JsonProperty("industry")
+    @ExcludeMissing
+    fun _industry(): JsonField<Industry> = industry
 
     /**
      * Returns the raw JSON value of [liveMode].
      *
      * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    fun _liveMode(): JsonField<Boolean> = liveMode
 
     /**
      * Returns the raw JSON value of [object_].
      *
      * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
+    @JsonProperty("object")
+    @ExcludeMissing
+    fun _object_(): JsonField<String> = object_
 
     /**
      * Returns the raw JSON value of [occupation].
@@ -403,13 +353,12 @@ private constructor(
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
-        additionalProperties.put(key, value)
+      additionalProperties.put(key, value)
     }
 
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> =
-        Collections.unmodifiableMap(additionalProperties)
+    fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -419,6 +368,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [WealthAndEmploymentDetails].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .id()
          * .annualIncome()
@@ -466,37 +416,41 @@ private constructor(
         private var wealthSource: JsonField<WealthSource>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(wealthAndEmploymentDetails: WealthAndEmploymentDetails) = apply {
-            id = wealthAndEmploymentDetails.id
-            annualIncome = wealthAndEmploymentDetails.annualIncome
-            createdAt = wealthAndEmploymentDetails.createdAt
-            discardedAt = wealthAndEmploymentDetails.discardedAt
-            employerCountry = wealthAndEmploymentDetails.employerCountry
-            employerName = wealthAndEmploymentDetails.employerName
-            employerState = wealthAndEmploymentDetails.employerState
-            employmentStatus = wealthAndEmploymentDetails.employmentStatus
-            incomeCountry = wealthAndEmploymentDetails.incomeCountry
-            incomeSource = wealthAndEmploymentDetails.incomeSource
-            incomeState = wealthAndEmploymentDetails.incomeState
-            industry = wealthAndEmploymentDetails.industry
-            liveMode = wealthAndEmploymentDetails.liveMode
-            object_ = wealthAndEmploymentDetails.object_
-            occupation = wealthAndEmploymentDetails.occupation
-            sourceOfFunds = wealthAndEmploymentDetails.sourceOfFunds
-            updatedAt = wealthAndEmploymentDetails.updatedAt
-            wealthSource = wealthAndEmploymentDetails.wealthSource
-            additionalProperties = wealthAndEmploymentDetails.additionalProperties.toMutableMap()
-        }
+        internal fun from(wealthAndEmploymentDetails: WealthAndEmploymentDetails) =
+            apply {
+                id = wealthAndEmploymentDetails.id
+                annualIncome = wealthAndEmploymentDetails.annualIncome
+                createdAt = wealthAndEmploymentDetails.createdAt
+                discardedAt = wealthAndEmploymentDetails.discardedAt
+                employerCountry = wealthAndEmploymentDetails.employerCountry
+                employerName = wealthAndEmploymentDetails.employerName
+                employerState = wealthAndEmploymentDetails.employerState
+                employmentStatus = wealthAndEmploymentDetails.employmentStatus
+                incomeCountry = wealthAndEmploymentDetails.incomeCountry
+                incomeSource = wealthAndEmploymentDetails.incomeSource
+                incomeState = wealthAndEmploymentDetails.incomeState
+                industry = wealthAndEmploymentDetails.industry
+                liveMode = wealthAndEmploymentDetails.liveMode
+                object_ = wealthAndEmploymentDetails.object_
+                occupation = wealthAndEmploymentDetails.occupation
+                sourceOfFunds = wealthAndEmploymentDetails.sourceOfFunds
+                updatedAt = wealthAndEmploymentDetails.updatedAt
+                wealthSource = wealthAndEmploymentDetails.wealthSource
+                additionalProperties = wealthAndEmploymentDetails.additionalProperties.toMutableMap()
+            }
 
         fun id(id: String) = id(JsonField.of(id))
 
         /**
          * Sets [Builder.id] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.id] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) =
+            apply {
+                this.id = id
+            }
 
         /** The annual income of the individual in USD. */
         fun annualIncome(annualIncome: Long?) = annualIncome(JsonField.ofNullable(annualIncome))
@@ -511,51 +465,53 @@ private constructor(
         /**
          * Sets [Builder.annualIncome] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.annualIncome] with a well-typed [Long] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.annualIncome] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun annualIncome(annualIncome: JsonField<Long>) = apply { this.annualIncome = annualIncome }
+        fun annualIncome(annualIncome: JsonField<Long>) =
+            apply {
+                this.annualIncome = annualIncome
+            }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
          * Sets [Builder.createdAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.createdAt = createdAt
+            }
 
-        fun discardedAt(discardedAt: OffsetDateTime?) =
-            discardedAt(JsonField.ofNullable(discardedAt))
+        fun discardedAt(discardedAt: OffsetDateTime?) = discardedAt(JsonField.ofNullable(discardedAt))
 
         /**
          * Sets [Builder.discardedAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
-            this.discardedAt = discardedAt
-        }
+        fun discardedAt(discardedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.discardedAt = discardedAt
+            }
 
         /** The country in which the employer is located. */
-        fun employerCountry(employerCountry: String?) =
-            employerCountry(JsonField.ofNullable(employerCountry))
+        fun employerCountry(employerCountry: String?) = employerCountry(JsonField.ofNullable(employerCountry))
 
         /**
          * Sets [Builder.employerCountry] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.employerCountry] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.employerCountry] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun employerCountry(employerCountry: JsonField<String>) = apply {
-            this.employerCountry = employerCountry
-        }
+        fun employerCountry(employerCountry: JsonField<String>) =
+            apply {
+                this.employerCountry = employerCountry
+            }
 
         /** The name of the employer. */
         fun employerName(employerName: String?) = employerName(JsonField.ofNullable(employerName))
@@ -563,73 +519,69 @@ private constructor(
         /**
          * Sets [Builder.employerName] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.employerName] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.employerName] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun employerName(employerName: JsonField<String>) = apply {
-            this.employerName = employerName
-        }
+        fun employerName(employerName: JsonField<String>) =
+            apply {
+                this.employerName = employerName
+            }
 
         /** The state in which the employer is located. */
-        fun employerState(employerState: String?) =
-            employerState(JsonField.ofNullable(employerState))
+        fun employerState(employerState: String?) = employerState(JsonField.ofNullable(employerState))
 
         /**
          * Sets [Builder.employerState] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.employerState] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.employerState] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun employerState(employerState: JsonField<String>) = apply {
-            this.employerState = employerState
-        }
+        fun employerState(employerState: JsonField<String>) =
+            apply {
+                this.employerState = employerState
+            }
 
         /** The employment status of the individual. */
-        fun employmentStatus(employmentStatus: EmploymentStatus?) =
-            employmentStatus(JsonField.ofNullable(employmentStatus))
+        fun employmentStatus(employmentStatus: EmploymentStatus?) = employmentStatus(JsonField.ofNullable(employmentStatus))
 
         /**
          * Sets [Builder.employmentStatus] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.employmentStatus] with a well-typed [EmploymentStatus]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.employmentStatus] with a well-typed [EmploymentStatus] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun employmentStatus(employmentStatus: JsonField<EmploymentStatus>) = apply {
-            this.employmentStatus = employmentStatus
-        }
+        fun employmentStatus(employmentStatus: JsonField<EmploymentStatus>) =
+            apply {
+                this.employmentStatus = employmentStatus
+            }
 
         /** The country in which the individual's income is earned. */
-        fun incomeCountry(incomeCountry: String?) =
-            incomeCountry(JsonField.ofNullable(incomeCountry))
+        fun incomeCountry(incomeCountry: String?) = incomeCountry(JsonField.ofNullable(incomeCountry))
 
         /**
          * Sets [Builder.incomeCountry] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.incomeCountry] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.incomeCountry] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun incomeCountry(incomeCountry: JsonField<String>) = apply {
-            this.incomeCountry = incomeCountry
-        }
+        fun incomeCountry(incomeCountry: JsonField<String>) =
+            apply {
+                this.incomeCountry = incomeCountry
+            }
 
         /** The source of the individual's income. */
-        fun incomeSource(incomeSource: IncomeSource?) =
-            incomeSource(JsonField.ofNullable(incomeSource))
+        fun incomeSource(incomeSource: IncomeSource?) = incomeSource(JsonField.ofNullable(incomeSource))
 
         /**
          * Sets [Builder.incomeSource] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.incomeSource] with a well-typed [IncomeSource] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.incomeSource] with a well-typed [IncomeSource] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun incomeSource(incomeSource: JsonField<IncomeSource>) = apply {
-            this.incomeSource = incomeSource
-        }
+        fun incomeSource(incomeSource: JsonField<IncomeSource>) =
+            apply {
+                this.incomeSource = incomeSource
+            }
 
         /** The state in which the individual's income is earned. */
         fun incomeState(incomeState: String?) = incomeState(JsonField.ofNullable(incomeState))
@@ -637,11 +589,13 @@ private constructor(
         /**
          * Sets [Builder.incomeState] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.incomeState] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.incomeState] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun incomeState(incomeState: JsonField<String>) = apply { this.incomeState = incomeState }
+        fun incomeState(incomeState: JsonField<String>) =
+            apply {
+                this.incomeState = incomeState
+            }
 
         /** The industry of the individual. */
         fun industry(industry: Industry?) = industry(JsonField.ofNullable(industry))
@@ -649,36 +603,40 @@ private constructor(
         /**
          * Sets [Builder.industry] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.industry] with a well-typed [Industry] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.industry] with a well-typed [Industry] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun industry(industry: JsonField<Industry>) = apply { this.industry = industry }
+        fun industry(industry: JsonField<Industry>) =
+            apply {
+                this.industry = industry
+            }
 
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
+        /** This field will be true if this object exists in the live environment or false if it exists in the test environment. */
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
          * Sets [Builder.liveMode] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+        fun liveMode(liveMode: JsonField<Boolean>) =
+            apply {
+                this.liveMode = liveMode
+            }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
         /**
          * Sets [Builder.object_] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun object_(object_: JsonField<String>) =
+            apply {
+                this.object_ = object_
+            }
 
         /** The occupation of the individual. */
         fun occupation(occupation: Occupation?) = occupation(JsonField.ofNullable(occupation))
@@ -686,71 +644,80 @@ private constructor(
         /**
          * Sets [Builder.occupation] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.occupation] with a well-typed [Occupation] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.occupation] with a well-typed [Occupation] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun occupation(occupation: JsonField<Occupation>) = apply { this.occupation = occupation }
+        fun occupation(occupation: JsonField<Occupation>) =
+            apply {
+                this.occupation = occupation
+            }
 
         /** The source of the individual's funds. */
-        fun sourceOfFunds(sourceOfFunds: SourceOfFunds?) =
-            sourceOfFunds(JsonField.ofNullable(sourceOfFunds))
+        fun sourceOfFunds(sourceOfFunds: SourceOfFunds?) = sourceOfFunds(JsonField.ofNullable(sourceOfFunds))
 
         /**
          * Sets [Builder.sourceOfFunds] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.sourceOfFunds] with a well-typed [SourceOfFunds] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.sourceOfFunds] with a well-typed [SourceOfFunds] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun sourceOfFunds(sourceOfFunds: JsonField<SourceOfFunds>) = apply {
-            this.sourceOfFunds = sourceOfFunds
-        }
+        fun sourceOfFunds(sourceOfFunds: JsonField<SourceOfFunds>) =
+            apply {
+                this.sourceOfFunds = sourceOfFunds
+            }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
          * Sets [Builder.updatedAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.updatedAt = updatedAt
+            }
 
         /** The source of the individual's wealth. */
-        fun wealthSource(wealthSource: WealthSource?) =
-            wealthSource(JsonField.ofNullable(wealthSource))
+        fun wealthSource(wealthSource: WealthSource?) = wealthSource(JsonField.ofNullable(wealthSource))
 
         /**
          * Sets [Builder.wealthSource] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.wealthSource] with a well-typed [WealthSource] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.wealthSource] with a well-typed [WealthSource] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun wealthSource(wealthSource: JsonField<WealthSource>) = apply {
-            this.wealthSource = wealthSource
-        }
+        fun wealthSource(wealthSource: JsonField<WealthSource>) =
+            apply {
+                this.wealthSource = wealthSource
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         /**
          * Returns an immutable instance of [WealthAndEmploymentDetails].
@@ -758,6 +725,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .id()
          * .annualIncome()
@@ -783,25 +751,61 @@ private constructor(
          */
         fun build(): WealthAndEmploymentDetails =
             WealthAndEmploymentDetails(
-                checkRequired("id", id),
-                checkRequired("annualIncome", annualIncome),
-                checkRequired("createdAt", createdAt),
-                checkRequired("discardedAt", discardedAt),
-                checkRequired("employerCountry", employerCountry),
-                checkRequired("employerName", employerName),
-                checkRequired("employerState", employerState),
-                checkRequired("employmentStatus", employmentStatus),
-                checkRequired("incomeCountry", incomeCountry),
-                checkRequired("incomeSource", incomeSource),
-                checkRequired("incomeState", incomeState),
-                checkRequired("industry", industry),
-                checkRequired("liveMode", liveMode),
-                checkRequired("object_", object_),
-                checkRequired("occupation", occupation),
-                checkRequired("sourceOfFunds", sourceOfFunds),
-                checkRequired("updatedAt", updatedAt),
-                checkRequired("wealthSource", wealthSource),
-                additionalProperties.toMutableMap(),
+              checkRequired(
+                "id", id
+              ),
+              checkRequired(
+                "annualIncome", annualIncome
+              ),
+              checkRequired(
+                "createdAt", createdAt
+              ),
+              checkRequired(
+                "discardedAt", discardedAt
+              ),
+              checkRequired(
+                "employerCountry", employerCountry
+              ),
+              checkRequired(
+                "employerName", employerName
+              ),
+              checkRequired(
+                "employerState", employerState
+              ),
+              checkRequired(
+                "employmentStatus", employmentStatus
+              ),
+              checkRequired(
+                "incomeCountry", incomeCountry
+              ),
+              checkRequired(
+                "incomeSource", incomeSource
+              ),
+              checkRequired(
+                "incomeState", incomeState
+              ),
+              checkRequired(
+                "industry", industry
+              ),
+              checkRequired(
+                "liveMode", liveMode
+              ),
+              checkRequired(
+                "object_", object_
+              ),
+              checkRequired(
+                "occupation", occupation
+              ),
+              checkRequired(
+                "sourceOfFunds", sourceOfFunds
+              ),
+              checkRequired(
+                "updatedAt", updatedAt
+              ),
+              checkRequired(
+                "wealthSource", wealthSource
+              ),
+              additionalProperties.toMutableMap(),
             )
     }
 
@@ -815,31 +819,32 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): WealthAndEmploymentDetails = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): WealthAndEmploymentDetails =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        id()
-        annualIncome()
-        createdAt()
-        discardedAt()
-        employerCountry()
-        employerName()
-        employerState()
-        employmentStatus()?.validate()
-        incomeCountry()
-        incomeSource()?.validate()
-        incomeState()
-        industry()?.validate()
-        liveMode()
-        object_()
-        occupation()?.validate()
-        sourceOfFunds()?.validate()
-        updatedAt()
-        wealthSource()?.validate()
-        validated = true
-    }
+            id()
+            annualIncome()
+            createdAt()
+            discardedAt()
+            employerCountry()
+            employerName()
+            employerState()
+            employmentStatus()?.validate()
+            incomeCountry()
+            incomeSource()?.validate()
+            incomeState()
+            industry()?.validate()
+            liveMode()
+            object_()
+            occupation()?.validate()
+            sourceOfFunds()?.validate()
+            updatedAt()
+            wealthSource()?.validate()
+            validated = true
+        }
 
     fun isValid(): Boolean =
         try {
@@ -854,39 +859,23 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    internal fun validity(): Int =
-        (if (id.asKnown() == null) 0 else 1) +
-            (if (annualIncome.asKnown() == null) 0 else 1) +
-            (if (createdAt.asKnown() == null) 0 else 1) +
-            (if (discardedAt.asKnown() == null) 0 else 1) +
-            (if (employerCountry.asKnown() == null) 0 else 1) +
-            (if (employerName.asKnown() == null) 0 else 1) +
-            (if (employerState.asKnown() == null) 0 else 1) +
-            (employmentStatus.asKnown()?.validity() ?: 0) +
-            (if (incomeCountry.asKnown() == null) 0 else 1) +
-            (incomeSource.asKnown()?.validity() ?: 0) +
-            (if (incomeState.asKnown() == null) 0 else 1) +
-            (industry.asKnown()?.validity() ?: 0) +
-            (if (liveMode.asKnown() == null) 0 else 1) +
-            (if (object_.asKnown() == null) 0 else 1) +
-            (occupation.asKnown()?.validity() ?: 0) +
-            (sourceOfFunds.asKnown()?.validity() ?: 0) +
-            (if (updatedAt.asKnown() == null) 0 else 1) +
-            (wealthSource.asKnown()?.validity() ?: 0)
+    internal fun validity(): Int = (if (id.asKnown() == null) 0 else 1) + (if (annualIncome.asKnown() == null) 0 else 1) + (if (createdAt.asKnown() == null) 0 else 1) + (if (discardedAt.asKnown() == null) 0 else 1) + (if (employerCountry.asKnown() == null) 0 else 1) + (if (employerName.asKnown() == null) 0 else 1) + (if (employerState.asKnown() == null) 0 else 1) + (employmentStatus.asKnown()?.validity() ?: 0) + (if (incomeCountry.asKnown() == null) 0 else 1) + (incomeSource.asKnown()?.validity() ?: 0) + (if (incomeState.asKnown() == null) 0 else 1) + (industry.asKnown()?.validity() ?: 0) + (if (liveMode.asKnown() == null) 0 else 1) + (if (object_.asKnown() == null) 0 else 1) + (occupation.asKnown()?.validity() ?: 0) + (sourceOfFunds.asKnown()?.validity() ?: 0) + (if (updatedAt.asKnown() == null) 0 else 1) + (wealthSource.asKnown()?.validity() ?: 0)
 
     /** The employment status of the individual. */
-    class EmploymentStatus @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
+    class EmploymentStatus @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -916,9 +905,11 @@ private constructor(
          * An enum containing [EmploymentStatus]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [EmploymentStatus] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -927,19 +918,16 @@ private constructor(
             SELF_EMPLOYED,
             STUDENT,
             UNEMPLOYED,
-            /**
-             * An enum member indicating that [EmploymentStatus] was instantiated with an unknown
-             * value.
-             */
+            /** An enum member indicating that [EmploymentStatus] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -954,11 +942,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -973,34 +960,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): EmploymentStatus = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): EmploymentStatus =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1011,19 +997,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is EmploymentStatus && value == other.value
+          return other is EmploymentStatus && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1032,18 +1017,20 @@ private constructor(
     }
 
     /** The source of the individual's income. */
-    class IncomeSource @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
+    class IncomeSource @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -1082,9 +1069,11 @@ private constructor(
          * An enum containing [IncomeSource]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [IncomeSource] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -1096,18 +1085,16 @@ private constructor(
             RETIREMENT,
             SALARY,
             SELF_EMPLOYED,
-            /**
-             * An enum member indicating that [IncomeSource] was instantiated with an unknown value.
-             */
+            /** An enum member indicating that [IncomeSource] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -1125,11 +1112,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -1147,34 +1133,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): IncomeSource = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): IncomeSource =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1185,19 +1170,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is IncomeSource && value == other.value
+          return other is IncomeSource && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1206,17 +1190,20 @@ private constructor(
     }
 
     /** The industry of the individual. */
-    class Industry @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Industry @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -1330,9 +1317,11 @@ private constructor(
          * An enum containing [Industry]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Industry] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -1374,11 +1363,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -1421,11 +1410,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -1468,34 +1456,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Industry = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Industry =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1506,19 +1493,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Industry && value == other.value
+          return other is Industry && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1527,17 +1513,20 @@ private constructor(
     }
 
     /** The occupation of the individual. */
-    class Occupation @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Occupation @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -1588,9 +1577,11 @@ private constructor(
          * An enum containing [Occupation]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Occupation] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -1606,18 +1597,16 @@ private constructor(
             SALES,
             SCIENCE_ENGINEERING,
             TECHNOLOGY,
-            /**
-             * An enum member indicating that [Occupation] was instantiated with an unknown value.
-             */
+            /** An enum member indicating that [Occupation] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -1639,11 +1628,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -1665,34 +1653,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Occupation = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Occupation =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1703,19 +1690,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Occupation && value == other.value
+          return other is Occupation && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1724,18 +1710,20 @@ private constructor(
     }
 
     /** The source of the individual's funds. */
-    class SourceOfFunds @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
+    class SourceOfFunds @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -1822,9 +1810,11 @@ private constructor(
          * An enum containing [SourceOfFunds]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [SourceOfFunds] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -1852,19 +1842,16 @@ private constructor(
             SELF_EMPLOYED,
             SENIOR_EXECUTIVE,
             TRUST_INCOME,
-            /**
-             * An enum member indicating that [SourceOfFunds] was instantiated with an unknown
-             * value.
-             */
+            /** An enum member indicating that [SourceOfFunds] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -1898,11 +1885,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -1936,34 +1922,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): SourceOfFunds = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): SourceOfFunds =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1974,19 +1959,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is SourceOfFunds && value == other.value
+          return other is SourceOfFunds && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1995,18 +1979,20 @@ private constructor(
     }
 
     /** The source of the individual's wealth. */
-    class WealthSource @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
+    class WealthSource @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -2051,9 +2037,11 @@ private constructor(
          * An enum containing [WealthSource]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [WealthSource] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -2067,18 +2055,16 @@ private constructor(
             RETIREMENT,
             SALARY,
             SELF_EMPLOYED,
-            /**
-             * An enum member indicating that [WealthSource] was instantiated with an unknown value.
-             */
+            /** An enum member indicating that [WealthSource] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -2098,11 +2084,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -2122,34 +2107,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): WealthSource = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): WealthSource =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -2160,19 +2144,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is WealthSource && value == other.value
+          return other is WealthSource && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2181,58 +2164,16 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is WealthAndEmploymentDetails &&
-            id == other.id &&
-            annualIncome == other.annualIncome &&
-            createdAt == other.createdAt &&
-            discardedAt == other.discardedAt &&
-            employerCountry == other.employerCountry &&
-            employerName == other.employerName &&
-            employerState == other.employerState &&
-            employmentStatus == other.employmentStatus &&
-            incomeCountry == other.incomeCountry &&
-            incomeSource == other.incomeSource &&
-            incomeState == other.incomeState &&
-            industry == other.industry &&
-            liveMode == other.liveMode &&
-            object_ == other.object_ &&
-            occupation == other.occupation &&
-            sourceOfFunds == other.sourceOfFunds &&
-            updatedAt == other.updatedAt &&
-            wealthSource == other.wealthSource &&
-            additionalProperties == other.additionalProperties
+      return other is WealthAndEmploymentDetails && id == other.id && annualIncome == other.annualIncome && createdAt == other.createdAt && discardedAt == other.discardedAt && employerCountry == other.employerCountry && employerName == other.employerName && employerState == other.employerState && employmentStatus == other.employmentStatus && incomeCountry == other.incomeCountry && incomeSource == other.incomeSource && incomeState == other.incomeState && industry == other.industry && liveMode == other.liveMode && object_ == other.object_ && occupation == other.occupation && sourceOfFunds == other.sourceOfFunds && updatedAt == other.updatedAt && wealthSource == other.wealthSource && additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy {
-        Objects.hash(
-            id,
-            annualIncome,
-            createdAt,
-            discardedAt,
-            employerCountry,
-            employerName,
-            employerState,
-            employmentStatus,
-            incomeCountry,
-            incomeSource,
-            incomeState,
-            industry,
-            liveMode,
-            object_,
-            occupation,
-            sourceOfFunds,
-            updatedAt,
-            wealthSource,
-            additionalProperties,
-        )
-    }
+    private val hashCode: Int by lazy { Objects.hash(id, annualIncome, createdAt, discardedAt, employerCountry, employerName, employerState, employmentStatus, incomeCountry, incomeSource, incomeState, industry, liveMode, object_, occupation, sourceOfFunds, updatedAt, wealthSource, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "WealthAndEmploymentDetails{id=$id, annualIncome=$annualIncome, createdAt=$createdAt, discardedAt=$discardedAt, employerCountry=$employerCountry, employerName=$employerName, employerState=$employerState, employmentStatus=$employmentStatus, incomeCountry=$incomeCountry, incomeSource=$incomeSource, incomeState=$incomeState, industry=$industry, liveMode=$liveMode, object_=$object_, occupation=$occupation, sourceOfFunds=$sourceOfFunds, updatedAt=$updatedAt, wealthSource=$wealthSource, additionalProperties=$additionalProperties}"
+    override fun toString() = "WealthAndEmploymentDetails{id=$id, annualIncome=$annualIncome, createdAt=$createdAt, discardedAt=$discardedAt, employerCountry=$employerCountry, employerName=$employerName, employerState=$employerState, employmentStatus=$employmentStatus, incomeCountry=$incomeCountry, incomeSource=$incomeSource, incomeState=$incomeState, industry=$industry, liveMode=$liveMode, object_=$object_, occupation=$occupation, sourceOfFunds=$sourceOfFunds, updatedAt=$updatedAt, wealthSource=$wealthSource, additionalProperties=$additionalProperties}"
 }

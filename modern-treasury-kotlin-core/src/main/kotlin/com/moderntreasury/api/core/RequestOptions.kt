@@ -2,7 +2,11 @@ package com.moderntreasury.api.core
 
 import java.time.Duration
 
-class RequestOptions private constructor(val responseValidation: Boolean?, val timeout: Timeout?) {
+class RequestOptions
+private constructor(
+    val responseValidation: Boolean?,
+    val timeout: Timeout?,
+) {
 
     companion object {
 
@@ -35,17 +39,18 @@ class RequestOptions private constructor(val responseValidation: Boolean?, val t
         /**
          * Whether to call `validate` on the response before returning it.
          *
-         * Setting this to `true` is _not_ forwards compatible with new types from the API for
-         * existing fields.
+         * Setting this to `true` is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * Defaults to false, which means the shape of the response will not be validated upfront.
-         * Instead, validation will only occur for the parts of the response that are accessed.
+         * Defaults to false, which means the shape of the response will not be validated upfront. Instead,
+         * validation will only occur for the parts of the response that are accessed.
          */
         fun responseValidation(responseValidation: Boolean) = apply {
             this.responseValidation = responseValidation
         }
 
-        fun timeout(timeout: Timeout) = apply { this.timeout = timeout }
+        fun timeout(timeout: Timeout) = apply {
+            this.timeout = timeout
+        }
 
         fun timeout(timeout: Duration) = timeout(Timeout.builder().request(timeout).build())
 

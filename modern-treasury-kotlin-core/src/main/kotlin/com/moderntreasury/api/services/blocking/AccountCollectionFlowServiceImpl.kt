@@ -22,184 +22,169 @@ import com.moderntreasury.api.models.AccountCollectionFlowListPage
 import com.moderntreasury.api.models.AccountCollectionFlowListParams
 import com.moderntreasury.api.models.AccountCollectionFlowRetrieveParams
 import com.moderntreasury.api.models.AccountCollectionFlowUpdateParams
+import com.moderntreasury.api.services.blocking.AccountCollectionFlowService
+import com.moderntreasury.api.services.blocking.AccountCollectionFlowServiceImpl
 
-class AccountCollectionFlowServiceImpl
-internal constructor(private val clientOptions: ClientOptions) : AccountCollectionFlowService {
+class AccountCollectionFlowServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: AccountCollectionFlowService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : AccountCollectionFlowService {
+
+    private val withRawResponse: AccountCollectionFlowService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): AccountCollectionFlowService.WithRawResponse = withRawResponse
 
-    override fun withOptions(
-        modifier: (ClientOptions.Builder) -> Unit
-    ): AccountCollectionFlowService =
-        AccountCollectionFlowServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AccountCollectionFlowService = AccountCollectionFlowServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun create(
-        params: AccountCollectionFlowCreateParams,
-        requestOptions: RequestOptions,
-    ): AccountCollectionFlow =
+    override fun create(params: AccountCollectionFlowCreateParams, requestOptions: RequestOptions): AccountCollectionFlow =
         // post /api/account_collection_flows
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(
-        params: AccountCollectionFlowRetrieveParams,
-        requestOptions: RequestOptions,
-    ): AccountCollectionFlow =
+    override fun retrieve(params: AccountCollectionFlowRetrieveParams, requestOptions: RequestOptions): AccountCollectionFlow =
         // get /api/account_collection_flows/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun update(
-        params: AccountCollectionFlowUpdateParams,
-        requestOptions: RequestOptions,
-    ): AccountCollectionFlow =
+    override fun update(params: AccountCollectionFlowUpdateParams, requestOptions: RequestOptions): AccountCollectionFlow =
         // patch /api/account_collection_flows/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: AccountCollectionFlowListParams,
-        requestOptions: RequestOptions,
-    ): AccountCollectionFlowListPage =
+    override fun list(params: AccountCollectionFlowListParams, requestOptions: RequestOptions): AccountCollectionFlowListPage =
         // get /api/account_collection_flows
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        AccountCollectionFlowService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : AccountCollectionFlowService.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): AccountCollectionFlowService.WithRawResponse =
-            AccountCollectionFlowServiceImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AccountCollectionFlowService.WithRawResponse = AccountCollectionFlowServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val createHandler: Handler<AccountCollectionFlow> = jsonHandler<AccountCollectionFlow>(clientOptions.jsonMapper)
+
+        override fun create(params: AccountCollectionFlowCreateParams, requestOptions: RequestOptions): HttpResponseFor<AccountCollectionFlow> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "account_collection_flows")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
             )
-
-        private val createHandler: Handler<AccountCollectionFlow> =
-            jsonHandler<AccountCollectionFlow>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: AccountCollectionFlowCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountCollectionFlow> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "account_collection_flows")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<AccountCollectionFlow> =
-            jsonHandler<AccountCollectionFlow>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<AccountCollectionFlow> = jsonHandler<AccountCollectionFlow>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: AccountCollectionFlowRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountCollectionFlow> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "account_collection_flows", params._pathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: AccountCollectionFlowRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<AccountCollectionFlow> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "account_collection_flows", params._pathParam(0))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val updateHandler: Handler<AccountCollectionFlow> =
-            jsonHandler<AccountCollectionFlow>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<AccountCollectionFlow> = jsonHandler<AccountCollectionFlow>(clientOptions.jsonMapper)
 
-        override fun update(
-            params: AccountCollectionFlowUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountCollectionFlow> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "account_collection_flows", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun update(params: AccountCollectionFlowUpdateParams, requestOptions: RequestOptions): HttpResponseFor<AccountCollectionFlow> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PATCH)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "account_collection_flows", params._pathParam(0))
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  updateHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<AccountCollectionFlow>> =
-            jsonHandler<List<AccountCollectionFlow>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<AccountCollectionFlow>> = jsonHandler<List<AccountCollectionFlow>>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: AccountCollectionFlowListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountCollectionFlowListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "account_collection_flows")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        AccountCollectionFlowListPage.builder()
-                            .service(AccountCollectionFlowServiceImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override fun list(params: AccountCollectionFlowListParams, requestOptions: RequestOptions): HttpResponseFor<AccountCollectionFlowListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "account_collection_flows")
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  AccountCollectionFlowListPage.builder()
+                      .service(AccountCollectionFlowServiceImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
     }
 }

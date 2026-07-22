@@ -13,13 +13,12 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.InvoiceLineItem
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-class InvoiceLineItem
-@JsonCreator(mode = JsonCreator.Mode.DISABLED)
-private constructor(
+class InvoiceLineItem @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
     private val id: JsonField<String>,
     private val amount: JsonField<Long>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -35,18 +34,15 @@ private constructor(
     private val unitAmountDecimal: JsonField<String>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
+
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("description")
-        @ExcludeMissing
-        description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("description") @ExcludeMissing description: JsonField<String> = JsonMissing.of(),
         @JsonProperty("direction") @ExcludeMissing direction: JsonField<String> = JsonMissing.of(),
         @JsonProperty("invoice_id") @ExcludeMissing invoiceId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
@@ -55,137 +51,106 @@ private constructor(
         @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
         @JsonProperty("quantity") @ExcludeMissing quantity: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("unit_amount") @ExcludeMissing unitAmount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("unit_amount_decimal")
-        @ExcludeMissing
-        unitAmountDecimal: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("unit_amount_decimal") @ExcludeMissing unitAmountDecimal: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
     ) : this(
-        id,
-        amount,
-        createdAt,
-        description,
-        direction,
-        invoiceId,
-        liveMode,
-        metadata,
-        name,
-        object_,
-        quantity,
-        unitAmount,
-        unitAmountDecimal,
-        updatedAt,
-        mutableMapOf(),
+      id,
+      amount,
+      createdAt,
+      description,
+      direction,
+      invoiceId,
+      liveMode,
+      metadata,
+      name,
+      object_,
+      quantity,
+      unitAmount,
+      unitAmountDecimal,
+      updatedAt,
+      mutableMapOf(),
     )
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun id(): String = id.getRequired("id")
 
     /**
      * The total amount for this line item specified in the invoice currency's smallest unit.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amount(): Long = amount.getRequired("amount")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * An optional free-form description of the line item.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun description(): String = description.getRequired("description")
 
     /**
-     * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
-     * increases the invoice's `total_amount` due. `credit` has the opposite intention and effect.
+     * Either `debit` or `credit`. `debit` indicates that a client owes the business money           and increases the invoice's `total_amount` due. `credit` has the opposite intention and effect.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun direction(): String = direction.getRequired("direction")
 
     /**
      * The ID of the invoice for this line item.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun invoiceId(): String = invoiceId.getRequired("invoice_id")
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * This field will be true if this object exists in the live environment or false if it exists in the test environment.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean = liveMode.getRequired("live_mode")
 
     /**
      * Additional data represented as key-value pairs. Both the key and value must be strings.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun metadata(): Metadata = metadata.getRequired("metadata")
 
     /**
      * The name of the line item, typically a product or SKU name.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun object_(): String = object_.getRequired("object")
 
     /**
-     * The number of units of a product or service that this line item is for. Must be a whole
-     * number. Defaults to 1 if not provided.
+     * The number of units of a product or service that this line item is for.           Must be a whole number. Defaults to 1 if not provided.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun quantity(): Long = quantity.getRequired("quantity")
 
     /**
-     * The cost per unit of the product or service that this line item is for, specified in the
-     * invoice currency's smallest unit.
+     * The cost per unit of the product or service that this line item is for,           specified in the invoice currency's smallest unit.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun unitAmount(): Long = unitAmount.getRequired("unit_amount")
 
     /**
-     * The cost per unit of the product or service that this line item is for, specified in the
-     * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
+     * The cost per unit of the product or service that this line item is for,           specified in the invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun unitAmountDecimal(): String = unitAmountDecimal.getRequired("unit_amount_decimal")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /**
@@ -193,14 +158,18 @@ private constructor(
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id(): JsonField<String> = id
 
     /**
      * Returns the raw JSON value of [amount].
      *
      * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+    @JsonProperty("amount")
+    @ExcludeMissing
+    fun _amount(): JsonField<Long> = amount
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -216,69 +185,86 @@ private constructor(
      *
      * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
+    @JsonProperty("description")
+    @ExcludeMissing
+    fun _description(): JsonField<String> = description
 
     /**
      * Returns the raw JSON value of [direction].
      *
      * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("direction") @ExcludeMissing fun _direction(): JsonField<String> = direction
+    @JsonProperty("direction")
+    @ExcludeMissing
+    fun _direction(): JsonField<String> = direction
 
     /**
      * Returns the raw JSON value of [invoiceId].
      *
      * Unlike [invoiceId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("invoice_id") @ExcludeMissing fun _invoiceId(): JsonField<String> = invoiceId
+    @JsonProperty("invoice_id")
+    @ExcludeMissing
+    fun _invoiceId(): JsonField<String> = invoiceId
 
     /**
      * Returns the raw JSON value of [liveMode].
      *
      * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    fun _liveMode(): JsonField<Boolean> = liveMode
 
     /**
      * Returns the raw JSON value of [metadata].
      *
      * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+    @JsonProperty("metadata")
+    @ExcludeMissing
+    fun _metadata(): JsonField<Metadata> = metadata
 
     /**
      * Returns the raw JSON value of [name].
      *
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+    @JsonProperty("name")
+    @ExcludeMissing
+    fun _name(): JsonField<String> = name
 
     /**
      * Returns the raw JSON value of [object_].
      *
      * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
+    @JsonProperty("object")
+    @ExcludeMissing
+    fun _object_(): JsonField<String> = object_
 
     /**
      * Returns the raw JSON value of [quantity].
      *
      * Unlike [quantity], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("quantity") @ExcludeMissing fun _quantity(): JsonField<Long> = quantity
+    @JsonProperty("quantity")
+    @ExcludeMissing
+    fun _quantity(): JsonField<Long> = quantity
 
     /**
      * Returns the raw JSON value of [unitAmount].
      *
      * Unlike [unitAmount], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("unit_amount") @ExcludeMissing fun _unitAmount(): JsonField<Long> = unitAmount
+    @JsonProperty("unit_amount")
+    @ExcludeMissing
+    fun _unitAmount(): JsonField<Long> = unitAmount
 
     /**
      * Returns the raw JSON value of [unitAmountDecimal].
      *
-     * Unlike [unitAmountDecimal], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [unitAmountDecimal], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("unit_amount_decimal")
     @ExcludeMissing
@@ -295,13 +281,12 @@ private constructor(
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
-        additionalProperties.put(key, value)
+      additionalProperties.put(key, value)
     }
 
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> =
-        Collections.unmodifiableMap(additionalProperties)
+    fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -311,6 +296,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [InvoiceLineItem].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .id()
          * .amount()
@@ -350,57 +336,64 @@ private constructor(
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(invoiceLineItem: InvoiceLineItem) = apply {
-            id = invoiceLineItem.id
-            amount = invoiceLineItem.amount
-            createdAt = invoiceLineItem.createdAt
-            description = invoiceLineItem.description
-            direction = invoiceLineItem.direction
-            invoiceId = invoiceLineItem.invoiceId
-            liveMode = invoiceLineItem.liveMode
-            metadata = invoiceLineItem.metadata
-            name = invoiceLineItem.name
-            object_ = invoiceLineItem.object_
-            quantity = invoiceLineItem.quantity
-            unitAmount = invoiceLineItem.unitAmount
-            unitAmountDecimal = invoiceLineItem.unitAmountDecimal
-            updatedAt = invoiceLineItem.updatedAt
-            additionalProperties = invoiceLineItem.additionalProperties.toMutableMap()
-        }
+        internal fun from(invoiceLineItem: InvoiceLineItem) =
+            apply {
+                id = invoiceLineItem.id
+                amount = invoiceLineItem.amount
+                createdAt = invoiceLineItem.createdAt
+                description = invoiceLineItem.description
+                direction = invoiceLineItem.direction
+                invoiceId = invoiceLineItem.invoiceId
+                liveMode = invoiceLineItem.liveMode
+                metadata = invoiceLineItem.metadata
+                name = invoiceLineItem.name
+                object_ = invoiceLineItem.object_
+                quantity = invoiceLineItem.quantity
+                unitAmount = invoiceLineItem.unitAmount
+                unitAmountDecimal = invoiceLineItem.unitAmountDecimal
+                updatedAt = invoiceLineItem.updatedAt
+                additionalProperties = invoiceLineItem.additionalProperties.toMutableMap()
+            }
 
         fun id(id: String) = id(JsonField.of(id))
 
         /**
          * Sets [Builder.id] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.id] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) =
+            apply {
+                this.id = id
+            }
 
-        /**
-         * The total amount for this line item specified in the invoice currency's smallest unit.
-         */
+        /** The total amount for this line item specified in the invoice currency's smallest unit. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /**
          * Sets [Builder.amount] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+        fun amount(amount: JsonField<Long>) =
+            apply {
+                this.amount = amount
+            }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
          * Sets [Builder.createdAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.createdAt = createdAt
+            }
 
         /** An optional free-form description of the line item. */
         fun description(description: String) = description(JsonField.of(description))
@@ -408,27 +401,27 @@ private constructor(
         /**
          * Sets [Builder.description] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.description] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.description] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun description(description: JsonField<String>) = apply { this.description = description }
+        fun description(description: JsonField<String>) =
+            apply {
+                this.description = description
+            }
 
-        /**
-         * Either `debit` or `credit`. `debit` indicates that a client owes the business money and
-         * increases the invoice's `total_amount` due. `credit` has the opposite intention and
-         * effect.
-         */
+        /** Either `debit` or `credit`. `debit` indicates that a client owes the business money           and increases the invoice's `total_amount` due. `credit` has the opposite intention and effect. */
         fun direction(direction: String) = direction(JsonField.of(direction))
 
         /**
          * Sets [Builder.direction] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.direction] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.direction] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun direction(direction: JsonField<String>) = apply { this.direction = direction }
+        fun direction(direction: JsonField<String>) =
+            apply {
+                this.direction = direction
+            }
 
         /** The ID of the invoice for this line item. */
         fun invoiceId(invoiceId: String) = invoiceId(JsonField.of(invoiceId))
@@ -436,40 +429,41 @@ private constructor(
         /**
          * Sets [Builder.invoiceId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.invoiceId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.invoiceId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun invoiceId(invoiceId: JsonField<String>) = apply { this.invoiceId = invoiceId }
+        fun invoiceId(invoiceId: JsonField<String>) =
+            apply {
+                this.invoiceId = invoiceId
+            }
 
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
+        /** This field will be true if this object exists in the live environment or false if it exists in the test environment. */
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
          * Sets [Builder.liveMode] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+        fun liveMode(liveMode: JsonField<Boolean>) =
+            apply {
+                this.liveMode = liveMode
+            }
 
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
+        /** Additional data represented as key-value pairs. Both the key and value must be strings. */
         fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
         /**
          * Sets [Builder.metadata] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+        fun metadata(metadata: JsonField<Metadata>) =
+            apply {
+                this.metadata = metadata
+            }
 
         /** The name of the line item, typically a product or SKU name. */
         fun name(name: String) = name(JsonField.of(name))
@@ -477,96 +471,107 @@ private constructor(
         /**
          * Sets [Builder.name] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.name] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun name(name: JsonField<String>) = apply { this.name = name }
+        fun name(name: JsonField<String>) =
+            apply {
+                this.name = name
+            }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
         /**
          * Sets [Builder.object_] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun object_(object_: JsonField<String>) =
+            apply {
+                this.object_ = object_
+            }
 
-        /**
-         * The number of units of a product or service that this line item is for. Must be a whole
-         * number. Defaults to 1 if not provided.
-         */
+        /** The number of units of a product or service that this line item is for.           Must be a whole number. Defaults to 1 if not provided. */
         fun quantity(quantity: Long) = quantity(JsonField.of(quantity))
 
         /**
          * Sets [Builder.quantity] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.quantity] with a well-typed [Long] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.quantity] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun quantity(quantity: JsonField<Long>) = apply { this.quantity = quantity }
+        fun quantity(quantity: JsonField<Long>) =
+            apply {
+                this.quantity = quantity
+            }
 
-        /**
-         * The cost per unit of the product or service that this line item is for, specified in the
-         * invoice currency's smallest unit.
-         */
+        /** The cost per unit of the product or service that this line item is for,           specified in the invoice currency's smallest unit. */
         fun unitAmount(unitAmount: Long) = unitAmount(JsonField.of(unitAmount))
 
         /**
          * Sets [Builder.unitAmount] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.unitAmount] with a well-typed [Long] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.unitAmount] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun unitAmount(unitAmount: JsonField<Long>) = apply { this.unitAmount = unitAmount }
+        fun unitAmount(unitAmount: JsonField<Long>) =
+            apply {
+                this.unitAmount = unitAmount
+            }
 
-        /**
-         * The cost per unit of the product or service that this line item is for, specified in the
-         * invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals
-         */
-        fun unitAmountDecimal(unitAmountDecimal: String) =
-            unitAmountDecimal(JsonField.of(unitAmountDecimal))
+        /** The cost per unit of the product or service that this line item is for,           specified in the invoice currency's smallest unit. Accepts decimal strings with up to 12 decimals */
+        fun unitAmountDecimal(unitAmountDecimal: String) = unitAmountDecimal(JsonField.of(unitAmountDecimal))
 
         /**
          * Sets [Builder.unitAmountDecimal] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.unitAmountDecimal] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.unitAmountDecimal] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun unitAmountDecimal(unitAmountDecimal: JsonField<String>) = apply {
-            this.unitAmountDecimal = unitAmountDecimal
-        }
+        fun unitAmountDecimal(unitAmountDecimal: JsonField<String>) =
+            apply {
+                this.unitAmountDecimal = unitAmountDecimal
+            }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
          * Sets [Builder.updatedAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.updatedAt = updatedAt
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         /**
          * Returns an immutable instance of [InvoiceLineItem].
@@ -574,6 +579,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .id()
          * .amount()
@@ -595,21 +601,49 @@ private constructor(
          */
         fun build(): InvoiceLineItem =
             InvoiceLineItem(
-                checkRequired("id", id),
-                checkRequired("amount", amount),
-                checkRequired("createdAt", createdAt),
-                checkRequired("description", description),
-                checkRequired("direction", direction),
-                checkRequired("invoiceId", invoiceId),
-                checkRequired("liveMode", liveMode),
-                checkRequired("metadata", metadata),
-                checkRequired("name", name),
-                checkRequired("object_", object_),
-                checkRequired("quantity", quantity),
-                checkRequired("unitAmount", unitAmount),
-                checkRequired("unitAmountDecimal", unitAmountDecimal),
-                checkRequired("updatedAt", updatedAt),
-                additionalProperties.toMutableMap(),
+              checkRequired(
+                "id", id
+              ),
+              checkRequired(
+                "amount", amount
+              ),
+              checkRequired(
+                "createdAt", createdAt
+              ),
+              checkRequired(
+                "description", description
+              ),
+              checkRequired(
+                "direction", direction
+              ),
+              checkRequired(
+                "invoiceId", invoiceId
+              ),
+              checkRequired(
+                "liveMode", liveMode
+              ),
+              checkRequired(
+                "metadata", metadata
+              ),
+              checkRequired(
+                "name", name
+              ),
+              checkRequired(
+                "object_", object_
+              ),
+              checkRequired(
+                "quantity", quantity
+              ),
+              checkRequired(
+                "unitAmount", unitAmount
+              ),
+              checkRequired(
+                "unitAmountDecimal", unitAmountDecimal
+              ),
+              checkRequired(
+                "updatedAt", updatedAt
+              ),
+              additionalProperties.toMutableMap(),
             )
     }
 
@@ -623,27 +657,28 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): InvoiceLineItem = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): InvoiceLineItem =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        id()
-        amount()
-        createdAt()
-        description()
-        direction()
-        invoiceId()
-        liveMode()
-        metadata().validate()
-        name()
-        object_()
-        quantity()
-        unitAmount()
-        unitAmountDecimal()
-        updatedAt()
-        validated = true
-    }
+            id()
+            amount()
+            createdAt()
+            description()
+            direction()
+            invoiceId()
+            liveMode()
+            metadata().validate()
+            name()
+            object_()
+            quantity()
+            unitAmount()
+            unitAmountDecimal()
+            updatedAt()
+            validated = true
+        }
 
     fun isValid(): Boolean =
         try {
@@ -658,28 +693,12 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    internal fun validity(): Int =
-        (if (id.asKnown() == null) 0 else 1) +
-            (if (amount.asKnown() == null) 0 else 1) +
-            (if (createdAt.asKnown() == null) 0 else 1) +
-            (if (description.asKnown() == null) 0 else 1) +
-            (if (direction.asKnown() == null) 0 else 1) +
-            (if (invoiceId.asKnown() == null) 0 else 1) +
-            (if (liveMode.asKnown() == null) 0 else 1) +
-            (metadata.asKnown()?.validity() ?: 0) +
-            (if (name.asKnown() == null) 0 else 1) +
-            (if (object_.asKnown() == null) 0 else 1) +
-            (if (quantity.asKnown() == null) 0 else 1) +
-            (if (unitAmount.asKnown() == null) 0 else 1) +
-            (if (unitAmountDecimal.asKnown() == null) 0 else 1) +
-            (if (updatedAt.asKnown() == null) 0 else 1)
+    internal fun validity(): Int = (if (id.asKnown() == null) 0 else 1) + (if (amount.asKnown() == null) 0 else 1) + (if (createdAt.asKnown() == null) 0 else 1) + (if (description.asKnown() == null) 0 else 1) + (if (direction.asKnown() == null) 0 else 1) + (if (invoiceId.asKnown() == null) 0 else 1) + (if (liveMode.asKnown() == null) 0 else 1) + (metadata.asKnown()?.validity() ?: 0) + (if (name.asKnown() == null) 0 else 1) + (if (object_.asKnown() == null) 0 else 1) + (if (quantity.asKnown() == null) 0 else 1) + (if (unitAmount.asKnown() == null) 0 else 1) + (if (unitAmountDecimal.asKnown() == null) 0 else 1) + (if (updatedAt.asKnown() == null) 0 else 1)
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    class Metadata
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
+    class Metadata @JsonCreator private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         @JsonAnyGetter
@@ -699,28 +718,36 @@ private constructor(
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties = metadata.additionalProperties.toMutableMap()
-            }
+            internal fun from(metadata: Metadata) =
+                apply {
+                    additionalProperties = metadata.additionalProperties.toMutableMap()
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperty(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
             /**
              * Returns an immutable instance of [Metadata].
@@ -733,21 +760,21 @@ private constructor(
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Metadata =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            validated = true
-        }
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -758,20 +785,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+        internal fun validity(): Int = additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Metadata && additionalProperties == other.additionalProperties
+          return other is Metadata && additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
@@ -782,50 +807,16 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is InvoiceLineItem &&
-            id == other.id &&
-            amount == other.amount &&
-            createdAt == other.createdAt &&
-            description == other.description &&
-            direction == other.direction &&
-            invoiceId == other.invoiceId &&
-            liveMode == other.liveMode &&
-            metadata == other.metadata &&
-            name == other.name &&
-            object_ == other.object_ &&
-            quantity == other.quantity &&
-            unitAmount == other.unitAmount &&
-            unitAmountDecimal == other.unitAmountDecimal &&
-            updatedAt == other.updatedAt &&
-            additionalProperties == other.additionalProperties
+      return other is InvoiceLineItem && id == other.id && amount == other.amount && createdAt == other.createdAt && description == other.description && direction == other.direction && invoiceId == other.invoiceId && liveMode == other.liveMode && metadata == other.metadata && name == other.name && object_ == other.object_ && quantity == other.quantity && unitAmount == other.unitAmount && unitAmountDecimal == other.unitAmountDecimal && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy {
-        Objects.hash(
-            id,
-            amount,
-            createdAt,
-            description,
-            direction,
-            invoiceId,
-            liveMode,
-            metadata,
-            name,
-            object_,
-            quantity,
-            unitAmount,
-            unitAmountDecimal,
-            updatedAt,
-            additionalProperties,
-        )
-    }
+    private val hashCode: Int by lazy { Objects.hash(id, amount, createdAt, description, direction, invoiceId, liveMode, metadata, name, object_, quantity, unitAmount, unitAmountDecimal, updatedAt, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "InvoiceLineItem{id=$id, amount=$amount, createdAt=$createdAt, description=$description, direction=$direction, invoiceId=$invoiceId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, quantity=$quantity, unitAmount=$unitAmount, unitAmountDecimal=$unitAmountDecimal, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+    override fun toString() = "InvoiceLineItem{id=$id, amount=$amount, createdAt=$createdAt, description=$description, direction=$direction, invoiceId=$invoiceId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, quantity=$quantity, unitAmount=$unitAmount, unitAmountDecimal=$unitAmountDecimal, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

@@ -11,12 +11,11 @@ import com.moderntreasury.api.models.ForeignExchangeQuoteCreateParams
 import com.moderntreasury.api.models.ForeignExchangeQuoteListPage
 import com.moderntreasury.api.models.ForeignExchangeQuoteListParams
 import com.moderntreasury.api.models.ForeignExchangeQuoteRetrieveParams
+import com.moderntreasury.api.services.blocking.ForeignExchangeQuoteService
 
 interface ForeignExchangeQuoteService {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -27,42 +26,37 @@ interface ForeignExchangeQuoteService {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ForeignExchangeQuoteService
 
     /** create foreign_exchange_quote */
-    fun create(
-        params: ForeignExchangeQuoteCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ForeignExchangeQuote
+    fun create(params: ForeignExchangeQuoteCreateParams, requestOptions: RequestOptions = RequestOptions.none()): ForeignExchangeQuote
 
     /** get foreign_exchange_quote */
-    fun retrieve(
-        id: String,
-        params: ForeignExchangeQuoteRetrieveParams = ForeignExchangeQuoteRetrieveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ForeignExchangeQuote = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    fun retrieve(id: String, params: ForeignExchangeQuoteRetrieveParams = ForeignExchangeQuoteRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): ForeignExchangeQuote =
+        retrieve(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see retrieve */
-    fun retrieve(
-        params: ForeignExchangeQuoteRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ForeignExchangeQuote
+    fun retrieve(params: ForeignExchangeQuoteRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): ForeignExchangeQuote
 
     /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): ForeignExchangeQuote =
-        retrieve(id, ForeignExchangeQuoteRetrieveParams.none(), requestOptions)
+        retrieve(
+          id,
+          ForeignExchangeQuoteRetrieveParams.none(),
+          requestOptions,
+        )
 
     /** list foreign_exchange_quotes */
-    fun list(
-        params: ForeignExchangeQuoteListParams = ForeignExchangeQuoteListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ForeignExchangeQuoteListPage
+    fun list(params: ForeignExchangeQuoteListParams = ForeignExchangeQuoteListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): ForeignExchangeQuoteListPage
 
     /** @see list */
     fun list(requestOptions: RequestOptions): ForeignExchangeQuoteListPage =
-        list(ForeignExchangeQuoteListParams.none(), requestOptions)
+        list(
+          ForeignExchangeQuoteListParams.none(), requestOptions
+        )
 
-    /**
-     * A view of [ForeignExchangeQuoteService] that provides access to raw HTTP responses for each
-     * method.
-     */
+    /** A view of [ForeignExchangeQuoteService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -70,60 +64,43 @@ interface ForeignExchangeQuoteService {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): ForeignExchangeQuoteService.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ForeignExchangeQuoteService.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `post /api/foreign_exchange_quotes`, but is otherwise the
-         * same as [ForeignExchangeQuoteService.create].
-         */
+        /** Returns a raw HTTP response for `post /api/foreign_exchange_quotes`, but is otherwise the             same as [ForeignExchangeQuoteService.create]. */
         @MustBeClosed
-        fun create(
-            params: ForeignExchangeQuoteCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ForeignExchangeQuote>
+        fun create(params: ForeignExchangeQuoteCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ForeignExchangeQuote>
 
-        /**
-         * Returns a raw HTTP response for `get /api/foreign_exchange_quotes/{id}`, but is otherwise
-         * the same as [ForeignExchangeQuoteService.retrieve].
-         */
+        /** Returns a raw HTTP response for `get /api/foreign_exchange_quotes/{id}`, but is otherwise the             same as [ForeignExchangeQuoteService.retrieve]. */
         @MustBeClosed
-        fun retrieve(
-            id: String,
-            params: ForeignExchangeQuoteRetrieveParams = ForeignExchangeQuoteRetrieveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ForeignExchangeQuote> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
+        fun retrieve(id: String, params: ForeignExchangeQuoteRetrieveParams = ForeignExchangeQuoteRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ForeignExchangeQuote> =
+            retrieve(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            params: ForeignExchangeQuoteRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ForeignExchangeQuote>
+        fun retrieve(params: ForeignExchangeQuoteRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ForeignExchangeQuote>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ForeignExchangeQuote> =
-            retrieve(id, ForeignExchangeQuoteRetrieveParams.none(), requestOptions)
+        fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<ForeignExchangeQuote> =
+            retrieve(
+              id,
+              ForeignExchangeQuoteRetrieveParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `get /api/foreign_exchange_quotes`, but is otherwise the
-         * same as [ForeignExchangeQuoteService.list].
-         */
+        /** Returns a raw HTTP response for `get /api/foreign_exchange_quotes`, but is otherwise the             same as [ForeignExchangeQuoteService.list]. */
         @MustBeClosed
-        fun list(
-            params: ForeignExchangeQuoteListParams = ForeignExchangeQuoteListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ForeignExchangeQuoteListPage>
+        fun list(params: ForeignExchangeQuoteListParams = ForeignExchangeQuoteListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ForeignExchangeQuoteListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ForeignExchangeQuoteListPage> =
-            list(ForeignExchangeQuoteListParams.none(), requestOptions)
+            list(
+              ForeignExchangeQuoteListParams.none(), requestOptions
+            )
     }
 }

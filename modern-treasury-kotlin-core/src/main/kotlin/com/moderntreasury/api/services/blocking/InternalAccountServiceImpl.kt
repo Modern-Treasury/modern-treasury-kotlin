@@ -25,284 +25,249 @@ import com.moderntreasury.api.models.InternalAccountRetrieveParams
 import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityParams
 import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityResponse
 import com.moderntreasury.api.models.InternalAccountUpdateParams
+import com.moderntreasury.api.services.blocking.InternalAccountService
+import com.moderntreasury.api.services.blocking.InternalAccountServiceImpl
 import com.moderntreasury.api.services.blocking.internalAccounts.BalanceReportService
 import com.moderntreasury.api.services.blocking.internalAccounts.BalanceReportServiceImpl
 
-class InternalAccountServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    InternalAccountService {
+class InternalAccountServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: InternalAccountService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : InternalAccountService {
 
-    private val balanceReports: BalanceReportService by lazy {
-        BalanceReportServiceImpl(clientOptions)
-    }
+    private val withRawResponse: InternalAccountService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+
+    private val balanceReports: BalanceReportService by lazy { BalanceReportServiceImpl(clientOptions) }
 
     override fun withRawResponse(): InternalAccountService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): InternalAccountService =
-        InternalAccountServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): InternalAccountService = InternalAccountServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
     override fun balanceReports(): BalanceReportService = balanceReports
 
-    override fun create(
-        params: InternalAccountCreateParams,
-        requestOptions: RequestOptions,
-    ): InternalAccount =
+    override fun create(params: InternalAccountCreateParams, requestOptions: RequestOptions): InternalAccount =
         // post /api/internal_accounts
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(
-        params: InternalAccountRetrieveParams,
-        requestOptions: RequestOptions,
-    ): InternalAccount =
+    override fun retrieve(params: InternalAccountRetrieveParams, requestOptions: RequestOptions): InternalAccount =
         // get /api/internal_accounts/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun update(
-        params: InternalAccountUpdateParams,
-        requestOptions: RequestOptions,
-    ): InternalAccount =
+    override fun update(params: InternalAccountUpdateParams, requestOptions: RequestOptions): InternalAccount =
         // patch /api/internal_accounts/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: InternalAccountListParams,
-        requestOptions: RequestOptions,
-    ): InternalAccountListPage =
+    override fun list(params: InternalAccountListParams, requestOptions: RequestOptions): InternalAccountListPage =
         // get /api/internal_accounts
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun requestClosure(
-        params: InternalAccountRequestClosureParams,
-        requestOptions: RequestOptions,
-    ): InternalAccount =
+    override fun requestClosure(params: InternalAccountRequestClosureParams, requestOptions: RequestOptions): InternalAccount =
         // post /api/internal_accounts/{id}/request_closure
         withRawResponse().requestClosure(params, requestOptions).parse()
 
-    override fun updateAccountCapability(
-        params: InternalAccountUpdateAccountCapabilityParams,
-        requestOptions: RequestOptions,
-    ): InternalAccountUpdateAccountCapabilityResponse =
+    override fun updateAccountCapability(params: InternalAccountUpdateAccountCapabilityParams, requestOptions: RequestOptions): InternalAccountUpdateAccountCapabilityResponse =
         // patch /api/internal_accounts/{internal_account_id}/account_capabilities/{id}
         withRawResponse().updateAccountCapability(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        InternalAccountService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : InternalAccountService.WithRawResponse {
 
-        private val balanceReports: BalanceReportService.WithRawResponse by lazy {
-            BalanceReportServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): InternalAccountService.WithRawResponse =
-            InternalAccountServiceImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
-            )
+        private val balanceReports: BalanceReportService.WithRawResponse by lazy { BalanceReportServiceImpl.WithRawResponseImpl(clientOptions) }
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): InternalAccountService.WithRawResponse = InternalAccountServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
         override fun balanceReports(): BalanceReportService.WithRawResponse = balanceReports
 
-        private val createHandler: Handler<InternalAccount> =
-            jsonHandler<InternalAccount>(clientOptions.jsonMapper)
+        private val createHandler: Handler<InternalAccount> = jsonHandler<InternalAccount>(clientOptions.jsonMapper)
 
-        override fun create(
-            params: InternalAccountCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InternalAccount> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "internal_accounts")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun create(params: InternalAccountCreateParams, requestOptions: RequestOptions): HttpResponseFor<InternalAccount> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "internal_accounts")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<InternalAccount> =
-            jsonHandler<InternalAccount>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<InternalAccount> = jsonHandler<InternalAccount>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: InternalAccountRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InternalAccount> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "internal_accounts", params._pathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: InternalAccountRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<InternalAccount> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "internal_accounts", params._pathParam(0))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val updateHandler: Handler<InternalAccount> =
-            jsonHandler<InternalAccount>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<InternalAccount> = jsonHandler<InternalAccount>(clientOptions.jsonMapper)
 
-        override fun update(
-            params: InternalAccountUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InternalAccount> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "internal_accounts", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun update(params: InternalAccountUpdateParams, requestOptions: RequestOptions): HttpResponseFor<InternalAccount> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PATCH)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "internal_accounts", params._pathParam(0))
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  updateHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<InternalAccount>> =
-            jsonHandler<List<InternalAccount>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<InternalAccount>> = jsonHandler<List<InternalAccount>>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: InternalAccountListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InternalAccountListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "internal_accounts")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        InternalAccountListPage.builder()
-                            .service(InternalAccountServiceImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override fun list(params: InternalAccountListParams, requestOptions: RequestOptions): HttpResponseFor<InternalAccountListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "internal_accounts")
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  InternalAccountListPage.builder()
+                      .service(InternalAccountServiceImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
 
-        private val requestClosureHandler: Handler<InternalAccount> =
-            jsonHandler<InternalAccount>(clientOptions.jsonMapper)
+        private val requestClosureHandler: Handler<InternalAccount> = jsonHandler<InternalAccount>(clientOptions.jsonMapper)
 
-        override fun requestClosure(
-            params: InternalAccountRequestClosureParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InternalAccount> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        "internal_accounts",
-                        params._pathParam(0),
-                        "request_closure",
-                    )
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { requestClosureHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun requestClosure(params: InternalAccountRequestClosureParams, requestOptions: RequestOptions): HttpResponseFor<InternalAccount> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "internal_accounts", params._pathParam(0), "request_closure")
+            .apply { params._body()?.let{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  requestClosureHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val updateAccountCapabilityHandler:
-            Handler<InternalAccountUpdateAccountCapabilityResponse> =
-            jsonHandler<InternalAccountUpdateAccountCapabilityResponse>(clientOptions.jsonMapper)
+        private val updateAccountCapabilityHandler: Handler<InternalAccountUpdateAccountCapabilityResponse> = jsonHandler<InternalAccountUpdateAccountCapabilityResponse>(clientOptions.jsonMapper)
 
-        override fun updateAccountCapability(
-            params: InternalAccountUpdateAccountCapabilityParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InternalAccountUpdateAccountCapabilityResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        "internal_accounts",
-                        params._pathParam(0),
-                        "account_capabilities",
-                        params._pathParam(1),
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateAccountCapabilityHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun updateAccountCapability(params: InternalAccountUpdateAccountCapabilityParams, requestOptions: RequestOptions): HttpResponseFor<InternalAccountUpdateAccountCapabilityResponse> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PATCH)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "internal_accounts", params._pathParam(0), "account_capabilities", params._pathParam(1))
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  updateAccountCapabilityHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

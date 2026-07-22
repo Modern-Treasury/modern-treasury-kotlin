@@ -14,12 +14,11 @@ import com.moderntreasury.api.models.HoldRetrieveParams
 import com.moderntreasury.api.models.HoldRetrieveResponse
 import com.moderntreasury.api.models.HoldUpdateParams
 import com.moderntreasury.api.models.HoldUpdateResponse
+import com.moderntreasury.api.services.blocking.HoldService
 
 interface HoldService {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -30,50 +29,46 @@ interface HoldService {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): HoldService
 
     /** Create a new hold */
-    fun create(
-        params: HoldCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HoldCreateResponse
+    fun create(params: HoldCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HoldCreateResponse
 
     /** Get a specific hold */
-    fun retrieve(
-        id: String,
-        params: HoldRetrieveParams = HoldRetrieveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HoldRetrieveResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    fun retrieve(id: String, params: HoldRetrieveParams = HoldRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HoldRetrieveResponse =
+        retrieve(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see retrieve */
-    fun retrieve(
-        params: HoldRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HoldRetrieveResponse
+    fun retrieve(params: HoldRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HoldRetrieveResponse
 
     /** @see retrieve */
     fun retrieve(id: String, requestOptions: RequestOptions): HoldRetrieveResponse =
-        retrieve(id, HoldRetrieveParams.none(), requestOptions)
+        retrieve(
+          id,
+          HoldRetrieveParams.none(),
+          requestOptions,
+        )
 
     /** Update a hold */
-    fun update(
-        id: String,
-        params: HoldUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HoldUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
+    fun update(id: String, params: HoldUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HoldUpdateResponse =
+        update(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see update */
-    fun update(
-        params: HoldUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HoldUpdateResponse
+    fun update(params: HoldUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HoldUpdateResponse
 
     /** Get a list of holds. */
-    fun list(
-        params: HoldListParams = HoldListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HoldListPage
+    fun list(params: HoldListParams = HoldListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HoldListPage
 
     /** @see list */
     fun list(requestOptions: RequestOptions): HoldListPage =
-        list(HoldListParams.none(), requestOptions)
+        list(
+          HoldListParams.none(), requestOptions
+        )
 
     /** A view of [HoldService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -85,75 +80,54 @@ interface HoldService {
          */
         fun withOptions(modifier: (ClientOptions.Builder) -> Unit): HoldService.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `post /api/holds`, but is otherwise the same as
-         * [HoldService.create].
-         */
+        /** Returns a raw HTTP response for `post /api/holds`, but is otherwise the             same as [HoldService.create]. */
         @MustBeClosed
-        fun create(
-            params: HoldCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<HoldCreateResponse>
+        fun create(params: HoldCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<HoldCreateResponse>
 
-        /**
-         * Returns a raw HTTP response for `get /api/holds/{id}`, but is otherwise the same as
-         * [HoldService.retrieve].
-         */
+        /** Returns a raw HTTP response for `get /api/holds/{id}`, but is otherwise the             same as [HoldService.retrieve]. */
         @MustBeClosed
-        fun retrieve(
-            id: String,
-            params: HoldRetrieveParams = HoldRetrieveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<HoldRetrieveResponse> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
+        fun retrieve(id: String, params: HoldRetrieveParams = HoldRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<HoldRetrieveResponse> =
+            retrieve(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            params: HoldRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<HoldRetrieveResponse>
+        fun retrieve(params: HoldRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<HoldRetrieveResponse>
 
         /** @see retrieve */
         @MustBeClosed
-        fun retrieve(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<HoldRetrieveResponse> =
-            retrieve(id, HoldRetrieveParams.none(), requestOptions)
+        fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<HoldRetrieveResponse> =
+            retrieve(
+              id,
+              HoldRetrieveParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `patch /api/holds/{id}`, but is otherwise the same as
-         * [HoldService.update].
-         */
+        /** Returns a raw HTTP response for `patch /api/holds/{id}`, but is otherwise the             same as [HoldService.update]. */
         @MustBeClosed
-        fun update(
-            id: String,
-            params: HoldUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<HoldUpdateResponse> =
-            update(params.toBuilder().id(id).build(), requestOptions)
+        fun update(id: String, params: HoldUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<HoldUpdateResponse> =
+            update(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see update */
         @MustBeClosed
-        fun update(
-            params: HoldUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<HoldUpdateResponse>
+        fun update(params: HoldUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<HoldUpdateResponse>
 
-        /**
-         * Returns a raw HTTP response for `get /api/holds`, but is otherwise the same as
-         * [HoldService.list].
-         */
+        /** Returns a raw HTTP response for `get /api/holds`, but is otherwise the             same as [HoldService.list]. */
         @MustBeClosed
-        fun list(
-            params: HoldListParams = HoldListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<HoldListPage>
+        fun list(params: HoldListParams = HoldListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<HoldListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<HoldListPage> =
-            list(HoldListParams.none(), requestOptions)
+            list(
+              HoldListParams.none(), requestOptions
+            )
     }
 }

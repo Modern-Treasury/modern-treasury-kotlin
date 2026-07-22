@@ -23,201 +23,169 @@ import com.moderntreasury.api.models.BalanceReportDeleteParams
 import com.moderntreasury.api.models.BalanceReportListPage
 import com.moderntreasury.api.models.BalanceReportListParams
 import com.moderntreasury.api.models.BalanceReportRetrieveParams
+import com.moderntreasury.api.services.blocking.internalAccounts.BalanceReportService
+import com.moderntreasury.api.services.blocking.internalAccounts.BalanceReportServiceImpl
 
-class BalanceReportServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    BalanceReportService {
+class BalanceReportServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: BalanceReportService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : BalanceReportService {
+
+    private val withRawResponse: BalanceReportService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): BalanceReportService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BalanceReportService =
-        BalanceReportServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BalanceReportService = BalanceReportServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun create(
-        params: BalanceReportCreateParams,
-        requestOptions: RequestOptions,
-    ): BalanceReport =
+    override fun create(params: BalanceReportCreateParams, requestOptions: RequestOptions): BalanceReport =
         // post /api/internal_accounts/{internal_account_id}/balance_reports
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(
-        params: BalanceReportRetrieveParams,
-        requestOptions: RequestOptions,
-    ): BalanceReport =
+    override fun retrieve(params: BalanceReportRetrieveParams, requestOptions: RequestOptions): BalanceReport =
         // get /api/internal_accounts/{internal_account_id}/balance_reports/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: BalanceReportListParams,
-        requestOptions: RequestOptions,
-    ): BalanceReportListPage =
+    override fun list(params: BalanceReportListParams, requestOptions: RequestOptions): BalanceReportListPage =
         // get /api/internal_accounts/{internal_account_id}/balance_reports
         withRawResponse().list(params, requestOptions).parse()
 
     override fun delete(params: BalanceReportDeleteParams, requestOptions: RequestOptions) {
-        // delete /api/internal_accounts/{internal_account_id}/balance_reports/{id}
-        withRawResponse().delete(params, requestOptions)
+      // delete /api/internal_accounts/{internal_account_id}/balance_reports/{id}
+      withRawResponse().delete(params, requestOptions)
     }
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        BalanceReportService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : BalanceReportService.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): BalanceReportService.WithRawResponse =
-            BalanceReportServiceImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BalanceReportService.WithRawResponse = BalanceReportServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val createHandler: Handler<BalanceReport> = jsonHandler<BalanceReport>(clientOptions.jsonMapper)
+
+        override fun create(params: BalanceReportCreateParams, requestOptions: RequestOptions): HttpResponseFor<BalanceReport> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("internalAccountId", params.internalAccountId())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "internal_accounts", params._pathParam(0), "balance_reports")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
             )
-
-        private val createHandler: Handler<BalanceReport> =
-            jsonHandler<BalanceReport>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: BalanceReportCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<BalanceReport> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("internalAccountId", params.internalAccountId())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        "internal_accounts",
-                        params._pathParam(0),
-                        "balance_reports",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<BalanceReport> =
-            jsonHandler<BalanceReport>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<BalanceReport> = jsonHandler<BalanceReport>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: BalanceReportRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<BalanceReport> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        "internal_accounts",
-                        params._pathParam(0),
-                        "balance_reports",
-                        params._pathParam(1),
-                    )
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: BalanceReportRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<BalanceReport> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "internal_accounts", params._pathParam(0), "balance_reports", params._pathParam(1))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<BalanceReport>> =
-            jsonHandler<List<BalanceReport>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<BalanceReport>> = jsonHandler<List<BalanceReport>>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: BalanceReportListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<BalanceReportListPage> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("internalAccountId", params.internalAccountId())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        "internal_accounts",
-                        params._pathParam(0),
-                        "balance_reports",
-                    )
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        BalanceReportListPage.builder()
-                            .service(BalanceReportServiceImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override fun list(params: BalanceReportListParams, requestOptions: RequestOptions): HttpResponseFor<BalanceReportListPage> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("internalAccountId", params.internalAccountId())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "internal_accounts", params._pathParam(0), "balance_reports")
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  BalanceReportListPage.builder()
+                      .service(BalanceReportServiceImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
 
         private val deleteHandler: Handler<Void?> = emptyHandler()
 
-        override fun delete(
-            params: BalanceReportDeleteParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        "internal_accounts",
-                        params._pathParam(0),
-                        "balance_reports",
-                        params._pathParam(1),
-                    )
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { deleteHandler.handle(it) }
-            }
+        override fun delete(params: BalanceReportDeleteParams, requestOptions: RequestOptions): HttpResponse {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.DELETE)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "internal_accounts", params._pathParam(0), "balance_reports", params._pathParam(1))
+            .apply { params._body()?.let{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  deleteHandler.handle(it)
+              }
+          }
         }
     }
 }

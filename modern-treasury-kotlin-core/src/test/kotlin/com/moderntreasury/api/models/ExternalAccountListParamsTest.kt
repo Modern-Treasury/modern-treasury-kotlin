@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.http.QueryParams
+import com.moderntreasury.api.models.ExternalAccountListParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -10,57 +11,49 @@ internal class ExternalAccountListParamsTest {
 
     @Test
     fun create() {
-        ExternalAccountListParams.builder()
-            .afterCursor("after_cursor")
-            .counterpartyId("counterparty_id")
-            .externalId("external_id")
-            .metadata(
-                ExternalAccountListParams.Metadata.builder()
-                    .putAdditionalProperty("foo", "string")
-                    .build()
-            )
-            .partyName("party_name")
-            .perPage(0L)
-            .build()
+      ExternalAccountListParams.builder()
+          .afterCursor("after_cursor")
+          .counterpartyId("counterparty_id")
+          .externalId("external_id")
+          .metadata(ExternalAccountListParams.Metadata.builder()
+              .putAdditionalProperty("foo", "string")
+              .build())
+          .partyName("party_name")
+          .perPage(0L)
+          .build()
     }
 
     @Test
     fun queryParams() {
-        val params =
-            ExternalAccountListParams.builder()
-                .afterCursor("after_cursor")
-                .counterpartyId("counterparty_id")
-                .externalId("external_id")
-                .metadata(
-                    ExternalAccountListParams.Metadata.builder()
-                        .putAdditionalProperty("foo", "string")
-                        .build()
-                )
-                .partyName("party_name")
-                .perPage(0L)
-                .build()
+      val params = ExternalAccountListParams.builder()
+          .afterCursor("after_cursor")
+          .counterpartyId("counterparty_id")
+          .externalId("external_id")
+          .metadata(ExternalAccountListParams.Metadata.builder()
+              .putAdditionalProperty("foo", "string")
+              .build())
+          .partyName("party_name")
+          .perPage(0L)
+          .build()
 
-        val queryParams = params._queryParams()
+      val queryParams = params._queryParams()
 
-        assertThat(queryParams)
-            .isEqualTo(
-                QueryParams.builder()
-                    .put("after_cursor", "after_cursor")
-                    .put("counterparty_id", "counterparty_id")
-                    .put("external_id", "external_id")
-                    .put("metadata[foo]", "string")
-                    .put("party_name", "party_name")
-                    .put("per_page", "0")
-                    .build()
-            )
+      assertThat(queryParams).isEqualTo(QueryParams.builder()
+          .put("after_cursor", "after_cursor")
+          .put("counterparty_id", "counterparty_id")
+          .put("external_id", "external_id")
+          .put("metadata[foo]", "string")
+          .put("party_name", "party_name")
+          .put("per_page", "0")
+          .build())
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = ExternalAccountListParams.builder().build()
+      val params = ExternalAccountListParams.builder().build()
 
-        val queryParams = params._queryParams()
+      val queryParams = params._queryParams()
 
-        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
+      assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

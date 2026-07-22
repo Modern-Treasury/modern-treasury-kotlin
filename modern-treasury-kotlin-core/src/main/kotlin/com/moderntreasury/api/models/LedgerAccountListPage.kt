@@ -6,16 +6,18 @@ import com.moderntreasury.api.core.AutoPager
 import com.moderntreasury.api.core.Page
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.models.LedgerAccount
+import com.moderntreasury.api.models.LedgerAccountListParams
 import com.moderntreasury.api.services.blocking.LedgerAccountService
 import java.util.Objects
 
 /** @see LedgerAccountService.list */
-class LedgerAccountListPage
-private constructor(
+class LedgerAccountListPage private constructor(
     private val service: LedgerAccountService,
     private val params: LedgerAccountListParams,
     private val headers: Headers,
     private val items: List<LedgerAccount>,
+
 ) : Page<LedgerAccount> {
 
     fun perPage(): String? = headers.values("X-Per-Page").firstOrNull()
@@ -25,9 +27,10 @@ private constructor(
     override fun hasNextPage(): Boolean = afterCursor() != null
 
     fun nextPageParams(): LedgerAccountListParams {
-        val nextCursor =
-            afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
-        return params.toBuilder().afterCursor(nextCursor).build()
+      val nextCursor = afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
+      return params.toBuilder()
+          .afterCursor(nextCursor)
+          .build()
     }
 
     override fun nextPage(): LedgerAccountListPage = service.list(nextPageParams())
@@ -48,6 +51,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [LedgerAccountListPage].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -66,22 +70,35 @@ private constructor(
         private var headers: Headers? = null
         private var items: List<LedgerAccount>? = null
 
-        internal fun from(ledgerAccountListPage: LedgerAccountListPage) = apply {
-            service = ledgerAccountListPage.service
-            params = ledgerAccountListPage.params
-            headers = ledgerAccountListPage.headers
-            items = ledgerAccountListPage.items
-        }
+        internal fun from(ledgerAccountListPage: LedgerAccountListPage) =
+            apply {
+                service = ledgerAccountListPage.service
+                params = ledgerAccountListPage.params
+                headers = ledgerAccountListPage.headers
+                items = ledgerAccountListPage.items
+            }
 
-        fun service(service: LedgerAccountService) = apply { this.service = service }
+        fun service(service: LedgerAccountService) =
+            apply {
+                this.service = service
+            }
 
         /** The parameters that were used to request this page. */
-        fun params(params: LedgerAccountListParams) = apply { this.params = params }
+        fun params(params: LedgerAccountListParams) =
+            apply {
+                this.params = params
+            }
 
-        fun headers(headers: Headers) = apply { this.headers = headers }
+        fun headers(headers: Headers) =
+            apply {
+                this.headers = headers
+            }
 
         /** The response that this page was parsed from. */
-        fun items(items: List<LedgerAccount>) = apply { this.items = items }
+        fun items(items: List<LedgerAccount>) =
+            apply {
+                this.items = items
+            }
 
         /**
          * Returns an immutable instance of [LedgerAccountListPage].
@@ -89,6 +106,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -100,27 +118,30 @@ private constructor(
          */
         fun build(): LedgerAccountListPage =
             LedgerAccountListPage(
-                checkRequired("service", service),
-                checkRequired("params", params),
-                checkRequired("headers", headers),
-                checkRequired("items", items),
+              checkRequired(
+                "service", service
+              ),
+              checkRequired(
+                "params", params
+              ),
+              checkRequired(
+                "headers", headers
+              ),
+              checkRequired(
+                "items", items
+              ),
             )
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is LedgerAccountListPage &&
-            service == other.service &&
-            params == other.params &&
-            headers == other.headers &&
-            items == other.items
+      return other is LedgerAccountListPage && service == other.service && params == other.params && headers == other.headers && items == other.items
     }
 
     override fun hashCode(): Int = Objects.hash(service, params, headers, items)
 
-    override fun toString() =
-        "LedgerAccountListPage{service=$service, params=$params, headers=$headers, items=$items}"
+    override fun toString() = "LedgerAccountListPage{service=$service, params=$params, headers=$headers, items=$items}"
 }

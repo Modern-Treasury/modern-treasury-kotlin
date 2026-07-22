@@ -12,62 +12,55 @@ import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.LedgerBalance
 import java.util.Collections
 import java.util.Objects
 
-class LedgerBalances
-@JsonCreator(mode = JsonCreator.Mode.DISABLED)
-private constructor(
+class LedgerBalances @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
     private val availableBalance: JsonField<LedgerBalance>,
     private val pendingBalance: JsonField<LedgerBalance>,
     private val postedBalance: JsonField<LedgerBalance>,
     private val additionalProperties: MutableMap<String, JsonValue>,
+
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("available_balance")
-        @ExcludeMissing
-        availableBalance: JsonField<LedgerBalance> = JsonMissing.of(),
-        @JsonProperty("pending_balance")
-        @ExcludeMissing
-        pendingBalance: JsonField<LedgerBalance> = JsonMissing.of(),
-        @JsonProperty("posted_balance")
-        @ExcludeMissing
-        postedBalance: JsonField<LedgerBalance> = JsonMissing.of(),
-    ) : this(availableBalance, pendingBalance, postedBalance, mutableMapOf())
+        @JsonProperty("available_balance") @ExcludeMissing availableBalance: JsonField<LedgerBalance> = JsonMissing.of(),
+        @JsonProperty("pending_balance") @ExcludeMissing pendingBalance: JsonField<LedgerBalance> = JsonMissing.of(),
+        @JsonProperty("posted_balance") @ExcludeMissing postedBalance: JsonField<LedgerBalance> = JsonMissing.of()
+    ) : this(
+      availableBalance,
+      pendingBalance,
+      postedBalance,
+      mutableMapOf(),
+    )
 
     /**
-     * The available_balance is the sum of all posted inbound entries and pending outbound entries.
-     * For credit normal, available_amount = posted_credits - pending_debits; for debit normal,
-     * available_amount = posted_debits - pending_credits.
+     * The available_balance is the sum of all posted inbound entries and pending outbound entries. For credit normal, available_amount = posted_credits - pending_debits; for debit normal, available_amount = posted_debits - pending_credits.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun availableBalance(): LedgerBalance = availableBalance.getRequired("available_balance")
 
     /**
      * The pending_balance is the sum of all pending and posted entries.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun pendingBalance(): LedgerBalance = pendingBalance.getRequired("pending_balance")
 
     /**
      * The posted_balance is the sum of all posted entries.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun postedBalance(): LedgerBalance = postedBalance.getRequired("posted_balance")
 
     /**
      * Returns the raw JSON value of [availableBalance].
      *
-     * Unlike [availableBalance], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [availableBalance], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("available_balance")
     @ExcludeMissing
@@ -93,13 +86,12 @@ private constructor(
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
-        additionalProperties.put(key, value)
+      additionalProperties.put(key, value)
     }
 
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> =
-        Collections.unmodifiableMap(additionalProperties)
+    fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -109,6 +101,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [LedgerBalances].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .availableBalance()
          * .pendingBalance()
@@ -126,46 +119,41 @@ private constructor(
         private var postedBalance: JsonField<LedgerBalance>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(ledgerBalances: LedgerBalances) = apply {
-            availableBalance = ledgerBalances.availableBalance
-            pendingBalance = ledgerBalances.pendingBalance
-            postedBalance = ledgerBalances.postedBalance
-            additionalProperties = ledgerBalances.additionalProperties.toMutableMap()
-        }
+        internal fun from(ledgerBalances: LedgerBalances) =
+            apply {
+                availableBalance = ledgerBalances.availableBalance
+                pendingBalance = ledgerBalances.pendingBalance
+                postedBalance = ledgerBalances.postedBalance
+                additionalProperties = ledgerBalances.additionalProperties.toMutableMap()
+            }
 
-        /**
-         * The available_balance is the sum of all posted inbound entries and pending outbound
-         * entries. For credit normal, available_amount = posted_credits - pending_debits; for debit
-         * normal, available_amount = posted_debits - pending_credits.
-         */
-        fun availableBalance(availableBalance: LedgerBalance) =
-            availableBalance(JsonField.of(availableBalance))
+        /** The available_balance is the sum of all posted inbound entries and pending outbound entries. For credit normal, available_amount = posted_credits - pending_debits; for debit normal, available_amount = posted_debits - pending_credits. */
+        fun availableBalance(availableBalance: LedgerBalance) = availableBalance(JsonField.of(availableBalance))
 
         /**
          * Sets [Builder.availableBalance] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.availableBalance] with a well-typed [LedgerBalance]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.availableBalance] with a well-typed [LedgerBalance] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun availableBalance(availableBalance: JsonField<LedgerBalance>) = apply {
-            this.availableBalance = availableBalance
-        }
+        fun availableBalance(availableBalance: JsonField<LedgerBalance>) =
+            apply {
+                this.availableBalance = availableBalance
+            }
 
         /** The pending_balance is the sum of all pending and posted entries. */
-        fun pendingBalance(pendingBalance: LedgerBalance) =
-            pendingBalance(JsonField.of(pendingBalance))
+        fun pendingBalance(pendingBalance: LedgerBalance) = pendingBalance(JsonField.of(pendingBalance))
 
         /**
          * Sets [Builder.pendingBalance] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.pendingBalance] with a well-typed [LedgerBalance] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.pendingBalance] with a well-typed [LedgerBalance] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun pendingBalance(pendingBalance: JsonField<LedgerBalance>) = apply {
-            this.pendingBalance = pendingBalance
-        }
+        fun pendingBalance(pendingBalance: JsonField<LedgerBalance>) =
+            apply {
+                this.pendingBalance = pendingBalance
+            }
 
         /** The posted_balance is the sum of all posted entries. */
         fun postedBalance(postedBalance: LedgerBalance) = postedBalance(JsonField.of(postedBalance))
@@ -173,32 +161,39 @@ private constructor(
         /**
          * Sets [Builder.postedBalance] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.postedBalance] with a well-typed [LedgerBalance] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.postedBalance] with a well-typed [LedgerBalance] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun postedBalance(postedBalance: JsonField<LedgerBalance>) = apply {
-            this.postedBalance = postedBalance
-        }
+        fun postedBalance(postedBalance: JsonField<LedgerBalance>) =
+            apply {
+                this.postedBalance = postedBalance
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         /**
          * Returns an immutable instance of [LedgerBalances].
@@ -206,6 +201,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .availableBalance()
          * .pendingBalance()
@@ -216,10 +212,16 @@ private constructor(
          */
         fun build(): LedgerBalances =
             LedgerBalances(
-                checkRequired("availableBalance", availableBalance),
-                checkRequired("pendingBalance", pendingBalance),
-                checkRequired("postedBalance", postedBalance),
-                additionalProperties.toMutableMap(),
+              checkRequired(
+                "availableBalance", availableBalance
+              ),
+              checkRequired(
+                "pendingBalance", pendingBalance
+              ),
+              checkRequired(
+                "postedBalance", postedBalance
+              ),
+              additionalProperties.toMutableMap(),
             )
     }
 
@@ -233,16 +235,17 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): LedgerBalances = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): LedgerBalances =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        availableBalance().validate()
-        pendingBalance().validate()
-        postedBalance().validate()
-        validated = true
-    }
+            availableBalance().validate()
+            pendingBalance().validate()
+            postedBalance().validate()
+            validated = true
+        }
 
     fun isValid(): Boolean =
         try {
@@ -257,29 +260,19 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    internal fun validity(): Int =
-        (availableBalance.asKnown()?.validity() ?: 0) +
-            (pendingBalance.asKnown()?.validity() ?: 0) +
-            (postedBalance.asKnown()?.validity() ?: 0)
+    internal fun validity(): Int = (availableBalance.asKnown()?.validity() ?: 0) + (pendingBalance.asKnown()?.validity() ?: 0) + (postedBalance.asKnown()?.validity() ?: 0)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is LedgerBalances &&
-            availableBalance == other.availableBalance &&
-            pendingBalance == other.pendingBalance &&
-            postedBalance == other.postedBalance &&
-            additionalProperties == other.additionalProperties
+      return other is LedgerBalances && availableBalance == other.availableBalance && pendingBalance == other.pendingBalance && postedBalance == other.postedBalance && additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy {
-        Objects.hash(availableBalance, pendingBalance, postedBalance, additionalProperties)
-    }
+    private val hashCode: Int by lazy { Objects.hash(availableBalance, pendingBalance, postedBalance, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "LedgerBalances{availableBalance=$availableBalance, pendingBalance=$pendingBalance, postedBalance=$postedBalance, additionalProperties=$additionalProperties}"
+    override fun toString() = "LedgerBalances{availableBalance=$availableBalance, pendingBalance=$pendingBalance, postedBalance=$postedBalance, additionalProperties=$additionalProperties}"
 }

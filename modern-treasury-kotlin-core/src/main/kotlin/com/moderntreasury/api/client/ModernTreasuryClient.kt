@@ -3,6 +3,8 @@
 package com.moderntreasury.api.client
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.moderntreasury.api.client.ModernTreasuryClient
+import com.moderntreasury.api.client.ModernTreasuryClientAsync
 import com.moderntreasury.api.core.ClientOptions
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
@@ -48,32 +50,30 @@ import com.moderntreasury.api.services.blocking.ValidationService
 import com.moderntreasury.api.services.blocking.VirtualAccountService
 
 /**
- * A client for interacting with the Modern Treasury REST API synchronously. You can also switch to
- * asynchronous execution via the [async] method.
+ * A client for interacting with the Modern Treasury REST API synchronously.
+ * You can also switch to asynchronous execution via the
+ * [async] method.
  *
- * This client performs best when you create a single instance and reuse it for all interactions
- * with the REST API. This is because each client holds its own connection pool and thread pools.
- * Reusing connections and threads reduces latency and saves memory. The client also handles rate
- * limiting per client. This means that creating and using multiple instances at the same time will
- * not respect rate limits.
+ * This client performs best when you create a single instance and reuse it for all interactions with the
+ * REST API. This is because each client holds its own connection pool and thread pools. Reusing
+ * connections and threads reduces latency and saves memory. The client also handles rate limiting per
+ * client. This means that creating and using multiple instances at the same time will not respect rate
+ * limits.
  *
- * The threads and connections that are held will be released automatically if they remain idle. But
- * if you are writing an application that needs to aggressively release unused resources, then you
- * may call [close].
+ * The threads and connections that are held will be released automatically if they remain idle. But if you
+ * are writing an application that needs to aggressively release unused resources, then you may call
+ * [close].
  */
 interface ModernTreasuryClient {
 
     /**
      * Returns a version of this client that uses asynchronous execution.
      *
-     * The returned client shares its resources, like its connection pool and thread pools, with
-     * this client.
+     * The returned client shares its resources, like its connection pool and thread pools, with this client.
      */
     fun async(): ModernTreasuryClientAsync
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -159,34 +159,28 @@ interface ModernTreasuryClient {
 
     fun holds(): HoldService
 
-    /**
-     * A test endpoint often used to confirm credentials and headers are being passed in correctly.
-     */
-    fun ping(
-        params: ClientPingParams = ClientPingParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PingResponse
+    /** A test endpoint often used to confirm credentials and headers are being passed in correctly. */
+    fun ping(params: ClientPingParams = ClientPingParams.none(), requestOptions: RequestOptions = RequestOptions.none()): PingResponse
 
     /** @see ping */
     fun ping(requestOptions: RequestOptions): PingResponse =
-        ping(ClientPingParams.none(), requestOptions)
+        ping(
+          ClientPingParams.none(), requestOptions
+        )
 
     /**
      * Closes this client, relinquishing any underlying resources.
      *
-     * This is purposefully not inherited from [AutoCloseable] because the client is long-lived and
-     * usually should not be synchronously closed via try-with-resources.
+     * This is purposefully not inherited from [AutoCloseable] because the client is long-lived and usually
+     * should not be synchronously closed via try-with-resources.
      *
-     * It's also usually not necessary to call this method at all. the default HTTP client
-     * automatically releases threads and connections if they remain idle, but if you are writing an
-     * application that needs to aggressively release unused resources, then you may call this
-     * method.
+     * It's also usually not necessary to call this method at all. the default HTTP client automatically
+     * releases threads and connections if they remain idle, but if you are writing an application that
+     * needs to aggressively release unused resources, then you may call this method.
      */
     fun close()
 
-    /**
-     * A view of [ModernTreasuryClient] that provides access to raw HTTP responses for each method.
-     */
+    /** A view of [ModernTreasuryClient] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -194,9 +188,7 @@ interface ModernTreasuryClient {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): ModernTreasuryClient.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ModernTreasuryClient.WithRawResponse
 
         fun connections(): ConnectionService.WithRawResponse
 
@@ -274,19 +266,15 @@ interface ModernTreasuryClient {
 
         fun holds(): HoldService.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `get /api/ping`, but is otherwise the same as
-         * [ModernTreasuryClient.ping].
-         */
+        /** Returns a raw HTTP response for `get /api/ping`, but is otherwise the             same as [ModernTreasuryClient.ping]. */
         @MustBeClosed
-        fun ping(
-            params: ClientPingParams = ClientPingParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PingResponse>
+        fun ping(params: ClientPingParams = ClientPingParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<PingResponse>
 
         /** @see ping */
         @MustBeClosed
         fun ping(requestOptions: RequestOptions): HttpResponseFor<PingResponse> =
-            ping(ClientPingParams.none(), requestOptions)
+            ping(
+              ClientPingParams.none(), requestOptions
+            )
     }
 }

@@ -3,12 +3,11 @@
 package com.moderntreasury.api.services.async
 
 import com.moderntreasury.api.core.ClientOptions
+import com.moderntreasury.api.services.async.LegalEntityAssociationServiceAsync
 
 interface LegalEntityAssociationServiceAsync {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -18,10 +17,7 @@ interface LegalEntityAssociationServiceAsync {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LegalEntityAssociationServiceAsync
 
-    /**
-     * A view of [LegalEntityAssociationServiceAsync] that provides access to raw HTTP responses for
-     * each method.
-     */
+    /** A view of [LegalEntityAssociationServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -29,8 +25,6 @@ interface LegalEntityAssociationServiceAsync {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): LegalEntityAssociationServiceAsync.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LegalEntityAssociationServiceAsync.WithRawResponse
     }
 }

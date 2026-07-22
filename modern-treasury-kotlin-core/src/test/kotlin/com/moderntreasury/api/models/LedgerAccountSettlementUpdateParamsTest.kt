@@ -3,6 +3,7 @@
 package com.moderntreasury.api.models
 
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.models.LedgerAccountSettlementUpdateParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -10,66 +11,62 @@ internal class LedgerAccountSettlementUpdateParamsTest {
 
     @Test
     fun create() {
-        LedgerAccountSettlementUpdateParams.builder()
-            .id("id")
-            .description("description")
-            .metadata(
-                LedgerAccountSettlementUpdateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                    .build()
-            )
-            .skipSettlementLedgerTransaction(true)
-            .status(LedgerAccountSettlementUpdateParams.Status.POSTED)
-            .build()
+      LedgerAccountSettlementUpdateParams.builder()
+          .id("id")
+          .description("description")
+          .metadata(LedgerAccountSettlementUpdateParams.Metadata.builder()
+              .putAdditionalProperty("key", JsonValue.from("value"))
+              .putAdditionalProperty("foo", JsonValue.from("bar"))
+              .putAdditionalProperty("modern", JsonValue.from("treasury"))
+              .build())
+          .skipSettlementLedgerTransaction(true)
+          .status(LedgerAccountSettlementUpdateParams.Status.POSTED)
+          .build()
     }
 
     @Test
     fun pathParams() {
-        val params = LedgerAccountSettlementUpdateParams.builder().id("id").build()
+      val params = LedgerAccountSettlementUpdateParams.builder()
+          .id("id")
+          .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("id")
-        // out-of-bound path param
-        assertThat(params._pathParam(1)).isEqualTo("")
+      assertThat(params._pathParam(0)).isEqualTo("id")
+      // out-of-bound path param
+      assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
     fun body() {
-        val params =
-            LedgerAccountSettlementUpdateParams.builder()
-                .id("id")
-                .description("description")
-                .metadata(
-                    LedgerAccountSettlementUpdateParams.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                        .build()
-                )
-                .skipSettlementLedgerTransaction(true)
-                .status(LedgerAccountSettlementUpdateParams.Status.POSTED)
-                .build()
+      val params = LedgerAccountSettlementUpdateParams.builder()
+          .id("id")
+          .description("description")
+          .metadata(LedgerAccountSettlementUpdateParams.Metadata.builder()
+              .putAdditionalProperty("key", JsonValue.from("value"))
+              .putAdditionalProperty("foo", JsonValue.from("bar"))
+              .putAdditionalProperty("modern", JsonValue.from("treasury"))
+              .build())
+          .skipSettlementLedgerTransaction(true)
+          .status(LedgerAccountSettlementUpdateParams.Status.POSTED)
+          .build()
 
-        val body = params._body()
+      val body = params._body()
 
-        assertThat(body.description()).isEqualTo("description")
-        assertThat(body.metadata())
-            .isEqualTo(
-                LedgerAccountSettlementUpdateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                    .build()
-            )
-        assertThat(body.skipSettlementLedgerTransaction()).isEqualTo(true)
-        assertThat(body.status()).isEqualTo(LedgerAccountSettlementUpdateParams.Status.POSTED)
+      assertThat(body.description()).isEqualTo("description")
+      assertThat(body.metadata()).isEqualTo(LedgerAccountSettlementUpdateParams.Metadata.builder()
+          .putAdditionalProperty("key", JsonValue.from("value"))
+          .putAdditionalProperty("foo", JsonValue.from("bar"))
+          .putAdditionalProperty("modern", JsonValue.from("treasury"))
+          .build())
+      assertThat(body.skipSettlementLedgerTransaction()).isEqualTo(true)
+      assertThat(body.status()).isEqualTo(LedgerAccountSettlementUpdateParams.Status.POSTED)
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = LedgerAccountSettlementUpdateParams.builder().id("id").build()
+      val params = LedgerAccountSettlementUpdateParams.builder()
+          .id("id")
+          .build()
 
-        val body = params._body()
+      val body = params._body()
     }
 }

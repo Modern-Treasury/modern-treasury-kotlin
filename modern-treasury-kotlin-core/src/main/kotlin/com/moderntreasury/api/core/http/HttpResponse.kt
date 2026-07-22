@@ -2,6 +2,7 @@
 
 package com.moderntreasury.api.core.http
 
+import com.moderntreasury.api.core.http.Headers
 import java.io.InputStream
 
 interface HttpResponse : AutoCloseable {

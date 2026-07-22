@@ -12,13 +12,9 @@ import com.fasterxml.jackson.databind.deser.ContextualDeserializer
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer
 import kotlin.reflect.KClass
 
-abstract class BaseDeserializer<T : Any>(type: KClass<T>) :
-    StdDeserializer<T>(type.java), ContextualDeserializer {
+abstract class BaseDeserializer<T : Any>(type: KClass<T>) : StdDeserializer<T>(type.java), ContextualDeserializer {
 
-    override fun createContextual(
-        context: DeserializationContext,
-        property: BeanProperty?,
-    ): JsonDeserializer<T> {
+    override fun createContextual(context: DeserializationContext, property: BeanProperty?): JsonDeserializer<T> {
         return this
     }
 

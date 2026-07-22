@@ -23,201 +23,169 @@ import com.moderntreasury.api.models.RoutingDetailDeleteParams
 import com.moderntreasury.api.models.RoutingDetailListPage
 import com.moderntreasury.api.models.RoutingDetailListParams
 import com.moderntreasury.api.models.RoutingDetailRetrieveParams
+import com.moderntreasury.api.services.blocking.RoutingDetailService
+import com.moderntreasury.api.services.blocking.RoutingDetailServiceImpl
 
-class RoutingDetailServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    RoutingDetailService {
+class RoutingDetailServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: RoutingDetailService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : RoutingDetailService {
+
+    private val withRawResponse: RoutingDetailService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): RoutingDetailService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): RoutingDetailService =
-        RoutingDetailServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): RoutingDetailService = RoutingDetailServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun create(
-        params: RoutingDetailCreateParams,
-        requestOptions: RequestOptions,
-    ): RoutingDetail =
+    override fun create(params: RoutingDetailCreateParams, requestOptions: RequestOptions): RoutingDetail =
         // post /api/{accounts_type}/{account_id}/routing_details
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(
-        params: RoutingDetailRetrieveParams,
-        requestOptions: RequestOptions,
-    ): RoutingDetail =
+    override fun retrieve(params: RoutingDetailRetrieveParams, requestOptions: RequestOptions): RoutingDetail =
         // get /api/{accounts_type}/{account_id}/routing_details/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: RoutingDetailListParams,
-        requestOptions: RequestOptions,
-    ): RoutingDetailListPage =
+    override fun list(params: RoutingDetailListParams, requestOptions: RequestOptions): RoutingDetailListPage =
         // get /api/{accounts_type}/{account_id}/routing_details
         withRawResponse().list(params, requestOptions).parse()
 
     override fun delete(params: RoutingDetailDeleteParams, requestOptions: RequestOptions) {
-        // delete /api/{accounts_type}/{account_id}/routing_details/{id}
-        withRawResponse().delete(params, requestOptions)
+      // delete /api/{accounts_type}/{account_id}/routing_details/{id}
+      withRawResponse().delete(params, requestOptions)
     }
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        RoutingDetailService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : RoutingDetailService.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): RoutingDetailService.WithRawResponse =
-            RoutingDetailServiceImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): RoutingDetailService.WithRawResponse = RoutingDetailServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val createHandler: Handler<RoutingDetail> = jsonHandler<RoutingDetail>(clientOptions.jsonMapper)
+
+        override fun create(params: RoutingDetailCreateParams, requestOptions: RequestOptions): HttpResponseFor<RoutingDetail> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("accountId", params.accountId())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", params._pathParam(0), params._pathParam(1), "routing_details")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
             )
-
-        private val createHandler: Handler<RoutingDetail> =
-            jsonHandler<RoutingDetail>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: RoutingDetailCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<RoutingDetail> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("accountId", params.accountId())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "routing_details",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<RoutingDetail> =
-            jsonHandler<RoutingDetail>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<RoutingDetail> = jsonHandler<RoutingDetail>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: RoutingDetailRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<RoutingDetail> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "routing_details",
-                        params._pathParam(2),
-                    )
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: RoutingDetailRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<RoutingDetail> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", params._pathParam(0), params._pathParam(1), "routing_details", params._pathParam(2))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<RoutingDetail>> =
-            jsonHandler<List<RoutingDetail>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<RoutingDetail>> = jsonHandler<List<RoutingDetail>>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: RoutingDetailListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<RoutingDetailListPage> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("accountId", params.accountId())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "routing_details",
-                    )
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        RoutingDetailListPage.builder()
-                            .service(RoutingDetailServiceImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override fun list(params: RoutingDetailListParams, requestOptions: RequestOptions): HttpResponseFor<RoutingDetailListPage> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("accountId", params.accountId())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", params._pathParam(0), params._pathParam(1), "routing_details")
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  RoutingDetailListPage.builder()
+                      .service(RoutingDetailServiceImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
 
         private val deleteHandler: Handler<Void?> = emptyHandler()
 
-        override fun delete(
-            params: RoutingDetailDeleteParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "routing_details",
-                        params._pathParam(2),
-                    )
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { deleteHandler.handle(it) }
-            }
+        override fun delete(params: RoutingDetailDeleteParams, requestOptions: RequestOptions): HttpResponse {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.DELETE)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", params._pathParam(0), params._pathParam(1), "routing_details", params._pathParam(2))
+            .apply { params._body()?.let{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  deleteHandler.handle(it)
+              }
+          }
         }
     }
 }

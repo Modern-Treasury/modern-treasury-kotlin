@@ -18,109 +18,109 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.AddressRequest
+import com.moderntreasury.api.models.BankSettings
+import com.moderntreasury.api.models.ContactDetailCreateRequest
+import com.moderntreasury.api.models.CounterpartyCreateParams
+import com.moderntreasury.api.models.ExternalAccountType
+import com.moderntreasury.api.models.IdentificationCreateRequest
+import com.moderntreasury.api.models.LedgerAccountCreateRequest
+import com.moderntreasury.api.models.LegalEntityAddressCreateRequest
+import com.moderntreasury.api.models.LegalEntityAssociationInlineCreate
+import com.moderntreasury.api.models.LegalEntityIndustryClassification
+import com.moderntreasury.api.models.ThirdPartyVerification
+import com.moderntreasury.api.models.WealthAndEmploymentDetails
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
 /** Create a new counterparty. */
-class CounterpartyCreateParams
-private constructor(
+class CounterpartyCreateParams private constructor(
     private val body: CounterpartyCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+
 ) : Params {
 
     /**
      * A human friendly name for this counterparty.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun name(): String? = body.name()
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
-    @Deprecated("deprecated") fun accounting(): Accounting? = body.accounting()
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
+    @Deprecated("deprecated")
+    fun accounting(): Accounting? = body.accounting()
 
     /**
      * The accounts for this counterparty.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun accounts(): List<Account>? = body.accounts()
 
     /**
      * The counterparty's email.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun email(): String? = body.email()
 
     /**
      * An optional user-defined 180 character unique identifier.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun externalId(): String? = body.externalId()
 
     /**
      * An optional type to auto-sync the counterparty to your ledger. Either `customer` or `vendor`.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
-    @Deprecated("deprecated") fun ledgerType(): LedgerType? = body.ledgerType()
+    @Deprecated("deprecated")
+    fun ledgerType(): LedgerType? = body.ledgerType()
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
     fun legalEntity(): LegalEntityCreateRequest? = body.legalEntity()
 
     /**
      * The id of the legal entity.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun legalEntityId(): String? = body.legalEntityId()
 
     /**
      * Additional data represented as key-value pairs. Both the key and value must be strings.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun metadata(): Metadata? = body.metadata()
 
     /**
      * Send an email to the counterparty whenever an associated payment order is sent to the bank.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun sendRemittanceAdvice(): Boolean? = body.sendRemittanceAdvice()
 
     /**
      * Either a valid SSN or EIN.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun taxpayerIdentifier(): String? = body.taxpayerIdentifier()
 
     /**
      * The verification status of the counterparty.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
-    @Deprecated("deprecated") fun verificationStatus(): String? = body.verificationStatus()
+    @Deprecated("deprecated")
+    fun verificationStatus(): String? = body.verificationStatus()
 
     /**
      * Returns the raw JSON value of [name].
@@ -134,7 +134,8 @@ private constructor(
      *
      * Unlike [accounting], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @Deprecated("deprecated") fun _accounting(): JsonField<Accounting> = body._accounting()
+    @Deprecated("deprecated")
+    fun _accounting(): JsonField<Accounting> = body._accounting()
 
     /**
      * Returns the raw JSON value of [accounts].
@@ -162,7 +163,8 @@ private constructor(
      *
      * Unlike [ledgerType], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @Deprecated("deprecated") fun _ledgerType(): JsonField<LedgerType> = body._ledgerType()
+    @Deprecated("deprecated")
+    fun _ledgerType(): JsonField<LedgerType> = body._ledgerType()
 
     /**
      * Returns the raw JSON value of [legalEntity].
@@ -188,24 +190,21 @@ private constructor(
     /**
      * Returns the raw JSON value of [sendRemittanceAdvice].
      *
-     * Unlike [sendRemittanceAdvice], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [sendRemittanceAdvice], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _sendRemittanceAdvice(): JsonField<Boolean> = body._sendRemittanceAdvice()
 
     /**
      * Returns the raw JSON value of [taxpayerIdentifier].
      *
-     * Unlike [taxpayerIdentifier], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [taxpayerIdentifier], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _taxpayerIdentifier(): JsonField<String> = body._taxpayerIdentifier()
 
     /**
      * Returns the raw JSON value of [verificationStatus].
      *
-     * Unlike [verificationStatus], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [verificationStatus], this method doesn't throw if the JSON field has an unexpected type.
      */
     @Deprecated("deprecated")
     fun _verificationStatus(): JsonField<String> = body._verificationStatus()
@@ -226,6 +225,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [CounterpartyCreateParams].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .name()
          * ```
@@ -240,17 +240,18 @@ private constructor(
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(counterpartyCreateParams: CounterpartyCreateParams) = apply {
-            body = counterpartyCreateParams.body.toBuilder()
-            additionalHeaders = counterpartyCreateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = counterpartyCreateParams.additionalQueryParams.toBuilder()
-        }
+        internal fun from(counterpartyCreateParams: CounterpartyCreateParams) =
+            apply {
+                body = counterpartyCreateParams.body.toBuilder()
+                additionalHeaders = counterpartyCreateParams.additionalHeaders.toBuilder()
+                additionalQueryParams = counterpartyCreateParams.additionalQueryParams.toBuilder()
+            }
 
         /**
          * Sets the entire request body.
          *
-         * This is generally only useful if you are already constructing the body separately.
-         * Otherwise, it's more convenient to use the top-level setters instead:
+         * This is generally only useful if you are already constructing the body separately. Otherwise,
+         * it's more convenient to use the top-level setters instead:
          * - [name]
          * - [accounting]
          * - [accounts]
@@ -258,303 +259,379 @@ private constructor(
          * - [externalId]
          * - etc.
          */
-        fun body(body: CounterpartyCreateRequest) = apply { this.body = body.toBuilder() }
+        fun body(body: CounterpartyCreateRequest) =
+            apply {
+                this.body = body.toBuilder()
+            }
 
         /** A human friendly name for this counterparty. */
-        fun name(name: String?) = apply { body.name(name) }
+        fun name(name: String?) =
+            apply {
+                body.name(name)
+            }
 
         /**
          * Sets [Builder.name] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.name] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun name(name: JsonField<String>) = apply { body.name(name) }
+        fun name(name: JsonField<String>) =
+            apply {
+                body.name(name)
+            }
 
         @Deprecated("deprecated")
-        fun accounting(accounting: Accounting) = apply { body.accounting(accounting) }
+        fun accounting(accounting: Accounting) =
+            apply {
+                body.accounting(accounting)
+            }
 
         /**
          * Sets [Builder.accounting] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.accounting] with a well-typed [Accounting] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.accounting] with a well-typed [Accounting] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
         @Deprecated("deprecated")
-        fun accounting(accounting: JsonField<Accounting>) = apply { body.accounting(accounting) }
+        fun accounting(accounting: JsonField<Accounting>) =
+            apply {
+                body.accounting(accounting)
+            }
 
         /** The accounts for this counterparty. */
-        fun accounts(accounts: List<Account>) = apply { body.accounts(accounts) }
+        fun accounts(accounts: List<Account>) =
+            apply {
+                body.accounts(accounts)
+            }
 
         /**
          * Sets [Builder.accounts] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.accounts] with a well-typed `List<Account>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.accounts] with a well-typed `List<Account>` value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun accounts(accounts: JsonField<List<Account>>) = apply { body.accounts(accounts) }
+        fun accounts(accounts: JsonField<List<Account>>) =
+            apply {
+                body.accounts(accounts)
+            }
 
         /**
          * Adds a single [Account] to [accounts].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addAccount(account: Account) = apply { body.addAccount(account) }
+        fun addAccount(account: Account) =
+            apply {
+                body.addAccount(account)
+            }
 
         /** The counterparty's email. */
-        fun email(email: String?) = apply { body.email(email) }
+        fun email(email: String?) =
+            apply {
+                body.email(email)
+            }
 
         /**
          * Sets [Builder.email] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.email] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.email] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun email(email: JsonField<String>) = apply { body.email(email) }
+        fun email(email: JsonField<String>) =
+            apply {
+                body.email(email)
+            }
 
         /** An optional user-defined 180 character unique identifier. */
-        fun externalId(externalId: String?) = apply { body.externalId(externalId) }
+        fun externalId(externalId: String?) =
+            apply {
+                body.externalId(externalId)
+            }
 
         /**
          * Sets [Builder.externalId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun externalId(externalId: JsonField<String>) = apply { body.externalId(externalId) }
+        fun externalId(externalId: JsonField<String>) =
+            apply {
+                body.externalId(externalId)
+            }
 
-        /**
-         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-         * `vendor`.
-         */
+        /** An optional type to auto-sync the counterparty to your ledger. Either `customer` or `vendor`. */
         @Deprecated("deprecated")
-        fun ledgerType(ledgerType: LedgerType) = apply { body.ledgerType(ledgerType) }
+        fun ledgerType(ledgerType: LedgerType) =
+            apply {
+                body.ledgerType(ledgerType)
+            }
 
         /**
          * Sets [Builder.ledgerType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.ledgerType] with a well-typed [LedgerType] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.ledgerType] with a well-typed [LedgerType] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
         @Deprecated("deprecated")
-        fun ledgerType(ledgerType: JsonField<LedgerType>) = apply { body.ledgerType(ledgerType) }
+        fun ledgerType(ledgerType: JsonField<LedgerType>) =
+            apply {
+                body.ledgerType(ledgerType)
+            }
 
-        fun legalEntity(legalEntity: LegalEntityCreateRequest) = apply {
-            body.legalEntity(legalEntity)
-        }
+        fun legalEntity(legalEntity: LegalEntityCreateRequest) =
+            apply {
+                body.legalEntity(legalEntity)
+            }
 
         /**
          * Sets [Builder.legalEntity] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.legalEntity] with a well-typed
-         * [LegalEntityCreateRequest] value instead. This method is primarily for setting the field
-         * to an undocumented or not yet supported value.
+         * You should usually call [Builder.legalEntity] with a well-typed [LegalEntityCreateRequest] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun legalEntity(legalEntity: JsonField<LegalEntityCreateRequest>) = apply {
-            body.legalEntity(legalEntity)
-        }
+        fun legalEntity(legalEntity: JsonField<LegalEntityCreateRequest>) =
+            apply {
+                body.legalEntity(legalEntity)
+            }
 
         /** The id of the legal entity. */
-        fun legalEntityId(legalEntityId: String?) = apply { body.legalEntityId(legalEntityId) }
+        fun legalEntityId(legalEntityId: String?) =
+            apply {
+                body.legalEntityId(legalEntityId)
+            }
 
         /**
          * Sets [Builder.legalEntityId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.legalEntityId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.legalEntityId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun legalEntityId(legalEntityId: JsonField<String>) = apply {
-            body.legalEntityId(legalEntityId)
-        }
+        fun legalEntityId(legalEntityId: JsonField<String>) =
+            apply {
+                body.legalEntityId(legalEntityId)
+            }
 
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+        /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+        fun metadata(metadata: Metadata) =
+            apply {
+                body.metadata(metadata)
+            }
 
         /**
          * Sets [Builder.metadata] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
+        fun metadata(metadata: JsonField<Metadata>) =
+            apply {
+                body.metadata(metadata)
+            }
 
-        /**
-         * Send an email to the counterparty whenever an associated payment order is sent to the
-         * bank.
-         */
-        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) = apply {
-            body.sendRemittanceAdvice(sendRemittanceAdvice)
-        }
+        /** Send an email to the counterparty whenever an associated payment order is sent to the bank. */
+        fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) =
+            apply {
+                body.sendRemittanceAdvice(sendRemittanceAdvice)
+            }
 
         /**
          * Sets [Builder.sendRemittanceAdvice] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) = apply {
-            body.sendRemittanceAdvice(sendRemittanceAdvice)
-        }
+        fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) =
+            apply {
+                body.sendRemittanceAdvice(sendRemittanceAdvice)
+            }
 
         /** Either a valid SSN or EIN. */
-        fun taxpayerIdentifier(taxpayerIdentifier: String) = apply {
-            body.taxpayerIdentifier(taxpayerIdentifier)
-        }
+        fun taxpayerIdentifier(taxpayerIdentifier: String) =
+            apply {
+                body.taxpayerIdentifier(taxpayerIdentifier)
+            }
 
         /**
          * Sets [Builder.taxpayerIdentifier] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.taxpayerIdentifier] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.taxpayerIdentifier] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun taxpayerIdentifier(taxpayerIdentifier: JsonField<String>) = apply {
-            body.taxpayerIdentifier(taxpayerIdentifier)
-        }
+        fun taxpayerIdentifier(taxpayerIdentifier: JsonField<String>) =
+            apply {
+                body.taxpayerIdentifier(taxpayerIdentifier)
+            }
 
         /** The verification status of the counterparty. */
         @Deprecated("deprecated")
-        fun verificationStatus(verificationStatus: String) = apply {
-            body.verificationStatus(verificationStatus)
-        }
+        fun verificationStatus(verificationStatus: String) =
+            apply {
+                body.verificationStatus(verificationStatus)
+            }
 
         /**
          * Sets [Builder.verificationStatus] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.verificationStatus] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.verificationStatus] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
         @Deprecated("deprecated")
-        fun verificationStatus(verificationStatus: JsonField<String>) = apply {
-            body.verificationStatus(verificationStatus)
-        }
+        fun verificationStatus(verificationStatus: JsonField<String>) =
+            apply {
+                body.verificationStatus(verificationStatus)
+            }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.additionalProperties(additionalBodyProperties)
+            }
 
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) =
+            apply {
+                body.putAdditionalProperty(
+                  key, value
+                )
+            }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
                 body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+        fun removeAdditionalBodyProperty(key: String) =
+            apply {
+                body.removeAdditionalProperty(key)
+            }
 
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) =
+            apply {
+                body.removeAllAdditionalProperties(keys)
+            }
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun putAdditionalHeader(name: String, value: String) = apply {
-            additionalHeaders.put(name, value)
-        }
+        fun putAdditionalHeader(name: String, value: String) =
+            apply {
+                additionalHeaders.put(name, value)
+            }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.put(name, values)
-        }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.put(name, values)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun replaceAdditionalHeaders(name: String, value: String) = apply {
-            additionalHeaders.replace(name, value)
-        }
+        fun replaceAdditionalHeaders(name: String, value: String) =
+            apply {
+                additionalHeaders.replace(name, value)
+            }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.replace(name, values)
-        }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.replace(name, values)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
+        fun removeAdditionalHeaders(name: String) =
+            apply {
+                additionalHeaders.remove(name)
+            }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
-            additionalHeaders.removeAll(names)
-        }
+        fun removeAllAdditionalHeaders(names: Set<String>) =
+            apply {
+                additionalHeaders.removeAll(names)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun putAdditionalQueryParam(key: String, value: String) = apply {
-            additionalQueryParams.put(key, value)
-        }
+        fun putAdditionalQueryParam(key: String, value: String) =
+            apply {
+                additionalQueryParams.put(key, value)
+            }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.put(key, values)
-        }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.put(key, values)
+            }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.putAll(additionalQueryParams)
-        }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.putAll(additionalQueryParams)
+            }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
-            additionalQueryParams.replace(key, value)
-        }
+        fun replaceAdditionalQueryParams(key: String, value: String) =
+            apply {
+                additionalQueryParams.replace(key, value)
+            }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.replace(key, values)
-        }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.replace(key, values)
+            }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.replaceAll(additionalQueryParams)
-        }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
+        fun removeAdditionalQueryParams(key: String) =
+            apply {
+                additionalQueryParams.remove(key)
+            }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
-            additionalQueryParams.removeAll(keys)
-        }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) =
+            apply {
+                additionalQueryParams.removeAll(keys)
+            }
 
         /**
          * Returns an immutable instance of [CounterpartyCreateParams].
@@ -562,6 +639,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .name()
          * ```
@@ -570,9 +648,9 @@ private constructor(
          */
         fun build(): CounterpartyCreateParams =
             CounterpartyCreateParams(
-                body.build(),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
+              body.build(),
+              additionalHeaders.build(),
+              additionalQueryParams.build(),
             )
     }
 
@@ -582,9 +660,7 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    class CounterpartyCreateRequest
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
+    class CounterpartyCreateRequest @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
         private val name: JsonField<String>,
         private val accounting: JsonField<Accounting>,
         private val accounts: JsonField<List<Account>>,
@@ -598,152 +674,114 @@ private constructor(
         private val taxpayerIdentifier: JsonField<String>,
         private val verificationStatus: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
+
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("accounting")
-            @ExcludeMissing
-            accounting: JsonField<Accounting> = JsonMissing.of(),
-            @JsonProperty("accounts")
-            @ExcludeMissing
-            accounts: JsonField<List<Account>> = JsonMissing.of(),
+            @JsonProperty("accounting") @ExcludeMissing accounting: JsonField<Accounting> = JsonMissing.of(),
+            @JsonProperty("accounts") @ExcludeMissing accounts: JsonField<List<Account>> = JsonMissing.of(),
             @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("external_id")
-            @ExcludeMissing
-            externalId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("ledger_type")
-            @ExcludeMissing
-            ledgerType: JsonField<LedgerType> = JsonMissing.of(),
-            @JsonProperty("legal_entity")
-            @ExcludeMissing
-            legalEntity: JsonField<LegalEntityCreateRequest> = JsonMissing.of(),
-            @JsonProperty("legal_entity_id")
-            @ExcludeMissing
-            legalEntityId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("metadata")
-            @ExcludeMissing
-            metadata: JsonField<Metadata> = JsonMissing.of(),
-            @JsonProperty("send_remittance_advice")
-            @ExcludeMissing
-            sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("taxpayer_identifier")
-            @ExcludeMissing
-            taxpayerIdentifier: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("verification_status")
-            @ExcludeMissing
-            verificationStatus: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("external_id") @ExcludeMissing externalId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("ledger_type") @ExcludeMissing ledgerType: JsonField<LedgerType> = JsonMissing.of(),
+            @JsonProperty("legal_entity") @ExcludeMissing legalEntity: JsonField<LegalEntityCreateRequest> = JsonMissing.of(),
+            @JsonProperty("legal_entity_id") @ExcludeMissing legalEntityId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("send_remittance_advice") @ExcludeMissing sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("taxpayer_identifier") @ExcludeMissing taxpayerIdentifier: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("verification_status") @ExcludeMissing verificationStatus: JsonField<String> = JsonMissing.of()
         ) : this(
-            name,
-            accounting,
-            accounts,
-            email,
-            externalId,
-            ledgerType,
-            legalEntity,
-            legalEntityId,
-            metadata,
-            sendRemittanceAdvice,
-            taxpayerIdentifier,
-            verificationStatus,
-            mutableMapOf(),
+          name,
+          accounting,
+          accounts,
+          email,
+          externalId,
+          ledgerType,
+          legalEntity,
+          legalEntityId,
+          metadata,
+          sendRemittanceAdvice,
+          taxpayerIdentifier,
+          verificationStatus,
+          mutableMapOf(),
         )
 
         /**
          * A human friendly name for this counterparty.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun name(): String? = name.getNullable("name")
 
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
+        /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
         @Deprecated("deprecated")
         fun accounting(): Accounting? = accounting.getNullable("accounting")
 
         /**
          * The accounts for this counterparty.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun accounts(): List<Account>? = accounts.getNullable("accounts")
 
         /**
          * The counterparty's email.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun email(): String? = email.getNullable("email")
 
         /**
          * An optional user-defined 180 character unique identifier.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun externalId(): String? = externalId.getNullable("external_id")
 
         /**
-         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-         * `vendor`.
+         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or `vendor`.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         @Deprecated("deprecated")
         fun ledgerType(): LedgerType? = ledgerType.getNullable("ledger_type")
 
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
+        /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
         fun legalEntity(): LegalEntityCreateRequest? = legalEntity.getNullable("legal_entity")
 
         /**
          * The id of the legal entity.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun legalEntityId(): String? = legalEntityId.getNullable("legal_entity_id")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /**
-         * Send an email to the counterparty whenever an associated payment order is sent to the
-         * bank.
+         * Send an email to the counterparty whenever an associated payment order is sent to the bank.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun sendRemittanceAdvice(): Boolean? =
-            sendRemittanceAdvice.getNullable("send_remittance_advice")
+        fun sendRemittanceAdvice(): Boolean? = sendRemittanceAdvice.getNullable("send_remittance_advice")
 
         /**
          * Either a valid SSN or EIN.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun taxpayerIdentifier(): String? = taxpayerIdentifier.getNullable("taxpayer_identifier")
 
         /**
          * The verification status of the counterparty.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         @Deprecated("deprecated")
         fun verificationStatus(): String? = verificationStatus.getNullable("verification_status")
@@ -753,7 +791,9 @@ private constructor(
          *
          * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+        @JsonProperty("name")
+        @ExcludeMissing
+        fun _name(): JsonField<String> = name
 
         /**
          * Returns the raw JSON value of [accounting].
@@ -779,7 +819,9 @@ private constructor(
          *
          * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
+        @JsonProperty("email")
+        @ExcludeMissing
+        fun _email(): JsonField<String> = email
 
         /**
          * Returns the raw JSON value of [externalId].
@@ -812,8 +854,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [legalEntityId].
          *
-         * Unlike [legalEntityId], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [legalEntityId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("legal_entity_id")
         @ExcludeMissing
@@ -824,13 +865,14 @@ private constructor(
          *
          * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        fun _metadata(): JsonField<Metadata> = metadata
 
         /**
          * Returns the raw JSON value of [sendRemittanceAdvice].
          *
-         * Unlike [sendRemittanceAdvice], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [sendRemittanceAdvice], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("send_remittance_advice")
         @ExcludeMissing
@@ -839,8 +881,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [taxpayerIdentifier].
          *
-         * Unlike [taxpayerIdentifier], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [taxpayerIdentifier], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("taxpayer_identifier")
         @ExcludeMissing
@@ -849,8 +890,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [verificationStatus].
          *
-         * Unlike [verificationStatus], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [verificationStatus], this method doesn't throw if the JSON field has an unexpected type.
          */
         @Deprecated("deprecated")
         @JsonProperty("verification_status")
@@ -859,23 +899,22 @@ private constructor(
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
+          additionalProperties.put(key, value)
         }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
+        fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of
-             * [CounterpartyCreateRequest].
+             * Returns a mutable builder for constructing an instance of [CounterpartyCreateRequest].
              *
              * The following fields are required:
+             *
              * ```kotlin
              * .name()
              * ```
@@ -900,21 +939,22 @@ private constructor(
             private var verificationStatus: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(counterpartyCreateRequest: CounterpartyCreateRequest) = apply {
-                name = counterpartyCreateRequest.name
-                accounting = counterpartyCreateRequest.accounting
-                accounts = counterpartyCreateRequest.accounts.map { it.toMutableList() }
-                email = counterpartyCreateRequest.email
-                externalId = counterpartyCreateRequest.externalId
-                ledgerType = counterpartyCreateRequest.ledgerType
-                legalEntity = counterpartyCreateRequest.legalEntity
-                legalEntityId = counterpartyCreateRequest.legalEntityId
-                metadata = counterpartyCreateRequest.metadata
-                sendRemittanceAdvice = counterpartyCreateRequest.sendRemittanceAdvice
-                taxpayerIdentifier = counterpartyCreateRequest.taxpayerIdentifier
-                verificationStatus = counterpartyCreateRequest.verificationStatus
-                additionalProperties = counterpartyCreateRequest.additionalProperties.toMutableMap()
-            }
+            internal fun from(counterpartyCreateRequest: CounterpartyCreateRequest) =
+                apply {
+                    name = counterpartyCreateRequest.name
+                    accounting = counterpartyCreateRequest.accounting
+                    accounts = counterpartyCreateRequest.accounts.map { it.toMutableList() }
+                    email = counterpartyCreateRequest.email
+                    externalId = counterpartyCreateRequest.externalId
+                    ledgerType = counterpartyCreateRequest.ledgerType
+                    legalEntity = counterpartyCreateRequest.legalEntity
+                    legalEntityId = counterpartyCreateRequest.legalEntityId
+                    metadata = counterpartyCreateRequest.metadata
+                    sendRemittanceAdvice = counterpartyCreateRequest.sendRemittanceAdvice
+                    taxpayerIdentifier = counterpartyCreateRequest.taxpayerIdentifier
+                    verificationStatus = counterpartyCreateRequest.verificationStatus
+                    additionalProperties = counterpartyCreateRequest.additionalProperties.toMutableMap()
+                }
 
             /** A human friendly name for this counterparty. */
             fun name(name: String?) = name(JsonField.ofNullable(name))
@@ -922,11 +962,13 @@ private constructor(
             /**
              * Sets [Builder.name] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.name] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun name(name: JsonField<String>) = apply { this.name = name }
+            fun name(name: JsonField<String>) =
+                apply {
+                    this.name = name
+                }
 
             @Deprecated("deprecated")
             fun accounting(accounting: Accounting) = accounting(JsonField.of(accounting))
@@ -934,14 +976,14 @@ private constructor(
             /**
              * Sets [Builder.accounting] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.accounting] with a well-typed [Accounting] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.accounting] with a well-typed [Accounting] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
             @Deprecated("deprecated")
-            fun accounting(accounting: JsonField<Accounting>) = apply {
-                this.accounting = accounting
-            }
+            fun accounting(accounting: JsonField<Accounting>) =
+                apply {
+                    this.accounting = accounting
+                }
 
             /** The accounts for this counterparty. */
             fun accounts(accounts: List<Account>) = accounts(JsonField.of(accounts))
@@ -949,25 +991,25 @@ private constructor(
             /**
              * Sets [Builder.accounts] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.accounts] with a well-typed `List<Account>` value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.accounts] with a well-typed `List<Account>` value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun accounts(accounts: JsonField<List<Account>>) = apply {
-                this.accounts = accounts.map { it.toMutableList() }
-            }
+            fun accounts(accounts: JsonField<List<Account>>) =
+                apply {
+                    this.accounts = accounts.map { it.toMutableList() }
+                }
 
             /**
              * Adds a single [Account] to [accounts].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addAccount(account: Account) = apply {
-                accounts =
-                    (accounts ?: JsonField.of(mutableListOf())).also {
+            fun addAccount(account: Account) =
+                apply {
+                    accounts = (accounts ?: JsonField.of(mutableListOf())).also {
                         checkKnown("accounts", it).add(account)
                     }
-            }
+                }
 
             /** The counterparty's email. */
             fun email(email: String?) = email(JsonField.ofNullable(email))
@@ -975,11 +1017,13 @@ private constructor(
             /**
              * Sets [Builder.email] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.email] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.email] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun email(email: JsonField<String>) = apply { this.email = email }
+            fun email(email: JsonField<String>) =
+                apply {
+                    this.email = email
+                }
 
             /** An optional user-defined 180 character unique identifier. */
             fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
@@ -987,143 +1031,140 @@ private constructor(
             /**
              * Sets [Builder.externalId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.externalId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.externalId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
+            fun externalId(externalId: JsonField<String>) =
+                apply {
+                    this.externalId = externalId
+                }
 
-            /**
-             * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-             * `vendor`.
-             */
+            /** An optional type to auto-sync the counterparty to your ledger. Either `customer` or `vendor`. */
             @Deprecated("deprecated")
             fun ledgerType(ledgerType: LedgerType) = ledgerType(JsonField.of(ledgerType))
 
             /**
              * Sets [Builder.ledgerType] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.ledgerType] with a well-typed [LedgerType] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.ledgerType] with a well-typed [LedgerType] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
             @Deprecated("deprecated")
-            fun ledgerType(ledgerType: JsonField<LedgerType>) = apply {
-                this.ledgerType = ledgerType
-            }
+            fun ledgerType(ledgerType: JsonField<LedgerType>) =
+                apply {
+                    this.ledgerType = ledgerType
+                }
 
-            fun legalEntity(legalEntity: LegalEntityCreateRequest) =
-                legalEntity(JsonField.of(legalEntity))
+            fun legalEntity(legalEntity: LegalEntityCreateRequest) = legalEntity(JsonField.of(legalEntity))
 
             /**
              * Sets [Builder.legalEntity] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.legalEntity] with a well-typed
-             * [LegalEntityCreateRequest] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * You should usually call [Builder.legalEntity] with a well-typed [LegalEntityCreateRequest] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun legalEntity(legalEntity: JsonField<LegalEntityCreateRequest>) = apply {
-                this.legalEntity = legalEntity
-            }
+            fun legalEntity(legalEntity: JsonField<LegalEntityCreateRequest>) =
+                apply {
+                    this.legalEntity = legalEntity
+                }
 
             /** The id of the legal entity. */
-            fun legalEntityId(legalEntityId: String?) =
-                legalEntityId(JsonField.ofNullable(legalEntityId))
+            fun legalEntityId(legalEntityId: String?) = legalEntityId(JsonField.ofNullable(legalEntityId))
 
             /**
              * Sets [Builder.legalEntityId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.legalEntityId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.legalEntityId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun legalEntityId(legalEntityId: JsonField<String>) = apply {
-                this.legalEntityId = legalEntityId
-            }
+            fun legalEntityId(legalEntityId: JsonField<String>) =
+                apply {
+                    this.legalEntityId = legalEntityId
+                }
 
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
+            /** Additional data represented as key-value pairs. Both the key and value must be strings. */
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
              * Sets [Builder.metadata] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+            fun metadata(metadata: JsonField<Metadata>) =
+                apply {
+                    this.metadata = metadata
+                }
 
-            /**
-             * Send an email to the counterparty whenever an associated payment order is sent to the
-             * bank.
-             */
-            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) =
-                sendRemittanceAdvice(JsonField.of(sendRemittanceAdvice))
+            /** Send an email to the counterparty whenever an associated payment order is sent to the bank. */
+            fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) = sendRemittanceAdvice(JsonField.of(sendRemittanceAdvice))
 
             /**
              * Sets [Builder.sendRemittanceAdvice] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.sendRemittanceAdvice] with a well-typed [Boolean] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) = apply {
-                this.sendRemittanceAdvice = sendRemittanceAdvice
-            }
+            fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) =
+                apply {
+                    this.sendRemittanceAdvice = sendRemittanceAdvice
+                }
 
             /** Either a valid SSN or EIN. */
-            fun taxpayerIdentifier(taxpayerIdentifier: String) =
-                taxpayerIdentifier(JsonField.of(taxpayerIdentifier))
+            fun taxpayerIdentifier(taxpayerIdentifier: String) = taxpayerIdentifier(JsonField.of(taxpayerIdentifier))
 
             /**
              * Sets [Builder.taxpayerIdentifier] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.taxpayerIdentifier] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.taxpayerIdentifier] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun taxpayerIdentifier(taxpayerIdentifier: JsonField<String>) = apply {
-                this.taxpayerIdentifier = taxpayerIdentifier
-            }
+            fun taxpayerIdentifier(taxpayerIdentifier: JsonField<String>) =
+                apply {
+                    this.taxpayerIdentifier = taxpayerIdentifier
+                }
 
             /** The verification status of the counterparty. */
             @Deprecated("deprecated")
-            fun verificationStatus(verificationStatus: String) =
-                verificationStatus(JsonField.of(verificationStatus))
+            fun verificationStatus(verificationStatus: String) = verificationStatus(JsonField.of(verificationStatus))
 
             /**
              * Sets [Builder.verificationStatus] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.verificationStatus] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.verificationStatus] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
             @Deprecated("deprecated")
-            fun verificationStatus(verificationStatus: JsonField<String>) = apply {
-                this.verificationStatus = verificationStatus
-            }
+            fun verificationStatus(verificationStatus: JsonField<String>) =
+                apply {
+                    this.verificationStatus = verificationStatus
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperty(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
             /**
              * Returns an immutable instance of [CounterpartyCreateRequest].
@@ -1131,6 +1172,7 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              *
              * The following fields are required:
+             *
              * ```kotlin
              * .name()
              * ```
@@ -1139,52 +1181,54 @@ private constructor(
              */
             fun build(): CounterpartyCreateRequest =
                 CounterpartyCreateRequest(
-                    checkRequired("name", name),
-                    accounting,
-                    (accounts ?: JsonMissing.of()).map { it.toImmutable() },
-                    email,
-                    externalId,
-                    ledgerType,
-                    legalEntity,
-                    legalEntityId,
-                    metadata,
-                    sendRemittanceAdvice,
-                    taxpayerIdentifier,
-                    verificationStatus,
-                    additionalProperties.toMutableMap(),
+                  checkRequired(
+                    "name", name
+                  ),
+                  accounting,
+                  (accounts?: JsonMissing.of()).map { it.toImmutable() },
+                  email,
+                  externalId,
+                  ledgerType,
+                  legalEntity,
+                  legalEntityId,
+                  metadata,
+                  sendRemittanceAdvice,
+                  taxpayerIdentifier,
+                  verificationStatus,
+                  additionalProperties.toMutableMap(),
                 )
         }
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): CounterpartyCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): CounterpartyCreateRequest =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            name()
-            accounting()?.validate()
-            accounts()?.forEach { it.validate() }
-            email()
-            externalId()
-            ledgerType()?.validate()
-            legalEntity()?.validate()
-            legalEntityId()
-            metadata()?.validate()
-            sendRemittanceAdvice()
-            taxpayerIdentifier()
-            verificationStatus()
-            validated = true
-        }
+                name()
+                accounting()?.validate()
+                accounts()?.forEach { it.validate() }
+                email()
+                externalId()
+                ledgerType()?.validate()
+                legalEntity()?.validate()
+                legalEntityId()
+                metadata()?.validate()
+                sendRemittanceAdvice()
+                taxpayerIdentifier()
+                verificationStatus()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1195,89 +1239,45 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            (if (name.asKnown() == null) 0 else 1) +
-                (accounting.asKnown()?.validity() ?: 0) +
-                (accounts.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                (if (email.asKnown() == null) 0 else 1) +
-                (if (externalId.asKnown() == null) 0 else 1) +
-                (ledgerType.asKnown()?.validity() ?: 0) +
-                (legalEntity.asKnown()?.validity() ?: 0) +
-                (if (legalEntityId.asKnown() == null) 0 else 1) +
-                (metadata.asKnown()?.validity() ?: 0) +
-                (if (sendRemittanceAdvice.asKnown() == null) 0 else 1) +
-                (if (taxpayerIdentifier.asKnown() == null) 0 else 1) +
-                (if (verificationStatus.asKnown() == null) 0 else 1)
+        internal fun validity(): Int = (if (name.asKnown() == null) 0 else 1) + (accounting.asKnown()?.validity() ?: 0) + (accounts.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (if (email.asKnown() == null) 0 else 1) + (if (externalId.asKnown() == null) 0 else 1) + (ledgerType.asKnown()?.validity() ?: 0) + (legalEntity.asKnown()?.validity() ?: 0) + (if (legalEntityId.asKnown() == null) 0 else 1) + (metadata.asKnown()?.validity() ?: 0) + (if (sendRemittanceAdvice.asKnown() == null) 0 else 1) + (if (taxpayerIdentifier.asKnown() == null) 0 else 1) + (if (verificationStatus.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is CounterpartyCreateRequest &&
-                name == other.name &&
-                accounting == other.accounting &&
-                accounts == other.accounts &&
-                email == other.email &&
-                externalId == other.externalId &&
-                ledgerType == other.ledgerType &&
-                legalEntity == other.legalEntity &&
-                legalEntityId == other.legalEntityId &&
-                metadata == other.metadata &&
-                sendRemittanceAdvice == other.sendRemittanceAdvice &&
-                taxpayerIdentifier == other.taxpayerIdentifier &&
-                verificationStatus == other.verificationStatus &&
-                additionalProperties == other.additionalProperties
+          return other is CounterpartyCreateRequest && name == other.name && accounting == other.accounting && accounts == other.accounts && email == other.email && externalId == other.externalId && ledgerType == other.ledgerType && legalEntity == other.legalEntity && legalEntityId == other.legalEntityId && metadata == other.metadata && sendRemittanceAdvice == other.sendRemittanceAdvice && taxpayerIdentifier == other.taxpayerIdentifier && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(
-                name,
-                accounting,
-                accounts,
-                email,
-                externalId,
-                ledgerType,
-                legalEntity,
-                legalEntityId,
-                metadata,
-                sendRemittanceAdvice,
-                taxpayerIdentifier,
-                verificationStatus,
-                additionalProperties,
-            )
-        }
+        private val hashCode: Int by lazy { Objects.hash(name, accounting, accounts, email, externalId, ledgerType, legalEntity, legalEntityId, metadata, sendRemittanceAdvice, taxpayerIdentifier, verificationStatus, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "CounterpartyCreateRequest{name=$name, accounting=$accounting, accounts=$accounts, email=$email, externalId=$externalId, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
+        override fun toString() = "CounterpartyCreateRequest{name=$name, accounting=$accounting, accounts=$accounts, email=$email, externalId=$externalId, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
     }
 
     @Deprecated("deprecated")
-    class Accounting
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
+    class Accounting @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
         private val type: JsonField<Type>,
         private val additionalProperties: MutableMap<String, JsonValue>,
+
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of()
-        ) : this(type, mutableMapOf())
+        ) : this(
+          type, mutableMapOf()
+        )
 
         /**
-         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-         * `vendor`.
+         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or `vendor`.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun type(): Type? = type.getNullable("type")
 
@@ -1286,17 +1286,18 @@ private constructor(
          *
          * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+        @JsonProperty("type")
+        @ExcludeMissing
+        fun _type(): JsonField<Type> = type
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
+          additionalProperties.put(key, value)
         }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
+        fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1312,72 +1313,82 @@ private constructor(
             private var type: JsonField<Type> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(accounting: Accounting) = apply {
-                type = accounting.type
-                additionalProperties = accounting.additionalProperties.toMutableMap()
-            }
+            internal fun from(accounting: Accounting) =
+                apply {
+                    type = accounting.type
+                    additionalProperties = accounting.additionalProperties.toMutableMap()
+                }
 
-            /**
-             * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-             * `vendor`.
-             */
+            /** An optional type to auto-sync the counterparty to your ledger. Either `customer` or `vendor`. */
             fun type(type: Type) = type(JsonField.of(type))
 
             /**
              * Sets [Builder.type] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.type] with a well-typed [Type] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun type(type: JsonField<Type>) = apply { this.type = type }
+            fun type(type: JsonField<Type>) =
+                apply {
+                    this.type = type
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperty(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
             /**
              * Returns an immutable instance of [Accounting].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Accounting = Accounting(type, additionalProperties.toMutableMap())
+            fun build(): Accounting =
+                Accounting(
+                  type, additionalProperties.toMutableMap()
+                )
         }
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Accounting = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Accounting =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            type()?.validate()
-            validated = true
-        }
+                type()?.validate()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1388,28 +1399,27 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = (type.asKnown()?.validity() ?: 0)
 
-        /**
-         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-         * `vendor`.
-         */
-        class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+        /** An optional type to auto-sync the counterparty to your ledger. Either `customer` or `vendor`. */
+        class Type @JsonCreator private constructor(
+            private val value: JsonField<String>,
+
+        ) : Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't match any known
+             * member, and you want to know that value. For example, if the SDK is on an older version than the
+             * API, then the API may respond with new members that the SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -1430,9 +1440,11 @@ private constructor(
              * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [Type] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
+             *
+             * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+             *   an older version than the API, then the API may respond with new members that the SDK is unaware
+             *   of.
+             *
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -1443,11 +1455,11 @@ private constructor(
             }
 
             /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+             * class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you want to throw
+             * for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -1459,11 +1471,10 @@ private constructor(
             /**
              * Returns an enum member corresponding to this class instance's value.
              *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
+             * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+             * for the unknown case.
              *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-             *   known member.
+             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
              */
             fun known(): Known =
                 when (this) {
@@ -1475,36 +1486,33 @@ private constructor(
             /**
              * Returns this class instance's primitive wire representation.
              *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
+             * This differs from the [toString] method because that method is primarily for debugging and generally
+             * doesn't throw.
              *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value does not
-             *   have the expected primitive type.
+             * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+             *   primitive type.
              */
-            fun asString(): String =
-                _value().asString()
-                    ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+            fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
             private var validated: Boolean = false
 
             /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
+             * Validates that the types of all values in this object match their expected types recursively.
              *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
+             * This method is _not_ forwards compatible with new types from the API for existing fields.
              *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
+             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
              */
-            fun validate(): Type = apply {
-                if (validated) {
-                    return@apply
-                }
+            fun validate(): Type =
+                apply {
+                    if (validated) {
+                      return@apply
+                    }
 
-                known()
-                validated = true
-            }
+                    known()
+                    validated = true
+                }
 
             fun isValid(): Boolean =
                 try {
@@ -1515,19 +1523,18 @@ private constructor(
                 }
 
             /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
+             * Returns a score indicating how many valid values are contained in this object recursively.
              *
              * Used for best match union deserialization.
              */
             internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Type && value == other.value
+              return other is Type && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1536,26 +1543,21 @@ private constructor(
         }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Accounting &&
-                type == other.type &&
-                additionalProperties == other.additionalProperties
+          return other is Accounting && type == other.type && additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy { Objects.hash(type, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "Accounting{type=$type, additionalProperties=$additionalProperties}"
+        override fun toString() = "Accounting{type=$type, additionalProperties=$additionalProperties}"
     }
 
-    class Account
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
+    class Account @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
         private val accountDetails: JsonField<List<AccountDetail>>,
         private val accountType: JsonField<ExternalAccountType>,
         private val contactDetails: JsonField<List<ContactDetailCreateRequest>>,
@@ -1570,174 +1572,120 @@ private constructor(
         private val plaidProcessorToken: JsonField<String>,
         private val routingDetails: JsonField<List<RoutingDetail>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
+
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("account_details")
-            @ExcludeMissing
-            accountDetails: JsonField<List<AccountDetail>> = JsonMissing.of(),
-            @JsonProperty("account_type")
-            @ExcludeMissing
-            accountType: JsonField<ExternalAccountType> = JsonMissing.of(),
-            @JsonProperty("contact_details")
-            @ExcludeMissing
-            contactDetails: JsonField<List<ContactDetailCreateRequest>> = JsonMissing.of(),
-            @JsonProperty("external_id")
-            @ExcludeMissing
-            externalId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("ledger_account")
-            @ExcludeMissing
-            ledgerAccount: JsonField<LedgerAccountCreateRequest> = JsonMissing.of(),
-            @JsonProperty("metadata")
-            @ExcludeMissing
-            metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("account_details") @ExcludeMissing accountDetails: JsonField<List<AccountDetail>> = JsonMissing.of(),
+            @JsonProperty("account_type") @ExcludeMissing accountType: JsonField<ExternalAccountType> = JsonMissing.of(),
+            @JsonProperty("contact_details") @ExcludeMissing contactDetails: JsonField<List<ContactDetailCreateRequest>> = JsonMissing.of(),
+            @JsonProperty("external_id") @ExcludeMissing externalId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("ledger_account") @ExcludeMissing ledgerAccount: JsonField<LedgerAccountCreateRequest> = JsonMissing.of(),
+            @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("party_address")
-            @ExcludeMissing
-            partyAddress: JsonField<AddressRequest> = JsonMissing.of(),
-            @JsonProperty("party_identifier")
-            @ExcludeMissing
-            partyIdentifier: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("party_name")
-            @ExcludeMissing
-            partyName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("party_type")
-            @ExcludeMissing
-            partyType: JsonField<PartyType> = JsonMissing.of(),
-            @JsonProperty("plaid_processor_token")
-            @ExcludeMissing
-            plaidProcessorToken: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("routing_details")
-            @ExcludeMissing
-            routingDetails: JsonField<List<RoutingDetail>> = JsonMissing.of(),
+            @JsonProperty("party_address") @ExcludeMissing partyAddress: JsonField<AddressRequest> = JsonMissing.of(),
+            @JsonProperty("party_identifier") @ExcludeMissing partyIdentifier: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("party_name") @ExcludeMissing partyName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("party_type") @ExcludeMissing partyType: JsonField<PartyType> = JsonMissing.of(),
+            @JsonProperty("plaid_processor_token") @ExcludeMissing plaidProcessorToken: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("routing_details") @ExcludeMissing routingDetails: JsonField<List<RoutingDetail>> = JsonMissing.of()
         ) : this(
-            accountDetails,
-            accountType,
-            contactDetails,
-            externalId,
-            ledgerAccount,
-            metadata,
-            name,
-            partyAddress,
-            partyIdentifier,
-            partyName,
-            partyType,
-            plaidProcessorToken,
-            routingDetails,
-            mutableMapOf(),
+          accountDetails,
+          accountType,
+          contactDetails,
+          externalId,
+          ledgerAccount,
+          metadata,
+          name,
+          partyAddress,
+          partyIdentifier,
+          partyName,
+          partyType,
+          plaidProcessorToken,
+          routingDetails,
+          mutableMapOf(),
         )
 
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
+        /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
         fun accountDetails(): List<AccountDetail>? = accountDetails.getNullable("account_details")
 
         /**
          * Can be `checking`, `savings` or `other`.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun accountType(): ExternalAccountType? = accountType.getNullable("account_type")
 
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun contactDetails(): List<ContactDetailCreateRequest>? =
-            contactDetails.getNullable("contact_details")
+        /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
+        fun contactDetails(): List<ContactDetailCreateRequest>? = contactDetails.getNullable("contact_details")
 
         /**
          * An optional user-defined 180 character unique identifier.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun externalId(): String? = externalId.getNullable("external_id")
 
         /**
-         * Specifies a ledger account object that will be created with the external account. The
-         * resulting ledger account is linked to the external account for auto-ledgering Payment
-         * objects. See
-         * https://docs.moderntreasury.com/docs/linking-to-other-modern-treasury-objects for more
-         * details.
+         * Specifies a ledger account object that will be created with the external account. The resulting ledger account is linked to the external account for auto-ledgering Payment objects. See https://docs.moderntreasury.com/docs/linking-to-other-modern-treasury-objects for more details.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun ledgerAccount(): LedgerAccountCreateRequest? =
-            ledgerAccount.getNullable("ledger_account")
+        fun ledgerAccount(): LedgerAccountCreateRequest? = ledgerAccount.getNullable("ledger_account")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /**
-         * A nickname for the external account. This is only for internal usage and won't affect any
-         * payments
+         * A nickname for the external account. This is only for internal usage and won't affect any payments
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun name(): String? = name.getNullable("name")
 
         /**
          * Required if receiving wire payments.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun partyAddress(): AddressRequest? = partyAddress.getNullable("party_address")
 
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
+        /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
         fun partyIdentifier(): String? = partyIdentifier.getNullable("party_identifier")
 
         /**
          * If this value isn't provided, it will be inherited from the counterparty's name.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun partyName(): String? = partyName.getNullable("party_name")
 
         /**
          * Either `individual` or `business`.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun partyType(): PartyType? = partyType.getNullable("party_type")
 
         /**
-         * If you've enabled the Modern Treasury + Plaid integration in your Plaid account, you can
-         * pass the processor token in this field.
+         * If you've enabled the Modern Treasury + Plaid integration in your Plaid account, you can pass the processor token in this field.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun plaidProcessorToken(): String? =
-            plaidProcessorToken.getNullable("plaid_processor_token")
+        fun plaidProcessorToken(): String? = plaidProcessorToken.getNullable("plaid_processor_token")
 
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
+        /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
         fun routingDetails(): List<RoutingDetail>? = routingDetails.getNullable("routing_details")
 
         /**
          * Returns the raw JSON value of [accountDetails].
          *
-         * Unlike [accountDetails], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [accountDetails], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("account_details")
         @ExcludeMissing
@@ -1755,8 +1703,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [contactDetails].
          *
-         * Unlike [contactDetails], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [contactDetails], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("contact_details")
         @ExcludeMissing
@@ -1774,8 +1721,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [ledgerAccount].
          *
-         * Unlike [ledgerAccount], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [ledgerAccount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("ledger_account")
         @ExcludeMissing
@@ -1786,20 +1732,23 @@ private constructor(
          *
          * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        fun _metadata(): JsonField<Metadata> = metadata
 
         /**
          * Returns the raw JSON value of [name].
          *
          * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+        @JsonProperty("name")
+        @ExcludeMissing
+        fun _name(): JsonField<String> = name
 
         /**
          * Returns the raw JSON value of [partyAddress].
          *
-         * Unlike [partyAddress], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [partyAddress], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("party_address")
         @ExcludeMissing
@@ -1808,8 +1757,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [partyIdentifier].
          *
-         * Unlike [partyIdentifier], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [partyIdentifier], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("party_identifier")
         @ExcludeMissing
@@ -1820,7 +1768,9 @@ private constructor(
          *
          * Unlike [partyName], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("party_name") @ExcludeMissing fun _partyName(): JsonField<String> = partyName
+        @JsonProperty("party_name")
+        @ExcludeMissing
+        fun _partyName(): JsonField<String> = partyName
 
         /**
          * Returns the raw JSON value of [partyType].
@@ -1834,8 +1784,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [plaidProcessorToken].
          *
-         * Unlike [plaidProcessorToken], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [plaidProcessorToken], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("plaid_processor_token")
         @ExcludeMissing
@@ -1844,8 +1793,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [routingDetails].
          *
-         * Unlike [routingDetails], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [routingDetails], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("routing_details")
         @ExcludeMissing
@@ -1853,13 +1801,12 @@ private constructor(
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
+          additionalProperties.put(key, value)
         }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
+        fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1887,73 +1834,70 @@ private constructor(
             private var routingDetails: JsonField<MutableList<RoutingDetail>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(account: Account) = apply {
-                accountDetails = account.accountDetails.map { it.toMutableList() }
-                accountType = account.accountType
-                contactDetails = account.contactDetails.map { it.toMutableList() }
-                externalId = account.externalId
-                ledgerAccount = account.ledgerAccount
-                metadata = account.metadata
-                name = account.name
-                partyAddress = account.partyAddress
-                partyIdentifier = account.partyIdentifier
-                partyName = account.partyName
-                partyType = account.partyType
-                plaidProcessorToken = account.plaidProcessorToken
-                routingDetails = account.routingDetails.map { it.toMutableList() }
-                additionalProperties = account.additionalProperties.toMutableMap()
-            }
+            internal fun from(account: Account) =
+                apply {
+                    accountDetails = account.accountDetails.map { it.toMutableList() }
+                    accountType = account.accountType
+                    contactDetails = account.contactDetails.map { it.toMutableList() }
+                    externalId = account.externalId
+                    ledgerAccount = account.ledgerAccount
+                    metadata = account.metadata
+                    name = account.name
+                    partyAddress = account.partyAddress
+                    partyIdentifier = account.partyIdentifier
+                    partyName = account.partyName
+                    partyType = account.partyType
+                    plaidProcessorToken = account.plaidProcessorToken
+                    routingDetails = account.routingDetails.map { it.toMutableList() }
+                    additionalProperties = account.additionalProperties.toMutableMap()
+                }
 
-            fun accountDetails(accountDetails: List<AccountDetail>) =
-                accountDetails(JsonField.of(accountDetails))
+            fun accountDetails(accountDetails: List<AccountDetail>) = accountDetails(JsonField.of(accountDetails))
 
             /**
              * Sets [Builder.accountDetails] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.accountDetails] with a well-typed
-             * `List<AccountDetail>` value instead. This method is primarily for setting the field
-             * to an undocumented or not yet supported value.
+             * You should usually call [Builder.accountDetails] with a well-typed `List<AccountDetail>` value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun accountDetails(accountDetails: JsonField<List<AccountDetail>>) = apply {
-                this.accountDetails = accountDetails.map { it.toMutableList() }
-            }
+            fun accountDetails(accountDetails: JsonField<List<AccountDetail>>) =
+                apply {
+                    this.accountDetails = accountDetails.map { it.toMutableList() }
+                }
 
             /**
              * Adds a single [AccountDetail] to [accountDetails].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addAccountDetail(accountDetail: AccountDetail) = apply {
-                accountDetails =
-                    (accountDetails ?: JsonField.of(mutableListOf())).also {
+            fun addAccountDetail(accountDetail: AccountDetail) =
+                apply {
+                    accountDetails = (accountDetails ?: JsonField.of(mutableListOf())).also {
                         checkKnown("accountDetails", it).add(accountDetail)
                     }
-            }
+                }
 
             /** Can be `checking`, `savings` or `other`. */
-            fun accountType(accountType: ExternalAccountType) =
-                accountType(JsonField.of(accountType))
+            fun accountType(accountType: ExternalAccountType) = accountType(JsonField.of(accountType))
 
             /**
              * Sets [Builder.accountType] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.accountType] with a well-typed [ExternalAccountType]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.accountType] with a well-typed [ExternalAccountType] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun accountType(accountType: JsonField<ExternalAccountType>) = apply {
-                this.accountType = accountType
-            }
+            fun accountType(accountType: JsonField<ExternalAccountType>) =
+                apply {
+                    this.accountType = accountType
+                }
 
-            fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) =
-                contactDetails(JsonField.of(contactDetails))
+            fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) = contactDetails(JsonField.of(contactDetails))
 
             /**
              * Sets [Builder.contactDetails] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.contactDetails] with a well-typed
-             * `List<ContactDetailCreateRequest>` value instead. This method is primarily for
-             * setting the field to an undocumented or not yet supported value.
+             * You should usually call [Builder.contactDetails] with a well-typed `List<ContactDetailCreateRequest>` value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun contactDetails(contactDetails: JsonField<List<ContactDetailCreateRequest>>) =
                 apply {
@@ -1965,12 +1909,12 @@ private constructor(
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addContactDetail(contactDetail: ContactDetailCreateRequest) = apply {
-                contactDetails =
-                    (contactDetails ?: JsonField.of(mutableListOf())).also {
+            fun addContactDetail(contactDetail: ContactDetailCreateRequest) =
+                apply {
+                    contactDetails = (contactDetails ?: JsonField.of(mutableListOf())).also {
                         checkKnown("contactDetails", it).add(contactDetail)
                     }
-            }
+                }
 
             /** An optional user-defined 180 character unique identifier. */
             fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
@@ -1978,91 +1922,82 @@ private constructor(
             /**
              * Sets [Builder.externalId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.externalId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.externalId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
+            fun externalId(externalId: JsonField<String>) =
+                apply {
+                    this.externalId = externalId
+                }
 
-            /**
-             * Specifies a ledger account object that will be created with the external account. The
-             * resulting ledger account is linked to the external account for auto-ledgering Payment
-             * objects. See
-             * https://docs.moderntreasury.com/docs/linking-to-other-modern-treasury-objects for
-             * more details.
-             */
-            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) =
-                ledgerAccount(JsonField.of(ledgerAccount))
+            /** Specifies a ledger account object that will be created with the external account. The resulting ledger account is linked to the external account for auto-ledgering Payment objects. See https://docs.moderntreasury.com/docs/linking-to-other-modern-treasury-objects for more details. */
+            fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) = ledgerAccount(JsonField.of(ledgerAccount))
 
             /**
              * Sets [Builder.ledgerAccount] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.ledgerAccount] with a well-typed
-             * [LedgerAccountCreateRequest] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * You should usually call [Builder.ledgerAccount] with a well-typed [LedgerAccountCreateRequest] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun ledgerAccount(ledgerAccount: JsonField<LedgerAccountCreateRequest>) = apply {
-                this.ledgerAccount = ledgerAccount
-            }
+            fun ledgerAccount(ledgerAccount: JsonField<LedgerAccountCreateRequest>) =
+                apply {
+                    this.ledgerAccount = ledgerAccount
+                }
 
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
+            /** Additional data represented as key-value pairs. Both the key and value must be strings. */
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
              * Sets [Builder.metadata] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+            fun metadata(metadata: JsonField<Metadata>) =
+                apply {
+                    this.metadata = metadata
+                }
 
-            /**
-             * A nickname for the external account. This is only for internal usage and won't affect
-             * any payments
-             */
+            /** A nickname for the external account. This is only for internal usage and won't affect any payments */
             fun name(name: String?) = name(JsonField.ofNullable(name))
 
             /**
              * Sets [Builder.name] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.name] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun name(name: JsonField<String>) = apply { this.name = name }
+            fun name(name: JsonField<String>) =
+                apply {
+                    this.name = name
+                }
 
             /** Required if receiving wire payments. */
-            fun partyAddress(partyAddress: AddressRequest) =
-                partyAddress(JsonField.of(partyAddress))
+            fun partyAddress(partyAddress: AddressRequest) = partyAddress(JsonField.of(partyAddress))
 
             /**
              * Sets [Builder.partyAddress] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.partyAddress] with a well-typed [AddressRequest]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.partyAddress] with a well-typed [AddressRequest] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun partyAddress(partyAddress: JsonField<AddressRequest>) = apply {
-                this.partyAddress = partyAddress
-            }
+            fun partyAddress(partyAddress: JsonField<AddressRequest>) =
+                apply {
+                    this.partyAddress = partyAddress
+                }
 
-            fun partyIdentifier(partyIdentifier: String) =
-                partyIdentifier(JsonField.of(partyIdentifier))
+            fun partyIdentifier(partyIdentifier: String) = partyIdentifier(JsonField.of(partyIdentifier))
 
             /**
              * Sets [Builder.partyIdentifier] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.partyIdentifier] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.partyIdentifier] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun partyIdentifier(partyIdentifier: JsonField<String>) = apply {
-                this.partyIdentifier = partyIdentifier
-            }
+            fun partyIdentifier(partyIdentifier: JsonField<String>) =
+                apply {
+                    this.partyIdentifier = partyIdentifier
+                }
 
             /** If this value isn't provided, it will be inherited from the counterparty's name. */
             fun partyName(partyName: String) = partyName(JsonField.of(partyName))
@@ -2070,11 +2005,13 @@ private constructor(
             /**
              * Sets [Builder.partyName] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.partyName] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.partyName] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun partyName(partyName: JsonField<String>) = apply { this.partyName = partyName }
+            fun partyName(partyName: JsonField<String>) =
+                apply {
+                    this.partyName = partyName
+                }
 
             /** Either `individual` or `business`. */
             fun partyType(partyType: PartyType?) = partyType(JsonField.ofNullable(partyType))
@@ -2082,74 +2019,78 @@ private constructor(
             /**
              * Sets [Builder.partyType] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.partyType] with a well-typed [PartyType] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.partyType] with a well-typed [PartyType] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun partyType(partyType: JsonField<PartyType>) = apply { this.partyType = partyType }
+            fun partyType(partyType: JsonField<PartyType>) =
+                apply {
+                    this.partyType = partyType
+                }
 
-            /**
-             * If you've enabled the Modern Treasury + Plaid integration in your Plaid account, you
-             * can pass the processor token in this field.
-             */
-            fun plaidProcessorToken(plaidProcessorToken: String) =
-                plaidProcessorToken(JsonField.of(plaidProcessorToken))
+            /** If you've enabled the Modern Treasury + Plaid integration in your Plaid account, you can pass the processor token in this field. */
+            fun plaidProcessorToken(plaidProcessorToken: String) = plaidProcessorToken(JsonField.of(plaidProcessorToken))
 
             /**
              * Sets [Builder.plaidProcessorToken] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.plaidProcessorToken] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.plaidProcessorToken] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun plaidProcessorToken(plaidProcessorToken: JsonField<String>) = apply {
-                this.plaidProcessorToken = plaidProcessorToken
-            }
+            fun plaidProcessorToken(plaidProcessorToken: JsonField<String>) =
+                apply {
+                    this.plaidProcessorToken = plaidProcessorToken
+                }
 
-            fun routingDetails(routingDetails: List<RoutingDetail>) =
-                routingDetails(JsonField.of(routingDetails))
+            fun routingDetails(routingDetails: List<RoutingDetail>) = routingDetails(JsonField.of(routingDetails))
 
             /**
              * Sets [Builder.routingDetails] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.routingDetails] with a well-typed
-             * `List<RoutingDetail>` value instead. This method is primarily for setting the field
-             * to an undocumented or not yet supported value.
+             * You should usually call [Builder.routingDetails] with a well-typed `List<RoutingDetail>` value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun routingDetails(routingDetails: JsonField<List<RoutingDetail>>) = apply {
-                this.routingDetails = routingDetails.map { it.toMutableList() }
-            }
+            fun routingDetails(routingDetails: JsonField<List<RoutingDetail>>) =
+                apply {
+                    this.routingDetails = routingDetails.map { it.toMutableList() }
+                }
 
             /**
              * Adds a single [RoutingDetail] to [routingDetails].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addRoutingDetail(routingDetail: RoutingDetail) = apply {
-                routingDetails =
-                    (routingDetails ?: JsonField.of(mutableListOf())).also {
+            fun addRoutingDetail(routingDetail: RoutingDetail) =
+                apply {
+                    routingDetails = (routingDetails ?: JsonField.of(mutableListOf())).also {
                         checkKnown("routingDetails", it).add(routingDetail)
                     }
-            }
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperty(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
             /**
              * Returns an immutable instance of [Account].
@@ -2158,54 +2099,54 @@ private constructor(
              */
             fun build(): Account =
                 Account(
-                    (accountDetails ?: JsonMissing.of()).map { it.toImmutable() },
-                    accountType,
-                    (contactDetails ?: JsonMissing.of()).map { it.toImmutable() },
-                    externalId,
-                    ledgerAccount,
-                    metadata,
-                    name,
-                    partyAddress,
-                    partyIdentifier,
-                    partyName,
-                    partyType,
-                    plaidProcessorToken,
-                    (routingDetails ?: JsonMissing.of()).map { it.toImmutable() },
-                    additionalProperties.toMutableMap(),
+                  (accountDetails?: JsonMissing.of()).map { it.toImmutable() },
+                  accountType,
+                  (contactDetails?: JsonMissing.of()).map { it.toImmutable() },
+                  externalId,
+                  ledgerAccount,
+                  metadata,
+                  name,
+                  partyAddress,
+                  partyIdentifier,
+                  partyName,
+                  partyType,
+                  plaidProcessorToken,
+                  (routingDetails?: JsonMissing.of()).map { it.toImmutable() },
+                  additionalProperties.toMutableMap(),
                 )
         }
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Account = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Account =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            accountDetails()?.forEach { it.validate() }
-            accountType()?.validate()
-            contactDetails()?.forEach { it.validate() }
-            externalId()
-            ledgerAccount()?.validate()
-            metadata()?.validate()
-            name()
-            partyAddress()?.validate()
-            partyIdentifier()
-            partyName()
-            partyType()?.validate()
-            plaidProcessorToken()
-            routingDetails()?.forEach { it.validate() }
-            validated = true
-        }
+                accountDetails()?.forEach { it.validate() }
+                accountType()?.validate()
+                contactDetails()?.forEach { it.validate() }
+                externalId()
+                ledgerAccount()?.validate()
+                metadata()?.validate()
+                name()
+                partyAddress()?.validate()
+                partyIdentifier()
+                partyName()
+                partyType()?.validate()
+                plaidProcessorToken()
+                routingDetails()?.forEach { it.validate() }
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -2216,63 +2157,39 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            (accountDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                (accountType.asKnown()?.validity() ?: 0) +
-                (contactDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                (if (externalId.asKnown() == null) 0 else 1) +
-                (ledgerAccount.asKnown()?.validity() ?: 0) +
-                (metadata.asKnown()?.validity() ?: 0) +
-                (if (name.asKnown() == null) 0 else 1) +
-                (partyAddress.asKnown()?.validity() ?: 0) +
-                (if (partyIdentifier.asKnown() == null) 0 else 1) +
-                (if (partyName.asKnown() == null) 0 else 1) +
-                (partyType.asKnown()?.validity() ?: 0) +
-                (if (plaidProcessorToken.asKnown() == null) 0 else 1) +
-                (routingDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
+        internal fun validity(): Int = (accountDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (accountType.asKnown()?.validity() ?: 0) + (contactDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (if (externalId.asKnown() == null) 0 else 1) + (ledgerAccount.asKnown()?.validity() ?: 0) + (metadata.asKnown()?.validity() ?: 0) + (if (name.asKnown() == null) 0 else 1) + (partyAddress.asKnown()?.validity() ?: 0) + (if (partyIdentifier.asKnown() == null) 0 else 1) + (if (partyName.asKnown() == null) 0 else 1) + (partyType.asKnown()?.validity() ?: 0) + (if (plaidProcessorToken.asKnown() == null) 0 else 1) + (routingDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
 
-        class AccountDetail
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
+        class AccountDetail @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
             private val accountNumber: JsonField<String>,
             private val accountNumberType: JsonField<AccountNumberType>,
             private val additionalProperties: MutableMap<String, JsonValue>,
+
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("account_number")
-                @ExcludeMissing
-                accountNumber: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("account_number_type")
-                @ExcludeMissing
-                accountNumberType: JsonField<AccountNumberType> = JsonMissing.of(),
-            ) : this(accountNumber, accountNumberType, mutableMapOf())
+                @JsonProperty("account_number") @ExcludeMissing accountNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("account_number_type") @ExcludeMissing accountNumberType: JsonField<AccountNumberType> = JsonMissing.of()
+            ) : this(
+              accountNumber,
+              accountNumberType,
+              mutableMapOf(),
+            )
 
-            /**
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
+            /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
             fun accountNumber(): String = accountNumber.getRequired("account_number")
 
-            /**
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun accountNumberType(): AccountNumberType? =
-                accountNumberType.getNullable("account_number_type")
+            /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
+            fun accountNumberType(): AccountNumberType? = accountNumberType.getNullable("account_number_type")
 
             /**
              * Returns the raw JSON value of [accountNumber].
              *
-             * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected
-             * type.
+             * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("account_number")
             @ExcludeMissing
@@ -2281,8 +2198,7 @@ private constructor(
             /**
              * Returns the raw JSON value of [accountNumberType].
              *
-             * Unlike [accountNumberType], this method doesn't throw if the JSON field has an
-             * unexpected type.
+             * Unlike [accountNumberType], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("account_number_type")
             @ExcludeMissing
@@ -2290,13 +2206,12 @@ private constructor(
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
+              additionalProperties.put(key, value)
             }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
+            fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -2306,6 +2221,7 @@ private constructor(
                  * Returns a mutable builder for constructing an instance of [AccountDetail].
                  *
                  * The following fields are required:
+                 *
                  * ```kotlin
                  * .accountNumber()
                  * ```
@@ -2320,61 +2236,64 @@ private constructor(
                 private var accountNumberType: JsonField<AccountNumberType> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(accountDetail: AccountDetail) = apply {
-                    accountNumber = accountDetail.accountNumber
-                    accountNumberType = accountDetail.accountNumberType
-                    additionalProperties = accountDetail.additionalProperties.toMutableMap()
-                }
+                internal fun from(accountDetail: AccountDetail) =
+                    apply {
+                        accountNumber = accountDetail.accountNumber
+                        accountNumberType = accountDetail.accountNumberType
+                        additionalProperties = accountDetail.additionalProperties.toMutableMap()
+                    }
 
-                fun accountNumber(accountNumber: String) =
-                    accountNumber(JsonField.of(accountNumber))
+                fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
                 /**
                  * Sets [Builder.accountNumber] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.accountNumber] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.accountNumber] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
-                fun accountNumber(accountNumber: JsonField<String>) = apply {
-                    this.accountNumber = accountNumber
-                }
+                fun accountNumber(accountNumber: JsonField<String>) =
+                    apply {
+                        this.accountNumber = accountNumber
+                    }
 
-                fun accountNumberType(accountNumberType: AccountNumberType) =
-                    accountNumberType(JsonField.of(accountNumberType))
+                fun accountNumberType(accountNumberType: AccountNumberType) = accountNumberType(JsonField.of(accountNumberType))
 
                 /**
                  * Sets [Builder.accountNumberType] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.accountNumberType] with a well-typed
-                 * [AccountNumberType] value instead. This method is primarily for setting the field
-                 * to an undocumented or not yet supported value.
+                 * You should usually call [Builder.accountNumberType] with a well-typed [AccountNumberType] value instead. This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
-                fun accountNumberType(accountNumberType: JsonField<AccountNumberType>) = apply {
-                    this.accountNumberType = accountNumberType
-                }
+                fun accountNumberType(accountNumberType: JsonField<AccountNumberType>) =
+                    apply {
+                        this.accountNumberType = accountNumberType
+                    }
 
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
 
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
+                fun putAdditionalProperty(key: String, value: JsonValue) =
+                    apply {
+                        additionalProperties.put(key, value)
+                    }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
+                fun removeAdditionalProperty(key: String) =
+                    apply {
+                        additionalProperties.remove(key)
+                    }
 
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+                fun removeAllAdditionalProperties(keys: Set<String>) =
+                    apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
 
                 /**
                  * Returns an immutable instance of [AccountDetail].
@@ -2382,6 +2301,7 @@ private constructor(
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
                  * The following fields are required:
+                 *
                  * ```kotlin
                  * .accountNumber()
                  * ```
@@ -2390,33 +2310,34 @@ private constructor(
                  */
                 fun build(): AccountDetail =
                     AccountDetail(
-                        checkRequired("accountNumber", accountNumber),
-                        accountNumberType,
-                        additionalProperties.toMutableMap(),
+                      checkRequired(
+                        "accountNumber", accountNumber
+                      ),
+                      accountNumberType,
+                      additionalProperties.toMutableMap(),
                     )
             }
 
             private var validated: Boolean = false
 
             /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
+             * Validates that the types of all values in this object match their expected types recursively.
              *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
+             * This method is _not_ forwards compatible with new types from the API for existing fields.
              *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
+             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
              */
-            fun validate(): AccountDetail = apply {
-                if (validated) {
-                    return@apply
-                }
+            fun validate(): AccountDetail =
+                apply {
+                    if (validated) {
+                      return@apply
+                    }
 
-                accountNumber()
-                accountNumberType()?.validate()
-                validated = true
-            }
+                    accountNumber()
+                    accountNumberType()?.validate()
+                    validated = true
+                }
 
             fun isValid(): Boolean =
                 try {
@@ -2427,28 +2348,26 @@ private constructor(
                 }
 
             /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
+             * Returns a score indicating how many valid values are contained in this object recursively.
              *
              * Used for best match union deserialization.
              */
-            internal fun validity(): Int =
-                (if (accountNumber.asKnown() == null) 0 else 1) +
-                    (accountNumberType.asKnown()?.validity() ?: 0)
+            internal fun validity(): Int = (if (accountNumber.asKnown() == null) 0 else 1) + (accountNumberType.asKnown()?.validity() ?: 0)
 
-            class AccountNumberType
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
+            class AccountNumberType @JsonCreator private constructor(
+                private val value: JsonField<String>,
+
+            ) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
                  *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
+                 * This is usually only useful if this instance was deserialized from data that doesn't match any known
+                 * member, and you want to know that value. For example, if the SDK is on an older version than the
+                 * API, then the API may respond with new members that the SDK is unaware of.
                  */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+                @com.fasterxml.jackson.annotation.JsonValue
+                fun _value(): JsonField<String> = value
 
                 companion object {
 
@@ -2505,14 +2424,14 @@ private constructor(
                 }
 
                 /**
-                 * An enum containing [AccountNumberType]'s known values, as well as an [_UNKNOWN]
-                 * member.
+                 * An enum containing [AccountNumberType]'s known values, as well as an [_UNKNOWN] member.
                  *
-                 * An instance of [AccountNumberType] can contain an unknown value in a couple of
-                 * cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
+                 * An instance of [AccountNumberType] can contain an unknown value in a couple of cases:
+                 *
+                 * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+                 *   an older version than the API, then the API may respond with new members that the SDK is unaware
+                 *   of.
+                 *
                  * - It was constructed with an arbitrary value using the [of] method.
                  */
                 enum class Value {
@@ -2531,19 +2450,16 @@ private constructor(
                     SG_NUMBER,
                     SOLANA_ADDRESS,
                     WALLET_ADDRESS,
-                    /**
-                     * An enum member indicating that [AccountNumberType] was instantiated with an
-                     * unknown value.
-                     */
+                    /** An enum member indicating that [AccountNumberType] was instantiated with an unknown value. */
                     _UNKNOWN,
                 }
 
                 /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+                 * class was instantiated with an unknown value.
                  *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
+                 * Use the [known] method instead if you're certain the value is always known or if you want to throw
+                 * for the unknown case.
                  */
                 fun value(): Value =
                     when (this) {
@@ -2568,11 +2484,10 @@ private constructor(
                 /**
                  * Returns an enum member corresponding to this class instance's value.
                  *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
+                 * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+                 * for the unknown case.
                  *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
+                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
                  */
                 fun known(): Known =
                     when (this) {
@@ -2591,45 +2506,39 @@ private constructor(
                         SG_NUMBER -> Known.SG_NUMBER
                         SOLANA_ADDRESS -> Known.SOLANA_ADDRESS
                         WALLET_ADDRESS -> Known.WALLET_ADDRESS
-                        else ->
-                            throw ModernTreasuryInvalidDataException(
-                                "Unknown AccountNumberType: $value"
-                            )
+                        else -> throw ModernTreasuryInvalidDataException("Unknown AccountNumberType: $value")
                     }
 
                 /**
                  * Returns this class instance's primitive wire representation.
                  *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
+                 * This differs from the [toString] method because that method is primarily for debugging and generally
+                 * doesn't throw.
                  *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
+                 * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+                 *   primitive type.
                  */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+                fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
                 private var validated: Boolean = false
 
                 /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
+                 * Validates that the types of all values in this object match their expected types recursively.
                  *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
+                 * This method is _not_ forwards compatible with new types from the API for existing fields.
                  *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
+                 * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+                 *   expected type.
                  */
-                fun validate(): AccountNumberType = apply {
-                    if (validated) {
-                        return@apply
-                    }
+                fun validate(): AccountNumberType =
+                    apply {
+                        if (validated) {
+                          return@apply
+                        }
 
-                    known()
-                    validated = true
-                }
+                        known()
+                        validated = true
+                    }
 
                 fun isValid(): Boolean =
                     try {
@@ -2640,19 +2549,18 @@ private constructor(
                     }
 
                 /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
+                 * Returns a score indicating how many valid values are contained in this object recursively.
                  *
                  * Used for best match union deserialization.
                  */
                 internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
+                  if (this === other) {
+                      return true
+                  }
 
-                    return other is AccountNumberType && value == other.value
+                  return other is AccountNumberType && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -2661,34 +2569,24 @@ private constructor(
             }
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is AccountDetail &&
-                    accountNumber == other.accountNumber &&
-                    accountNumberType == other.accountNumberType &&
-                    additionalProperties == other.additionalProperties
+              return other is AccountDetail && accountNumber == other.accountNumber && accountNumberType == other.accountNumberType && additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy {
-                Objects.hash(accountNumber, accountNumberType, additionalProperties)
-            }
+            private val hashCode: Int by lazy { Objects.hash(accountNumber, accountNumberType, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() =
-                "AccountDetail{accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalProperties=$additionalProperties}"
+            override fun toString() = "AccountDetail{accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalProperties=$additionalProperties}"
         }
 
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        class Metadata
-        @JsonCreator
-        private constructor(
-            @com.fasterxml.jackson.annotation.JsonValue
-            private val additionalProperties: Map<String, JsonValue>
+        /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+        class Metadata @JsonCreator private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue private val additionalProperties: Map<String, JsonValue>,
+
         ) {
 
             @JsonAnyGetter
@@ -2708,31 +2606,36 @@ private constructor(
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(metadata: Metadata) = apply {
-                    additionalProperties = metadata.additionalProperties.toMutableMap()
-                }
+                internal fun from(metadata: Metadata) =
+                    apply {
+                        additionalProperties = metadata.additionalProperties.toMutableMap()
+                    }
 
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
 
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
+                fun putAdditionalProperty(key: String, value: JsonValue) =
+                    apply {
+                        additionalProperties.put(key, value)
+                    }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
+                fun removeAdditionalProperty(key: String) =
+                    apply {
+                        additionalProperties.remove(key)
+                    }
 
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+                fun removeAllAdditionalProperties(keys: Set<String>) =
+                    apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
 
                 /**
                  * Returns an immutable instance of [Metadata].
@@ -2745,22 +2648,21 @@ private constructor(
             private var validated: Boolean = false
 
             /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
+             * Validates that the types of all values in this object match their expected types recursively.
              *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
+             * This method is _not_ forwards compatible with new types from the API for existing fields.
              *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
+             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
              */
-            fun validate(): Metadata = apply {
-                if (validated) {
-                    return@apply
-                }
+            fun validate(): Metadata =
+                apply {
+                    if (validated) {
+                      return@apply
+                    }
 
-                validated = true
-            }
+                    validated = true
+                }
 
             fun isValid(): Boolean =
                 try {
@@ -2771,20 +2673,18 @@ private constructor(
                 }
 
             /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
+             * Returns a score indicating how many valid values are contained in this object recursively.
              *
              * Used for best match union deserialization.
              */
-            internal fun validity(): Int =
-                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+            internal fun validity(): Int = additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Metadata && additionalProperties == other.additionalProperties
+              return other is Metadata && additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
@@ -2795,18 +2695,20 @@ private constructor(
         }
 
         /** Either `individual` or `business`. */
-        class PartyType @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
+        class PartyType @JsonCreator private constructor(
+            private val value: JsonField<String>,
+
+        ) : Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't match any known
+             * member, and you want to know that value. For example, if the SDK is on an older version than the
+             * API, then the API may respond with new members that the SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -2827,27 +2729,26 @@ private constructor(
              * An enum containing [PartyType]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [PartyType] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
+             *
+             * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+             *   an older version than the API, then the API may respond with new members that the SDK is unaware
+             *   of.
+             *
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
                 BUSINESS,
                 INDIVIDUAL,
-                /**
-                 * An enum member indicating that [PartyType] was instantiated with an unknown
-                 * value.
-                 */
+                /** An enum member indicating that [PartyType] was instantiated with an unknown value. */
                 _UNKNOWN,
             }
 
             /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+             * class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you want to throw
+             * for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -2859,11 +2760,10 @@ private constructor(
             /**
              * Returns an enum member corresponding to this class instance's value.
              *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
+             * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+             * for the unknown case.
              *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-             *   known member.
+             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
              */
             fun known(): Known =
                 when (this) {
@@ -2875,36 +2775,33 @@ private constructor(
             /**
              * Returns this class instance's primitive wire representation.
              *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
+             * This differs from the [toString] method because that method is primarily for debugging and generally
+             * doesn't throw.
              *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value does not
-             *   have the expected primitive type.
+             * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+             *   primitive type.
              */
-            fun asString(): String =
-                _value().asString()
-                    ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+            fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
             private var validated: Boolean = false
 
             /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
+             * Validates that the types of all values in this object match their expected types recursively.
              *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
+             * This method is _not_ forwards compatible with new types from the API for existing fields.
              *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
+             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
              */
-            fun validate(): PartyType = apply {
-                if (validated) {
-                    return@apply
-                }
+            fun validate(): PartyType =
+                apply {
+                    if (validated) {
+                      return@apply
+                    }
 
-                known()
-                validated = true
-            }
+                    known()
+                    validated = true
+                }
 
             fun isValid(): Boolean =
                 try {
@@ -2915,19 +2812,18 @@ private constructor(
                 }
 
             /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
+             * Returns a score indicating how many valid values are contained in this object recursively.
              *
              * Used for best match union deserialization.
              */
             internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is PartyType && value == other.value
+              return other is PartyType && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2935,54 +2831,39 @@ private constructor(
             override fun toString() = value.toString()
         }
 
-        class RoutingDetail
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
+        class RoutingDetail @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
             private val routingNumber: JsonField<String>,
             private val routingNumberType: JsonField<RoutingNumberType>,
             private val paymentType: JsonField<PaymentType>,
             private val additionalProperties: MutableMap<String, JsonValue>,
+
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("routing_number")
-                @ExcludeMissing
-                routingNumber: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("routing_number_type")
-                @ExcludeMissing
-                routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
-                @JsonProperty("payment_type")
-                @ExcludeMissing
-                paymentType: JsonField<PaymentType> = JsonMissing.of(),
-            ) : this(routingNumber, routingNumberType, paymentType, mutableMapOf())
+                @JsonProperty("routing_number") @ExcludeMissing routingNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("routing_number_type") @ExcludeMissing routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
+                @JsonProperty("payment_type") @ExcludeMissing paymentType: JsonField<PaymentType> = JsonMissing.of()
+            ) : this(
+              routingNumber,
+              routingNumberType,
+              paymentType,
+              mutableMapOf(),
+            )
 
-            /**
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
+            /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
             fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
-            /**
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun routingNumberType(): RoutingNumberType =
-                routingNumberType.getRequired("routing_number_type")
+            /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
+            fun routingNumberType(): RoutingNumberType = routingNumberType.getRequired("routing_number_type")
 
-            /**
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
+            /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
             fun paymentType(): PaymentType? = paymentType.getNullable("payment_type")
 
             /**
              * Returns the raw JSON value of [routingNumber].
              *
-             * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected
-             * type.
+             * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("routing_number")
             @ExcludeMissing
@@ -2991,8 +2872,7 @@ private constructor(
             /**
              * Returns the raw JSON value of [routingNumberType].
              *
-             * Unlike [routingNumberType], this method doesn't throw if the JSON field has an
-             * unexpected type.
+             * Unlike [routingNumberType], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("routing_number_type")
             @ExcludeMissing
@@ -3001,8 +2881,7 @@ private constructor(
             /**
              * Returns the raw JSON value of [paymentType].
              *
-             * Unlike [paymentType], this method doesn't throw if the JSON field has an unexpected
-             * type.
+             * Unlike [paymentType], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("payment_type")
             @ExcludeMissing
@@ -3010,13 +2889,12 @@ private constructor(
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
+              additionalProperties.put(key, value)
             }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
+            fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -3026,6 +2904,7 @@ private constructor(
                  * Returns a mutable builder for constructing an instance of [RoutingDetail].
                  *
                  * The following fields are required:
+                 *
                  * ```kotlin
                  * .routingNumber()
                  * .routingNumberType()
@@ -3042,75 +2921,78 @@ private constructor(
                 private var paymentType: JsonField<PaymentType> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(routingDetail: RoutingDetail) = apply {
-                    routingNumber = routingDetail.routingNumber
-                    routingNumberType = routingDetail.routingNumberType
-                    paymentType = routingDetail.paymentType
-                    additionalProperties = routingDetail.additionalProperties.toMutableMap()
-                }
+                internal fun from(routingDetail: RoutingDetail) =
+                    apply {
+                        routingNumber = routingDetail.routingNumber
+                        routingNumberType = routingDetail.routingNumberType
+                        paymentType = routingDetail.paymentType
+                        additionalProperties = routingDetail.additionalProperties.toMutableMap()
+                    }
 
-                fun routingNumber(routingNumber: String) =
-                    routingNumber(JsonField.of(routingNumber))
+                fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
                 /**
                  * Sets [Builder.routingNumber] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.routingNumber] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.routingNumber] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
-                fun routingNumber(routingNumber: JsonField<String>) = apply {
-                    this.routingNumber = routingNumber
-                }
+                fun routingNumber(routingNumber: JsonField<String>) =
+                    apply {
+                        this.routingNumber = routingNumber
+                    }
 
-                fun routingNumberType(routingNumberType: RoutingNumberType) =
-                    routingNumberType(JsonField.of(routingNumberType))
+                fun routingNumberType(routingNumberType: RoutingNumberType) = routingNumberType(JsonField.of(routingNumberType))
 
                 /**
                  * Sets [Builder.routingNumberType] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.routingNumberType] with a well-typed
-                 * [RoutingNumberType] value instead. This method is primarily for setting the field
-                 * to an undocumented or not yet supported value.
+                 * You should usually call [Builder.routingNumberType] with a well-typed [RoutingNumberType] value instead. This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
-                fun routingNumberType(routingNumberType: JsonField<RoutingNumberType>) = apply {
-                    this.routingNumberType = routingNumberType
-                }
+                fun routingNumberType(routingNumberType: JsonField<RoutingNumberType>) =
+                    apply {
+                        this.routingNumberType = routingNumberType
+                    }
 
                 fun paymentType(paymentType: PaymentType) = paymentType(JsonField.of(paymentType))
 
                 /**
                  * Sets [Builder.paymentType] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.paymentType] with a well-typed [PaymentType]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
+                 * You should usually call [Builder.paymentType] with a well-typed [PaymentType] value instead. This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
-                fun paymentType(paymentType: JsonField<PaymentType>) = apply {
-                    this.paymentType = paymentType
-                }
+                fun paymentType(paymentType: JsonField<PaymentType>) =
+                    apply {
+                        this.paymentType = paymentType
+                    }
 
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
 
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
+                fun putAdditionalProperty(key: String, value: JsonValue) =
+                    apply {
+                        additionalProperties.put(key, value)
+                    }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
+                fun removeAdditionalProperty(key: String) =
+                    apply {
+                        additionalProperties.remove(key)
+                    }
 
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+                fun removeAllAdditionalProperties(keys: Set<String>) =
+                    apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
 
                 /**
                  * Returns an immutable instance of [RoutingDetail].
@@ -3118,6 +3000,7 @@ private constructor(
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
                  * The following fields are required:
+                 *
                  * ```kotlin
                  * .routingNumber()
                  * .routingNumberType()
@@ -3127,35 +3010,38 @@ private constructor(
                  */
                 fun build(): RoutingDetail =
                     RoutingDetail(
-                        checkRequired("routingNumber", routingNumber),
-                        checkRequired("routingNumberType", routingNumberType),
-                        paymentType,
-                        additionalProperties.toMutableMap(),
+                      checkRequired(
+                        "routingNumber", routingNumber
+                      ),
+                      checkRequired(
+                        "routingNumberType", routingNumberType
+                      ),
+                      paymentType,
+                      additionalProperties.toMutableMap(),
                     )
             }
 
             private var validated: Boolean = false
 
             /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
+             * Validates that the types of all values in this object match their expected types recursively.
              *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
+             * This method is _not_ forwards compatible with new types from the API for existing fields.
              *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
+             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
              */
-            fun validate(): RoutingDetail = apply {
-                if (validated) {
-                    return@apply
-                }
+            fun validate(): RoutingDetail =
+                apply {
+                    if (validated) {
+                      return@apply
+                    }
 
-                routingNumber()
-                routingNumberType().validate()
-                paymentType()?.validate()
-                validated = true
-            }
+                    routingNumber()
+                    routingNumberType().validate()
+                    paymentType()?.validate()
+                    validated = true
+                }
 
             fun isValid(): Boolean =
                 try {
@@ -3166,29 +3052,26 @@ private constructor(
                 }
 
             /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
+             * Returns a score indicating how many valid values are contained in this object recursively.
              *
              * Used for best match union deserialization.
              */
-            internal fun validity(): Int =
-                (if (routingNumber.asKnown() == null) 0 else 1) +
-                    (routingNumberType.asKnown()?.validity() ?: 0) +
-                    (paymentType.asKnown()?.validity() ?: 0)
+            internal fun validity(): Int = (if (routingNumber.asKnown() == null) 0 else 1) + (routingNumberType.asKnown()?.validity() ?: 0) + (paymentType.asKnown()?.validity() ?: 0)
 
-            class RoutingNumberType
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
+            class RoutingNumberType @JsonCreator private constructor(
+                private val value: JsonField<String>,
+
+            ) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
                  *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
+                 * This is usually only useful if this instance was deserialized from data that doesn't match any known
+                 * member, and you want to know that value. For example, if the SDK is on an older version than the
+                 * API, then the API may respond with new members that the SDK is unaware of.
                  */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+                @com.fasterxml.jackson.annotation.JsonValue
+                fun _value(): JsonField<String> = value
 
                 companion object {
 
@@ -3209,10 +3092,6 @@ private constructor(
                     val GB_SORT_CODE = of("gb_sort_code")
 
                     val HK_INTERBANK_CLEARING_CODE = of("hk_interbank_clearing_code")
-
-                    val HU_INTERBANK_CLEARING_CODE = of("hu_interbank_clearing_code")
-
-                    val ID_SKNBI_CODE = of("id_sknbi_code")
 
                     val IL_BANK_CODE = of("il_bank_code")
 
@@ -3250,8 +3129,6 @@ private constructor(
                     DK_INTERBANK_CLEARING_CODE,
                     GB_SORT_CODE,
                     HK_INTERBANK_CLEARING_CODE,
-                    HU_INTERBANK_CLEARING_CODE,
-                    ID_SKNBI_CODE,
                     IL_BANK_CODE,
                     IN_IFSC,
                     JP_ZENGIN_CODE,
@@ -3266,14 +3143,14 @@ private constructor(
                 }
 
                 /**
-                 * An enum containing [RoutingNumberType]'s known values, as well as an [_UNKNOWN]
-                 * member.
+                 * An enum containing [RoutingNumberType]'s known values, as well as an [_UNKNOWN] member.
                  *
-                 * An instance of [RoutingNumberType] can contain an unknown value in a couple of
-                 * cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
+                 * An instance of [RoutingNumberType] can contain an unknown value in a couple of cases:
+                 *
+                 * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+                 *   an older version than the API, then the API may respond with new members that the SDK is unaware
+                 *   of.
+                 *
                  * - It was constructed with an arbitrary value using the [of] method.
                  */
                 enum class Value {
@@ -3286,8 +3163,6 @@ private constructor(
                     DK_INTERBANK_CLEARING_CODE,
                     GB_SORT_CODE,
                     HK_INTERBANK_CLEARING_CODE,
-                    HU_INTERBANK_CLEARING_CODE,
-                    ID_SKNBI_CODE,
                     IL_BANK_CODE,
                     IN_IFSC,
                     JP_ZENGIN_CODE,
@@ -3299,19 +3174,16 @@ private constructor(
                     SG_INTERBANK_CLEARING_CODE,
                     SWIFT,
                     ZA_NATIONAL_CLEARING_CODE,
-                    /**
-                     * An enum member indicating that [RoutingNumberType] was instantiated with an
-                     * unknown value.
-                     */
+                    /** An enum member indicating that [RoutingNumberType] was instantiated with an unknown value. */
                     _UNKNOWN,
                 }
 
                 /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+                 * class was instantiated with an unknown value.
                  *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
+                 * Use the [known] method instead if you're certain the value is always known or if you want to throw
+                 * for the unknown case.
                  */
                 fun value(): Value =
                     when (this) {
@@ -3324,8 +3196,6 @@ private constructor(
                         DK_INTERBANK_CLEARING_CODE -> Value.DK_INTERBANK_CLEARING_CODE
                         GB_SORT_CODE -> Value.GB_SORT_CODE
                         HK_INTERBANK_CLEARING_CODE -> Value.HK_INTERBANK_CLEARING_CODE
-                        HU_INTERBANK_CLEARING_CODE -> Value.HU_INTERBANK_CLEARING_CODE
-                        ID_SKNBI_CODE -> Value.ID_SKNBI_CODE
                         IL_BANK_CODE -> Value.IL_BANK_CODE
                         IN_IFSC -> Value.IN_IFSC
                         JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
@@ -3343,11 +3213,10 @@ private constructor(
                 /**
                  * Returns an enum member corresponding to this class instance's value.
                  *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
+                 * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+                 * for the unknown case.
                  *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
+                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
                  */
                 fun known(): Known =
                     when (this) {
@@ -3360,8 +3229,6 @@ private constructor(
                         DK_INTERBANK_CLEARING_CODE -> Known.DK_INTERBANK_CLEARING_CODE
                         GB_SORT_CODE -> Known.GB_SORT_CODE
                         HK_INTERBANK_CLEARING_CODE -> Known.HK_INTERBANK_CLEARING_CODE
-                        HU_INTERBANK_CLEARING_CODE -> Known.HU_INTERBANK_CLEARING_CODE
-                        ID_SKNBI_CODE -> Known.ID_SKNBI_CODE
                         IL_BANK_CODE -> Known.IL_BANK_CODE
                         IN_IFSC -> Known.IN_IFSC
                         JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
@@ -3373,45 +3240,39 @@ private constructor(
                         SG_INTERBANK_CLEARING_CODE -> Known.SG_INTERBANK_CLEARING_CODE
                         SWIFT -> Known.SWIFT
                         ZA_NATIONAL_CLEARING_CODE -> Known.ZA_NATIONAL_CLEARING_CODE
-                        else ->
-                            throw ModernTreasuryInvalidDataException(
-                                "Unknown RoutingNumberType: $value"
-                            )
+                        else -> throw ModernTreasuryInvalidDataException("Unknown RoutingNumberType: $value")
                     }
 
                 /**
                  * Returns this class instance's primitive wire representation.
                  *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
+                 * This differs from the [toString] method because that method is primarily for debugging and generally
+                 * doesn't throw.
                  *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
+                 * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+                 *   primitive type.
                  */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+                fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
                 private var validated: Boolean = false
 
                 /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
+                 * Validates that the types of all values in this object match their expected types recursively.
                  *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
+                 * This method is _not_ forwards compatible with new types from the API for existing fields.
                  *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
+                 * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+                 *   expected type.
                  */
-                fun validate(): RoutingNumberType = apply {
-                    if (validated) {
-                        return@apply
-                    }
+                fun validate(): RoutingNumberType =
+                    apply {
+                        if (validated) {
+                          return@apply
+                        }
 
-                    known()
-                    validated = true
-                }
+                        known()
+                        validated = true
+                    }
 
                 fun isValid(): Boolean =
                     try {
@@ -3422,19 +3283,18 @@ private constructor(
                     }
 
                 /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
+                 * Returns a score indicating how many valid values are contained in this object recursively.
                  *
                  * Used for best match union deserialization.
                  */
                 internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
+                  if (this === other) {
+                      return true
+                  }
 
-                    return other is RoutingNumberType && value == other.value
+                  return other is RoutingNumberType && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -3442,19 +3302,20 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
-            class PaymentType
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
+            class PaymentType @JsonCreator private constructor(
+                private val value: JsonField<String>,
+
+            ) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
                  *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
+                 * This is usually only useful if this instance was deserialized from data that doesn't match any known
+                 * member, and you want to know that value. For example, if the SDK is on an older version than the
+                 * API, then the API may respond with new members that the SDK is unaware of.
                  */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+                @com.fasterxml.jackson.annotation.JsonValue
+                fun _value(): JsonField<String> = value
 
                 companion object {
 
@@ -3480,10 +3341,6 @@ private constructor(
 
                     val GB_FPS = of("gb_fps")
 
-                    val HU_ICS = of("hu_ics")
-
-                    val INTERAC = of("interac")
-
                     val MASAV = of("masav")
 
                     val MX_CCEN = of("mx_ccen")
@@ -3496,25 +3353,15 @@ private constructor(
 
                     val PL_ELIXIR = of("pl_elixir")
 
-                    val PROVXCHANGE = of("provxchange")
-
-                    val RO_SENT = of("ro_sent")
-
                     val RTP = of("rtp")
 
                     val SE_BANKGIROT = of("se_bankgirot")
-
-                    val SEN = of("sen")
 
                     val SEPA = of("sepa")
 
                     val SG_GIRO = of("sg_giro")
 
                     val SIC = of("sic")
-
-                    val SIGNET = of("signet")
-
-                    val SKNBI = of("sknbi")
 
                     val STABLECOIN = of("stablecoin")
 
@@ -3538,24 +3385,17 @@ private constructor(
                     DK_NETS,
                     EFT,
                     GB_FPS,
-                    HU_ICS,
-                    INTERAC,
                     MASAV,
                     MX_CCEN,
                     NEFT,
                     NICS,
                     NZ_BECS,
                     PL_ELIXIR,
-                    PROVXCHANGE,
-                    RO_SENT,
                     RTP,
                     SE_BANKGIROT,
-                    SEN,
                     SEPA,
                     SG_GIRO,
                     SIC,
-                    SIGNET,
-                    SKNBI,
                     STABLECOIN,
                     WIRE,
                     ZENGIN,
@@ -3565,9 +3405,11 @@ private constructor(
                  * An enum containing [PaymentType]'s known values, as well as an [_UNKNOWN] member.
                  *
                  * An instance of [PaymentType] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
+                 *
+                 * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+                 *   an older version than the API, then the API may respond with new members that the SDK is unaware
+                 *   of.
+                 *
                  * - It was constructed with an arbitrary value using the [of] method.
                  */
                 enum class Value {
@@ -3582,40 +3424,30 @@ private constructor(
                     DK_NETS,
                     EFT,
                     GB_FPS,
-                    HU_ICS,
-                    INTERAC,
                     MASAV,
                     MX_CCEN,
                     NEFT,
                     NICS,
                     NZ_BECS,
                     PL_ELIXIR,
-                    PROVXCHANGE,
-                    RO_SENT,
                     RTP,
                     SE_BANKGIROT,
-                    SEN,
                     SEPA,
                     SG_GIRO,
                     SIC,
-                    SIGNET,
-                    SKNBI,
                     STABLECOIN,
                     WIRE,
                     ZENGIN,
-                    /**
-                     * An enum member indicating that [PaymentType] was instantiated with an unknown
-                     * value.
-                     */
+                    /** An enum member indicating that [PaymentType] was instantiated with an unknown value. */
                     _UNKNOWN,
                 }
 
                 /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+                 * class was instantiated with an unknown value.
                  *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
+                 * Use the [known] method instead if you're certain the value is always known or if you want to throw
+                 * for the unknown case.
                  */
                 fun value(): Value =
                     when (this) {
@@ -3630,24 +3462,17 @@ private constructor(
                         DK_NETS -> Value.DK_NETS
                         EFT -> Value.EFT
                         GB_FPS -> Value.GB_FPS
-                        HU_ICS -> Value.HU_ICS
-                        INTERAC -> Value.INTERAC
                         MASAV -> Value.MASAV
                         MX_CCEN -> Value.MX_CCEN
                         NEFT -> Value.NEFT
                         NICS -> Value.NICS
                         NZ_BECS -> Value.NZ_BECS
                         PL_ELIXIR -> Value.PL_ELIXIR
-                        PROVXCHANGE -> Value.PROVXCHANGE
-                        RO_SENT -> Value.RO_SENT
                         RTP -> Value.RTP
                         SE_BANKGIROT -> Value.SE_BANKGIROT
-                        SEN -> Value.SEN
                         SEPA -> Value.SEPA
                         SG_GIRO -> Value.SG_GIRO
                         SIC -> Value.SIC
-                        SIGNET -> Value.SIGNET
-                        SKNBI -> Value.SKNBI
                         STABLECOIN -> Value.STABLECOIN
                         WIRE -> Value.WIRE
                         ZENGIN -> Value.ZENGIN
@@ -3657,11 +3482,10 @@ private constructor(
                 /**
                  * Returns an enum member corresponding to this class instance's value.
                  *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
+                 * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+                 * for the unknown case.
                  *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
+                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
                  */
                 fun known(): Known =
                     when (this) {
@@ -3676,64 +3500,53 @@ private constructor(
                         DK_NETS -> Known.DK_NETS
                         EFT -> Known.EFT
                         GB_FPS -> Known.GB_FPS
-                        HU_ICS -> Known.HU_ICS
-                        INTERAC -> Known.INTERAC
                         MASAV -> Known.MASAV
                         MX_CCEN -> Known.MX_CCEN
                         NEFT -> Known.NEFT
                         NICS -> Known.NICS
                         NZ_BECS -> Known.NZ_BECS
                         PL_ELIXIR -> Known.PL_ELIXIR
-                        PROVXCHANGE -> Known.PROVXCHANGE
-                        RO_SENT -> Known.RO_SENT
                         RTP -> Known.RTP
                         SE_BANKGIROT -> Known.SE_BANKGIROT
-                        SEN -> Known.SEN
                         SEPA -> Known.SEPA
                         SG_GIRO -> Known.SG_GIRO
                         SIC -> Known.SIC
-                        SIGNET -> Known.SIGNET
-                        SKNBI -> Known.SKNBI
                         STABLECOIN -> Known.STABLECOIN
                         WIRE -> Known.WIRE
                         ZENGIN -> Known.ZENGIN
-                        else ->
-                            throw ModernTreasuryInvalidDataException("Unknown PaymentType: $value")
+                        else -> throw ModernTreasuryInvalidDataException("Unknown PaymentType: $value")
                     }
 
                 /**
                  * Returns this class instance's primitive wire representation.
                  *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
+                 * This differs from the [toString] method because that method is primarily for debugging and generally
+                 * doesn't throw.
                  *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
+                 * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+                 *   primitive type.
                  */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+                fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
                 private var validated: Boolean = false
 
                 /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
+                 * Validates that the types of all values in this object match their expected types recursively.
                  *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
+                 * This method is _not_ forwards compatible with new types from the API for existing fields.
                  *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
+                 * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+                 *   expected type.
                  */
-                fun validate(): PaymentType = apply {
-                    if (validated) {
-                        return@apply
-                    }
+                fun validate(): PaymentType =
+                    apply {
+                        if (validated) {
+                          return@apply
+                        }
 
-                    known()
-                    validated = true
-                }
+                        known()
+                        validated = true
+                    }
 
                 fun isValid(): Boolean =
                     try {
@@ -3744,19 +3557,18 @@ private constructor(
                     }
 
                 /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
+                 * Returns a score indicating how many valid values are contained in this object recursively.
                  *
                  * Used for best match union deserialization.
                  */
                 internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
+                  if (this === other) {
+                      return true
+                  }
 
-                    return other is PaymentType && value == other.value
+                  return other is PaymentType && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -3765,89 +3577,51 @@ private constructor(
             }
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is RoutingDetail &&
-                    routingNumber == other.routingNumber &&
-                    routingNumberType == other.routingNumberType &&
-                    paymentType == other.paymentType &&
-                    additionalProperties == other.additionalProperties
+              return other is RoutingDetail && routingNumber == other.routingNumber && routingNumberType == other.routingNumberType && paymentType == other.paymentType && additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy {
-                Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties)
-            }
+            private val hashCode: Int by lazy { Objects.hash(routingNumber, routingNumberType, paymentType, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() =
-                "RoutingDetail{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
+            override fun toString() = "RoutingDetail{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Account &&
-                accountDetails == other.accountDetails &&
-                accountType == other.accountType &&
-                contactDetails == other.contactDetails &&
-                externalId == other.externalId &&
-                ledgerAccount == other.ledgerAccount &&
-                metadata == other.metadata &&
-                name == other.name &&
-                partyAddress == other.partyAddress &&
-                partyIdentifier == other.partyIdentifier &&
-                partyName == other.partyName &&
-                partyType == other.partyType &&
-                plaidProcessorToken == other.plaidProcessorToken &&
-                routingDetails == other.routingDetails &&
-                additionalProperties == other.additionalProperties
+          return other is Account && accountDetails == other.accountDetails && accountType == other.accountType && contactDetails == other.contactDetails && externalId == other.externalId && ledgerAccount == other.ledgerAccount && metadata == other.metadata && name == other.name && partyAddress == other.partyAddress && partyIdentifier == other.partyIdentifier && partyName == other.partyName && partyType == other.partyType && plaidProcessorToken == other.plaidProcessorToken && routingDetails == other.routingDetails && additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(
-                accountDetails,
-                accountType,
-                contactDetails,
-                externalId,
-                ledgerAccount,
-                metadata,
-                name,
-                partyAddress,
-                partyIdentifier,
-                partyName,
-                partyType,
-                plaidProcessorToken,
-                routingDetails,
-                additionalProperties,
-            )
-        }
+        private val hashCode: Int by lazy { Objects.hash(accountDetails, accountType, contactDetails, externalId, ledgerAccount, metadata, name, partyAddress, partyIdentifier, partyName, partyType, plaidProcessorToken, routingDetails, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "Account{accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, externalId=$externalId, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
+        override fun toString() = "Account{accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, externalId=$externalId, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
     }
 
-    /**
-     * An optional type to auto-sync the counterparty to your ledger. Either `customer` or `vendor`.
-     */
+    /** An optional type to auto-sync the counterparty to your ledger. Either `customer` or `vendor`. */
     @Deprecated("deprecated")
-    class LedgerType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class LedgerType @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -3868,26 +3642,26 @@ private constructor(
          * An enum containing [LedgerType]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [LedgerType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
             CUSTOMER,
             VENDOR,
-            /**
-             * An enum member indicating that [LedgerType] was instantiated with an unknown value.
-             */
+            /** An enum member indicating that [LedgerType] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -3899,11 +3673,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -3915,34 +3688,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): LedgerType = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): LedgerType =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -3953,19 +3725,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is LedgerType && value == other.value
+          return other is LedgerType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -3973,9 +3744,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    class LegalEntityCreateRequest
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
+    class LegalEntityCreateRequest @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
         private val legalEntityType: JsonField<LegalEntityType>,
         private val addresses: JsonField<List<LegalEntityAddressCreateRequest>>,
         private val bankSettings: JsonField<BankSettings>,
@@ -4012,221 +3781,141 @@ private constructor(
         private val riskRating: JsonField<RiskRating>,
         private val serviceProviderLegalEntityId: JsonField<String>,
         private val suffix: JsonField<String>,
+        private val termsOfUse: JsonField<TermsOfUse>,
         private val thirdPartyVerification: JsonField<ThirdPartyVerification>,
         private val thirdPartyVerifications: JsonField<List<ThirdPartyVerification>>,
         private val tickerSymbol: JsonField<String>,
         private val wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails>,
         private val website: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
+
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("legal_entity_type")
-            @ExcludeMissing
-            legalEntityType: JsonField<LegalEntityType> = JsonMissing.of(),
-            @JsonProperty("addresses")
-            @ExcludeMissing
-            addresses: JsonField<List<LegalEntityAddressCreateRequest>> = JsonMissing.of(),
-            @JsonProperty("bank_settings")
-            @ExcludeMissing
-            bankSettings: JsonField<BankSettings> = JsonMissing.of(),
-            @JsonProperty("business_description")
-            @ExcludeMissing
-            businessDescription: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("business_name")
-            @ExcludeMissing
-            businessName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("citizenship_country")
-            @ExcludeMissing
-            citizenshipCountry: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("compliance_details")
-            @ExcludeMissing
-            complianceDetails: JsonValue = JsonMissing.of(),
-            @JsonProperty("connection_id")
-            @ExcludeMissing
-            connectionId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("country_of_incorporation")
-            @ExcludeMissing
-            countryOfIncorporation: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("date_formed")
-            @ExcludeMissing
-            dateFormed: JsonField<LocalDate> = JsonMissing.of(),
-            @JsonProperty("date_of_birth")
-            @ExcludeMissing
-            dateOfBirth: JsonField<LocalDate> = JsonMissing.of(),
-            @JsonProperty("documents")
-            @ExcludeMissing
-            documents: JsonField<List<Document>> = JsonMissing.of(),
-            @JsonProperty("doing_business_as_names")
-            @ExcludeMissing
-            doingBusinessAsNames: JsonField<List<String>> = JsonMissing.of(),
+            @JsonProperty("legal_entity_type") @ExcludeMissing legalEntityType: JsonField<LegalEntityType> = JsonMissing.of(),
+            @JsonProperty("addresses") @ExcludeMissing addresses: JsonField<List<LegalEntityAddressCreateRequest>> = JsonMissing.of(),
+            @JsonProperty("bank_settings") @ExcludeMissing bankSettings: JsonField<BankSettings> = JsonMissing.of(),
+            @JsonProperty("business_description") @ExcludeMissing businessDescription: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("business_name") @ExcludeMissing businessName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("citizenship_country") @ExcludeMissing citizenshipCountry: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("compliance_details") @ExcludeMissing complianceDetails: JsonValue = JsonMissing.of(),
+            @JsonProperty("connection_id") @ExcludeMissing connectionId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("country_of_incorporation") @ExcludeMissing countryOfIncorporation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("date_formed") @ExcludeMissing dateFormed: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("date_of_birth") @ExcludeMissing dateOfBirth: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("documents") @ExcludeMissing documents: JsonField<List<Document>> = JsonMissing.of(),
+            @JsonProperty("doing_business_as_names") @ExcludeMissing doingBusinessAsNames: JsonField<List<String>> = JsonMissing.of(),
             @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("expected_activity_volume")
-            @ExcludeMissing
-            expectedActivityVolume: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("external_id")
-            @ExcludeMissing
-            externalId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("first_name")
-            @ExcludeMissing
-            firstName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("identifications")
-            @ExcludeMissing
-            identifications: JsonField<List<IdentificationCreateRequest>> = JsonMissing.of(),
-            @JsonProperty("industry_classifications")
-            @ExcludeMissing
-            industryClassifications: JsonField<List<LegalEntityIndustryClassification>> =
-                JsonMissing.of(),
-            @JsonProperty("intended_use")
-            @ExcludeMissing
-            intendedUse: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("last_name")
-            @ExcludeMissing
-            lastName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("legal_entity_associations")
-            @ExcludeMissing
-            legalEntityAssociations: JsonField<List<LegalEntityAssociationInlineCreate>> =
-                JsonMissing.of(),
-            @JsonProperty("legal_structure")
-            @ExcludeMissing
-            legalStructure: JsonField<LegalStructure> = JsonMissing.of(),
-            @JsonProperty("listed_exchange")
-            @ExcludeMissing
-            listedExchange: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("metadata")
-            @ExcludeMissing
-            metadata: JsonField<Metadata> = JsonMissing.of(),
-            @JsonProperty("middle_name")
-            @ExcludeMissing
-            middleName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("operating_jurisdictions")
-            @ExcludeMissing
-            operatingJurisdictions: JsonField<List<String>> = JsonMissing.of(),
-            @JsonProperty("phone_numbers")
-            @ExcludeMissing
-            phoneNumbers: JsonField<List<PhoneNumber>> = JsonMissing.of(),
-            @JsonProperty("politically_exposed_person")
-            @ExcludeMissing
-            politicallyExposedPerson: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("preferred_name")
-            @ExcludeMissing
-            preferredName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("expected_activity_volume") @ExcludeMissing expectedActivityVolume: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("external_id") @ExcludeMissing externalId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("first_name") @ExcludeMissing firstName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("identifications") @ExcludeMissing identifications: JsonField<List<IdentificationCreateRequest>> = JsonMissing.of(),
+            @JsonProperty("industry_classifications") @ExcludeMissing industryClassifications: JsonField<List<LegalEntityIndustryClassification>> = JsonMissing.of(),
+            @JsonProperty("intended_use") @ExcludeMissing intendedUse: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("last_name") @ExcludeMissing lastName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("legal_entity_associations") @ExcludeMissing legalEntityAssociations: JsonField<List<LegalEntityAssociationInlineCreate>> = JsonMissing.of(),
+            @JsonProperty("legal_structure") @ExcludeMissing legalStructure: JsonField<LegalStructure> = JsonMissing.of(),
+            @JsonProperty("listed_exchange") @ExcludeMissing listedExchange: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("middle_name") @ExcludeMissing middleName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("operating_jurisdictions") @ExcludeMissing operatingJurisdictions: JsonField<List<String>> = JsonMissing.of(),
+            @JsonProperty("phone_numbers") @ExcludeMissing phoneNumbers: JsonField<List<PhoneNumber>> = JsonMissing.of(),
+            @JsonProperty("politically_exposed_person") @ExcludeMissing politicallyExposedPerson: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("preferred_name") @ExcludeMissing preferredName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("prefix") @ExcludeMissing prefix: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("primary_social_media_sites")
-            @ExcludeMissing
-            primarySocialMediaSites: JsonField<List<String>> = JsonMissing.of(),
-            @JsonProperty("regulators")
-            @ExcludeMissing
-            regulators: JsonField<List<LegalEntityRegulator>> = JsonMissing.of(),
-            @JsonProperty("risk_rating")
-            @ExcludeMissing
-            riskRating: JsonField<RiskRating> = JsonMissing.of(),
-            @JsonProperty("service_provider_legal_entity_id")
-            @ExcludeMissing
-            serviceProviderLegalEntityId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("primary_social_media_sites") @ExcludeMissing primarySocialMediaSites: JsonField<List<String>> = JsonMissing.of(),
+            @JsonProperty("regulators") @ExcludeMissing regulators: JsonField<List<LegalEntityRegulator>> = JsonMissing.of(),
+            @JsonProperty("risk_rating") @ExcludeMissing riskRating: JsonField<RiskRating> = JsonMissing.of(),
+            @JsonProperty("service_provider_legal_entity_id") @ExcludeMissing serviceProviderLegalEntityId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("suffix") @ExcludeMissing suffix: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("third_party_verification")
-            @ExcludeMissing
-            thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of(),
-            @JsonProperty("third_party_verifications")
-            @ExcludeMissing
-            thirdPartyVerifications: JsonField<List<ThirdPartyVerification>> = JsonMissing.of(),
-            @JsonProperty("ticker_symbol")
-            @ExcludeMissing
-            tickerSymbol: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("wealth_and_employment_details")
-            @ExcludeMissing
-            wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails> = JsonMissing.of(),
-            @JsonProperty("website") @ExcludeMissing website: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("terms_of_use") @ExcludeMissing termsOfUse: JsonField<TermsOfUse> = JsonMissing.of(),
+            @JsonProperty("third_party_verification") @ExcludeMissing thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of(),
+            @JsonProperty("third_party_verifications") @ExcludeMissing thirdPartyVerifications: JsonField<List<ThirdPartyVerification>> = JsonMissing.of(),
+            @JsonProperty("ticker_symbol") @ExcludeMissing tickerSymbol: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("wealth_and_employment_details") @ExcludeMissing wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails> = JsonMissing.of(),
+            @JsonProperty("website") @ExcludeMissing website: JsonField<String> = JsonMissing.of()
         ) : this(
-            legalEntityType,
-            addresses,
-            bankSettings,
-            businessDescription,
-            businessName,
-            citizenshipCountry,
-            complianceDetails,
-            connectionId,
-            countryOfIncorporation,
-            dateFormed,
-            dateOfBirth,
-            documents,
-            doingBusinessAsNames,
-            email,
-            expectedActivityVolume,
-            externalId,
-            firstName,
-            identifications,
-            industryClassifications,
-            intendedUse,
-            lastName,
-            legalEntityAssociations,
-            legalStructure,
-            listedExchange,
-            metadata,
-            middleName,
-            operatingJurisdictions,
-            phoneNumbers,
-            politicallyExposedPerson,
-            preferredName,
-            prefix,
-            primarySocialMediaSites,
-            regulators,
-            riskRating,
-            serviceProviderLegalEntityId,
-            suffix,
-            thirdPartyVerification,
-            thirdPartyVerifications,
-            tickerSymbol,
-            wealthAndEmploymentDetails,
-            website,
-            mutableMapOf(),
+          legalEntityType,
+          addresses,
+          bankSettings,
+          businessDescription,
+          businessName,
+          citizenshipCountry,
+          complianceDetails,
+          connectionId,
+          countryOfIncorporation,
+          dateFormed,
+          dateOfBirth,
+          documents,
+          doingBusinessAsNames,
+          email,
+          expectedActivityVolume,
+          externalId,
+          firstName,
+          identifications,
+          industryClassifications,
+          intendedUse,
+          lastName,
+          legalEntityAssociations,
+          legalStructure,
+          listedExchange,
+          metadata,
+          middleName,
+          operatingJurisdictions,
+          phoneNumbers,
+          politicallyExposedPerson,
+          preferredName,
+          prefix,
+          primarySocialMediaSites,
+          regulators,
+          riskRating,
+          serviceProviderLegalEntityId,
+          suffix,
+          termsOfUse,
+          thirdPartyVerification,
+          thirdPartyVerifications,
+          tickerSymbol,
+          wealthAndEmploymentDetails,
+          website,
+          mutableMapOf(),
         )
 
         /**
          * The type of legal entity.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun legalEntityType(): LegalEntityType = legalEntityType.getRequired("legal_entity_type")
 
         /**
          * A list of addresses for the entity.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun addresses(): List<LegalEntityAddressCreateRequest>? = addresses.getNullable("addresses")
 
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
+        /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
         fun bankSettings(): BankSettings? = bankSettings.getNullable("bank_settings")
 
         /**
          * A description of the business.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun businessDescription(): String? = businessDescription.getNullable("business_description")
 
         /**
          * The business's legal business name.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun businessName(): String? = businessName.getNullable("business_name")
 
         /**
          * The country of citizenship for an individual.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun citizenshipCountry(): String? = citizenshipCountry.getNullable("citizenship_country")
 
@@ -4242,295 +3931,243 @@ private constructor(
         fun _complianceDetails(): JsonValue = complianceDetails
 
         /**
-         * The connection ID for the connection the legal entity is associated with. Defaults to the
-         * id of the connection designated with an is_default value of true or the id of an existing
-         * operational connection if only one is available. Pass in a value of null to prevent the
-         * connection from being associated with the legal entity.
+         * The connection ID for the connection the legal entity is associated with. Defaults to the id of the connection designated with an is_default value of true or the id of an existing operational connection if only one is available. Pass in a value of null to prevent the connection from being associated with the legal entity.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun connectionId(): String? = connectionId.getNullable("connection_id")
 
         /**
-         * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or alpha-3
-         * formats.
+         * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or alpha-3 formats.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun countryOfIncorporation(): String? =
-            countryOfIncorporation.getNullable("country_of_incorporation")
+        fun countryOfIncorporation(): String? = countryOfIncorporation.getNullable("country_of_incorporation")
 
         /**
          * A business's formation date (YYYY-MM-DD).
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun dateFormed(): LocalDate? = dateFormed.getNullable("date_formed")
 
         /**
          * An individual's date of birth (YYYY-MM-DD).
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun dateOfBirth(): LocalDate? = dateOfBirth.getNullable("date_of_birth")
 
         /**
-         * A list of documents to attach to the legal entity (e.g. articles of incorporation,
-         * certificate of good standing, proof of address).
+         * A list of documents to attach to the legal entity (e.g. articles of incorporation, certificate of good standing, proof of address).
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun documents(): List<Document>? = documents.getNullable("documents")
 
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun doingBusinessAsNames(): List<String>? =
-            doingBusinessAsNames.getNullable("doing_business_as_names")
+        /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
+        fun doingBusinessAsNames(): List<String>? = doingBusinessAsNames.getNullable("doing_business_as_names")
 
         /**
          * The entity's primary email.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun email(): String? = email.getNullable("email")
 
         /**
          * Monthly expected transaction volume in USD.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun expectedActivityVolume(): Long? =
-            expectedActivityVolume.getNullable("expected_activity_volume")
+        fun expectedActivityVolume(): Long? = expectedActivityVolume.getNullable("expected_activity_volume")
 
         /**
          * An optional user-defined 180 character unique identifier.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun externalId(): String? = externalId.getNullable("external_id")
 
         /**
          * An individual's first name.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun firstName(): String? = firstName.getNullable("first_name")
 
         /**
          * A list of identifications for the legal entity.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun identifications(): List<IdentificationCreateRequest>? =
-            identifications.getNullable("identifications")
+        fun identifications(): List<IdentificationCreateRequest>? = identifications.getNullable("identifications")
 
         /**
          * A list of industry classifications for the legal entity.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun industryClassifications(): List<LegalEntityIndustryClassification>? =
-            industryClassifications.getNullable("industry_classifications")
+        fun industryClassifications(): List<LegalEntityIndustryClassification>? = industryClassifications.getNullable("industry_classifications")
 
         /**
          * A description of the intended use of the legal entity.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun intendedUse(): String? = intendedUse.getNullable("intended_use")
 
         /**
          * An individual's last name.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun lastName(): String? = lastName.getNullable("last_name")
 
         /**
          * The legal entity associations and its child legal entities.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun legalEntityAssociations(): List<LegalEntityAssociationInlineCreate>? =
-            legalEntityAssociations.getNullable("legal_entity_associations")
+        fun legalEntityAssociations(): List<LegalEntityAssociationInlineCreate>? = legalEntityAssociations.getNullable("legal_entity_associations")
 
         /**
          * The business's legal structure.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun legalStructure(): LegalStructure? = legalStructure.getNullable("legal_structure")
 
         /**
          * ISO 10383 market identifier code.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun listedExchange(): String? = listedExchange.getNullable("listed_exchange")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
         /**
          * An individual's middle name.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun middleName(): String? = middleName.getNullable("middle_name")
 
         /**
          * A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3 codes).
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun operatingJurisdictions(): List<String>? =
-            operatingJurisdictions.getNullable("operating_jurisdictions")
+        fun operatingJurisdictions(): List<String>? = operatingJurisdictions.getNullable("operating_jurisdictions")
 
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
+        /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
         fun phoneNumbers(): List<PhoneNumber>? = phoneNumbers.getNullable("phone_numbers")
 
         /**
          * Whether the individual is a politically exposed person.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun politicallyExposedPerson(): Boolean? =
-            politicallyExposedPerson.getNullable("politically_exposed_person")
+        fun politicallyExposedPerson(): Boolean? = politicallyExposedPerson.getNullable("politically_exposed_person")
 
         /**
          * An individual's preferred name.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun preferredName(): String? = preferredName.getNullable("preferred_name")
 
         /**
          * An individual's prefix.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun prefix(): String? = prefix.getNullable("prefix")
 
         /**
          * A list of primary social media URLs for the business.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun primarySocialMediaSites(): List<String>? =
-            primarySocialMediaSites.getNullable("primary_social_media_sites")
+        fun primarySocialMediaSites(): List<String>? = primarySocialMediaSites.getNullable("primary_social_media_sites")
 
         /**
          * Array of regulatory bodies overseeing this institution.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun regulators(): List<LegalEntityRegulator>? = regulators.getNullable("regulators")
 
         /**
          * The risk rating of the legal entity. One of low, medium, high.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun riskRating(): RiskRating? = riskRating.getNullable("risk_rating")
 
         /**
          * The UUID of the parent legal entity in the service provider tree.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun serviceProviderLegalEntityId(): String? =
-            serviceProviderLegalEntityId.getNullable("service_provider_legal_entity_id")
+        fun serviceProviderLegalEntityId(): String? = serviceProviderLegalEntityId.getNullable("service_provider_legal_entity_id")
 
         /**
          * An individual's suffix.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun suffix(): String? = suffix.getNullable("suffix")
 
         /**
+         * Acceptance of terms of use by the legal entity.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
+         */
+        fun termsOfUse(): TermsOfUse? = termsOfUse.getNullable("terms_of_use")
+
+        /**
          * Deprecated. Use `third_party_verifications` instead.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         @Deprecated("deprecated")
-        fun thirdPartyVerification(): ThirdPartyVerification? =
-            thirdPartyVerification.getNullable("third_party_verification")
+        fun thirdPartyVerification(): ThirdPartyVerification? = thirdPartyVerification.getNullable("third_party_verification")
 
         /**
          * A list of third-party verifications run by external vendors.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun thirdPartyVerifications(): List<ThirdPartyVerification>? =
-            thirdPartyVerifications.getNullable("third_party_verifications")
+        fun thirdPartyVerifications(): List<ThirdPartyVerification>? = thirdPartyVerifications.getNullable("third_party_verifications")
 
         /**
          * Stock ticker symbol for publicly traded companies.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun tickerSymbol(): String? = tickerSymbol.getNullable("ticker_symbol")
 
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun wealthAndEmploymentDetails(): WealthAndEmploymentDetails? =
-            wealthAndEmploymentDetails.getNullable("wealth_and_employment_details")
+        /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
+        fun wealthAndEmploymentDetails(): WealthAndEmploymentDetails? = wealthAndEmploymentDetails.getNullable("wealth_and_employment_details")
 
         /**
          * The entity's primary website URL.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun website(): String? = website.getNullable("website")
 
         /**
          * Returns the raw JSON value of [legalEntityType].
          *
-         * Unlike [legalEntityType], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [legalEntityType], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("legal_entity_type")
         @ExcludeMissing
@@ -4548,8 +4185,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [bankSettings].
          *
-         * Unlike [bankSettings], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [bankSettings], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("bank_settings")
         @ExcludeMissing
@@ -4558,8 +4194,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [businessDescription].
          *
-         * Unlike [businessDescription], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [businessDescription], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("business_description")
         @ExcludeMissing
@@ -4568,8 +4203,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [businessName].
          *
-         * Unlike [businessName], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [businessName], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("business_name")
         @ExcludeMissing
@@ -4578,8 +4212,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [citizenshipCountry].
          *
-         * Unlike [citizenshipCountry], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [citizenshipCountry], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("citizenship_country")
         @ExcludeMissing
@@ -4588,8 +4221,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [connectionId].
          *
-         * Unlike [connectionId], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [connectionId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("connection_id")
         @ExcludeMissing
@@ -4598,8 +4230,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [countryOfIncorporation].
          *
-         * Unlike [countryOfIncorporation], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [countryOfIncorporation], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("country_of_incorporation")
         @ExcludeMissing
@@ -4635,8 +4266,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [doingBusinessAsNames].
          *
-         * Unlike [doingBusinessAsNames], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [doingBusinessAsNames], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("doing_business_as_names")
         @ExcludeMissing
@@ -4647,13 +4277,14 @@ private constructor(
          *
          * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
+        @JsonProperty("email")
+        @ExcludeMissing
+        fun _email(): JsonField<String> = email
 
         /**
          * Returns the raw JSON value of [expectedActivityVolume].
          *
-         * Unlike [expectedActivityVolume], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [expectedActivityVolume], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("expected_activity_volume")
         @ExcludeMissing
@@ -4673,13 +4304,14 @@ private constructor(
          *
          * Unlike [firstName], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("first_name") @ExcludeMissing fun _firstName(): JsonField<String> = firstName
+        @JsonProperty("first_name")
+        @ExcludeMissing
+        fun _firstName(): JsonField<String> = firstName
 
         /**
          * Returns the raw JSON value of [identifications].
          *
-         * Unlike [identifications], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [identifications], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("identifications")
         @ExcludeMissing
@@ -4688,13 +4320,11 @@ private constructor(
         /**
          * Returns the raw JSON value of [industryClassifications].
          *
-         * Unlike [industryClassifications], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [industryClassifications], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("industry_classifications")
         @ExcludeMissing
-        fun _industryClassifications(): JsonField<List<LegalEntityIndustryClassification>> =
-            industryClassifications
+        fun _industryClassifications(): JsonField<List<LegalEntityIndustryClassification>> = industryClassifications
 
         /**
          * Returns the raw JSON value of [intendedUse].
@@ -4710,24 +4340,23 @@ private constructor(
          *
          * Unlike [lastName], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("last_name") @ExcludeMissing fun _lastName(): JsonField<String> = lastName
+        @JsonProperty("last_name")
+        @ExcludeMissing
+        fun _lastName(): JsonField<String> = lastName
 
         /**
          * Returns the raw JSON value of [legalEntityAssociations].
          *
-         * Unlike [legalEntityAssociations], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [legalEntityAssociations], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("legal_entity_associations")
         @ExcludeMissing
-        fun _legalEntityAssociations(): JsonField<List<LegalEntityAssociationInlineCreate>> =
-            legalEntityAssociations
+        fun _legalEntityAssociations(): JsonField<List<LegalEntityAssociationInlineCreate>> = legalEntityAssociations
 
         /**
          * Returns the raw JSON value of [legalStructure].
          *
-         * Unlike [legalStructure], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [legalStructure], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("legal_structure")
         @ExcludeMissing
@@ -4736,8 +4365,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [listedExchange].
          *
-         * Unlike [listedExchange], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [listedExchange], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("listed_exchange")
         @ExcludeMissing
@@ -4748,7 +4376,9 @@ private constructor(
          *
          * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        fun _metadata(): JsonField<Metadata> = metadata
 
         /**
          * Returns the raw JSON value of [middleName].
@@ -4762,8 +4392,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [operatingJurisdictions].
          *
-         * Unlike [operatingJurisdictions], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [operatingJurisdictions], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("operating_jurisdictions")
         @ExcludeMissing
@@ -4772,8 +4401,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [phoneNumbers].
          *
-         * Unlike [phoneNumbers], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [phoneNumbers], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("phone_numbers")
         @ExcludeMissing
@@ -4782,8 +4410,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [politicallyExposedPerson].
          *
-         * Unlike [politicallyExposedPerson], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [politicallyExposedPerson], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("politically_exposed_person")
         @ExcludeMissing
@@ -4792,8 +4419,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [preferredName].
          *
-         * Unlike [preferredName], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [preferredName], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("preferred_name")
         @ExcludeMissing
@@ -4804,13 +4430,14 @@ private constructor(
          *
          * Unlike [prefix], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("prefix") @ExcludeMissing fun _prefix(): JsonField<String> = prefix
+        @JsonProperty("prefix")
+        @ExcludeMissing
+        fun _prefix(): JsonField<String> = prefix
 
         /**
          * Returns the raw JSON value of [primarySocialMediaSites].
          *
-         * Unlike [primarySocialMediaSites], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [primarySocialMediaSites], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("primary_social_media_sites")
         @ExcludeMissing
@@ -4837,8 +4464,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [serviceProviderLegalEntityId].
          *
-         * Unlike [serviceProviderLegalEntityId], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [serviceProviderLegalEntityId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("service_provider_legal_entity_id")
         @ExcludeMissing
@@ -4849,13 +4475,23 @@ private constructor(
          *
          * Unlike [suffix], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("suffix") @ExcludeMissing fun _suffix(): JsonField<String> = suffix
+        @JsonProperty("suffix")
+        @ExcludeMissing
+        fun _suffix(): JsonField<String> = suffix
+
+        /**
+         * Returns the raw JSON value of [termsOfUse].
+         *
+         * Unlike [termsOfUse], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("terms_of_use")
+        @ExcludeMissing
+        fun _termsOfUse(): JsonField<TermsOfUse> = termsOfUse
 
         /**
          * Returns the raw JSON value of [thirdPartyVerification].
          *
-         * Unlike [thirdPartyVerification], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [thirdPartyVerification], this method doesn't throw if the JSON field has an unexpected type.
          */
         @Deprecated("deprecated")
         @JsonProperty("third_party_verification")
@@ -4865,19 +4501,16 @@ private constructor(
         /**
          * Returns the raw JSON value of [thirdPartyVerifications].
          *
-         * Unlike [thirdPartyVerifications], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [thirdPartyVerifications], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("third_party_verifications")
         @ExcludeMissing
-        fun _thirdPartyVerifications(): JsonField<List<ThirdPartyVerification>> =
-            thirdPartyVerifications
+        fun _thirdPartyVerifications(): JsonField<List<ThirdPartyVerification>> = thirdPartyVerifications
 
         /**
          * Returns the raw JSON value of [tickerSymbol].
          *
-         * Unlike [tickerSymbol], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [tickerSymbol], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("ticker_symbol")
         @ExcludeMissing
@@ -4886,30 +4519,29 @@ private constructor(
         /**
          * Returns the raw JSON value of [wealthAndEmploymentDetails].
          *
-         * Unlike [wealthAndEmploymentDetails], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [wealthAndEmploymentDetails], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("wealth_and_employment_details")
         @ExcludeMissing
-        fun _wealthAndEmploymentDetails(): JsonField<WealthAndEmploymentDetails> =
-            wealthAndEmploymentDetails
+        fun _wealthAndEmploymentDetails(): JsonField<WealthAndEmploymentDetails> = wealthAndEmploymentDetails
 
         /**
          * Returns the raw JSON value of [website].
          *
          * Unlike [website], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("website") @ExcludeMissing fun _website(): JsonField<String> = website
+        @JsonProperty("website")
+        @ExcludeMissing
+        fun _website(): JsonField<String> = website
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
+          additionalProperties.put(key, value)
         }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
+        fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -4919,6 +4551,7 @@ private constructor(
              * Returns a mutable builder for constructing an instance of [LegalEntityCreateRequest].
              *
              * The following fields are required:
+             *
              * ```kotlin
              * .legalEntityType()
              * ```
@@ -4947,14 +4580,10 @@ private constructor(
             private var externalId: JsonField<String> = JsonMissing.of()
             private var firstName: JsonField<String> = JsonMissing.of()
             private var identifications: JsonField<MutableList<IdentificationCreateRequest>>? = null
-            private var industryClassifications:
-                JsonField<MutableList<LegalEntityIndustryClassification>>? =
-                null
+            private var industryClassifications: JsonField<MutableList<LegalEntityIndustryClassification>>? = null
             private var intendedUse: JsonField<String> = JsonMissing.of()
             private var lastName: JsonField<String> = JsonMissing.of()
-            private var legalEntityAssociations:
-                JsonField<MutableList<LegalEntityAssociationInlineCreate>>? =
-                null
+            private var legalEntityAssociations: JsonField<MutableList<LegalEntityAssociationInlineCreate>>? = null
             private var legalStructure: JsonField<LegalStructure> = JsonMissing.of()
             private var listedExchange: JsonField<String> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
@@ -4969,210 +4598,189 @@ private constructor(
             private var riskRating: JsonField<RiskRating> = JsonMissing.of()
             private var serviceProviderLegalEntityId: JsonField<String> = JsonMissing.of()
             private var suffix: JsonField<String> = JsonMissing.of()
+            private var termsOfUse: JsonField<TermsOfUse> = JsonMissing.of()
             private var thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of()
-            private var thirdPartyVerifications: JsonField<MutableList<ThirdPartyVerification>>? =
-                null
+            private var thirdPartyVerifications: JsonField<MutableList<ThirdPartyVerification>>? = null
             private var tickerSymbol: JsonField<String> = JsonMissing.of()
-            private var wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails> =
-                JsonMissing.of()
+            private var wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails> = JsonMissing.of()
             private var website: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(legalEntityCreateRequest: LegalEntityCreateRequest) = apply {
-                legalEntityType = legalEntityCreateRequest.legalEntityType
-                addresses = legalEntityCreateRequest.addresses.map { it.toMutableList() }
-                bankSettings = legalEntityCreateRequest.bankSettings
-                businessDescription = legalEntityCreateRequest.businessDescription
-                businessName = legalEntityCreateRequest.businessName
-                citizenshipCountry = legalEntityCreateRequest.citizenshipCountry
-                complianceDetails = legalEntityCreateRequest.complianceDetails
-                connectionId = legalEntityCreateRequest.connectionId
-                countryOfIncorporation = legalEntityCreateRequest.countryOfIncorporation
-                dateFormed = legalEntityCreateRequest.dateFormed
-                dateOfBirth = legalEntityCreateRequest.dateOfBirth
-                documents = legalEntityCreateRequest.documents.map { it.toMutableList() }
-                doingBusinessAsNames =
-                    legalEntityCreateRequest.doingBusinessAsNames.map { it.toMutableList() }
-                email = legalEntityCreateRequest.email
-                expectedActivityVolume = legalEntityCreateRequest.expectedActivityVolume
-                externalId = legalEntityCreateRequest.externalId
-                firstName = legalEntityCreateRequest.firstName
-                identifications =
-                    legalEntityCreateRequest.identifications.map { it.toMutableList() }
-                industryClassifications =
-                    legalEntityCreateRequest.industryClassifications.map { it.toMutableList() }
-                intendedUse = legalEntityCreateRequest.intendedUse
-                lastName = legalEntityCreateRequest.lastName
-                legalEntityAssociations =
-                    legalEntityCreateRequest.legalEntityAssociations.map { it.toMutableList() }
-                legalStructure = legalEntityCreateRequest.legalStructure
-                listedExchange = legalEntityCreateRequest.listedExchange
-                metadata = legalEntityCreateRequest.metadata
-                middleName = legalEntityCreateRequest.middleName
-                operatingJurisdictions =
-                    legalEntityCreateRequest.operatingJurisdictions.map { it.toMutableList() }
-                phoneNumbers = legalEntityCreateRequest.phoneNumbers.map { it.toMutableList() }
-                politicallyExposedPerson = legalEntityCreateRequest.politicallyExposedPerson
-                preferredName = legalEntityCreateRequest.preferredName
-                prefix = legalEntityCreateRequest.prefix
-                primarySocialMediaSites =
-                    legalEntityCreateRequest.primarySocialMediaSites.map { it.toMutableList() }
-                regulators = legalEntityCreateRequest.regulators.map { it.toMutableList() }
-                riskRating = legalEntityCreateRequest.riskRating
-                serviceProviderLegalEntityId = legalEntityCreateRequest.serviceProviderLegalEntityId
-                suffix = legalEntityCreateRequest.suffix
-                thirdPartyVerification = legalEntityCreateRequest.thirdPartyVerification
-                thirdPartyVerifications =
-                    legalEntityCreateRequest.thirdPartyVerifications.map { it.toMutableList() }
-                tickerSymbol = legalEntityCreateRequest.tickerSymbol
-                wealthAndEmploymentDetails = legalEntityCreateRequest.wealthAndEmploymentDetails
-                website = legalEntityCreateRequest.website
-                additionalProperties = legalEntityCreateRequest.additionalProperties.toMutableMap()
-            }
+            internal fun from(legalEntityCreateRequest: LegalEntityCreateRequest) =
+                apply {
+                    legalEntityType = legalEntityCreateRequest.legalEntityType
+                    addresses = legalEntityCreateRequest.addresses.map { it.toMutableList() }
+                    bankSettings = legalEntityCreateRequest.bankSettings
+                    businessDescription = legalEntityCreateRequest.businessDescription
+                    businessName = legalEntityCreateRequest.businessName
+                    citizenshipCountry = legalEntityCreateRequest.citizenshipCountry
+                    complianceDetails = legalEntityCreateRequest.complianceDetails
+                    connectionId = legalEntityCreateRequest.connectionId
+                    countryOfIncorporation = legalEntityCreateRequest.countryOfIncorporation
+                    dateFormed = legalEntityCreateRequest.dateFormed
+                    dateOfBirth = legalEntityCreateRequest.dateOfBirth
+                    documents = legalEntityCreateRequest.documents.map { it.toMutableList() }
+                    doingBusinessAsNames = legalEntityCreateRequest.doingBusinessAsNames.map { it.toMutableList() }
+                    email = legalEntityCreateRequest.email
+                    expectedActivityVolume = legalEntityCreateRequest.expectedActivityVolume
+                    externalId = legalEntityCreateRequest.externalId
+                    firstName = legalEntityCreateRequest.firstName
+                    identifications = legalEntityCreateRequest.identifications.map { it.toMutableList() }
+                    industryClassifications = legalEntityCreateRequest.industryClassifications.map { it.toMutableList() }
+                    intendedUse = legalEntityCreateRequest.intendedUse
+                    lastName = legalEntityCreateRequest.lastName
+                    legalEntityAssociations = legalEntityCreateRequest.legalEntityAssociations.map { it.toMutableList() }
+                    legalStructure = legalEntityCreateRequest.legalStructure
+                    listedExchange = legalEntityCreateRequest.listedExchange
+                    metadata = legalEntityCreateRequest.metadata
+                    middleName = legalEntityCreateRequest.middleName
+                    operatingJurisdictions = legalEntityCreateRequest.operatingJurisdictions.map { it.toMutableList() }
+                    phoneNumbers = legalEntityCreateRequest.phoneNumbers.map { it.toMutableList() }
+                    politicallyExposedPerson = legalEntityCreateRequest.politicallyExposedPerson
+                    preferredName = legalEntityCreateRequest.preferredName
+                    prefix = legalEntityCreateRequest.prefix
+                    primarySocialMediaSites = legalEntityCreateRequest.primarySocialMediaSites.map { it.toMutableList() }
+                    regulators = legalEntityCreateRequest.regulators.map { it.toMutableList() }
+                    riskRating = legalEntityCreateRequest.riskRating
+                    serviceProviderLegalEntityId = legalEntityCreateRequest.serviceProviderLegalEntityId
+                    suffix = legalEntityCreateRequest.suffix
+                    termsOfUse = legalEntityCreateRequest.termsOfUse
+                    thirdPartyVerification = legalEntityCreateRequest.thirdPartyVerification
+                    thirdPartyVerifications = legalEntityCreateRequest.thirdPartyVerifications.map { it.toMutableList() }
+                    tickerSymbol = legalEntityCreateRequest.tickerSymbol
+                    wealthAndEmploymentDetails = legalEntityCreateRequest.wealthAndEmploymentDetails
+                    website = legalEntityCreateRequest.website
+                    additionalProperties = legalEntityCreateRequest.additionalProperties.toMutableMap()
+                }
 
             /** The type of legal entity. */
-            fun legalEntityType(legalEntityType: LegalEntityType) =
-                legalEntityType(JsonField.of(legalEntityType))
+            fun legalEntityType(legalEntityType: LegalEntityType) = legalEntityType(JsonField.of(legalEntityType))
 
             /**
              * Sets [Builder.legalEntityType] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.legalEntityType] with a well-typed [LegalEntityType]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.legalEntityType] with a well-typed [LegalEntityType] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun legalEntityType(legalEntityType: JsonField<LegalEntityType>) = apply {
-                this.legalEntityType = legalEntityType
-            }
+            fun legalEntityType(legalEntityType: JsonField<LegalEntityType>) =
+                apply {
+                    this.legalEntityType = legalEntityType
+                }
 
             /** A list of addresses for the entity. */
-            fun addresses(addresses: List<LegalEntityAddressCreateRequest>) =
-                addresses(JsonField.of(addresses))
+            fun addresses(addresses: List<LegalEntityAddressCreateRequest>) = addresses(JsonField.of(addresses))
 
             /**
              * Sets [Builder.addresses] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.addresses] with a well-typed
-             * `List<LegalEntityAddressCreateRequest>` value instead. This method is primarily for
-             * setting the field to an undocumented or not yet supported value.
+             * You should usually call [Builder.addresses] with a well-typed `List<LegalEntityAddressCreateRequest>` value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun addresses(addresses: JsonField<List<LegalEntityAddressCreateRequest>>) = apply {
-                this.addresses = addresses.map { it.toMutableList() }
-            }
+            fun addresses(addresses: JsonField<List<LegalEntityAddressCreateRequest>>) =
+                apply {
+                    this.addresses = addresses.map { it.toMutableList() }
+                }
 
             /**
              * Adds a single [LegalEntityAddressCreateRequest] to [addresses].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addAddress(address: LegalEntityAddressCreateRequest) = apply {
-                addresses =
-                    (addresses ?: JsonField.of(mutableListOf())).also {
+            fun addAddress(address: LegalEntityAddressCreateRequest) =
+                apply {
+                    addresses = (addresses ?: JsonField.of(mutableListOf())).also {
                         checkKnown("addresses", it).add(address)
                     }
-            }
+                }
 
-            fun bankSettings(bankSettings: BankSettings?) =
-                bankSettings(JsonField.ofNullable(bankSettings))
+            fun bankSettings(bankSettings: BankSettings?) = bankSettings(JsonField.ofNullable(bankSettings))
 
             /**
              * Sets [Builder.bankSettings] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.bankSettings] with a well-typed [BankSettings] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.bankSettings] with a well-typed [BankSettings] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun bankSettings(bankSettings: JsonField<BankSettings>) = apply {
-                this.bankSettings = bankSettings
-            }
+            fun bankSettings(bankSettings: JsonField<BankSettings>) =
+                apply {
+                    this.bankSettings = bankSettings
+                }
 
             /** A description of the business. */
-            fun businessDescription(businessDescription: String?) =
-                businessDescription(JsonField.ofNullable(businessDescription))
+            fun businessDescription(businessDescription: String?) = businessDescription(JsonField.ofNullable(businessDescription))
 
             /**
              * Sets [Builder.businessDescription] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.businessDescription] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.businessDescription] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun businessDescription(businessDescription: JsonField<String>) = apply {
-                this.businessDescription = businessDescription
-            }
+            fun businessDescription(businessDescription: JsonField<String>) =
+                apply {
+                    this.businessDescription = businessDescription
+                }
 
             /** The business's legal business name. */
-            fun businessName(businessName: String?) =
-                businessName(JsonField.ofNullable(businessName))
+            fun businessName(businessName: String?) = businessName(JsonField.ofNullable(businessName))
 
             /**
              * Sets [Builder.businessName] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.businessName] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.businessName] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun businessName(businessName: JsonField<String>) = apply {
-                this.businessName = businessName
-            }
+            fun businessName(businessName: JsonField<String>) =
+                apply {
+                    this.businessName = businessName
+                }
 
             /** The country of citizenship for an individual. */
-            fun citizenshipCountry(citizenshipCountry: String?) =
-                citizenshipCountry(JsonField.ofNullable(citizenshipCountry))
+            fun citizenshipCountry(citizenshipCountry: String?) = citizenshipCountry(JsonField.ofNullable(citizenshipCountry))
 
             /**
              * Sets [Builder.citizenshipCountry] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.citizenshipCountry] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.citizenshipCountry] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun citizenshipCountry(citizenshipCountry: JsonField<String>) = apply {
-                this.citizenshipCountry = citizenshipCountry
-            }
+            fun citizenshipCountry(citizenshipCountry: JsonField<String>) =
+                apply {
+                    this.citizenshipCountry = citizenshipCountry
+                }
 
             @Deprecated("deprecated")
-            fun complianceDetails(complianceDetails: JsonValue) = apply {
-                this.complianceDetails = complianceDetails
-            }
+            fun complianceDetails(complianceDetails: JsonValue) =
+                apply {
+                    this.complianceDetails = complianceDetails
+                }
 
-            /**
-             * The connection ID for the connection the legal entity is associated with. Defaults to
-             * the id of the connection designated with an is_default value of true or the id of an
-             * existing operational connection if only one is available. Pass in a value of null to
-             * prevent the connection from being associated with the legal entity.
-             */
-            fun connectionId(connectionId: String?) =
-                connectionId(JsonField.ofNullable(connectionId))
+            /** The connection ID for the connection the legal entity is associated with. Defaults to the id of the connection designated with an is_default value of true or the id of an existing operational connection if only one is available. Pass in a value of null to prevent the connection from being associated with the legal entity. */
+            fun connectionId(connectionId: String?) = connectionId(JsonField.ofNullable(connectionId))
 
             /**
              * Sets [Builder.connectionId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.connectionId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.connectionId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun connectionId(connectionId: JsonField<String>) = apply {
-                this.connectionId = connectionId
-            }
+            fun connectionId(connectionId: JsonField<String>) =
+                apply {
+                    this.connectionId = connectionId
+                }
 
-            /**
-             * The country code where the business is incorporated in the ISO 3166-1 alpha-2 or
-             * alpha-3 formats.
-             */
-            fun countryOfIncorporation(countryOfIncorporation: String?) =
-                countryOfIncorporation(JsonField.ofNullable(countryOfIncorporation))
+            /** The country code where the business is incorporated in the ISO 3166-1 alpha-2 or alpha-3 formats. */
+            fun countryOfIncorporation(countryOfIncorporation: String?) = countryOfIncorporation(JsonField.ofNullable(countryOfIncorporation))
 
             /**
              * Sets [Builder.countryOfIncorporation] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.countryOfIncorporation] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.countryOfIncorporation] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun countryOfIncorporation(countryOfIncorporation: JsonField<String>) = apply {
-                this.countryOfIncorporation = countryOfIncorporation
-            }
+            fun countryOfIncorporation(countryOfIncorporation: JsonField<String>) =
+                apply {
+                    this.countryOfIncorporation = countryOfIncorporation
+                }
 
             /** A business's formation date (YYYY-MM-DD). */
             fun dateFormed(dateFormed: LocalDate?) = dateFormed(JsonField.ofNullable(dateFormed))
@@ -5180,83 +4788,78 @@ private constructor(
             /**
              * Sets [Builder.dateFormed] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.dateFormed] with a well-typed [LocalDate] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.dateFormed] with a well-typed [LocalDate] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun dateFormed(dateFormed: JsonField<LocalDate>) = apply {
-                this.dateFormed = dateFormed
-            }
+            fun dateFormed(dateFormed: JsonField<LocalDate>) =
+                apply {
+                    this.dateFormed = dateFormed
+                }
 
             /** An individual's date of birth (YYYY-MM-DD). */
-            fun dateOfBirth(dateOfBirth: LocalDate?) =
-                dateOfBirth(JsonField.ofNullable(dateOfBirth))
+            fun dateOfBirth(dateOfBirth: LocalDate?) = dateOfBirth(JsonField.ofNullable(dateOfBirth))
 
             /**
              * Sets [Builder.dateOfBirth] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.dateOfBirth] with a well-typed [LocalDate] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.dateOfBirth] with a well-typed [LocalDate] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun dateOfBirth(dateOfBirth: JsonField<LocalDate>) = apply {
-                this.dateOfBirth = dateOfBirth
-            }
+            fun dateOfBirth(dateOfBirth: JsonField<LocalDate>) =
+                apply {
+                    this.dateOfBirth = dateOfBirth
+                }
 
-            /**
-             * A list of documents to attach to the legal entity (e.g. articles of incorporation,
-             * certificate of good standing, proof of address).
-             */
+            /** A list of documents to attach to the legal entity (e.g. articles of incorporation, certificate of good standing, proof of address). */
             fun documents(documents: List<Document>) = documents(JsonField.of(documents))
 
             /**
              * Sets [Builder.documents] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.documents] with a well-typed `List<Document>` value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.documents] with a well-typed `List<Document>` value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun documents(documents: JsonField<List<Document>>) = apply {
-                this.documents = documents.map { it.toMutableList() }
-            }
+            fun documents(documents: JsonField<List<Document>>) =
+                apply {
+                    this.documents = documents.map { it.toMutableList() }
+                }
 
             /**
              * Adds a single [Document] to [documents].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addDocument(document: Document) = apply {
-                documents =
-                    (documents ?: JsonField.of(mutableListOf())).also {
+            fun addDocument(document: Document) =
+                apply {
+                    documents = (documents ?: JsonField.of(mutableListOf())).also {
                         checkKnown("documents", it).add(document)
                     }
-            }
+                }
 
-            fun doingBusinessAsNames(doingBusinessAsNames: List<String>) =
-                doingBusinessAsNames(JsonField.of(doingBusinessAsNames))
+            fun doingBusinessAsNames(doingBusinessAsNames: List<String>) = doingBusinessAsNames(JsonField.of(doingBusinessAsNames))
 
             /**
              * Sets [Builder.doingBusinessAsNames] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.doingBusinessAsNames] with a well-typed
-             * `List<String>` value instead. This method is primarily for setting the field to an
-             * undocumented or not yet supported value.
+             * You should usually call [Builder.doingBusinessAsNames] with a well-typed `List<String>` value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun doingBusinessAsNames(doingBusinessAsNames: JsonField<List<String>>) = apply {
-                this.doingBusinessAsNames = doingBusinessAsNames.map { it.toMutableList() }
-            }
+            fun doingBusinessAsNames(doingBusinessAsNames: JsonField<List<String>>) =
+                apply {
+                    this.doingBusinessAsNames = doingBusinessAsNames.map { it.toMutableList() }
+                }
 
             /**
              * Adds a single [String] to [doingBusinessAsNames].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addDoingBusinessAsName(doingBusinessAsName: String) = apply {
-                doingBusinessAsNames =
-                    (doingBusinessAsNames ?: JsonField.of(mutableListOf())).also {
+            fun addDoingBusinessAsName(doingBusinessAsName: String) =
+                apply {
+                    doingBusinessAsNames = (doingBusinessAsNames ?: JsonField.of(mutableListOf())).also {
                         checkKnown("doingBusinessAsNames", it).add(doingBusinessAsName)
                     }
-            }
+                }
 
             /** The entity's primary email. */
             fun email(email: String?) = email(JsonField.ofNullable(email))
@@ -5264,34 +4867,34 @@ private constructor(
             /**
              * Sets [Builder.email] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.email] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.email] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun email(email: JsonField<String>) = apply { this.email = email }
+            fun email(email: JsonField<String>) =
+                apply {
+                    this.email = email
+                }
 
             /** Monthly expected transaction volume in USD. */
-            fun expectedActivityVolume(expectedActivityVolume: Long?) =
-                expectedActivityVolume(JsonField.ofNullable(expectedActivityVolume))
+            fun expectedActivityVolume(expectedActivityVolume: Long?) = expectedActivityVolume(JsonField.ofNullable(expectedActivityVolume))
 
             /**
              * Alias for [Builder.expectedActivityVolume].
              *
              * This unboxed primitive overload exists for backwards compatibility.
              */
-            fun expectedActivityVolume(expectedActivityVolume: Long) =
-                expectedActivityVolume(expectedActivityVolume as Long?)
+            fun expectedActivityVolume(expectedActivityVolume: Long) = expectedActivityVolume(expectedActivityVolume as Long?)
 
             /**
              * Sets [Builder.expectedActivityVolume] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.expectedActivityVolume] with a well-typed [Long]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.expectedActivityVolume] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun expectedActivityVolume(expectedActivityVolume: JsonField<Long>) = apply {
-                this.expectedActivityVolume = expectedActivityVolume
-            }
+            fun expectedActivityVolume(expectedActivityVolume: JsonField<Long>) =
+                apply {
+                    this.expectedActivityVolume = expectedActivityVolume
+                }
 
             /** An optional user-defined 180 character unique identifier. */
             fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
@@ -5299,11 +4902,13 @@ private constructor(
             /**
              * Sets [Builder.externalId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.externalId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.externalId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
+            fun externalId(externalId: JsonField<String>) =
+                apply {
+                    this.externalId = externalId
+                }
 
             /** An individual's first name. */
             fun firstName(firstName: String?) = firstName(JsonField.ofNullable(firstName))
@@ -5311,22 +4916,22 @@ private constructor(
             /**
              * Sets [Builder.firstName] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.firstName] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.firstName] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun firstName(firstName: JsonField<String>) = apply { this.firstName = firstName }
+            fun firstName(firstName: JsonField<String>) =
+                apply {
+                    this.firstName = firstName
+                }
 
             /** A list of identifications for the legal entity. */
-            fun identifications(identifications: List<IdentificationCreateRequest>) =
-                identifications(JsonField.of(identifications))
+            fun identifications(identifications: List<IdentificationCreateRequest>) = identifications(JsonField.of(identifications))
 
             /**
              * Sets [Builder.identifications] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.identifications] with a well-typed
-             * `List<IdentificationCreateRequest>` value instead. This method is primarily for
-             * setting the field to an undocumented or not yet supported value.
+             * You should usually call [Builder.identifications] with a well-typed `List<IdentificationCreateRequest>` value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun identifications(identifications: JsonField<List<IdentificationCreateRequest>>) =
                 apply {
@@ -5338,44 +4943,38 @@ private constructor(
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addIdentification(identification: IdentificationCreateRequest) = apply {
-                identifications =
-                    (identifications ?: JsonField.of(mutableListOf())).also {
+            fun addIdentification(identification: IdentificationCreateRequest) =
+                apply {
+                    identifications = (identifications ?: JsonField.of(mutableListOf())).also {
                         checkKnown("identifications", it).add(identification)
                     }
-            }
+                }
 
             /** A list of industry classifications for the legal entity. */
-            fun industryClassifications(
-                industryClassifications: List<LegalEntityIndustryClassification>
-            ) = industryClassifications(JsonField.of(industryClassifications))
+            fun industryClassifications(industryClassifications: List<LegalEntityIndustryClassification>) = industryClassifications(JsonField.of(industryClassifications))
 
             /**
              * Sets [Builder.industryClassifications] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.industryClassifications] with a well-typed
-             * `List<LegalEntityIndustryClassification>` value instead. This method is primarily for
-             * setting the field to an undocumented or not yet supported value.
+             * You should usually call [Builder.industryClassifications] with a well-typed `List<LegalEntityIndustryClassification>` value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun industryClassifications(
-                industryClassifications: JsonField<List<LegalEntityIndustryClassification>>
-            ) = apply {
-                this.industryClassifications = industryClassifications.map { it.toMutableList() }
-            }
+            fun industryClassifications(industryClassifications: JsonField<List<LegalEntityIndustryClassification>>) =
+                apply {
+                    this.industryClassifications = industryClassifications.map { it.toMutableList() }
+                }
 
             /**
              * Adds a single [LegalEntityIndustryClassification] to [industryClassifications].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addIndustryClassification(
-                industryClassification: LegalEntityIndustryClassification
-            ) = apply {
-                industryClassifications =
-                    (industryClassifications ?: JsonField.of(mutableListOf())).also {
+            fun addIndustryClassification(industryClassification: LegalEntityIndustryClassification) =
+                apply {
+                    industryClassifications = (industryClassifications ?: JsonField.of(mutableListOf())).also {
                         checkKnown("industryClassifications", it).add(industryClassification)
                     }
-            }
+                }
 
             /** A description of the intended use of the legal entity. */
             fun intendedUse(intendedUse: String?) = intendedUse(JsonField.ofNullable(intendedUse))
@@ -5383,13 +4982,13 @@ private constructor(
             /**
              * Sets [Builder.intendedUse] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.intendedUse] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.intendedUse] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun intendedUse(intendedUse: JsonField<String>) = apply {
-                this.intendedUse = intendedUse
-            }
+            fun intendedUse(intendedUse: JsonField<String>) =
+                apply {
+                    this.intendedUse = intendedUse
+                }
 
             /** An individual's last name. */
             fun lastName(lastName: String?) = lastName(JsonField.ofNullable(lastName))
@@ -5397,88 +4996,81 @@ private constructor(
             /**
              * Sets [Builder.lastName] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.lastName] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.lastName] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun lastName(lastName: JsonField<String>) = apply { this.lastName = lastName }
+            fun lastName(lastName: JsonField<String>) =
+                apply {
+                    this.lastName = lastName
+                }
 
             /** The legal entity associations and its child legal entities. */
-            fun legalEntityAssociations(
-                legalEntityAssociations: List<LegalEntityAssociationInlineCreate>?
-            ) = legalEntityAssociations(JsonField.ofNullable(legalEntityAssociations))
+            fun legalEntityAssociations(legalEntityAssociations: List<LegalEntityAssociationInlineCreate>?) = legalEntityAssociations(JsonField.ofNullable(legalEntityAssociations))
 
             /**
              * Sets [Builder.legalEntityAssociations] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.legalEntityAssociations] with a well-typed
-             * `List<LegalEntityAssociationInlineCreate>` value instead. This method is primarily
-             * for setting the field to an undocumented or not yet supported value.
+             * You should usually call [Builder.legalEntityAssociations] with a well-typed `List<LegalEntityAssociationInlineCreate>` value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun legalEntityAssociations(
-                legalEntityAssociations: JsonField<List<LegalEntityAssociationInlineCreate>>
-            ) = apply {
-                this.legalEntityAssociations = legalEntityAssociations.map { it.toMutableList() }
-            }
+            fun legalEntityAssociations(legalEntityAssociations: JsonField<List<LegalEntityAssociationInlineCreate>>) =
+                apply {
+                    this.legalEntityAssociations = legalEntityAssociations.map { it.toMutableList() }
+                }
 
             /**
              * Adds a single [LegalEntityAssociationInlineCreate] to [legalEntityAssociations].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addLegalEntityAssociation(
-                legalEntityAssociation: LegalEntityAssociationInlineCreate
-            ) = apply {
-                legalEntityAssociations =
-                    (legalEntityAssociations ?: JsonField.of(mutableListOf())).also {
+            fun addLegalEntityAssociation(legalEntityAssociation: LegalEntityAssociationInlineCreate) =
+                apply {
+                    legalEntityAssociations = (legalEntityAssociations ?: JsonField.of(mutableListOf())).also {
                         checkKnown("legalEntityAssociations", it).add(legalEntityAssociation)
                     }
-            }
+                }
 
             /** The business's legal structure. */
-            fun legalStructure(legalStructure: LegalStructure?) =
-                legalStructure(JsonField.ofNullable(legalStructure))
+            fun legalStructure(legalStructure: LegalStructure?) = legalStructure(JsonField.ofNullable(legalStructure))
 
             /**
              * Sets [Builder.legalStructure] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.legalStructure] with a well-typed [LegalStructure]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.legalStructure] with a well-typed [LegalStructure] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun legalStructure(legalStructure: JsonField<LegalStructure>) = apply {
-                this.legalStructure = legalStructure
-            }
+            fun legalStructure(legalStructure: JsonField<LegalStructure>) =
+                apply {
+                    this.legalStructure = legalStructure
+                }
 
             /** ISO 10383 market identifier code. */
-            fun listedExchange(listedExchange: String?) =
-                listedExchange(JsonField.ofNullable(listedExchange))
+            fun listedExchange(listedExchange: String?) = listedExchange(JsonField.ofNullable(listedExchange))
 
             /**
              * Sets [Builder.listedExchange] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.listedExchange] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.listedExchange] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun listedExchange(listedExchange: JsonField<String>) = apply {
-                this.listedExchange = listedExchange
-            }
+            fun listedExchange(listedExchange: JsonField<String>) =
+                apply {
+                    this.listedExchange = listedExchange
+                }
 
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
+            /** Additional data represented as key-value pairs. Both the key and value must be strings. */
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
              * Sets [Builder.metadata] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+            fun metadata(metadata: JsonField<Metadata>) =
+                apply {
+                    this.metadata = metadata
+                }
 
             /** An individual's middle name. */
             fun middleName(middleName: String?) = middleName(JsonField.ofNullable(middleName))
@@ -5486,105 +5078,99 @@ private constructor(
             /**
              * Sets [Builder.middleName] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.middleName] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.middleName] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun middleName(middleName: JsonField<String>) = apply { this.middleName = middleName }
+            fun middleName(middleName: JsonField<String>) =
+                apply {
+                    this.middleName = middleName
+                }
 
-            /**
-             * A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3
-             * codes).
-             */
-            fun operatingJurisdictions(operatingJurisdictions: List<String>) =
-                operatingJurisdictions(JsonField.of(operatingJurisdictions))
+            /** A list of countries where the business operates (ISO 3166-1 alpha-2 or alpha-3 codes). */
+            fun operatingJurisdictions(operatingJurisdictions: List<String>) = operatingJurisdictions(JsonField.of(operatingJurisdictions))
 
             /**
              * Sets [Builder.operatingJurisdictions] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.operatingJurisdictions] with a well-typed
-             * `List<String>` value instead. This method is primarily for setting the field to an
-             * undocumented or not yet supported value.
+             * You should usually call [Builder.operatingJurisdictions] with a well-typed `List<String>` value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun operatingJurisdictions(operatingJurisdictions: JsonField<List<String>>) = apply {
-                this.operatingJurisdictions = operatingJurisdictions.map { it.toMutableList() }
-            }
+            fun operatingJurisdictions(operatingJurisdictions: JsonField<List<String>>) =
+                apply {
+                    this.operatingJurisdictions = operatingJurisdictions.map { it.toMutableList() }
+                }
 
             /**
              * Adds a single [String] to [operatingJurisdictions].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addOperatingJurisdiction(operatingJurisdiction: String) = apply {
-                operatingJurisdictions =
-                    (operatingJurisdictions ?: JsonField.of(mutableListOf())).also {
+            fun addOperatingJurisdiction(operatingJurisdiction: String) =
+                apply {
+                    operatingJurisdictions = (operatingJurisdictions ?: JsonField.of(mutableListOf())).also {
                         checkKnown("operatingJurisdictions", it).add(operatingJurisdiction)
                     }
-            }
+                }
 
-            fun phoneNumbers(phoneNumbers: List<PhoneNumber>) =
-                phoneNumbers(JsonField.of(phoneNumbers))
+            fun phoneNumbers(phoneNumbers: List<PhoneNumber>) = phoneNumbers(JsonField.of(phoneNumbers))
 
             /**
              * Sets [Builder.phoneNumbers] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.phoneNumbers] with a well-typed `List<PhoneNumber>`
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.phoneNumbers] with a well-typed `List<PhoneNumber>` value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun phoneNumbers(phoneNumbers: JsonField<List<PhoneNumber>>) = apply {
-                this.phoneNumbers = phoneNumbers.map { it.toMutableList() }
-            }
+            fun phoneNumbers(phoneNumbers: JsonField<List<PhoneNumber>>) =
+                apply {
+                    this.phoneNumbers = phoneNumbers.map { it.toMutableList() }
+                }
 
             /**
              * Adds a single [PhoneNumber] to [phoneNumbers].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addPhoneNumber(phoneNumber: PhoneNumber) = apply {
-                phoneNumbers =
-                    (phoneNumbers ?: JsonField.of(mutableListOf())).also {
+            fun addPhoneNumber(phoneNumber: PhoneNumber) =
+                apply {
+                    phoneNumbers = (phoneNumbers ?: JsonField.of(mutableListOf())).also {
                         checkKnown("phoneNumbers", it).add(phoneNumber)
                     }
-            }
+                }
 
             /** Whether the individual is a politically exposed person. */
-            fun politicallyExposedPerson(politicallyExposedPerson: Boolean?) =
-                politicallyExposedPerson(JsonField.ofNullable(politicallyExposedPerson))
+            fun politicallyExposedPerson(politicallyExposedPerson: Boolean?) = politicallyExposedPerson(JsonField.ofNullable(politicallyExposedPerson))
 
             /**
              * Alias for [Builder.politicallyExposedPerson].
              *
              * This unboxed primitive overload exists for backwards compatibility.
              */
-            fun politicallyExposedPerson(politicallyExposedPerson: Boolean) =
-                politicallyExposedPerson(politicallyExposedPerson as Boolean?)
+            fun politicallyExposedPerson(politicallyExposedPerson: Boolean) = politicallyExposedPerson(politicallyExposedPerson as Boolean?)
 
             /**
              * Sets [Builder.politicallyExposedPerson] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.politicallyExposedPerson] with a well-typed
-             * [Boolean] value instead. This method is primarily for setting the field to an
-             * undocumented or not yet supported value.
+             * You should usually call [Builder.politicallyExposedPerson] with a well-typed [Boolean] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun politicallyExposedPerson(politicallyExposedPerson: JsonField<Boolean>) = apply {
-                this.politicallyExposedPerson = politicallyExposedPerson
-            }
+            fun politicallyExposedPerson(politicallyExposedPerson: JsonField<Boolean>) =
+                apply {
+                    this.politicallyExposedPerson = politicallyExposedPerson
+                }
 
             /** An individual's preferred name. */
-            fun preferredName(preferredName: String?) =
-                preferredName(JsonField.ofNullable(preferredName))
+            fun preferredName(preferredName: String?) = preferredName(JsonField.ofNullable(preferredName))
 
             /**
              * Sets [Builder.preferredName] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.preferredName] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.preferredName] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun preferredName(preferredName: JsonField<String>) = apply {
-                this.preferredName = preferredName
-            }
+            fun preferredName(preferredName: JsonField<String>) =
+                apply {
+                    this.preferredName = preferredName
+                }
 
             /** An individual's prefix. */
             fun prefix(prefix: String?) = prefix(JsonField.ofNullable(prefix))
@@ -5592,65 +5178,65 @@ private constructor(
             /**
              * Sets [Builder.prefix] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.prefix] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.prefix] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun prefix(prefix: JsonField<String>) = apply { this.prefix = prefix }
+            fun prefix(prefix: JsonField<String>) =
+                apply {
+                    this.prefix = prefix
+                }
 
             /** A list of primary social media URLs for the business. */
-            fun primarySocialMediaSites(primarySocialMediaSites: List<String>) =
-                primarySocialMediaSites(JsonField.of(primarySocialMediaSites))
+            fun primarySocialMediaSites(primarySocialMediaSites: List<String>) = primarySocialMediaSites(JsonField.of(primarySocialMediaSites))
 
             /**
              * Sets [Builder.primarySocialMediaSites] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.primarySocialMediaSites] with a well-typed
-             * `List<String>` value instead. This method is primarily for setting the field to an
-             * undocumented or not yet supported value.
+             * You should usually call [Builder.primarySocialMediaSites] with a well-typed `List<String>` value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun primarySocialMediaSites(primarySocialMediaSites: JsonField<List<String>>) = apply {
-                this.primarySocialMediaSites = primarySocialMediaSites.map { it.toMutableList() }
-            }
+            fun primarySocialMediaSites(primarySocialMediaSites: JsonField<List<String>>) =
+                apply {
+                    this.primarySocialMediaSites = primarySocialMediaSites.map { it.toMutableList() }
+                }
 
             /**
              * Adds a single [String] to [primarySocialMediaSites].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addPrimarySocialMediaSite(primarySocialMediaSite: String) = apply {
-                primarySocialMediaSites =
-                    (primarySocialMediaSites ?: JsonField.of(mutableListOf())).also {
+            fun addPrimarySocialMediaSite(primarySocialMediaSite: String) =
+                apply {
+                    primarySocialMediaSites = (primarySocialMediaSites ?: JsonField.of(mutableListOf())).also {
                         checkKnown("primarySocialMediaSites", it).add(primarySocialMediaSite)
                     }
-            }
+                }
 
             /** Array of regulatory bodies overseeing this institution. */
-            fun regulators(regulators: List<LegalEntityRegulator>?) =
-                regulators(JsonField.ofNullable(regulators))
+            fun regulators(regulators: List<LegalEntityRegulator>?) = regulators(JsonField.ofNullable(regulators))
 
             /**
              * Sets [Builder.regulators] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.regulators] with a well-typed
-             * `List<LegalEntityRegulator>` value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * You should usually call [Builder.regulators] with a well-typed `List<LegalEntityRegulator>` value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun regulators(regulators: JsonField<List<LegalEntityRegulator>>) = apply {
-                this.regulators = regulators.map { it.toMutableList() }
-            }
+            fun regulators(regulators: JsonField<List<LegalEntityRegulator>>) =
+                apply {
+                    this.regulators = regulators.map { it.toMutableList() }
+                }
 
             /**
              * Adds a single [LegalEntityRegulator] to [regulators].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addRegulator(regulator: LegalEntityRegulator) = apply {
-                regulators =
-                    (regulators ?: JsonField.of(mutableListOf())).also {
+            fun addRegulator(regulator: LegalEntityRegulator) =
+                apply {
+                    regulators = (regulators ?: JsonField.of(mutableListOf())).also {
                         checkKnown("regulators", it).add(regulator)
                     }
-            }
+                }
 
             /** The risk rating of the legal entity. One of low, medium, high. */
             fun riskRating(riskRating: RiskRating?) = riskRating(JsonField.ofNullable(riskRating))
@@ -5658,24 +5244,22 @@ private constructor(
             /**
              * Sets [Builder.riskRating] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.riskRating] with a well-typed [RiskRating] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.riskRating] with a well-typed [RiskRating] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun riskRating(riskRating: JsonField<RiskRating>) = apply {
-                this.riskRating = riskRating
-            }
+            fun riskRating(riskRating: JsonField<RiskRating>) =
+                apply {
+                    this.riskRating = riskRating
+                }
 
             /** The UUID of the parent legal entity in the service provider tree. */
-            fun serviceProviderLegalEntityId(serviceProviderLegalEntityId: String?) =
-                serviceProviderLegalEntityId(JsonField.ofNullable(serviceProviderLegalEntityId))
+            fun serviceProviderLegalEntityId(serviceProviderLegalEntityId: String?) = serviceProviderLegalEntityId(JsonField.ofNullable(serviceProviderLegalEntityId))
 
             /**
              * Sets [Builder.serviceProviderLegalEntityId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.serviceProviderLegalEntityId] with a well-typed
-             * [String] value instead. This method is primarily for setting the field to an
-             * undocumented or not yet supported value.
+             * You should usually call [Builder.serviceProviderLegalEntityId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun serviceProviderLegalEntityId(serviceProviderLegalEntityId: JsonField<String>) =
                 apply {
@@ -5688,23 +5272,37 @@ private constructor(
             /**
              * Sets [Builder.suffix] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.suffix] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.suffix] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun suffix(suffix: JsonField<String>) = apply { this.suffix = suffix }
+            fun suffix(suffix: JsonField<String>) =
+                apply {
+                    this.suffix = suffix
+                }
+
+            /** Acceptance of terms of use by the legal entity. */
+            fun termsOfUse(termsOfUse: TermsOfUse?) = termsOfUse(JsonField.ofNullable(termsOfUse))
+
+            /**
+             * Sets [Builder.termsOfUse] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.termsOfUse] with a well-typed [TermsOfUse] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun termsOfUse(termsOfUse: JsonField<TermsOfUse>) =
+                apply {
+                    this.termsOfUse = termsOfUse
+                }
 
             /** Deprecated. Use `third_party_verifications` instead. */
             @Deprecated("deprecated")
-            fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification?) =
-                thirdPartyVerification(JsonField.ofNullable(thirdPartyVerification))
+            fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification?) = thirdPartyVerification(JsonField.ofNullable(thirdPartyVerification))
 
             /**
              * Sets [Builder.thirdPartyVerification] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.thirdPartyVerification] with a well-typed
-             * [ThirdPartyVerification] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * You should usually call [Builder.thirdPartyVerification] with a well-typed [ThirdPartyVerification] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             @Deprecated("deprecated")
             fun thirdPartyVerification(thirdPartyVerification: JsonField<ThirdPartyVerification>) =
@@ -5713,63 +5311,57 @@ private constructor(
                 }
 
             /** A list of third-party verifications run by external vendors. */
-            fun thirdPartyVerifications(thirdPartyVerifications: List<ThirdPartyVerification>) =
-                thirdPartyVerifications(JsonField.of(thirdPartyVerifications))
+            fun thirdPartyVerifications(thirdPartyVerifications: List<ThirdPartyVerification>) = thirdPartyVerifications(JsonField.of(thirdPartyVerifications))
 
             /**
              * Sets [Builder.thirdPartyVerifications] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.thirdPartyVerifications] with a well-typed
-             * `List<ThirdPartyVerification>` value instead. This method is primarily for setting
-             * the field to an undocumented or not yet supported value.
+             * You should usually call [Builder.thirdPartyVerifications] with a well-typed `List<ThirdPartyVerification>` value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun thirdPartyVerifications(
-                thirdPartyVerifications: JsonField<List<ThirdPartyVerification>>
-            ) = apply {
-                this.thirdPartyVerifications = thirdPartyVerifications.map { it.toMutableList() }
-            }
+            fun thirdPartyVerifications(thirdPartyVerifications: JsonField<List<ThirdPartyVerification>>) =
+                apply {
+                    this.thirdPartyVerifications = thirdPartyVerifications.map { it.toMutableList() }
+                }
 
             /**
              * Adds a single [ThirdPartyVerification] to [thirdPartyVerifications].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addThirdPartyVerification(thirdPartyVerification: ThirdPartyVerification) = apply {
-                thirdPartyVerifications =
-                    (thirdPartyVerifications ?: JsonField.of(mutableListOf())).also {
+            fun addThirdPartyVerification(thirdPartyVerification: ThirdPartyVerification) =
+                apply {
+                    thirdPartyVerifications = (thirdPartyVerifications ?: JsonField.of(mutableListOf())).also {
                         checkKnown("thirdPartyVerifications", it).add(thirdPartyVerification)
                     }
-            }
+                }
 
             /** Stock ticker symbol for publicly traded companies. */
-            fun tickerSymbol(tickerSymbol: String?) =
-                tickerSymbol(JsonField.ofNullable(tickerSymbol))
+            fun tickerSymbol(tickerSymbol: String?) = tickerSymbol(JsonField.ofNullable(tickerSymbol))
 
             /**
              * Sets [Builder.tickerSymbol] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.tickerSymbol] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.tickerSymbol] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun tickerSymbol(tickerSymbol: JsonField<String>) = apply {
-                this.tickerSymbol = tickerSymbol
-            }
+            fun tickerSymbol(tickerSymbol: JsonField<String>) =
+                apply {
+                    this.tickerSymbol = tickerSymbol
+                }
 
-            fun wealthAndEmploymentDetails(
-                wealthAndEmploymentDetails: WealthAndEmploymentDetails?
-            ) = wealthAndEmploymentDetails(JsonField.ofNullable(wealthAndEmploymentDetails))
+            fun wealthAndEmploymentDetails(wealthAndEmploymentDetails: WealthAndEmploymentDetails?) = wealthAndEmploymentDetails(JsonField.ofNullable(wealthAndEmploymentDetails))
 
             /**
              * Sets [Builder.wealthAndEmploymentDetails] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.wealthAndEmploymentDetails] with a well-typed
-             * [WealthAndEmploymentDetails] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * You should usually call [Builder.wealthAndEmploymentDetails] with a well-typed [WealthAndEmploymentDetails] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun wealthAndEmploymentDetails(
-                wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails>
-            ) = apply { this.wealthAndEmploymentDetails = wealthAndEmploymentDetails }
+            fun wealthAndEmploymentDetails(wealthAndEmploymentDetails: JsonField<WealthAndEmploymentDetails>) =
+                apply {
+                    this.wealthAndEmploymentDetails = wealthAndEmploymentDetails
+                }
 
             /** The entity's primary website URL. */
             fun website(website: String?) = website(JsonField.ofNullable(website))
@@ -5777,30 +5369,39 @@ private constructor(
             /**
              * Sets [Builder.website] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.website] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.website] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun website(website: JsonField<String>) = apply { this.website = website }
+            fun website(website: JsonField<String>) =
+                apply {
+                    this.website = website
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperty(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
             /**
              * Returns an immutable instance of [LegalEntityCreateRequest].
@@ -5808,6 +5409,7 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              *
              * The following fields are required:
+             *
              * ```kotlin
              * .legalEntityType()
              * ```
@@ -5816,109 +5418,113 @@ private constructor(
              */
             fun build(): LegalEntityCreateRequest =
                 LegalEntityCreateRequest(
-                    checkRequired("legalEntityType", legalEntityType),
-                    (addresses ?: JsonMissing.of()).map { it.toImmutable() },
-                    bankSettings,
-                    businessDescription,
-                    businessName,
-                    citizenshipCountry,
-                    complianceDetails,
-                    connectionId,
-                    countryOfIncorporation,
-                    dateFormed,
-                    dateOfBirth,
-                    (documents ?: JsonMissing.of()).map { it.toImmutable() },
-                    (doingBusinessAsNames ?: JsonMissing.of()).map { it.toImmutable() },
-                    email,
-                    expectedActivityVolume,
-                    externalId,
-                    firstName,
-                    (identifications ?: JsonMissing.of()).map { it.toImmutable() },
-                    (industryClassifications ?: JsonMissing.of()).map { it.toImmutable() },
-                    intendedUse,
-                    lastName,
-                    (legalEntityAssociations ?: JsonMissing.of()).map { it.toImmutable() },
-                    legalStructure,
-                    listedExchange,
-                    metadata,
-                    middleName,
-                    (operatingJurisdictions ?: JsonMissing.of()).map { it.toImmutable() },
-                    (phoneNumbers ?: JsonMissing.of()).map { it.toImmutable() },
-                    politicallyExposedPerson,
-                    preferredName,
-                    prefix,
-                    (primarySocialMediaSites ?: JsonMissing.of()).map { it.toImmutable() },
-                    (regulators ?: JsonMissing.of()).map { it.toImmutable() },
-                    riskRating,
-                    serviceProviderLegalEntityId,
-                    suffix,
-                    thirdPartyVerification,
-                    (thirdPartyVerifications ?: JsonMissing.of()).map { it.toImmutable() },
-                    tickerSymbol,
-                    wealthAndEmploymentDetails,
-                    website,
-                    additionalProperties.toMutableMap(),
+                  checkRequired(
+                    "legalEntityType", legalEntityType
+                  ),
+                  (addresses?: JsonMissing.of()).map { it.toImmutable() },
+                  bankSettings,
+                  businessDescription,
+                  businessName,
+                  citizenshipCountry,
+                  complianceDetails,
+                  connectionId,
+                  countryOfIncorporation,
+                  dateFormed,
+                  dateOfBirth,
+                  (documents?: JsonMissing.of()).map { it.toImmutable() },
+                  (doingBusinessAsNames?: JsonMissing.of()).map { it.toImmutable() },
+                  email,
+                  expectedActivityVolume,
+                  externalId,
+                  firstName,
+                  (identifications?: JsonMissing.of()).map { it.toImmutable() },
+                  (industryClassifications?: JsonMissing.of()).map { it.toImmutable() },
+                  intendedUse,
+                  lastName,
+                  (legalEntityAssociations?: JsonMissing.of()).map { it.toImmutable() },
+                  legalStructure,
+                  listedExchange,
+                  metadata,
+                  middleName,
+                  (operatingJurisdictions?: JsonMissing.of()).map { it.toImmutable() },
+                  (phoneNumbers?: JsonMissing.of()).map { it.toImmutable() },
+                  politicallyExposedPerson,
+                  preferredName,
+                  prefix,
+                  (primarySocialMediaSites?: JsonMissing.of()).map { it.toImmutable() },
+                  (regulators?: JsonMissing.of()).map { it.toImmutable() },
+                  riskRating,
+                  serviceProviderLegalEntityId,
+                  suffix,
+                  termsOfUse,
+                  thirdPartyVerification,
+                  (thirdPartyVerifications?: JsonMissing.of()).map { it.toImmutable() },
+                  tickerSymbol,
+                  wealthAndEmploymentDetails,
+                  website,
+                  additionalProperties.toMutableMap(),
                 )
         }
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): LegalEntityCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): LegalEntityCreateRequest =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            legalEntityType().validate()
-            addresses()?.forEach { it.validate() }
-            bankSettings()?.validate()
-            businessDescription()
-            businessName()
-            citizenshipCountry()
-            connectionId()
-            countryOfIncorporation()
-            dateFormed()
-            dateOfBirth()
-            documents()?.forEach { it.validate() }
-            doingBusinessAsNames()
-            email()
-            expectedActivityVolume()
-            externalId()
-            firstName()
-            identifications()?.forEach { it.validate() }
-            industryClassifications()?.forEach { it.validate() }
-            intendedUse()
-            lastName()
-            legalEntityAssociations()?.forEach { it.validate() }
-            legalStructure()?.validate()
-            listedExchange()
-            metadata()?.validate()
-            middleName()
-            operatingJurisdictions()
-            phoneNumbers()?.forEach { it.validate() }
-            politicallyExposedPerson()
-            preferredName()
-            prefix()
-            primarySocialMediaSites()
-            regulators()?.forEach { it.validate() }
-            riskRating()?.validate()
-            serviceProviderLegalEntityId()
-            suffix()
-            thirdPartyVerification()?.validate()
-            thirdPartyVerifications()?.forEach { it.validate() }
-            tickerSymbol()
-            wealthAndEmploymentDetails()?.validate()
-            website()
-            validated = true
-        }
+                legalEntityType().validate()
+                addresses()?.forEach { it.validate() }
+                bankSettings()?.validate()
+                businessDescription()
+                businessName()
+                citizenshipCountry()
+                connectionId()
+                countryOfIncorporation()
+                dateFormed()
+                dateOfBirth()
+                documents()?.forEach { it.validate() }
+                doingBusinessAsNames()
+                email()
+                expectedActivityVolume()
+                externalId()
+                firstName()
+                identifications()?.forEach { it.validate() }
+                industryClassifications()?.forEach { it.validate() }
+                intendedUse()
+                lastName()
+                legalEntityAssociations()?.forEach { it.validate() }
+                legalStructure()?.validate()
+                listedExchange()
+                metadata()?.validate()
+                middleName()
+                operatingJurisdictions()
+                phoneNumbers()?.forEach { it.validate() }
+                politicallyExposedPerson()
+                preferredName()
+                prefix()
+                primarySocialMediaSites()
+                regulators()?.forEach { it.validate() }
+                riskRating()?.validate()
+                serviceProviderLegalEntityId()
+                suffix()
+                termsOfUse()?.validate()
+                thirdPartyVerification()?.validate()
+                thirdPartyVerifications()?.forEach { it.validate() }
+                tickerSymbol()
+                wealthAndEmploymentDetails()?.validate()
+                website()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -5929,67 +5535,27 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            (legalEntityType.asKnown()?.validity() ?: 0) +
-                (addresses.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                (bankSettings.asKnown()?.validity() ?: 0) +
-                (if (businessDescription.asKnown() == null) 0 else 1) +
-                (if (businessName.asKnown() == null) 0 else 1) +
-                (if (citizenshipCountry.asKnown() == null) 0 else 1) +
-                (if (connectionId.asKnown() == null) 0 else 1) +
-                (if (countryOfIncorporation.asKnown() == null) 0 else 1) +
-                (if (dateFormed.asKnown() == null) 0 else 1) +
-                (if (dateOfBirth.asKnown() == null) 0 else 1) +
-                (documents.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                (doingBusinessAsNames.asKnown()?.size ?: 0) +
-                (if (email.asKnown() == null) 0 else 1) +
-                (if (expectedActivityVolume.asKnown() == null) 0 else 1) +
-                (if (externalId.asKnown() == null) 0 else 1) +
-                (if (firstName.asKnown() == null) 0 else 1) +
-                (identifications.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                (industryClassifications.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                (if (intendedUse.asKnown() == null) 0 else 1) +
-                (if (lastName.asKnown() == null) 0 else 1) +
-                (legalEntityAssociations.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                (legalStructure.asKnown()?.validity() ?: 0) +
-                (if (listedExchange.asKnown() == null) 0 else 1) +
-                (metadata.asKnown()?.validity() ?: 0) +
-                (if (middleName.asKnown() == null) 0 else 1) +
-                (operatingJurisdictions.asKnown()?.size ?: 0) +
-                (phoneNumbers.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                (if (politicallyExposedPerson.asKnown() == null) 0 else 1) +
-                (if (preferredName.asKnown() == null) 0 else 1) +
-                (if (prefix.asKnown() == null) 0 else 1) +
-                (primarySocialMediaSites.asKnown()?.size ?: 0) +
-                (regulators.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                (riskRating.asKnown()?.validity() ?: 0) +
-                (if (serviceProviderLegalEntityId.asKnown() == null) 0 else 1) +
-                (if (suffix.asKnown() == null) 0 else 1) +
-                (thirdPartyVerification.asKnown()?.validity() ?: 0) +
-                (thirdPartyVerifications.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                (if (tickerSymbol.asKnown() == null) 0 else 1) +
-                (wealthAndEmploymentDetails.asKnown()?.validity() ?: 0) +
-                (if (website.asKnown() == null) 0 else 1)
+        internal fun validity(): Int = (legalEntityType.asKnown()?.validity() ?: 0) + (addresses.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (bankSettings.asKnown()?.validity() ?: 0) + (if (businessDescription.asKnown() == null) 0 else 1) + (if (businessName.asKnown() == null) 0 else 1) + (if (citizenshipCountry.asKnown() == null) 0 else 1) + (if (connectionId.asKnown() == null) 0 else 1) + (if (countryOfIncorporation.asKnown() == null) 0 else 1) + (if (dateFormed.asKnown() == null) 0 else 1) + (if (dateOfBirth.asKnown() == null) 0 else 1) + (documents.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (doingBusinessAsNames.asKnown()?.size ?: 0) + (if (email.asKnown() == null) 0 else 1) + (if (expectedActivityVolume.asKnown() == null) 0 else 1) + (if (externalId.asKnown() == null) 0 else 1) + (if (firstName.asKnown() == null) 0 else 1) + (identifications.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (industryClassifications.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (if (intendedUse.asKnown() == null) 0 else 1) + (if (lastName.asKnown() == null) 0 else 1) + (legalEntityAssociations.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (legalStructure.asKnown()?.validity() ?: 0) + (if (listedExchange.asKnown() == null) 0 else 1) + (metadata.asKnown()?.validity() ?: 0) + (if (middleName.asKnown() == null) 0 else 1) + (operatingJurisdictions.asKnown()?.size ?: 0) + (phoneNumbers.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (if (politicallyExposedPerson.asKnown() == null) 0 else 1) + (if (preferredName.asKnown() == null) 0 else 1) + (if (prefix.asKnown() == null) 0 else 1) + (primarySocialMediaSites.asKnown()?.size ?: 0) + (regulators.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (riskRating.asKnown()?.validity() ?: 0) + (if (serviceProviderLegalEntityId.asKnown() == null) 0 else 1) + (if (suffix.asKnown() == null) 0 else 1) + (termsOfUse.asKnown()?.validity() ?: 0) + (thirdPartyVerification.asKnown()?.validity() ?: 0) + (thirdPartyVerifications.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (if (tickerSymbol.asKnown() == null) 0 else 1) + (wealthAndEmploymentDetails.asKnown()?.validity() ?: 0) + (if (website.asKnown() == null) 0 else 1)
 
         /** The type of legal entity. */
-        class LegalEntityType
-        @JsonCreator
-        private constructor(private val value: JsonField<String>) : Enum {
+        class LegalEntityType @JsonCreator private constructor(
+            private val value: JsonField<String>,
+
+        ) : Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't match any known
+             * member, and you want to know that value. For example, if the SDK is on an older version than the
+             * API, then the API may respond with new members that the SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -6010,27 +5576,26 @@ private constructor(
              * An enum containing [LegalEntityType]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [LegalEntityType] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
+             *
+             * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+             *   an older version than the API, then the API may respond with new members that the SDK is unaware
+             *   of.
+             *
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
                 BUSINESS,
                 INDIVIDUAL,
-                /**
-                 * An enum member indicating that [LegalEntityType] was instantiated with an unknown
-                 * value.
-                 */
+                /** An enum member indicating that [LegalEntityType] was instantiated with an unknown value. */
                 _UNKNOWN,
             }
 
             /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+             * class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you want to throw
+             * for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -6042,53 +5607,48 @@ private constructor(
             /**
              * Returns an enum member corresponding to this class instance's value.
              *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
+             * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+             * for the unknown case.
              *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-             *   known member.
+             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
              */
             fun known(): Known =
                 when (this) {
                     BUSINESS -> Known.BUSINESS
                     INDIVIDUAL -> Known.INDIVIDUAL
-                    else ->
-                        throw ModernTreasuryInvalidDataException("Unknown LegalEntityType: $value")
+                    else -> throw ModernTreasuryInvalidDataException("Unknown LegalEntityType: $value")
                 }
 
             /**
              * Returns this class instance's primitive wire representation.
              *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
+             * This differs from the [toString] method because that method is primarily for debugging and generally
+             * doesn't throw.
              *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value does not
-             *   have the expected primitive type.
+             * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+             *   primitive type.
              */
-            fun asString(): String =
-                _value().asString()
-                    ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+            fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
             private var validated: Boolean = false
 
             /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
+             * Validates that the types of all values in this object match their expected types recursively.
              *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
+             * This method is _not_ forwards compatible with new types from the API for existing fields.
              *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
+             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
              */
-            fun validate(): LegalEntityType = apply {
-                if (validated) {
-                    return@apply
-                }
+            fun validate(): LegalEntityType =
+                apply {
+                    if (validated) {
+                      return@apply
+                    }
 
-                known()
-                validated = true
-            }
+                    known()
+                    validated = true
+                }
 
             fun isValid(): Boolean =
                 try {
@@ -6099,19 +5659,18 @@ private constructor(
                 }
 
             /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
+             * Returns a score indicating how many valid values are contained in this object recursively.
              *
              * Used for best match union deserialization.
              */
             internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is LegalEntityType && value == other.value
+              return other is LegalEntityType && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -6119,59 +5678,51 @@ private constructor(
             override fun toString() = value.toString()
         }
 
-        class Document
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
+        class Document @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
             private val documentType: JsonField<DocumentType>,
             private val fileData: JsonField<String>,
             private val filename: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
+
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("document_type")
-                @ExcludeMissing
-                documentType: JsonField<DocumentType> = JsonMissing.of(),
-                @JsonProperty("file_data")
-                @ExcludeMissing
-                fileData: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("filename")
-                @ExcludeMissing
-                filename: JsonField<String> = JsonMissing.of(),
-            ) : this(documentType, fileData, filename, mutableMapOf())
+                @JsonProperty("document_type") @ExcludeMissing documentType: JsonField<DocumentType> = JsonMissing.of(),
+                @JsonProperty("file_data") @ExcludeMissing fileData: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("filename") @ExcludeMissing filename: JsonField<String> = JsonMissing.of()
+            ) : this(
+              documentType,
+              fileData,
+              filename,
+              mutableMapOf(),
+            )
 
             /**
              * A category given to the document, can be `null`.
              *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
              */
             fun documentType(): DocumentType = documentType.getRequired("document_type")
 
             /**
              * Base64-encoded file content for the document.
              *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
              */
             fun fileData(): String = fileData.getRequired("file_data")
 
             /**
              * The original filename of the document.
              *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
              */
             fun filename(): String? = filename.getNullable("filename")
 
             /**
              * Returns the raw JSON value of [documentType].
              *
-             * Unlike [documentType], this method doesn't throw if the JSON field has an unexpected
-             * type.
+             * Unlike [documentType], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("document_type")
             @ExcludeMissing
@@ -6180,28 +5731,29 @@ private constructor(
             /**
              * Returns the raw JSON value of [fileData].
              *
-             * Unlike [fileData], this method doesn't throw if the JSON field has an unexpected
-             * type.
+             * Unlike [fileData], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("file_data") @ExcludeMissing fun _fileData(): JsonField<String> = fileData
+            @JsonProperty("file_data")
+            @ExcludeMissing
+            fun _fileData(): JsonField<String> = fileData
 
             /**
              * Returns the raw JSON value of [filename].
              *
-             * Unlike [filename], this method doesn't throw if the JSON field has an unexpected
-             * type.
+             * Unlike [filename], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("filename") @ExcludeMissing fun _filename(): JsonField<String> = filename
+            @JsonProperty("filename")
+            @ExcludeMissing
+            fun _filename(): JsonField<String> = filename
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
+              additionalProperties.put(key, value)
             }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
+            fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -6211,6 +5763,7 @@ private constructor(
                  * Returns a mutable builder for constructing an instance of [Document].
                  *
                  * The following fields are required:
+                 *
                  * ```kotlin
                  * .documentType()
                  * .fileData()
@@ -6227,27 +5780,27 @@ private constructor(
                 private var filename: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(document: Document) = apply {
-                    documentType = document.documentType
-                    fileData = document.fileData
-                    filename = document.filename
-                    additionalProperties = document.additionalProperties.toMutableMap()
-                }
+                internal fun from(document: Document) =
+                    apply {
+                        documentType = document.documentType
+                        fileData = document.fileData
+                        filename = document.filename
+                        additionalProperties = document.additionalProperties.toMutableMap()
+                    }
 
                 /** A category given to the document, can be `null`. */
-                fun documentType(documentType: DocumentType) =
-                    documentType(JsonField.of(documentType))
+                fun documentType(documentType: DocumentType) = documentType(JsonField.of(documentType))
 
                 /**
                  * Sets [Builder.documentType] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.documentType] with a well-typed [DocumentType]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
+                 * You should usually call [Builder.documentType] with a well-typed [DocumentType] value instead. This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
-                fun documentType(documentType: JsonField<DocumentType>) = apply {
-                    this.documentType = documentType
-                }
+                fun documentType(documentType: JsonField<DocumentType>) =
+                    apply {
+                        this.documentType = documentType
+                    }
 
                 /** Base64-encoded file content for the document. */
                 fun fileData(fileData: String) = fileData(JsonField.of(fileData))
@@ -6255,11 +5808,13 @@ private constructor(
                 /**
                  * Sets [Builder.fileData] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.fileData] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.fileData] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
-                fun fileData(fileData: JsonField<String>) = apply { this.fileData = fileData }
+                fun fileData(fileData: JsonField<String>) =
+                    apply {
+                        this.fileData = fileData
+                    }
 
                 /** The original filename of the document. */
                 fun filename(filename: String) = filename(JsonField.of(filename))
@@ -6267,33 +5822,39 @@ private constructor(
                 /**
                  * Sets [Builder.filename] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.filename] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.filename] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
-                fun filename(filename: JsonField<String>) = apply { this.filename = filename }
+                fun filename(filename: JsonField<String>) =
+                    apply {
+                        this.filename = filename
+                    }
 
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
 
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
+                fun putAdditionalProperty(key: String, value: JsonValue) =
+                    apply {
+                        additionalProperties.put(key, value)
+                    }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
+                fun removeAdditionalProperty(key: String) =
+                    apply {
+                        additionalProperties.remove(key)
+                    }
 
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+                fun removeAllAdditionalProperties(keys: Set<String>) =
+                    apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
 
                 /**
                  * Returns an immutable instance of [Document].
@@ -6301,6 +5862,7 @@ private constructor(
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
                  * The following fields are required:
+                 *
                  * ```kotlin
                  * .documentType()
                  * .fileData()
@@ -6310,35 +5872,38 @@ private constructor(
                  */
                 fun build(): Document =
                     Document(
-                        checkRequired("documentType", documentType),
-                        checkRequired("fileData", fileData),
-                        filename,
-                        additionalProperties.toMutableMap(),
+                      checkRequired(
+                        "documentType", documentType
+                      ),
+                      checkRequired(
+                        "fileData", fileData
+                      ),
+                      filename,
+                      additionalProperties.toMutableMap(),
                     )
             }
 
             private var validated: Boolean = false
 
             /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
+             * Validates that the types of all values in this object match their expected types recursively.
              *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
+             * This method is _not_ forwards compatible with new types from the API for existing fields.
              *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
+             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
              */
-            fun validate(): Document = apply {
-                if (validated) {
-                    return@apply
-                }
+            fun validate(): Document =
+                apply {
+                    if (validated) {
+                      return@apply
+                    }
 
-                documentType().validate()
-                fileData()
-                filename()
-                validated = true
-            }
+                    documentType().validate()
+                    fileData()
+                    filename()
+                    validated = true
+                }
 
             fun isValid(): Boolean =
                 try {
@@ -6349,30 +5914,27 @@ private constructor(
                 }
 
             /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
+             * Returns a score indicating how many valid values are contained in this object recursively.
              *
              * Used for best match union deserialization.
              */
-            internal fun validity(): Int =
-                (documentType.asKnown()?.validity() ?: 0) +
-                    (if (fileData.asKnown() == null) 0 else 1) +
-                    (if (filename.asKnown() == null) 0 else 1)
+            internal fun validity(): Int = (documentType.asKnown()?.validity() ?: 0) + (if (fileData.asKnown() == null) 0 else 1) + (if (filename.asKnown() == null) 0 else 1)
 
             /** A category given to the document, can be `null`. */
-            class DocumentType
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
+            class DocumentType @JsonCreator private constructor(
+                private val value: JsonField<String>,
+
+            ) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
                  *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
+                 * This is usually only useful if this instance was deserialized from data that doesn't match any known
+                 * member, and you want to know that value. For example, if the SDK is on an older version than the
+                 * API, then the API may respond with new members that the SDK is unaware of.
                  */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+                @com.fasterxml.jackson.annotation.JsonValue
+                fun _value(): JsonField<String> = value
 
                 companion object {
 
@@ -6405,13 +5967,14 @@ private constructor(
                 }
 
                 /**
-                 * An enum containing [DocumentType]'s known values, as well as an [_UNKNOWN]
-                 * member.
+                 * An enum containing [DocumentType]'s known values, as well as an [_UNKNOWN] member.
                  *
                  * An instance of [DocumentType] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
+                 *
+                 * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+                 *   an older version than the API, then the API may respond with new members that the SDK is unaware
+                 *   of.
+                 *
                  * - It was constructed with an arbitrary value using the [of] method.
                  */
                 enum class Value {
@@ -6422,19 +5985,16 @@ private constructor(
                     IDENTIFICATION_BACK,
                     IDENTIFICATION_FRONT,
                     PROOF_OF_ADDRESS,
-                    /**
-                     * An enum member indicating that [DocumentType] was instantiated with an
-                     * unknown value.
-                     */
+                    /** An enum member indicating that [DocumentType] was instantiated with an unknown value. */
                     _UNKNOWN,
                 }
 
                 /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+                 * class was instantiated with an unknown value.
                  *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
+                 * Use the [known] method instead if you're certain the value is always known or if you want to throw
+                 * for the unknown case.
                  */
                 fun value(): Value =
                     when (this) {
@@ -6451,11 +6011,10 @@ private constructor(
                 /**
                  * Returns an enum member corresponding to this class instance's value.
                  *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
+                 * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+                 * for the unknown case.
                  *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
+                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
                  */
                 fun known(): Known =
                     when (this) {
@@ -6466,43 +6025,39 @@ private constructor(
                         IDENTIFICATION_BACK -> Known.IDENTIFICATION_BACK
                         IDENTIFICATION_FRONT -> Known.IDENTIFICATION_FRONT
                         PROOF_OF_ADDRESS -> Known.PROOF_OF_ADDRESS
-                        else ->
-                            throw ModernTreasuryInvalidDataException("Unknown DocumentType: $value")
+                        else -> throw ModernTreasuryInvalidDataException("Unknown DocumentType: $value")
                     }
 
                 /**
                  * Returns this class instance's primitive wire representation.
                  *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
+                 * This differs from the [toString] method because that method is primarily for debugging and generally
+                 * doesn't throw.
                  *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
+                 * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+                 *   primitive type.
                  */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+                fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
                 private var validated: Boolean = false
 
                 /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
+                 * Validates that the types of all values in this object match their expected types recursively.
                  *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
+                 * This method is _not_ forwards compatible with new types from the API for existing fields.
                  *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
+                 * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+                 *   expected type.
                  */
-                fun validate(): DocumentType = apply {
-                    if (validated) {
-                        return@apply
-                    }
+                fun validate(): DocumentType =
+                    apply {
+                        if (validated) {
+                          return@apply
+                        }
 
-                    known()
-                    validated = true
-                }
+                        known()
+                        validated = true
+                    }
 
                 fun isValid(): Boolean =
                     try {
@@ -6513,19 +6068,18 @@ private constructor(
                     }
 
                 /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
+                 * Returns a score indicating how many valid values are contained in this object recursively.
                  *
                  * Used for best match union deserialization.
                  */
                 internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
+                  if (this === other) {
+                      return true
+                  }
 
-                    return other is DocumentType && value == other.value
+                  return other is DocumentType && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -6534,41 +6088,35 @@ private constructor(
             }
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Document &&
-                    documentType == other.documentType &&
-                    fileData == other.fileData &&
-                    filename == other.filename &&
-                    additionalProperties == other.additionalProperties
+              return other is Document && documentType == other.documentType && fileData == other.fileData && filename == other.filename && additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy {
-                Objects.hash(documentType, fileData, filename, additionalProperties)
-            }
+            private val hashCode: Int by lazy { Objects.hash(documentType, fileData, filename, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() =
-                "Document{documentType=$documentType, fileData=$fileData, filename=$filename, additionalProperties=$additionalProperties}"
+            override fun toString() = "Document{documentType=$documentType, fileData=$fileData, filename=$filename, additionalProperties=$additionalProperties}"
         }
 
         /** The business's legal structure. */
-        class LegalStructure
-        @JsonCreator
-        private constructor(private val value: JsonField<String>) : Enum {
+        class LegalStructure @JsonCreator private constructor(
+            private val value: JsonField<String>,
+
+        ) : Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't match any known
+             * member, and you want to know that value. For example, if the SDK is on an older version than the
+             * API, then the API may respond with new members that the SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -6601,9 +6149,11 @@ private constructor(
              * An enum containing [LegalStructure]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [LegalStructure] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
+             *
+             * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+             *   an older version than the API, then the API may respond with new members that the SDK is unaware
+             *   of.
+             *
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -6613,19 +6163,16 @@ private constructor(
                 PARTNERSHIP,
                 SOLE_PROPRIETORSHIP,
                 TRUST,
-                /**
-                 * An enum member indicating that [LegalStructure] was instantiated with an unknown
-                 * value.
-                 */
+                /** An enum member indicating that [LegalStructure] was instantiated with an unknown value. */
                 _UNKNOWN,
             }
 
             /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+             * class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you want to throw
+             * for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -6641,11 +6188,10 @@ private constructor(
             /**
              * Returns an enum member corresponding to this class instance's value.
              *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
+             * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+             * for the unknown case.
              *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-             *   known member.
+             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
              */
             fun known(): Known =
                 when (this) {
@@ -6655,43 +6201,39 @@ private constructor(
                     PARTNERSHIP -> Known.PARTNERSHIP
                     SOLE_PROPRIETORSHIP -> Known.SOLE_PROPRIETORSHIP
                     TRUST -> Known.TRUST
-                    else ->
-                        throw ModernTreasuryInvalidDataException("Unknown LegalStructure: $value")
+                    else -> throw ModernTreasuryInvalidDataException("Unknown LegalStructure: $value")
                 }
 
             /**
              * Returns this class instance's primitive wire representation.
              *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
+             * This differs from the [toString] method because that method is primarily for debugging and generally
+             * doesn't throw.
              *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value does not
-             *   have the expected primitive type.
+             * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+             *   primitive type.
              */
-            fun asString(): String =
-                _value().asString()
-                    ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+            fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
             private var validated: Boolean = false
 
             /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
+             * Validates that the types of all values in this object match their expected types recursively.
              *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
+             * This method is _not_ forwards compatible with new types from the API for existing fields.
              *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
+             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
              */
-            fun validate(): LegalStructure = apply {
-                if (validated) {
-                    return@apply
-                }
+            fun validate(): LegalStructure =
+                apply {
+                    if (validated) {
+                      return@apply
+                    }
 
-                known()
-                validated = true
-            }
+                    known()
+                    validated = true
+                }
 
             fun isValid(): Boolean =
                 try {
@@ -6702,19 +6244,18 @@ private constructor(
                 }
 
             /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
+             * Returns a score indicating how many valid values are contained in this object recursively.
              *
              * Used for best match union deserialization.
              */
             internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is LegalStructure && value == other.value
+              return other is LegalStructure && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -6722,14 +6263,10 @@ private constructor(
             override fun toString() = value.toString()
         }
 
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        class Metadata
-        @JsonCreator
-        private constructor(
-            @com.fasterxml.jackson.annotation.JsonValue
-            private val additionalProperties: Map<String, JsonValue>
+        /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+        class Metadata @JsonCreator private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue private val additionalProperties: Map<String, JsonValue>,
+
         ) {
 
             @JsonAnyGetter
@@ -6749,31 +6286,36 @@ private constructor(
 
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(metadata: Metadata) = apply {
-                    additionalProperties = metadata.additionalProperties.toMutableMap()
-                }
+                internal fun from(metadata: Metadata) =
+                    apply {
+                        additionalProperties = metadata.additionalProperties.toMutableMap()
+                    }
 
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
 
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
+                fun putAdditionalProperty(key: String, value: JsonValue) =
+                    apply {
+                        additionalProperties.put(key, value)
+                    }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
+                fun removeAdditionalProperty(key: String) =
+                    apply {
+                        additionalProperties.remove(key)
+                    }
 
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+                fun removeAllAdditionalProperties(keys: Set<String>) =
+                    apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
 
                 /**
                  * Returns an immutable instance of [Metadata].
@@ -6786,22 +6328,21 @@ private constructor(
             private var validated: Boolean = false
 
             /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
+             * Validates that the types of all values in this object match their expected types recursively.
              *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
+             * This method is _not_ forwards compatible with new types from the API for existing fields.
              *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
+             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
              */
-            fun validate(): Metadata = apply {
-                if (validated) {
-                    return@apply
-                }
+            fun validate(): Metadata =
+                apply {
+                    if (validated) {
+                      return@apply
+                    }
 
-                validated = true
-            }
+                    validated = true
+                }
 
             fun isValid(): Boolean =
                 try {
@@ -6812,20 +6353,18 @@ private constructor(
                 }
 
             /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
+             * Returns a score indicating how many valid values are contained in this object recursively.
              *
              * Used for best match union deserialization.
              */
-            internal fun validity(): Int =
-                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+            internal fun validity(): Int = additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Metadata && additionalProperties == other.additionalProperties
+              return other is Metadata && additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
@@ -6836,31 +6375,26 @@ private constructor(
         }
 
         /** A list of phone numbers in E.164 format. */
-        class PhoneNumber
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
+        class PhoneNumber @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
             private val phoneNumber: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
+
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("phone_number")
-                @ExcludeMissing
-                phoneNumber: JsonField<String> = JsonMissing.of()
-            ) : this(phoneNumber, mutableMapOf())
+                @JsonProperty("phone_number") @ExcludeMissing phoneNumber: JsonField<String> = JsonMissing.of()
+            ) : this(
+              phoneNumber, mutableMapOf()
+            )
 
-            /**
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
+            /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
             fun phoneNumber(): String? = phoneNumber.getNullable("phone_number")
 
             /**
              * Returns the raw JSON value of [phoneNumber].
              *
-             * Unlike [phoneNumber], this method doesn't throw if the JSON field has an unexpected
-             * type.
+             * Unlike [phoneNumber], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("phone_number")
             @ExcludeMissing
@@ -6868,13 +6402,12 @@ private constructor(
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
+              additionalProperties.put(key, value)
             }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
+            fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -6890,45 +6423,50 @@ private constructor(
                 private var phoneNumber: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(phoneNumber: PhoneNumber) = apply {
-                    this.phoneNumber = phoneNumber.phoneNumber
-                    additionalProperties = phoneNumber.additionalProperties.toMutableMap()
-                }
+                internal fun from(phoneNumber: PhoneNumber) =
+                    apply {
+                        this.phoneNumber = phoneNumber.phoneNumber
+                        additionalProperties = phoneNumber.additionalProperties.toMutableMap()
+                    }
 
                 fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
 
                 /**
                  * Sets [Builder.phoneNumber] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.phoneNumber] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.phoneNumber] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
-                fun phoneNumber(phoneNumber: JsonField<String>) = apply {
-                    this.phoneNumber = phoneNumber
-                }
+                fun phoneNumber(phoneNumber: JsonField<String>) =
+                    apply {
+                        this.phoneNumber = phoneNumber
+                    }
 
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
 
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
+                fun putAdditionalProperty(key: String, value: JsonValue) =
+                    apply {
+                        additionalProperties.put(key, value)
+                    }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
+                fun removeAdditionalProperty(key: String) =
+                    apply {
+                        additionalProperties.remove(key)
+                    }
 
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+                fun removeAllAdditionalProperties(keys: Set<String>) =
+                    apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
 
                 /**
                  * Returns an immutable instance of [PhoneNumber].
@@ -6936,29 +6474,30 @@ private constructor(
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
                 fun build(): PhoneNumber =
-                    PhoneNumber(phoneNumber, additionalProperties.toMutableMap())
+                    PhoneNumber(
+                      phoneNumber, additionalProperties.toMutableMap()
+                    )
             }
 
             private var validated: Boolean = false
 
             /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
+             * Validates that the types of all values in this object match their expected types recursively.
              *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
+             * This method is _not_ forwards compatible with new types from the API for existing fields.
              *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
+             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
              */
-            fun validate(): PhoneNumber = apply {
-                if (validated) {
-                    return@apply
-                }
+            fun validate(): PhoneNumber =
+                apply {
+                    if (validated) {
+                      return@apply
+                    }
 
-                phoneNumber()
-                validated = true
-            }
+                    phoneNumber()
+                    validated = true
+                }
 
             fun isValid(): Boolean =
                 try {
@@ -6969,84 +6508,72 @@ private constructor(
                 }
 
             /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
+             * Returns a score indicating how many valid values are contained in this object recursively.
              *
              * Used for best match union deserialization.
              */
             internal fun validity(): Int = (if (phoneNumber.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is PhoneNumber &&
-                    phoneNumber == other.phoneNumber &&
-                    additionalProperties == other.additionalProperties
+              return other is PhoneNumber && phoneNumber == other.phoneNumber && additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy { Objects.hash(phoneNumber, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() =
-                "PhoneNumber{phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
+            override fun toString() = "PhoneNumber{phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
         }
 
-        class LegalEntityRegulator
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
+        class LegalEntityRegulator @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
             private val jurisdiction: JsonField<String>,
             private val name: JsonField<String>,
             private val registrationNumber: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
+
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("jurisdiction")
-                @ExcludeMissing
-                jurisdiction: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("jurisdiction") @ExcludeMissing jurisdiction: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("registration_number")
-                @ExcludeMissing
-                registrationNumber: JsonField<String> = JsonMissing.of(),
-            ) : this(jurisdiction, name, registrationNumber, mutableMapOf())
+                @JsonProperty("registration_number") @ExcludeMissing registrationNumber: JsonField<String> = JsonMissing.of()
+            ) : this(
+              jurisdiction,
+              name,
+              registrationNumber,
+              mutableMapOf(),
+            )
 
             /**
-             * The country code where the regulator operates in the ISO 3166-1 alpha-2 format (e.g.,
-             * "US", "CA", "GB").
+             * The country code where the regulator operates in the ISO 3166-1 alpha-2 format (e.g., "US", "CA", "GB").
              *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
              */
             fun jurisdiction(): String = jurisdiction.getRequired("jurisdiction")
 
             /**
              * Full name of the regulatory body.
              *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
              */
             fun name(): String = name.getRequired("name")
 
             /**
              * Registration or identification number with the regulator.
              *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
              */
             fun registrationNumber(): String = registrationNumber.getRequired("registration_number")
 
             /**
              * Returns the raw JSON value of [jurisdiction].
              *
-             * Unlike [jurisdiction], this method doesn't throw if the JSON field has an unexpected
-             * type.
+             * Unlike [jurisdiction], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("jurisdiction")
             @ExcludeMissing
@@ -7057,13 +6584,14 @@ private constructor(
              *
              * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+            @JsonProperty("name")
+            @ExcludeMissing
+            fun _name(): JsonField<String> = name
 
             /**
              * Returns the raw JSON value of [registrationNumber].
              *
-             * Unlike [registrationNumber], this method doesn't throw if the JSON field has an
-             * unexpected type.
+             * Unlike [registrationNumber], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("registration_number")
             @ExcludeMissing
@@ -7071,13 +6599,12 @@ private constructor(
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
+              additionalProperties.put(key, value)
             }
 
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
+            fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -7087,6 +6614,7 @@ private constructor(
                  * Returns a mutable builder for constructing an instance of [LegalEntityRegulator].
                  *
                  * The following fields are required:
+                 *
                  * ```kotlin
                  * .jurisdiction()
                  * .name()
@@ -7104,29 +6632,27 @@ private constructor(
                 private var registrationNumber: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(legalEntityRegulator: LegalEntityRegulator) = apply {
-                    jurisdiction = legalEntityRegulator.jurisdiction
-                    name = legalEntityRegulator.name
-                    registrationNumber = legalEntityRegulator.registrationNumber
-                    additionalProperties = legalEntityRegulator.additionalProperties.toMutableMap()
-                }
+                internal fun from(legalEntityRegulator: LegalEntityRegulator) =
+                    apply {
+                        jurisdiction = legalEntityRegulator.jurisdiction
+                        name = legalEntityRegulator.name
+                        registrationNumber = legalEntityRegulator.registrationNumber
+                        additionalProperties = legalEntityRegulator.additionalProperties.toMutableMap()
+                    }
 
-                /**
-                 * The country code where the regulator operates in the ISO 3166-1 alpha-2 format
-                 * (e.g., "US", "CA", "GB").
-                 */
+                /** The country code where the regulator operates in the ISO 3166-1 alpha-2 format (e.g., "US", "CA", "GB"). */
                 fun jurisdiction(jurisdiction: String) = jurisdiction(JsonField.of(jurisdiction))
 
                 /**
                  * Sets [Builder.jurisdiction] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.jurisdiction] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.jurisdiction] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
-                fun jurisdiction(jurisdiction: JsonField<String>) = apply {
-                    this.jurisdiction = jurisdiction
-                }
+                fun jurisdiction(jurisdiction: JsonField<String>) =
+                    apply {
+                        this.jurisdiction = jurisdiction
+                    }
 
                 /** Full name of the regulatory body. */
                 fun name(name: String) = name(JsonField.of(name))
@@ -7134,48 +6660,53 @@ private constructor(
                 /**
                  * Sets [Builder.name] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.name] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
+                 * You should usually call [Builder.name] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
                  * supported value.
                  */
-                fun name(name: JsonField<String>) = apply { this.name = name }
+                fun name(name: JsonField<String>) =
+                    apply {
+                        this.name = name
+                    }
 
                 /** Registration or identification number with the regulator. */
-                fun registrationNumber(registrationNumber: String) =
-                    registrationNumber(JsonField.of(registrationNumber))
+                fun registrationNumber(registrationNumber: String) = registrationNumber(JsonField.of(registrationNumber))
 
                 /**
                  * Sets [Builder.registrationNumber] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.registrationNumber] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
+                 * You should usually call [Builder.registrationNumber] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
-                fun registrationNumber(registrationNumber: JsonField<String>) = apply {
-                    this.registrationNumber = registrationNumber
-                }
+                fun registrationNumber(registrationNumber: JsonField<String>) =
+                    apply {
+                        this.registrationNumber = registrationNumber
+                    }
 
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
 
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
+                fun putAdditionalProperty(key: String, value: JsonValue) =
+                    apply {
+                        additionalProperties.put(key, value)
+                    }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
+                fun removeAdditionalProperty(key: String) =
+                    apply {
+                        additionalProperties.remove(key)
+                    }
 
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+                fun removeAllAdditionalProperties(keys: Set<String>) =
+                    apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
 
                 /**
                  * Returns an immutable instance of [LegalEntityRegulator].
@@ -7183,6 +6714,7 @@ private constructor(
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
                  * The following fields are required:
+                 *
                  * ```kotlin
                  * .jurisdiction()
                  * .name()
@@ -7193,35 +6725,40 @@ private constructor(
                  */
                 fun build(): LegalEntityRegulator =
                     LegalEntityRegulator(
-                        checkRequired("jurisdiction", jurisdiction),
-                        checkRequired("name", name),
-                        checkRequired("registrationNumber", registrationNumber),
-                        additionalProperties.toMutableMap(),
+                      checkRequired(
+                        "jurisdiction", jurisdiction
+                      ),
+                      checkRequired(
+                        "name", name
+                      ),
+                      checkRequired(
+                        "registrationNumber", registrationNumber
+                      ),
+                      additionalProperties.toMutableMap(),
                     )
             }
 
             private var validated: Boolean = false
 
             /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
+             * Validates that the types of all values in this object match their expected types recursively.
              *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
+             * This method is _not_ forwards compatible with new types from the API for existing fields.
              *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
+             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
              */
-            fun validate(): LegalEntityRegulator = apply {
-                if (validated) {
-                    return@apply
-                }
+            fun validate(): LegalEntityRegulator =
+                apply {
+                    if (validated) {
+                      return@apply
+                    }
 
-                jurisdiction()
-                name()
-                registrationNumber()
-                validated = true
-            }
+                    jurisdiction()
+                    name()
+                    registrationNumber()
+                    validated = true
+                }
 
             fun isValid(): Boolean =
                 try {
@@ -7232,51 +6769,42 @@ private constructor(
                 }
 
             /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
+             * Returns a score indicating how many valid values are contained in this object recursively.
              *
              * Used for best match union deserialization.
              */
-            internal fun validity(): Int =
-                (if (jurisdiction.asKnown() == null) 0 else 1) +
-                    (if (name.asKnown() == null) 0 else 1) +
-                    (if (registrationNumber.asKnown() == null) 0 else 1)
+            internal fun validity(): Int = (if (jurisdiction.asKnown() == null) 0 else 1) + (if (name.asKnown() == null) 0 else 1) + (if (registrationNumber.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is LegalEntityRegulator &&
-                    jurisdiction == other.jurisdiction &&
-                    name == other.name &&
-                    registrationNumber == other.registrationNumber &&
-                    additionalProperties == other.additionalProperties
+              return other is LegalEntityRegulator && jurisdiction == other.jurisdiction && name == other.name && registrationNumber == other.registrationNumber && additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy {
-                Objects.hash(jurisdiction, name, registrationNumber, additionalProperties)
-            }
+            private val hashCode: Int by lazy { Objects.hash(jurisdiction, name, registrationNumber, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() =
-                "LegalEntityRegulator{jurisdiction=$jurisdiction, name=$name, registrationNumber=$registrationNumber, additionalProperties=$additionalProperties}"
+            override fun toString() = "LegalEntityRegulator{jurisdiction=$jurisdiction, name=$name, registrationNumber=$registrationNumber, additionalProperties=$additionalProperties}"
         }
 
         /** The risk rating of the legal entity. One of low, medium, high. */
-        class RiskRating @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
+        class RiskRating @JsonCreator private constructor(
+            private val value: JsonField<String>,
+
+        ) : Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't match any known
+             * member, and you want to know that value. For example, if the SDK is on an older version than the
+             * API, then the API may respond with new members that the SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -7300,28 +6828,27 @@ private constructor(
              * An enum containing [RiskRating]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [RiskRating] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
+             *
+             * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+             *   an older version than the API, then the API may respond with new members that the SDK is unaware
+             *   of.
+             *
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
                 LOW,
                 MEDIUM,
                 HIGH,
-                /**
-                 * An enum member indicating that [RiskRating] was instantiated with an unknown
-                 * value.
-                 */
+                /** An enum member indicating that [RiskRating] was instantiated with an unknown value. */
                 _UNKNOWN,
             }
 
             /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+             * class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you want to throw
+             * for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -7334,11 +6861,10 @@ private constructor(
             /**
              * Returns an enum member corresponding to this class instance's value.
              *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
+             * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+             * for the unknown case.
              *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-             *   known member.
+             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
              */
             fun known(): Known =
                 when (this) {
@@ -7351,36 +6877,33 @@ private constructor(
             /**
              * Returns this class instance's primitive wire representation.
              *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
+             * This differs from the [toString] method because that method is primarily for debugging and generally
+             * doesn't throw.
              *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value does not
-             *   have the expected primitive type.
+             * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+             *   primitive type.
              */
-            fun asString(): String =
-                _value().asString()
-                    ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+            fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
             private var validated: Boolean = false
 
             /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
+             * Validates that the types of all values in this object match their expected types recursively.
              *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
+             * This method is _not_ forwards compatible with new types from the API for existing fields.
              *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
+             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
              */
-            fun validate(): RiskRating = apply {
-                if (validated) {
-                    return@apply
-                }
+            fun validate(): RiskRating =
+                apply {
+                    if (validated) {
+                      return@apply
+                    }
 
-                known()
-                validated = true
-            }
+                    known()
+                    validated = true
+                }
 
             fun isValid(): Boolean =
                 try {
@@ -7391,19 +6914,18 @@ private constructor(
                 }
 
             /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
+             * Returns a score indicating how many valid values are contained in this object recursively.
              *
              * Used for best match union deserialization.
              */
             internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is RiskRating && value == other.value
+              return other is RiskRating && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -7411,115 +6933,224 @@ private constructor(
             override fun toString() = value.toString()
         }
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
+        /** Acceptance of terms of use by the legal entity. */
+        class TermsOfUse @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
+            private val acceptedAt: JsonField<OffsetDateTime>,
+            private val ipAddress: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("accepted_at") @ExcludeMissing acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("ip_address") @ExcludeMissing ipAddress: JsonField<String> = JsonMissing.of()
+            ) : this(
+              acceptedAt,
+              ipAddress,
+              mutableMapOf(),
+            )
+
+            /**
+             * The ISO 8601 timestamp indicating when the terms of use were accepted.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
+             */
+            fun acceptedAt(): OffsetDateTime? = acceptedAt.getNullable("accepted_at")
+
+            /**
+             * The IP address from which the terms of use were accepted. Supports both IPv4 and IPv6 formats.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
+             */
+            fun ipAddress(): String? = ipAddress.getNullable("ip_address")
+
+            /**
+             * Returns the raw JSON value of [acceptedAt].
+             *
+             * Unlike [acceptedAt], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("accepted_at")
+            @ExcludeMissing
+            fun _acceptedAt(): JsonField<OffsetDateTime> = acceptedAt
+
+            /**
+             * Returns the raw JSON value of [ipAddress].
+             *
+             * Unlike [ipAddress], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("ip_address")
+            @ExcludeMissing
+            fun _ipAddress(): JsonField<String> = ipAddress
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+              additionalProperties.put(key, value)
             }
 
-            return other is LegalEntityCreateRequest &&
-                legalEntityType == other.legalEntityType &&
-                addresses == other.addresses &&
-                bankSettings == other.bankSettings &&
-                businessDescription == other.businessDescription &&
-                businessName == other.businessName &&
-                citizenshipCountry == other.citizenshipCountry &&
-                complianceDetails == other.complianceDetails &&
-                connectionId == other.connectionId &&
-                countryOfIncorporation == other.countryOfIncorporation &&
-                dateFormed == other.dateFormed &&
-                dateOfBirth == other.dateOfBirth &&
-                documents == other.documents &&
-                doingBusinessAsNames == other.doingBusinessAsNames &&
-                email == other.email &&
-                expectedActivityVolume == other.expectedActivityVolume &&
-                externalId == other.externalId &&
-                firstName == other.firstName &&
-                identifications == other.identifications &&
-                industryClassifications == other.industryClassifications &&
-                intendedUse == other.intendedUse &&
-                lastName == other.lastName &&
-                legalEntityAssociations == other.legalEntityAssociations &&
-                legalStructure == other.legalStructure &&
-                listedExchange == other.listedExchange &&
-                metadata == other.metadata &&
-                middleName == other.middleName &&
-                operatingJurisdictions == other.operatingJurisdictions &&
-                phoneNumbers == other.phoneNumbers &&
-                politicallyExposedPerson == other.politicallyExposedPerson &&
-                preferredName == other.preferredName &&
-                prefix == other.prefix &&
-                primarySocialMediaSites == other.primarySocialMediaSites &&
-                regulators == other.regulators &&
-                riskRating == other.riskRating &&
-                serviceProviderLegalEntityId == other.serviceProviderLegalEntityId &&
-                suffix == other.suffix &&
-                thirdPartyVerification == other.thirdPartyVerification &&
-                thirdPartyVerifications == other.thirdPartyVerifications &&
-                tickerSymbol == other.tickerSymbol &&
-                wealthAndEmploymentDetails == other.wealthAndEmploymentDetails &&
-                website == other.website &&
-                additionalProperties == other.additionalProperties
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [TermsOfUse]. */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [TermsOfUse]. */
+            class Builder internal constructor() {
+
+                private var acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var ipAddress: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(termsOfUse: TermsOfUse) =
+                    apply {
+                        acceptedAt = termsOfUse.acceptedAt
+                        ipAddress = termsOfUse.ipAddress
+                        additionalProperties = termsOfUse.additionalProperties.toMutableMap()
+                    }
+
+                /** The ISO 8601 timestamp indicating when the terms of use were accepted. */
+                fun acceptedAt(acceptedAt: OffsetDateTime) = acceptedAt(JsonField.of(acceptedAt))
+
+                /**
+                 * Sets [Builder.acceptedAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.acceptedAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun acceptedAt(acceptedAt: JsonField<OffsetDateTime>) =
+                    apply {
+                        this.acceptedAt = acceptedAt
+                    }
+
+                /** The IP address from which the terms of use were accepted. Supports both IPv4 and IPv6 formats. */
+                fun ipAddress(ipAddress: String) = ipAddress(JsonField.of(ipAddress))
+
+                /**
+                 * Sets [Builder.ipAddress] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.ipAddress] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun ipAddress(ipAddress: JsonField<String>) =
+                    apply {
+                        this.ipAddress = ipAddress
+                    }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) =
+                    apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) =
+                    apply {
+                        additionalProperties.remove(key)
+                    }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) =
+                    apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                /**
+                 * Returns an immutable instance of [TermsOfUse].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): TermsOfUse =
+                    TermsOfUse(
+                      acceptedAt,
+                      ipAddress,
+                      additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing fields.
+             *
+             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
+            fun validate(): TermsOfUse =
+                apply {
+                    if (validated) {
+                      return@apply
+                    }
+
+                    acceptedAt()
+                    ipAddress()
+                    validated = true
+                }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: ModernTreasuryInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = (if (acceptedAt.asKnown() == null) 0 else 1) + (if (ipAddress.asKnown() == null) 0 else 1)
+
+            override fun equals(other: Any?): Boolean {
+              if (this === other) {
+                  return true
+              }
+
+              return other is TermsOfUse && acceptedAt == other.acceptedAt && ipAddress == other.ipAddress && additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(acceptedAt, ipAddress, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() = "TermsOfUse{acceptedAt=$acceptedAt, ipAddress=$ipAddress, additionalProperties=$additionalProperties}"
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(
-                legalEntityType,
-                addresses,
-                bankSettings,
-                businessDescription,
-                businessName,
-                citizenshipCountry,
-                complianceDetails,
-                connectionId,
-                countryOfIncorporation,
-                dateFormed,
-                dateOfBirth,
-                documents,
-                doingBusinessAsNames,
-                email,
-                expectedActivityVolume,
-                externalId,
-                firstName,
-                identifications,
-                industryClassifications,
-                intendedUse,
-                lastName,
-                legalEntityAssociations,
-                legalStructure,
-                listedExchange,
-                metadata,
-                middleName,
-                operatingJurisdictions,
-                phoneNumbers,
-                politicallyExposedPerson,
-                preferredName,
-                prefix,
-                primarySocialMediaSites,
-                regulators,
-                riskRating,
-                serviceProviderLegalEntityId,
-                suffix,
-                thirdPartyVerification,
-                thirdPartyVerifications,
-                tickerSymbol,
-                wealthAndEmploymentDetails,
-                website,
-                additionalProperties,
-            )
+        override fun equals(other: Any?): Boolean {
+          if (this === other) {
+              return true
+          }
+
+          return other is LegalEntityCreateRequest && legalEntityType == other.legalEntityType && addresses == other.addresses && bankSettings == other.bankSettings && businessDescription == other.businessDescription && businessName == other.businessName && citizenshipCountry == other.citizenshipCountry && complianceDetails == other.complianceDetails && connectionId == other.connectionId && countryOfIncorporation == other.countryOfIncorporation && dateFormed == other.dateFormed && dateOfBirth == other.dateOfBirth && documents == other.documents && doingBusinessAsNames == other.doingBusinessAsNames && email == other.email && expectedActivityVolume == other.expectedActivityVolume && externalId == other.externalId && firstName == other.firstName && identifications == other.identifications && industryClassifications == other.industryClassifications && intendedUse == other.intendedUse && lastName == other.lastName && legalEntityAssociations == other.legalEntityAssociations && legalStructure == other.legalStructure && listedExchange == other.listedExchange && metadata == other.metadata && middleName == other.middleName && operatingJurisdictions == other.operatingJurisdictions && phoneNumbers == other.phoneNumbers && politicallyExposedPerson == other.politicallyExposedPerson && preferredName == other.preferredName && prefix == other.prefix && primarySocialMediaSites == other.primarySocialMediaSites && regulators == other.regulators && riskRating == other.riskRating && serviceProviderLegalEntityId == other.serviceProviderLegalEntityId && suffix == other.suffix && termsOfUse == other.termsOfUse && thirdPartyVerification == other.thirdPartyVerification && thirdPartyVerifications == other.thirdPartyVerifications && tickerSymbol == other.tickerSymbol && wealthAndEmploymentDetails == other.wealthAndEmploymentDetails && website == other.website && additionalProperties == other.additionalProperties
         }
+
+        private val hashCode: Int by lazy { Objects.hash(legalEntityType, addresses, bankSettings, businessDescription, businessName, citizenshipCountry, complianceDetails, connectionId, countryOfIncorporation, dateFormed, dateOfBirth, documents, doingBusinessAsNames, email, expectedActivityVolume, externalId, firstName, identifications, industryClassifications, intendedUse, lastName, legalEntityAssociations, legalStructure, listedExchange, metadata, middleName, operatingJurisdictions, phoneNumbers, politicallyExposedPerson, preferredName, prefix, primarySocialMediaSites, regulators, riskRating, serviceProviderLegalEntityId, suffix, termsOfUse, thirdPartyVerification, thirdPartyVerifications, tickerSymbol, wealthAndEmploymentDetails, website, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "LegalEntityCreateRequest{legalEntityType=$legalEntityType, addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, serviceProviderLegalEntityId=$serviceProviderLegalEntityId, suffix=$suffix, thirdPartyVerification=$thirdPartyVerification, thirdPartyVerifications=$thirdPartyVerifications, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
+        override fun toString() = "LegalEntityCreateRequest{legalEntityType=$legalEntityType, addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, connectionId=$connectionId, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityAssociations=$legalEntityAssociations, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, serviceProviderLegalEntityId=$serviceProviderLegalEntityId, suffix=$suffix, termsOfUse=$termsOfUse, thirdPartyVerification=$thirdPartyVerification, thirdPartyVerifications=$thirdPartyVerifications, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    class Metadata
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
+    class Metadata @JsonCreator private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         @JsonAnyGetter
@@ -7539,28 +7170,36 @@ private constructor(
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties = metadata.additionalProperties.toMutableMap()
-            }
+            internal fun from(metadata: Metadata) =
+                apply {
+                    additionalProperties = metadata.additionalProperties.toMutableMap()
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperty(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
             /**
              * Returns an immutable instance of [Metadata].
@@ -7573,21 +7212,21 @@ private constructor(
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Metadata =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            validated = true
-        }
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -7598,20 +7237,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+        internal fun validity(): Int = additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Metadata && additionalProperties == other.additionalProperties
+          return other is Metadata && additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
@@ -7622,18 +7259,14 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is CounterpartyCreateParams &&
-            body == other.body &&
-            additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams
+      return other is CounterpartyCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
-    override fun toString() =
-        "CounterpartyCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() = "CounterpartyCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

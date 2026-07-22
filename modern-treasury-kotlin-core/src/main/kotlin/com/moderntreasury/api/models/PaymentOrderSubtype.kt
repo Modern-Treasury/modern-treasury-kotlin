@@ -7,22 +7,21 @@ import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
 
-/**
- * An additional layer of classification for the type of payment order you are doing. This field is
- * only used for `ach` payment orders currently. For `ach` payment orders, the `subtype` represents
- * the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`, `WEB`, `CIE`, and `TEL`.
- */
-class PaymentOrderSubtype @JsonCreator private constructor(private val value: JsonField<String>) :
-    Enum {
+/** An additional layer of classification for the type of payment order you are doing. This field is only used for `ach` payment orders currently. For `ach`  payment orders, the `subtype`  represents the SEC code. We currently support `CCD`, `PPD`, `IAT`, `CTX`, `WEB`, `CIE`, and `TEL`. */
+class PaymentOrderSubtype @JsonCreator private constructor(
+    private val value: JsonField<String>,
+
+) : Enum {
 
     /**
      * Returns this class instance's raw value.
      *
-     * This is usually only useful if this instance was deserialized from data that doesn't match
-     * any known member, and you want to know that value. For example, if the SDK is on an older
-     * version than the API, then the API may respond with new members that the SDK is unaware of.
+     * This is usually only useful if this instance was deserialized from data that doesn't match any known
+     * member, and you want to know that value. For example, if the SDK is on an older version than the
+     * API, then the API may respond with new members that the SDK is unaware of.
      */
-    @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+    @com.fasterxml.jackson.annotation.JsonValue
+    fun _value(): JsonField<String> = value
 
     companion object {
 
@@ -54,13 +53,13 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
 
         val CHATS = of("chats")
 
+        val DIGITAL = of("digital")
+
         val DK_NETS = of("dk_nets")
 
         val EFT = of("eft")
 
         val ETHEREUM = of("ethereum")
-
-        val HU_ICS = of("hu_ics")
 
         val MASAV = of("masav")
 
@@ -76,7 +75,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
 
         val POLYGON = of("polygon")
 
-        val RO_SENT = of("ro_sent")
+        val PRINT = of("print")
 
         val SE_BANKGIROT = of("se_bankgirot")
 
@@ -85,8 +84,6 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         val SG_GIRO = of("sg_giro")
 
         val SIC = of("sic")
-
-        val SKNBI = of("sknbi")
 
         val SOLANA = of("solana")
 
@@ -111,10 +108,10 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         BACS,
         BASE,
         CHATS,
+        DIGITAL,
         DK_NETS,
         EFT,
         ETHEREUM,
-        HU_ICS,
         MASAV,
         MX_CCEN,
         NEFT,
@@ -122,12 +119,11 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         NZ_BECS,
         PL_ELIXIR,
         POLYGON,
-        RO_SENT,
+        PRINT,
         SE_BANKGIROT,
         SEPA,
         SG_GIRO,
         SIC,
-        SKNBI,
         SOLANA,
         ZENGIN,
     }
@@ -136,9 +132,11 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
      * An enum containing [PaymentOrderSubtype]'s known values, as well as an [_UNKNOWN] member.
      *
      * An instance of [PaymentOrderSubtype] can contain an unknown value in a couple of cases:
-     * - It was deserialized from data that doesn't match any known member. For example, if the SDK
-     *   is on an older version than the API, then the API may respond with new members that the SDK
-     *   is unaware of.
+     *
+     * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+     *   an older version than the API, then the API may respond with new members that the SDK is unaware
+     *   of.
+     *
      * - It was constructed with an arbitrary value using the [of] method.
      */
     enum class Value {
@@ -156,10 +154,10 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         BACS,
         BASE,
         CHATS,
+        DIGITAL,
         DK_NETS,
         EFT,
         ETHEREUM,
-        HU_ICS,
         MASAV,
         MX_CCEN,
         NEFT,
@@ -167,27 +165,23 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         NZ_BECS,
         PL_ELIXIR,
         POLYGON,
-        RO_SENT,
+        PRINT,
         SE_BANKGIROT,
         SEPA,
         SG_GIRO,
         SIC,
-        SKNBI,
         SOLANA,
         ZENGIN,
-        /**
-         * An enum member indicating that [PaymentOrderSubtype] was instantiated with an unknown
-         * value.
-         */
+        /** An enum member indicating that [PaymentOrderSubtype] was instantiated with an unknown value. */
         _UNKNOWN,
     }
 
     /**
-     * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if
-     * the class was instantiated with an unknown value.
+     * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+     * class was instantiated with an unknown value.
      *
-     * Use the [known] method instead if you're certain the value is always known or if you want to
-     * throw for the unknown case.
+     * Use the [known] method instead if you're certain the value is always known or if you want to throw
+     * for the unknown case.
      */
     fun value(): Value =
         when (this) {
@@ -205,10 +199,10 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             BACS -> Value.BACS
             BASE -> Value.BASE
             CHATS -> Value.CHATS
+            DIGITAL -> Value.DIGITAL
             DK_NETS -> Value.DK_NETS
             EFT -> Value.EFT
             ETHEREUM -> Value.ETHEREUM
-            HU_ICS -> Value.HU_ICS
             MASAV -> Value.MASAV
             MX_CCEN -> Value.MX_CCEN
             NEFT -> Value.NEFT
@@ -216,12 +210,11 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             NZ_BECS -> Value.NZ_BECS
             PL_ELIXIR -> Value.PL_ELIXIR
             POLYGON -> Value.POLYGON
-            RO_SENT -> Value.RO_SENT
+            PRINT -> Value.PRINT
             SE_BANKGIROT -> Value.SE_BANKGIROT
             SEPA -> Value.SEPA
             SG_GIRO -> Value.SG_GIRO
             SIC -> Value.SIC
-            SKNBI -> Value.SKNBI
             SOLANA -> Value.SOLANA
             ZENGIN -> Value.ZENGIN
             else -> Value._UNKNOWN
@@ -230,11 +223,10 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
     /**
      * Returns an enum member corresponding to this class instance's value.
      *
-     * Use the [value] method instead if you're uncertain the value is always known and don't want
-     * to throw for the unknown case.
+     * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+     * for the unknown case.
      *
-     * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known
-     *   member.
+     * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
      */
     fun known(): Known =
         when (this) {
@@ -252,10 +244,10 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             BACS -> Known.BACS
             BASE -> Known.BASE
             CHATS -> Known.CHATS
+            DIGITAL -> Known.DIGITAL
             DK_NETS -> Known.DK_NETS
             EFT -> Known.EFT
             ETHEREUM -> Known.ETHEREUM
-            HU_ICS -> Known.HU_ICS
             MASAV -> Known.MASAV
             MX_CCEN -> Known.MX_CCEN
             NEFT -> Known.NEFT
@@ -263,12 +255,11 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             NZ_BECS -> Known.NZ_BECS
             PL_ELIXIR -> Known.PL_ELIXIR
             POLYGON -> Known.POLYGON
-            RO_SENT -> Known.RO_SENT
+            PRINT -> Known.PRINT
             SE_BANKGIROT -> Known.SE_BANKGIROT
             SEPA -> Known.SEPA
             SG_GIRO -> Known.SG_GIRO
             SIC -> Known.SIC
-            SKNBI -> Known.SKNBI
             SOLANA -> Known.SOLANA
             ZENGIN -> Known.ZENGIN
             else -> throw ModernTreasuryInvalidDataException("Unknown PaymentOrderSubtype: $value")
@@ -277,14 +268,13 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
     /**
      * Returns this class instance's primitive wire representation.
      *
-     * This differs from the [toString] method because that method is primarily for debugging and
-     * generally doesn't throw.
+     * This differs from the [toString] method because that method is primarily for debugging and generally
+     * doesn't throw.
      *
-     * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the
-     *   expected primitive type.
+     * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+     *   primitive type.
      */
-    fun asString(): String =
-        _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+    fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
     private var validated: Boolean = false
 
@@ -296,14 +286,15 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
      * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): PaymentOrderSubtype = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): PaymentOrderSubtype =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        known()
-        validated = true
-    }
+            known()
+            validated = true
+        }
 
     fun isValid(): Boolean =
         try {
@@ -321,11 +312,11 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
     internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is PaymentOrderSubtype && value == other.value
+      return other is PaymentOrderSubtype && value == other.value
     }
 
     override fun hashCode() = value.hashCode()

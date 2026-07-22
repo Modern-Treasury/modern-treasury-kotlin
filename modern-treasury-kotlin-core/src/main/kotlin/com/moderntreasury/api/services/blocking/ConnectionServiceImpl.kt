@@ -17,72 +17,67 @@ import com.moderntreasury.api.core.prepare
 import com.moderntreasury.api.models.Connection
 import com.moderntreasury.api.models.ConnectionListPage
 import com.moderntreasury.api.models.ConnectionListParams
+import com.moderntreasury.api.services.blocking.ConnectionService
+import com.moderntreasury.api.services.blocking.ConnectionServiceImpl
 
-class ConnectionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    ConnectionService {
+class ConnectionServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: ConnectionService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : ConnectionService {
+
+    private val withRawResponse: ConnectionService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): ConnectionService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ConnectionService =
-        ConnectionServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ConnectionService = ConnectionServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun list(
-        params: ConnectionListParams,
-        requestOptions: RequestOptions,
-    ): ConnectionListPage =
+    override fun list(params: ConnectionListParams, requestOptions: RequestOptions): ConnectionListPage =
         // get /api/connections
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        ConnectionService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : ConnectionService.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): ConnectionService.WithRawResponse =
-            ConnectionServiceImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ConnectionService.WithRawResponse = ConnectionServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val listHandler: Handler<List<Connection>> = jsonHandler<List<Connection>>(clientOptions.jsonMapper)
+
+        override fun list(params: ConnectionListParams, requestOptions: RequestOptions): HttpResponseFor<ConnectionListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "connections")
+            .build()
+            .prepare(
+              clientOptions, params
             )
-
-        private val listHandler: Handler<List<Connection>> =
-            jsonHandler<List<Connection>>(clientOptions.jsonMapper)
-
-        override fun list(
-            params: ConnectionListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ConnectionListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "connections")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        ConnectionListPage.builder()
-                            .service(ConnectionServiceImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  ConnectionListPage.builder()
+                      .service(ConnectionServiceImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
     }
 }

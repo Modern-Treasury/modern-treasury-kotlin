@@ -3,12 +3,11 @@
 package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.core.ClientOptions
+import com.moderntreasury.api.services.blocking.LegalEntityAssociationService
 
 interface LegalEntityAssociationService {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -18,10 +17,7 @@ interface LegalEntityAssociationService {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LegalEntityAssociationService
 
-    /**
-     * A view of [LegalEntityAssociationService] that provides access to raw HTTP responses for each
-     * method.
-     */
+    /** A view of [LegalEntityAssociationService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -29,8 +25,6 @@ interface LegalEntityAssociationService {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): LegalEntityAssociationService.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LegalEntityAssociationService.WithRawResponse
     }
 }

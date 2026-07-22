@@ -15,13 +15,12 @@ import com.moderntreasury.api.models.InternalAccountRetrieveParams
 import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityParams
 import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityResponse
 import com.moderntreasury.api.models.InternalAccountUpdateParams
+import com.moderntreasury.api.services.async.InternalAccountServiceAsync
 import com.moderntreasury.api.services.async.internalAccounts.BalanceReportServiceAsync
 
 interface InternalAccountServiceAsync {
 
-    /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
-     */
+    /** Returns a view of this service that provides access to raw HTTP responses for each method. */
     fun withRawResponse(): WithRawResponse
 
     /**
@@ -34,90 +33,86 @@ interface InternalAccountServiceAsync {
     fun balanceReports(): BalanceReportServiceAsync
 
     /** create internal account */
-    suspend fun create(
-        params: InternalAccountCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InternalAccount
+    suspend fun create(params: InternalAccountCreateParams, requestOptions: RequestOptions = RequestOptions.none()): InternalAccount
 
     /** get internal account */
-    suspend fun retrieve(
-        id: String,
-        params: InternalAccountRetrieveParams = InternalAccountRetrieveParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InternalAccount = retrieve(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun retrieve(id: String, params: InternalAccountRetrieveParams = InternalAccountRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): InternalAccount =
+        retrieve(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see retrieve */
-    suspend fun retrieve(
-        params: InternalAccountRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InternalAccount
+    suspend fun retrieve(params: InternalAccountRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): InternalAccount
 
     /** @see retrieve */
     suspend fun retrieve(id: String, requestOptions: RequestOptions): InternalAccount =
-        retrieve(id, InternalAccountRetrieveParams.none(), requestOptions)
+        retrieve(
+          id,
+          InternalAccountRetrieveParams.none(),
+          requestOptions,
+        )
 
     /** update internal account */
-    suspend fun update(
-        id: String,
-        params: InternalAccountUpdateParams = InternalAccountUpdateParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InternalAccount = update(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun update(id: String, params: InternalAccountUpdateParams = InternalAccountUpdateParams.none(), requestOptions: RequestOptions = RequestOptions.none()): InternalAccount =
+        update(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see update */
-    suspend fun update(
-        params: InternalAccountUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InternalAccount
+    suspend fun update(params: InternalAccountUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): InternalAccount
 
     /** @see update */
     suspend fun update(id: String, requestOptions: RequestOptions): InternalAccount =
-        update(id, InternalAccountUpdateParams.none(), requestOptions)
+        update(
+          id,
+          InternalAccountUpdateParams.none(),
+          requestOptions,
+        )
 
     /** list internal accounts */
-    suspend fun list(
-        params: InternalAccountListParams = InternalAccountListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InternalAccountListPageAsync
+    suspend fun list(params: InternalAccountListParams = InternalAccountListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): InternalAccountListPageAsync
 
     /** @see list */
     suspend fun list(requestOptions: RequestOptions): InternalAccountListPageAsync =
-        list(InternalAccountListParams.none(), requestOptions)
+        list(
+          InternalAccountListParams.none(), requestOptions
+        )
 
     /** request closure of internal account */
-    suspend fun requestClosure(
-        id: String,
-        params: InternalAccountRequestClosureParams = InternalAccountRequestClosureParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InternalAccount = requestClosure(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun requestClosure(id: String, params: InternalAccountRequestClosureParams = InternalAccountRequestClosureParams.none(), requestOptions: RequestOptions = RequestOptions.none()): InternalAccount =
+        requestClosure(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see requestClosure */
-    suspend fun requestClosure(
-        params: InternalAccountRequestClosureParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InternalAccount
+    suspend fun requestClosure(params: InternalAccountRequestClosureParams, requestOptions: RequestOptions = RequestOptions.none()): InternalAccount
 
     /** @see requestClosure */
     suspend fun requestClosure(id: String, requestOptions: RequestOptions): InternalAccount =
-        requestClosure(id, InternalAccountRequestClosureParams.none(), requestOptions)
+        requestClosure(
+          id,
+          InternalAccountRequestClosureParams.none(),
+          requestOptions,
+        )
 
     /** update account_capability */
-    suspend fun updateAccountCapability(
-        id: String,
-        params: InternalAccountUpdateAccountCapabilityParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InternalAccountUpdateAccountCapabilityResponse =
-        updateAccountCapability(params.toBuilder().id(id).build(), requestOptions)
+    suspend fun updateAccountCapability(id: String, params: InternalAccountUpdateAccountCapabilityParams, requestOptions: RequestOptions = RequestOptions.none()): InternalAccountUpdateAccountCapabilityResponse =
+        updateAccountCapability(
+          params.toBuilder()
+              .id(id)
+              .build(), requestOptions
+        )
 
     /** @see updateAccountCapability */
-    suspend fun updateAccountCapability(
-        params: InternalAccountUpdateAccountCapabilityParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InternalAccountUpdateAccountCapabilityResponse
+    suspend fun updateAccountCapability(params: InternalAccountUpdateAccountCapabilityParams, requestOptions: RequestOptions = RequestOptions.none()): InternalAccountUpdateAccountCapabilityResponse
 
-    /**
-     * A view of [InternalAccountServiceAsync] that provides access to raw HTTP responses for each
-     * method.
-     */
+    /** A view of [InternalAccountServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -125,139 +120,102 @@ interface InternalAccountServiceAsync {
          *
          * The original service is not modified.
          */
-        fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): InternalAccountServiceAsync.WithRawResponse
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): InternalAccountServiceAsync.WithRawResponse
 
         fun balanceReports(): BalanceReportServiceAsync.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `post /api/internal_accounts`, but is otherwise the same
-         * as [InternalAccountServiceAsync.create].
-         */
+        /** Returns a raw HTTP response for `post /api/internal_accounts`, but is otherwise the             same as [InternalAccountServiceAsync.create]. */
         @MustBeClosed
-        suspend fun create(
-            params: InternalAccountCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InternalAccount>
+        suspend fun create(params: InternalAccountCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InternalAccount>
 
-        /**
-         * Returns a raw HTTP response for `get /api/internal_accounts/{id}`, but is otherwise the
-         * same as [InternalAccountServiceAsync.retrieve].
-         */
+        /** Returns a raw HTTP response for `get /api/internal_accounts/{id}`, but is otherwise the             same as [InternalAccountServiceAsync.retrieve]. */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            params: InternalAccountRetrieveParams = InternalAccountRetrieveParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InternalAccount> =
-            retrieve(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun retrieve(id: String, params: InternalAccountRetrieveParams = InternalAccountRetrieveParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InternalAccount> =
+            retrieve(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            params: InternalAccountRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InternalAccount>
+        suspend fun retrieve(params: InternalAccountRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InternalAccount>
 
         /** @see retrieve */
         @MustBeClosed
-        suspend fun retrieve(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InternalAccount> =
-            retrieve(id, InternalAccountRetrieveParams.none(), requestOptions)
+        suspend fun retrieve(id: String, requestOptions: RequestOptions): HttpResponseFor<InternalAccount> =
+            retrieve(
+              id,
+              InternalAccountRetrieveParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `patch /api/internal_accounts/{id}`, but is otherwise the
-         * same as [InternalAccountServiceAsync.update].
-         */
+        /** Returns a raw HTTP response for `patch /api/internal_accounts/{id}`, but is otherwise the             same as [InternalAccountServiceAsync.update]. */
         @MustBeClosed
-        suspend fun update(
-            id: String,
-            params: InternalAccountUpdateParams = InternalAccountUpdateParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InternalAccount> =
-            update(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun update(id: String, params: InternalAccountUpdateParams = InternalAccountUpdateParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InternalAccount> =
+            update(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see update */
         @MustBeClosed
-        suspend fun update(
-            params: InternalAccountUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InternalAccount>
+        suspend fun update(params: InternalAccountUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InternalAccount>
 
         /** @see update */
         @MustBeClosed
-        suspend fun update(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InternalAccount> =
-            update(id, InternalAccountUpdateParams.none(), requestOptions)
+        suspend fun update(id: String, requestOptions: RequestOptions): HttpResponseFor<InternalAccount> =
+            update(
+              id,
+              InternalAccountUpdateParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `get /api/internal_accounts`, but is otherwise the same
-         * as [InternalAccountServiceAsync.list].
-         */
+        /** Returns a raw HTTP response for `get /api/internal_accounts`, but is otherwise the             same as [InternalAccountServiceAsync.list]. */
         @MustBeClosed
-        suspend fun list(
-            params: InternalAccountListParams = InternalAccountListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InternalAccountListPageAsync>
+        suspend fun list(params: InternalAccountListParams = InternalAccountListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InternalAccountListPageAsync>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<InternalAccountListPageAsync> =
-            list(InternalAccountListParams.none(), requestOptions)
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<InternalAccountListPageAsync> =
+            list(
+              InternalAccountListParams.none(), requestOptions
+            )
 
-        /**
-         * Returns a raw HTTP response for `post /api/internal_accounts/{id}/request_closure`, but
-         * is otherwise the same as [InternalAccountServiceAsync.requestClosure].
-         */
+        /** Returns a raw HTTP response for `post /api/internal_accounts/{id}/request_closure`, but is otherwise the             same as [InternalAccountServiceAsync.requestClosure]. */
         @MustBeClosed
-        suspend fun requestClosure(
-            id: String,
-            params: InternalAccountRequestClosureParams =
-                InternalAccountRequestClosureParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InternalAccount> =
-            requestClosure(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun requestClosure(id: String, params: InternalAccountRequestClosureParams = InternalAccountRequestClosureParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InternalAccount> =
+            requestClosure(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see requestClosure */
         @MustBeClosed
-        suspend fun requestClosure(
-            params: InternalAccountRequestClosureParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InternalAccount>
+        suspend fun requestClosure(params: InternalAccountRequestClosureParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InternalAccount>
 
         /** @see requestClosure */
         @MustBeClosed
-        suspend fun requestClosure(
-            id: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InternalAccount> =
-            requestClosure(id, InternalAccountRequestClosureParams.none(), requestOptions)
+        suspend fun requestClosure(id: String, requestOptions: RequestOptions): HttpResponseFor<InternalAccount> =
+            requestClosure(
+              id,
+              InternalAccountRequestClosureParams.none(),
+              requestOptions,
+            )
 
-        /**
-         * Returns a raw HTTP response for `patch
-         * /api/internal_accounts/{internal_account_id}/account_capabilities/{id}`, but is otherwise
-         * the same as [InternalAccountServiceAsync.updateAccountCapability].
-         */
+        /** Returns a raw HTTP response for `patch /api/internal_accounts/{internal_account_id}/account_capabilities/{id}`, but is otherwise the             same as [InternalAccountServiceAsync.updateAccountCapability]. */
         @MustBeClosed
-        suspend fun updateAccountCapability(
-            id: String,
-            params: InternalAccountUpdateAccountCapabilityParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InternalAccountUpdateAccountCapabilityResponse> =
-            updateAccountCapability(params.toBuilder().id(id).build(), requestOptions)
+        suspend fun updateAccountCapability(id: String, params: InternalAccountUpdateAccountCapabilityParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InternalAccountUpdateAccountCapabilityResponse> =
+            updateAccountCapability(
+              params.toBuilder()
+                  .id(id)
+                  .build(), requestOptions
+            )
 
         /** @see updateAccountCapability */
         @MustBeClosed
-        suspend fun updateAccountCapability(
-            params: InternalAccountUpdateAccountCapabilityParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InternalAccountUpdateAccountCapabilityResponse>
+        suspend fun updateAccountCapability(params: InternalAccountUpdateAccountCapabilityParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InternalAccountUpdateAccountCapabilityResponse>
     }
 }

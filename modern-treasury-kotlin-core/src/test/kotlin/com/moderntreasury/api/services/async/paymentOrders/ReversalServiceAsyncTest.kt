@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerEntryCreateRequest
 import com.moderntreasury.api.models.LedgerTransactionCreateRequest
 import com.moderntreasury.api.models.PaymentOrderReversalCreateParams
+import com.moderntreasury.api.models.PaymentOrderReversalListParams
 import com.moderntreasury.api.models.PaymentOrderReversalRetrieveParams
 import com.moderntreasury.api.models.TransactionDirection
 import java.time.LocalDate
@@ -20,121 +21,91 @@ internal class ReversalServiceAsyncTest {
 
     @Test
     suspend fun create() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val reversalServiceAsync = client.paymentOrders().reversals()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val reversalServiceAsync = client.paymentOrders().reversals()
 
-        val reversal =
-            reversalServiceAsync.create(
-                PaymentOrderReversalCreateParams.builder()
-                    .paymentOrderId("payment_order_id")
-                    .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
-                    .ledgerTransaction(
-                        LedgerTransactionCreateRequest.builder()
-                            .addLedgerEntry(
-                                LedgerEntryCreateRequest.builder()
-                                    .direction(TransactionDirection.CREDIT)
-                                    .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                    .amount(0L)
-                                    .amountString("amount_string")
-                                    .availableBalanceAmount(
-                                        LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
-                                            .putAdditionalProperty("foo", JsonValue.from(0))
-                                            .build()
-                                    )
-                                    .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .lockVersion(0L)
-                                    .metadata(
-                                        LedgerEntryCreateRequest.Metadata.builder()
-                                            .putAdditionalProperty("key", JsonValue.from("value"))
-                                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                            .putAdditionalProperty(
-                                                "modern",
-                                                JsonValue.from("treasury"),
-                                            )
-                                            .build()
-                                    )
-                                    .pendingBalanceAmount(
-                                        LedgerEntryCreateRequest.PendingBalanceAmount.builder()
-                                            .putAdditionalProperty("foo", JsonValue.from(0))
-                                            .build()
-                                    )
-                                    .postedBalanceAmount(
-                                        LedgerEntryCreateRequest.PostedBalanceAmount.builder()
-                                            .putAdditionalProperty("foo", JsonValue.from(0))
-                                            .build()
-                                    )
-                                    .showResultingLedgerAccountBalances(true)
-                                    .build()
-                            )
-                            .description("description")
-                            .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .effectiveDate(LocalDate.parse("2019-12-27"))
-                            .externalId("external_id")
-                            .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .ledgerableType(
-                                LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT
-                            )
-                            .metadata(
-                                LedgerTransactionCreateRequest.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
-                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                                    .build()
-                            )
-                            .status(LedgerTransactionCreateRequest.Status.ARCHIVED)
-                            .build()
-                    )
-                    .metadata(
-                        PaymentOrderReversalCreateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                            .build()
-                    )
-                    .build()
-            )
+      val reversal = reversalServiceAsync.create(PaymentOrderReversalCreateParams.builder()
+          .paymentOrderId("payment_order_id")
+          .reason(PaymentOrderReversalCreateParams.Reason.DUPLICATE)
+          .ledgerTransaction(LedgerTransactionCreateRequest.builder()
+              .addLedgerEntry(LedgerEntryCreateRequest.builder()
+                  .direction(TransactionDirection.CREDIT)
+                  .ledgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                  .amount(0L)
+                  .amountString("amount_string")
+                  .availableBalanceAmount(LedgerEntryCreateRequest.AvailableBalanceAmount.builder()
+                      .putAdditionalProperty("foo", JsonValue.from(0))
+                      .build())
+                  .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                  .lockVersion(0L)
+                  .metadata(LedgerEntryCreateRequest.Metadata.builder()
+                      .putAdditionalProperty("key", JsonValue.from("value"))
+                      .putAdditionalProperty("foo", JsonValue.from("bar"))
+                      .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                      .build())
+                  .pendingBalanceAmount(LedgerEntryCreateRequest.PendingBalanceAmount.builder()
+                      .putAdditionalProperty("foo", JsonValue.from(0))
+                      .build())
+                  .postedBalanceAmount(LedgerEntryCreateRequest.PostedBalanceAmount.builder()
+                      .putAdditionalProperty("foo", JsonValue.from(0))
+                      .build())
+                  .showResultingLedgerAccountBalances(true)
+                  .build())
+              .description("description")
+              .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .effectiveDate(LocalDate.parse("2019-12-27"))
+              .externalId("external_id")
+              .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+              .ledgerableType(LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT)
+              .metadata(LedgerTransactionCreateRequest.Metadata.builder()
+                  .putAdditionalProperty("key", JsonValue.from("value"))
+                  .putAdditionalProperty("foo", JsonValue.from("bar"))
+                  .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                  .build())
+              .status(LedgerTransactionCreateRequest.Status.ARCHIVED)
+              .build())
+          .metadata(PaymentOrderReversalCreateParams.Metadata.builder()
+              .putAdditionalProperty("key", JsonValue.from("value"))
+              .putAdditionalProperty("foo", JsonValue.from("bar"))
+              .putAdditionalProperty("modern", JsonValue.from("treasury"))
+              .build())
+          .build())
 
-        reversal.validate()
+      reversal.validate()
     }
 
     @Test
     suspend fun retrieve() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val reversalServiceAsync = client.paymentOrders().reversals()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val reversalServiceAsync = client.paymentOrders().reversals()
 
-        val reversal =
-            reversalServiceAsync.retrieve(
-                PaymentOrderReversalRetrieveParams.builder()
-                    .paymentOrderId("payment_order_id")
-                    .reversalId("reversal_id")
-                    .build()
-            )
+      val reversal = reversalServiceAsync.retrieve(PaymentOrderReversalRetrieveParams.builder()
+          .paymentOrderId("payment_order_id")
+          .reversalId("reversal_id")
+          .build())
 
-        reversal.validate()
+      reversal.validate()
     }
 
     @Test
     suspend fun list() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val reversalServiceAsync = client.paymentOrders().reversals()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val reversalServiceAsync = client.paymentOrders().reversals()
 
-        val page = reversalServiceAsync.list("payment_order_id")
+      val page = reversalServiceAsync.list("payment_order_id")
 
-        page.items().forEach { it.validate() }
+      page.items().forEach { it.validate() }
     }
 }

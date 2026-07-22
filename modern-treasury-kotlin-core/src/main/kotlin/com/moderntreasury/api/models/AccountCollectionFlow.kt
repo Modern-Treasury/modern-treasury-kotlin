@@ -15,13 +15,12 @@ import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.AccountCollectionFlow
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-class AccountCollectionFlow
-@JsonCreator(mode = JsonCreator.Mode.DISABLED)
-private constructor(
+class AccountCollectionFlow @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
     private val counterpartyId: JsonField<String>,
     private val paymentTypes: JsonField<List<PaymentType>>,
     private val id: JsonField<String>,
@@ -34,129 +33,88 @@ private constructor(
     private val status: JsonField<Status>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
+
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("counterparty_id")
-        @ExcludeMissing
-        counterpartyId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("payment_types")
-        @ExcludeMissing
-        paymentTypes: JsonField<List<PaymentType>> = JsonMissing.of(),
+        @JsonProperty("counterparty_id") @ExcludeMissing counterpartyId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("payment_types") @ExcludeMissing paymentTypes: JsonField<List<PaymentType>> = JsonMissing.of(),
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("client_token")
-        @ExcludeMissing
-        clientToken: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("external_account_id")
-        @ExcludeMissing
-        externalAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("client_token") @ExcludeMissing clientToken: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at") @ExcludeMissing createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("external_account_id") @ExcludeMissing externalAccountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("live_mode") @ExcludeMissing liveMode: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("receiving_countries")
-        @ExcludeMissing
-        receivingCountries: JsonField<List<ReceivingCountry>> = JsonMissing.of(),
+        @JsonProperty("receiving_countries") @ExcludeMissing receivingCountries: JsonField<List<ReceivingCountry>> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("updated_at") @ExcludeMissing updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
     ) : this(
-        counterpartyId,
-        paymentTypes,
-        id,
-        clientToken,
-        createdAt,
-        externalAccountId,
-        liveMode,
-        object_,
-        receivingCountries,
-        status,
-        updatedAt,
-        mutableMapOf(),
+      counterpartyId,
+      paymentTypes,
+      id,
+      clientToken,
+      createdAt,
+      externalAccountId,
+      liveMode,
+      object_,
+      receivingCountries,
+      status,
+      updatedAt,
+      mutableMapOf(),
     )
 
     /**
-     * The ID of a counterparty. An external account created with this flow will be associated with
-     * this counterparty.
+     * The ID of a counterparty. An external account created with this flow will be associated with this counterparty.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun counterpartyId(): String = counterpartyId.getRequired("counterparty_id")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value). */
     fun paymentTypes(): List<PaymentType> = paymentTypes.getRequired("payment_types")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
     fun id(): String? = id.getNullable("id")
 
     /**
-     * The client token of the account collection flow. This token can be used to embed account
-     * collection in your client-side application.
+     * The client token of the account collection flow.  This token can be used to embed account collection in your client-side application.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun clientToken(): String? = clientToken.getNullable("client_token")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
     fun createdAt(): OffsetDateTime? = createdAt.getNullable("created_at")
 
     /**
      * If present, the ID of the external account created using this flow.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun externalAccountId(): String? = externalAccountId.getNullable("external_account_id")
 
     /**
-     * This field will be true if this object exists in the live environment or false if it exists
-     * in the test environment.
+     * This field will be true if this object exists in the live environment or false if it exists in the test environment.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun liveMode(): Boolean? = liveMode.getNullable("live_mode")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
     fun object_(): String? = object_.getNullable("object")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
-    fun receivingCountries(): List<ReceivingCountry>? =
-        receivingCountries.getNullable("receiving_countries")
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
+    fun receivingCountries(): List<ReceivingCountry>? = receivingCountries.getNullable("receiving_countries")
 
     /**
-     * The current status of the account collection flow. One of `pending`, `completed`, `expired`,
-     * or `cancelled`.
+     * The current status of the account collection flow. One of `pending`, `completed`, `expired`, or `cancelled`.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun status(): Status? = status.getNullable("status")
 
-    /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
+    /** @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value). */
     fun updatedAt(): OffsetDateTime? = updatedAt.getNullable("updated_at")
 
     /**
@@ -182,7 +140,9 @@ private constructor(
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id(): JsonField<String> = id
 
     /**
      * Returns the raw JSON value of [clientToken].
@@ -205,8 +165,7 @@ private constructor(
     /**
      * Returns the raw JSON value of [externalAccountId].
      *
-     * Unlike [externalAccountId], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [externalAccountId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("external_account_id")
     @ExcludeMissing
@@ -217,20 +176,23 @@ private constructor(
      *
      * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
+    @JsonProperty("live_mode")
+    @ExcludeMissing
+    fun _liveMode(): JsonField<Boolean> = liveMode
 
     /**
      * Returns the raw JSON value of [object_].
      *
      * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
+    @JsonProperty("object")
+    @ExcludeMissing
+    fun _object_(): JsonField<String> = object_
 
     /**
      * Returns the raw JSON value of [receivingCountries].
      *
-     * Unlike [receivingCountries], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [receivingCountries], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("receiving_countries")
     @ExcludeMissing
@@ -241,7 +203,9 @@ private constructor(
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status(): JsonField<Status> = status
 
     /**
      * Returns the raw JSON value of [updatedAt].
@@ -254,13 +218,12 @@ private constructor(
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
-        additionalProperties.put(key, value)
+      additionalProperties.put(key, value)
     }
 
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> =
-        Collections.unmodifiableMap(additionalProperties)
+    fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -270,6 +233,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [AccountCollectionFlow].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .counterpartyId()
          * .paymentTypes()
@@ -294,208 +258,219 @@ private constructor(
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(accountCollectionFlow: AccountCollectionFlow) = apply {
-            counterpartyId = accountCollectionFlow.counterpartyId
-            paymentTypes = accountCollectionFlow.paymentTypes.map { it.toMutableList() }
-            id = accountCollectionFlow.id
-            clientToken = accountCollectionFlow.clientToken
-            createdAt = accountCollectionFlow.createdAt
-            externalAccountId = accountCollectionFlow.externalAccountId
-            liveMode = accountCollectionFlow.liveMode
-            object_ = accountCollectionFlow.object_
-            receivingCountries = accountCollectionFlow.receivingCountries.map { it.toMutableList() }
-            status = accountCollectionFlow.status
-            updatedAt = accountCollectionFlow.updatedAt
-            additionalProperties = accountCollectionFlow.additionalProperties.toMutableMap()
-        }
+        internal fun from(accountCollectionFlow: AccountCollectionFlow) =
+            apply {
+                counterpartyId = accountCollectionFlow.counterpartyId
+                paymentTypes = accountCollectionFlow.paymentTypes.map { it.toMutableList() }
+                id = accountCollectionFlow.id
+                clientToken = accountCollectionFlow.clientToken
+                createdAt = accountCollectionFlow.createdAt
+                externalAccountId = accountCollectionFlow.externalAccountId
+                liveMode = accountCollectionFlow.liveMode
+                object_ = accountCollectionFlow.object_
+                receivingCountries = accountCollectionFlow.receivingCountries.map { it.toMutableList() }
+                status = accountCollectionFlow.status
+                updatedAt = accountCollectionFlow.updatedAt
+                additionalProperties = accountCollectionFlow.additionalProperties.toMutableMap()
+            }
 
-        /**
-         * The ID of a counterparty. An external account created with this flow will be associated
-         * with this counterparty.
-         */
+        /** The ID of a counterparty. An external account created with this flow will be associated with this counterparty. */
         fun counterpartyId(counterpartyId: String) = counterpartyId(JsonField.of(counterpartyId))
 
         /**
          * Sets [Builder.counterpartyId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.counterpartyId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.counterpartyId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
-            this.counterpartyId = counterpartyId
-        }
+        fun counterpartyId(counterpartyId: JsonField<String>) =
+            apply {
+                this.counterpartyId = counterpartyId
+            }
 
         fun paymentTypes(paymentTypes: List<PaymentType>) = paymentTypes(JsonField.of(paymentTypes))
 
         /**
          * Sets [Builder.paymentTypes] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.paymentTypes] with a well-typed `List<PaymentType>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.paymentTypes] with a well-typed `List<PaymentType>` value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun paymentTypes(paymentTypes: JsonField<List<PaymentType>>) = apply {
-            this.paymentTypes = paymentTypes.map { it.toMutableList() }
-        }
+        fun paymentTypes(paymentTypes: JsonField<List<PaymentType>>) =
+            apply {
+                this.paymentTypes = paymentTypes.map { it.toMutableList() }
+            }
 
         /**
          * Adds a single [PaymentType] to [paymentTypes].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addPaymentType(paymentType: PaymentType) = apply {
-            paymentTypes =
-                (paymentTypes ?: JsonField.of(mutableListOf())).also {
+        fun addPaymentType(paymentType: PaymentType) =
+            apply {
+                paymentTypes = (paymentTypes ?: JsonField.of(mutableListOf())).also {
                     checkKnown("paymentTypes", it).add(paymentType)
                 }
-        }
+            }
 
         fun id(id: String) = id(JsonField.of(id))
 
         /**
          * Sets [Builder.id] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.id] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) =
+            apply {
+                this.id = id
+            }
 
-        /**
-         * The client token of the account collection flow. This token can be used to embed account
-         * collection in your client-side application.
-         */
+        /** The client token of the account collection flow.  This token can be used to embed account collection in your client-side application. */
         fun clientToken(clientToken: String) = clientToken(JsonField.of(clientToken))
 
         /**
          * Sets [Builder.clientToken] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.clientToken] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.clientToken] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun clientToken(clientToken: JsonField<String>) = apply { this.clientToken = clientToken }
+        fun clientToken(clientToken: JsonField<String>) =
+            apply {
+                this.clientToken = clientToken
+            }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
          * Sets [Builder.createdAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.createdAt = createdAt
+            }
 
         /** If present, the ID of the external account created using this flow. */
-        fun externalAccountId(externalAccountId: String?) =
-            externalAccountId(JsonField.ofNullable(externalAccountId))
+        fun externalAccountId(externalAccountId: String?) = externalAccountId(JsonField.ofNullable(externalAccountId))
 
         /**
          * Sets [Builder.externalAccountId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.externalAccountId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.externalAccountId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun externalAccountId(externalAccountId: JsonField<String>) = apply {
-            this.externalAccountId = externalAccountId
-        }
+        fun externalAccountId(externalAccountId: JsonField<String>) =
+            apply {
+                this.externalAccountId = externalAccountId
+            }
 
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         */
+        /** This field will be true if this object exists in the live environment or false if it exists in the test environment. */
         fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
 
         /**
          * Sets [Builder.liveMode] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
+        fun liveMode(liveMode: JsonField<Boolean>) =
+            apply {
+                this.liveMode = liveMode
+            }
 
         fun object_(object_: String) = object_(JsonField.of(object_))
 
         /**
          * Sets [Builder.object_] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.object_] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.object_] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
+        fun object_(object_: JsonField<String>) =
+            apply {
+                this.object_ = object_
+            }
 
-        fun receivingCountries(receivingCountries: List<ReceivingCountry>) =
-            receivingCountries(JsonField.of(receivingCountries))
+        fun receivingCountries(receivingCountries: List<ReceivingCountry>) = receivingCountries(JsonField.of(receivingCountries))
 
         /**
          * Sets [Builder.receivingCountries] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.receivingCountries] with a well-typed
-         * `List<ReceivingCountry>` value instead. This method is primarily for setting the field to
-         * an undocumented or not yet supported value.
+         * You should usually call [Builder.receivingCountries] with a well-typed `List<ReceivingCountry>` value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun receivingCountries(receivingCountries: JsonField<List<ReceivingCountry>>) = apply {
-            this.receivingCountries = receivingCountries.map { it.toMutableList() }
-        }
+        fun receivingCountries(receivingCountries: JsonField<List<ReceivingCountry>>) =
+            apply {
+                this.receivingCountries = receivingCountries.map { it.toMutableList() }
+            }
 
         /**
          * Adds a single [ReceivingCountry] to [receivingCountries].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addReceivingCountry(receivingCountry: ReceivingCountry) = apply {
-            receivingCountries =
-                (receivingCountries ?: JsonField.of(mutableListOf())).also {
+        fun addReceivingCountry(receivingCountry: ReceivingCountry) =
+            apply {
+                receivingCountries = (receivingCountries ?: JsonField.of(mutableListOf())).also {
                     checkKnown("receivingCountries", it).add(receivingCountry)
                 }
-        }
+            }
 
-        /**
-         * The current status of the account collection flow. One of `pending`, `completed`,
-         * `expired`, or `cancelled`.
-         */
+        /** The current status of the account collection flow. One of `pending`, `completed`, `expired`, or `cancelled`. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /**
          * Sets [Builder.status] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) =
+            apply {
+                this.status = status
+            }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
          * Sets [Builder.updatedAt] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.updatedAt = updatedAt
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         /**
          * Returns an immutable instance of [AccountCollectionFlow].
@@ -503,6 +478,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .counterpartyId()
          * .paymentTypes()
@@ -512,18 +488,22 @@ private constructor(
          */
         fun build(): AccountCollectionFlow =
             AccountCollectionFlow(
-                checkRequired("counterpartyId", counterpartyId),
-                checkRequired("paymentTypes", paymentTypes).map { it.toImmutable() },
-                id,
-                clientToken,
-                createdAt,
-                externalAccountId,
-                liveMode,
-                object_,
-                (receivingCountries ?: JsonMissing.of()).map { it.toImmutable() },
-                status,
-                updatedAt,
-                additionalProperties.toMutableMap(),
+              checkRequired(
+                "counterpartyId", counterpartyId
+              ),
+              checkRequired(
+                "paymentTypes", paymentTypes
+              ).map { it.toImmutable() },
+              id,
+              clientToken,
+              createdAt,
+              externalAccountId,
+              liveMode,
+              object_,
+              (receivingCountries?: JsonMissing.of()).map { it.toImmutable() },
+              status,
+              updatedAt,
+              additionalProperties.toMutableMap(),
             )
     }
 
@@ -537,24 +517,25 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): AccountCollectionFlow = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): AccountCollectionFlow =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        counterpartyId()
-        paymentTypes().forEach { it.validate() }
-        id()
-        clientToken()
-        createdAt()
-        externalAccountId()
-        liveMode()
-        object_()
-        receivingCountries()?.forEach { it.validate() }
-        status()?.validate()
-        updatedAt()
-        validated = true
-    }
+            counterpartyId()
+            paymentTypes().forEach { it.validate() }
+            id()
+            clientToken()
+            createdAt()
+            externalAccountId()
+            liveMode()
+            object_()
+            receivingCountries()?.forEach { it.validate() }
+            status()?.validate()
+            updatedAt()
+            validated = true
+        }
 
     fun isValid(): Boolean =
         try {
@@ -569,32 +550,23 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    internal fun validity(): Int =
-        (if (counterpartyId.asKnown() == null) 0 else 1) +
-            (paymentTypes.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-            (if (id.asKnown() == null) 0 else 1) +
-            (if (clientToken.asKnown() == null) 0 else 1) +
-            (if (createdAt.asKnown() == null) 0 else 1) +
-            (if (externalAccountId.asKnown() == null) 0 else 1) +
-            (if (liveMode.asKnown() == null) 0 else 1) +
-            (if (object_.asKnown() == null) 0 else 1) +
-            (receivingCountries.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-            (status.asKnown()?.validity() ?: 0) +
-            (if (updatedAt.asKnown() == null) 0 else 1)
+    internal fun validity(): Int = (if (counterpartyId.asKnown() == null) 0 else 1) + (paymentTypes.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (if (id.asKnown() == null) 0 else 1) + (if (clientToken.asKnown() == null) 0 else 1) + (if (createdAt.asKnown() == null) 0 else 1) + (if (externalAccountId.asKnown() == null) 0 else 1) + (if (liveMode.asKnown() == null) 0 else 1) + (if (object_.asKnown() == null) 0 else 1) + (receivingCountries.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (status.asKnown()?.validity() ?: 0) + (if (updatedAt.asKnown() == null) 0 else 1)
 
     /** An account created with this flow will support payments of one of these types. */
-    class PaymentType @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
+    class PaymentType @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -615,26 +587,26 @@ private constructor(
          * An enum containing [PaymentType]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [PaymentType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
             ACH,
             WIRE,
-            /**
-             * An enum member indicating that [PaymentType] was instantiated with an unknown value.
-             */
+            /** An enum member indicating that [PaymentType] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -646,11 +618,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -662,34 +633,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): PaymentType = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): PaymentType =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -700,19 +670,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is PaymentType && value == other.value
+          return other is PaymentType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -721,18 +690,20 @@ private constructor(
     }
 
     /** An account created with this flow will support wires from the US to these countries. */
-    class ReceivingCountry @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
+    class ReceivingCountry @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -801,9 +772,11 @@ private constructor(
          * An enum containing [ReceivingCountry]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [ReceivingCountry] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -825,19 +798,16 @@ private constructor(
             PER,
             ESP,
             GBR,
-            /**
-             * An enum member indicating that [ReceivingCountry] was instantiated with an unknown
-             * value.
-             */
+            /** An enum member indicating that [ReceivingCountry] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -865,11 +835,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -897,34 +866,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): ReceivingCountry = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): ReceivingCountry =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -935,19 +903,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is ReceivingCountry && value == other.value
+          return other is ReceivingCountry && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -955,21 +922,21 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * The current status of the account collection flow. One of `pending`, `completed`, `expired`,
-     * or `cancelled`.
-     */
-    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    /** The current status of the account collection flow. One of `pending`, `completed`, `expired`, or `cancelled`. */
+    class Status @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -996,9 +963,11 @@ private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -1011,11 +980,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -1029,11 +998,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -1047,34 +1015,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Status = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Status =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -1085,19 +1052,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && value == other.value
+          return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1106,44 +1072,16 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is AccountCollectionFlow &&
-            counterpartyId == other.counterpartyId &&
-            paymentTypes == other.paymentTypes &&
-            id == other.id &&
-            clientToken == other.clientToken &&
-            createdAt == other.createdAt &&
-            externalAccountId == other.externalAccountId &&
-            liveMode == other.liveMode &&
-            object_ == other.object_ &&
-            receivingCountries == other.receivingCountries &&
-            status == other.status &&
-            updatedAt == other.updatedAt &&
-            additionalProperties == other.additionalProperties
+      return other is AccountCollectionFlow && counterpartyId == other.counterpartyId && paymentTypes == other.paymentTypes && id == other.id && clientToken == other.clientToken && createdAt == other.createdAt && externalAccountId == other.externalAccountId && liveMode == other.liveMode && object_ == other.object_ && receivingCountries == other.receivingCountries && status == other.status && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy {
-        Objects.hash(
-            counterpartyId,
-            paymentTypes,
-            id,
-            clientToken,
-            createdAt,
-            externalAccountId,
-            liveMode,
-            object_,
-            receivingCountries,
-            status,
-            updatedAt,
-            additionalProperties,
-        )
-    }
+    private val hashCode: Int by lazy { Objects.hash(counterpartyId, paymentTypes, id, clientToken, createdAt, externalAccountId, liveMode, object_, receivingCountries, status, updatedAt, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "AccountCollectionFlow{counterpartyId=$counterpartyId, paymentTypes=$paymentTypes, id=$id, clientToken=$clientToken, createdAt=$createdAt, externalAccountId=$externalAccountId, liveMode=$liveMode, object_=$object_, receivingCountries=$receivingCountries, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+    override fun toString() = "AccountCollectionFlow{counterpartyId=$counterpartyId, paymentTypes=$paymentTypes, id=$id, clientToken=$clientToken, createdAt=$createdAt, externalAccountId=$externalAccountId, liveMode=$liveMode, object_=$object_, receivingCountries=$receivingCountries, status=$status, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

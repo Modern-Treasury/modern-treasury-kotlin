@@ -133,9 +133,7 @@ private object InputStreamSerializer : BaseSerializer<InputStream>(InputStream::
     }
 }
 
-/**
- * A deserializer that can deserialize [OffsetDateTime] from datetimes, dates, and zoned datetimes.
- */
+/** A deserializer that can deserialize [OffsetDateTime] from datetimes, dates, and zoned datetimes. */
 private class LenientOffsetDateTimeDeserializer :
     StdDeserializer<OffsetDateTime>(OffsetDateTime::class.java) {
 
@@ -165,7 +163,9 @@ private class LenientOffsetDateTimeDeserializer :
                             .atZone(ZoneId.of("UTC"))
                             .toOffsetDateTime()
                     !temporal.isSupported(ChronoField.OFFSET_SECONDS) ->
-                        LocalDateTime.from(temporal).atZone(ZoneId.of("UTC")).toOffsetDateTime()
+                        LocalDateTime.from(temporal)
+                            .atZone(ZoneId.of("UTC"))
+                            .toOffsetDateTime()
                     else -> OffsetDateTime.from(temporal)
                 }
             } catch (e: DateTimeException) {

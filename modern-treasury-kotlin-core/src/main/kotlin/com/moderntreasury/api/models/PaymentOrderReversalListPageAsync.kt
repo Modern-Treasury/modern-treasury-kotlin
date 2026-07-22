@@ -6,16 +6,18 @@ import com.moderntreasury.api.core.AutoPagerAsync
 import com.moderntreasury.api.core.PageAsync
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.models.PaymentOrderReversalListParams
+import com.moderntreasury.api.models.Reversal
 import com.moderntreasury.api.services.async.paymentOrders.ReversalServiceAsync
 import java.util.Objects
 
 /** @see ReversalServiceAsync.list */
-class PaymentOrderReversalListPageAsync
-private constructor(
+class PaymentOrderReversalListPageAsync private constructor(
     private val service: ReversalServiceAsync,
     private val params: PaymentOrderReversalListParams,
     private val headers: Headers,
     private val items: List<Reversal>,
+
 ) : PageAsync<Reversal> {
 
     fun perPage(): String? = headers.values("X-Per-Page").firstOrNull()
@@ -25,13 +27,13 @@ private constructor(
     override fun hasNextPage(): Boolean = afterCursor() != null
 
     fun nextPageParams(): PaymentOrderReversalListParams {
-        val nextCursor =
-            afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
-        return params.toBuilder().afterCursor(nextCursor).build()
+      val nextCursor = afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
+      return params.toBuilder()
+          .afterCursor(nextCursor)
+          .build()
     }
 
-    override suspend fun nextPage(): PaymentOrderReversalListPageAsync =
-        service.list(nextPageParams())
+    override suspend fun nextPage(): PaymentOrderReversalListPageAsync = service.list(nextPageParams())
 
     fun autoPager(): AutoPagerAsync<Reversal> = AutoPagerAsync.from(this)
 
@@ -46,10 +48,10 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [PaymentOrderReversalListPageAsync].
+         * Returns a mutable builder for constructing an instance of [PaymentOrderReversalListPageAsync].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -76,15 +78,27 @@ private constructor(
                 items = paymentOrderReversalListPageAsync.items
             }
 
-        fun service(service: ReversalServiceAsync) = apply { this.service = service }
+        fun service(service: ReversalServiceAsync) =
+            apply {
+                this.service = service
+            }
 
         /** The parameters that were used to request this page. */
-        fun params(params: PaymentOrderReversalListParams) = apply { this.params = params }
+        fun params(params: PaymentOrderReversalListParams) =
+            apply {
+                this.params = params
+            }
 
-        fun headers(headers: Headers) = apply { this.headers = headers }
+        fun headers(headers: Headers) =
+            apply {
+                this.headers = headers
+            }
 
         /** The response that this page was parsed from. */
-        fun items(items: List<Reversal>) = apply { this.items = items }
+        fun items(items: List<Reversal>) =
+            apply {
+                this.items = items
+            }
 
         /**
          * Returns an immutable instance of [PaymentOrderReversalListPageAsync].
@@ -92,6 +106,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -103,27 +118,30 @@ private constructor(
          */
         fun build(): PaymentOrderReversalListPageAsync =
             PaymentOrderReversalListPageAsync(
-                checkRequired("service", service),
-                checkRequired("params", params),
-                checkRequired("headers", headers),
-                checkRequired("items", items),
+              checkRequired(
+                "service", service
+              ),
+              checkRequired(
+                "params", params
+              ),
+              checkRequired(
+                "headers", headers
+              ),
+              checkRequired(
+                "items", items
+              ),
             )
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is PaymentOrderReversalListPageAsync &&
-            service == other.service &&
-            params == other.params &&
-            headers == other.headers &&
-            items == other.items
+      return other is PaymentOrderReversalListPageAsync && service == other.service && params == other.params && headers == other.headers && items == other.items
     }
 
     override fun hashCode(): Int = Objects.hash(service, params, headers, items)
 
-    override fun toString() =
-        "PaymentOrderReversalListPageAsync{service=$service, params=$params, headers=$headers, items=$items}"
+    override fun toString() = "PaymentOrderReversalListPageAsync{service=$service, params=$params, headers=$headers, items=$items}"
 }

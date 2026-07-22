@@ -4,6 +4,9 @@ package com.moderntreasury.api.services.async
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
+import com.moderntreasury.api.models.PaymentReferenceListParams
+import com.moderntreasury.api.models.PaymentReferenceRetireveParams
+import com.moderntreasury.api.models.PaymentReferenceRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -12,46 +15,43 @@ internal class PaymentReferenceServiceAsyncTest {
 
     @Test
     suspend fun retrieve() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val paymentReferenceServiceAsync = client.paymentReferences()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val paymentReferenceServiceAsync = client.paymentReferences()
 
-        val paymentReference = paymentReferenceServiceAsync.retrieve("id")
+      val paymentReference = paymentReferenceServiceAsync.retrieve("id")
 
-        paymentReference.validate()
+      paymentReference.validate()
     }
 
     @Test
     suspend fun list() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val paymentReferenceServiceAsync = client.paymentReferences()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val paymentReferenceServiceAsync = client.paymentReferences()
 
-        val page = paymentReferenceServiceAsync.list()
+      val page = paymentReferenceServiceAsync.list()
 
-        page.items().forEach { it.validate() }
+      page.items().forEach { it.validate() }
     }
 
     @Test
     suspend fun retireve() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val paymentReferenceServiceAsync = client.paymentReferences()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val paymentReferenceServiceAsync = client.paymentReferences()
 
-        val paymentReference = paymentReferenceServiceAsync.retireve("id")
+      val paymentReference = paymentReferenceServiceAsync.retireve("id")
 
-        paymentReference.validate()
+      paymentReference.validate()
     }
 }

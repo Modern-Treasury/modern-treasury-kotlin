@@ -22,381 +22,335 @@ import com.moderntreasury.api.models.LedgerAccountCategoryAddLedgerAccountParams
 import com.moderntreasury.api.models.LedgerAccountCategoryAddNestedCategoryParams
 import com.moderntreasury.api.models.LedgerAccountCategoryCreateParams
 import com.moderntreasury.api.models.LedgerAccountCategoryDeleteParams
+import com.moderntreasury.api.models.LedgerAccountCategoryListPage
 import com.moderntreasury.api.models.LedgerAccountCategoryListPageAsync
 import com.moderntreasury.api.models.LedgerAccountCategoryListParams
 import com.moderntreasury.api.models.LedgerAccountCategoryRemoveLedgerAccountParams
 import com.moderntreasury.api.models.LedgerAccountCategoryRemoveNestedCategoryParams
 import com.moderntreasury.api.models.LedgerAccountCategoryRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountCategoryUpdateParams
+import com.moderntreasury.api.services.async.LedgerAccountCategoryServiceAsync
+import com.moderntreasury.api.services.async.LedgerAccountCategoryServiceAsyncImpl
 
-class LedgerAccountCategoryServiceAsyncImpl
-internal constructor(private val clientOptions: ClientOptions) : LedgerAccountCategoryServiceAsync {
+class LedgerAccountCategoryServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: LedgerAccountCategoryServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : LedgerAccountCategoryServiceAsync {
 
-    override fun withRawResponse(): LedgerAccountCategoryServiceAsync.WithRawResponse =
-        withRawResponse
+    private val withRawResponse: LedgerAccountCategoryServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
-    override fun withOptions(
-        modifier: (ClientOptions.Builder) -> Unit
-    ): LedgerAccountCategoryServiceAsync =
-        LedgerAccountCategoryServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withRawResponse(): LedgerAccountCategoryServiceAsync.WithRawResponse = withRawResponse
 
-    override suspend fun create(
-        params: LedgerAccountCategoryCreateParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccountCategory =
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerAccountCategoryServiceAsync = LedgerAccountCategoryServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
+    override suspend fun create(params: LedgerAccountCategoryCreateParams, requestOptions: RequestOptions): LedgerAccountCategory =
         // post /api/ledger_account_categories
         withRawResponse().create(params, requestOptions).parse()
 
-    override suspend fun retrieve(
-        params: LedgerAccountCategoryRetrieveParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccountCategory =
+    override suspend fun retrieve(params: LedgerAccountCategoryRetrieveParams, requestOptions: RequestOptions): LedgerAccountCategory =
         // get /api/ledger_account_categories/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override suspend fun update(
-        params: LedgerAccountCategoryUpdateParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccountCategory =
+    override suspend fun update(params: LedgerAccountCategoryUpdateParams, requestOptions: RequestOptions): LedgerAccountCategory =
         // patch /api/ledger_account_categories/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override suspend fun list(
-        params: LedgerAccountCategoryListParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccountCategoryListPageAsync =
+    override suspend fun list(params: LedgerAccountCategoryListParams, requestOptions: RequestOptions): LedgerAccountCategoryListPageAsync =
         // get /api/ledger_account_categories
         withRawResponse().list(params, requestOptions).parse()
 
-    override suspend fun delete(
-        params: LedgerAccountCategoryDeleteParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccountCategory =
+    override suspend fun delete(params: LedgerAccountCategoryDeleteParams, requestOptions: RequestOptions): LedgerAccountCategory =
         // delete /api/ledger_account_categories/{id}
         withRawResponse().delete(params, requestOptions).parse()
 
-    override suspend fun addLedgerAccount(
-        params: LedgerAccountCategoryAddLedgerAccountParams,
-        requestOptions: RequestOptions,
-    ) {
-        // put /api/ledger_account_categories/{id}/ledger_accounts/{ledger_account_id}
-        withRawResponse().addLedgerAccount(params, requestOptions)
+    override suspend fun addLedgerAccount(params: LedgerAccountCategoryAddLedgerAccountParams, requestOptions: RequestOptions) {
+      // put /api/ledger_account_categories/{id}/ledger_accounts/{ledger_account_id}
+      withRawResponse().addLedgerAccount(params, requestOptions)
     }
 
-    override suspend fun addNestedCategory(
-        params: LedgerAccountCategoryAddNestedCategoryParams,
-        requestOptions: RequestOptions,
-    ) {
-        // put /api/ledger_account_categories/{id}/ledger_account_categories/{sub_category_id}
-        withRawResponse().addNestedCategory(params, requestOptions)
+    override suspend fun addNestedCategory(params: LedgerAccountCategoryAddNestedCategoryParams, requestOptions: RequestOptions) {
+      // put /api/ledger_account_categories/{id}/ledger_account_categories/{sub_category_id}
+      withRawResponse().addNestedCategory(params, requestOptions)
     }
 
-    override suspend fun removeLedgerAccount(
-        params: LedgerAccountCategoryRemoveLedgerAccountParams,
-        requestOptions: RequestOptions,
-    ) {
-        // delete /api/ledger_account_categories/{id}/ledger_accounts/{ledger_account_id}
-        withRawResponse().removeLedgerAccount(params, requestOptions)
+    override suspend fun removeLedgerAccount(params: LedgerAccountCategoryRemoveLedgerAccountParams, requestOptions: RequestOptions) {
+      // delete /api/ledger_account_categories/{id}/ledger_accounts/{ledger_account_id}
+      withRawResponse().removeLedgerAccount(params, requestOptions)
     }
 
-    override suspend fun removeNestedCategory(
-        params: LedgerAccountCategoryRemoveNestedCategoryParams,
-        requestOptions: RequestOptions,
-    ) {
-        // delete /api/ledger_account_categories/{id}/ledger_account_categories/{sub_category_id}
-        withRawResponse().removeNestedCategory(params, requestOptions)
+    override suspend fun removeNestedCategory(params: LedgerAccountCategoryRemoveNestedCategoryParams, requestOptions: RequestOptions) {
+      // delete /api/ledger_account_categories/{id}/ledger_account_categories/{sub_category_id}
+      withRawResponse().removeNestedCategory(params, requestOptions)
     }
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        LedgerAccountCategoryServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : LedgerAccountCategoryServiceAsync.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): LedgerAccountCategoryServiceAsync.WithRawResponse =
-            LedgerAccountCategoryServiceAsyncImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerAccountCategoryServiceAsync.WithRawResponse = LedgerAccountCategoryServiceAsyncImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val createHandler: Handler<LedgerAccountCategory> = jsonHandler<LedgerAccountCategory>(clientOptions.jsonMapper)
+
+        override suspend fun create(params: LedgerAccountCategoryCreateParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccountCategory> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_account_categories")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepareAsync(
+              clientOptions, params
             )
-
-        private val createHandler: Handler<LedgerAccountCategory> =
-            jsonHandler<LedgerAccountCategory>(clientOptions.jsonMapper)
-
-        override suspend fun create(
-            params: LedgerAccountCategoryCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountCategory> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_account_categories")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<LedgerAccountCategory> =
-            jsonHandler<LedgerAccountCategory>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<LedgerAccountCategory> = jsonHandler<LedgerAccountCategory>(clientOptions.jsonMapper)
 
-        override suspend fun retrieve(
-            params: LedgerAccountCategoryRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountCategory> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_account_categories", params._pathParam(0))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override suspend fun retrieve(params: LedgerAccountCategoryRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccountCategory> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_account_categories", params._pathParam(0))
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val updateHandler: Handler<LedgerAccountCategory> =
-            jsonHandler<LedgerAccountCategory>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<LedgerAccountCategory> = jsonHandler<LedgerAccountCategory>(clientOptions.jsonMapper)
 
-        override suspend fun update(
-            params: LedgerAccountCategoryUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountCategory> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_account_categories", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override suspend fun update(params: LedgerAccountCategoryUpdateParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccountCategory> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PATCH)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_account_categories", params._pathParam(0))
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  updateHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<LedgerAccountCategory>> =
-            jsonHandler<List<LedgerAccountCategory>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<LedgerAccountCategory>> = jsonHandler<List<LedgerAccountCategory>>(clientOptions.jsonMapper)
 
-        override suspend fun list(
-            params: LedgerAccountCategoryListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountCategoryListPageAsync> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_account_categories")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        LedgerAccountCategoryListPageAsync.builder()
-                            .service(LedgerAccountCategoryServiceAsyncImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override suspend fun list(params: LedgerAccountCategoryListParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccountCategoryListPageAsync> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_account_categories")
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  LedgerAccountCategoryListPageAsync.builder()
+                      .service(LedgerAccountCategoryServiceAsyncImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
 
-        private val deleteHandler: Handler<LedgerAccountCategory> =
-            jsonHandler<LedgerAccountCategory>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<LedgerAccountCategory> = jsonHandler<LedgerAccountCategory>(clientOptions.jsonMapper)
 
-        override suspend fun delete(
-            params: LedgerAccountCategoryDeleteParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountCategory> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_account_categories", params._pathParam(0))
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { deleteHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override suspend fun delete(params: LedgerAccountCategoryDeleteParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccountCategory> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.DELETE)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_account_categories", params._pathParam(0))
+            .apply { params._body()?.let{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  deleteHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
         private val addLedgerAccountHandler: Handler<Void?> = emptyHandler()
 
-        override suspend fun addLedgerAccount(
-            params: LedgerAccountCategoryAddLedgerAccountParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("ledgerAccountId", params.ledgerAccountId())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PUT)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        "ledger_account_categories",
-                        params._pathParam(0),
-                        "ledger_accounts",
-                        params._pathParam(1),
-                    )
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { addLedgerAccountHandler.handle(it) }
-            }
+        override suspend fun addLedgerAccount(params: LedgerAccountCategoryAddLedgerAccountParams, requestOptions: RequestOptions): HttpResponse {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("ledgerAccountId", params.ledgerAccountId())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PUT)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_account_categories", params._pathParam(0), "ledger_accounts", params._pathParam(1))
+            .apply { params._body()?.let{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  addLedgerAccountHandler.handle(it)
+              }
+          }
         }
 
         private val addNestedCategoryHandler: Handler<Void?> = emptyHandler()
 
-        override suspend fun addNestedCategory(
-            params: LedgerAccountCategoryAddNestedCategoryParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("subCategoryId", params.subCategoryId())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PUT)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        "ledger_account_categories",
-                        params._pathParam(0),
-                        "ledger_account_categories",
-                        params._pathParam(1),
-                    )
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { addNestedCategoryHandler.handle(it) }
-            }
+        override suspend fun addNestedCategory(params: LedgerAccountCategoryAddNestedCategoryParams, requestOptions: RequestOptions): HttpResponse {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("subCategoryId", params.subCategoryId())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PUT)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_account_categories", params._pathParam(0), "ledger_account_categories", params._pathParam(1))
+            .apply { params._body()?.let{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  addNestedCategoryHandler.handle(it)
+              }
+          }
         }
 
         private val removeLedgerAccountHandler: Handler<Void?> = emptyHandler()
 
-        override suspend fun removeLedgerAccount(
-            params: LedgerAccountCategoryRemoveLedgerAccountParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("ledgerAccountId", params.ledgerAccountId())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        "ledger_account_categories",
-                        params._pathParam(0),
-                        "ledger_accounts",
-                        params._pathParam(1),
-                    )
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { removeLedgerAccountHandler.handle(it) }
-            }
+        override suspend fun removeLedgerAccount(params: LedgerAccountCategoryRemoveLedgerAccountParams, requestOptions: RequestOptions): HttpResponse {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("ledgerAccountId", params.ledgerAccountId())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.DELETE)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_account_categories", params._pathParam(0), "ledger_accounts", params._pathParam(1))
+            .apply { params._body()?.let{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  removeLedgerAccountHandler.handle(it)
+              }
+          }
         }
 
         private val removeNestedCategoryHandler: Handler<Void?> = emptyHandler()
 
-        override suspend fun removeNestedCategory(
-            params: LedgerAccountCategoryRemoveNestedCategoryParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("subCategoryId", params.subCategoryId())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "api",
-                        "ledger_account_categories",
-                        params._pathParam(0),
-                        "ledger_account_categories",
-                        params._pathParam(1),
-                    )
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { removeNestedCategoryHandler.handle(it) }
-            }
+        override suspend fun removeNestedCategory(params: LedgerAccountCategoryRemoveNestedCategoryParams, requestOptions: RequestOptions): HttpResponse {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("subCategoryId", params.subCategoryId())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.DELETE)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_account_categories", params._pathParam(0), "ledger_account_categories", params._pathParam(1))
+            .apply { params._body()?.let{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepareAsync(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  removeNestedCategoryHandler.handle(it)
+              }
+          }
         }
     }
 }

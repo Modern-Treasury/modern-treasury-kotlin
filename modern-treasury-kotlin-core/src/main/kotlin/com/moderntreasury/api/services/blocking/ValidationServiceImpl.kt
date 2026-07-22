@@ -16,64 +16,59 @@ import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepare
 import com.moderntreasury.api.models.RoutingNumberLookupRequest
 import com.moderntreasury.api.models.ValidationValidateRoutingNumberParams
+import com.moderntreasury.api.services.blocking.ValidationService
+import com.moderntreasury.api.services.blocking.ValidationServiceImpl
 
-class ValidationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    ValidationService {
+class ValidationServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: ValidationService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : ValidationService {
+
+    private val withRawResponse: ValidationService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): ValidationService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ValidationService =
-        ValidationServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ValidationService = ValidationServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun validateRoutingNumber(
-        params: ValidationValidateRoutingNumberParams,
-        requestOptions: RequestOptions,
-    ): RoutingNumberLookupRequest =
+    override fun validateRoutingNumber(params: ValidationValidateRoutingNumberParams, requestOptions: RequestOptions): RoutingNumberLookupRequest =
         // get /api/validations/routing_numbers
         withRawResponse().validateRoutingNumber(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        ValidationService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : ValidationService.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): ValidationService.WithRawResponse =
-            ValidationServiceImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ValidationService.WithRawResponse = ValidationServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val validateRoutingNumberHandler: Handler<RoutingNumberLookupRequest> = jsonHandler<RoutingNumberLookupRequest>(clientOptions.jsonMapper)
+
+        override fun validateRoutingNumber(params: ValidationValidateRoutingNumberParams, requestOptions: RequestOptions): HttpResponseFor<RoutingNumberLookupRequest> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "validations", "routing_numbers")
+            .build()
+            .prepare(
+              clientOptions, params
             )
-
-        private val validateRoutingNumberHandler: Handler<RoutingNumberLookupRequest> =
-            jsonHandler<RoutingNumberLookupRequest>(clientOptions.jsonMapper)
-
-        override fun validateRoutingNumber(
-            params: ValidationValidateRoutingNumberParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<RoutingNumberLookupRequest> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "validations", "routing_numbers")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { validateRoutingNumberHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  validateRoutingNumberHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

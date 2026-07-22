@@ -6,16 +6,18 @@ import com.moderntreasury.api.core.AutoPager
 import com.moderntreasury.api.core.Page
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.models.IncomingPaymentDetail
+import com.moderntreasury.api.models.IncomingPaymentDetailListParams
 import com.moderntreasury.api.services.blocking.IncomingPaymentDetailService
 import java.util.Objects
 
 /** @see IncomingPaymentDetailService.list */
-class IncomingPaymentDetailListPage
-private constructor(
+class IncomingPaymentDetailListPage private constructor(
     private val service: IncomingPaymentDetailService,
     private val params: IncomingPaymentDetailListParams,
     private val headers: Headers,
     private val items: List<IncomingPaymentDetail>,
+
 ) : Page<IncomingPaymentDetail> {
 
     fun perPage(): String? = headers.values("X-Per-Page").firstOrNull()
@@ -25,9 +27,10 @@ private constructor(
     override fun hasNextPage(): Boolean = afterCursor() != null
 
     fun nextPageParams(): IncomingPaymentDetailListParams {
-        val nextCursor =
-            afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
-        return params.toBuilder().afterCursor(nextCursor).build()
+      val nextCursor = afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
+      return params.toBuilder()
+          .afterCursor(nextCursor)
+          .build()
     }
 
     override fun nextPage(): IncomingPaymentDetailListPage = service.list(nextPageParams())
@@ -45,10 +48,10 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [IncomingPaymentDetailListPage].
+         * Returns a mutable builder for constructing an instance of [IncomingPaymentDetailListPage].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -67,22 +70,35 @@ private constructor(
         private var headers: Headers? = null
         private var items: List<IncomingPaymentDetail>? = null
 
-        internal fun from(incomingPaymentDetailListPage: IncomingPaymentDetailListPage) = apply {
-            service = incomingPaymentDetailListPage.service
-            params = incomingPaymentDetailListPage.params
-            headers = incomingPaymentDetailListPage.headers
-            items = incomingPaymentDetailListPage.items
-        }
+        internal fun from(incomingPaymentDetailListPage: IncomingPaymentDetailListPage) =
+            apply {
+                service = incomingPaymentDetailListPage.service
+                params = incomingPaymentDetailListPage.params
+                headers = incomingPaymentDetailListPage.headers
+                items = incomingPaymentDetailListPage.items
+            }
 
-        fun service(service: IncomingPaymentDetailService) = apply { this.service = service }
+        fun service(service: IncomingPaymentDetailService) =
+            apply {
+                this.service = service
+            }
 
         /** The parameters that were used to request this page. */
-        fun params(params: IncomingPaymentDetailListParams) = apply { this.params = params }
+        fun params(params: IncomingPaymentDetailListParams) =
+            apply {
+                this.params = params
+            }
 
-        fun headers(headers: Headers) = apply { this.headers = headers }
+        fun headers(headers: Headers) =
+            apply {
+                this.headers = headers
+            }
 
         /** The response that this page was parsed from. */
-        fun items(items: List<IncomingPaymentDetail>) = apply { this.items = items }
+        fun items(items: List<IncomingPaymentDetail>) =
+            apply {
+                this.items = items
+            }
 
         /**
          * Returns an immutable instance of [IncomingPaymentDetailListPage].
@@ -90,6 +106,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -101,27 +118,30 @@ private constructor(
          */
         fun build(): IncomingPaymentDetailListPage =
             IncomingPaymentDetailListPage(
-                checkRequired("service", service),
-                checkRequired("params", params),
-                checkRequired("headers", headers),
-                checkRequired("items", items),
+              checkRequired(
+                "service", service
+              ),
+              checkRequired(
+                "params", params
+              ),
+              checkRequired(
+                "headers", headers
+              ),
+              checkRequired(
+                "items", items
+              ),
             )
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is IncomingPaymentDetailListPage &&
-            service == other.service &&
-            params == other.params &&
-            headers == other.headers &&
-            items == other.items
+      return other is IncomingPaymentDetailListPage && service == other.service && params == other.params && headers == other.headers && items == other.items
     }
 
     override fun hashCode(): Int = Objects.hash(service, params, headers, items)
 
-    override fun toString() =
-        "IncomingPaymentDetailListPage{service=$service, params=$params, headers=$headers, items=$items}"
+    override fun toString() = "IncomingPaymentDetailListPage{service=$service, params=$params, headers=$headers, items=$items}"
 }

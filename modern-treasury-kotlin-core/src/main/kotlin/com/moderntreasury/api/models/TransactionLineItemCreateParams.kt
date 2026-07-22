@@ -19,35 +19,31 @@ import java.util.Collections
 import java.util.Objects
 
 /** create transaction line items */
-class TransactionLineItemCreateParams
-private constructor(
+class TransactionLineItemCreateParams private constructor(
     private val body: TransactionLineItemCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+
 ) : Params {
 
     /**
-     * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
-     * specified currency's smallest unit (taken from parent Transaction).
+     * If a matching object exists in Modern Treasury, `amount` will be populated. Value in specified currency's smallest unit (taken from parent Transaction).
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amount(): Long = body.amount()
 
     /**
      * The ID of the reconciled Expected Payment, otherwise `null`.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun expectedPaymentId(): String = body.expectedPaymentId()
 
     /**
      * The ID of the parent transaction.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun transactionId(): String = body.transactionId()
 
@@ -61,8 +57,7 @@ private constructor(
     /**
      * Returns the raw JSON value of [expectedPaymentId].
      *
-     * Unlike [expectedPaymentId], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [expectedPaymentId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _expectedPaymentId(): JsonField<String> = body._expectedPaymentId()
 
@@ -86,10 +81,10 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [TransactionLineItemCreateParams].
+         * Returns a mutable builder for constructing an instance of [TransactionLineItemCreateParams].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .amount()
          * .expectedPaymentId()
@@ -102,8 +97,7 @@ private constructor(
     /** A builder for [TransactionLineItemCreateParams]. */
     class Builder internal constructor() {
 
-        private var body: TransactionLineItemCreateRequest.Builder =
-            TransactionLineItemCreateRequest.builder()
+        private var body: TransactionLineItemCreateRequest.Builder = TransactionLineItemCreateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -111,181 +105,224 @@ private constructor(
             apply {
                 body = transactionLineItemCreateParams.body.toBuilder()
                 additionalHeaders = transactionLineItemCreateParams.additionalHeaders.toBuilder()
-                additionalQueryParams =
-                    transactionLineItemCreateParams.additionalQueryParams.toBuilder()
+                additionalQueryParams = transactionLineItemCreateParams.additionalQueryParams.toBuilder()
             }
 
         /**
          * Sets the entire request body.
          *
-         * This is generally only useful if you are already constructing the body separately.
-         * Otherwise, it's more convenient to use the top-level setters instead:
+         * This is generally only useful if you are already constructing the body separately. Otherwise,
+         * it's more convenient to use the top-level setters instead:
          * - [amount]
          * - [expectedPaymentId]
          * - [transactionId]
          */
-        fun body(body: TransactionLineItemCreateRequest) = apply { this.body = body.toBuilder() }
+        fun body(body: TransactionLineItemCreateRequest) =
+            apply {
+                this.body = body.toBuilder()
+            }
 
-        /**
-         * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
-         * specified currency's smallest unit (taken from parent Transaction).
-         */
-        fun amount(amount: Long) = apply { body.amount(amount) }
+        /** If a matching object exists in Modern Treasury, `amount` will be populated. Value in specified currency's smallest unit (taken from parent Transaction). */
+        fun amount(amount: Long) =
+            apply {
+                body.amount(amount)
+            }
 
         /**
          * Sets [Builder.amount] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+        fun amount(amount: JsonField<Long>) =
+            apply {
+                body.amount(amount)
+            }
 
         /** The ID of the reconciled Expected Payment, otherwise `null`. */
-        fun expectedPaymentId(expectedPaymentId: String) = apply {
-            body.expectedPaymentId(expectedPaymentId)
-        }
+        fun expectedPaymentId(expectedPaymentId: String) =
+            apply {
+                body.expectedPaymentId(expectedPaymentId)
+            }
 
         /**
          * Sets [Builder.expectedPaymentId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.expectedPaymentId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.expectedPaymentId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun expectedPaymentId(expectedPaymentId: JsonField<String>) = apply {
-            body.expectedPaymentId(expectedPaymentId)
-        }
+        fun expectedPaymentId(expectedPaymentId: JsonField<String>) =
+            apply {
+                body.expectedPaymentId(expectedPaymentId)
+            }
 
         /** The ID of the parent transaction. */
-        fun transactionId(transactionId: String) = apply { body.transactionId(transactionId) }
+        fun transactionId(transactionId: String) =
+            apply {
+                body.transactionId(transactionId)
+            }
 
         /**
          * Sets [Builder.transactionId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.transactionId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.transactionId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun transactionId(transactionId: JsonField<String>) = apply {
-            body.transactionId(transactionId)
-        }
+        fun transactionId(transactionId: JsonField<String>) =
+            apply {
+                body.transactionId(transactionId)
+            }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.additionalProperties(additionalBodyProperties)
+            }
 
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) =
+            apply {
+                body.putAdditionalProperty(
+                  key, value
+                )
+            }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
                 body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+        fun removeAdditionalBodyProperty(key: String) =
+            apply {
+                body.removeAdditionalProperty(key)
+            }
 
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) =
+            apply {
+                body.removeAllAdditionalProperties(keys)
+            }
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun putAdditionalHeader(name: String, value: String) = apply {
-            additionalHeaders.put(name, value)
-        }
+        fun putAdditionalHeader(name: String, value: String) =
+            apply {
+                additionalHeaders.put(name, value)
+            }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.put(name, values)
-        }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.put(name, values)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun replaceAdditionalHeaders(name: String, value: String) = apply {
-            additionalHeaders.replace(name, value)
-        }
+        fun replaceAdditionalHeaders(name: String, value: String) =
+            apply {
+                additionalHeaders.replace(name, value)
+            }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.replace(name, values)
-        }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.replace(name, values)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
+        fun removeAdditionalHeaders(name: String) =
+            apply {
+                additionalHeaders.remove(name)
+            }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
-            additionalHeaders.removeAll(names)
-        }
+        fun removeAllAdditionalHeaders(names: Set<String>) =
+            apply {
+                additionalHeaders.removeAll(names)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun putAdditionalQueryParam(key: String, value: String) = apply {
-            additionalQueryParams.put(key, value)
-        }
+        fun putAdditionalQueryParam(key: String, value: String) =
+            apply {
+                additionalQueryParams.put(key, value)
+            }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.put(key, values)
-        }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.put(key, values)
+            }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.putAll(additionalQueryParams)
-        }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.putAll(additionalQueryParams)
+            }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
-            additionalQueryParams.replace(key, value)
-        }
+        fun replaceAdditionalQueryParams(key: String, value: String) =
+            apply {
+                additionalQueryParams.replace(key, value)
+            }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.replace(key, values)
-        }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.replace(key, values)
+            }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.replaceAll(additionalQueryParams)
-        }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
+        fun removeAdditionalQueryParams(key: String) =
+            apply {
+                additionalQueryParams.remove(key)
+            }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
-            additionalQueryParams.removeAll(keys)
-        }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) =
+            apply {
+                additionalQueryParams.removeAll(keys)
+            }
 
         /**
          * Returns an immutable instance of [TransactionLineItemCreateParams].
@@ -293,6 +330,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .amount()
          * .expectedPaymentId()
@@ -303,9 +341,9 @@ private constructor(
          */
         fun build(): TransactionLineItemCreateParams =
             TransactionLineItemCreateParams(
-                body.build(),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
+              body.build(),
+              additionalHeaders.build(),
+              additionalQueryParams.build(),
             )
     }
 
@@ -315,48 +353,44 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    class TransactionLineItemCreateRequest
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
+    class TransactionLineItemCreateRequest @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
         private val amount: JsonField<Long>,
         private val expectedPaymentId: JsonField<String>,
         private val transactionId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
+
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("expected_payment_id")
-            @ExcludeMissing
-            expectedPaymentId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("transaction_id")
-            @ExcludeMissing
-            transactionId: JsonField<String> = JsonMissing.of(),
-        ) : this(amount, expectedPaymentId, transactionId, mutableMapOf())
+            @JsonProperty("expected_payment_id") @ExcludeMissing expectedPaymentId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("transaction_id") @ExcludeMissing transactionId: JsonField<String> = JsonMissing.of()
+        ) : this(
+          amount,
+          expectedPaymentId,
+          transactionId,
+          mutableMapOf(),
+        )
 
         /**
-         * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
-         * specified currency's smallest unit (taken from parent Transaction).
+         * If a matching object exists in Modern Treasury, `amount` will be populated. Value in specified currency's smallest unit (taken from parent Transaction).
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun amount(): Long = amount.getRequired("amount")
 
         /**
          * The ID of the reconciled Expected Payment, otherwise `null`.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun expectedPaymentId(): String = expectedPaymentId.getRequired("expected_payment_id")
 
         /**
          * The ID of the parent transaction.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
@@ -365,13 +399,14 @@ private constructor(
          *
          * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+        @JsonProperty("amount")
+        @ExcludeMissing
+        fun _amount(): JsonField<Long> = amount
 
         /**
          * Returns the raw JSON value of [expectedPaymentId].
          *
-         * Unlike [expectedPaymentId], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [expectedPaymentId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("expected_payment_id")
         @ExcludeMissing
@@ -380,8 +415,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [transactionId].
          *
-         * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("transaction_id")
         @ExcludeMissing
@@ -389,23 +423,22 @@ private constructor(
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
+          additionalProperties.put(key, value)
         }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
+        fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of
-             * [TransactionLineItemCreateRequest].
+             * Returns a mutable builder for constructing an instance of [TransactionLineItemCreateRequest].
              *
              * The following fields are required:
+             *
              * ```kotlin
              * .amount()
              * .expectedPaymentId()
@@ -428,39 +461,36 @@ private constructor(
                     amount = transactionLineItemCreateRequest.amount
                     expectedPaymentId = transactionLineItemCreateRequest.expectedPaymentId
                     transactionId = transactionLineItemCreateRequest.transactionId
-                    additionalProperties =
-                        transactionLineItemCreateRequest.additionalProperties.toMutableMap()
+                    additionalProperties = transactionLineItemCreateRequest.additionalProperties.toMutableMap()
                 }
 
-            /**
-             * If a matching object exists in Modern Treasury, `amount` will be populated. Value in
-             * specified currency's smallest unit (taken from parent Transaction).
-             */
+            /** If a matching object exists in Modern Treasury, `amount` will be populated. Value in specified currency's smallest unit (taken from parent Transaction). */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
              * Sets [Builder.amount] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+            fun amount(amount: JsonField<Long>) =
+                apply {
+                    this.amount = amount
+                }
 
             /** The ID of the reconciled Expected Payment, otherwise `null`. */
-            fun expectedPaymentId(expectedPaymentId: String) =
-                expectedPaymentId(JsonField.of(expectedPaymentId))
+            fun expectedPaymentId(expectedPaymentId: String) = expectedPaymentId(JsonField.of(expectedPaymentId))
 
             /**
              * Sets [Builder.expectedPaymentId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.expectedPaymentId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.expectedPaymentId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun expectedPaymentId(expectedPaymentId: JsonField<String>) = apply {
-                this.expectedPaymentId = expectedPaymentId
-            }
+            fun expectedPaymentId(expectedPaymentId: JsonField<String>) =
+                apply {
+                    this.expectedPaymentId = expectedPaymentId
+                }
 
             /** The ID of the parent transaction. */
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
@@ -468,32 +498,39 @@ private constructor(
             /**
              * Sets [Builder.transactionId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.transactionId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.transactionId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun transactionId(transactionId: JsonField<String>) = apply {
-                this.transactionId = transactionId
-            }
+            fun transactionId(transactionId: JsonField<String>) =
+                apply {
+                    this.transactionId = transactionId
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperty(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
             /**
              * Returns an immutable instance of [TransactionLineItemCreateRequest].
@@ -501,6 +538,7 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              *
              * The following fields are required:
+             *
              * ```kotlin
              * .amount()
              * .expectedPaymentId()
@@ -511,34 +549,40 @@ private constructor(
              */
             fun build(): TransactionLineItemCreateRequest =
                 TransactionLineItemCreateRequest(
-                    checkRequired("amount", amount),
-                    checkRequired("expectedPaymentId", expectedPaymentId),
-                    checkRequired("transactionId", transactionId),
-                    additionalProperties.toMutableMap(),
+                  checkRequired(
+                    "amount", amount
+                  ),
+                  checkRequired(
+                    "expectedPaymentId", expectedPaymentId
+                  ),
+                  checkRequired(
+                    "transactionId", transactionId
+                  ),
+                  additionalProperties.toMutableMap(),
                 )
         }
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): TransactionLineItemCreateRequest = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): TransactionLineItemCreateRequest =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            amount()
-            expectedPaymentId()
-            transactionId()
-            validated = true
-        }
+                amount()
+                expectedPaymentId()
+                transactionId()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -549,51 +593,36 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            (if (amount.asKnown() == null) 0 else 1) +
-                (if (expectedPaymentId.asKnown() == null) 0 else 1) +
-                (if (transactionId.asKnown() == null) 0 else 1)
+        internal fun validity(): Int = (if (amount.asKnown() == null) 0 else 1) + (if (expectedPaymentId.asKnown() == null) 0 else 1) + (if (transactionId.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is TransactionLineItemCreateRequest &&
-                amount == other.amount &&
-                expectedPaymentId == other.expectedPaymentId &&
-                transactionId == other.transactionId &&
-                additionalProperties == other.additionalProperties
+          return other is TransactionLineItemCreateRequest && amount == other.amount && expectedPaymentId == other.expectedPaymentId && transactionId == other.transactionId && additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(amount, expectedPaymentId, transactionId, additionalProperties)
-        }
+        private val hashCode: Int by lazy { Objects.hash(amount, expectedPaymentId, transactionId, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "TransactionLineItemCreateRequest{amount=$amount, expectedPaymentId=$expectedPaymentId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+        override fun toString() = "TransactionLineItemCreateRequest{amount=$amount, expectedPaymentId=$expectedPaymentId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is TransactionLineItemCreateParams &&
-            body == other.body &&
-            additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams
+      return other is TransactionLineItemCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
-    override fun toString() =
-        "TransactionLineItemCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() = "TransactionLineItemCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

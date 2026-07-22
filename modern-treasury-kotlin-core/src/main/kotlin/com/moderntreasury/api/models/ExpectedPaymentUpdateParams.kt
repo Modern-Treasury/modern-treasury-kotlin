@@ -17,144 +17,127 @@ import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
 import com.moderntreasury.api.errors.ModernTreasuryInvalidDataException
+import com.moderntreasury.api.models.Currency
+import com.moderntreasury.api.models.ExpectedPaymentType
+import com.moderntreasury.api.models.ExpectedPaymentUpdateParams
+import com.moderntreasury.api.models.ReconciliationRule
 import java.time.LocalDate
 import java.util.Collections
 import java.util.Objects
 
 /** update expected payment */
-class ExpectedPaymentUpdateParams
-private constructor(
+class ExpectedPaymentUpdateParams private constructor(
     private val id: String?,
     private val body: ExpectedPaymentUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+
 ) : Params {
 
     fun id(): String? = id
 
     /**
-     * The lowest amount this expected payment may be equal to. Value in specified currency's
-     * smallest unit. e.g. $10 would be represented as 1000.
+     * The lowest amount this expected payment may be equal to. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun amountLowerBound(): Long? = body.amountLowerBound()
 
     /**
-     * The amount reconciled for this expected payment. Value in specified currency's smallest unit.
-     * e.g. $10 would be represented as 1000.
+     * The amount reconciled for this expected payment. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun amountReconciled(): Long? = body.amountReconciled()
 
     /**
      * One of credit or debit. Indicates whether amount_reconciled is a credit or debit amount.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun amountReconciledDirection(): AmountReconciledDirection? = body.amountReconciledDirection()
 
     /**
-     * The amount that remains unreconciled for this expected payment. Value in specified currency's
-     * smallest unit. e.g. $10 would be represented as 1000.
+     * The amount that remains unreconciled for this expected payment. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun amountUnreconciled(): Long? = body.amountUnreconciled()
 
     /**
      * One of credit or debit. Indicates whether amount_unreconciled is a credit or debit amount.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
-    fun amountUnreconciledDirection(): AmountUnreconciledDirection? =
-        body.amountUnreconciledDirection()
+    fun amountUnreconciledDirection(): AmountUnreconciledDirection? = body.amountUnreconciledDirection()
 
     /**
-     * The highest amount this expected payment may be equal to. Value in specified currency's
-     * smallest unit. e.g. $10 would be represented as 1000.
+     * The highest amount this expected payment may be equal to. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun amountUpperBound(): Long? = body.amountUpperBound()
 
     /**
      * The ID of the counterparty you expect for this payment.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun counterpartyId(): String? = body.counterpartyId()
 
     /**
      * Must conform to ISO 4217. Defaults to the currency of the internal account.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun currency(): Currency? = body.currency()
 
     /**
      * The earliest date the payment may come in. Format: yyyy-mm-dd
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun dateLowerBound(): LocalDate? = body.dateLowerBound()
 
     /**
      * The latest date the payment may come in. Format: yyyy-mm-dd
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun dateUpperBound(): LocalDate? = body.dateUpperBound()
 
     /**
      * An optional description for internal use.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun description(): String? = body.description()
 
     /**
-     * One of credit or debit. When you are receiving money, use credit. When you are being charged,
-     * use debit.
+     * One of credit or debit. When you are receiving money, use credit. When you are being charged, use debit.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun direction(): Direction? = body.direction()
 
     /**
      * An optional user-defined 180 character unique identifier.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun externalId(): String? = body.externalId()
 
     /**
      * The ID of the Internal Account for the expected payment.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun internalAccountId(): String? = body.internalAccountId()
 
     /**
      * Additional data represented as key-value pairs. Both the key and value must be strings.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun metadata(): Metadata? = body.metadata()
 
@@ -181,96 +164,77 @@ private constructor(
     /**
      * An array of reconciliation rule variables for this payment.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
-    fun reconciliationRuleVariables(): List<ReconciliationRule>? =
-        body.reconciliationRuleVariables()
+    fun reconciliationRuleVariables(): List<ReconciliationRule>? = body.reconciliationRuleVariables()
 
     /**
-     * For `ach`, this field will be passed through on an addenda record. For `wire` payments the
-     * field will be passed through as the "Originator to Beneficiary Information", also known as
-     * OBI or Fedwire tag 6000.
+     * For `ach`, this field will be passed through on an addenda record. For `wire` payments the field will be passed through as the "Originator to Beneficiary Information", also known as OBI or Fedwire tag 6000.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun remittanceInformation(): String? = body.remittanceInformation()
 
     /**
-     * The statement description you expect to see on the transaction. For ACH payments, this will
-     * be the full line item passed from the bank. For wire payments, this will be the OBI field on
-     * the wire. For check payments, this will be the memo field.
+     * The statement description you expect to see on the transaction. For ACH payments, this will be the full line item passed from the bank. For wire payments, this will be the OBI field on the wire. For check payments, this will be the memo field.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun statementDescriptor(): String? = body.statementDescriptor()
 
     /**
      * The Expected Payment's status can be updated from partially_reconciled to reconciled.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun status(): Status? = body.status()
 
     /**
-     * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa, signet,
-     * wire.
+     * One of: ach, au_becs, bacs, book, check, eft, rtp, sepa, wire.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
      */
     fun type(): ExpectedPaymentType? = body.type()
 
     /**
      * Returns the raw JSON value of [amountLowerBound].
      *
-     * Unlike [amountLowerBound], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [amountLowerBound], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _amountLowerBound(): JsonField<Long> = body._amountLowerBound()
 
     /**
      * Returns the raw JSON value of [amountReconciled].
      *
-     * Unlike [amountReconciled], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [amountReconciled], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _amountReconciled(): JsonField<Long> = body._amountReconciled()
 
     /**
      * Returns the raw JSON value of [amountReconciledDirection].
      *
-     * Unlike [amountReconciledDirection], this method doesn't throw if the JSON field has an
-     * unexpected type.
+     * Unlike [amountReconciledDirection], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _amountReconciledDirection(): JsonField<AmountReconciledDirection> =
-        body._amountReconciledDirection()
+    fun _amountReconciledDirection(): JsonField<AmountReconciledDirection> = body._amountReconciledDirection()
 
     /**
      * Returns the raw JSON value of [amountUnreconciled].
      *
-     * Unlike [amountUnreconciled], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [amountUnreconciled], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _amountUnreconciled(): JsonField<Long> = body._amountUnreconciled()
 
     /**
      * Returns the raw JSON value of [amountUnreconciledDirection].
      *
-     * Unlike [amountUnreconciledDirection], this method doesn't throw if the JSON field has an
-     * unexpected type.
+     * Unlike [amountUnreconciledDirection], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _amountUnreconciledDirection(): JsonField<AmountUnreconciledDirection> =
-        body._amountUnreconciledDirection()
+    fun _amountUnreconciledDirection(): JsonField<AmountUnreconciledDirection> = body._amountUnreconciledDirection()
 
     /**
      * Returns the raw JSON value of [amountUpperBound].
      *
-     * Unlike [amountUpperBound], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [amountUpperBound], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _amountUpperBound(): JsonField<Long> = body._amountUpperBound()
 
@@ -326,8 +290,7 @@ private constructor(
     /**
      * Returns the raw JSON value of [internalAccountId].
      *
-     * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _internalAccountId(): JsonField<String> = body._internalAccountId()
 
@@ -341,25 +304,21 @@ private constructor(
     /**
      * Returns the raw JSON value of [reconciliationRuleVariables].
      *
-     * Unlike [reconciliationRuleVariables], this method doesn't throw if the JSON field has an
-     * unexpected type.
+     * Unlike [reconciliationRuleVariables], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _reconciliationRuleVariables(): JsonField<List<ReconciliationRule>> =
-        body._reconciliationRuleVariables()
+    fun _reconciliationRuleVariables(): JsonField<List<ReconciliationRule>> = body._reconciliationRuleVariables()
 
     /**
      * Returns the raw JSON value of [remittanceInformation].
      *
-     * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _remittanceInformation(): JsonField<String> = body._remittanceInformation()
 
     /**
      * Returns the raw JSON value of [statementDescriptor].
      *
-     * Unlike [statementDescriptor], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [statementDescriptor], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _statementDescriptor(): JsonField<String> = body._statementDescriptor()
 
@@ -391,9 +350,7 @@ private constructor(
 
         fun none(): ExpectedPaymentUpdateParams = builder().build()
 
-        /**
-         * Returns a mutable builder for constructing an instance of [ExpectedPaymentUpdateParams].
-         */
+        /** Returns a mutable builder for constructing an instance of [ExpectedPaymentUpdateParams]. */
         fun builder() = Builder()
     }
 
@@ -401,25 +358,28 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: String? = null
-        private var body: ExpectedPaymentUpdateRequest.Builder =
-            ExpectedPaymentUpdateRequest.builder()
+        private var body: ExpectedPaymentUpdateRequest.Builder = ExpectedPaymentUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(expectedPaymentUpdateParams: ExpectedPaymentUpdateParams) = apply {
-            id = expectedPaymentUpdateParams.id
-            body = expectedPaymentUpdateParams.body.toBuilder()
-            additionalHeaders = expectedPaymentUpdateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = expectedPaymentUpdateParams.additionalQueryParams.toBuilder()
-        }
+        internal fun from(expectedPaymentUpdateParams: ExpectedPaymentUpdateParams) =
+            apply {
+                id = expectedPaymentUpdateParams.id
+                body = expectedPaymentUpdateParams.body.toBuilder()
+                additionalHeaders = expectedPaymentUpdateParams.additionalHeaders.toBuilder()
+                additionalQueryParams = expectedPaymentUpdateParams.additionalQueryParams.toBuilder()
+            }
 
-        fun id(id: String?) = apply { this.id = id }
+        fun id(id: String?) =
+            apply {
+                this.id = id
+            }
 
         /**
          * Sets the entire request body.
          *
-         * This is generally only useful if you are already constructing the body separately.
-         * Otherwise, it's more convenient to use the top-level setters instead:
+         * This is generally only useful if you are already constructing the body separately. Otherwise,
+         * it's more convenient to use the top-level setters instead:
          * - [amountLowerBound]
          * - [amountReconciled]
          * - [amountReconciledDirection]
@@ -427,15 +387,16 @@ private constructor(
          * - [amountUnreconciledDirection]
          * - etc.
          */
-        fun body(body: ExpectedPaymentUpdateRequest) = apply { this.body = body.toBuilder() }
+        fun body(body: ExpectedPaymentUpdateRequest) =
+            apply {
+                this.body = body.toBuilder()
+            }
 
-        /**
-         * The lowest amount this expected payment may be equal to. Value in specified currency's
-         * smallest unit. e.g. $10 would be represented as 1000.
-         */
-        fun amountLowerBound(amountLowerBound: Long?) = apply {
-            body.amountLowerBound(amountLowerBound)
-        }
+        /** The lowest amount this expected payment may be equal to. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+        fun amountLowerBound(amountLowerBound: Long?) =
+            apply {
+                body.amountLowerBound(amountLowerBound)
+            }
 
         /**
          * Alias for [Builder.amountLowerBound].
@@ -447,21 +408,19 @@ private constructor(
         /**
          * Sets [Builder.amountLowerBound] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.amountLowerBound] with a well-typed [Long] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.amountLowerBound] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun amountLowerBound(amountLowerBound: JsonField<Long>) = apply {
-            body.amountLowerBound(amountLowerBound)
-        }
+        fun amountLowerBound(amountLowerBound: JsonField<Long>) =
+            apply {
+                body.amountLowerBound(amountLowerBound)
+            }
 
-        /**
-         * The amount reconciled for this expected payment. Value in specified currency's smallest
-         * unit. e.g. $10 would be represented as 1000.
-         */
-        fun amountReconciled(amountReconciled: Long?) = apply {
-            body.amountReconciled(amountReconciled)
-        }
+        /** The amount reconciled for this expected payment. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+        fun amountReconciled(amountReconciled: Long?) =
+            apply {
+                body.amountReconciled(amountReconciled)
+            }
 
         /**
          * Alias for [Builder.amountReconciled].
@@ -473,17 +432,15 @@ private constructor(
         /**
          * Sets [Builder.amountReconciled] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.amountReconciled] with a well-typed [Long] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.amountReconciled] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun amountReconciled(amountReconciled: JsonField<Long>) = apply {
-            body.amountReconciled(amountReconciled)
-        }
+        fun amountReconciled(amountReconciled: JsonField<Long>) =
+            apply {
+                body.amountReconciled(amountReconciled)
+            }
 
-        /**
-         * One of credit or debit. Indicates whether amount_reconciled is a credit or debit amount.
-         */
+        /** One of credit or debit. Indicates whether amount_reconciled is a credit or debit amount. */
         fun amountReconciledDirection(amountReconciledDirection: AmountReconciledDirection?) =
             apply {
                 body.amountReconciledDirection(amountReconciledDirection)
@@ -492,45 +449,39 @@ private constructor(
         /**
          * Sets [Builder.amountReconciledDirection] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.amountReconciledDirection] with a well-typed
-         * [AmountReconciledDirection] value instead. This method is primarily for setting the field
-         * to an undocumented or not yet supported value.
+         * You should usually call [Builder.amountReconciledDirection] with a well-typed [AmountReconciledDirection] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun amountReconciledDirection(
-            amountReconciledDirection: JsonField<AmountReconciledDirection>
-        ) = apply { body.amountReconciledDirection(amountReconciledDirection) }
+        fun amountReconciledDirection(amountReconciledDirection: JsonField<AmountReconciledDirection>) =
+            apply {
+                body.amountReconciledDirection(amountReconciledDirection)
+            }
 
-        /**
-         * The amount that remains unreconciled for this expected payment. Value in specified
-         * currency's smallest unit. e.g. $10 would be represented as 1000.
-         */
-        fun amountUnreconciled(amountUnreconciled: Long?) = apply {
-            body.amountUnreconciled(amountUnreconciled)
-        }
+        /** The amount that remains unreconciled for this expected payment. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+        fun amountUnreconciled(amountUnreconciled: Long?) =
+            apply {
+                body.amountUnreconciled(amountUnreconciled)
+            }
 
         /**
          * Alias for [Builder.amountUnreconciled].
          *
          * This unboxed primitive overload exists for backwards compatibility.
          */
-        fun amountUnreconciled(amountUnreconciled: Long) =
-            amountUnreconciled(amountUnreconciled as Long?)
+        fun amountUnreconciled(amountUnreconciled: Long) = amountUnreconciled(amountUnreconciled as Long?)
 
         /**
          * Sets [Builder.amountUnreconciled] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.amountUnreconciled] with a well-typed [Long] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.amountUnreconciled] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun amountUnreconciled(amountUnreconciled: JsonField<Long>) = apply {
-            body.amountUnreconciled(amountUnreconciled)
-        }
+        fun amountUnreconciled(amountUnreconciled: JsonField<Long>) =
+            apply {
+                body.amountUnreconciled(amountUnreconciled)
+            }
 
-        /**
-         * One of credit or debit. Indicates whether amount_unreconciled is a credit or debit
-         * amount.
-         */
+        /** One of credit or debit. Indicates whether amount_unreconciled is a credit or debit amount. */
         fun amountUnreconciledDirection(amountUnreconciledDirection: AmountUnreconciledDirection?) =
             apply {
                 body.amountUnreconciledDirection(amountUnreconciledDirection)
@@ -539,21 +490,19 @@ private constructor(
         /**
          * Sets [Builder.amountUnreconciledDirection] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.amountUnreconciledDirection] with a well-typed
-         * [AmountUnreconciledDirection] value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * You should usually call [Builder.amountUnreconciledDirection] with a well-typed [AmountUnreconciledDirection] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun amountUnreconciledDirection(
-            amountUnreconciledDirection: JsonField<AmountUnreconciledDirection>
-        ) = apply { body.amountUnreconciledDirection(amountUnreconciledDirection) }
+        fun amountUnreconciledDirection(amountUnreconciledDirection: JsonField<AmountUnreconciledDirection>) =
+            apply {
+                body.amountUnreconciledDirection(amountUnreconciledDirection)
+            }
 
-        /**
-         * The highest amount this expected payment may be equal to. Value in specified currency's
-         * smallest unit. e.g. $10 would be represented as 1000.
-         */
-        fun amountUpperBound(amountUpperBound: Long?) = apply {
-            body.amountUpperBound(amountUpperBound)
-        }
+        /** The highest amount this expected payment may be equal to. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+        fun amountUpperBound(amountUpperBound: Long?) =
+            apply {
+                body.amountUpperBound(amountUpperBound)
+            }
 
         /**
          * Alias for [Builder.amountUpperBound].
@@ -565,150 +514,178 @@ private constructor(
         /**
          * Sets [Builder.amountUpperBound] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.amountUpperBound] with a well-typed [Long] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.amountUpperBound] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun amountUpperBound(amountUpperBound: JsonField<Long>) = apply {
-            body.amountUpperBound(amountUpperBound)
-        }
+        fun amountUpperBound(amountUpperBound: JsonField<Long>) =
+            apply {
+                body.amountUpperBound(amountUpperBound)
+            }
 
         /** The ID of the counterparty you expect for this payment. */
-        fun counterpartyId(counterpartyId: String?) = apply { body.counterpartyId(counterpartyId) }
+        fun counterpartyId(counterpartyId: String?) =
+            apply {
+                body.counterpartyId(counterpartyId)
+            }
 
         /**
          * Sets [Builder.counterpartyId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.counterpartyId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.counterpartyId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun counterpartyId(counterpartyId: JsonField<String>) = apply {
-            body.counterpartyId(counterpartyId)
-        }
+        fun counterpartyId(counterpartyId: JsonField<String>) =
+            apply {
+                body.counterpartyId(counterpartyId)
+            }
 
         /** Must conform to ISO 4217. Defaults to the currency of the internal account. */
-        fun currency(currency: Currency?) = apply { body.currency(currency) }
+        fun currency(currency: Currency?) =
+            apply {
+                body.currency(currency)
+            }
 
         /**
          * Sets [Builder.currency] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.currency] with a well-typed [Currency] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.currency] with a well-typed [Currency] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun currency(currency: JsonField<Currency>) = apply { body.currency(currency) }
+        fun currency(currency: JsonField<Currency>) =
+            apply {
+                body.currency(currency)
+            }
 
         /** The earliest date the payment may come in. Format: yyyy-mm-dd */
-        fun dateLowerBound(dateLowerBound: LocalDate?) = apply {
-            body.dateLowerBound(dateLowerBound)
-        }
+        fun dateLowerBound(dateLowerBound: LocalDate?) =
+            apply {
+                body.dateLowerBound(dateLowerBound)
+            }
 
         /**
          * Sets [Builder.dateLowerBound] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.dateLowerBound] with a well-typed [LocalDate] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.dateLowerBound] with a well-typed [LocalDate] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun dateLowerBound(dateLowerBound: JsonField<LocalDate>) = apply {
-            body.dateLowerBound(dateLowerBound)
-        }
+        fun dateLowerBound(dateLowerBound: JsonField<LocalDate>) =
+            apply {
+                body.dateLowerBound(dateLowerBound)
+            }
 
         /** The latest date the payment may come in. Format: yyyy-mm-dd */
-        fun dateUpperBound(dateUpperBound: LocalDate?) = apply {
-            body.dateUpperBound(dateUpperBound)
-        }
+        fun dateUpperBound(dateUpperBound: LocalDate?) =
+            apply {
+                body.dateUpperBound(dateUpperBound)
+            }
 
         /**
          * Sets [Builder.dateUpperBound] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.dateUpperBound] with a well-typed [LocalDate] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.dateUpperBound] with a well-typed [LocalDate] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun dateUpperBound(dateUpperBound: JsonField<LocalDate>) = apply {
-            body.dateUpperBound(dateUpperBound)
-        }
+        fun dateUpperBound(dateUpperBound: JsonField<LocalDate>) =
+            apply {
+                body.dateUpperBound(dateUpperBound)
+            }
 
         /** An optional description for internal use. */
-        fun description(description: String?) = apply { body.description(description) }
+        fun description(description: String?) =
+            apply {
+                body.description(description)
+            }
 
         /**
          * Sets [Builder.description] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.description] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.description] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun description(description: JsonField<String>) = apply { body.description(description) }
+        fun description(description: JsonField<String>) =
+            apply {
+                body.description(description)
+            }
 
-        /**
-         * One of credit or debit. When you are receiving money, use credit. When you are being
-         * charged, use debit.
-         */
-        fun direction(direction: Direction?) = apply { body.direction(direction) }
+        /** One of credit or debit. When you are receiving money, use credit. When you are being charged, use debit. */
+        fun direction(direction: Direction?) =
+            apply {
+                body.direction(direction)
+            }
 
         /**
          * Sets [Builder.direction] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.direction] with a well-typed [Direction] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.direction] with a well-typed [Direction] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun direction(direction: JsonField<Direction>) = apply { body.direction(direction) }
+        fun direction(direction: JsonField<Direction>) =
+            apply {
+                body.direction(direction)
+            }
 
         /** An optional user-defined 180 character unique identifier. */
-        fun externalId(externalId: String?) = apply { body.externalId(externalId) }
+        fun externalId(externalId: String?) =
+            apply {
+                body.externalId(externalId)
+            }
 
         /**
          * Sets [Builder.externalId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun externalId(externalId: JsonField<String>) = apply { body.externalId(externalId) }
+        fun externalId(externalId: JsonField<String>) =
+            apply {
+                body.externalId(externalId)
+            }
 
         /** The ID of the Internal Account for the expected payment. */
-        fun internalAccountId(internalAccountId: String?) = apply {
-            body.internalAccountId(internalAccountId)
-        }
+        fun internalAccountId(internalAccountId: String?) =
+            apply {
+                body.internalAccountId(internalAccountId)
+            }
 
         /**
          * Sets [Builder.internalAccountId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.internalAccountId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.internalAccountId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun internalAccountId(internalAccountId: JsonField<String>) = apply {
-            body.internalAccountId(internalAccountId)
-        }
+        fun internalAccountId(internalAccountId: JsonField<String>) =
+            apply {
+                body.internalAccountId(internalAccountId)
+            }
 
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        fun metadata(metadata: Metadata) = apply { body.metadata(metadata) }
+        /** Additional data represented as key-value pairs. Both the key and value must be strings. */
+        fun metadata(metadata: Metadata) =
+            apply {
+                body.metadata(metadata)
+            }
 
         /**
          * Sets [Builder.metadata] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun metadata(metadata: JsonField<Metadata>) = apply { body.metadata(metadata) }
+        fun metadata(metadata: JsonField<Metadata>) =
+            apply {
+                body.metadata(metadata)
+            }
 
         /** The reconciliation filters you have for this payment. */
-        fun reconciliationFilters(reconciliationFilters: JsonValue) = apply {
-            body.reconciliationFilters(reconciliationFilters)
-        }
+        fun reconciliationFilters(reconciliationFilters: JsonValue) =
+            apply {
+                body.reconciliationFilters(reconciliationFilters)
+            }
 
         /** The reconciliation groups you have for this payment. */
-        fun reconciliationGroups(reconciliationGroups: JsonValue) = apply {
-            body.reconciliationGroups(reconciliationGroups)
-        }
+        fun reconciliationGroups(reconciliationGroups: JsonValue) =
+            apply {
+                body.reconciliationGroups(reconciliationGroups)
+            }
 
         /** An array of reconciliation rule variables for this payment. */
         fun reconciliationRuleVariables(reconciliationRuleVariables: List<ReconciliationRule>?) =
@@ -719,205 +696,242 @@ private constructor(
         /**
          * Sets [Builder.reconciliationRuleVariables] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.reconciliationRuleVariables] with a well-typed
-         * `List<ReconciliationRule>` value instead. This method is primarily for setting the field
-         * to an undocumented or not yet supported value.
+         * You should usually call [Builder.reconciliationRuleVariables] with a well-typed `List<ReconciliationRule>` value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun reconciliationRuleVariables(
-            reconciliationRuleVariables: JsonField<List<ReconciliationRule>>
-        ) = apply { body.reconciliationRuleVariables(reconciliationRuleVariables) }
+        fun reconciliationRuleVariables(reconciliationRuleVariables: JsonField<List<ReconciliationRule>>) =
+            apply {
+                body.reconciliationRuleVariables(reconciliationRuleVariables)
+            }
 
         /**
          * Adds a single [ReconciliationRule] to [reconciliationRuleVariables].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addReconciliationRuleVariable(reconciliationRuleVariable: ReconciliationRule) = apply {
-            body.addReconciliationRuleVariable(reconciliationRuleVariable)
-        }
+        fun addReconciliationRuleVariable(reconciliationRuleVariable: ReconciliationRule) =
+            apply {
+                body.addReconciliationRuleVariable(reconciliationRuleVariable)
+            }
 
-        /**
-         * For `ach`, this field will be passed through on an addenda record. For `wire` payments
-         * the field will be passed through as the "Originator to Beneficiary Information", also
-         * known as OBI or Fedwire tag 6000.
-         */
-        fun remittanceInformation(remittanceInformation: String?) = apply {
-            body.remittanceInformation(remittanceInformation)
-        }
+        /** For `ach`, this field will be passed through on an addenda record. For `wire` payments the field will be passed through as the "Originator to Beneficiary Information", also known as OBI or Fedwire tag 6000. */
+        fun remittanceInformation(remittanceInformation: String?) =
+            apply {
+                body.remittanceInformation(remittanceInformation)
+            }
 
         /**
          * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.remittanceInformation] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.remittanceInformation] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-            body.remittanceInformation(remittanceInformation)
-        }
+        fun remittanceInformation(remittanceInformation: JsonField<String>) =
+            apply {
+                body.remittanceInformation(remittanceInformation)
+            }
 
-        /**
-         * The statement description you expect to see on the transaction. For ACH payments, this
-         * will be the full line item passed from the bank. For wire payments, this will be the OBI
-         * field on the wire. For check payments, this will be the memo field.
-         */
-        fun statementDescriptor(statementDescriptor: String?) = apply {
-            body.statementDescriptor(statementDescriptor)
-        }
+        /** The statement description you expect to see on the transaction. For ACH payments, this will be the full line item passed from the bank. For wire payments, this will be the OBI field on the wire. For check payments, this will be the memo field. */
+        fun statementDescriptor(statementDescriptor: String?) =
+            apply {
+                body.statementDescriptor(statementDescriptor)
+            }
 
         /**
          * Sets [Builder.statementDescriptor] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.statementDescriptor] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.statementDescriptor] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun statementDescriptor(statementDescriptor: JsonField<String>) = apply {
-            body.statementDescriptor(statementDescriptor)
-        }
+        fun statementDescriptor(statementDescriptor: JsonField<String>) =
+            apply {
+                body.statementDescriptor(statementDescriptor)
+            }
 
         /** The Expected Payment's status can be updated from partially_reconciled to reconciled. */
-        fun status(status: Status?) = apply { body.status(status) }
+        fun status(status: Status?) =
+            apply {
+                body.status(status)
+            }
 
         /**
          * Sets [Builder.status] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun status(status: JsonField<Status>) = apply { body.status(status) }
+        fun status(status: JsonField<Status>) =
+            apply {
+                body.status(status)
+            }
 
-        /**
-         * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
-         * signet, wire.
-         */
-        fun type(type: ExpectedPaymentType?) = apply { body.type(type) }
+        /** One of: ach, au_becs, bacs, book, check, eft, rtp, sepa, wire. */
+        fun type(type: ExpectedPaymentType?) =
+            apply {
+                body.type(type)
+            }
 
         /**
          * Sets [Builder.type] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.type] with a well-typed [ExpectedPaymentType] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * You should usually call [Builder.type] with a well-typed [ExpectedPaymentType] value instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun type(type: JsonField<ExpectedPaymentType>) = apply { body.type(type) }
+        fun type(type: JsonField<ExpectedPaymentType>) =
+            apply {
+                body.type(type)
+            }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.additionalProperties(additionalBodyProperties)
+            }
 
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) =
+            apply {
+                body.putAdditionalProperty(
+                  key, value
+                )
+            }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
                 body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+        fun removeAdditionalBodyProperty(key: String) =
+            apply {
+                body.removeAdditionalProperty(key)
+            }
 
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) =
+            apply {
+                body.removeAllAdditionalProperties(keys)
+            }
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun putAdditionalHeader(name: String, value: String) = apply {
-            additionalHeaders.put(name, value)
-        }
+        fun putAdditionalHeader(name: String, value: String) =
+            apply {
+                additionalHeaders.put(name, value)
+            }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.put(name, values)
-        }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.put(name, values)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun replaceAdditionalHeaders(name: String, value: String) = apply {
-            additionalHeaders.replace(name, value)
-        }
+        fun replaceAdditionalHeaders(name: String, value: String) =
+            apply {
+                additionalHeaders.replace(name, value)
+            }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.replace(name, values)
-        }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.replace(name, values)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
+        fun removeAdditionalHeaders(name: String) =
+            apply {
+                additionalHeaders.remove(name)
+            }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
-            additionalHeaders.removeAll(names)
-        }
+        fun removeAllAdditionalHeaders(names: Set<String>) =
+            apply {
+                additionalHeaders.removeAll(names)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun putAdditionalQueryParam(key: String, value: String) = apply {
-            additionalQueryParams.put(key, value)
-        }
+        fun putAdditionalQueryParam(key: String, value: String) =
+            apply {
+                additionalQueryParams.put(key, value)
+            }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.put(key, values)
-        }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.put(key, values)
+            }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.putAll(additionalQueryParams)
-        }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.putAll(additionalQueryParams)
+            }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
-            additionalQueryParams.replace(key, value)
-        }
+        fun replaceAdditionalQueryParams(key: String, value: String) =
+            apply {
+                additionalQueryParams.replace(key, value)
+            }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.replace(key, values)
-        }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.replace(key, values)
+            }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.replaceAll(additionalQueryParams)
-        }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
+        fun removeAdditionalQueryParams(key: String) =
+            apply {
+                additionalQueryParams.remove(key)
+            }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
-            additionalQueryParams.removeAll(keys)
-        }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) =
+            apply {
+                additionalQueryParams.removeAll(keys)
+            }
 
         /**
          * Returns an immutable instance of [ExpectedPaymentUpdateParams].
@@ -926,10 +940,10 @@ private constructor(
          */
         fun build(): ExpectedPaymentUpdateParams =
             ExpectedPaymentUpdateParams(
-                id,
-                body.build(),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
+              id,
+              body.build(),
+              additionalHeaders.build(),
+              additionalQueryParams.build(),
             )
     }
 
@@ -945,9 +959,7 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    class ExpectedPaymentUpdateRequest
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
+    class ExpectedPaymentUpdateRequest @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(
         private val amountLowerBound: JsonField<Long>,
         private val amountReconciled: JsonField<Long>,
         private val amountReconciledDirection: JsonField<AmountReconciledDirection>,
@@ -971,225 +983,161 @@ private constructor(
         private val status: JsonField<Status>,
         private val type: JsonField<ExpectedPaymentType>,
         private val additionalProperties: MutableMap<String, JsonValue>,
+
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("amount_lower_bound")
-            @ExcludeMissing
-            amountLowerBound: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("amount_reconciled")
-            @ExcludeMissing
-            amountReconciled: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("amount_reconciled_direction")
-            @ExcludeMissing
-            amountReconciledDirection: JsonField<AmountReconciledDirection> = JsonMissing.of(),
-            @JsonProperty("amount_unreconciled")
-            @ExcludeMissing
-            amountUnreconciled: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("amount_unreconciled_direction")
-            @ExcludeMissing
-            amountUnreconciledDirection: JsonField<AmountUnreconciledDirection> = JsonMissing.of(),
-            @JsonProperty("amount_upper_bound")
-            @ExcludeMissing
-            amountUpperBound: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("counterparty_id")
-            @ExcludeMissing
-            counterpartyId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("currency")
-            @ExcludeMissing
-            currency: JsonField<Currency> = JsonMissing.of(),
-            @JsonProperty("date_lower_bound")
-            @ExcludeMissing
-            dateLowerBound: JsonField<LocalDate> = JsonMissing.of(),
-            @JsonProperty("date_upper_bound")
-            @ExcludeMissing
-            dateUpperBound: JsonField<LocalDate> = JsonMissing.of(),
-            @JsonProperty("description")
-            @ExcludeMissing
-            description: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("direction")
-            @ExcludeMissing
-            direction: JsonField<Direction> = JsonMissing.of(),
-            @JsonProperty("external_id")
-            @ExcludeMissing
-            externalId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("internal_account_id")
-            @ExcludeMissing
-            internalAccountId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("metadata")
-            @ExcludeMissing
-            metadata: JsonField<Metadata> = JsonMissing.of(),
-            @JsonProperty("reconciliation_filters")
-            @ExcludeMissing
-            reconciliationFilters: JsonValue = JsonMissing.of(),
-            @JsonProperty("reconciliation_groups")
-            @ExcludeMissing
-            reconciliationGroups: JsonValue = JsonMissing.of(),
-            @JsonProperty("reconciliation_rule_variables")
-            @ExcludeMissing
-            reconciliationRuleVariables: JsonField<List<ReconciliationRule>> = JsonMissing.of(),
-            @JsonProperty("remittance_information")
-            @ExcludeMissing
-            remittanceInformation: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("statement_descriptor")
-            @ExcludeMissing
-            statementDescriptor: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("amount_lower_bound") @ExcludeMissing amountLowerBound: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("amount_reconciled") @ExcludeMissing amountReconciled: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("amount_reconciled_direction") @ExcludeMissing amountReconciledDirection: JsonField<AmountReconciledDirection> = JsonMissing.of(),
+            @JsonProperty("amount_unreconciled") @ExcludeMissing amountUnreconciled: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("amount_unreconciled_direction") @ExcludeMissing amountUnreconciledDirection: JsonField<AmountUnreconciledDirection> = JsonMissing.of(),
+            @JsonProperty("amount_upper_bound") @ExcludeMissing amountUpperBound: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("counterparty_id") @ExcludeMissing counterpartyId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("currency") @ExcludeMissing currency: JsonField<Currency> = JsonMissing.of(),
+            @JsonProperty("date_lower_bound") @ExcludeMissing dateLowerBound: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("date_upper_bound") @ExcludeMissing dateUpperBound: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("description") @ExcludeMissing description: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("direction") @ExcludeMissing direction: JsonField<Direction> = JsonMissing.of(),
+            @JsonProperty("external_id") @ExcludeMissing externalId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("internal_account_id") @ExcludeMissing internalAccountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
+            @JsonProperty("reconciliation_filters") @ExcludeMissing reconciliationFilters: JsonValue = JsonMissing.of(),
+            @JsonProperty("reconciliation_groups") @ExcludeMissing reconciliationGroups: JsonValue = JsonMissing.of(),
+            @JsonProperty("reconciliation_rule_variables") @ExcludeMissing reconciliationRuleVariables: JsonField<List<ReconciliationRule>> = JsonMissing.of(),
+            @JsonProperty("remittance_information") @ExcludeMissing remittanceInformation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("statement_descriptor") @ExcludeMissing statementDescriptor: JsonField<String> = JsonMissing.of(),
             @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-            @JsonProperty("type")
-            @ExcludeMissing
-            type: JsonField<ExpectedPaymentType> = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonField<ExpectedPaymentType> = JsonMissing.of()
         ) : this(
-            amountLowerBound,
-            amountReconciled,
-            amountReconciledDirection,
-            amountUnreconciled,
-            amountUnreconciledDirection,
-            amountUpperBound,
-            counterpartyId,
-            currency,
-            dateLowerBound,
-            dateUpperBound,
-            description,
-            direction,
-            externalId,
-            internalAccountId,
-            metadata,
-            reconciliationFilters,
-            reconciliationGroups,
-            reconciliationRuleVariables,
-            remittanceInformation,
-            statementDescriptor,
-            status,
-            type,
-            mutableMapOf(),
+          amountLowerBound,
+          amountReconciled,
+          amountReconciledDirection,
+          amountUnreconciled,
+          amountUnreconciledDirection,
+          amountUpperBound,
+          counterpartyId,
+          currency,
+          dateLowerBound,
+          dateUpperBound,
+          description,
+          direction,
+          externalId,
+          internalAccountId,
+          metadata,
+          reconciliationFilters,
+          reconciliationGroups,
+          reconciliationRuleVariables,
+          remittanceInformation,
+          statementDescriptor,
+          status,
+          type,
+          mutableMapOf(),
         )
 
         /**
-         * The lowest amount this expected payment may be equal to. Value in specified currency's
-         * smallest unit. e.g. $10 would be represented as 1000.
+         * The lowest amount this expected payment may be equal to. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun amountLowerBound(): Long? = amountLowerBound.getNullable("amount_lower_bound")
 
         /**
-         * The amount reconciled for this expected payment. Value in specified currency's smallest
-         * unit. e.g. $10 would be represented as 1000.
+         * The amount reconciled for this expected payment. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun amountReconciled(): Long? = amountReconciled.getNullable("amount_reconciled")
 
         /**
          * One of credit or debit. Indicates whether amount_reconciled is a credit or debit amount.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun amountReconciledDirection(): AmountReconciledDirection? =
-            amountReconciledDirection.getNullable("amount_reconciled_direction")
+        fun amountReconciledDirection(): AmountReconciledDirection? = amountReconciledDirection.getNullable("amount_reconciled_direction")
 
         /**
-         * The amount that remains unreconciled for this expected payment. Value in specified
-         * currency's smallest unit. e.g. $10 would be represented as 1000.
+         * The amount that remains unreconciled for this expected payment. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun amountUnreconciled(): Long? = amountUnreconciled.getNullable("amount_unreconciled")
 
         /**
-         * One of credit or debit. Indicates whether amount_unreconciled is a credit or debit
-         * amount.
+         * One of credit or debit. Indicates whether amount_unreconciled is a credit or debit amount.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun amountUnreconciledDirection(): AmountUnreconciledDirection? =
-            amountUnreconciledDirection.getNullable("amount_unreconciled_direction")
+        fun amountUnreconciledDirection(): AmountUnreconciledDirection? = amountUnreconciledDirection.getNullable("amount_unreconciled_direction")
 
         /**
-         * The highest amount this expected payment may be equal to. Value in specified currency's
-         * smallest unit. e.g. $10 would be represented as 1000.
+         * The highest amount this expected payment may be equal to. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun amountUpperBound(): Long? = amountUpperBound.getNullable("amount_upper_bound")
 
         /**
          * The ID of the counterparty you expect for this payment.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
 
         /**
          * Must conform to ISO 4217. Defaults to the currency of the internal account.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun currency(): Currency? = currency.getNullable("currency")
 
         /**
          * The earliest date the payment may come in. Format: yyyy-mm-dd
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun dateLowerBound(): LocalDate? = dateLowerBound.getNullable("date_lower_bound")
 
         /**
          * The latest date the payment may come in. Format: yyyy-mm-dd
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun dateUpperBound(): LocalDate? = dateUpperBound.getNullable("date_upper_bound")
 
         /**
          * An optional description for internal use.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun description(): String? = description.getNullable("description")
 
         /**
-         * One of credit or debit. When you are receiving money, use credit. When you are being
-         * charged, use debit.
+         * One of credit or debit. When you are receiving money, use credit. When you are being charged, use debit.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun direction(): Direction? = direction.getNullable("direction")
 
         /**
          * An optional user-defined 180 character unique identifier.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun externalId(): String? = externalId.getNullable("external_id")
 
         /**
          * The ID of the Internal Account for the expected payment.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun internalAccountId(): String? = internalAccountId.getNullable("internal_account_id")
 
         /**
          * Additional data represented as key-value pairs. Both the key and value must be strings.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun metadata(): Metadata? = metadata.getNullable("metadata")
 
@@ -1220,55 +1168,42 @@ private constructor(
         /**
          * An array of reconciliation rule variables for this payment.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun reconciliationRuleVariables(): List<ReconciliationRule>? =
-            reconciliationRuleVariables.getNullable("reconciliation_rule_variables")
+        fun reconciliationRuleVariables(): List<ReconciliationRule>? = reconciliationRuleVariables.getNullable("reconciliation_rule_variables")
 
         /**
-         * For `ach`, this field will be passed through on an addenda record. For `wire` payments
-         * the field will be passed through as the "Originator to Beneficiary Information", also
-         * known as OBI or Fedwire tag 6000.
+         * For `ach`, this field will be passed through on an addenda record. For `wire` payments the field will be passed through as the "Originator to Beneficiary Information", also known as OBI or Fedwire tag 6000.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
-        fun remittanceInformation(): String? =
-            remittanceInformation.getNullable("remittance_information")
+        fun remittanceInformation(): String? = remittanceInformation.getNullable("remittance_information")
 
         /**
-         * The statement description you expect to see on the transaction. For ACH payments, this
-         * will be the full line item passed from the bank. For wire payments, this will be the OBI
-         * field on the wire. For check payments, this will be the memo field.
+         * The statement description you expect to see on the transaction. For ACH payments, this will be the full line item passed from the bank. For wire payments, this will be the OBI field on the wire. For check payments, this will be the memo field.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun statementDescriptor(): String? = statementDescriptor.getNullable("statement_descriptor")
 
         /**
          * The Expected Payment's status can be updated from partially_reconciled to reconciled.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun status(): Status? = status.getNullable("status")
 
         /**
-         * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
-         * signet, wire.
+         * One of: ach, au_becs, bacs, book, check, eft, rtp, sepa, wire.
          *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if the server responded with an unexpected value).
          */
         fun type(): ExpectedPaymentType? = type.getNullable("type")
 
         /**
          * Returns the raw JSON value of [amountLowerBound].
          *
-         * Unlike [amountLowerBound], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [amountLowerBound], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount_lower_bound")
         @ExcludeMissing
@@ -1277,8 +1212,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [amountReconciled].
          *
-         * Unlike [amountReconciled], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [amountReconciled], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount_reconciled")
         @ExcludeMissing
@@ -1287,19 +1221,16 @@ private constructor(
         /**
          * Returns the raw JSON value of [amountReconciledDirection].
          *
-         * Unlike [amountReconciledDirection], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [amountReconciledDirection], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount_reconciled_direction")
         @ExcludeMissing
-        fun _amountReconciledDirection(): JsonField<AmountReconciledDirection> =
-            amountReconciledDirection
+        fun _amountReconciledDirection(): JsonField<AmountReconciledDirection> = amountReconciledDirection
 
         /**
          * Returns the raw JSON value of [amountUnreconciled].
          *
-         * Unlike [amountUnreconciled], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [amountUnreconciled], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount_unreconciled")
         @ExcludeMissing
@@ -1308,19 +1239,16 @@ private constructor(
         /**
          * Returns the raw JSON value of [amountUnreconciledDirection].
          *
-         * Unlike [amountUnreconciledDirection], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [amountUnreconciledDirection], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount_unreconciled_direction")
         @ExcludeMissing
-        fun _amountUnreconciledDirection(): JsonField<AmountUnreconciledDirection> =
-            amountUnreconciledDirection
+        fun _amountUnreconciledDirection(): JsonField<AmountUnreconciledDirection> = amountUnreconciledDirection
 
         /**
          * Returns the raw JSON value of [amountUpperBound].
          *
-         * Unlike [amountUpperBound], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [amountUpperBound], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount_upper_bound")
         @ExcludeMissing
@@ -1329,8 +1257,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [counterpartyId].
          *
-         * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("counterparty_id")
         @ExcludeMissing
@@ -1341,13 +1268,14 @@ private constructor(
          *
          * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
+        @JsonProperty("currency")
+        @ExcludeMissing
+        fun _currency(): JsonField<Currency> = currency
 
         /**
          * Returns the raw JSON value of [dateLowerBound].
          *
-         * Unlike [dateLowerBound], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [dateLowerBound], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("date_lower_bound")
         @ExcludeMissing
@@ -1356,8 +1284,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [dateUpperBound].
          *
-         * Unlike [dateUpperBound], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [dateUpperBound], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("date_upper_bound")
         @ExcludeMissing
@@ -1393,8 +1320,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [internalAccountId].
          *
-         * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("internal_account_id")
         @ExcludeMissing
@@ -1405,24 +1331,23 @@ private constructor(
          *
          * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+        @JsonProperty("metadata")
+        @ExcludeMissing
+        fun _metadata(): JsonField<Metadata> = metadata
 
         /**
          * Returns the raw JSON value of [reconciliationRuleVariables].
          *
-         * Unlike [reconciliationRuleVariables], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [reconciliationRuleVariables], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("reconciliation_rule_variables")
         @ExcludeMissing
-        fun _reconciliationRuleVariables(): JsonField<List<ReconciliationRule>> =
-            reconciliationRuleVariables
+        fun _reconciliationRuleVariables(): JsonField<List<ReconciliationRule>> = reconciliationRuleVariables
 
         /**
          * Returns the raw JSON value of [remittanceInformation].
          *
-         * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("remittance_information")
         @ExcludeMissing
@@ -1431,8 +1356,7 @@ private constructor(
         /**
          * Returns the raw JSON value of [statementDescriptor].
          *
-         * Unlike [statementDescriptor], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [statementDescriptor], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("statement_descriptor")
         @ExcludeMissing
@@ -1443,33 +1367,33 @@ private constructor(
          *
          * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun _status(): JsonField<Status> = status
 
         /**
          * Returns the raw JSON value of [type].
          *
          * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<ExpectedPaymentType> = type
+        @JsonProperty("type")
+        @ExcludeMissing
+        fun _type(): JsonField<ExpectedPaymentType> = type
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
+          additionalProperties.put(key, value)
         }
 
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
+        fun _additionalProperties(): Map<String, JsonValue> = Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
-            /**
-             * Returns a mutable builder for constructing an instance of
-             * [ExpectedPaymentUpdateRequest].
-             */
+            /** Returns a mutable builder for constructing an instance of [ExpectedPaymentUpdateRequest]. */
             fun builder() = Builder()
         }
 
@@ -1478,11 +1402,9 @@ private constructor(
 
             private var amountLowerBound: JsonField<Long> = JsonMissing.of()
             private var amountReconciled: JsonField<Long> = JsonMissing.of()
-            private var amountReconciledDirection: JsonField<AmountReconciledDirection> =
-                JsonMissing.of()
+            private var amountReconciledDirection: JsonField<AmountReconciledDirection> = JsonMissing.of()
             private var amountUnreconciled: JsonField<Long> = JsonMissing.of()
-            private var amountUnreconciledDirection: JsonField<AmountUnreconciledDirection> =
-                JsonMissing.of()
+            private var amountUnreconciledDirection: JsonField<AmountUnreconciledDirection> = JsonMissing.of()
             private var amountUpperBound: JsonField<Long> = JsonMissing.of()
             private var counterpartyId: JsonField<String> = JsonMissing.of()
             private var currency: JsonField<Currency> = JsonMissing.of()
@@ -1495,200 +1417,165 @@ private constructor(
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var reconciliationFilters: JsonValue = JsonMissing.of()
             private var reconciliationGroups: JsonValue = JsonMissing.of()
-            private var reconciliationRuleVariables: JsonField<MutableList<ReconciliationRule>>? =
-                null
+            private var reconciliationRuleVariables: JsonField<MutableList<ReconciliationRule>>? = null
             private var remittanceInformation: JsonField<String> = JsonMissing.of()
             private var statementDescriptor: JsonField<String> = JsonMissing.of()
             private var status: JsonField<Status> = JsonMissing.of()
             private var type: JsonField<ExpectedPaymentType> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(expectedPaymentUpdateRequest: ExpectedPaymentUpdateRequest) = apply {
-                amountLowerBound = expectedPaymentUpdateRequest.amountLowerBound
-                amountReconciled = expectedPaymentUpdateRequest.amountReconciled
-                amountReconciledDirection = expectedPaymentUpdateRequest.amountReconciledDirection
-                amountUnreconciled = expectedPaymentUpdateRequest.amountUnreconciled
-                amountUnreconciledDirection =
-                    expectedPaymentUpdateRequest.amountUnreconciledDirection
-                amountUpperBound = expectedPaymentUpdateRequest.amountUpperBound
-                counterpartyId = expectedPaymentUpdateRequest.counterpartyId
-                currency = expectedPaymentUpdateRequest.currency
-                dateLowerBound = expectedPaymentUpdateRequest.dateLowerBound
-                dateUpperBound = expectedPaymentUpdateRequest.dateUpperBound
-                description = expectedPaymentUpdateRequest.description
-                direction = expectedPaymentUpdateRequest.direction
-                externalId = expectedPaymentUpdateRequest.externalId
-                internalAccountId = expectedPaymentUpdateRequest.internalAccountId
-                metadata = expectedPaymentUpdateRequest.metadata
-                reconciliationFilters = expectedPaymentUpdateRequest.reconciliationFilters
-                reconciliationGroups = expectedPaymentUpdateRequest.reconciliationGroups
-                reconciliationRuleVariables =
-                    expectedPaymentUpdateRequest.reconciliationRuleVariables.map {
-                        it.toMutableList()
-                    }
-                remittanceInformation = expectedPaymentUpdateRequest.remittanceInformation
-                statementDescriptor = expectedPaymentUpdateRequest.statementDescriptor
-                status = expectedPaymentUpdateRequest.status
-                type = expectedPaymentUpdateRequest.type
-                additionalProperties =
-                    expectedPaymentUpdateRequest.additionalProperties.toMutableMap()
-            }
+            internal fun from(expectedPaymentUpdateRequest: ExpectedPaymentUpdateRequest) =
+                apply {
+                    amountLowerBound = expectedPaymentUpdateRequest.amountLowerBound
+                    amountReconciled = expectedPaymentUpdateRequest.amountReconciled
+                    amountReconciledDirection = expectedPaymentUpdateRequest.amountReconciledDirection
+                    amountUnreconciled = expectedPaymentUpdateRequest.amountUnreconciled
+                    amountUnreconciledDirection = expectedPaymentUpdateRequest.amountUnreconciledDirection
+                    amountUpperBound = expectedPaymentUpdateRequest.amountUpperBound
+                    counterpartyId = expectedPaymentUpdateRequest.counterpartyId
+                    currency = expectedPaymentUpdateRequest.currency
+                    dateLowerBound = expectedPaymentUpdateRequest.dateLowerBound
+                    dateUpperBound = expectedPaymentUpdateRequest.dateUpperBound
+                    description = expectedPaymentUpdateRequest.description
+                    direction = expectedPaymentUpdateRequest.direction
+                    externalId = expectedPaymentUpdateRequest.externalId
+                    internalAccountId = expectedPaymentUpdateRequest.internalAccountId
+                    metadata = expectedPaymentUpdateRequest.metadata
+                    reconciliationFilters = expectedPaymentUpdateRequest.reconciliationFilters
+                    reconciliationGroups = expectedPaymentUpdateRequest.reconciliationGroups
+                    reconciliationRuleVariables = expectedPaymentUpdateRequest.reconciliationRuleVariables.map { it.toMutableList() }
+                    remittanceInformation = expectedPaymentUpdateRequest.remittanceInformation
+                    statementDescriptor = expectedPaymentUpdateRequest.statementDescriptor
+                    status = expectedPaymentUpdateRequest.status
+                    type = expectedPaymentUpdateRequest.type
+                    additionalProperties = expectedPaymentUpdateRequest.additionalProperties.toMutableMap()
+                }
 
-            /**
-             * The lowest amount this expected payment may be equal to. Value in specified
-             * currency's smallest unit. e.g. $10 would be represented as 1000.
-             */
-            fun amountLowerBound(amountLowerBound: Long?) =
-                amountLowerBound(JsonField.ofNullable(amountLowerBound))
+            /** The lowest amount this expected payment may be equal to. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+            fun amountLowerBound(amountLowerBound: Long?) = amountLowerBound(JsonField.ofNullable(amountLowerBound))
 
             /**
              * Alias for [Builder.amountLowerBound].
              *
              * This unboxed primitive overload exists for backwards compatibility.
              */
-            fun amountLowerBound(amountLowerBound: Long) =
-                amountLowerBound(amountLowerBound as Long?)
+            fun amountLowerBound(amountLowerBound: Long) = amountLowerBound(amountLowerBound as Long?)
 
             /**
              * Sets [Builder.amountLowerBound] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.amountLowerBound] with a well-typed [Long] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.amountLowerBound] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun amountLowerBound(amountLowerBound: JsonField<Long>) = apply {
-                this.amountLowerBound = amountLowerBound
-            }
+            fun amountLowerBound(amountLowerBound: JsonField<Long>) =
+                apply {
+                    this.amountLowerBound = amountLowerBound
+                }
 
-            /**
-             * The amount reconciled for this expected payment. Value in specified currency's
-             * smallest unit. e.g. $10 would be represented as 1000.
-             */
-            fun amountReconciled(amountReconciled: Long?) =
-                amountReconciled(JsonField.ofNullable(amountReconciled))
+            /** The amount reconciled for this expected payment. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+            fun amountReconciled(amountReconciled: Long?) = amountReconciled(JsonField.ofNullable(amountReconciled))
 
             /**
              * Alias for [Builder.amountReconciled].
              *
              * This unboxed primitive overload exists for backwards compatibility.
              */
-            fun amountReconciled(amountReconciled: Long) =
-                amountReconciled(amountReconciled as Long?)
+            fun amountReconciled(amountReconciled: Long) = amountReconciled(amountReconciled as Long?)
 
             /**
              * Sets [Builder.amountReconciled] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.amountReconciled] with a well-typed [Long] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.amountReconciled] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun amountReconciled(amountReconciled: JsonField<Long>) = apply {
-                this.amountReconciled = amountReconciled
-            }
+            fun amountReconciled(amountReconciled: JsonField<Long>) =
+                apply {
+                    this.amountReconciled = amountReconciled
+                }
 
-            /**
-             * One of credit or debit. Indicates whether amount_reconciled is a credit or debit
-             * amount.
-             */
-            fun amountReconciledDirection(amountReconciledDirection: AmountReconciledDirection?) =
-                amountReconciledDirection(JsonField.ofNullable(amountReconciledDirection))
+            /** One of credit or debit. Indicates whether amount_reconciled is a credit or debit amount. */
+            fun amountReconciledDirection(amountReconciledDirection: AmountReconciledDirection?) = amountReconciledDirection(JsonField.ofNullable(amountReconciledDirection))
 
             /**
              * Sets [Builder.amountReconciledDirection] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.amountReconciledDirection] with a well-typed
-             * [AmountReconciledDirection] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * You should usually call [Builder.amountReconciledDirection] with a well-typed [AmountReconciledDirection] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun amountReconciledDirection(
-                amountReconciledDirection: JsonField<AmountReconciledDirection>
-            ) = apply { this.amountReconciledDirection = amountReconciledDirection }
+            fun amountReconciledDirection(amountReconciledDirection: JsonField<AmountReconciledDirection>) =
+                apply {
+                    this.amountReconciledDirection = amountReconciledDirection
+                }
 
-            /**
-             * The amount that remains unreconciled for this expected payment. Value in specified
-             * currency's smallest unit. e.g. $10 would be represented as 1000.
-             */
-            fun amountUnreconciled(amountUnreconciled: Long?) =
-                amountUnreconciled(JsonField.ofNullable(amountUnreconciled))
+            /** The amount that remains unreconciled for this expected payment. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+            fun amountUnreconciled(amountUnreconciled: Long?) = amountUnreconciled(JsonField.ofNullable(amountUnreconciled))
 
             /**
              * Alias for [Builder.amountUnreconciled].
              *
              * This unboxed primitive overload exists for backwards compatibility.
              */
-            fun amountUnreconciled(amountUnreconciled: Long) =
-                amountUnreconciled(amountUnreconciled as Long?)
+            fun amountUnreconciled(amountUnreconciled: Long) = amountUnreconciled(amountUnreconciled as Long?)
 
             /**
              * Sets [Builder.amountUnreconciled] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.amountUnreconciled] with a well-typed [Long] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.amountUnreconciled] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun amountUnreconciled(amountUnreconciled: JsonField<Long>) = apply {
-                this.amountUnreconciled = amountUnreconciled
-            }
+            fun amountUnreconciled(amountUnreconciled: JsonField<Long>) =
+                apply {
+                    this.amountUnreconciled = amountUnreconciled
+                }
 
-            /**
-             * One of credit or debit. Indicates whether amount_unreconciled is a credit or debit
-             * amount.
-             */
-            fun amountUnreconciledDirection(
-                amountUnreconciledDirection: AmountUnreconciledDirection?
-            ) = amountUnreconciledDirection(JsonField.ofNullable(amountUnreconciledDirection))
+            /** One of credit or debit. Indicates whether amount_unreconciled is a credit or debit amount. */
+            fun amountUnreconciledDirection(amountUnreconciledDirection: AmountUnreconciledDirection?) = amountUnreconciledDirection(JsonField.ofNullable(amountUnreconciledDirection))
 
             /**
              * Sets [Builder.amountUnreconciledDirection] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.amountUnreconciledDirection] with a well-typed
-             * [AmountUnreconciledDirection] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * You should usually call [Builder.amountUnreconciledDirection] with a well-typed [AmountUnreconciledDirection] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun amountUnreconciledDirection(
-                amountUnreconciledDirection: JsonField<AmountUnreconciledDirection>
-            ) = apply { this.amountUnreconciledDirection = amountUnreconciledDirection }
+            fun amountUnreconciledDirection(amountUnreconciledDirection: JsonField<AmountUnreconciledDirection>) =
+                apply {
+                    this.amountUnreconciledDirection = amountUnreconciledDirection
+                }
 
-            /**
-             * The highest amount this expected payment may be equal to. Value in specified
-             * currency's smallest unit. e.g. $10 would be represented as 1000.
-             */
-            fun amountUpperBound(amountUpperBound: Long?) =
-                amountUpperBound(JsonField.ofNullable(amountUpperBound))
+            /** The highest amount this expected payment may be equal to. Value in specified currency's smallest unit. e.g. $10 would be represented as 1000. */
+            fun amountUpperBound(amountUpperBound: Long?) = amountUpperBound(JsonField.ofNullable(amountUpperBound))
 
             /**
              * Alias for [Builder.amountUpperBound].
              *
              * This unboxed primitive overload exists for backwards compatibility.
              */
-            fun amountUpperBound(amountUpperBound: Long) =
-                amountUpperBound(amountUpperBound as Long?)
+            fun amountUpperBound(amountUpperBound: Long) = amountUpperBound(amountUpperBound as Long?)
 
             /**
              * Sets [Builder.amountUpperBound] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.amountUpperBound] with a well-typed [Long] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.amountUpperBound] with a well-typed [Long] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun amountUpperBound(amountUpperBound: JsonField<Long>) = apply {
-                this.amountUpperBound = amountUpperBound
-            }
+            fun amountUpperBound(amountUpperBound: JsonField<Long>) =
+                apply {
+                    this.amountUpperBound = amountUpperBound
+                }
 
             /** The ID of the counterparty you expect for this payment. */
-            fun counterpartyId(counterpartyId: String?) =
-                counterpartyId(JsonField.ofNullable(counterpartyId))
+            fun counterpartyId(counterpartyId: String?) = counterpartyId(JsonField.ofNullable(counterpartyId))
 
             /**
              * Sets [Builder.counterpartyId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.counterpartyId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.counterpartyId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun counterpartyId(counterpartyId: JsonField<String>) = apply {
-                this.counterpartyId = counterpartyId
-            }
+            fun counterpartyId(counterpartyId: JsonField<String>) =
+                apply {
+                    this.counterpartyId = counterpartyId
+                }
 
             /** Must conform to ISO 4217. Defaults to the currency of the internal account. */
             fun currency(currency: Currency?) = currency(JsonField.ofNullable(currency))
@@ -1696,41 +1583,41 @@ private constructor(
             /**
              * Sets [Builder.currency] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.currency] with a well-typed [Currency] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.currency] with a well-typed [Currency] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+            fun currency(currency: JsonField<Currency>) =
+                apply {
+                    this.currency = currency
+                }
 
             /** The earliest date the payment may come in. Format: yyyy-mm-dd */
-            fun dateLowerBound(dateLowerBound: LocalDate?) =
-                dateLowerBound(JsonField.ofNullable(dateLowerBound))
+            fun dateLowerBound(dateLowerBound: LocalDate?) = dateLowerBound(JsonField.ofNullable(dateLowerBound))
 
             /**
              * Sets [Builder.dateLowerBound] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.dateLowerBound] with a well-typed [LocalDate] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.dateLowerBound] with a well-typed [LocalDate] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun dateLowerBound(dateLowerBound: JsonField<LocalDate>) = apply {
-                this.dateLowerBound = dateLowerBound
-            }
+            fun dateLowerBound(dateLowerBound: JsonField<LocalDate>) =
+                apply {
+                    this.dateLowerBound = dateLowerBound
+                }
 
             /** The latest date the payment may come in. Format: yyyy-mm-dd */
-            fun dateUpperBound(dateUpperBound: LocalDate?) =
-                dateUpperBound(JsonField.ofNullable(dateUpperBound))
+            fun dateUpperBound(dateUpperBound: LocalDate?) = dateUpperBound(JsonField.ofNullable(dateUpperBound))
 
             /**
              * Sets [Builder.dateUpperBound] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.dateUpperBound] with a well-typed [LocalDate] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.dateUpperBound] with a well-typed [LocalDate] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun dateUpperBound(dateUpperBound: JsonField<LocalDate>) = apply {
-                this.dateUpperBound = dateUpperBound
-            }
+            fun dateUpperBound(dateUpperBound: JsonField<LocalDate>) =
+                apply {
+                    this.dateUpperBound = dateUpperBound
+                }
 
             /** An optional description for internal use. */
             fun description(description: String?) = description(JsonField.ofNullable(description))
@@ -1738,28 +1625,27 @@ private constructor(
             /**
              * Sets [Builder.description] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.description] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.description] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun description(description: JsonField<String>) = apply {
-                this.description = description
-            }
+            fun description(description: JsonField<String>) =
+                apply {
+                    this.description = description
+                }
 
-            /**
-             * One of credit or debit. When you are receiving money, use credit. When you are being
-             * charged, use debit.
-             */
+            /** One of credit or debit. When you are receiving money, use credit. When you are being charged, use debit. */
             fun direction(direction: Direction?) = direction(JsonField.ofNullable(direction))
 
             /**
              * Sets [Builder.direction] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.direction] with a well-typed [Direction] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.direction] with a well-typed [Direction] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
+            fun direction(direction: JsonField<Direction>) =
+                apply {
+                    this.direction = direction
+                }
 
             /** An optional user-defined 180 character unique identifier. */
             fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
@@ -1767,70 +1653,67 @@ private constructor(
             /**
              * Sets [Builder.externalId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.externalId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.externalId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
+            fun externalId(externalId: JsonField<String>) =
+                apply {
+                    this.externalId = externalId
+                }
 
             /** The ID of the Internal Account for the expected payment. */
-            fun internalAccountId(internalAccountId: String?) =
-                internalAccountId(JsonField.ofNullable(internalAccountId))
+            fun internalAccountId(internalAccountId: String?) = internalAccountId(JsonField.ofNullable(internalAccountId))
 
             /**
              * Sets [Builder.internalAccountId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.internalAccountId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.internalAccountId] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun internalAccountId(internalAccountId: JsonField<String>) = apply {
-                this.internalAccountId = internalAccountId
-            }
+            fun internalAccountId(internalAccountId: JsonField<String>) =
+                apply {
+                    this.internalAccountId = internalAccountId
+                }
 
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
+            /** Additional data represented as key-value pairs. Both the key and value must be strings. */
             fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
             /**
              * Sets [Builder.metadata] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+            fun metadata(metadata: JsonField<Metadata>) =
+                apply {
+                    this.metadata = metadata
+                }
 
             /** The reconciliation filters you have for this payment. */
-            fun reconciliationFilters(reconciliationFilters: JsonValue) = apply {
-                this.reconciliationFilters = reconciliationFilters
-            }
+            fun reconciliationFilters(reconciliationFilters: JsonValue) =
+                apply {
+                    this.reconciliationFilters = reconciliationFilters
+                }
 
             /** The reconciliation groups you have for this payment. */
-            fun reconciliationGroups(reconciliationGroups: JsonValue) = apply {
-                this.reconciliationGroups = reconciliationGroups
-            }
+            fun reconciliationGroups(reconciliationGroups: JsonValue) =
+                apply {
+                    this.reconciliationGroups = reconciliationGroups
+                }
 
             /** An array of reconciliation rule variables for this payment. */
-            fun reconciliationRuleVariables(
-                reconciliationRuleVariables: List<ReconciliationRule>?
-            ) = reconciliationRuleVariables(JsonField.ofNullable(reconciliationRuleVariables))
+            fun reconciliationRuleVariables(reconciliationRuleVariables: List<ReconciliationRule>?) = reconciliationRuleVariables(JsonField.ofNullable(reconciliationRuleVariables))
 
             /**
              * Sets [Builder.reconciliationRuleVariables] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.reconciliationRuleVariables] with a well-typed
-             * `List<ReconciliationRule>` value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * You should usually call [Builder.reconciliationRuleVariables] with a well-typed `List<ReconciliationRule>` value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun reconciliationRuleVariables(
-                reconciliationRuleVariables: JsonField<List<ReconciliationRule>>
-            ) = apply {
-                this.reconciliationRuleVariables =
-                    reconciliationRuleVariables.map { it.toMutableList() }
-            }
+            fun reconciliationRuleVariables(reconciliationRuleVariables: JsonField<List<ReconciliationRule>>) =
+                apply {
+                    this.reconciliationRuleVariables = reconciliationRuleVariables.map { it.toMutableList() }
+                }
 
             /**
              * Adds a single [ReconciliationRule] to [reconciliationRuleVariables].
@@ -1839,98 +1722,92 @@ private constructor(
              */
             fun addReconciliationRuleVariable(reconciliationRuleVariable: ReconciliationRule) =
                 apply {
-                    reconciliationRuleVariables =
-                        (reconciliationRuleVariables ?: JsonField.of(mutableListOf())).also {
-                            checkKnown("reconciliationRuleVariables", it)
-                                .add(reconciliationRuleVariable)
-                        }
+                    reconciliationRuleVariables = (reconciliationRuleVariables ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("reconciliationRuleVariables", it).add(reconciliationRuleVariable)
+                    }
                 }
 
-            /**
-             * For `ach`, this field will be passed through on an addenda record. For `wire`
-             * payments the field will be passed through as the "Originator to Beneficiary
-             * Information", also known as OBI or Fedwire tag 6000.
-             */
-            fun remittanceInformation(remittanceInformation: String?) =
-                remittanceInformation(JsonField.ofNullable(remittanceInformation))
+            /** For `ach`, this field will be passed through on an addenda record. For `wire` payments the field will be passed through as the "Originator to Beneficiary Information", also known as OBI or Fedwire tag 6000. */
+            fun remittanceInformation(remittanceInformation: String?) = remittanceInformation(JsonField.ofNullable(remittanceInformation))
 
             /**
              * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.remittanceInformation] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.remittanceInformation] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-                this.remittanceInformation = remittanceInformation
-            }
+            fun remittanceInformation(remittanceInformation: JsonField<String>) =
+                apply {
+                    this.remittanceInformation = remittanceInformation
+                }
 
-            /**
-             * The statement description you expect to see on the transaction. For ACH payments,
-             * this will be the full line item passed from the bank. For wire payments, this will be
-             * the OBI field on the wire. For check payments, this will be the memo field.
-             */
-            fun statementDescriptor(statementDescriptor: String?) =
-                statementDescriptor(JsonField.ofNullable(statementDescriptor))
+            /** The statement description you expect to see on the transaction. For ACH payments, this will be the full line item passed from the bank. For wire payments, this will be the OBI field on the wire. For check payments, this will be the memo field. */
+            fun statementDescriptor(statementDescriptor: String?) = statementDescriptor(JsonField.ofNullable(statementDescriptor))
 
             /**
              * Sets [Builder.statementDescriptor] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.statementDescriptor] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.statementDescriptor] with a well-typed [String] value instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun statementDescriptor(statementDescriptor: JsonField<String>) = apply {
-                this.statementDescriptor = statementDescriptor
-            }
+            fun statementDescriptor(statementDescriptor: JsonField<String>) =
+                apply {
+                    this.statementDescriptor = statementDescriptor
+                }
 
-            /**
-             * The Expected Payment's status can be updated from partially_reconciled to reconciled.
-             */
+            /** The Expected Payment's status can be updated from partially_reconciled to reconciled. */
             fun status(status: Status?) = status(JsonField.ofNullable(status))
 
             /**
              * Sets [Builder.status] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.status] with a well-typed [Status] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.status] with a well-typed [Status] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun status(status: JsonField<Status>) = apply { this.status = status }
+            fun status(status: JsonField<Status>) =
+                apply {
+                    this.status = status
+                }
 
-            /**
-             * One of: ach, au_becs, bacs, book, check, eft, interac, provxchange, rtp, sen, sepa,
-             * signet, wire.
-             */
+            /** One of: ach, au_becs, bacs, book, check, eft, rtp, sepa, wire. */
             fun type(type: ExpectedPaymentType?) = type(JsonField.ofNullable(type))
 
             /**
              * Sets [Builder.type] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.type] with a well-typed [ExpectedPaymentType] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.type] with a well-typed [ExpectedPaymentType] value instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun type(type: JsonField<ExpectedPaymentType>) = apply { this.type = type }
+            fun type(type: JsonField<ExpectedPaymentType>) =
+                apply {
+                    this.type = type
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperty(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
             /**
              * Returns an immutable instance of [ExpectedPaymentUpdateRequest].
@@ -1939,70 +1816,70 @@ private constructor(
              */
             fun build(): ExpectedPaymentUpdateRequest =
                 ExpectedPaymentUpdateRequest(
-                    amountLowerBound,
-                    amountReconciled,
-                    amountReconciledDirection,
-                    amountUnreconciled,
-                    amountUnreconciledDirection,
-                    amountUpperBound,
-                    counterpartyId,
-                    currency,
-                    dateLowerBound,
-                    dateUpperBound,
-                    description,
-                    direction,
-                    externalId,
-                    internalAccountId,
-                    metadata,
-                    reconciliationFilters,
-                    reconciliationGroups,
-                    (reconciliationRuleVariables ?: JsonMissing.of()).map { it.toImmutable() },
-                    remittanceInformation,
-                    statementDescriptor,
-                    status,
-                    type,
-                    additionalProperties.toMutableMap(),
+                  amountLowerBound,
+                  amountReconciled,
+                  amountReconciledDirection,
+                  amountUnreconciled,
+                  amountUnreconciledDirection,
+                  amountUpperBound,
+                  counterpartyId,
+                  currency,
+                  dateLowerBound,
+                  dateUpperBound,
+                  description,
+                  direction,
+                  externalId,
+                  internalAccountId,
+                  metadata,
+                  reconciliationFilters,
+                  reconciliationGroups,
+                  (reconciliationRuleVariables?: JsonMissing.of()).map { it.toImmutable() },
+                  remittanceInformation,
+                  statementDescriptor,
+                  status,
+                  type,
+                  additionalProperties.toMutableMap(),
                 )
         }
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): ExpectedPaymentUpdateRequest = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): ExpectedPaymentUpdateRequest =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            amountLowerBound()
-            amountReconciled()
-            amountReconciledDirection()?.validate()
-            amountUnreconciled()
-            amountUnreconciledDirection()?.validate()
-            amountUpperBound()
-            counterpartyId()
-            currency()?.validate()
-            dateLowerBound()
-            dateUpperBound()
-            description()
-            direction()?.validate()
-            externalId()
-            internalAccountId()
-            metadata()?.validate()
-            reconciliationRuleVariables()?.forEach { it.validate() }
-            remittanceInformation()
-            statementDescriptor()
-            status()?.validate()
-            type()?.validate()
-            validated = true
-        }
+                amountLowerBound()
+                amountReconciled()
+                amountReconciledDirection()?.validate()
+                amountUnreconciled()
+                amountUnreconciledDirection()?.validate()
+                amountUpperBound()
+                counterpartyId()
+                currency()?.validate()
+                dateLowerBound()
+                dateUpperBound()
+                description()
+                direction()?.validate()
+                externalId()
+                internalAccountId()
+                metadata()?.validate()
+                reconciliationRuleVariables()?.forEach { it.validate() }
+                remittanceInformation()
+                statementDescriptor()
+                status()?.validate()
+                type()?.validate()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -2013,112 +1890,42 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            (if (amountLowerBound.asKnown() == null) 0 else 1) +
-                (if (amountReconciled.asKnown() == null) 0 else 1) +
-                (amountReconciledDirection.asKnown()?.validity() ?: 0) +
-                (if (amountUnreconciled.asKnown() == null) 0 else 1) +
-                (amountUnreconciledDirection.asKnown()?.validity() ?: 0) +
-                (if (amountUpperBound.asKnown() == null) 0 else 1) +
-                (if (counterpartyId.asKnown() == null) 0 else 1) +
-                (currency.asKnown()?.validity() ?: 0) +
-                (if (dateLowerBound.asKnown() == null) 0 else 1) +
-                (if (dateUpperBound.asKnown() == null) 0 else 1) +
-                (if (description.asKnown() == null) 0 else 1) +
-                (direction.asKnown()?.validity() ?: 0) +
-                (if (externalId.asKnown() == null) 0 else 1) +
-                (if (internalAccountId.asKnown() == null) 0 else 1) +
-                (metadata.asKnown()?.validity() ?: 0) +
-                (reconciliationRuleVariables.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                (if (remittanceInformation.asKnown() == null) 0 else 1) +
-                (if (statementDescriptor.asKnown() == null) 0 else 1) +
-                (status.asKnown()?.validity() ?: 0) +
-                (type.asKnown()?.validity() ?: 0)
+        internal fun validity(): Int = (if (amountLowerBound.asKnown() == null) 0 else 1) + (if (amountReconciled.asKnown() == null) 0 else 1) + (amountReconciledDirection.asKnown()?.validity() ?: 0) + (if (amountUnreconciled.asKnown() == null) 0 else 1) + (amountUnreconciledDirection.asKnown()?.validity() ?: 0) + (if (amountUpperBound.asKnown() == null) 0 else 1) + (if (counterpartyId.asKnown() == null) 0 else 1) + (currency.asKnown()?.validity() ?: 0) + (if (dateLowerBound.asKnown() == null) 0 else 1) + (if (dateUpperBound.asKnown() == null) 0 else 1) + (if (description.asKnown() == null) 0 else 1) + (direction.asKnown()?.validity() ?: 0) + (if (externalId.asKnown() == null) 0 else 1) + (if (internalAccountId.asKnown() == null) 0 else 1) + (metadata.asKnown()?.validity() ?: 0) + (reconciliationRuleVariables.asKnown()?.sumOf { it.validity().toInt() } ?: 0) + (if (remittanceInformation.asKnown() == null) 0 else 1) + (if (statementDescriptor.asKnown() == null) 0 else 1) + (status.asKnown()?.validity() ?: 0) + (type.asKnown()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is ExpectedPaymentUpdateRequest &&
-                amountLowerBound == other.amountLowerBound &&
-                amountReconciled == other.amountReconciled &&
-                amountReconciledDirection == other.amountReconciledDirection &&
-                amountUnreconciled == other.amountUnreconciled &&
-                amountUnreconciledDirection == other.amountUnreconciledDirection &&
-                amountUpperBound == other.amountUpperBound &&
-                counterpartyId == other.counterpartyId &&
-                currency == other.currency &&
-                dateLowerBound == other.dateLowerBound &&
-                dateUpperBound == other.dateUpperBound &&
-                description == other.description &&
-                direction == other.direction &&
-                externalId == other.externalId &&
-                internalAccountId == other.internalAccountId &&
-                metadata == other.metadata &&
-                reconciliationFilters == other.reconciliationFilters &&
-                reconciliationGroups == other.reconciliationGroups &&
-                reconciliationRuleVariables == other.reconciliationRuleVariables &&
-                remittanceInformation == other.remittanceInformation &&
-                statementDescriptor == other.statementDescriptor &&
-                status == other.status &&
-                type == other.type &&
-                additionalProperties == other.additionalProperties
+          return other is ExpectedPaymentUpdateRequest && amountLowerBound == other.amountLowerBound && amountReconciled == other.amountReconciled && amountReconciledDirection == other.amountReconciledDirection && amountUnreconciled == other.amountUnreconciled && amountUnreconciledDirection == other.amountUnreconciledDirection && amountUpperBound == other.amountUpperBound && counterpartyId == other.counterpartyId && currency == other.currency && dateLowerBound == other.dateLowerBound && dateUpperBound == other.dateUpperBound && description == other.description && direction == other.direction && externalId == other.externalId && internalAccountId == other.internalAccountId && metadata == other.metadata && reconciliationFilters == other.reconciliationFilters && reconciliationGroups == other.reconciliationGroups && reconciliationRuleVariables == other.reconciliationRuleVariables && remittanceInformation == other.remittanceInformation && statementDescriptor == other.statementDescriptor && status == other.status && type == other.type && additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(
-                amountLowerBound,
-                amountReconciled,
-                amountReconciledDirection,
-                amountUnreconciled,
-                amountUnreconciledDirection,
-                amountUpperBound,
-                counterpartyId,
-                currency,
-                dateLowerBound,
-                dateUpperBound,
-                description,
-                direction,
-                externalId,
-                internalAccountId,
-                metadata,
-                reconciliationFilters,
-                reconciliationGroups,
-                reconciliationRuleVariables,
-                remittanceInformation,
-                statementDescriptor,
-                status,
-                type,
-                additionalProperties,
-            )
-        }
+        private val hashCode: Int by lazy { Objects.hash(amountLowerBound, amountReconciled, amountReconciledDirection, amountUnreconciled, amountUnreconciledDirection, amountUpperBound, counterpartyId, currency, dateLowerBound, dateUpperBound, description, direction, externalId, internalAccountId, metadata, reconciliationFilters, reconciliationGroups, reconciliationRuleVariables, remittanceInformation, statementDescriptor, status, type, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "ExpectedPaymentUpdateRequest{amountLowerBound=$amountLowerBound, amountReconciled=$amountReconciled, amountReconciledDirection=$amountReconciledDirection, amountUnreconciled=$amountUnreconciled, amountUnreconciledDirection=$amountUnreconciledDirection, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, externalId=$externalId, internalAccountId=$internalAccountId, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        override fun toString() = "ExpectedPaymentUpdateRequest{amountLowerBound=$amountLowerBound, amountReconciled=$amountReconciled, amountReconciledDirection=$amountReconciledDirection, amountUnreconciled=$amountUnreconciled, amountUnreconciledDirection=$amountUnreconciledDirection, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, externalId=$externalId, internalAccountId=$internalAccountId, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, status=$status, type=$type, additionalProperties=$additionalProperties}"
     }
 
     /** One of credit or debit. Indicates whether amount_reconciled is a credit or debit amount. */
-    class AmountReconciledDirection
-    @JsonCreator
-    private constructor(private val value: JsonField<String>) : Enum {
+    class AmountReconciledDirection @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -2136,32 +1943,29 @@ private constructor(
         }
 
         /**
-         * An enum containing [AmountReconciledDirection]'s known values, as well as an [_UNKNOWN]
-         * member.
+         * An enum containing [AmountReconciledDirection]'s known values, as well as an [_UNKNOWN] member.
          *
-         * An instance of [AmountReconciledDirection] can contain an unknown value in a couple of
-         * cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         * An instance of [AmountReconciledDirection] can contain an unknown value in a couple of cases:
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
             CREDIT,
             DEBIT,
-            /**
-             * An enum member indicating that [AmountReconciledDirection] was instantiated with an
-             * unknown value.
-             */
+            /** An enum member indicating that [AmountReconciledDirection] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -2173,53 +1977,48 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
                 CREDIT -> Known.CREDIT
                 DEBIT -> Known.DEBIT
-                else ->
-                    throw ModernTreasuryInvalidDataException(
-                        "Unknown AmountReconciledDirection: $value"
-                    )
+                else -> throw ModernTreasuryInvalidDataException("Unknown AmountReconciledDirection: $value")
             }
 
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): AmountReconciledDirection = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): AmountReconciledDirection =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -2230,19 +2029,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is AmountReconciledDirection && value == other.value
+          return other is AmountReconciledDirection && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2250,22 +2048,21 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * One of credit or debit. Indicates whether amount_unreconciled is a credit or debit amount.
-     */
-    class AmountUnreconciledDirection
-    @JsonCreator
-    private constructor(private val value: JsonField<String>) : Enum {
+    /** One of credit or debit. Indicates whether amount_unreconciled is a credit or debit amount. */
+    class AmountUnreconciledDirection @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -2283,32 +2080,29 @@ private constructor(
         }
 
         /**
-         * An enum containing [AmountUnreconciledDirection]'s known values, as well as an [_UNKNOWN]
-         * member.
+         * An enum containing [AmountUnreconciledDirection]'s known values, as well as an [_UNKNOWN] member.
          *
-         * An instance of [AmountUnreconciledDirection] can contain an unknown value in a couple of
-         * cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         * An instance of [AmountUnreconciledDirection] can contain an unknown value in a couple of cases:
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
             CREDIT,
             DEBIT,
-            /**
-             * An enum member indicating that [AmountUnreconciledDirection] was instantiated with an
-             * unknown value.
-             */
+            /** An enum member indicating that [AmountUnreconciledDirection] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -2320,53 +2114,48 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
                 CREDIT -> Known.CREDIT
                 DEBIT -> Known.DEBIT
-                else ->
-                    throw ModernTreasuryInvalidDataException(
-                        "Unknown AmountUnreconciledDirection: $value"
-                    )
+                else -> throw ModernTreasuryInvalidDataException("Unknown AmountUnreconciledDirection: $value")
             }
 
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): AmountUnreconciledDirection = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): AmountUnreconciledDirection =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -2377,19 +2166,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is AmountUnreconciledDirection && value == other.value
+          return other is AmountUnreconciledDirection && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2397,21 +2185,21 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * One of credit or debit. When you are receiving money, use credit. When you are being charged,
-     * use debit.
-     */
-    class Direction @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    /** One of credit or debit. When you are receiving money, use credit. When you are being charged, use debit. */
+    class Direction @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -2432,26 +2220,26 @@ private constructor(
          * An enum containing [Direction]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Direction] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
             CREDIT,
             DEBIT,
-            /**
-             * An enum member indicating that [Direction] was instantiated with an unknown value.
-             */
+            /** An enum member indicating that [Direction] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -2463,11 +2251,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -2479,34 +2266,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Direction = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Direction =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -2517,19 +2303,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Direction && value == other.value
+          return other is Direction && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2538,11 +2323,9 @@ private constructor(
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
-    class Metadata
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
+    class Metadata @JsonCreator private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         @JsonAnyGetter
@@ -2562,28 +2345,36 @@ private constructor(
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(metadata: Metadata) = apply {
-                additionalProperties = metadata.additionalProperties.toMutableMap()
-            }
+            internal fun from(metadata: Metadata) =
+                apply {
+                    additionalProperties = metadata.additionalProperties.toMutableMap()
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperty(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
             /**
              * Returns an immutable instance of [Metadata].
@@ -2596,21 +2387,21 @@ private constructor(
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Metadata = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Metadata =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            validated = true
-        }
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -2621,20 +2412,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+        internal fun validity(): Int = additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Metadata && additionalProperties == other.additionalProperties
+          return other is Metadata && additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
@@ -2645,17 +2434,20 @@ private constructor(
     }
 
     /** The Expected Payment's status can be updated from partially_reconciled to reconciled. */
-    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Status @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't match any known
+         * member, and you want to know that value. For example, if the SDK is on an older version than the
+         * API, then the API may respond with new members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -2666,16 +2458,18 @@ private constructor(
 
         /** An enum containing [Status]'s known values. */
         enum class Known {
-            RECONCILED
+            RECONCILED,
         }
 
         /**
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the SDK is on
+         *   an older version than the API, then the API may respond with new members that the SDK is unaware
+         *   of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -2685,11 +2479,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN] if the
+         * class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want to throw
+         * for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -2700,11 +2494,10 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't want to throw
+         * for the unknown case.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a known member.
          */
         fun known(): Known =
             when (this) {
@@ -2715,34 +2508,33 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging and generally
+         * doesn't throw.
          *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have the expected
+         *   primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
 
         private var validated: Boolean = false
 
         /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
+         * Validates that the types of all values in this object match their expected types recursively.
          *
          * This method is _not_ forwards compatible with new types from the API for existing fields.
          *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
          */
-        fun validate(): Status = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Status =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            known()
-            validated = true
-        }
+                known()
+                validated = true
+            }
 
         fun isValid(): Boolean =
             try {
@@ -2753,19 +2545,18 @@ private constructor(
             }
 
         /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
+         * Returns a score indicating how many valid values are contained in this object recursively.
          *
          * Used for best match union deserialization.
          */
         internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && value == other.value
+          return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2774,19 +2565,14 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is ExpectedPaymentUpdateParams &&
-            id == other.id &&
-            body == other.body &&
-            additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams
+      return other is ExpectedPaymentUpdateParams && id == other.id && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int = Objects.hash(id, body, additionalHeaders, additionalQueryParams)
 
-    override fun toString() =
-        "ExpectedPaymentUpdateParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() = "ExpectedPaymentUpdateParams{id=$id, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

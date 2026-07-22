@@ -6,16 +6,18 @@ import com.moderntreasury.api.core.AutoPagerAsync
 import com.moderntreasury.api.core.PageAsync
 import com.moderntreasury.api.core.checkRequired
 import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.models.LedgerAccount
+import com.moderntreasury.api.models.LedgerAccountListParams
 import com.moderntreasury.api.services.async.LedgerAccountServiceAsync
 import java.util.Objects
 
 /** @see LedgerAccountServiceAsync.list */
-class LedgerAccountListPageAsync
-private constructor(
+class LedgerAccountListPageAsync private constructor(
     private val service: LedgerAccountServiceAsync,
     private val params: LedgerAccountListParams,
     private val headers: Headers,
     private val items: List<LedgerAccount>,
+
 ) : PageAsync<LedgerAccount> {
 
     fun perPage(): String? = headers.values("X-Per-Page").firstOrNull()
@@ -25,9 +27,10 @@ private constructor(
     override fun hasNextPage(): Boolean = afterCursor() != null
 
     fun nextPageParams(): LedgerAccountListParams {
-        val nextCursor =
-            afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
-        return params.toBuilder().afterCursor(nextCursor).build()
+      val nextCursor = afterCursor() ?: throw IllegalStateException("Cannot construct next page params")
+      return params.toBuilder()
+          .afterCursor(nextCursor)
+          .build()
     }
 
     override suspend fun nextPage(): LedgerAccountListPageAsync = service.list(nextPageParams())
@@ -48,6 +51,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [LedgerAccountListPageAsync].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -66,22 +70,35 @@ private constructor(
         private var headers: Headers? = null
         private var items: List<LedgerAccount>? = null
 
-        internal fun from(ledgerAccountListPageAsync: LedgerAccountListPageAsync) = apply {
-            service = ledgerAccountListPageAsync.service
-            params = ledgerAccountListPageAsync.params
-            headers = ledgerAccountListPageAsync.headers
-            items = ledgerAccountListPageAsync.items
-        }
+        internal fun from(ledgerAccountListPageAsync: LedgerAccountListPageAsync) =
+            apply {
+                service = ledgerAccountListPageAsync.service
+                params = ledgerAccountListPageAsync.params
+                headers = ledgerAccountListPageAsync.headers
+                items = ledgerAccountListPageAsync.items
+            }
 
-        fun service(service: LedgerAccountServiceAsync) = apply { this.service = service }
+        fun service(service: LedgerAccountServiceAsync) =
+            apply {
+                this.service = service
+            }
 
         /** The parameters that were used to request this page. */
-        fun params(params: LedgerAccountListParams) = apply { this.params = params }
+        fun params(params: LedgerAccountListParams) =
+            apply {
+                this.params = params
+            }
 
-        fun headers(headers: Headers) = apply { this.headers = headers }
+        fun headers(headers: Headers) =
+            apply {
+                this.headers = headers
+            }
 
         /** The response that this page was parsed from. */
-        fun items(items: List<LedgerAccount>) = apply { this.items = items }
+        fun items(items: List<LedgerAccount>) =
+            apply {
+                this.items = items
+            }
 
         /**
          * Returns an immutable instance of [LedgerAccountListPageAsync].
@@ -89,6 +106,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .service()
          * .params()
@@ -100,27 +118,30 @@ private constructor(
          */
         fun build(): LedgerAccountListPageAsync =
             LedgerAccountListPageAsync(
-                checkRequired("service", service),
-                checkRequired("params", params),
-                checkRequired("headers", headers),
-                checkRequired("items", items),
+              checkRequired(
+                "service", service
+              ),
+              checkRequired(
+                "params", params
+              ),
+              checkRequired(
+                "headers", headers
+              ),
+              checkRequired(
+                "items", items
+              ),
             )
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is LedgerAccountListPageAsync &&
-            service == other.service &&
-            params == other.params &&
-            headers == other.headers &&
-            items == other.items
+      return other is LedgerAccountListPageAsync && service == other.service && params == other.params && headers == other.headers && items == other.items
     }
 
     override fun hashCode(): Int = Objects.hash(service, params, headers, items)
 
-    override fun toString() =
-        "LedgerAccountListPageAsync{service=$service, params=$params, headers=$headers, items=$items}"
+    override fun toString() = "LedgerAccountListPageAsync{service=$service, params=$params, headers=$headers, items=$items}"
 }

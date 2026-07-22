@@ -4,6 +4,9 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
+import com.moderntreasury.api.models.PaymentReferenceListParams
+import com.moderntreasury.api.models.PaymentReferenceRetireveParams
+import com.moderntreasury.api.models.PaymentReferenceRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -12,46 +15,43 @@ internal class PaymentReferenceServiceTest {
 
     @Test
     fun retrieve() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val paymentReferenceService = client.paymentReferences()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val paymentReferenceService = client.paymentReferences()
 
-        val paymentReference = paymentReferenceService.retrieve("id")
+      val paymentReference = paymentReferenceService.retrieve("id")
 
-        paymentReference.validate()
+      paymentReference.validate()
     }
 
     @Test
     fun list() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val paymentReferenceService = client.paymentReferences()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val paymentReferenceService = client.paymentReferences()
 
-        val page = paymentReferenceService.list()
+      val page = paymentReferenceService.list()
 
-        page.items().forEach { it.validate() }
+      page.items().forEach { it.validate() }
     }
 
     @Test
     fun retireve() {
-        val client =
-            ModernTreasuryOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val paymentReferenceService = client.paymentReferences()
+      val client = ModernTreasuryOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val paymentReferenceService = client.paymentReferences()
 
-        val paymentReference = paymentReferenceService.retireve("id")
+      val paymentReference = paymentReferenceService.retireve("id")
 
-        paymentReference.validate()
+      paymentReference.validate()
     }
 }

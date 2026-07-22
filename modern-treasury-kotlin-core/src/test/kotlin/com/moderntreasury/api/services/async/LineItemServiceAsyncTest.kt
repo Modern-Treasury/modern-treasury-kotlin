@@ -17,74 +17,60 @@ internal class LineItemServiceAsyncTest {
 
     @Test
     suspend fun retrieve() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val lineItemServiceAsync = client.lineItems()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val lineItemServiceAsync = client.lineItems()
 
-        val lineItem =
-            lineItemServiceAsync.retrieve(
-                LineItemRetrieveParams.builder()
-                    .itemizableType(LineItemRetrieveParams.ItemizableType.EXPECTED_PAYMENTS)
-                    .itemizableId("itemizable_id")
-                    .id("id")
-                    .build()
-            )
+      val lineItem = lineItemServiceAsync.retrieve(LineItemRetrieveParams.builder()
+          .itemizableType(LineItemRetrieveParams.ItemizableType.EXPECTED_PAYMENTS)
+          .itemizableId("itemizable_id")
+          .id("id")
+          .build())
 
-        lineItem.validate()
+      lineItem.validate()
     }
 
     @Test
     suspend fun update() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val lineItemServiceAsync = client.lineItems()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val lineItemServiceAsync = client.lineItems()
 
-        val lineItem =
-            lineItemServiceAsync.update(
-                LineItemUpdateParams.builder()
-                    .itemizableType(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS)
-                    .itemizableId("itemizable_id")
-                    .id("id")
-                    .metadata(
-                        LineItemUpdateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                            .build()
-                    )
-                    .build()
-            )
+      val lineItem = lineItemServiceAsync.update(LineItemUpdateParams.builder()
+          .itemizableType(LineItemUpdateParams.ItemizableType.EXPECTED_PAYMENTS)
+          .itemizableId("itemizable_id")
+          .id("id")
+          .metadata(LineItemUpdateParams.Metadata.builder()
+              .putAdditionalProperty("key", JsonValue.from("value"))
+              .putAdditionalProperty("foo", JsonValue.from("bar"))
+              .putAdditionalProperty("modern", JsonValue.from("treasury"))
+              .build())
+          .build())
 
-        lineItem.validate()
+      lineItem.validate()
     }
 
     @Disabled("Prism is broken in this case")
     @Test
     suspend fun list() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val lineItemServiceAsync = client.lineItems()
+      val client = ModernTreasuryOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .organizationId("my-organization-ID")
+          .build()
+      val lineItemServiceAsync = client.lineItems()
 
-        val page =
-            lineItemServiceAsync.list(
-                LineItemListParams.builder()
-                    .itemizableType(LineItemListParams.ItemizableType.EXPECTED_PAYMENTS)
-                    .itemizableId("itemizable_id")
-                    .build()
-            )
+      val page = lineItemServiceAsync.list(LineItemListParams.builder()
+          .itemizableType(LineItemListParams.ItemizableType.EXPECTED_PAYMENTS)
+          .itemizableId("itemizable_id")
+          .build())
 
-        page.items().forEach { it.validate() }
+      page.items().forEach { it.validate() }
     }
 }

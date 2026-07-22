@@ -23,220 +23,204 @@ import com.moderntreasury.api.models.LedgerAccountListPage
 import com.moderntreasury.api.models.LedgerAccountListParams
 import com.moderntreasury.api.models.LedgerAccountRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountUpdateParams
+import com.moderntreasury.api.services.blocking.LedgerAccountService
+import com.moderntreasury.api.services.blocking.LedgerAccountServiceImpl
 
-class LedgerAccountServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    LedgerAccountService {
+class LedgerAccountServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: LedgerAccountService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : LedgerAccountService {
+
+    private val withRawResponse: LedgerAccountService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): LedgerAccountService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerAccountService =
-        LedgerAccountServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerAccountService = LedgerAccountServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun create(
-        params: LedgerAccountCreateParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccount =
+    override fun create(params: LedgerAccountCreateParams, requestOptions: RequestOptions): LedgerAccount =
         // post /api/ledger_accounts
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(
-        params: LedgerAccountRetrieveParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccount =
+    override fun retrieve(params: LedgerAccountRetrieveParams, requestOptions: RequestOptions): LedgerAccount =
         // get /api/ledger_accounts/{id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun update(
-        params: LedgerAccountUpdateParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccount =
+    override fun update(params: LedgerAccountUpdateParams, requestOptions: RequestOptions): LedgerAccount =
         // patch /api/ledger_accounts/{id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: LedgerAccountListParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccountListPage =
+    override fun list(params: LedgerAccountListParams, requestOptions: RequestOptions): LedgerAccountListPage =
         // get /api/ledger_accounts
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun delete(
-        params: LedgerAccountDeleteParams,
-        requestOptions: RequestOptions,
-    ): LedgerAccount =
+    override fun delete(params: LedgerAccountDeleteParams, requestOptions: RequestOptions): LedgerAccount =
         // delete /api/ledger_accounts/{id}
         withRawResponse().delete(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        LedgerAccountService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+    ) : LedgerAccountService.WithRawResponse {
 
-        override fun withOptions(
-            modifier: (ClientOptions.Builder) -> Unit
-        ): LedgerAccountService.WithRawResponse =
-            LedgerAccountServiceImpl.WithRawResponseImpl(
-                clientOptions.toBuilder().apply(modifier).build()
+        private val errorHandler: Handler<HttpResponse> = errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LedgerAccountService.WithRawResponse = LedgerAccountServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
+
+        private val createHandler: Handler<LedgerAccount> = jsonHandler<LedgerAccount>(clientOptions.jsonMapper)
+
+        override fun create(params: LedgerAccountCreateParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccount> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_accounts")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
             )
-
-        private val createHandler: Handler<LedgerAccount> =
-            jsonHandler<LedgerAccount>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: LedgerAccountCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccount> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_accounts")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<LedgerAccount> =
-            jsonHandler<LedgerAccount>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<LedgerAccount> = jsonHandler<LedgerAccount>(clientOptions.jsonMapper)
 
-        override fun retrieve(
-            params: LedgerAccountRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccount> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_accounts", params._pathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: LedgerAccountRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccount> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_accounts", params._pathParam(0))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val updateHandler: Handler<LedgerAccount> =
-            jsonHandler<LedgerAccount>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<LedgerAccount> = jsonHandler<LedgerAccount>(clientOptions.jsonMapper)
 
-        override fun update(
-            params: LedgerAccountUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccount> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_accounts", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun update(params: LedgerAccountUpdateParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccount> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PATCH)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_accounts", params._pathParam(0))
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  updateHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<List<LedgerAccount>> =
-            jsonHandler<List<LedgerAccount>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<LedgerAccount>> = jsonHandler<List<LedgerAccount>>(clientOptions.jsonMapper)
 
-        override fun list(
-            params: LedgerAccountListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccountListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_accounts")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
-                        }
-                    }
-                    .let {
-                        LedgerAccountListPage.builder()
-                            .service(LedgerAccountServiceImpl(clientOptions))
-                            .params(params)
-                            .headers(response.headers())
-                            .items(it)
-                            .build()
-                    }
-            }
+        override fun list(params: LedgerAccountListParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccountListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_accounts")
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.forEach { it.validate() }
+                  }
+              }
+              .let {
+                  LedgerAccountListPage.builder()
+                      .service(LedgerAccountServiceImpl(clientOptions))
+                      .params(params)
+                      .headers(response.headers())
+                      .items(it)
+                      .build()
+              }
+          }
         }
 
-        private val deleteHandler: Handler<LedgerAccount> =
-            jsonHandler<LedgerAccount>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<LedgerAccount> = jsonHandler<LedgerAccount>(clientOptions.jsonMapper)
 
-        override fun delete(
-            params: LedgerAccountDeleteParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LedgerAccount> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("id", params.id())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api", "ledger_accounts", params._pathParam(0))
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { deleteHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun delete(params: LedgerAccountDeleteParams, requestOptions: RequestOptions): HttpResponseFor<LedgerAccount> {
+          // We check here instead of in the params builder because this can be specified positionally or in the params class.
+          checkRequired("id", params.id())
+          val request = HttpRequest.builder()
+            .method(HttpMethod.DELETE)
+            .baseUrl(clientOptions.baseUrl())
+            .addPathSegments("api", "ledger_accounts", params._pathParam(0))
+            .apply { params._body()?.let{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepare(
+              clientOptions, params
+            )
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return errorHandler.handle(response).parseable {
+              response.use {
+                  deleteHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

@@ -5,6 +5,12 @@ package com.moderntreasury.api.core.http
 import com.moderntreasury.api.core.LogLevel
 import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.checkRequired
+import com.moderntreasury.api.core.http.Headers
+import com.moderntreasury.api.core.http.HttpClient
+import com.moderntreasury.api.core.http.HttpMethod
+import com.moderntreasury.api.core.http.HttpRequest
+import com.moderntreasury.api.core.http.HttpRequestBody
+import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.toImmutable
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -19,11 +25,12 @@ import java.time.Clock
 import java.time.Duration
 import java.time.OffsetDateTime
 import java.util.SortedSet
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.CompletionException
 import kotlin.time.toKotlinDuration
 
 /** A wrapper [HttpClient] around [httpClient] that logs request and response information. */
-class LoggingHttpClient
-private constructor(
+class LoggingHttpClient private constructor(
     /** The underlying [HttpClient] for making requests. */
     val httpClient: HttpClient,
     /**
@@ -46,9 +53,13 @@ private constructor(
      * Pass [LogLevel.fromEnv] to read from environment variables.
      */
     val level: LogLevel,
+
 ) : HttpClient {
 
-    override fun execute(request: HttpRequest, requestOptions: RequestOptions): HttpResponse {
+    override fun execute(
+        request: HttpRequest,
+        requestOptions: RequestOptions
+    ): HttpResponse {
         val loggingRequest = logRequest(request)
 
         val before = OffsetDateTime.now(clock)
@@ -66,7 +77,7 @@ private constructor(
 
     override suspend fun executeAsync(
         request: HttpRequest,
-        requestOptions: RequestOptions,
+        requestOptions: RequestOptions
     ): HttpResponse {
         val loggingRequest = logRequest(request)
 
@@ -116,7 +127,10 @@ private constructor(
             .build()
     }
 
-    private fun logResponse(response: HttpResponse, took: Duration): HttpResponse {
+    private fun logResponse(
+        response: HttpResponse,
+        took: Duration
+    ): HttpResponse {
         if (!level.shouldLog(LogLevel.INFO)) {
             return response
         }
@@ -170,6 +184,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [LoggingHttpClient].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .httpClient()
          * .level()
@@ -182,29 +197,33 @@ private constructor(
     class Builder internal constructor() {
 
         private var httpClient: HttpClient? = null
-        private var redactedHeaders: Set<String> =
-            setOf("authorization", "api-key", "x-api-key", "cookie", "set-cookie")
+        private var redactedHeaders: Set<String> = setOf("authorization", "api-key", "x-api-key", "cookie", "set-cookie")
         private var clock: Clock = Clock.systemUTC()
         private var level: LogLevel? = null
 
-        internal fun from(loggingHttpClient: LoggingHttpClient) = apply {
-            httpClient = loggingHttpClient.httpClient
-            redactedHeaders = loggingHttpClient.redactedHeaders
-            clock = loggingHttpClient.clock
-            level = loggingHttpClient.level
-        }
+        internal fun from(loggingHttpClient: LoggingHttpClient) =
+            apply {
+                httpClient = loggingHttpClient.httpClient
+                redactedHeaders = loggingHttpClient.redactedHeaders
+                clock = loggingHttpClient.clock
+                level = loggingHttpClient.level
+            }
 
         /** The underlying [HttpClient] for making requests. */
-        fun httpClient(httpClient: HttpClient) = apply { this.httpClient = httpClient }
+        fun httpClient(httpClient: HttpClient) =
+            apply {
+                this.httpClient = httpClient
+            }
 
         /**
          * Sensitive headers to redact from logs.
          *
          * Defaults to `Set.of("authorization", "api-key", "x-api-key", "cookie", "set-cookie")`.
          */
-        fun redactedHeaders(redactedHeaders: Set<String>) = apply {
-            this.redactedHeaders = redactedHeaders
-        }
+        fun redactedHeaders(redactedHeaders: Set<String>) =
+            apply {
+                this.redactedHeaders = redactedHeaders
+            }
 
         /**
          * The clock to use for measuring request and response durations.
@@ -213,14 +232,20 @@ private constructor(
          *
          * Defaults to [Clock.systemUTC].
          */
-        fun clock(clock: Clock) = apply { this.clock = clock }
+        fun clock(clock: Clock) =
+            apply {
+                this.clock = clock
+            }
 
         /**
          * The log level to use.
          *
          * Pass [LogLevel.fromEnv] to read from environment variables.
          */
-        fun level(level: LogLevel) = apply { this.level = level }
+        fun level(level: LogLevel) =
+            apply {
+                this.level = level
+            }
 
         /**
          * Returns an immutable instance of [LoggingHttpClient].
@@ -228,6 +253,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .httpClient()
          * .level()
@@ -237,17 +263,21 @@ private constructor(
          */
         fun build(): LoggingHttpClient =
             LoggingHttpClient(
-                checkRequired("httpClient", httpClient),
-                redactedHeaders.toSortedSet(String.CASE_INSENSITIVE_ORDER).toImmutable(),
-                clock,
-                checkRequired("level", level),
+              checkRequired(
+                "httpClient", httpClient
+              ),
+              redactedHeaders.toSortedSet(String.CASE_INSENSITIVE_ORDER).toImmutable(),
+              clock,
+              checkRequired(
+                "level", level
+              ),
             )
     }
 }
 
 /**
- * An [HttpRequestBody] wrapper that delegates to [body] while also logging line by line as it's
- * written.
+ * An [HttpRequestBody] wrapper that delegates to [body] while also logging line by line as
+ * it's written.
  *
  * The logging occurs in a streaming manner with minimal buffering.
  */
@@ -277,14 +307,16 @@ private class LoggingHttpRequestBody(
 }
 
 /**
- * An [OutputStream] wrapper that delegates to [outputStream] while also logging bytes line by line
- * as it's written to.
+ * An [OutputStream] wrapper that delegates to [outputStream] while also logging bytes line by
+ * line as it's written to.
  *
- * The written content is assumed to be in the given [charset] and the logging occurs in a streaming
- * manner with minimal buffering.
+ * The written content is assumed to be in the given [charset] and the logging occurs in a streaming manner
+ * with minimal buffering.
  */
-private class LoggingOutputStream(private val outputStream: OutputStream, charset: Charset?) :
-    OutputStream() {
+private class LoggingOutputStream(
+    private val outputStream: OutputStream,
+    charset: Charset?,
+) : OutputStream() {
 
     private val buffer = LoggingBuffer(charset)
 
@@ -312,12 +344,14 @@ private class LoggingOutputStream(private val outputStream: OutputStream, charse
 }
 
 /**
- * An [HttpResponse] wrapper that delegates to [response] while also logging line-by-line as it's
- * read.
+ * An [HttpResponse] wrapper that delegates to [response] while also logging line-by-line as
+ * it's read.
  *
  * The logging occurs in a streaming manner with minimal buffering.
  */
-private class LoggingHttpResponse(private val response: HttpResponse) : HttpResponse {
+private class LoggingHttpResponse(
+    private val response: HttpResponse
+) : HttpResponse {
 
     private val loggingBody: Lazy<InputStream> = lazy {
         LoggingInputStream(
@@ -341,14 +375,16 @@ private class LoggingHttpResponse(private val response: HttpResponse) : HttpResp
 }
 
 /**
- * An [InputStream] wrapper that delegates to [inputStream] while also logging bytes line by line as
- * it's read.
+ * An [InputStream] wrapper that delegates to [inputStream] while also logging bytes line by line
+ * as it's read.
  *
  * The contents of [inputStream] are assumed to be in the given [charset] and the logging occurs in
  * a streaming manner with minimal buffering.
  */
-private class LoggingInputStream(private val inputStream: InputStream, charset: Charset?) :
-    InputStream() {
+private class LoggingInputStream(
+    private val inputStream: InputStream,
+    charset: Charset?,
+) : InputStream() {
 
     private var isDone = false
     private val buffer = LoggingBuffer(charset)
@@ -407,8 +443,8 @@ private class LoggingInputStream(private val inputStream: InputStream, charset: 
  * A byte buffer that prints line by line, using the given [charset], as bytes are written to it.
  *
  * When [charset] is `null`, the buffer performs an upfront check to detect binary content. If
- * non-whitespace ISO control characters are found in the first [PROBABLY_UTF8_CODE_POINT_LIMIT]
- * code points, body logging is suppressed entirely.
+ * non-whitespace ISO control characters are found in the first [PROBABLY_UTF8_CODE_POINT_LIMIT] code
+ * points, body logging is suppressed entirely.
  */
 private class LoggingBuffer(charset: Charset?) {
 
@@ -531,21 +567,22 @@ private class LoggingBuffer(charset: Charset?) {
 private const val PROBABLY_UTF8_CODE_POINT_LIMIT = 64
 
 /**
- * The maximum number of bytes to accumulate before running the [isProbablyUtf8] check. UTF-8 code
- * points are at most 4 bytes, so this accommodates [PROBABLY_UTF8_CODE_POINT_LIMIT] code points.
+ * The maximum number of bytes to accumulate before running the [isProbablyUtf8] check. UTF-8 code points
+ * are at most 4 bytes, so this accommodates [PROBABLY_UTF8_CODE_POINT_LIMIT] code points.
  */
 private const val PROBABLY_UTF8_BYTE_LIMIT = PROBABLY_UTF8_CODE_POINT_LIMIT * 4
 
 /**
  * Returns `true` if the given [bytes] probably contain human-readable UTF-8 text.
  *
- * Decodes up to [PROBABLY_UTF8_CODE_POINT_LIMIT] code points and returns `false` if any
- * non-whitespace ISO control characters are found, or if the bytes are not valid UTF-8.
+ * Decodes up to [PROBABLY_UTF8_CODE_POINT_LIMIT] code points and returns `false` if any non-whitespace
+ * ISO control characters are found, or if the bytes are not valid UTF-8.
  */
 private fun isProbablyUtf8(bytes: ByteArray): Boolean {
     try {
         val decoder =
-            StandardCharsets.UTF_8.newDecoder()
+            StandardCharsets.UTF_8
+                .newDecoder()
                 .onMalformedInput(CodingErrorAction.REPORT)
                 .onUnmappableCharacter(CodingErrorAction.REPORT)
         val charBuffer = decoder.decode(ByteBuffer.wrap(bytes))
