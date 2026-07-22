@@ -1505,7 +1505,7 @@ private constructor(
          * Additional vendor specific fields for this payment. Data must be represented as key-value
          * pairs.
          */
-        fun vendorAttributes(vendorAttributes: MultipartField<JsonValue>) = apply {
+        fun vendorAttributes(vendorAttributes: JsonValue) = apply {
             body.vendorAttributes(vendorAttributes)
         }
 
