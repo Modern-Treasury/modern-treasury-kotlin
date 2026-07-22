@@ -140,15 +140,6 @@ private constructor(
     fun partyName(): String? = body.partyName()
 
     /**
-     * An array of account number types requested for provisioning.
-     *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
-    fun requestedAccountNumberTypes(): List<RequestedAccountNumberType>? =
-        body.requestedAccountNumberTypes()
-
-    /**
      * A hash of vendor specific attributes that will be used when creating the account at the
      * vendor specified by the given connection.
      *
@@ -248,15 +239,6 @@ private constructor(
      * Unlike [partyName], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _partyName(): JsonField<String> = body._partyName()
-
-    /**
-     * Returns the raw JSON value of [requestedAccountNumberTypes].
-     *
-     * Unlike [requestedAccountNumberTypes], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    fun _requestedAccountNumberTypes(): JsonField<List<RequestedAccountNumberType>> =
-        body._requestedAccountNumberTypes()
 
     /**
      * Returns the raw JSON value of [vendorAttributes].
@@ -522,32 +504,6 @@ private constructor(
          */
         fun partyName(partyName: JsonField<String>) = apply { body.partyName(partyName) }
 
-        /** An array of account number types requested for provisioning. */
-        fun requestedAccountNumberTypes(
-            requestedAccountNumberTypes: List<RequestedAccountNumberType>
-        ) = apply { body.requestedAccountNumberTypes(requestedAccountNumberTypes) }
-
-        /**
-         * Sets [Builder.requestedAccountNumberTypes] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.requestedAccountNumberTypes] with a well-typed
-         * `List<RequestedAccountNumberType>` value instead. This method is primarily for setting
-         * the field to an undocumented or not yet supported value.
-         */
-        fun requestedAccountNumberTypes(
-            requestedAccountNumberTypes: JsonField<List<RequestedAccountNumberType>>
-        ) = apply { body.requestedAccountNumberTypes(requestedAccountNumberTypes) }
-
-        /**
-         * Adds a single [RequestedAccountNumberType] to [requestedAccountNumberTypes].
-         *
-         * @throws IllegalStateException if the field was previously set to a non-list.
-         */
-        fun addRequestedAccountNumberType(requestedAccountNumberType: RequestedAccountNumberType) =
-            apply {
-                body.addRequestedAccountNumberType(requestedAccountNumberType)
-            }
-
         /**
          * A hash of vendor specific attributes that will be used when creating the account at the
          * vendor specified by the given connection.
@@ -727,7 +683,6 @@ private constructor(
         private val parentAccountId: JsonField<String>,
         private val partyAddress: JsonField<PartyAddress>,
         private val partyName: JsonField<String>,
-        private val requestedAccountNumberTypes: JsonField<List<RequestedAccountNumberType>>,
         private val vendorAttributes: JsonField<VendorAttributes>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -771,10 +726,6 @@ private constructor(
             @JsonProperty("party_name")
             @ExcludeMissing
             partyName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("requested_account_number_types")
-            @ExcludeMissing
-            requestedAccountNumberTypes: JsonField<List<RequestedAccountNumberType>> =
-                JsonMissing.of(),
             @JsonProperty("vendor_attributes")
             @ExcludeMissing
             vendorAttributes: JsonField<VendorAttributes> = JsonMissing.of(),
@@ -792,7 +743,6 @@ private constructor(
             parentAccountId,
             partyAddress,
             partyName,
-            requestedAccountNumberTypes,
             vendorAttributes,
             mutableMapOf(),
         )
@@ -906,15 +856,6 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun partyName(): String? = partyName.getNullable("party_name")
-
-        /**
-         * An array of account number types requested for provisioning.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun requestedAccountNumberTypes(): List<RequestedAccountNumberType>? =
-            requestedAccountNumberTypes.getNullable("requested_account_number_types")
 
         /**
          * A hash of vendor specific attributes that will be used when creating the account at the
@@ -1040,17 +981,6 @@ private constructor(
         @JsonProperty("party_name") @ExcludeMissing fun _partyName(): JsonField<String> = partyName
 
         /**
-         * Returns the raw JSON value of [requestedAccountNumberTypes].
-         *
-         * Unlike [requestedAccountNumberTypes], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("requested_account_number_types")
-        @ExcludeMissing
-        fun _requestedAccountNumberTypes(): JsonField<List<RequestedAccountNumberType>> =
-            requestedAccountNumberTypes
-
-        /**
          * Returns the raw JSON value of [vendorAttributes].
          *
          * Unlike [vendorAttributes], this method doesn't throw if the JSON field has an unexpected
@@ -1103,9 +1033,6 @@ private constructor(
             private var parentAccountId: JsonField<String> = JsonMissing.of()
             private var partyAddress: JsonField<PartyAddress> = JsonMissing.of()
             private var partyName: JsonField<String> = JsonMissing.of()
-            private var requestedAccountNumberTypes:
-                JsonField<MutableList<RequestedAccountNumberType>>? =
-                null
             private var vendorAttributes: JsonField<VendorAttributes> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1124,10 +1051,6 @@ private constructor(
                 parentAccountId = internalAccountCreateRequest.parentAccountId
                 partyAddress = internalAccountCreateRequest.partyAddress
                 partyName = internalAccountCreateRequest.partyName
-                requestedAccountNumberTypes =
-                    internalAccountCreateRequest.requestedAccountNumberTypes.map {
-                        it.toMutableList()
-                    }
                 vendorAttributes = internalAccountCreateRequest.vendorAttributes
                 additionalProperties =
                     internalAccountCreateRequest.additionalProperties.toMutableMap()
@@ -1343,40 +1266,6 @@ private constructor(
              */
             fun partyName(partyName: JsonField<String>) = apply { this.partyName = partyName }
 
-            /** An array of account number types requested for provisioning. */
-            fun requestedAccountNumberTypes(
-                requestedAccountNumberTypes: List<RequestedAccountNumberType>
-            ) = requestedAccountNumberTypes(JsonField.of(requestedAccountNumberTypes))
-
-            /**
-             * Sets [Builder.requestedAccountNumberTypes] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.requestedAccountNumberTypes] with a well-typed
-             * `List<RequestedAccountNumberType>` value instead. This method is primarily for
-             * setting the field to an undocumented or not yet supported value.
-             */
-            fun requestedAccountNumberTypes(
-                requestedAccountNumberTypes: JsonField<List<RequestedAccountNumberType>>
-            ) = apply {
-                this.requestedAccountNumberTypes =
-                    requestedAccountNumberTypes.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [RequestedAccountNumberType] to [requestedAccountNumberTypes].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addRequestedAccountNumberType(
-                requestedAccountNumberType: RequestedAccountNumberType
-            ) = apply {
-                requestedAccountNumberTypes =
-                    (requestedAccountNumberTypes ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("requestedAccountNumberTypes", it)
-                            .add(requestedAccountNumberType)
-                    }
-            }
-
             /**
              * A hash of vendor specific attributes that will be used when creating the account at
              * the vendor specified by the given connection.
@@ -1442,7 +1331,6 @@ private constructor(
                     parentAccountId,
                     partyAddress,
                     partyName,
-                    (requestedAccountNumberTypes ?: JsonMissing.of()).map { it.toImmutable() },
                     vendorAttributes,
                     additionalProperties.toMutableMap(),
                 )
@@ -1477,7 +1365,6 @@ private constructor(
             parentAccountId()
             partyAddress()?.validate()
             partyName()
-            requestedAccountNumberTypes()?.forEach { it.validate() }
             vendorAttributes()?.validate()
             validated = true
         }
@@ -1510,7 +1397,6 @@ private constructor(
                 (if (parentAccountId.asKnown() == null) 0 else 1) +
                 (partyAddress.asKnown()?.validity() ?: 0) +
                 (if (partyName.asKnown() == null) 0 else 1) +
-                (requestedAccountNumberTypes.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (vendorAttributes.asKnown()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -1532,7 +1418,6 @@ private constructor(
                 parentAccountId == other.parentAccountId &&
                 partyAddress == other.partyAddress &&
                 partyName == other.partyName &&
-                requestedAccountNumberTypes == other.requestedAccountNumberTypes &&
                 vendorAttributes == other.vendorAttributes &&
                 additionalProperties == other.additionalProperties
         }
@@ -1552,7 +1437,6 @@ private constructor(
                 parentAccountId,
                 partyAddress,
                 partyName,
-                requestedAccountNumberTypes,
                 vendorAttributes,
                 additionalProperties,
             )
@@ -1561,7 +1445,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InternalAccountCreateRequest{currency=$currency, name=$name, accountCapabilities=$accountCapabilities, accountType=$accountType, connectionId=$connectionId, counterpartyId=$counterpartyId, debitable=$debitable, externalId=$externalId, legalEntityId=$legalEntityId, metadata=$metadata, parentAccountId=$parentAccountId, partyAddress=$partyAddress, partyName=$partyName, requestedAccountNumberTypes=$requestedAccountNumberTypes, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
+            "InternalAccountCreateRequest{currency=$currency, name=$name, accountCapabilities=$accountCapabilities, accountType=$accountType, connectionId=$connectionId, counterpartyId=$counterpartyId, debitable=$debitable, externalId=$externalId, legalEntityId=$legalEntityId, metadata=$metadata, parentAccountId=$parentAccountId, partyAddress=$partyAddress, partyName=$partyName, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
     }
 
     /** The currency of the internal account. Supports fiat and stablecoin currencies. */
@@ -2877,8 +2761,7 @@ private constructor(
         fun line1(): String = line1.getRequired("line1")
 
         /**
-         * Locality or City. Use the full city name rather than an abbreviation (e.g. San
-         * Francisco).
+         * Locality or City.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -2894,8 +2777,7 @@ private constructor(
         fun postalCode(): String = postalCode.getRequired("postal_code")
 
         /**
-         * Region or State. This field is free-form; for US states, we recommend a two-letter code
-         * (e.g. CA). Full state names are also accepted.
+         * Region or State.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -3025,10 +2907,7 @@ private constructor(
              */
             fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
-            /**
-             * Locality or City. Use the full city name rather than an abbreviation (e.g. San
-             * Francisco).
-             */
+            /** Locality or City. */
             fun locality(locality: String) = locality(JsonField.of(locality))
 
             /**
@@ -3052,10 +2931,7 @@ private constructor(
              */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
-            /**
-             * Region or State. This field is free-form; for US states, we recommend a two-letter
-             * code (e.g. CA). Full state names are also accepted.
-             */
+            /** Region or State. */
             fun region(region: String) = region(JsonField.of(region))
 
             /**
@@ -3195,162 +3071,6 @@ private constructor(
 
         override fun toString() =
             "PartyAddress{country=$country, line1=$line1, locality=$locality, postalCode=$postalCode, region=$region, line2=$line2, additionalProperties=$additionalProperties}"
-    }
-
-    class RequestedAccountNumberType
-    @JsonCreator
-    private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            val ETHEREUM_ADDRESS = of("ethereum_address")
-
-            val SOLANA_ADDRESS = of("solana_address")
-
-            val POLYGON_ADDRESS = of("polygon_address")
-
-            val BASE_ADDRESS = of("base_address")
-
-            fun of(value: String) = RequestedAccountNumberType(JsonField.of(value))
-        }
-
-        /** An enum containing [RequestedAccountNumberType]'s known values. */
-        enum class Known {
-            ETHEREUM_ADDRESS,
-            SOLANA_ADDRESS,
-            POLYGON_ADDRESS,
-            BASE_ADDRESS,
-        }
-
-        /**
-         * An enum containing [RequestedAccountNumberType]'s known values, as well as an [_UNKNOWN]
-         * member.
-         *
-         * An instance of [RequestedAccountNumberType] can contain an unknown value in a couple of
-         * cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            ETHEREUM_ADDRESS,
-            SOLANA_ADDRESS,
-            POLYGON_ADDRESS,
-            BASE_ADDRESS,
-            /**
-             * An enum member indicating that [RequestedAccountNumberType] was instantiated with an
-             * unknown value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                ETHEREUM_ADDRESS -> Value.ETHEREUM_ADDRESS
-                SOLANA_ADDRESS -> Value.SOLANA_ADDRESS
-                POLYGON_ADDRESS -> Value.POLYGON_ADDRESS
-                BASE_ADDRESS -> Value.BASE_ADDRESS
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
-         */
-        fun known(): Known =
-            when (this) {
-                ETHEREUM_ADDRESS -> Known.ETHEREUM_ADDRESS
-                SOLANA_ADDRESS -> Known.SOLANA_ADDRESS
-                POLYGON_ADDRESS -> Known.POLYGON_ADDRESS
-                BASE_ADDRESS -> Known.BASE_ADDRESS
-                else ->
-                    throw ModernTreasuryInvalidDataException(
-                        "Unknown RequestedAccountNumberType: $value"
-                    )
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
-         */
-        fun validate(): RequestedAccountNumberType = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: ModernTreasuryInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is RequestedAccountNumberType && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
     }
 
     /**

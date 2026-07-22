@@ -154,8 +154,7 @@ private constructor(
     fun employerName(): String? = employerName.getNullable("employer_name")
 
     /**
-     * The state in which the employer is located. This field is free-form text; for US states, we
-     * recommend a two-letter abbreviation (e.g. CA).
+     * The state in which the employer is located.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -572,10 +571,7 @@ private constructor(
             this.employerName = employerName
         }
 
-        /**
-         * The state in which the employer is located. This field is free-form text; for US states,
-         * we recommend a two-letter abbreviation (e.g. CA).
-         */
+        /** The state in which the employer is located. */
         fun employerState(employerState: String?) =
             employerState(JsonField.ofNullable(employerState))
 

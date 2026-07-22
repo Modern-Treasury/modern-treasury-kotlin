@@ -54,7 +54,7 @@ internal class LegalEntityAssociationInlineCreateTest {
                         .citizenshipCountry("citizenship_country")
                         .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                         .connectionId("connection_id")
-                        .countryOfIncorporation("US")
+                        .countryOfIncorporation("country_of_incorporation")
                         .dateFormed(LocalDate.parse("2019-12-27"))
                         .dateOfBirth(LocalDate.parse("2019-12-27"))
                         .addDocument(
@@ -119,8 +119,7 @@ internal class LegalEntityAssociationInlineCreateTest {
                                 .build()
                         )
                         .middleName("middle_name")
-                        .addOperatingJurisdiction("US")
-                        .addOperatingJurisdiction("CA")
+                        .addOperatingJurisdiction("string")
                         .addPhoneNumber(
                             ChildLegalEntityCreate.PhoneNumber.builder()
                                 .phoneNumber("phone_number")
@@ -243,7 +242,7 @@ internal class LegalEntityAssociationInlineCreateTest {
                     .citizenshipCountry("citizenship_country")
                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                     .connectionId("connection_id")
-                    .countryOfIncorporation("US")
+                    .countryOfIncorporation("country_of_incorporation")
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .addDocument(
@@ -308,8 +307,7 @@ internal class LegalEntityAssociationInlineCreateTest {
                             .build()
                     )
                     .middleName("middle_name")
-                    .addOperatingJurisdiction("US")
-                    .addOperatingJurisdiction("CA")
+                    .addOperatingJurisdiction("string")
                     .addPhoneNumber(
                         ChildLegalEntityCreate.PhoneNumber.builder()
                             .phoneNumber("phone_number")
@@ -436,7 +434,7 @@ internal class LegalEntityAssociationInlineCreateTest {
                         .citizenshipCountry("citizenship_country")
                         .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                         .connectionId("connection_id")
-                        .countryOfIncorporation("US")
+                        .countryOfIncorporation("country_of_incorporation")
                         .dateFormed(LocalDate.parse("2019-12-27"))
                         .dateOfBirth(LocalDate.parse("2019-12-27"))
                         .addDocument(
@@ -501,8 +499,7 @@ internal class LegalEntityAssociationInlineCreateTest {
                                 .build()
                         )
                         .middleName("middle_name")
-                        .addOperatingJurisdiction("US")
-                        .addOperatingJurisdiction("CA")
+                        .addOperatingJurisdiction("string")
                         .addPhoneNumber(
                             ChildLegalEntityCreate.PhoneNumber.builder()
                                 .phoneNumber("phone_number")

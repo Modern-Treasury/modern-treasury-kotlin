@@ -47,7 +47,7 @@ internal class ChildLegalEntityCreateTest {
                 .citizenshipCountry("citizenship_country")
                 .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                 .connectionId("connection_id")
-                .countryOfIncorporation("US")
+                .countryOfIncorporation("country_of_incorporation")
                 .dateFormed(LocalDate.parse("2019-12-27"))
                 .dateOfBirth(LocalDate.parse("2019-12-27"))
                 .addDocument(
@@ -120,8 +120,7 @@ internal class ChildLegalEntityCreateTest {
                         .build()
                 )
                 .middleName("middle_name")
-                .addOperatingJurisdiction("US")
-                .addOperatingJurisdiction("CA")
+                .addOperatingJurisdiction("string")
                 .addPhoneNumber(
                     ChildLegalEntityCreate.PhoneNumber.builder().phoneNumber("phone_number").build()
                 )
@@ -231,7 +230,8 @@ internal class ChildLegalEntityCreateTest {
         assertThat(childLegalEntityCreate._complianceDetails())
             .isEqualTo(JsonValue.from(mapOf<String, Any>()))
         assertThat(childLegalEntityCreate.connectionId()).isEqualTo("connection_id")
-        assertThat(childLegalEntityCreate.countryOfIncorporation()).isEqualTo("US")
+        assertThat(childLegalEntityCreate.countryOfIncorporation())
+            .isEqualTo("country_of_incorporation")
         assertThat(childLegalEntityCreate.dateFormed()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(childLegalEntityCreate.dateOfBirth()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(childLegalEntityCreate.documents())
@@ -309,7 +309,7 @@ internal class ChildLegalEntityCreateTest {
                     .build()
             )
         assertThat(childLegalEntityCreate.middleName()).isEqualTo("middle_name")
-        assertThat(childLegalEntityCreate.operatingJurisdictions()).containsExactly("US", "CA")
+        assertThat(childLegalEntityCreate.operatingJurisdictions()).containsExactly("string")
         assertThat(childLegalEntityCreate.phoneNumbers())
             .containsExactly(
                 ChildLegalEntityCreate.PhoneNumber.builder().phoneNumber("phone_number").build()
@@ -425,7 +425,7 @@ internal class ChildLegalEntityCreateTest {
                 .citizenshipCountry("citizenship_country")
                 .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                 .connectionId("connection_id")
-                .countryOfIncorporation("US")
+                .countryOfIncorporation("country_of_incorporation")
                 .dateFormed(LocalDate.parse("2019-12-27"))
                 .dateOfBirth(LocalDate.parse("2019-12-27"))
                 .addDocument(
@@ -498,8 +498,7 @@ internal class ChildLegalEntityCreateTest {
                         .build()
                 )
                 .middleName("middle_name")
-                .addOperatingJurisdiction("US")
-                .addOperatingJurisdiction("CA")
+                .addOperatingJurisdiction("string")
                 .addPhoneNumber(
                     ChildLegalEntityCreate.PhoneNumber.builder().phoneNumber("phone_number").build()
                 )

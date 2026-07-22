@@ -13,7 +13,6 @@ import com.moderntreasury.api.models.LegalEntityAssociationInlineCreate
 import com.moderntreasury.api.models.LegalEntityCreateParams
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
 import com.moderntreasury.api.models.LegalEntityUpdateParams
-import com.moderntreasury.api.models.LegalEntityUpdateStatusParams
 import com.moderntreasury.api.models.ThirdPartyVerification
 import com.moderntreasury.api.models.WealthAndEmploymentDetails
 import java.time.LocalDate
@@ -71,7 +70,7 @@ internal class LegalEntityServiceAsyncTest {
                     .citizenshipCountry("citizenship_country")
                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                     .connectionId("connection_id")
-                    .countryOfIncorporation("US")
+                    .countryOfIncorporation("country_of_incorporation")
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .addDocument(
@@ -171,7 +170,7 @@ internal class LegalEntityServiceAsyncTest {
                                     .citizenshipCountry("citizenship_country")
                                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                                     .connectionId("connection_id")
-                                    .countryOfIncorporation("US")
+                                    .countryOfIncorporation("country_of_incorporation")
                                     .dateFormed(LocalDate.parse("2019-12-27"))
                                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                                     .addDocument(
@@ -251,8 +250,7 @@ internal class LegalEntityServiceAsyncTest {
                                             .build()
                                     )
                                     .middleName("middle_name")
-                                    .addOperatingJurisdiction("US")
-                                    .addOperatingJurisdiction("CA")
+                                    .addOperatingJurisdiction("string")
                                     .addPhoneNumber(
                                         ChildLegalEntityCreate.PhoneNumber.builder()
                                             .phoneNumber("phone_number")
@@ -375,8 +373,7 @@ internal class LegalEntityServiceAsyncTest {
                             .build()
                     )
                     .middleName("middle_name")
-                    .addOperatingJurisdiction("US")
-                    .addOperatingJurisdiction("CA")
+                    .addOperatingJurisdiction("string")
                     .addPhoneNumber(
                         LegalEntityCreateParams.PhoneNumber.builder()
                             .phoneNumber("phone_number")
@@ -518,7 +515,7 @@ internal class LegalEntityServiceAsyncTest {
                     .businessDescription("business_description")
                     .businessName("business_name")
                     .citizenshipCountry("citizenship_country")
-                    .countryOfIncorporation("US")
+                    .countryOfIncorporation("country_of_incorporation")
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .addDoingBusinessAsName("string")
@@ -571,8 +568,7 @@ internal class LegalEntityServiceAsyncTest {
                             .build()
                     )
                     .middleName("middle_name")
-                    .addOperatingJurisdiction("US")
-                    .addOperatingJurisdiction("CA")
+                    .addOperatingJurisdiction("string")
                     .addPhoneNumber(
                         LegalEntityUpdateParams.PhoneNumber.builder()
                             .phoneNumber("phone_number")
@@ -668,27 +664,5 @@ internal class LegalEntityServiceAsyncTest {
         val page = legalEntityServiceAsync.list()
 
         page.items().forEach { it.validate() }
-    }
-
-    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
-    @Test
-    suspend fun updateStatus() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val legalEntityServiceAsync = client.legalEntities()
-
-        val legalEntity =
-            legalEntityServiceAsync.updateStatus(
-                LegalEntityUpdateStatusParams.builder()
-                    .id("id")
-                    .status(LegalEntityUpdateStatusParams.Status.ACTIVE)
-                    .build()
-            )
-
-        legalEntity.validate()
     }
 }
