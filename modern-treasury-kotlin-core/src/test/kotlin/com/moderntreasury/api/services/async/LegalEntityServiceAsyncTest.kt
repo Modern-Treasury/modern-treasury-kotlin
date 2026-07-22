@@ -13,7 +13,6 @@ import com.moderntreasury.api.models.LegalEntityAssociationInlineCreate
 import com.moderntreasury.api.models.LegalEntityCreateParams
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
 import com.moderntreasury.api.models.LegalEntityUpdateParams
-import com.moderntreasury.api.models.LegalEntityUpdateStatusParams
 import com.moderntreasury.api.models.ThirdPartyVerification
 import com.moderntreasury.api.models.WealthAndEmploymentDetails
 import java.time.LocalDate
@@ -23,7 +22,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-@Disabled("Prism doesn't generate valid recursive LegalEntityAssociation structures")
 internal class LegalEntityServiceAsyncTest {
 
     @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
@@ -666,27 +664,5 @@ internal class LegalEntityServiceAsyncTest {
         val page = legalEntityServiceAsync.list()
 
         page.items().forEach { it.validate() }
-    }
-
-    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
-    @Test
-    suspend fun updateStatus() {
-        val client =
-            ModernTreasuryOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .organizationId("my-organization-ID")
-                .build()
-        val legalEntityServiceAsync = client.legalEntities()
-
-        val legalEntity =
-            legalEntityServiceAsync.updateStatus(
-                LegalEntityUpdateStatusParams.builder()
-                    .id("id")
-                    .status(LegalEntityUpdateStatusParams.Status.ACTIVE)
-                    .build()
-            )
-
-        legalEntity.validate()
     }
 }
