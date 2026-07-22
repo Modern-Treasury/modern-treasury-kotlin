@@ -47,7 +47,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                     .citizenshipCountry("citizenship_country")
                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                     .connectionId("connection_id")
-                    .countryOfIncorporation("country_of_incorporation")
+                    .countryOfIncorporation("US")
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .addDocument(
@@ -147,7 +147,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                     .citizenshipCountry("citizenship_country")
                                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                                     .connectionId("connection_id")
-                                    .countryOfIncorporation("country_of_incorporation")
+                                    .countryOfIncorporation("US")
                                     .dateFormed(LocalDate.parse("2019-12-27"))
                                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                                     .addDocument(
@@ -227,7 +227,8 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                             .build()
                                     )
                                     .middleName("middle_name")
-                                    .addOperatingJurisdiction("string")
+                                    .addOperatingJurisdiction("US")
+                                    .addOperatingJurisdiction("CA")
                                     .addPhoneNumber(
                                         ChildLegalEntityCreate.PhoneNumber.builder()
                                             .phoneNumber("phone_number")
@@ -249,6 +250,14 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                         "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
                                     )
                                     .suffix("suffix")
+                                    .termsOfUse(
+                                        ChildLegalEntityCreate.TermsOfUse.builder()
+                                            .acceptedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .ipAddress("ip_address")
+                                            .build()
+                                    )
                                     .thirdPartyVerification(
                                         ThirdPartyVerification.builder()
                                             .outcome(ThirdPartyVerification.Outcome.PASSED)
@@ -347,7 +356,8 @@ internal class ConnectionLegalEntityCreateParamsTest {
                             .build()
                     )
                     .middleName("middle_name")
-                    .addOperatingJurisdiction("string")
+                    .addOperatingJurisdiction("US")
+                    .addOperatingJurisdiction("CA")
                     .addPhoneNumber(
                         ConnectionLegalEntityCreateParams.LegalEntity.PhoneNumber.builder()
                             .phoneNumber("phone_number")
@@ -367,6 +377,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                     .riskRating(ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW)
                     .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .suffix("suffix")
+                    .termsOfUse(
+                        ConnectionLegalEntityCreateParams.LegalEntity.TermsOfUse.builder()
+                            .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .ipAddress("ip_address")
+                            .build()
+                    )
                     .thirdPartyVerification(
                         ThirdPartyVerification.builder()
                             .outcome(ThirdPartyVerification.Outcome.PASSED)
@@ -463,7 +479,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                         .citizenshipCountry("citizenship_country")
                         .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                         .connectionId("connection_id")
-                        .countryOfIncorporation("country_of_incorporation")
+                        .countryOfIncorporation("US")
                         .dateFormed(LocalDate.parse("2019-12-27"))
                         .dateOfBirth(LocalDate.parse("2019-12-27"))
                         .addDocument(
@@ -565,7 +581,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                         .citizenshipCountry("citizenship_country")
                                         .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                                         .connectionId("connection_id")
-                                        .countryOfIncorporation("country_of_incorporation")
+                                        .countryOfIncorporation("US")
                                         .dateFormed(LocalDate.parse("2019-12-27"))
                                         .dateOfBirth(LocalDate.parse("2019-12-27"))
                                         .addDocument(
@@ -649,7 +665,8 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                                 .build()
                                         )
                                         .middleName("middle_name")
-                                        .addOperatingJurisdiction("string")
+                                        .addOperatingJurisdiction("US")
+                                        .addOperatingJurisdiction("CA")
                                         .addPhoneNumber(
                                             ChildLegalEntityCreate.PhoneNumber.builder()
                                                 .phoneNumber("phone_number")
@@ -671,6 +688,14 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
                                         )
                                         .suffix("suffix")
+                                        .termsOfUse(
+                                            ChildLegalEntityCreate.TermsOfUse.builder()
+                                                .acceptedAt(
+                                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                                )
+                                                .ipAddress("ip_address")
+                                                .build()
+                                        )
                                         .thirdPartyVerification(
                                             ThirdPartyVerification.builder()
                                                 .outcome(ThirdPartyVerification.Outcome.PASSED)
@@ -770,7 +795,8 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                 .build()
                         )
                         .middleName("middle_name")
-                        .addOperatingJurisdiction("string")
+                        .addOperatingJurisdiction("US")
+                        .addOperatingJurisdiction("CA")
                         .addPhoneNumber(
                             ConnectionLegalEntityCreateParams.LegalEntity.PhoneNumber.builder()
                                 .phoneNumber("phone_number")
@@ -791,6 +817,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                         .riskRating(ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW)
                         .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .suffix("suffix")
+                        .termsOfUse(
+                            ConnectionLegalEntityCreateParams.LegalEntity.TermsOfUse.builder()
+                                .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .ipAddress("ip_address")
+                                .build()
+                        )
                         .thirdPartyVerification(
                             ThirdPartyVerification.builder()
                                 .outcome(ThirdPartyVerification.Outcome.PASSED)
@@ -887,7 +919,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                     .citizenshipCountry("citizenship_country")
                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                     .connectionId("connection_id")
-                    .countryOfIncorporation("country_of_incorporation")
+                    .countryOfIncorporation("US")
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .addDocument(
@@ -987,7 +1019,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                     .citizenshipCountry("citizenship_country")
                                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
                                     .connectionId("connection_id")
-                                    .countryOfIncorporation("country_of_incorporation")
+                                    .countryOfIncorporation("US")
                                     .dateFormed(LocalDate.parse("2019-12-27"))
                                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                                     .addDocument(
@@ -1067,7 +1099,8 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                             .build()
                                     )
                                     .middleName("middle_name")
-                                    .addOperatingJurisdiction("string")
+                                    .addOperatingJurisdiction("US")
+                                    .addOperatingJurisdiction("CA")
                                     .addPhoneNumber(
                                         ChildLegalEntityCreate.PhoneNumber.builder()
                                             .phoneNumber("phone_number")
@@ -1089,6 +1122,14 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                         "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
                                     )
                                     .suffix("suffix")
+                                    .termsOfUse(
+                                        ChildLegalEntityCreate.TermsOfUse.builder()
+                                            .acceptedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .ipAddress("ip_address")
+                                            .build()
+                                    )
                                     .thirdPartyVerification(
                                         ThirdPartyVerification.builder()
                                             .outcome(ThirdPartyVerification.Outcome.PASSED)
@@ -1187,7 +1228,8 @@ internal class ConnectionLegalEntityCreateParamsTest {
                             .build()
                     )
                     .middleName("middle_name")
-                    .addOperatingJurisdiction("string")
+                    .addOperatingJurisdiction("US")
+                    .addOperatingJurisdiction("CA")
                     .addPhoneNumber(
                         ConnectionLegalEntityCreateParams.LegalEntity.PhoneNumber.builder()
                             .phoneNumber("phone_number")
@@ -1207,6 +1249,12 @@ internal class ConnectionLegalEntityCreateParamsTest {
                     .riskRating(ConnectionLegalEntityCreateParams.LegalEntity.RiskRating.LOW)
                     .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .suffix("suffix")
+                    .termsOfUse(
+                        ConnectionLegalEntityCreateParams.LegalEntity.TermsOfUse.builder()
+                            .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .ipAddress("ip_address")
+                            .build()
+                    )
                     .thirdPartyVerification(
                         ThirdPartyVerification.builder()
                             .outcome(ThirdPartyVerification.Outcome.PASSED)

@@ -341,7 +341,7 @@ private constructor(
         transactionLineItemId.getNullable("transaction_line_item_id")
 
     /**
-     * One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`.
+     * One of: `ach`, `book`, `check`, `eft`, `rtp`, `sepa`, or `wire`.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1125,7 +1125,7 @@ private constructor(
             this.transactionLineItemId = transactionLineItemId
         }
 
-        /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
+        /** One of: `ach`, `book`, `check`, `eft`, `rtp`, `sepa`, or `wire`. */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -1955,10 +1955,6 @@ private constructor(
 
             val HK_INTERBANK_CLEARING_CODE = of("hk_interbank_clearing_code")
 
-            val HU_INTERBANK_CLEARING_CODE = of("hu_interbank_clearing_code")
-
-            val ID_SKNBI_CODE = of("id_sknbi_code")
-
             val IL_BANK_CODE = of("il_bank_code")
 
             val IN_IFSC = of("in_ifsc")
@@ -1995,8 +1991,6 @@ private constructor(
             DK_INTERBANK_CLEARING_CODE,
             GB_SORT_CODE,
             HK_INTERBANK_CLEARING_CODE,
-            HU_INTERBANK_CLEARING_CODE,
-            ID_SKNBI_CODE,
             IL_BANK_CODE,
             IN_IFSC,
             JP_ZENGIN_CODE,
@@ -2031,8 +2025,6 @@ private constructor(
             DK_INTERBANK_CLEARING_CODE,
             GB_SORT_CODE,
             HK_INTERBANK_CLEARING_CODE,
-            HU_INTERBANK_CLEARING_CODE,
-            ID_SKNBI_CODE,
             IL_BANK_CODE,
             IN_IFSC,
             JP_ZENGIN_CODE,
@@ -2069,8 +2061,6 @@ private constructor(
                 DK_INTERBANK_CLEARING_CODE -> Value.DK_INTERBANK_CLEARING_CODE
                 GB_SORT_CODE -> Value.GB_SORT_CODE
                 HK_INTERBANK_CLEARING_CODE -> Value.HK_INTERBANK_CLEARING_CODE
-                HU_INTERBANK_CLEARING_CODE -> Value.HU_INTERBANK_CLEARING_CODE
-                ID_SKNBI_CODE -> Value.ID_SKNBI_CODE
                 IL_BANK_CODE -> Value.IL_BANK_CODE
                 IN_IFSC -> Value.IN_IFSC
                 JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
@@ -2105,8 +2095,6 @@ private constructor(
                 DK_INTERBANK_CLEARING_CODE -> Known.DK_INTERBANK_CLEARING_CODE
                 GB_SORT_CODE -> Known.GB_SORT_CODE
                 HK_INTERBANK_CLEARING_CODE -> Known.HK_INTERBANK_CLEARING_CODE
-                HU_INTERBANK_CLEARING_CODE -> Known.HU_INTERBANK_CLEARING_CODE
-                ID_SKNBI_CODE -> Known.ID_SKNBI_CODE
                 IL_BANK_CODE -> Known.IL_BANK_CODE
                 IN_IFSC -> Known.IN_IFSC
                 JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
@@ -2477,7 +2465,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** One of: `ach`, `book`, `check`, `eft`, `interac`, `rtp`, `sepa`, `signet`, or `wire`. */
+    /** One of: `ach`, `book`, `check`, `eft`, `rtp`, `sepa`, or `wire`. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -2504,8 +2492,6 @@ private constructor(
 
             val EFT = of("eft")
 
-            val INTERAC = of("interac")
-
             val NEFT = of("neft")
 
             val NZ_BECS = of("nz_becs")
@@ -2513,8 +2499,6 @@ private constructor(
             val RTP = of("rtp")
 
             val SEPA = of("sepa")
-
-            val SIGNET = of("signet")
 
             val STABLECOIN = of("stablecoin")
 
@@ -2533,12 +2517,10 @@ private constructor(
             BOOK,
             CHECK,
             EFT,
-            INTERAC,
             NEFT,
             NZ_BECS,
             RTP,
             SEPA,
-            SIGNET,
             STABLECOIN,
             WIRE,
             ZENGIN,
@@ -2560,12 +2542,10 @@ private constructor(
             BOOK,
             CHECK,
             EFT,
-            INTERAC,
             NEFT,
             NZ_BECS,
             RTP,
             SEPA,
-            SIGNET,
             STABLECOIN,
             WIRE,
             ZENGIN,
@@ -2588,12 +2568,10 @@ private constructor(
                 BOOK -> Value.BOOK
                 CHECK -> Value.CHECK
                 EFT -> Value.EFT
-                INTERAC -> Value.INTERAC
                 NEFT -> Value.NEFT
                 NZ_BECS -> Value.NZ_BECS
                 RTP -> Value.RTP
                 SEPA -> Value.SEPA
-                SIGNET -> Value.SIGNET
                 STABLECOIN -> Value.STABLECOIN
                 WIRE -> Value.WIRE
                 ZENGIN -> Value.ZENGIN
@@ -2617,12 +2595,10 @@ private constructor(
                 BOOK -> Known.BOOK
                 CHECK -> Known.CHECK
                 EFT -> Known.EFT
-                INTERAC -> Known.INTERAC
                 NEFT -> Known.NEFT
                 NZ_BECS -> Known.NZ_BECS
                 RTP -> Known.RTP
                 SEPA -> Known.SEPA
-                SIGNET -> Known.SIGNET
                 STABLECOIN -> Known.STABLECOIN
                 WIRE -> Known.WIRE
                 ZENGIN -> Known.ZENGIN
