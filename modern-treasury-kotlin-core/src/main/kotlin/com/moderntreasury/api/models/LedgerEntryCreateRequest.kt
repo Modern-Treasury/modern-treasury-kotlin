@@ -17,6 +17,7 @@ import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
+/** At least one of "amount" or "amount_string" is required. */
 class LedgerEntryCreateRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
