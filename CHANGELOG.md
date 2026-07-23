@@ -1,5 +1,22 @@
 # Changelog
 
+## 7.36.0 (2026-07-23)
+
+Full Changelog: [v7.35.0...v7.36.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.35.0...v7.36.0)
+
+### Features
+
+* **api:** api update ([ec53c9c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/ec53c9c13d0e49856375f9d457dc4beeccb9ca8c))
+* **api:** api update ([2eaf85c](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2eaf85cb23c0e7b29e03a793100d6f6053ba990c))
+* **api:** api update ([5afd9ef](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/5afd9ef9a8b3a5eca06683922daec088af53a13c))
+* **api:** api update ([44aa555](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/44aa5558f16547953664f6f53fbb0ec05632837d))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([91cc990](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/91cc990bc48bf65d7b8874a97c48ebe8be52d5c4))
+
+
+### Chores
+
+* regenerate SDKs from 24f3dc7dc33d9f75e2d589541d11b7a8bd943451 ([3757144](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/3757144ab24628598c29b21347c044563ef3b1d0))
+
 ## 7.35.0 (2026-07-14)
 
 Full Changelog: [v7.34.0...v7.35.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.34.0...v7.35.0)
