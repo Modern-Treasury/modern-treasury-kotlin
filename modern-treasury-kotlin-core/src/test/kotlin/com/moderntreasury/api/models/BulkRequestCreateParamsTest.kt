@@ -286,7 +286,13 @@ internal class BulkRequestCreateParamsTest {
                     .ultimateOriginatingPartyName("ultimate_originating_party_name")
                     .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                     .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                    .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
+                    .vendorAttributes(
+                        BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                            .VendorAttributes
+                            .builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .build()
             )
             .metadata(
@@ -589,7 +595,13 @@ internal class BulkRequestCreateParamsTest {
                         .ultimateOriginatingPartyName("ultimate_originating_party_name")
                         .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                         .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                        .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
+                        .vendorAttributes(
+                            BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                .VendorAttributes
+                                .builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
                 .metadata(
@@ -892,7 +904,13 @@ internal class BulkRequestCreateParamsTest {
                         .ultimateOriginatingPartyName("ultimate_originating_party_name")
                         .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                         .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                        .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
+                        .vendorAttributes(
+                            BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                .VendorAttributes
+                                .builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             )
