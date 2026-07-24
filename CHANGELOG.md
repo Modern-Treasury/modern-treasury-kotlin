@@ -1,5 +1,30 @@
 # Changelog
 
+## 7.35.0 (2026-07-14)
+
+Full Changelog: [v7.34.0...v7.35.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.34.0...v7.35.0)
+
+### Features
+
+* **api:** add legal entity simulation endpoint ([59354b1](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/59354b19cdbe68f34e868c518aed7063e3fa612f))
+* **api:** api update ([bffb8b2](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/bffb8b2fc8a0b060d2e745700ad3edf0ea4f825c))
+* **api:** api update ([0af61f4](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0af61f4d57e8c18fd9f2a2aed1ebdae286187062))
+* **api:** api update ([475ba6b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/475ba6bcfaf36de1d6a3b6361d3b034dd65800f6))
+* **api:** api update ([85dad00](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/85dad00b1672f8e41122b45e7070b8352cc92ded))
+* **api:** api update ([8017a19](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8017a190152c50a703b5b2932b7774aa23f93487))
+* **api:** api update ([d19e464](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/d19e464f58633faabf1920b87c2841a34d4e9fea))
+* **api:** api update ([7deb7ca](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/7deb7caeb88024dce0ca353e1c9af72901d007b8))
+* **api:** api update ([8b371b7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/8b371b7b930f29f388b0a48d661735e0070e6ac3))
+* **api:** api update ([9580a6b](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9580a6bed8a48cd69db9ffce1187a36a782e74db))
+* **api:** api update ([c520332](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/c520332116c46405b3278b61ccbaa4adff92653a))
+* **api:** api update ([2148226](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2148226febb3fc9f8727c12a7e76bdfada8eafe3))
+
+
+### Bug Fixes
+
+* generate free-form fields in multipart requests as MultipartField ([bda2651](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/bda26519d862430df4779f72177a4496434a2575))
+* **tests:** skip mock-server tests for recursive response schemas ([a54b2b0](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/a54b2b04d41548d4b63ce4b2d035c00821266ae0))
+
 ## 7.34.0 (2026-05-27)
 
 Full Changelog: [v7.33.0...v7.34.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.33.0...v7.34.0)
