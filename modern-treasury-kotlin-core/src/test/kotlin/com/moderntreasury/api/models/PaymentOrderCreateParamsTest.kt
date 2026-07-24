@@ -229,7 +229,11 @@ internal class PaymentOrderCreateParamsTest {
             .ultimateOriginatingPartyName("ultimate_originating_party_name")
             .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
             .ultimateReceivingPartyName("ultimate_receiving_party_name")
-            .vendorAttributes(MultipartField.of(JsonValue.from(mapOf<String, Any>())))
+            .vendorAttributes(
+                PaymentOrderCreateParams.VendorAttributes.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
             .build()
     }
 
@@ -457,7 +461,11 @@ internal class PaymentOrderCreateParamsTest {
                 .ultimateOriginatingPartyName("ultimate_originating_party_name")
                 .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                 .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                .vendorAttributes(MultipartField.of(JsonValue.from(mapOf<String, Any>())))
+                .vendorAttributes(
+                    PaymentOrderCreateParams.VendorAttributes.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -777,7 +785,11 @@ internal class PaymentOrderCreateParamsTest {
                         "ultimate_receiving_party_name" to
                             MultipartField.of("ultimate_receiving_party_name"),
                         "vendor_attributes" to
-                            MultipartField.of(JsonValue.from(mapOf<String, Any>())),
+                            MultipartField.of(
+                                PaymentOrderCreateParams.VendorAttributes.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            ),
                     )
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }

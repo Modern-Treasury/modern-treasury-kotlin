@@ -17,7 +17,6 @@ import com.moderntreasury.api.models.ThirdPartyVerification
 import com.moderntreasury.api.models.WealthAndEmploymentDetails
 import java.time.LocalDate
 import java.time.OffsetDateTime
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -25,7 +24,6 @@ import org.junit.jupiter.api.extension.ExtendWith
 @Disabled("Prism doesn't generate valid recursive LegalEntityAssociation structures")
 internal class LegalEntityServiceTest {
 
-    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     fun create() {
         val client =
@@ -458,7 +456,6 @@ internal class LegalEntityServiceTest {
         legalEntity.validate()
     }
 
-    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     fun retrieve() {
         val client =
@@ -474,7 +471,6 @@ internal class LegalEntityServiceTest {
         legalEntity.validate()
     }
 
-    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     fun update() {
         val client =
@@ -654,7 +650,6 @@ internal class LegalEntityServiceTest {
         legalEntity.validate()
     }
 
-    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     fun list() {
         val client =
