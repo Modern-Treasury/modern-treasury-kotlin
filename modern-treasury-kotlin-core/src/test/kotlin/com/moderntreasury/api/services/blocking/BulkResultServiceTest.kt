@@ -4,14 +4,12 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
 internal class BulkResultServiceTest {
 
-    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     fun retrieve() {
         val client =
@@ -27,7 +25,6 @@ internal class BulkResultServiceTest {
         bulkResult.validate()
     }
 
-    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     fun list() {
         val client =

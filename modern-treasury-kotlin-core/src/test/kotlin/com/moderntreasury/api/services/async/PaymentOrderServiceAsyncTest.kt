@@ -20,14 +20,12 @@ import com.moderntreasury.api.models.PaymentOrderUpdateParams
 import com.moderntreasury.api.models.TransactionDirection
 import java.time.LocalDate
 import java.time.OffsetDateTime
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
 internal class PaymentOrderServiceAsyncTest {
 
-    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     suspend fun create() {
         val client =
@@ -271,14 +269,17 @@ internal class PaymentOrderServiceAsyncTest {
                     .ultimateOriginatingPartyName("ultimate_originating_party_name")
                     .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                     .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                    .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
+                    .vendorAttributes(
+                        PaymentOrderCreateParams.VendorAttributes.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .build()
             )
 
         paymentOrder.validate()
     }
 
-    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     suspend fun retrieve() {
         val client =
@@ -294,7 +295,6 @@ internal class PaymentOrderServiceAsyncTest {
         paymentOrder.validate()
     }
 
-    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     suspend fun update() {
         val client =
@@ -467,7 +467,6 @@ internal class PaymentOrderServiceAsyncTest {
         paymentOrder.validate()
     }
 
-    @Disabled("Mock server doesn't generate valid example responses for recursive schemas")
     @Test
     suspend fun list() {
         val client =
@@ -719,7 +718,11 @@ internal class PaymentOrderServiceAsyncTest {
                     .ultimateOriginatingPartyName("ultimate_originating_party_name")
                     .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                     .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                    .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
+                    .vendorAttributes(
+                        PaymentOrderCreateAsyncParams.VendorAttributes.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .build()
+                    )
                     .build()
             )
 
