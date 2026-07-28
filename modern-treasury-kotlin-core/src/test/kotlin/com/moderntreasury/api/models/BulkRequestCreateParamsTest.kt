@@ -137,6 +137,18 @@ internal class BulkRequestCreateParamsTest {
                             .build()
                     )
                     .nsfProtected(true)
+                    .originatingPartyAddress(
+                        BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                            .OriginatingPartyAddress
+                            .builder()
+                            .country("country")
+                            .line1("line1")
+                            .line2("line2")
+                            .locality("locality")
+                            .postalCode("postal_code")
+                            .region("region")
+                            .build()
+                    )
                     .originatingPartyName("originating_party_name")
                     .priority(
                         BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.Priority
@@ -443,6 +455,18 @@ internal class BulkRequestCreateParamsTest {
                                 .build()
                         )
                         .nsfProtected(true)
+                        .originatingPartyAddress(
+                            BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                .OriginatingPartyAddress
+                                .builder()
+                                .country("country")
+                                .line1("line1")
+                                .line2("line2")
+                                .locality("locality")
+                                .postalCode("postal_code")
+                                .region("region")
+                                .build()
+                        )
                         .originatingPartyName("originating_party_name")
                         .priority(
                             BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.Priority
@@ -752,6 +776,18 @@ internal class BulkRequestCreateParamsTest {
                                 .build()
                         )
                         .nsfProtected(true)
+                        .originatingPartyAddress(
+                            BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
+                                .OriginatingPartyAddress
+                                .builder()
+                                .country("country")
+                                .line1("line1")
+                                .line2("line2")
+                                .locality("locality")
+                                .postalCode("postal_code")
+                                .region("region")
+                                .build()
+                        )
                         .originatingPartyName("originating_party_name")
                         .priority(
                             BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.Priority

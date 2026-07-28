@@ -29,8 +29,8 @@ private constructor(
 
     /**
      * The type of the associated object. Currently can be one of `payment_order`, `transaction`,
-     * `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`, `decision`,
-     * or `external_account`.
+     * `expected_payment`, `return`, `legal_entity`, `counterparty`, `organization`, `case`,
+     * `internal_account`, `decision`, or `external_account`.
      */
     fun documentableType(): DocumentableType? = documentableType
 
@@ -78,8 +78,8 @@ private constructor(
 
         /**
          * The type of the associated object. Currently can be one of `payment_order`,
-         * `transaction`, `expected_payment`, `counterparty`, `organization`, `case`,
-         * `internal_account`, `decision`, or `external_account`.
+         * `transaction`, `expected_payment`, `return`, `legal_entity`, `counterparty`,
+         * `organization`, `case`, `internal_account`, `decision`, or `external_account`.
          */
         fun documentableType(documentableType: DocumentableType?) = apply {
             this.documentableType = documentableType
@@ -223,8 +223,8 @@ private constructor(
 
     /**
      * The type of the associated object. Currently can be one of `payment_order`, `transaction`,
-     * `expected_payment`, `counterparty`, `organization`, `case`, `internal_account`, `decision`,
-     * or `external_account`.
+     * `expected_payment`, `return`, `legal_entity`, `counterparty`, `organization`, `case`,
+     * `internal_account`, `decision`, or `external_account`.
      */
     class DocumentableType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
@@ -261,6 +261,8 @@ private constructor(
 
             val PAYMENT_ORDER = of("payment_order")
 
+            val RETURN = of("return")
+
             val TRANSACTION = of("transaction")
 
             fun of(value: String) = DocumentableType(JsonField.of(value))
@@ -278,6 +280,7 @@ private constructor(
             LEGAL_ENTITY,
             ORGANIZATION,
             PAYMENT_ORDER,
+            RETURN,
             TRANSACTION,
         }
 
@@ -301,6 +304,7 @@ private constructor(
             LEGAL_ENTITY,
             ORGANIZATION,
             PAYMENT_ORDER,
+            RETURN,
             TRANSACTION,
             /**
              * An enum member indicating that [DocumentableType] was instantiated with an unknown
@@ -328,6 +332,7 @@ private constructor(
                 LEGAL_ENTITY -> Value.LEGAL_ENTITY
                 ORGANIZATION -> Value.ORGANIZATION
                 PAYMENT_ORDER -> Value.PAYMENT_ORDER
+                RETURN -> Value.RETURN
                 TRANSACTION -> Value.TRANSACTION
                 else -> Value._UNKNOWN
             }
@@ -353,6 +358,7 @@ private constructor(
                 LEGAL_ENTITY -> Known.LEGAL_ENTITY
                 ORGANIZATION -> Known.ORGANIZATION
                 PAYMENT_ORDER -> Known.PAYMENT_ORDER
+                RETURN -> Known.RETURN
                 TRANSACTION -> Known.TRANSACTION
                 else -> throw ModernTreasuryInvalidDataException("Unknown DocumentableType: $value")
             }
