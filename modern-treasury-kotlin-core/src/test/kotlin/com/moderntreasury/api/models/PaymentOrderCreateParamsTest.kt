@@ -122,6 +122,16 @@ internal class PaymentOrderCreateParamsTest {
                     .build()
             )
             .nsfProtected(true)
+            .originatingPartyAddress(
+                PaymentOrderCreateParams.OriginatingPartyAddress.builder()
+                    .country("country")
+                    .line1("line1")
+                    .line2("line2")
+                    .locality("locality")
+                    .postalCode("postal_code")
+                    .region("region")
+                    .build()
+            )
             .originatingPartyName("originating_party_name")
             .priority(PaymentOrderCreateParams.Priority.HIGH)
             .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -351,6 +361,16 @@ internal class PaymentOrderCreateParamsTest {
                         .build()
                 )
                 .nsfProtected(true)
+                .originatingPartyAddress(
+                    PaymentOrderCreateParams.OriginatingPartyAddress.builder()
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
+                        .build()
+                )
                 .originatingPartyName("originating_party_name")
                 .priority(PaymentOrderCreateParams.Priority.HIGH)
                 .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -639,6 +659,17 @@ internal class PaymentOrderCreateParamsTest {
                                     .build()
                             ),
                         "nsf_protected" to MultipartField.of(true),
+                        "originating_party_address" to
+                            MultipartField.of(
+                                PaymentOrderCreateParams.OriginatingPartyAddress.builder()
+                                    .country("country")
+                                    .line1("line1")
+                                    .line2("line2")
+                                    .locality("locality")
+                                    .postalCode("postal_code")
+                                    .region("region")
+                                    .build()
+                            ),
                         "originating_party_name" to MultipartField.of("originating_party_name"),
                         "priority" to MultipartField.of(PaymentOrderCreateParams.Priority.HIGH),
                         "process_after" to
