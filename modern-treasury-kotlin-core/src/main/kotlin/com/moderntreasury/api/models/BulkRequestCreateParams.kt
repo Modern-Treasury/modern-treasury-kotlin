@@ -1798,6 +1798,7 @@ private constructor(
             private val lineItems: JsonField<List<LineItemRequest>>,
             private val metadata: JsonField<Metadata>,
             private val nsfProtected: JsonField<Boolean>,
+            private val originatingPartyAddress: JsonField<OriginatingPartyAddress>,
             private val originatingPartyName: JsonField<String>,
             private val priority: JsonField<Priority>,
             private val processAfter: JsonField<OffsetDateTime>,
@@ -1883,6 +1884,9 @@ private constructor(
                 @JsonProperty("nsf_protected")
                 @ExcludeMissing
                 nsfProtected: JsonField<Boolean> = JsonMissing.of(),
+                @JsonProperty("originating_party_address")
+                @ExcludeMissing
+                originatingPartyAddress: JsonField<OriginatingPartyAddress> = JsonMissing.of(),
                 @JsonProperty("originating_party_name")
                 @ExcludeMissing
                 originatingPartyName: JsonField<String> = JsonMissing.of(),
@@ -1963,6 +1967,7 @@ private constructor(
                 lineItems,
                 metadata,
                 nsfProtected,
+                originatingPartyAddress,
                 originatingPartyName,
                 priority,
                 processAfter,
@@ -2187,6 +2192,16 @@ private constructor(
              *   (e.g. if the server responded with an unexpected value).
              */
             fun nsfProtected(): Boolean? = nsfProtected.getNullable("nsf_protected")
+
+            /**
+             * If present, this address will override the default originating party address used on
+             * the payment order. This works across all payment types.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
+             */
+            fun originatingPartyAddress(): OriginatingPartyAddress? =
+                originatingPartyAddress.getNullable("originating_party_address")
 
             /**
              * If present, this will replace your default company name on receiver's bank statement.
@@ -2593,6 +2608,17 @@ private constructor(
             fun _nsfProtected(): JsonField<Boolean> = nsfProtected
 
             /**
+             * Returns the raw JSON value of [originatingPartyAddress].
+             *
+             * Unlike [originatingPartyAddress], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("originating_party_address")
+            @ExcludeMissing
+            fun _originatingPartyAddress(): JsonField<OriginatingPartyAddress> =
+                originatingPartyAddress
+
+            /**
              * Returns the raw JSON value of [originatingPartyName].
              *
              * Unlike [originatingPartyName], this method doesn't throw if the JSON field has an
@@ -2837,6 +2863,8 @@ private constructor(
                 private var lineItems: JsonField<MutableList<LineItemRequest>>? = null
                 private var metadata: JsonField<Metadata> = JsonMissing.of()
                 private var nsfProtected: JsonField<Boolean> = JsonMissing.of()
+                private var originatingPartyAddress: JsonField<OriginatingPartyAddress> =
+                    JsonMissing.of()
                 private var originatingPartyName: JsonField<String> = JsonMissing.of()
                 private var priority: JsonField<Priority> = JsonMissing.of()
                 private var processAfter: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -2887,6 +2915,8 @@ private constructor(
                             paymentOrderAsyncCreateRequest.lineItems.map { it.toMutableList() }
                         metadata = paymentOrderAsyncCreateRequest.metadata
                         nsfProtected = paymentOrderAsyncCreateRequest.nsfProtected
+                        originatingPartyAddress =
+                            paymentOrderAsyncCreateRequest.originatingPartyAddress
                         originatingPartyName = paymentOrderAsyncCreateRequest.originatingPartyName
                         priority = paymentOrderAsyncCreateRequest.priority
                         processAfter = paymentOrderAsyncCreateRequest.processAfter
@@ -3285,6 +3315,24 @@ private constructor(
                 fun nsfProtected(nsfProtected: JsonField<Boolean>) = apply {
                     this.nsfProtected = nsfProtected
                 }
+
+                /**
+                 * If present, this address will override the default originating party address used
+                 * on the payment order. This works across all payment types.
+                 */
+                fun originatingPartyAddress(originatingPartyAddress: OriginatingPartyAddress?) =
+                    originatingPartyAddress(JsonField.ofNullable(originatingPartyAddress))
+
+                /**
+                 * Sets [Builder.originatingPartyAddress] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.originatingPartyAddress] with a well-typed
+                 * [OriginatingPartyAddress] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun originatingPartyAddress(
+                    originatingPartyAddress: JsonField<OriginatingPartyAddress>
+                ) = apply { this.originatingPartyAddress = originatingPartyAddress }
 
                 /**
                  * If present, this will replace your default company name on receiver's bank
@@ -3707,6 +3755,7 @@ private constructor(
                         (lineItems ?: JsonMissing.of()).map { it.toImmutable() },
                         metadata,
                         nsfProtected,
+                        originatingPartyAddress,
                         originatingPartyName,
                         priority,
                         processAfter,
@@ -3768,6 +3817,7 @@ private constructor(
                 lineItems()?.forEach { it.validate() }
                 metadata()?.validate()
                 nsfProtected()
+                originatingPartyAddress()?.validate()
                 originatingPartyName()
                 priority()?.validate()
                 processAfter()
@@ -3826,6 +3876,7 @@ private constructor(
                     (lineItems.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                     (metadata.asKnown()?.validity() ?: 0) +
                     (if (nsfProtected.asKnown() == null) 0 else 1) +
+                    (originatingPartyAddress.asKnown()?.validity() ?: 0) +
                     (if (originatingPartyName.asKnown() == null) 0 else 1) +
                     (priority.asKnown()?.validity() ?: 0) +
                     (if (processAfter.asKnown() == null) 0 else 1) +
@@ -5216,6 +5267,384 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+            }
+
+            /**
+             * If present, this address will override the default originating party address used on
+             * the payment order. This works across all payment types.
+             */
+            class OriginatingPartyAddress
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val country: JsonField<String>,
+                private val line1: JsonField<String>,
+                private val line2: JsonField<String>,
+                private val locality: JsonField<String>,
+                private val postalCode: JsonField<String>,
+                private val region: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("country")
+                    @ExcludeMissing
+                    country: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("line1")
+                    @ExcludeMissing
+                    line1: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("line2")
+                    @ExcludeMissing
+                    line2: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("locality")
+                    @ExcludeMissing
+                    locality: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("postal_code")
+                    @ExcludeMissing
+                    postalCode: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("region")
+                    @ExcludeMissing
+                    region: JsonField<String> = JsonMissing.of(),
+                ) : this(country, line1, line2, locality, postalCode, region, mutableMapOf())
+
+                /**
+                 * Country code conforms to [ISO 3166-1 alpha-2]
+                 *
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
+                fun country(): String? = country.getNullable("country")
+
+                /**
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
+                fun line1(): String? = line1.getNullable("line1")
+
+                /**
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
+                fun line2(): String? = line2.getNullable("line2")
+
+                /**
+                 * Locality or City. Use the full city name rather than an abbreviation (e.g. San
+                 * Francisco).
+                 *
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
+                fun locality(): String? = locality.getNullable("locality")
+
+                /**
+                 * The postal code of the address.
+                 *
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
+                fun postalCode(): String? = postalCode.getNullable("postal_code")
+
+                /**
+                 * Region or State. This field is free-form; for US states, we recommend a
+                 * two-letter code (e.g. CA). Full state names are also accepted.
+                 *
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
+                fun region(): String? = region.getNullable("region")
+
+                /**
+                 * Returns the raw JSON value of [country].
+                 *
+                 * Unlike [country], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
+
+                /**
+                 * Returns the raw JSON value of [line1].
+                 *
+                 * Unlike [line1], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+                /**
+                 * Returns the raw JSON value of [line2].
+                 *
+                 * Unlike [line2], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+                /**
+                 * Returns the raw JSON value of [locality].
+                 *
+                 * Unlike [locality], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("locality")
+                @ExcludeMissing
+                fun _locality(): JsonField<String> = locality
+
+                /**
+                 * Returns the raw JSON value of [postalCode].
+                 *
+                 * Unlike [postalCode], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("postal_code")
+                @ExcludeMissing
+                fun _postalCode(): JsonField<String> = postalCode
+
+                /**
+                 * Returns the raw JSON value of [region].
+                 *
+                 * Unlike [region], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [OriginatingPartyAddress].
+                     */
+                    fun builder() = Builder()
+                }
+
+                /** A builder for [OriginatingPartyAddress]. */
+                class Builder internal constructor() {
+
+                    private var country: JsonField<String> = JsonMissing.of()
+                    private var line1: JsonField<String> = JsonMissing.of()
+                    private var line2: JsonField<String> = JsonMissing.of()
+                    private var locality: JsonField<String> = JsonMissing.of()
+                    private var postalCode: JsonField<String> = JsonMissing.of()
+                    private var region: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    internal fun from(originatingPartyAddress: OriginatingPartyAddress) = apply {
+                        country = originatingPartyAddress.country
+                        line1 = originatingPartyAddress.line1
+                        line2 = originatingPartyAddress.line2
+                        locality = originatingPartyAddress.locality
+                        postalCode = originatingPartyAddress.postalCode
+                        region = originatingPartyAddress.region
+                        additionalProperties =
+                            originatingPartyAddress.additionalProperties.toMutableMap()
+                    }
+
+                    /** Country code conforms to [ISO 3166-1 alpha-2] */
+                    fun country(country: String?) = country(JsonField.ofNullable(country))
+
+                    /**
+                     * Sets [Builder.country] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.country] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun country(country: JsonField<String>) = apply { this.country = country }
+
+                    fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
+
+                    /**
+                     * Sets [Builder.line1] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line1] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+                    fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+                    /**
+                     * Sets [Builder.line2] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line2] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+
+                    /**
+                     * Locality or City. Use the full city name rather than an abbreviation (e.g.
+                     * San Francisco).
+                     */
+                    fun locality(locality: String?) = locality(JsonField.ofNullable(locality))
+
+                    /**
+                     * Sets [Builder.locality] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.locality] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun locality(locality: JsonField<String>) = apply { this.locality = locality }
+
+                    /** The postal code of the address. */
+                    fun postalCode(postalCode: String?) =
+                        postalCode(JsonField.ofNullable(postalCode))
+
+                    /**
+                     * Sets [Builder.postalCode] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.postalCode] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun postalCode(postalCode: JsonField<String>) = apply {
+                        this.postalCode = postalCode
+                    }
+
+                    /**
+                     * Region or State. This field is free-form; for US states, we recommend a
+                     * two-letter code (e.g. CA). Full state names are also accepted.
+                     */
+                    fun region(region: String?) = region(JsonField.ofNullable(region))
+
+                    /**
+                     * Sets [Builder.region] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.region] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun region(region: JsonField<String>) = apply { this.region = region }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [OriginatingPartyAddress].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): OriginatingPartyAddress =
+                        OriginatingPartyAddress(
+                            country,
+                            line1,
+                            line2,
+                            locality,
+                            postalCode,
+                            region,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws ModernTreasuryInvalidDataException if any value type in this object
+                 *   doesn't match its expected type.
+                 */
+                fun validate(): OriginatingPartyAddress = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    country()
+                    line1()
+                    line2()
+                    locality()
+                    postalCode()
+                    region()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: ModernTreasuryInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (country.asKnown() == null) 0 else 1) +
+                        (if (line1.asKnown() == null) 0 else 1) +
+                        (if (line2.asKnown() == null) 0 else 1) +
+                        (if (locality.asKnown() == null) 0 else 1) +
+                        (if (postalCode.asKnown() == null) 0 else 1) +
+                        (if (region.asKnown() == null) 0 else 1)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is OriginatingPartyAddress &&
+                        country == other.country &&
+                        line1 == other.line1 &&
+                        line2 == other.line2 &&
+                        locality == other.locality &&
+                        postalCode == other.postalCode &&
+                        region == other.region &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(
+                        country,
+                        line1,
+                        line2,
+                        locality,
+                        postalCode,
+                        region,
+                        additionalProperties,
+                    )
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "OriginatingPartyAddress{country=$country, line1=$line1, line2=$line2, locality=$locality, postalCode=$postalCode, region=$region, additionalProperties=$additionalProperties}"
             }
 
             /**
@@ -8337,6 +8766,7 @@ private constructor(
                     lineItems == other.lineItems &&
                     metadata == other.metadata &&
                     nsfProtected == other.nsfProtected &&
+                    originatingPartyAddress == other.originatingPartyAddress &&
                     originatingPartyName == other.originatingPartyName &&
                     priority == other.priority &&
                     processAfter == other.processAfter &&
@@ -8383,6 +8813,7 @@ private constructor(
                     lineItems,
                     metadata,
                     nsfProtected,
+                    originatingPartyAddress,
                     originatingPartyName,
                     priority,
                     processAfter,
@@ -8409,7 +8840,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "PaymentOrderAsyncCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingPartyAddress=$ultimateOriginatingPartyAddress, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
+                "PaymentOrderAsyncCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyAddress=$originatingPartyAddress, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingPartyAddress=$ultimateOriginatingPartyAddress, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
         }
 
         class ExpectedPaymentCreateRequest
@@ -10895,6 +11326,7 @@ private constructor(
             private val metadata: JsonField<Metadata>,
             private val nsfProtected: JsonField<Boolean>,
             private val originatingAccountId: JsonField<String>,
+            private val originatingPartyAddress: JsonField<OriginatingPartyAddress>,
             private val originatingPartyName: JsonField<String>,
             private val priority: JsonField<Priority>,
             private val processAfter: JsonField<OffsetDateTime>,
@@ -10973,6 +11405,9 @@ private constructor(
                 @JsonProperty("originating_account_id")
                 @ExcludeMissing
                 originatingAccountId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("originating_party_address")
+                @ExcludeMissing
+                originatingPartyAddress: JsonField<OriginatingPartyAddress> = JsonMissing.of(),
                 @JsonProperty("originating_party_name")
                 @ExcludeMissing
                 originatingPartyName: JsonField<String> = JsonMissing.of(),
@@ -11045,6 +11480,7 @@ private constructor(
                 metadata,
                 nsfProtected,
                 originatingAccountId,
+                originatingPartyAddress,
                 originatingPartyName,
                 priority,
                 processAfter,
@@ -11245,6 +11681,16 @@ private constructor(
              */
             fun originatingAccountId(): String? =
                 originatingAccountId.getNullable("originating_account_id")
+
+            /**
+             * If present, this address will override the default originating party address used on
+             * the payment order. This works across all payment types.
+             *
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
+             */
+            fun originatingPartyAddress(): OriginatingPartyAddress? =
+                originatingPartyAddress.getNullable("originating_party_address")
 
             /**
              * If present, this will replace your default company name on receiver's bank statement.
@@ -11628,6 +12074,17 @@ private constructor(
             fun _originatingAccountId(): JsonField<String> = originatingAccountId
 
             /**
+             * Returns the raw JSON value of [originatingPartyAddress].
+             *
+             * Unlike [originatingPartyAddress], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("originating_party_address")
+            @ExcludeMissing
+            fun _originatingPartyAddress(): JsonField<OriginatingPartyAddress> =
+                originatingPartyAddress
+
+            /**
              * Returns the raw JSON value of [originatingPartyName].
              *
              * Unlike [originatingPartyName], this method doesn't throw if the JSON field has an
@@ -11834,6 +12291,8 @@ private constructor(
                 private var metadata: JsonField<Metadata> = JsonMissing.of()
                 private var nsfProtected: JsonField<Boolean> = JsonMissing.of()
                 private var originatingAccountId: JsonField<String> = JsonMissing.of()
+                private var originatingPartyAddress: JsonField<OriginatingPartyAddress> =
+                    JsonMissing.of()
                 private var originatingPartyName: JsonField<String> = JsonMissing.of()
                 private var priority: JsonField<Priority> = JsonMissing.of()
                 private var processAfter: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -11879,6 +12338,8 @@ private constructor(
                     metadata = paymentOrderUpdateRequestWithId.metadata
                     nsfProtected = paymentOrderUpdateRequestWithId.nsfProtected
                     originatingAccountId = paymentOrderUpdateRequestWithId.originatingAccountId
+                    originatingPartyAddress =
+                        paymentOrderUpdateRequestWithId.originatingPartyAddress
                     originatingPartyName = paymentOrderUpdateRequestWithId.originatingPartyName
                     priority = paymentOrderUpdateRequestWithId.priority
                     processAfter = paymentOrderUpdateRequestWithId.processAfter
@@ -12243,6 +12704,24 @@ private constructor(
                 fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
                     this.originatingAccountId = originatingAccountId
                 }
+
+                /**
+                 * If present, this address will override the default originating party address used
+                 * on the payment order. This works across all payment types.
+                 */
+                fun originatingPartyAddress(originatingPartyAddress: OriginatingPartyAddress?) =
+                    originatingPartyAddress(JsonField.ofNullable(originatingPartyAddress))
+
+                /**
+                 * Sets [Builder.originatingPartyAddress] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.originatingPartyAddress] with a well-typed
+                 * [OriginatingPartyAddress] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun originatingPartyAddress(
+                    originatingPartyAddress: JsonField<OriginatingPartyAddress>
+                ) = apply { this.originatingPartyAddress = originatingPartyAddress }
 
                 /**
                  * If present, this will replace your default company name on receiver's bank
@@ -12624,6 +13103,7 @@ private constructor(
                         metadata,
                         nsfProtected,
                         originatingAccountId,
+                        originatingPartyAddress,
                         originatingPartyName,
                         priority,
                         processAfter,
@@ -12682,6 +13162,7 @@ private constructor(
                 metadata()?.validate()
                 nsfProtected()
                 originatingAccountId()
+                originatingPartyAddress()?.validate()
                 originatingPartyName()
                 priority()?.validate()
                 processAfter()
@@ -12737,6 +13218,7 @@ private constructor(
                     (metadata.asKnown()?.validity() ?: 0) +
                     (if (nsfProtected.asKnown() == null) 0 else 1) +
                     (if (originatingAccountId.asKnown() == null) 0 else 1) +
+                    (originatingPartyAddress.asKnown()?.validity() ?: 0) +
                     (if (originatingPartyName.asKnown() == null) 0 else 1) +
                     (priority.asKnown()?.validity() ?: 0) +
                     (if (processAfter.asKnown() == null) 0 else 1) +
@@ -14125,6 +14607,384 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+            }
+
+            /**
+             * If present, this address will override the default originating party address used on
+             * the payment order. This works across all payment types.
+             */
+            class OriginatingPartyAddress
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val country: JsonField<String>,
+                private val line1: JsonField<String>,
+                private val line2: JsonField<String>,
+                private val locality: JsonField<String>,
+                private val postalCode: JsonField<String>,
+                private val region: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("country")
+                    @ExcludeMissing
+                    country: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("line1")
+                    @ExcludeMissing
+                    line1: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("line2")
+                    @ExcludeMissing
+                    line2: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("locality")
+                    @ExcludeMissing
+                    locality: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("postal_code")
+                    @ExcludeMissing
+                    postalCode: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("region")
+                    @ExcludeMissing
+                    region: JsonField<String> = JsonMissing.of(),
+                ) : this(country, line1, line2, locality, postalCode, region, mutableMapOf())
+
+                /**
+                 * Country code conforms to [ISO 3166-1 alpha-2]
+                 *
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
+                fun country(): String? = country.getNullable("country")
+
+                /**
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
+                fun line1(): String? = line1.getNullable("line1")
+
+                /**
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
+                fun line2(): String? = line2.getNullable("line2")
+
+                /**
+                 * Locality or City. Use the full city name rather than an abbreviation (e.g. San
+                 * Francisco).
+                 *
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
+                fun locality(): String? = locality.getNullable("locality")
+
+                /**
+                 * The postal code of the address.
+                 *
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
+                fun postalCode(): String? = postalCode.getNullable("postal_code")
+
+                /**
+                 * Region or State. This field is free-form; for US states, we recommend a
+                 * two-letter code (e.g. CA). Full state names are also accepted.
+                 *
+                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
+                 *   type (e.g. if the server responded with an unexpected value).
+                 */
+                fun region(): String? = region.getNullable("region")
+
+                /**
+                 * Returns the raw JSON value of [country].
+                 *
+                 * Unlike [country], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
+
+                /**
+                 * Returns the raw JSON value of [line1].
+                 *
+                 * Unlike [line1], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+                /**
+                 * Returns the raw JSON value of [line2].
+                 *
+                 * Unlike [line2], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+                /**
+                 * Returns the raw JSON value of [locality].
+                 *
+                 * Unlike [locality], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("locality")
+                @ExcludeMissing
+                fun _locality(): JsonField<String> = locality
+
+                /**
+                 * Returns the raw JSON value of [postalCode].
+                 *
+                 * Unlike [postalCode], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("postal_code")
+                @ExcludeMissing
+                fun _postalCode(): JsonField<String> = postalCode
+
+                /**
+                 * Returns the raw JSON value of [region].
+                 *
+                 * Unlike [region], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [OriginatingPartyAddress].
+                     */
+                    fun builder() = Builder()
+                }
+
+                /** A builder for [OriginatingPartyAddress]. */
+                class Builder internal constructor() {
+
+                    private var country: JsonField<String> = JsonMissing.of()
+                    private var line1: JsonField<String> = JsonMissing.of()
+                    private var line2: JsonField<String> = JsonMissing.of()
+                    private var locality: JsonField<String> = JsonMissing.of()
+                    private var postalCode: JsonField<String> = JsonMissing.of()
+                    private var region: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    internal fun from(originatingPartyAddress: OriginatingPartyAddress) = apply {
+                        country = originatingPartyAddress.country
+                        line1 = originatingPartyAddress.line1
+                        line2 = originatingPartyAddress.line2
+                        locality = originatingPartyAddress.locality
+                        postalCode = originatingPartyAddress.postalCode
+                        region = originatingPartyAddress.region
+                        additionalProperties =
+                            originatingPartyAddress.additionalProperties.toMutableMap()
+                    }
+
+                    /** Country code conforms to [ISO 3166-1 alpha-2] */
+                    fun country(country: String?) = country(JsonField.ofNullable(country))
+
+                    /**
+                     * Sets [Builder.country] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.country] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun country(country: JsonField<String>) = apply { this.country = country }
+
+                    fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
+
+                    /**
+                     * Sets [Builder.line1] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line1] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+                    fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+                    /**
+                     * Sets [Builder.line2] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line2] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+
+                    /**
+                     * Locality or City. Use the full city name rather than an abbreviation (e.g.
+                     * San Francisco).
+                     */
+                    fun locality(locality: String?) = locality(JsonField.ofNullable(locality))
+
+                    /**
+                     * Sets [Builder.locality] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.locality] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun locality(locality: JsonField<String>) = apply { this.locality = locality }
+
+                    /** The postal code of the address. */
+                    fun postalCode(postalCode: String?) =
+                        postalCode(JsonField.ofNullable(postalCode))
+
+                    /**
+                     * Sets [Builder.postalCode] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.postalCode] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun postalCode(postalCode: JsonField<String>) = apply {
+                        this.postalCode = postalCode
+                    }
+
+                    /**
+                     * Region or State. This field is free-form; for US states, we recommend a
+                     * two-letter code (e.g. CA). Full state names are also accepted.
+                     */
+                    fun region(region: String?) = region(JsonField.ofNullable(region))
+
+                    /**
+                     * Sets [Builder.region] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.region] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun region(region: JsonField<String>) = apply { this.region = region }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [OriginatingPartyAddress].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): OriginatingPartyAddress =
+                        OriginatingPartyAddress(
+                            country,
+                            line1,
+                            line2,
+                            locality,
+                            postalCode,
+                            region,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws ModernTreasuryInvalidDataException if any value type in this object
+                 *   doesn't match its expected type.
+                 */
+                fun validate(): OriginatingPartyAddress = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    country()
+                    line1()
+                    line2()
+                    locality()
+                    postalCode()
+                    region()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: ModernTreasuryInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (country.asKnown() == null) 0 else 1) +
+                        (if (line1.asKnown() == null) 0 else 1) +
+                        (if (line2.asKnown() == null) 0 else 1) +
+                        (if (locality.asKnown() == null) 0 else 1) +
+                        (if (postalCode.asKnown() == null) 0 else 1) +
+                        (if (region.asKnown() == null) 0 else 1)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is OriginatingPartyAddress &&
+                        country == other.country &&
+                        line1 == other.line1 &&
+                        line2 == other.line2 &&
+                        locality == other.locality &&
+                        postalCode == other.postalCode &&
+                        region == other.region &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(
+                        country,
+                        line1,
+                        line2,
+                        locality,
+                        postalCode,
+                        region,
+                        additionalProperties,
+                    )
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "OriginatingPartyAddress{country=$country, line1=$line1, line2=$line2, locality=$locality, postalCode=$postalCode, region=$region, additionalProperties=$additionalProperties}"
             }
 
             /**
@@ -16959,6 +17819,7 @@ private constructor(
                     metadata == other.metadata &&
                     nsfProtected == other.nsfProtected &&
                     originatingAccountId == other.originatingAccountId &&
+                    originatingPartyAddress == other.originatingPartyAddress &&
                     originatingPartyName == other.originatingPartyName &&
                     priority == other.priority &&
                     processAfter == other.processAfter &&
@@ -17002,6 +17863,7 @@ private constructor(
                     metadata,
                     nsfProtected,
                     originatingAccountId,
+                    originatingPartyAddress,
                     originatingPartyName,
                     priority,
                     processAfter,
@@ -17026,7 +17888,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "PaymentOrderUpdateRequestWithId{id=$id, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, amount=$amount, chargeBearer=$chargeBearer, counterpartyId=$counterpartyId, currency=$currency, description=$description, direction=$direction, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingAccountId=$originatingAccountId, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, status=$status, subtype=$subtype, type=$type, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
+                "PaymentOrderUpdateRequestWithId{id=$id, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, amount=$amount, chargeBearer=$chargeBearer, counterpartyId=$counterpartyId, currency=$currency, description=$description, direction=$direction, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingAccountId=$originatingAccountId, originatingPartyAddress=$originatingPartyAddress, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, status=$status, subtype=$subtype, type=$type, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
         }
 
         class ExpectedPaymentUpdateRequestWithId
