@@ -131,11 +131,7 @@ private constructor(
     private fun idempotencyKey(): String = "stainless-java-retry-${UUID.randomUUID()}"
 
     private fun maybeAddIdempotencyHeader(request: HttpRequest): HttpRequest {
-        if (
-            idempotencyHeader == null ||
-                request.headers.names().contains(idempotencyHeader) ||
-                (request.method != HttpMethod.POST && request.method != HttpMethod.PUT)
-        ) {
+        if (idempotencyHeader == null || request.headers.names().contains(idempotencyHeader)) {
             return request
         }
 

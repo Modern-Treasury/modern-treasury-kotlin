@@ -46,7 +46,6 @@ import com.moderntreasury.api.services.async.RoutingDetailServiceAsync
 import com.moderntreasury.api.services.async.TransactionServiceAsync
 import com.moderntreasury.api.services.async.ValidationServiceAsync
 import com.moderntreasury.api.services.async.VirtualAccountServiceAsync
-import com.moderntreasury.api.services.async.WebhookServiceAsync
 
 /**
  * A client for interacting with the Modern Treasury REST API asynchronously. You can also switch to
@@ -135,8 +134,6 @@ interface ModernTreasuryClientAsync {
     fun transactions(): TransactionServiceAsync
 
     fun validations(): ValidationServiceAsync
-
-    fun webhooks(): WebhookServiceAsync
 
     fun virtualAccounts(): VirtualAccountServiceAsync
 

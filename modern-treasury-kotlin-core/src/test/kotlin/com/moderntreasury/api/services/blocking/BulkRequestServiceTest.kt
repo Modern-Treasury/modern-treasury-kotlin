@@ -354,13 +354,7 @@ internal class BulkRequestServiceTest {
                             .ultimateOriginatingPartyName("ultimate_originating_party_name")
                             .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                             .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                            .vendorAttributes(
-                                BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
-                                    .VendorAttributes
-                                    .builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                                    .build()
-                            )
+                            .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .metadata(

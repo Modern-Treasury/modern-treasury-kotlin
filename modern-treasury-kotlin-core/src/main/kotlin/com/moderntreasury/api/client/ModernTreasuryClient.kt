@@ -46,7 +46,6 @@ import com.moderntreasury.api.services.blocking.RoutingDetailService
 import com.moderntreasury.api.services.blocking.TransactionService
 import com.moderntreasury.api.services.blocking.ValidationService
 import com.moderntreasury.api.services.blocking.VirtualAccountService
-import com.moderntreasury.api.services.blocking.WebhookService
 
 /**
  * A client for interacting with the Modern Treasury REST API synchronously. You can also switch to
@@ -135,8 +134,6 @@ interface ModernTreasuryClient {
     fun transactions(): TransactionService
 
     fun validations(): ValidationService
-
-    fun webhooks(): WebhookService
 
     fun virtualAccounts(): VirtualAccountService
 

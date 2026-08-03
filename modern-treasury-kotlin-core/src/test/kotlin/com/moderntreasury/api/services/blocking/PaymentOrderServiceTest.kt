@@ -271,11 +271,7 @@ internal class PaymentOrderServiceTest {
                     .ultimateOriginatingPartyName("ultimate_originating_party_name")
                     .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                     .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                    .vendorAttributes(
-                        PaymentOrderCreateParams.VendorAttributes.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
+                    .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
 
@@ -723,11 +719,7 @@ internal class PaymentOrderServiceTest {
                     .ultimateOriginatingPartyName("ultimate_originating_party_name")
                     .ultimateReceivingPartyIdentifier("ultimate_receiving_party_identifier")
                     .ultimateReceivingPartyName("ultimate_receiving_party_name")
-                    .vendorAttributes(
-                        PaymentOrderCreateAsyncParams.VendorAttributes.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .build()
-                    )
+                    .vendorAttributes(JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
 
