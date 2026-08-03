@@ -267,6 +267,10 @@ private constructor(
 
             val REVERSAL = of("reversal")
 
+            val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
+
+            val TRANSACTION = of("transaction")
+
             fun of(value: String) = ReferenceableType(JsonField.of(value))
         }
 
@@ -275,6 +279,8 @@ private constructor(
             PAYMENT_ORDER,
             RETURN,
             REVERSAL,
+            INCOMING_PAYMENT_DETAIL,
+            TRANSACTION,
         }
 
         /**
@@ -290,6 +296,8 @@ private constructor(
             PAYMENT_ORDER,
             RETURN,
             REVERSAL,
+            INCOMING_PAYMENT_DETAIL,
+            TRANSACTION,
             /**
              * An enum member indicating that [ReferenceableType] was instantiated with an unknown
              * value.
@@ -309,6 +317,8 @@ private constructor(
                 PAYMENT_ORDER -> Value.PAYMENT_ORDER
                 RETURN -> Value.RETURN
                 REVERSAL -> Value.REVERSAL
+                INCOMING_PAYMENT_DETAIL -> Value.INCOMING_PAYMENT_DETAIL
+                TRANSACTION -> Value.TRANSACTION
                 else -> Value._UNKNOWN
             }
 
@@ -326,6 +336,8 @@ private constructor(
                 PAYMENT_ORDER -> Known.PAYMENT_ORDER
                 RETURN -> Known.RETURN
                 REVERSAL -> Known.REVERSAL
+                INCOMING_PAYMENT_DETAIL -> Known.INCOMING_PAYMENT_DETAIL
+                TRANSACTION -> Known.TRANSACTION
                 else ->
                     throw ModernTreasuryInvalidDataException("Unknown ReferenceableType: $value")
             }
