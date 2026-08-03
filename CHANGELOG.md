@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.36.1 (2026-08-03)
+
+Full Changelog: [v7.36.0...v7.36.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.36.0...v7.36.1)
+
+### Chores
+
+* regenerate SDKs from f8431d19ac72164ca8c950d87d1ab63a2ab77353 ([efba8df](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/efba8df56011391062805b0bb2d753077efcebfb))
+
 ## 7.36.0 (2026-07-24)
 
 Full Changelog: [v7.35.0...v7.36.0](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.35.0...v7.36.0)
