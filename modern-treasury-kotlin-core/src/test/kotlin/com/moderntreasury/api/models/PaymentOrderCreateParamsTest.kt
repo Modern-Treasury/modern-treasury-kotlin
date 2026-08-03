@@ -36,7 +36,7 @@ internal class PaymentOrderCreateParamsTest {
                     .documentType("document_type")
                     .documentableId("documentable_id")
                     .documentableType(
-                        PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CONNECTIONS
+                        PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CONNECTION
                     )
                     .build()
             )
@@ -259,7 +259,7 @@ internal class PaymentOrderCreateParamsTest {
                         .documentableId("documentable_id")
                         .documentableType(
                             PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
-                                .CONNECTIONS
+                                .CONNECTION
                         )
                         .build()
                 )
@@ -505,7 +505,7 @@ internal class PaymentOrderCreateParamsTest {
                                             .documentableType(
                                                 PaymentOrderCreateParams.DocumentCreateRequest
                                                     .DocumentableType
-                                                    .CONNECTIONS
+                                                    .CONNECTION
                                             )
                                             .build()
                                     )

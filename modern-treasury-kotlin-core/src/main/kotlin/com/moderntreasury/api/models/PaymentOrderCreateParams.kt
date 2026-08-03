@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
-import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.MultipartField
 import com.moderntreasury.api.core.Params
@@ -64,9 +63,8 @@ private constructor(
     fun originatingAccountId(): String = body.originatingAccountId()
 
     /**
-     * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
-     * `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `signet`,
-     * `provexchange`, `zengin`.
+     * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `book`, `rtp`, `sepa`, `bacs`,
+     * `au_becs`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `zengin`.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -403,12 +401,10 @@ private constructor(
      * Additional vendor specific fields for this payment. Data must be represented as key-value
      * pairs.
      *
-     * This arbitrary value can be deserialized into a custom type using the `convert` method:
-     * ```kotlin
-     * val myObject: MyClass = paymentOrderCreateParams.vendorAttributes().convert(MyClass::class.java)
-     * ```
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
      */
-    fun _vendorAttributes(): JsonValue = body._vendorAttributes()
+    fun vendorAttributes(): JsonValue? = body.vendorAttributes()
 
     /**
      * Returns the raw multipart value of [amount].
@@ -728,6 +724,14 @@ private constructor(
      */
     fun _ultimateReceivingPartyName(): MultipartField<String> = body._ultimateReceivingPartyName()
 
+    /**
+     * Returns the raw multipart value of [vendorAttributes].
+     *
+     * Unlike [vendorAttributes], this method doesn't throw if the multipart field has an unexpected
+     * type.
+     */
+    fun _vendorAttributes(): MultipartField<JsonValue> = body._vendorAttributes()
+
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     /** Additional headers to send with the request. */
@@ -829,9 +833,8 @@ private constructor(
         }
 
         /**
-         * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
-         * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
-         * `signet`, `provexchange`, `zengin`.
+         * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `book`, `rtp`, `sepa`, `bacs`,
+         * `au_becs`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `zengin`.
          */
         fun type(type: PaymentOrderType) = apply { body.type(type) }
 
@@ -1506,6 +1509,17 @@ private constructor(
             body.vendorAttributes(vendorAttributes)
         }
 
+        /**
+         * Sets [Builder.vendorAttributes] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.vendorAttributes] with a well-typed [JsonValue] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun vendorAttributes(vendorAttributes: MultipartField<JsonValue>) = apply {
+            body.vendorAttributes(vendorAttributes)
+        }
+
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
         }
@@ -1739,7 +1753,7 @@ private constructor(
         private val ultimateOriginatingPartyName: MultipartField<String>,
         private val ultimateReceivingPartyIdentifier: MultipartField<String>,
         private val ultimateReceivingPartyName: MultipartField<String>,
-        private val vendorAttributes: JsonValue,
+        private val vendorAttributes: MultipartField<JsonValue>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -1773,9 +1787,8 @@ private constructor(
             originatingAccountId.value.getRequired("originating_account_id")
 
         /**
-         * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
-         * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
-         * `signet`, `provexchange`, `zengin`.
+         * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `book`, `rtp`, `sepa`, `bacs`,
+         * `au_becs`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `zengin`.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -2140,14 +2153,10 @@ private constructor(
          * Additional vendor specific fields for this payment. Data must be represented as key-value
          * pairs.
          *
-         * This arbitrary value can be deserialized into a custom type using the `convert` method:
-         * ```kotlin
-         * val myObject: MyClass = paymentOrderCreateRequest.vendorAttributes().convert(MyClass::class.java)
-         * ```
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
          */
-        @JsonProperty("vendor_attributes")
-        @ExcludeMissing
-        fun _vendorAttributes(): JsonValue = vendorAttributes
+        fun vendorAttributes(): JsonValue? = vendorAttributes.value.getNullable("vendor_attributes")
 
         /**
          * Returns the raw multipart value of [amount].
@@ -2549,6 +2558,16 @@ private constructor(
         @ExcludeMissing
         fun _ultimateReceivingPartyName(): MultipartField<String> = ultimateReceivingPartyName
 
+        /**
+         * Returns the raw multipart value of [vendorAttributes].
+         *
+         * Unlike [vendorAttributes], this method doesn't throw if the multipart field has an
+         * unexpected type.
+         */
+        @JsonProperty("vendor_attributes")
+        @ExcludeMissing
+        fun _vendorAttributes(): MultipartField<JsonValue> = vendorAttributes
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -2631,7 +2650,7 @@ private constructor(
             private var ultimateReceivingPartyIdentifier: MultipartField<String> =
                 MultipartField.of(null)
             private var ultimateReceivingPartyName: MultipartField<String> = MultipartField.of(null)
-            private var vendorAttributes: JsonValue = JsonMissing.of()
+            private var vendorAttributes: MultipartField<JsonValue> = MultipartField.of(null)
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(paymentOrderCreateRequest: PaymentOrderCreateRequest) = apply {
@@ -2735,9 +2754,8 @@ private constructor(
             }
 
             /**
-             * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
-             * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
-             * `signet`, `provexchange`, `zengin`.
+             * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `book`, `rtp`, `sepa`, `bacs`,
+             * `au_becs`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `zengin`.
              */
             fun type(type: PaymentOrderType) = type(MultipartField.of(type))
 
@@ -3426,7 +3444,17 @@ private constructor(
              * Additional vendor specific fields for this payment. Data must be represented as
              * key-value pairs.
              */
-            fun vendorAttributes(vendorAttributes: JsonValue) = apply {
+            fun vendorAttributes(vendorAttributes: JsonValue) =
+                vendorAttributes(MultipartField.of(vendorAttributes))
+
+            /**
+             * Sets [Builder.vendorAttributes] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.vendorAttributes] with a well-typed [JsonValue]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun vendorAttributes(vendorAttributes: MultipartField<JsonValue>) = apply {
                 this.vendorAttributes = vendorAttributes
             }
 
@@ -4431,44 +4459,44 @@ private constructor(
 
             companion object {
 
-                val CONNECTIONS = of("connections")
+                val CONNECTION = of("connection")
 
-                val COUNTERPARTIES = of("counterparties")
+                val COUNTERPARTY = of("counterparty")
 
-                val EXPECTED_PAYMENTS = of("expected_payments")
+                val EXPECTED_PAYMENT = of("expected_payment")
 
-                val EXTERNAL_ACCOUNTS = of("external_accounts")
+                val EXTERNAL_ACCOUNT = of("external_account")
 
-                val IDENTIFICATIONS = of("identifications")
+                val IDENTIFICATION = of("identification")
 
-                val INCOMING_PAYMENT_DETAILS = of("incoming_payment_details")
+                val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
 
-                val INTERNAL_ACCOUNTS = of("internal_accounts")
+                val INTERNAL_ACCOUNT = of("internal_account")
 
-                val LEGAL_ENTITIES = of("legal_entities")
+                val LEGAL_ENTITY = of("legal_entity")
 
-                val ORGANIZATIONS = of("organizations")
+                val ORGANIZATION = of("organization")
 
-                val PAYMENT_ORDERS = of("payment_orders")
+                val PAYMENT_ORDER = of("payment_order")
 
-                val TRANSACTIONS = of("transactions")
+                val TRANSACTION = of("transaction")
 
                 fun of(value: String) = DocumentableType(JsonField.of(value))
             }
 
             /** An enum containing [DocumentableType]'s known values. */
             enum class Known {
-                CONNECTIONS,
-                COUNTERPARTIES,
-                EXPECTED_PAYMENTS,
-                EXTERNAL_ACCOUNTS,
-                IDENTIFICATIONS,
-                INCOMING_PAYMENT_DETAILS,
-                INTERNAL_ACCOUNTS,
-                LEGAL_ENTITIES,
-                ORGANIZATIONS,
-                PAYMENT_ORDERS,
-                TRANSACTIONS,
+                CONNECTION,
+                COUNTERPARTY,
+                EXPECTED_PAYMENT,
+                EXTERNAL_ACCOUNT,
+                IDENTIFICATION,
+                INCOMING_PAYMENT_DETAIL,
+                INTERNAL_ACCOUNT,
+                LEGAL_ENTITY,
+                ORGANIZATION,
+                PAYMENT_ORDER,
+                TRANSACTION,
             }
 
             /**
@@ -4482,17 +4510,17 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                CONNECTIONS,
-                COUNTERPARTIES,
-                EXPECTED_PAYMENTS,
-                EXTERNAL_ACCOUNTS,
-                IDENTIFICATIONS,
-                INCOMING_PAYMENT_DETAILS,
-                INTERNAL_ACCOUNTS,
-                LEGAL_ENTITIES,
-                ORGANIZATIONS,
-                PAYMENT_ORDERS,
-                TRANSACTIONS,
+                CONNECTION,
+                COUNTERPARTY,
+                EXPECTED_PAYMENT,
+                EXTERNAL_ACCOUNT,
+                IDENTIFICATION,
+                INCOMING_PAYMENT_DETAIL,
+                INTERNAL_ACCOUNT,
+                LEGAL_ENTITY,
+                ORGANIZATION,
+                PAYMENT_ORDER,
+                TRANSACTION,
                 /**
                  * An enum member indicating that [DocumentableType] was instantiated with an
                  * unknown value.
@@ -4509,17 +4537,17 @@ private constructor(
              */
             fun value(): Value =
                 when (this) {
-                    CONNECTIONS -> Value.CONNECTIONS
-                    COUNTERPARTIES -> Value.COUNTERPARTIES
-                    EXPECTED_PAYMENTS -> Value.EXPECTED_PAYMENTS
-                    EXTERNAL_ACCOUNTS -> Value.EXTERNAL_ACCOUNTS
-                    IDENTIFICATIONS -> Value.IDENTIFICATIONS
-                    INCOMING_PAYMENT_DETAILS -> Value.INCOMING_PAYMENT_DETAILS
-                    INTERNAL_ACCOUNTS -> Value.INTERNAL_ACCOUNTS
-                    LEGAL_ENTITIES -> Value.LEGAL_ENTITIES
-                    ORGANIZATIONS -> Value.ORGANIZATIONS
-                    PAYMENT_ORDERS -> Value.PAYMENT_ORDERS
-                    TRANSACTIONS -> Value.TRANSACTIONS
+                    CONNECTION -> Value.CONNECTION
+                    COUNTERPARTY -> Value.COUNTERPARTY
+                    EXPECTED_PAYMENT -> Value.EXPECTED_PAYMENT
+                    EXTERNAL_ACCOUNT -> Value.EXTERNAL_ACCOUNT
+                    IDENTIFICATION -> Value.IDENTIFICATION
+                    INCOMING_PAYMENT_DETAIL -> Value.INCOMING_PAYMENT_DETAIL
+                    INTERNAL_ACCOUNT -> Value.INTERNAL_ACCOUNT
+                    LEGAL_ENTITY -> Value.LEGAL_ENTITY
+                    ORGANIZATION -> Value.ORGANIZATION
+                    PAYMENT_ORDER -> Value.PAYMENT_ORDER
+                    TRANSACTION -> Value.TRANSACTION
                     else -> Value._UNKNOWN
                 }
 
@@ -4534,17 +4562,17 @@ private constructor(
              */
             fun known(): Known =
                 when (this) {
-                    CONNECTIONS -> Known.CONNECTIONS
-                    COUNTERPARTIES -> Known.COUNTERPARTIES
-                    EXPECTED_PAYMENTS -> Known.EXPECTED_PAYMENTS
-                    EXTERNAL_ACCOUNTS -> Known.EXTERNAL_ACCOUNTS
-                    IDENTIFICATIONS -> Known.IDENTIFICATIONS
-                    INCOMING_PAYMENT_DETAILS -> Known.INCOMING_PAYMENT_DETAILS
-                    INTERNAL_ACCOUNTS -> Known.INTERNAL_ACCOUNTS
-                    LEGAL_ENTITIES -> Known.LEGAL_ENTITIES
-                    ORGANIZATIONS -> Known.ORGANIZATIONS
-                    PAYMENT_ORDERS -> Known.PAYMENT_ORDERS
-                    TRANSACTIONS -> Known.TRANSACTIONS
+                    CONNECTION -> Known.CONNECTION
+                    COUNTERPARTY -> Known.COUNTERPARTY
+                    EXPECTED_PAYMENT -> Known.EXPECTED_PAYMENT
+                    EXTERNAL_ACCOUNT -> Known.EXTERNAL_ACCOUNT
+                    IDENTIFICATION -> Known.IDENTIFICATION
+                    INCOMING_PAYMENT_DETAIL -> Known.INCOMING_PAYMENT_DETAIL
+                    INTERNAL_ACCOUNT -> Known.INTERNAL_ACCOUNT
+                    LEGAL_ENTITY -> Known.LEGAL_ENTITY
+                    ORGANIZATION -> Known.ORGANIZATION
+                    PAYMENT_ORDER -> Known.PAYMENT_ORDER
+                    TRANSACTION -> Known.TRANSACTION
                     else ->
                         throw ModernTreasuryInvalidDataException("Unknown DocumentableType: $value")
                 }
@@ -7084,10 +7112,6 @@ private constructor(
 
                     val HK_INTERBANK_CLEARING_CODE = of("hk_interbank_clearing_code")
 
-                    val HU_INTERBANK_CLEARING_CODE = of("hu_interbank_clearing_code")
-
-                    val ID_SKNBI_CODE = of("id_sknbi_code")
-
                     val IL_BANK_CODE = of("il_bank_code")
 
                     val IN_IFSC = of("in_ifsc")
@@ -7124,8 +7148,6 @@ private constructor(
                     DK_INTERBANK_CLEARING_CODE,
                     GB_SORT_CODE,
                     HK_INTERBANK_CLEARING_CODE,
-                    HU_INTERBANK_CLEARING_CODE,
-                    ID_SKNBI_CODE,
                     IL_BANK_CODE,
                     IN_IFSC,
                     JP_ZENGIN_CODE,
@@ -7160,8 +7182,6 @@ private constructor(
                     DK_INTERBANK_CLEARING_CODE,
                     GB_SORT_CODE,
                     HK_INTERBANK_CLEARING_CODE,
-                    HU_INTERBANK_CLEARING_CODE,
-                    ID_SKNBI_CODE,
                     IL_BANK_CODE,
                     IN_IFSC,
                     JP_ZENGIN_CODE,
@@ -7198,8 +7218,6 @@ private constructor(
                         DK_INTERBANK_CLEARING_CODE -> Value.DK_INTERBANK_CLEARING_CODE
                         GB_SORT_CODE -> Value.GB_SORT_CODE
                         HK_INTERBANK_CLEARING_CODE -> Value.HK_INTERBANK_CLEARING_CODE
-                        HU_INTERBANK_CLEARING_CODE -> Value.HU_INTERBANK_CLEARING_CODE
-                        ID_SKNBI_CODE -> Value.ID_SKNBI_CODE
                         IL_BANK_CODE -> Value.IL_BANK_CODE
                         IN_IFSC -> Value.IN_IFSC
                         JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
@@ -7234,8 +7252,6 @@ private constructor(
                         DK_INTERBANK_CLEARING_CODE -> Known.DK_INTERBANK_CLEARING_CODE
                         GB_SORT_CODE -> Known.GB_SORT_CODE
                         HK_INTERBANK_CLEARING_CODE -> Known.HK_INTERBANK_CLEARING_CODE
-                        HU_INTERBANK_CLEARING_CODE -> Known.HU_INTERBANK_CLEARING_CODE
-                        ID_SKNBI_CODE -> Known.ID_SKNBI_CODE
                         IL_BANK_CODE -> Known.IL_BANK_CODE
                         IN_IFSC -> Known.IN_IFSC
                         JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
@@ -7354,10 +7370,6 @@ private constructor(
 
                     val GB_FPS = of("gb_fps")
 
-                    val HU_ICS = of("hu_ics")
-
-                    val INTERAC = of("interac")
-
                     val MASAV = of("masav")
 
                     val MX_CCEN = of("mx_ccen")
@@ -7370,25 +7382,15 @@ private constructor(
 
                     val PL_ELIXIR = of("pl_elixir")
 
-                    val PROVXCHANGE = of("provxchange")
-
-                    val RO_SENT = of("ro_sent")
-
                     val RTP = of("rtp")
 
                     val SE_BANKGIROT = of("se_bankgirot")
-
-                    val SEN = of("sen")
 
                     val SEPA = of("sepa")
 
                     val SG_GIRO = of("sg_giro")
 
                     val SIC = of("sic")
-
-                    val SIGNET = of("signet")
-
-                    val SKNBI = of("sknbi")
 
                     val STABLECOIN = of("stablecoin")
 
@@ -7412,24 +7414,17 @@ private constructor(
                     DK_NETS,
                     EFT,
                     GB_FPS,
-                    HU_ICS,
-                    INTERAC,
                     MASAV,
                     MX_CCEN,
                     NEFT,
                     NICS,
                     NZ_BECS,
                     PL_ELIXIR,
-                    PROVXCHANGE,
-                    RO_SENT,
                     RTP,
                     SE_BANKGIROT,
-                    SEN,
                     SEPA,
                     SG_GIRO,
                     SIC,
-                    SIGNET,
-                    SKNBI,
                     STABLECOIN,
                     WIRE,
                     ZENGIN,
@@ -7456,24 +7451,17 @@ private constructor(
                     DK_NETS,
                     EFT,
                     GB_FPS,
-                    HU_ICS,
-                    INTERAC,
                     MASAV,
                     MX_CCEN,
                     NEFT,
                     NICS,
                     NZ_BECS,
                     PL_ELIXIR,
-                    PROVXCHANGE,
-                    RO_SENT,
                     RTP,
                     SE_BANKGIROT,
-                    SEN,
                     SEPA,
                     SG_GIRO,
                     SIC,
-                    SIGNET,
-                    SKNBI,
                     STABLECOIN,
                     WIRE,
                     ZENGIN,
@@ -7504,24 +7492,17 @@ private constructor(
                         DK_NETS -> Value.DK_NETS
                         EFT -> Value.EFT
                         GB_FPS -> Value.GB_FPS
-                        HU_ICS -> Value.HU_ICS
-                        INTERAC -> Value.INTERAC
                         MASAV -> Value.MASAV
                         MX_CCEN -> Value.MX_CCEN
                         NEFT -> Value.NEFT
                         NICS -> Value.NICS
                         NZ_BECS -> Value.NZ_BECS
                         PL_ELIXIR -> Value.PL_ELIXIR
-                        PROVXCHANGE -> Value.PROVXCHANGE
-                        RO_SENT -> Value.RO_SENT
                         RTP -> Value.RTP
                         SE_BANKGIROT -> Value.SE_BANKGIROT
-                        SEN -> Value.SEN
                         SEPA -> Value.SEPA
                         SG_GIRO -> Value.SG_GIRO
                         SIC -> Value.SIC
-                        SIGNET -> Value.SIGNET
-                        SKNBI -> Value.SKNBI
                         STABLECOIN -> Value.STABLECOIN
                         WIRE -> Value.WIRE
                         ZENGIN -> Value.ZENGIN
@@ -7550,24 +7531,17 @@ private constructor(
                         DK_NETS -> Known.DK_NETS
                         EFT -> Known.EFT
                         GB_FPS -> Known.GB_FPS
-                        HU_ICS -> Known.HU_ICS
-                        INTERAC -> Known.INTERAC
                         MASAV -> Known.MASAV
                         MX_CCEN -> Known.MX_CCEN
                         NEFT -> Known.NEFT
                         NICS -> Known.NICS
                         NZ_BECS -> Known.NZ_BECS
                         PL_ELIXIR -> Known.PL_ELIXIR
-                        PROVXCHANGE -> Known.PROVXCHANGE
-                        RO_SENT -> Known.RO_SENT
                         RTP -> Known.RTP
                         SE_BANKGIROT -> Known.SE_BANKGIROT
-                        SEN -> Known.SEN
                         SEPA -> Known.SEPA
                         SG_GIRO -> Known.SG_GIRO
                         SIC -> Known.SIC
-                        SIGNET -> Known.SIGNET
-                        SKNBI -> Known.SKNBI
                         STABLECOIN -> Known.STABLECOIN
                         WIRE -> Known.WIRE
                         ZENGIN -> Known.ZENGIN

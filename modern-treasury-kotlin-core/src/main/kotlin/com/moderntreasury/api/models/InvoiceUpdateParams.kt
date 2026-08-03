@@ -184,9 +184,8 @@ private constructor(
     fun paymentMethod(): PaymentMethod? = body.paymentMethod()
 
     /**
-     * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`, `bacs`,
-     * `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `signet`,
-     * `provexchange`, `zengin`.
+     * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `book`, `rtp`, `sepa`, `bacs`,
+     * `au_becs`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `zengin`.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -787,9 +786,8 @@ private constructor(
         }
 
         /**
-         * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
-         * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
-         * `signet`, `provexchange`, `zengin`.
+         * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `book`, `rtp`, `sepa`, `bacs`,
+         * `au_becs`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `zengin`.
          */
         fun paymentType(paymentType: PaymentOrderType) = apply { body.paymentType(paymentType) }
 
@@ -1343,9 +1341,8 @@ private constructor(
         fun paymentMethod(): PaymentMethod? = paymentMethod.getNullable("payment_method")
 
         /**
-         * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
-         * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
-         * `signet`, `provexchange`, `zengin`.
+         * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `book`, `rtp`, `sepa`, `bacs`,
+         * `au_becs`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `zengin`.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -2031,9 +2028,8 @@ private constructor(
             }
 
             /**
-             * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `sen`, `book`, `rtp`, `sepa`,
-             * `bacs`, `au_becs`, `interac`, `neft`, `nics`, `nz_national_clearing_code`, `sic`,
-             * `signet`, `provexchange`, `zengin`.
+             * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `book`, `rtp`, `sepa`, `bacs`,
+             * `au_becs`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `zengin`.
              */
             fun paymentType(paymentType: PaymentOrderType) = paymentType(JsonField.of(paymentType))
 

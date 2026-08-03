@@ -128,7 +128,7 @@ private constructor(
     fun ownershipPercentage(): Long? = ownershipPercentage.getNullable("ownership_percentage")
 
     /**
-     * The ID of the parent legal entity. This must be a business or joint legal entity.
+     * The ID of the parent legal entity. This must be a business legal entity.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -415,7 +415,7 @@ private constructor(
             this.ownershipPercentage = ownershipPercentage
         }
 
-        /** The ID of the parent legal entity. This must be a business or joint legal entity. */
+        /** The ID of the parent legal entity. This must be a business legal entity. */
         fun parentLegalEntityId(parentLegalEntityId: String) =
             parentLegalEntityId(JsonField.of(parentLegalEntityId))
 
