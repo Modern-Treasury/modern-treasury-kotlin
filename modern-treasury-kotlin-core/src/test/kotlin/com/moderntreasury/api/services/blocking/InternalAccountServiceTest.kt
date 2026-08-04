@@ -125,6 +125,7 @@ internal class InternalAccountServiceTest {
                     )
                     .name("name")
                     .parentAccountId("parent_account_id")
+                    .status(InternalAccountUpdateParams.Status.PENDING_CLOSURE)
                     .build()
             )
 

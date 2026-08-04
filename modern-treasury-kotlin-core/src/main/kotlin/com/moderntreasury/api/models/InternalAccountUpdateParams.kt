@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.moderntreasury.api.core.Enum
 import com.moderntreasury.api.core.ExcludeMissing
 import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
@@ -87,6 +88,15 @@ private constructor(
     fun parentAccountId(): String? = body.parentAccountId()
 
     /**
+     * Requests closure of the internal account. The resulting status may be `closed` for vendors
+     * that close synchronously.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun status(): Status? = body.status()
+
+    /**
      * Returns the raw JSON value of [contraLedgerAccountId].
      *
      * Unlike [contraLedgerAccountId], this method doesn't throw if the JSON field has an unexpected
@@ -135,6 +145,13 @@ private constructor(
      * Unlike [parentAccountId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _parentAccountId(): JsonField<String> = body._parentAccountId()
+
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _status(): JsonField<Status> = body._status()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -287,6 +304,20 @@ private constructor(
         fun parentAccountId(parentAccountId: JsonField<String>) = apply {
             body.parentAccountId(parentAccountId)
         }
+
+        /**
+         * Requests closure of the internal account. The resulting status may be `closed` for
+         * vendors that close synchronously.
+         */
+        fun status(status: Status) = apply { body.status(status) }
+
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun status(status: JsonField<Status>) = apply { body.status(status) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -441,6 +472,7 @@ private constructor(
         private val metadata: JsonField<Metadata>,
         private val name: JsonField<String>,
         private val parentAccountId: JsonField<String>,
+        private val status: JsonField<Status>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -465,6 +497,7 @@ private constructor(
             @JsonProperty("parent_account_id")
             @ExcludeMissing
             parentAccountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         ) : this(
             contraLedgerAccountId,
             counterpartyId,
@@ -473,6 +506,7 @@ private constructor(
             metadata,
             name,
             parentAccountId,
+            status,
             mutableMapOf(),
         )
 
@@ -533,6 +567,15 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun parentAccountId(): String? = parentAccountId.getNullable("parent_account_id")
+
+        /**
+         * Requests closure of the internal account. The resulting status may be `closed` for
+         * vendors that close synchronously.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun status(): Status? = status.getNullable("status")
 
         /**
          * Returns the raw JSON value of [contraLedgerAccountId].
@@ -597,6 +640,13 @@ private constructor(
         @ExcludeMissing
         fun _parentAccountId(): JsonField<String> = parentAccountId
 
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -628,6 +678,7 @@ private constructor(
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var parentAccountId: JsonField<String> = JsonMissing.of()
+            private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(internalAccountUpdateRequest: InternalAccountUpdateRequest) = apply {
@@ -638,6 +689,7 @@ private constructor(
                 metadata = internalAccountUpdateRequest.metadata
                 name = internalAccountUpdateRequest.name
                 parentAccountId = internalAccountUpdateRequest.parentAccountId
+                status = internalAccountUpdateRequest.status
                 additionalProperties =
                     internalAccountUpdateRequest.additionalProperties.toMutableMap()
             }
@@ -741,6 +793,21 @@ private constructor(
                 this.parentAccountId = parentAccountId
             }
 
+            /**
+             * Requests closure of the internal account. The resulting status may be `closed` for
+             * vendors that close synchronously.
+             */
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -774,6 +841,7 @@ private constructor(
                     metadata,
                     name,
                     parentAccountId,
+                    status,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -801,6 +869,7 @@ private constructor(
             metadata()?.validate()
             name()
             parentAccountId()
+            status()?.validate()
             validated = true
         }
 
@@ -825,7 +894,8 @@ private constructor(
                 (if (ledgerAccountId.asKnown() == null) 0 else 1) +
                 (metadata.asKnown()?.validity() ?: 0) +
                 (if (name.asKnown() == null) 0 else 1) +
-                (if (parentAccountId.asKnown() == null) 0 else 1)
+                (if (parentAccountId.asKnown() == null) 0 else 1) +
+                (status.asKnown()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -840,6 +910,7 @@ private constructor(
                 metadata == other.metadata &&
                 name == other.name &&
                 parentAccountId == other.parentAccountId &&
+                status == other.status &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -852,6 +923,7 @@ private constructor(
                 metadata,
                 name,
                 parentAccountId,
+                status,
                 additionalProperties,
             )
         }
@@ -859,7 +931,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InternalAccountUpdateRequest{contraLedgerAccountId=$contraLedgerAccountId, counterpartyId=$counterpartyId, externalId=$externalId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, parentAccountId=$parentAccountId, additionalProperties=$additionalProperties}"
+            "InternalAccountUpdateRequest{contraLedgerAccountId=$contraLedgerAccountId, counterpartyId=$counterpartyId, externalId=$externalId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, parentAccountId=$parentAccountId, status=$status, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -970,6 +1042,138 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Requests closure of the internal account. The resulting status may be `closed` for vendors
+     * that close synchronously.
+     */
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val PENDING_CLOSURE = of("pending_closure")
+
+            fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        /** An enum containing [Status]'s known values. */
+        enum class Known {
+            PENDING_CLOSURE
+        }
+
+        /**
+         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Status] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            PENDING_CLOSURE,
+            /** An enum member indicating that [Status] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                PENDING_CLOSURE -> Value.PENDING_CLOSURE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+         *   known member.
+         */
+        fun known(): Known =
+            when (this) {
+                PENDING_CLOSURE -> Known.PENDING_CLOSURE
+                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
+         *   the expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
+         *   its expected type.
+         */
+        fun validate(): Status = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {
