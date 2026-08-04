@@ -23,6 +23,7 @@ internal class InternalAccountUpdateParamsTest {
             )
             .name("name")
             .parentAccountId("parent_account_id")
+            .status(InternalAccountUpdateParams.Status.PENDING_CLOSURE)
             .build()
     }
 
@@ -51,6 +52,7 @@ internal class InternalAccountUpdateParamsTest {
                 )
                 .name("name")
                 .parentAccountId("parent_account_id")
+                .status(InternalAccountUpdateParams.Status.PENDING_CLOSURE)
                 .build()
 
         val body = params._body()
@@ -67,6 +69,7 @@ internal class InternalAccountUpdateParamsTest {
             )
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.parentAccountId()).isEqualTo("parent_account_id")
+        assertThat(body.status()).isEqualTo(InternalAccountUpdateParams.Status.PENDING_CLOSURE)
     }
 
     @Test
