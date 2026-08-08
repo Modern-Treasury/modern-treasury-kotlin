@@ -70,7 +70,7 @@ internal class InternalAccountServiceAsyncTest {
                     )
                     .partyName("party_name")
                     .addRequestedAccountNumberType(
-                        InternalAccountCreateParams.RequestedAccountNumberType.ETHEREUM_ADDRESS
+                        InternalAccountCreateParams.RequestedAccountNumberType.BASE_ADDRESS
                     )
                     .vendorAttributes(
                         InternalAccountCreateParams.VendorAttributes.builder()
