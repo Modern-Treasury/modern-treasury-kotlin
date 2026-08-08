@@ -3213,23 +3213,23 @@ private constructor(
 
         companion object {
 
-            val ETHEREUM_ADDRESS = of("ethereum_address")
+            val BASE_ADDRESS = of("base_address")
 
-            val SOLANA_ADDRESS = of("solana_address")
+            val ETHEREUM_ADDRESS = of("ethereum_address")
 
             val POLYGON_ADDRESS = of("polygon_address")
 
-            val BASE_ADDRESS = of("base_address")
+            val SOLANA_ADDRESS = of("solana_address")
 
             fun of(value: String) = RequestedAccountNumberType(JsonField.of(value))
         }
 
         /** An enum containing [RequestedAccountNumberType]'s known values. */
         enum class Known {
-            ETHEREUM_ADDRESS,
-            SOLANA_ADDRESS,
-            POLYGON_ADDRESS,
             BASE_ADDRESS,
+            ETHEREUM_ADDRESS,
+            POLYGON_ADDRESS,
+            SOLANA_ADDRESS,
         }
 
         /**
@@ -3244,10 +3244,10 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            ETHEREUM_ADDRESS,
-            SOLANA_ADDRESS,
-            POLYGON_ADDRESS,
             BASE_ADDRESS,
+            ETHEREUM_ADDRESS,
+            POLYGON_ADDRESS,
+            SOLANA_ADDRESS,
             /**
              * An enum member indicating that [RequestedAccountNumberType] was instantiated with an
              * unknown value.
@@ -3264,10 +3264,10 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                ETHEREUM_ADDRESS -> Value.ETHEREUM_ADDRESS
-                SOLANA_ADDRESS -> Value.SOLANA_ADDRESS
-                POLYGON_ADDRESS -> Value.POLYGON_ADDRESS
                 BASE_ADDRESS -> Value.BASE_ADDRESS
+                ETHEREUM_ADDRESS -> Value.ETHEREUM_ADDRESS
+                POLYGON_ADDRESS -> Value.POLYGON_ADDRESS
+                SOLANA_ADDRESS -> Value.SOLANA_ADDRESS
                 else -> Value._UNKNOWN
             }
 
@@ -3282,10 +3282,10 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                ETHEREUM_ADDRESS -> Known.ETHEREUM_ADDRESS
-                SOLANA_ADDRESS -> Known.SOLANA_ADDRESS
-                POLYGON_ADDRESS -> Known.POLYGON_ADDRESS
                 BASE_ADDRESS -> Known.BASE_ADDRESS
+                ETHEREUM_ADDRESS -> Known.ETHEREUM_ADDRESS
+                POLYGON_ADDRESS -> Known.POLYGON_ADDRESS
+                SOLANA_ADDRESS -> Known.SOLANA_ADDRESS
                 else ->
                     throw ModernTreasuryInvalidDataException(
                         "Unknown RequestedAccountNumberType: $value"
