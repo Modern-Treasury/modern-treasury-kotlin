@@ -30,6 +30,7 @@ internal class ExternalAccountTest {
                         .build()
                 )
                 .accountType(ExternalAccountType.BASE_WALLET)
+                .cardId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .addContactDetail(
                     ContactDetail.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -124,6 +125,7 @@ internal class ExternalAccountTest {
                     .build()
             )
         assertThat(externalAccount.accountType()).isEqualTo(ExternalAccountType.BASE_WALLET)
+        assertThat(externalAccount.cardId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(externalAccount.contactDetails())
             .containsExactly(
                 ContactDetail.builder()
@@ -233,6 +235,7 @@ internal class ExternalAccountTest {
                         .build()
                 )
                 .accountType(ExternalAccountType.BASE_WALLET)
+                .cardId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .addContactDetail(
                     ContactDetail.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
