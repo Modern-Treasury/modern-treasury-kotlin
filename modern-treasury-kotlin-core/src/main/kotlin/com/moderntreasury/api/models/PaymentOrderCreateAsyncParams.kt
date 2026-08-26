@@ -227,10 +227,9 @@ private constructor(
     fun originatingPartyAddress(): OriginatingPartyAddress? = body.originatingPartyAddress()
 
     /**
-     * If present, this will replace your default company name on receiver's bank statement. For
-     * ACH, only the first 16 characters of this string will be used. This must be a name the
-     * account holder legally operates under, such as a DBA. Do not use it to originate on behalf of
-     * another person or business, including an end customer.
+     * If present, this will replace your default company name on receiver's bank statement. This
+     * field can only be used for ACH payments currently. For ACH, only the first 16 characters of
+     * this string will be used. Any additional characters will be truncated.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -1148,10 +1147,9 @@ private constructor(
             }
 
         /**
-         * If present, this will replace your default company name on receiver's bank statement. For
-         * ACH, only the first 16 characters of this string will be used. This must be a name the
-         * account holder legally operates under, such as a DBA. Do not use it to originate on
-         * behalf of another person or business, including an end customer.
+         * If present, this will replace your default company name on receiver's bank statement.
+         * This field can only be used for ACH payments currently. For ACH, only the first 16
+         * characters of this string will be used. Any additional characters will be truncated.
          */
         fun originatingPartyName(originatingPartyName: String?) = apply {
             body.originatingPartyName(originatingPartyName)
@@ -2067,10 +2065,9 @@ private constructor(
             originatingPartyAddress.getNullable("originating_party_address")
 
         /**
-         * If present, this will replace your default company name on receiver's bank statement. For
-         * ACH, only the first 16 characters of this string will be used. This must be a name the
-         * account holder legally operates under, such as a DBA. Do not use it to originate on
-         * behalf of another person or business, including an end customer.
+         * If present, this will replace your default company name on receiver's bank statement.
+         * This field can only be used for ACH payments currently. For ACH, only the first 16
+         * characters of this string will be used. Any additional characters will be truncated.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -3164,9 +3161,8 @@ private constructor(
 
             /**
              * If present, this will replace your default company name on receiver's bank statement.
-             * For ACH, only the first 16 characters of this string will be used. This must be a
-             * name the account holder legally operates under, such as a DBA. Do not use it to
-             * originate on behalf of another person or business, including an end customer.
+             * This field can only be used for ACH payments currently. For ACH, only the first 16
+             * characters of this string will be used. Any additional characters will be truncated.
              */
             fun originatingPartyName(originatingPartyName: String?) =
                 originatingPartyName(JsonField.ofNullable(originatingPartyName))
