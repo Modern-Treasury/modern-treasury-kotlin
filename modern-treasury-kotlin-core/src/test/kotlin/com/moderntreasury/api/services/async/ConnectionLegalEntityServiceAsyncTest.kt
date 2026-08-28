@@ -68,6 +68,10 @@ internal class ConnectionLegalEntityServiceAsyncTest {
                                     .build()
                             )
                             .businessDescription("business_description")
+                            .businessDesignation(
+                                ConnectionLegalEntityCreateParams.LegalEntity.BusinessDesignation
+                                    .EXEMPT_FINANCIAL_INSTITUTION
+                            )
                             .businessName("business_name")
                             .citizenshipCountry("citizenship_country")
                             .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -176,6 +180,10 @@ internal class ConnectionLegalEntityServiceAsyncTest {
                                                     .build()
                                             )
                                             .businessDescription("business_description")
+                                            .businessDesignation(
+                                                ChildLegalEntityCreate.BusinessDesignation
+                                                    .EXEMPT_FINANCIAL_INSTITUTION
+                                            )
                                             .businessName("business_name")
                                             .citizenshipCountry("citizenship_country")
                                             .complianceDetails(JsonValue.from(mapOf<String, Any>()))

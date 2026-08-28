@@ -41,6 +41,9 @@ internal class LegalEntityCreateParamsTest {
                     .build()
             )
             .businessDescription("business_description")
+            .businessDesignation(
+                LegalEntityCreateParams.BusinessDesignation.EXEMPT_FINANCIAL_INSTITUTION
+            )
             .businessName("business_name")
             .citizenshipCountry("citizenship_country")
             .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -131,6 +134,10 @@ internal class LegalEntityCreateParamsTest {
                                     .build()
                             )
                             .businessDescription("business_description")
+                            .businessDesignation(
+                                ChildLegalEntityCreate.BusinessDesignation
+                                    .EXEMPT_FINANCIAL_INSTITUTION
+                            )
                             .businessName("business_name")
                             .citizenshipCountry("citizenship_country")
                             .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -410,6 +417,9 @@ internal class LegalEntityCreateParamsTest {
                         .build()
                 )
                 .businessDescription("business_description")
+                .businessDesignation(
+                    LegalEntityCreateParams.BusinessDesignation.EXEMPT_FINANCIAL_INSTITUTION
+                )
                 .businessName("business_name")
                 .citizenshipCountry("citizenship_country")
                 .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -504,6 +514,10 @@ internal class LegalEntityCreateParamsTest {
                                         .build()
                                 )
                                 .businessDescription("business_description")
+                                .businessDesignation(
+                                    ChildLegalEntityCreate.BusinessDesignation
+                                        .EXEMPT_FINANCIAL_INSTITUTION
+                                )
                                 .businessName("business_name")
                                 .citizenshipCountry("citizenship_country")
                                 .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -803,6 +817,8 @@ internal class LegalEntityCreateParamsTest {
                     .build()
             )
         assertThat(body.businessDescription()).isEqualTo("business_description")
+        assertThat(body.businessDesignation())
+            .isEqualTo(LegalEntityCreateParams.BusinessDesignation.EXEMPT_FINANCIAL_INSTITUTION)
         assertThat(body.businessName()).isEqualTo("business_name")
         assertThat(body.citizenshipCountry()).isEqualTo("citizenship_country")
         assertThat(body._complianceDetails()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
@@ -897,6 +913,10 @@ internal class LegalEntityCreateParamsTest {
                                     .build()
                             )
                             .businessDescription("business_description")
+                            .businessDesignation(
+                                ChildLegalEntityCreate.BusinessDesignation
+                                    .EXEMPT_FINANCIAL_INSTITUTION
+                            )
                             .businessName("business_name")
                             .citizenshipCountry("citizenship_country")
                             .complianceDetails(JsonValue.from(mapOf<String, Any>()))
