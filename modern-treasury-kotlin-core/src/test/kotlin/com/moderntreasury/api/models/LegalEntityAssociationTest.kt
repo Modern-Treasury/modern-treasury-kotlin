@@ -55,6 +55,9 @@ internal class LegalEntityAssociationTest {
                                 .build()
                         )
                         .businessDescription("business_description")
+                        .businessDesignation(
+                            ChildLegalEntity.BusinessDesignation.EXEMPT_FINANCIAL_INSTITUTION
+                        )
                         .businessName("business_name")
                         .citizenshipCountry("citizenship_country")
                         .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -292,6 +295,9 @@ internal class LegalEntityAssociationTest {
                             .build()
                     )
                     .businessDescription("business_description")
+                    .businessDesignation(
+                        ChildLegalEntity.BusinessDesignation.EXEMPT_FINANCIAL_INSTITUTION
+                    )
                     .businessName("business_name")
                     .citizenshipCountry("citizenship_country")
                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -529,6 +535,9 @@ internal class LegalEntityAssociationTest {
                                 .build()
                         )
                         .businessDescription("business_description")
+                        .businessDesignation(
+                            ChildLegalEntity.BusinessDesignation.EXEMPT_FINANCIAL_INSTITUTION
+                        )
                         .businessName("business_name")
                         .citizenshipCountry("citizenship_country")
                         .complianceDetails(JsonValue.from(mapOf<String, Any>()))
