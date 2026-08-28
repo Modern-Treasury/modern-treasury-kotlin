@@ -50,6 +50,9 @@ internal class ChildLegalEntityTest {
                         .build()
                 )
                 .businessDescription("business_description")
+                .businessDesignation(
+                    ChildLegalEntity.BusinessDesignation.EXEMPT_FINANCIAL_INSTITUTION
+                )
                 .businessName("business_name")
                 .citizenshipCountry("citizenship_country")
                 .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -180,6 +183,10 @@ internal class ChildLegalEntityTest {
                                         .build()
                                 )
                                 .businessDescription("business_description")
+                                .businessDesignation(
+                                    ChildLegalEntity.BusinessDesignation
+                                        .EXEMPT_FINANCIAL_INSTITUTION
+                                )
                                 .businessName("business_name")
                                 .citizenshipCountry("citizenship_country")
                                 .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -538,6 +545,8 @@ internal class ChildLegalEntityTest {
                     .build()
             )
         assertThat(childLegalEntity.businessDescription()).isEqualTo("business_description")
+        assertThat(childLegalEntity.businessDesignation())
+            .isEqualTo(ChildLegalEntity.BusinessDesignation.EXEMPT_FINANCIAL_INSTITUTION)
         assertThat(childLegalEntity.businessName()).isEqualTo("business_name")
         assertThat(childLegalEntity.citizenshipCountry()).isEqualTo("citizenship_country")
         assertThat(childLegalEntity._complianceDetails())
@@ -669,6 +678,9 @@ internal class ChildLegalEntityTest {
                                     .build()
                             )
                             .businessDescription("business_description")
+                            .businessDesignation(
+                                ChildLegalEntity.BusinessDesignation.EXEMPT_FINANCIAL_INSTITUTION
+                            )
                             .businessName("business_name")
                             .citizenshipCountry("citizenship_country")
                             .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -1013,6 +1025,9 @@ internal class ChildLegalEntityTest {
                         .build()
                 )
                 .businessDescription("business_description")
+                .businessDesignation(
+                    ChildLegalEntity.BusinessDesignation.EXEMPT_FINANCIAL_INSTITUTION
+                )
                 .businessName("business_name")
                 .citizenshipCountry("citizenship_country")
                 .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -1143,6 +1158,10 @@ internal class ChildLegalEntityTest {
                                         .build()
                                 )
                                 .businessDescription("business_description")
+                                .businessDesignation(
+                                    ChildLegalEntity.BusinessDesignation
+                                        .EXEMPT_FINANCIAL_INSTITUTION
+                                )
                                 .businessName("business_name")
                                 .citizenshipCountry("citizenship_country")
                                 .complianceDetails(JsonValue.from(mapOf<String, Any>()))

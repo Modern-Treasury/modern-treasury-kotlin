@@ -27,6 +27,7 @@ private constructor(
     private val addresses: JsonField<List<LegalEntityAddress>>,
     private val bankSettings: JsonField<BankSettings>,
     private val businessDescription: JsonField<String>,
+    private val businessDesignation: JsonField<BusinessDesignation>,
     private val businessName: JsonField<String>,
     private val citizenshipCountry: JsonField<String>,
     private val complianceDetails: JsonValue,
@@ -86,6 +87,9 @@ private constructor(
         @JsonProperty("business_description")
         @ExcludeMissing
         businessDescription: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("business_designation")
+        @ExcludeMissing
+        businessDesignation: JsonField<BusinessDesignation> = JsonMissing.of(),
         @JsonProperty("business_name")
         @ExcludeMissing
         businessName: JsonField<String> = JsonMissing.of(),
@@ -204,6 +208,7 @@ private constructor(
         addresses,
         bankSettings,
         businessDescription,
+        businessDesignation,
         businessName,
         citizenshipCountry,
         complianceDetails,
@@ -278,6 +283,15 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun businessDescription(): String? = businessDescription.getNullable("business_description")
+
+    /**
+     * Legal designation associated with the business.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun businessDesignation(): BusinessDesignation? =
+        businessDesignation.getNullable("business_designation")
 
     /**
      * The business's legal business name.
@@ -668,6 +682,16 @@ private constructor(
     @JsonProperty("business_description")
     @ExcludeMissing
     fun _businessDescription(): JsonField<String> = businessDescription
+
+    /**
+     * Returns the raw JSON value of [businessDesignation].
+     *
+     * Unlike [businessDesignation], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("business_designation")
+    @ExcludeMissing
+    fun _businessDesignation(): JsonField<BusinessDesignation> = businessDesignation
 
     /**
      * Returns the raw JSON value of [businessName].
@@ -1073,6 +1097,7 @@ private constructor(
          * .addresses()
          * .bankSettings()
          * .businessDescription()
+         * .businessDesignation()
          * .businessName()
          * .citizenshipCountry()
          * .complianceDetails()
@@ -1128,6 +1153,7 @@ private constructor(
         private var addresses: JsonField<MutableList<LegalEntityAddress>>? = null
         private var bankSettings: JsonField<BankSettings>? = null
         private var businessDescription: JsonField<String>? = null
+        private var businessDesignation: JsonField<BusinessDesignation>? = null
         private var businessName: JsonField<String>? = null
         private var citizenshipCountry: JsonField<String>? = null
         private var complianceDetails: JsonValue? = null
@@ -1181,6 +1207,7 @@ private constructor(
             addresses = legalEntity.addresses.map { it.toMutableList() }
             bankSettings = legalEntity.bankSettings
             businessDescription = legalEntity.businessDescription
+            businessDesignation = legalEntity.businessDesignation
             businessName = legalEntity.businessName
             citizenshipCountry = legalEntity.citizenshipCountry
             complianceDetails = legalEntity.complianceDetails
@@ -1291,6 +1318,21 @@ private constructor(
          */
         fun businessDescription(businessDescription: JsonField<String>) = apply {
             this.businessDescription = businessDescription
+        }
+
+        /** Legal designation associated with the business. */
+        fun businessDesignation(businessDesignation: BusinessDesignation?) =
+            businessDesignation(JsonField.ofNullable(businessDesignation))
+
+        /**
+         * Sets [Builder.businessDesignation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.businessDesignation] with a well-typed
+         * [BusinessDesignation] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun businessDesignation(businessDesignation: JsonField<BusinessDesignation>) = apply {
+            this.businessDesignation = businessDesignation
         }
 
         /** The business's legal business name. */
@@ -2059,6 +2101,7 @@ private constructor(
          * .addresses()
          * .bankSettings()
          * .businessDescription()
+         * .businessDesignation()
          * .businessName()
          * .citizenshipCountry()
          * .complianceDetails()
@@ -2112,6 +2155,7 @@ private constructor(
                 checkRequired("addresses", addresses).map { it.toImmutable() },
                 checkRequired("bankSettings", bankSettings),
                 checkRequired("businessDescription", businessDescription),
+                checkRequired("businessDesignation", businessDesignation),
                 checkRequired("businessName", businessName),
                 checkRequired("citizenshipCountry", citizenshipCountry),
                 checkRequired("complianceDetails", complianceDetails),
@@ -2189,6 +2233,7 @@ private constructor(
         addresses().forEach { it.validate() }
         bankSettings()?.validate()
         businessDescription()
+        businessDesignation()?.validate()
         businessName()
         citizenshipCountry()
         countryOfIncorporation()
@@ -2253,6 +2298,7 @@ private constructor(
             (addresses.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
             (bankSettings.asKnown()?.validity() ?: 0) +
             (if (businessDescription.asKnown() == null) 0 else 1) +
+            (businessDesignation.asKnown()?.validity() ?: 0) +
             (if (businessName.asKnown() == null) 0 else 1) +
             (if (citizenshipCountry.asKnown() == null) 0 else 1) +
             (if (countryOfIncorporation.asKnown() == null) 0 else 1) +
@@ -3197,6 +3243,147 @@ private constructor(
 
         override fun toString() =
             "LegalEntityAddress{id=$id, addressTypes=$addressTypes, country=$country, createdAt=$createdAt, discardedAt=$discardedAt, line1=$line1, line2=$line2, liveMode=$liveMode, locality=$locality, object_=$object_, postalCode=$postalCode, primary=$primary, region=$region, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+    }
+
+    /** Legal designation associated with the business. */
+    class BusinessDesignation
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val EXEMPT_FINANCIAL_INSTITUTION = of("exempt_financial_institution")
+
+            val NON_OPERATING_BUSINESS = of("non_operating_business")
+
+            fun of(value: String) = BusinessDesignation(JsonField.of(value))
+        }
+
+        /** An enum containing [BusinessDesignation]'s known values. */
+        enum class Known {
+            EXEMPT_FINANCIAL_INSTITUTION,
+            NON_OPERATING_BUSINESS,
+        }
+
+        /**
+         * An enum containing [BusinessDesignation]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [BusinessDesignation] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            EXEMPT_FINANCIAL_INSTITUTION,
+            NON_OPERATING_BUSINESS,
+            /**
+             * An enum member indicating that [BusinessDesignation] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                EXEMPT_FINANCIAL_INSTITUTION -> Value.EXEMPT_FINANCIAL_INSTITUTION
+                NON_OPERATING_BUSINESS -> Value.NON_OPERATING_BUSINESS
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+         *   known member.
+         */
+        fun known(): Known =
+            when (this) {
+                EXEMPT_FINANCIAL_INSTITUTION -> Known.EXEMPT_FINANCIAL_INSTITUTION
+                NON_OPERATING_BUSINESS -> Known.NON_OPERATING_BUSINESS
+                else ->
+                    throw ModernTreasuryInvalidDataException("Unknown BusinessDesignation: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
+         *   the expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
+         *   its expected type.
+         */
+        fun validate(): BusinessDesignation = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is BusinessDesignation && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     class Identification
@@ -5883,6 +6070,7 @@ private constructor(
             addresses == other.addresses &&
             bankSettings == other.bankSettings &&
             businessDescription == other.businessDescription &&
+            businessDesignation == other.businessDesignation &&
             businessName == other.businessName &&
             citizenshipCountry == other.citizenshipCountry &&
             complianceDetails == other.complianceDetails &&
@@ -5936,6 +6124,7 @@ private constructor(
             addresses,
             bankSettings,
             businessDescription,
+            businessDesignation,
             businessName,
             citizenshipCountry,
             complianceDetails,
@@ -5987,5 +6176,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "LegalEntity{id=$id, addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, countryOfIncorporation=$countryOfIncorporation, createdAt=$createdAt, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, discardedAt=$discardedAt, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityType=$legalEntityType, legalStructure=$legalStructure, listedExchange=$listedExchange, liveMode=$liveMode, metadata=$metadata, middleName=$middleName, object_=$object_, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, serviceProviderLegalEntityId=$serviceProviderLegalEntityId, status=$status, suffix=$suffix, termsOfUse=$termsOfUse, thirdPartyVerification=$thirdPartyVerification, thirdPartyVerifications=$thirdPartyVerifications, tickerSymbol=$tickerSymbol, updatedAt=$updatedAt, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, legalEntityAssociations=$legalEntityAssociations, additionalProperties=$additionalProperties}"
+        "LegalEntity{id=$id, addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessDesignation=$businessDesignation, businessName=$businessName, citizenshipCountry=$citizenshipCountry, complianceDetails=$complianceDetails, countryOfIncorporation=$countryOfIncorporation, createdAt=$createdAt, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, discardedAt=$discardedAt, documents=$documents, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalEntityType=$legalEntityType, legalStructure=$legalStructure, listedExchange=$listedExchange, liveMode=$liveMode, metadata=$metadata, middleName=$middleName, object_=$object_, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, serviceProviderLegalEntityId=$serviceProviderLegalEntityId, status=$status, suffix=$suffix, termsOfUse=$termsOfUse, thirdPartyVerification=$thirdPartyVerification, thirdPartyVerifications=$thirdPartyVerifications, tickerSymbol=$tickerSymbol, updatedAt=$updatedAt, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, legalEntityAssociations=$legalEntityAssociations, additionalProperties=$additionalProperties}"
 }
