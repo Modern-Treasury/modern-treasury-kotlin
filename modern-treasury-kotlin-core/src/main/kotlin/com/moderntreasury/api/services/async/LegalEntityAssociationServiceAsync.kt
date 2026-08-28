@@ -2,7 +2,13 @@
 
 package com.moderntreasury.api.services.async
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.moderntreasury.api.core.ClientOptions
+import com.moderntreasury.api.core.RequestOptions
+import com.moderntreasury.api.core.http.HttpResponseFor
+import com.moderntreasury.api.models.LegalEntityAssociation
+import com.moderntreasury.api.models.LegalEntityAssociationCreateParams
+import com.moderntreasury.api.models.LegalEntityAssociationDeleteParams
 
 interface LegalEntityAssociationServiceAsync {
 
@@ -18,6 +24,29 @@ interface LegalEntityAssociationServiceAsync {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LegalEntityAssociationServiceAsync
 
+    /** Add an associated legal entity to a business legal entity. */
+    suspend fun create(
+        params: LegalEntityAssociationCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LegalEntityAssociation
+
+    /** Remove an associated legal entity from a business legal entity. */
+    suspend fun delete(
+        id: String,
+        params: LegalEntityAssociationDeleteParams = LegalEntityAssociationDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LegalEntityAssociation = delete(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see delete */
+    suspend fun delete(
+        params: LegalEntityAssociationDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LegalEntityAssociation
+
+    /** @see delete */
+    suspend fun delete(id: String, requestOptions: RequestOptions): LegalEntityAssociation =
+        delete(id, LegalEntityAssociationDeleteParams.none(), requestOptions)
+
     /**
      * A view of [LegalEntityAssociationServiceAsync] that provides access to raw HTTP responses for
      * each method.
@@ -32,5 +61,42 @@ interface LegalEntityAssociationServiceAsync {
         fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
         ): LegalEntityAssociationServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /api/legal_entity_associations`, but is otherwise
+         * the same as [LegalEntityAssociationServiceAsync.create].
+         */
+        @MustBeClosed
+        suspend fun create(
+            params: LegalEntityAssociationCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LegalEntityAssociation>
+
+        /**
+         * Returns a raw HTTP response for `delete /api/legal_entity_associations/{id}`, but is
+         * otherwise the same as [LegalEntityAssociationServiceAsync.delete].
+         */
+        @MustBeClosed
+        suspend fun delete(
+            id: String,
+            params: LegalEntityAssociationDeleteParams = LegalEntityAssociationDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LegalEntityAssociation> =
+            delete(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see delete */
+        @MustBeClosed
+        suspend fun delete(
+            params: LegalEntityAssociationDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LegalEntityAssociation>
+
+        /** @see delete */
+        @MustBeClosed
+        suspend fun delete(
+            id: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<LegalEntityAssociation> =
+            delete(id, LegalEntityAssociationDeleteParams.none(), requestOptions)
     }
 }
