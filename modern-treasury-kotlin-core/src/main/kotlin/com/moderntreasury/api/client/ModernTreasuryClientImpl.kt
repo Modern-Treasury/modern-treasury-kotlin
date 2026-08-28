@@ -25,6 +25,8 @@ import com.moderntreasury.api.services.blocking.BulkRequestService
 import com.moderntreasury.api.services.blocking.BulkRequestServiceImpl
 import com.moderntreasury.api.services.blocking.BulkResultService
 import com.moderntreasury.api.services.blocking.BulkResultServiceImpl
+import com.moderntreasury.api.services.blocking.CaseService
+import com.moderntreasury.api.services.blocking.CaseServiceImpl
 import com.moderntreasury.api.services.blocking.ConnectionLegalEntityService
 import com.moderntreasury.api.services.blocking.ConnectionLegalEntityServiceImpl
 import com.moderntreasury.api.services.blocking.ConnectionService
@@ -53,6 +55,8 @@ import com.moderntreasury.api.services.blocking.JournalEntryService
 import com.moderntreasury.api.services.blocking.JournalEntryServiceImpl
 import com.moderntreasury.api.services.blocking.JournalReportService
 import com.moderntreasury.api.services.blocking.JournalReportServiceImpl
+import com.moderntreasury.api.services.blocking.JournalSourceService
+import com.moderntreasury.api.services.blocking.JournalSourceServiceImpl
 import com.moderntreasury.api.services.blocking.LedgerAccountBalanceMonitorService
 import com.moderntreasury.api.services.blocking.LedgerAccountBalanceMonitorServiceImpl
 import com.moderntreasury.api.services.blocking.LedgerAccountCategoryService
@@ -93,6 +97,8 @@ import com.moderntreasury.api.services.blocking.ValidationService
 import com.moderntreasury.api.services.blocking.ValidationServiceImpl
 import com.moderntreasury.api.services.blocking.VirtualAccountService
 import com.moderntreasury.api.services.blocking.VirtualAccountServiceImpl
+import com.moderntreasury.api.services.blocking.VirtualAccountSettingService
+import com.moderntreasury.api.services.blocking.VirtualAccountSettingServiceImpl
 import com.moderntreasury.api.services.blocking.WebhookService
 import com.moderntreasury.api.services.blocking.WebhookServiceImpl
 
@@ -253,11 +259,21 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
         JournalEntryServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val journalSources: JournalSourceService by lazy {
+        JournalSourceServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val journalReports: JournalReportService by lazy {
         JournalReportServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val holds: HoldService by lazy { HoldServiceImpl(clientOptionsWithUserAgent) }
+
+    private val cases: CaseService by lazy { CaseServiceImpl(clientOptionsWithUserAgent) }
+
+    private val virtualAccountSettings: VirtualAccountSettingService by lazy {
+        VirtualAccountSettingServiceImpl(clientOptionsWithUserAgent)
+    }
 
     override fun async(): ModernTreasuryClientAsync = async
 
@@ -342,9 +358,15 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
 
     override fun journalEntries(): JournalEntryService = journalEntries
 
+    override fun journalSources(): JournalSourceService = journalSources
+
     override fun journalReports(): JournalReportService = journalReports
 
     override fun holds(): HoldService = holds
+
+    override fun cases(): CaseService = cases
+
+    override fun virtualAccountSettings(): VirtualAccountSettingService = virtualAccountSettings
 
     override fun ping(params: ClientPingParams, requestOptions: RequestOptions): PingResponse =
         // get /api/ping
@@ -504,12 +526,24 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
             JournalEntryServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val journalSources: JournalSourceService.WithRawResponse by lazy {
+            JournalSourceServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val journalReports: JournalReportService.WithRawResponse by lazy {
             JournalReportServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val holds: HoldService.WithRawResponse by lazy {
             HoldServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cases: CaseService.WithRawResponse by lazy {
+            CaseServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val virtualAccountSettings: VirtualAccountSettingService.WithRawResponse by lazy {
+            VirtualAccountSettingServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -602,9 +636,16 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
 
         override fun journalEntries(): JournalEntryService.WithRawResponse = journalEntries
 
+        override fun journalSources(): JournalSourceService.WithRawResponse = journalSources
+
         override fun journalReports(): JournalReportService.WithRawResponse = journalReports
 
         override fun holds(): HoldService.WithRawResponse = holds
+
+        override fun cases(): CaseService.WithRawResponse = cases
+
+        override fun virtualAccountSettings(): VirtualAccountSettingService.WithRawResponse =
+            virtualAccountSettings
 
         private val pingHandler: Handler<PingResponse> =
             jsonHandler<PingResponse>(clientOptions.jsonMapper)
