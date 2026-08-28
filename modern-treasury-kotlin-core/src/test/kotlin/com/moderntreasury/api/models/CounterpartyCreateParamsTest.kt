@@ -131,6 +131,10 @@ internal class CounterpartyCreateParamsTest {
                             .build()
                     )
                     .businessDescription("business_description")
+                    .businessDesignation(
+                        CounterpartyCreateParams.LegalEntityCreateRequest.BusinessDesignation
+                            .EXEMPT_FINANCIAL_INSTITUTION
+                    )
                     .businessName("business_name")
                     .citizenshipCountry("citizenship_country")
                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -232,6 +236,10 @@ internal class CounterpartyCreateParamsTest {
                                             .build()
                                     )
                                     .businessDescription("business_description")
+                                    .businessDesignation(
+                                        ChildLegalEntityCreate.BusinessDesignation
+                                            .EXEMPT_FINANCIAL_INSTITUTION
+                                    )
                                     .businessName("business_name")
                                     .citizenshipCountry("citizenship_country")
                                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -664,6 +672,10 @@ internal class CounterpartyCreateParamsTest {
                                 .build()
                         )
                         .businessDescription("business_description")
+                        .businessDesignation(
+                            CounterpartyCreateParams.LegalEntityCreateRequest.BusinessDesignation
+                                .EXEMPT_FINANCIAL_INSTITUTION
+                        )
                         .businessName("business_name")
                         .citizenshipCountry("citizenship_country")
                         .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -766,6 +778,10 @@ internal class CounterpartyCreateParamsTest {
                                                 .build()
                                         )
                                         .businessDescription("business_description")
+                                        .businessDesignation(
+                                            ChildLegalEntityCreate.BusinessDesignation
+                                                .EXEMPT_FINANCIAL_INSTITUTION
+                                        )
                                         .businessName("business_name")
                                         .citizenshipCountry("citizenship_country")
                                         .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -1204,6 +1220,10 @@ internal class CounterpartyCreateParamsTest {
                             .build()
                     )
                     .businessDescription("business_description")
+                    .businessDesignation(
+                        CounterpartyCreateParams.LegalEntityCreateRequest.BusinessDesignation
+                            .EXEMPT_FINANCIAL_INSTITUTION
+                    )
                     .businessName("business_name")
                     .citizenshipCountry("citizenship_country")
                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
@@ -1305,6 +1325,10 @@ internal class CounterpartyCreateParamsTest {
                                             .build()
                                     )
                                     .businessDescription("business_description")
+                                    .businessDesignation(
+                                        ChildLegalEntityCreate.BusinessDesignation
+                                            .EXEMPT_FINANCIAL_INSTITUTION
+                                    )
                                     .businessName("business_name")
                                     .citizenshipCountry("citizenship_country")
                                     .complianceDetails(JsonValue.from(mapOf<String, Any>()))
