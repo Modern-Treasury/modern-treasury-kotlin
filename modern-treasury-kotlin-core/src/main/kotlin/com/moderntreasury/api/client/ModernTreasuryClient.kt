@@ -12,6 +12,7 @@ import com.moderntreasury.api.services.blocking.AccountCollectionFlowService
 import com.moderntreasury.api.services.blocking.AccountDetailService
 import com.moderntreasury.api.services.blocking.BulkRequestService
 import com.moderntreasury.api.services.blocking.BulkResultService
+import com.moderntreasury.api.services.blocking.CaseService
 import com.moderntreasury.api.services.blocking.ConnectionLegalEntityService
 import com.moderntreasury.api.services.blocking.ConnectionService
 import com.moderntreasury.api.services.blocking.CounterpartyService
@@ -26,6 +27,7 @@ import com.moderntreasury.api.services.blocking.InternalAccountService
 import com.moderntreasury.api.services.blocking.InvoiceService
 import com.moderntreasury.api.services.blocking.JournalEntryService
 import com.moderntreasury.api.services.blocking.JournalReportService
+import com.moderntreasury.api.services.blocking.JournalSourceService
 import com.moderntreasury.api.services.blocking.LedgerAccountBalanceMonitorService
 import com.moderntreasury.api.services.blocking.LedgerAccountCategoryService
 import com.moderntreasury.api.services.blocking.LedgerAccountService
@@ -46,6 +48,7 @@ import com.moderntreasury.api.services.blocking.RoutingDetailService
 import com.moderntreasury.api.services.blocking.TransactionService
 import com.moderntreasury.api.services.blocking.ValidationService
 import com.moderntreasury.api.services.blocking.VirtualAccountService
+import com.moderntreasury.api.services.blocking.VirtualAccountSettingService
 import com.moderntreasury.api.services.blocking.WebhookService
 
 /**
@@ -158,9 +161,15 @@ interface ModernTreasuryClient {
 
     fun journalEntries(): JournalEntryService
 
+    fun journalSources(): JournalSourceService
+
     fun journalReports(): JournalReportService
 
     fun holds(): HoldService
+
+    fun cases(): CaseService
+
+    fun virtualAccountSettings(): VirtualAccountSettingService
 
     /**
      * A test endpoint often used to confirm credentials and headers are being passed in correctly.
@@ -273,9 +282,15 @@ interface ModernTreasuryClient {
 
         fun journalEntries(): JournalEntryService.WithRawResponse
 
+        fun journalSources(): JournalSourceService.WithRawResponse
+
         fun journalReports(): JournalReportService.WithRawResponse
 
         fun holds(): HoldService.WithRawResponse
+
+        fun cases(): CaseService.WithRawResponse
+
+        fun virtualAccountSettings(): VirtualAccountSettingService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /api/ping`, but is otherwise the same as

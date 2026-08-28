@@ -12,6 +12,7 @@ import com.moderntreasury.api.models.LegalEntityListPageAsync
 import com.moderntreasury.api.models.LegalEntityListParams
 import com.moderntreasury.api.models.LegalEntityRetrieveParams
 import com.moderntreasury.api.models.LegalEntityUpdateParams
+import com.moderntreasury.api.models.LegalEntityUpdateStatusParams
 
 interface LegalEntityServiceAsync {
 
@@ -76,6 +77,19 @@ interface LegalEntityServiceAsync {
     /** @see list */
     suspend fun list(requestOptions: RequestOptions): LegalEntityListPageAsync =
         list(LegalEntityListParams.none(), requestOptions)
+
+    /** Update Legal Entity Status (sandbox only) */
+    suspend fun updateStatus(
+        id: String,
+        params: LegalEntityUpdateStatusParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LegalEntity = updateStatus(params.toBuilder().id(id).build(), requestOptions)
+
+    /** @see updateStatus */
+    suspend fun updateStatus(
+        params: LegalEntityUpdateStatusParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): LegalEntity
 
     /**
      * A view of [LegalEntityServiceAsync] that provides access to raw HTTP responses for each
@@ -170,5 +184,25 @@ interface LegalEntityServiceAsync {
             requestOptions: RequestOptions
         ): HttpResponseFor<LegalEntityListPageAsync> =
             list(LegalEntityListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `patch
+         * /api/simulations/legal_entities/{id}/update_status`, but is otherwise the same as
+         * [LegalEntityServiceAsync.updateStatus].
+         */
+        @MustBeClosed
+        suspend fun updateStatus(
+            id: String,
+            params: LegalEntityUpdateStatusParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LegalEntity> =
+            updateStatus(params.toBuilder().id(id).build(), requestOptions)
+
+        /** @see updateStatus */
+        @MustBeClosed
+        suspend fun updateStatus(
+            params: LegalEntityUpdateStatusParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LegalEntity>
     }
 }

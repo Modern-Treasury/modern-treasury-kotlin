@@ -98,8 +98,11 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.legalEntityAssociations()).isNotNull()
         assertThat(client.paymentActions()).isNotNull()
         assertThat(client.journalEntries()).isNotNull()
+        assertThat(client.journalSources()).isNotNull()
         assertThat(client.journalReports()).isNotNull()
         assertThat(client.holds()).isNotNull()
+        assertThat(client.cases()).isNotNull()
+        assertThat(client.virtualAccountSettings()).isNotNull()
     }
 
     @Test
