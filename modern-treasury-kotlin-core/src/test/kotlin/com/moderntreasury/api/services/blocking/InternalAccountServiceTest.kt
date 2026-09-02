@@ -5,6 +5,7 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.models.AddressRequest
 import com.moderntreasury.api.models.InternalAccountCreateParams
 import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityParams
 import com.moderntreasury.api.models.InternalAccountUpdateParams
@@ -125,6 +126,16 @@ internal class InternalAccountServiceTest {
                     )
                     .name("name")
                     .parentAccountId("parent_account_id")
+                    .partyAddress(
+                        AddressRequest.builder()
+                            .country("country")
+                            .line1("line1")
+                            .line2("line2")
+                            .locality("locality")
+                            .postalCode("postal_code")
+                            .region("region")
+                            .build()
+                    )
                     .status(InternalAccountUpdateParams.Status.PENDING_CLOSURE)
                     .build()
             )
