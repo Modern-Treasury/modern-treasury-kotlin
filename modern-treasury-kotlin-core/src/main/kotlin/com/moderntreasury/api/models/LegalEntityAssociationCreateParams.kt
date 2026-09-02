@@ -30,14 +30,6 @@ private constructor(
 ) : Params {
 
     /**
-     * The ID of the child legal entity.
-     *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun childLegalEntityId(): String = body.childLegalEntityId()
-
-    /**
      * The ID of the parent legal entity. This must be a business legal entity.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -50,6 +42,22 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun relationshipTypes(): List<RelationshipType> = body.relationshipTypes()
+
+    /**
+     * The child legal entity.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun childLegalEntity(): ChildLegalEntityCreate? = body.childLegalEntity()
+
+    /**
+     * The ID of the child legal entity.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun childLegalEntityId(): String? = body.childLegalEntityId()
 
     /**
      * The child entity's ownership percentage iff they are a beneficial owner.
@@ -68,14 +76,6 @@ private constructor(
     fun title(): String? = body.title()
 
     /**
-     * Returns the raw JSON value of [childLegalEntityId].
-     *
-     * Unlike [childLegalEntityId], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    fun _childLegalEntityId(): JsonField<String> = body._childLegalEntityId()
-
-    /**
      * Returns the raw JSON value of [parentLegalEntityId].
      *
      * Unlike [parentLegalEntityId], this method doesn't throw if the JSON field has an unexpected
@@ -90,6 +90,22 @@ private constructor(
      * type.
      */
     fun _relationshipTypes(): JsonField<List<RelationshipType>> = body._relationshipTypes()
+
+    /**
+     * Returns the raw JSON value of [childLegalEntity].
+     *
+     * Unlike [childLegalEntity], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _childLegalEntity(): JsonField<ChildLegalEntityCreate> = body._childLegalEntity()
+
+    /**
+     * Returns the raw JSON value of [childLegalEntityId].
+     *
+     * Unlike [childLegalEntityId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _childLegalEntityId(): JsonField<String> = body._childLegalEntityId()
 
     /**
      * Returns the raw JSON value of [ownershipPercentage].
@@ -124,7 +140,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .childLegalEntityId()
          * .parentLegalEntityId()
          * .relationshipTypes()
          * ```
@@ -153,30 +168,14 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [childLegalEntityId]
          * - [parentLegalEntityId]
          * - [relationshipTypes]
+         * - [childLegalEntity]
+         * - [childLegalEntityId]
          * - [ownershipPercentage]
-         * - [title]
          * - etc.
          */
         fun body(body: LegalEntityAssociationCreateRequest) = apply { this.body = body.toBuilder() }
-
-        /** The ID of the child legal entity. */
-        fun childLegalEntityId(childLegalEntityId: String) = apply {
-            body.childLegalEntityId(childLegalEntityId)
-        }
-
-        /**
-         * Sets [Builder.childLegalEntityId] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.childLegalEntityId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun childLegalEntityId(childLegalEntityId: JsonField<String>) = apply {
-            body.childLegalEntityId(childLegalEntityId)
-        }
 
         /** The ID of the parent legal entity. This must be a business legal entity. */
         fun parentLegalEntityId(parentLegalEntityId: String) = apply {
@@ -216,6 +215,38 @@ private constructor(
          */
         fun addRelationshipType(relationshipType: RelationshipType) = apply {
             body.addRelationshipType(relationshipType)
+        }
+
+        /** The child legal entity. */
+        fun childLegalEntity(childLegalEntity: ChildLegalEntityCreate) = apply {
+            body.childLegalEntity(childLegalEntity)
+        }
+
+        /**
+         * Sets [Builder.childLegalEntity] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.childLegalEntity] with a well-typed
+         * [ChildLegalEntityCreate] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun childLegalEntity(childLegalEntity: JsonField<ChildLegalEntityCreate>) = apply {
+            body.childLegalEntity(childLegalEntity)
+        }
+
+        /** The ID of the child legal entity. */
+        fun childLegalEntityId(childLegalEntityId: String) = apply {
+            body.childLegalEntityId(childLegalEntityId)
+        }
+
+        /**
+         * Sets [Builder.childLegalEntityId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.childLegalEntityId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun childLegalEntityId(childLegalEntityId: JsonField<String>) = apply {
+            body.childLegalEntityId(childLegalEntityId)
         }
 
         /** The child entity's ownership percentage iff they are a beneficial owner. */
@@ -377,7 +408,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .childLegalEntityId()
          * .parentLegalEntityId()
          * .relationshipTypes()
          * ```
@@ -401,9 +431,10 @@ private constructor(
     class LegalEntityAssociationCreateRequest
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val childLegalEntityId: JsonField<String>,
         private val parentLegalEntityId: JsonField<String>,
         private val relationshipTypes: JsonField<List<RelationshipType>>,
+        private val childLegalEntity: JsonField<ChildLegalEntityCreate>,
+        private val childLegalEntityId: JsonField<String>,
         private val ownershipPercentage: JsonField<Long>,
         private val title: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -411,35 +442,31 @@ private constructor(
 
         @JsonCreator
         private constructor(
-            @JsonProperty("child_legal_entity_id")
-            @ExcludeMissing
-            childLegalEntityId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("parent_legal_entity_id")
             @ExcludeMissing
             parentLegalEntityId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("relationship_types")
             @ExcludeMissing
             relationshipTypes: JsonField<List<RelationshipType>> = JsonMissing.of(),
+            @JsonProperty("child_legal_entity")
+            @ExcludeMissing
+            childLegalEntity: JsonField<ChildLegalEntityCreate> = JsonMissing.of(),
+            @JsonProperty("child_legal_entity_id")
+            @ExcludeMissing
+            childLegalEntityId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("ownership_percentage")
             @ExcludeMissing
             ownershipPercentage: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("title") @ExcludeMissing title: JsonField<String> = JsonMissing.of(),
         ) : this(
-            childLegalEntityId,
             parentLegalEntityId,
             relationshipTypes,
+            childLegalEntity,
+            childLegalEntityId,
             ownershipPercentage,
             title,
             mutableMapOf(),
         )
-
-        /**
-         * The ID of the child legal entity.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun childLegalEntityId(): String = childLegalEntityId.getRequired("child_legal_entity_id")
 
         /**
          * The ID of the parent legal entity. This must be a business legal entity.
@@ -458,6 +485,23 @@ private constructor(
             relationshipTypes.getRequired("relationship_types")
 
         /**
+         * The child legal entity.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun childLegalEntity(): ChildLegalEntityCreate? =
+            childLegalEntity.getNullable("child_legal_entity")
+
+        /**
+         * The ID of the child legal entity.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun childLegalEntityId(): String? = childLegalEntityId.getNullable("child_legal_entity_id")
+
+        /**
          * The child entity's ownership percentage iff they are a beneficial owner.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -472,16 +516,6 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun title(): String? = title.getNullable("title")
-
-        /**
-         * Returns the raw JSON value of [childLegalEntityId].
-         *
-         * Unlike [childLegalEntityId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("child_legal_entity_id")
-        @ExcludeMissing
-        fun _childLegalEntityId(): JsonField<String> = childLegalEntityId
 
         /**
          * Returns the raw JSON value of [parentLegalEntityId].
@@ -502,6 +536,26 @@ private constructor(
         @JsonProperty("relationship_types")
         @ExcludeMissing
         fun _relationshipTypes(): JsonField<List<RelationshipType>> = relationshipTypes
+
+        /**
+         * Returns the raw JSON value of [childLegalEntity].
+         *
+         * Unlike [childLegalEntity], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("child_legal_entity")
+        @ExcludeMissing
+        fun _childLegalEntity(): JsonField<ChildLegalEntityCreate> = childLegalEntity
+
+        /**
+         * Returns the raw JSON value of [childLegalEntityId].
+         *
+         * Unlike [childLegalEntityId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("child_legal_entity_id")
+        @ExcludeMissing
+        fun _childLegalEntityId(): JsonField<String> = childLegalEntityId
 
         /**
          * Returns the raw JSON value of [ownershipPercentage].
@@ -540,7 +594,6 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
-             * .childLegalEntityId()
              * .parentLegalEntityId()
              * .relationshipTypes()
              * ```
@@ -551,9 +604,10 @@ private constructor(
         /** A builder for [LegalEntityAssociationCreateRequest]. */
         class Builder internal constructor() {
 
-            private var childLegalEntityId: JsonField<String>? = null
             private var parentLegalEntityId: JsonField<String>? = null
             private var relationshipTypes: JsonField<MutableList<RelationshipType>>? = null
+            private var childLegalEntity: JsonField<ChildLegalEntityCreate> = JsonMissing.of()
+            private var childLegalEntityId: JsonField<String> = JsonMissing.of()
             private var ownershipPercentage: JsonField<Long> = JsonMissing.of()
             private var title: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -561,29 +615,15 @@ private constructor(
             internal fun from(
                 legalEntityAssociationCreateRequest: LegalEntityAssociationCreateRequest
             ) = apply {
-                childLegalEntityId = legalEntityAssociationCreateRequest.childLegalEntityId
                 parentLegalEntityId = legalEntityAssociationCreateRequest.parentLegalEntityId
                 relationshipTypes =
                     legalEntityAssociationCreateRequest.relationshipTypes.map { it.toMutableList() }
+                childLegalEntity = legalEntityAssociationCreateRequest.childLegalEntity
+                childLegalEntityId = legalEntityAssociationCreateRequest.childLegalEntityId
                 ownershipPercentage = legalEntityAssociationCreateRequest.ownershipPercentage
                 title = legalEntityAssociationCreateRequest.title
                 additionalProperties =
                     legalEntityAssociationCreateRequest.additionalProperties.toMutableMap()
-            }
-
-            /** The ID of the child legal entity. */
-            fun childLegalEntityId(childLegalEntityId: String) =
-                childLegalEntityId(JsonField.of(childLegalEntityId))
-
-            /**
-             * Sets [Builder.childLegalEntityId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.childLegalEntityId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun childLegalEntityId(childLegalEntityId: JsonField<String>) = apply {
-                this.childLegalEntityId = childLegalEntityId
             }
 
             /** The ID of the parent legal entity. This must be a business legal entity. */
@@ -625,6 +665,36 @@ private constructor(
                     (relationshipTypes ?: JsonField.of(mutableListOf())).also {
                         checkKnown("relationshipTypes", it).add(relationshipType)
                     }
+            }
+
+            /** The child legal entity. */
+            fun childLegalEntity(childLegalEntity: ChildLegalEntityCreate) =
+                childLegalEntity(JsonField.of(childLegalEntity))
+
+            /**
+             * Sets [Builder.childLegalEntity] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.childLegalEntity] with a well-typed
+             * [ChildLegalEntityCreate] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun childLegalEntity(childLegalEntity: JsonField<ChildLegalEntityCreate>) = apply {
+                this.childLegalEntity = childLegalEntity
+            }
+
+            /** The ID of the child legal entity. */
+            fun childLegalEntityId(childLegalEntityId: String) =
+                childLegalEntityId(JsonField.of(childLegalEntityId))
+
+            /**
+             * Sets [Builder.childLegalEntityId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.childLegalEntityId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun childLegalEntityId(childLegalEntityId: JsonField<String>) = apply {
+                this.childLegalEntityId = childLegalEntityId
             }
 
             /** The child entity's ownership percentage iff they are a beneficial owner. */
@@ -688,7 +758,6 @@ private constructor(
              *
              * The following fields are required:
              * ```kotlin
-             * .childLegalEntityId()
              * .parentLegalEntityId()
              * .relationshipTypes()
              * ```
@@ -697,9 +766,10 @@ private constructor(
              */
             fun build(): LegalEntityAssociationCreateRequest =
                 LegalEntityAssociationCreateRequest(
-                    checkRequired("childLegalEntityId", childLegalEntityId),
                     checkRequired("parentLegalEntityId", parentLegalEntityId),
                     checkRequired("relationshipTypes", relationshipTypes).map { it.toImmutable() },
+                    childLegalEntity,
+                    childLegalEntityId,
                     ownershipPercentage,
                     title,
                     additionalProperties.toMutableMap(),
@@ -722,9 +792,10 @@ private constructor(
                 return@apply
             }
 
-            childLegalEntityId()
             parentLegalEntityId()
             relationshipTypes().forEach { it.validate() }
+            childLegalEntity()?.validate()
+            childLegalEntityId()
             ownershipPercentage()
             title()
             validated = true
@@ -745,9 +816,10 @@ private constructor(
          * Used for best match union deserialization.
          */
         internal fun validity(): Int =
-            (if (childLegalEntityId.asKnown() == null) 0 else 1) +
-                (if (parentLegalEntityId.asKnown() == null) 0 else 1) +
+            (if (parentLegalEntityId.asKnown() == null) 0 else 1) +
                 (relationshipTypes.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                (childLegalEntity.asKnown()?.validity() ?: 0) +
+                (if (childLegalEntityId.asKnown() == null) 0 else 1) +
                 (if (ownershipPercentage.asKnown() == null) 0 else 1) +
                 (if (title.asKnown() == null) 0 else 1)
 
@@ -757,9 +829,10 @@ private constructor(
             }
 
             return other is LegalEntityAssociationCreateRequest &&
-                childLegalEntityId == other.childLegalEntityId &&
                 parentLegalEntityId == other.parentLegalEntityId &&
                 relationshipTypes == other.relationshipTypes &&
+                childLegalEntity == other.childLegalEntity &&
+                childLegalEntityId == other.childLegalEntityId &&
                 ownershipPercentage == other.ownershipPercentage &&
                 title == other.title &&
                 additionalProperties == other.additionalProperties
@@ -767,9 +840,10 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
-                childLegalEntityId,
                 parentLegalEntityId,
                 relationshipTypes,
+                childLegalEntity,
+                childLegalEntityId,
                 ownershipPercentage,
                 title,
                 additionalProperties,
@@ -779,7 +853,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LegalEntityAssociationCreateRequest{childLegalEntityId=$childLegalEntityId, parentLegalEntityId=$parentLegalEntityId, relationshipTypes=$relationshipTypes, ownershipPercentage=$ownershipPercentage, title=$title, additionalProperties=$additionalProperties}"
+            "LegalEntityAssociationCreateRequest{parentLegalEntityId=$parentLegalEntityId, relationshipTypes=$relationshipTypes, childLegalEntity=$childLegalEntity, childLegalEntityId=$childLegalEntityId, ownershipPercentage=$ownershipPercentage, title=$title, additionalProperties=$additionalProperties}"
     }
 
     /** A list of relationship types for how the child entity relates to parent entity. */
