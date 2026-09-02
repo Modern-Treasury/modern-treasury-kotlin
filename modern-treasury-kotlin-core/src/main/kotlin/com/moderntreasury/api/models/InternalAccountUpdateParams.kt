@@ -88,6 +88,16 @@ private constructor(
     fun parentAccountId(): String? = body.parentAccountId()
 
     /**
+     * The address associated with the owner of the internal account. Updating this value does not
+     * guarantee that the new address matches the address on record with the account's bank; you are
+     * responsible for verifying that the address is accurate.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun partyAddress(): AddressRequest? = body.partyAddress()
+
+    /**
      * Requests closure of the internal account. The resulting status may be `closed` for vendors
      * that close synchronously.
      *
@@ -145,6 +155,13 @@ private constructor(
      * Unlike [parentAccountId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _parentAccountId(): JsonField<String> = body._parentAccountId()
+
+    /**
+     * Returns the raw JSON value of [partyAddress].
+     *
+     * Unlike [partyAddress], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _partyAddress(): JsonField<AddressRequest> = body._partyAddress()
 
     /**
      * Returns the raw JSON value of [status].
@@ -303,6 +320,24 @@ private constructor(
          */
         fun parentAccountId(parentAccountId: JsonField<String>) = apply {
             body.parentAccountId(parentAccountId)
+        }
+
+        /**
+         * The address associated with the owner of the internal account. Updating this value does
+         * not guarantee that the new address matches the address on record with the account's bank;
+         * you are responsible for verifying that the address is accurate.
+         */
+        fun partyAddress(partyAddress: AddressRequest) = apply { body.partyAddress(partyAddress) }
+
+        /**
+         * Sets [Builder.partyAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.partyAddress] with a well-typed [AddressRequest] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun partyAddress(partyAddress: JsonField<AddressRequest>) = apply {
+            body.partyAddress(partyAddress)
         }
 
         /**
@@ -472,6 +507,7 @@ private constructor(
         private val metadata: JsonField<Metadata>,
         private val name: JsonField<String>,
         private val parentAccountId: JsonField<String>,
+        private val partyAddress: JsonField<AddressRequest>,
         private val status: JsonField<Status>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -497,6 +533,9 @@ private constructor(
             @JsonProperty("parent_account_id")
             @ExcludeMissing
             parentAccountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("party_address")
+            @ExcludeMissing
+            partyAddress: JsonField<AddressRequest> = JsonMissing.of(),
             @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         ) : this(
             contraLedgerAccountId,
@@ -506,6 +545,7 @@ private constructor(
             metadata,
             name,
             parentAccountId,
+            partyAddress,
             status,
             mutableMapOf(),
         )
@@ -567,6 +607,16 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun parentAccountId(): String? = parentAccountId.getNullable("parent_account_id")
+
+        /**
+         * The address associated with the owner of the internal account. Updating this value does
+         * not guarantee that the new address matches the address on record with the account's bank;
+         * you are responsible for verifying that the address is accurate.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun partyAddress(): AddressRequest? = partyAddress.getNullable("party_address")
 
         /**
          * Requests closure of the internal account. The resulting status may be `closed` for
@@ -641,6 +691,16 @@ private constructor(
         fun _parentAccountId(): JsonField<String> = parentAccountId
 
         /**
+         * Returns the raw JSON value of [partyAddress].
+         *
+         * Unlike [partyAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("party_address")
+        @ExcludeMissing
+        fun _partyAddress(): JsonField<AddressRequest> = partyAddress
+
+        /**
          * Returns the raw JSON value of [status].
          *
          * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -678,6 +738,7 @@ private constructor(
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var parentAccountId: JsonField<String> = JsonMissing.of()
+            private var partyAddress: JsonField<AddressRequest> = JsonMissing.of()
             private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -689,6 +750,7 @@ private constructor(
                 metadata = internalAccountUpdateRequest.metadata
                 name = internalAccountUpdateRequest.name
                 parentAccountId = internalAccountUpdateRequest.parentAccountId
+                partyAddress = internalAccountUpdateRequest.partyAddress
                 status = internalAccountUpdateRequest.status
                 additionalProperties =
                     internalAccountUpdateRequest.additionalProperties.toMutableMap()
@@ -794,6 +856,25 @@ private constructor(
             }
 
             /**
+             * The address associated with the owner of the internal account. Updating this value
+             * does not guarantee that the new address matches the address on record with the
+             * account's bank; you are responsible for verifying that the address is accurate.
+             */
+            fun partyAddress(partyAddress: AddressRequest) =
+                partyAddress(JsonField.of(partyAddress))
+
+            /**
+             * Sets [Builder.partyAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.partyAddress] with a well-typed [AddressRequest]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun partyAddress(partyAddress: JsonField<AddressRequest>) = apply {
+                this.partyAddress = partyAddress
+            }
+
+            /**
              * Requests closure of the internal account. The resulting status may be `closed` for
              * vendors that close synchronously.
              */
@@ -841,6 +922,7 @@ private constructor(
                     metadata,
                     name,
                     parentAccountId,
+                    partyAddress,
                     status,
                     additionalProperties.toMutableMap(),
                 )
@@ -869,6 +951,7 @@ private constructor(
             metadata()?.validate()
             name()
             parentAccountId()
+            partyAddress()?.validate()
             status()?.validate()
             validated = true
         }
@@ -895,6 +978,7 @@ private constructor(
                 (metadata.asKnown()?.validity() ?: 0) +
                 (if (name.asKnown() == null) 0 else 1) +
                 (if (parentAccountId.asKnown() == null) 0 else 1) +
+                (partyAddress.asKnown()?.validity() ?: 0) +
                 (status.asKnown()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -910,6 +994,7 @@ private constructor(
                 metadata == other.metadata &&
                 name == other.name &&
                 parentAccountId == other.parentAccountId &&
+                partyAddress == other.partyAddress &&
                 status == other.status &&
                 additionalProperties == other.additionalProperties
         }
@@ -923,6 +1008,7 @@ private constructor(
                 metadata,
                 name,
                 parentAccountId,
+                partyAddress,
                 status,
                 additionalProperties,
             )
@@ -931,7 +1017,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InternalAccountUpdateRequest{contraLedgerAccountId=$contraLedgerAccountId, counterpartyId=$counterpartyId, externalId=$externalId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, parentAccountId=$parentAccountId, status=$status, additionalProperties=$additionalProperties}"
+            "InternalAccountUpdateRequest{contraLedgerAccountId=$contraLedgerAccountId, counterpartyId=$counterpartyId, externalId=$externalId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, parentAccountId=$parentAccountId, partyAddress=$partyAddress, status=$status, additionalProperties=$additionalProperties}"
     }
 
     /**
