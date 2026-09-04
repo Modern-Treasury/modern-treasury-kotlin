@@ -1,5 +1,21 @@
 # Changelog
 
+## [7.36.2](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.36.1...v7.36.2) (2026-09-04)
+
+
+### Chores
+
+* regenerate SDKs from 1846300751004ea366c6b50e9cc73ef332853cc7 ([4eabab6](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/4eabab6750ba8a41c7c0bfb8c5abe6420344e0f6))
+* regenerate SDKs from 1ba62719665dfac3a01da68fa4d0f68fe50b8574 ([907afc9](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/907afc903f7160df6ae2f3d03b50c411d6aa6091))
+* regenerate SDKs from 343d886c636954e7e0870418b38898fc39de2698 ([99ddd38](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/99ddd38a91f1580de19a5d9d5da70a274cf3eac7))
+* regenerate SDKs from 44366b0feb4a67c557ab18243a5a4e62fc526b46 ([e6aefe7](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/e6aefe7184338e782d528b8f3b1cb6d12d0966ac))
+* regenerate SDKs from 5b92822da54c5ed47a5ec70624eae07754e34457 ([2b547ca](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2b547ca30e360c1a43dd4506484257fd9b0b5d4e))
+* regenerate SDKs from 6311974b7bd8e5b7a6f1b521219406ed778993d3 ([f4e6160](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/f4e6160a0bb249fc049a0aa29a9d3be7a4f6a171))
+* regenerate SDKs from 648842f54e4bd55a71ffbacf5c3f8bbc47cb77df ([0efb531](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/0efb531805ec04497aac77f54e06c7931aafad8f))
+* regenerate SDKs from 76bfe6ef7bf238af0c68f1ff514b7c6d29042662 ([2769a66](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/2769a66ff8da4ee76b392e5069f6bd9489a9ffbf))
+* regenerate SDKs from b51aa69627e6aafc44c4609a7574b9068a894b7c ([9b2cffd](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/9b2cffd3043cf8b9b5164bf39e25c2462e847775))
+* regenerate SDKs from d52e6f7cb7821cecbe9ad9e02712f9b8c190d80d ([83ce406](https://github.com/Modern-Treasury/modern-treasury-kotlin/commit/83ce40658410155294e28e4bddf271aefa8dd0d1))
+
 ## [7.36.1](https://github.com/Modern-Treasury/modern-treasury-kotlin/compare/v7.36.0...v7.36.1) (2026-08-04)
 
 
