@@ -22,6 +22,7 @@ import com.moderntreasury.api.services.blocking.ExpectedPaymentService
 import com.moderntreasury.api.services.blocking.ExternalAccountService
 import com.moderntreasury.api.services.blocking.ForeignExchangeQuoteService
 import com.moderntreasury.api.services.blocking.HoldService
+import com.moderntreasury.api.services.blocking.IdentificationService
 import com.moderntreasury.api.services.blocking.IncomingPaymentDetailService
 import com.moderntreasury.api.services.blocking.InternalAccountService
 import com.moderntreasury.api.services.blocking.InvoiceService
@@ -168,6 +169,8 @@ interface ModernTreasuryClient {
 
     fun virtualAccountSettings(): VirtualAccountSettingService
 
+    fun identifications(): IdentificationService
+
     /**
      * A test endpoint often used to confirm credentials and headers are being passed in correctly.
      */
@@ -288,6 +291,8 @@ interface ModernTreasuryClient {
         fun cases(): CaseService.WithRawResponse
 
         fun virtualAccountSettings(): VirtualAccountSettingService.WithRawResponse
+
+        fun identifications(): IdentificationService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /api/ping`, but is otherwise the same as

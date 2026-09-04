@@ -103,6 +103,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.holds()).isNotNull()
         assertThat(client.cases()).isNotNull()
         assertThat(client.virtualAccountSettings()).isNotNull()
+        assertThat(client.identifications()).isNotNull()
     }
 
     @Test
