@@ -2481,8 +2481,6 @@ private constructor(
 
                     val SOLANA_ADDRESS = of("solana_address")
 
-                    val WALLET_ADDRESS = of("wallet_address")
-
                     fun of(value: String) = AccountNumberType(JsonField.of(value))
                 }
 
@@ -2502,7 +2500,6 @@ private constructor(
                     POLYGON_ADDRESS,
                     SG_NUMBER,
                     SOLANA_ADDRESS,
-                    WALLET_ADDRESS,
                 }
 
                 /**
@@ -2531,7 +2528,6 @@ private constructor(
                     POLYGON_ADDRESS,
                     SG_NUMBER,
                     SOLANA_ADDRESS,
-                    WALLET_ADDRESS,
                     /**
                      * An enum member indicating that [AccountNumberType] was instantiated with an
                      * unknown value.
@@ -2562,7 +2558,6 @@ private constructor(
                         POLYGON_ADDRESS -> Value.POLYGON_ADDRESS
                         SG_NUMBER -> Value.SG_NUMBER
                         SOLANA_ADDRESS -> Value.SOLANA_ADDRESS
-                        WALLET_ADDRESS -> Value.WALLET_ADDRESS
                         else -> Value._UNKNOWN
                     }
 
@@ -2591,7 +2586,6 @@ private constructor(
                         POLYGON_ADDRESS -> Known.POLYGON_ADDRESS
                         SG_NUMBER -> Known.SG_NUMBER
                         SOLANA_ADDRESS -> Known.SOLANA_ADDRESS
-                        WALLET_ADDRESS -> Known.WALLET_ADDRESS
                         else ->
                             throw ModernTreasuryInvalidDataException(
                                 "Unknown AccountNumberType: $value"
