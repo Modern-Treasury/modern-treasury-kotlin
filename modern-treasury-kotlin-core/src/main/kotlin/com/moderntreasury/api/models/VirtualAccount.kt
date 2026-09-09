@@ -29,6 +29,7 @@ private constructor(
     private val debitLedgerAccountId: JsonField<String>,
     private val description: JsonField<String>,
     private val discardedAt: JsonField<OffsetDateTime>,
+    private val externalId: JsonField<String>,
     private val internalAccountId: JsonField<String>,
     private val ledgerAccountId: JsonField<String>,
     private val liveMode: JsonField<Boolean>,
@@ -64,6 +65,9 @@ private constructor(
         @JsonProperty("discarded_at")
         @ExcludeMissing
         discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("external_id")
+        @ExcludeMissing
+        externalId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("internal_account_id")
         @ExcludeMissing
         internalAccountId: JsonField<String> = JsonMissing.of(),
@@ -89,6 +93,7 @@ private constructor(
         debitLedgerAccountId,
         description,
         discardedAt,
+        externalId,
         internalAccountId,
         ledgerAccountId,
         liveMode,
@@ -161,6 +166,14 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
+
+    /**
+     * A user-defined identifier for the virtual account.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun externalId(): String? = externalId.getNullable("external_id")
 
     /**
      * The ID of the internal account that the virtual account is in.
@@ -296,6 +309,13 @@ private constructor(
     fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
 
     /**
+     * Returns the raw JSON value of [externalId].
+     *
+     * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("external_id") @ExcludeMissing fun _externalId(): JsonField<String> = externalId
+
+    /**
      * Returns the raw JSON value of [internalAccountId].
      *
      * Unlike [internalAccountId], this method doesn't throw if the JSON field has an unexpected
@@ -387,6 +407,7 @@ private constructor(
          * .debitLedgerAccountId()
          * .description()
          * .discardedAt()
+         * .externalId()
          * .internalAccountId()
          * .ledgerAccountId()
          * .liveMode()
@@ -411,6 +432,7 @@ private constructor(
         private var debitLedgerAccountId: JsonField<String>? = null
         private var description: JsonField<String>? = null
         private var discardedAt: JsonField<OffsetDateTime>? = null
+        private var externalId: JsonField<String>? = null
         private var internalAccountId: JsonField<String>? = null
         private var ledgerAccountId: JsonField<String>? = null
         private var liveMode: JsonField<Boolean>? = null
@@ -430,6 +452,7 @@ private constructor(
             debitLedgerAccountId = virtualAccount.debitLedgerAccountId
             description = virtualAccount.description
             discardedAt = virtualAccount.discardedAt
+            externalId = virtualAccount.externalId
             internalAccountId = virtualAccount.internalAccountId
             ledgerAccountId = virtualAccount.ledgerAccountId
             liveMode = virtualAccount.liveMode
@@ -567,6 +590,18 @@ private constructor(
         fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
             this.discardedAt = discardedAt
         }
+
+        /** A user-defined identifier for the virtual account. */
+        fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
+
+        /**
+         * Sets [Builder.externalId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
 
         /** The ID of the internal account that the virtual account is in. */
         fun internalAccountId(internalAccountId: String) =
@@ -726,6 +761,7 @@ private constructor(
          * .debitLedgerAccountId()
          * .description()
          * .discardedAt()
+         * .externalId()
          * .internalAccountId()
          * .ledgerAccountId()
          * .liveMode()
@@ -748,6 +784,7 @@ private constructor(
                 checkRequired("debitLedgerAccountId", debitLedgerAccountId),
                 checkRequired("description", description),
                 checkRequired("discardedAt", discardedAt),
+                checkRequired("externalId", externalId),
                 checkRequired("internalAccountId", internalAccountId),
                 checkRequired("ledgerAccountId", ledgerAccountId),
                 checkRequired("liveMode", liveMode),
@@ -783,6 +820,7 @@ private constructor(
         debitLedgerAccountId()
         description()
         discardedAt()
+        externalId()
         internalAccountId()
         ledgerAccountId()
         liveMode()
@@ -816,6 +854,7 @@ private constructor(
             (if (debitLedgerAccountId.asKnown() == null) 0 else 1) +
             (if (description.asKnown() == null) 0 else 1) +
             (if (discardedAt.asKnown() == null) 0 else 1) +
+            (if (externalId.asKnown() == null) 0 else 1) +
             (if (internalAccountId.asKnown() == null) 0 else 1) +
             (if (ledgerAccountId.asKnown() == null) 0 else 1) +
             (if (liveMode.asKnown() == null) 0 else 1) +
@@ -946,6 +985,7 @@ private constructor(
             debitLedgerAccountId == other.debitLedgerAccountId &&
             description == other.description &&
             discardedAt == other.discardedAt &&
+            externalId == other.externalId &&
             internalAccountId == other.internalAccountId &&
             ledgerAccountId == other.ledgerAccountId &&
             liveMode == other.liveMode &&
@@ -967,6 +1007,7 @@ private constructor(
             debitLedgerAccountId,
             description,
             discardedAt,
+            externalId,
             internalAccountId,
             ledgerAccountId,
             liveMode,
@@ -982,5 +1023,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "VirtualAccount{id=$id, accountDetails=$accountDetails, counterpartyId=$counterpartyId, createdAt=$createdAt, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, discardedAt=$discardedAt, internalAccountId=$internalAccountId, ledgerAccountId=$ledgerAccountId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, routingDetails=$routingDetails, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "VirtualAccount{id=$id, accountDetails=$accountDetails, counterpartyId=$counterpartyId, createdAt=$createdAt, creditLedgerAccountId=$creditLedgerAccountId, debitLedgerAccountId=$debitLedgerAccountId, description=$description, discardedAt=$discardedAt, externalId=$externalId, internalAccountId=$internalAccountId, ledgerAccountId=$ledgerAccountId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, routingDetails=$routingDetails, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

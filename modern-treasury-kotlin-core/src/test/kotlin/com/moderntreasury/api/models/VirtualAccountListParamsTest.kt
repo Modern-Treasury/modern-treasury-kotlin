@@ -13,6 +13,7 @@ internal class VirtualAccountListParamsTest {
         VirtualAccountListParams.builder()
             .afterCursor("after_cursor")
             .counterpartyId("counterparty_id")
+            .externalId("external_id")
             .internalAccountId("internal_account_id")
             .metadata(
                 VirtualAccountListParams.Metadata.builder()
@@ -29,6 +30,7 @@ internal class VirtualAccountListParamsTest {
             VirtualAccountListParams.builder()
                 .afterCursor("after_cursor")
                 .counterpartyId("counterparty_id")
+                .externalId("external_id")
                 .internalAccountId("internal_account_id")
                 .metadata(
                     VirtualAccountListParams.Metadata.builder()
@@ -45,6 +47,7 @@ internal class VirtualAccountListParamsTest {
                 QueryParams.builder()
                     .put("after_cursor", "after_cursor")
                     .put("counterparty_id", "counterparty_id")
+                    .put("external_id", "external_id")
                     .put("internal_account_id", "internal_account_id")
                     .put("metadata[foo]", "string")
                     .put("per_page", "0")
