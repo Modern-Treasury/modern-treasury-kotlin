@@ -26,6 +26,7 @@ internal class VirtualAccountCreateParamsTest {
             .creditLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .description("description")
+            .externalId("external_id")
             .ledgerAccount(
                 LedgerAccountCreateRequest.builder()
                     .currency("currency")
@@ -87,6 +88,7 @@ internal class VirtualAccountCreateParamsTest {
                 .creditLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .debitLedgerAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .description("description")
+                .externalId("external_id")
                 .ledgerAccount(
                     LedgerAccountCreateRequest.builder()
                         .currency("currency")
@@ -147,6 +149,7 @@ internal class VirtualAccountCreateParamsTest {
         assertThat(body.creditLedgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.debitLedgerAccountId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(body.description()).isEqualTo("description")
+        assertThat(body.externalId()).isEqualTo("external_id")
         assertThat(body.ledgerAccount())
             .isEqualTo(
                 LedgerAccountCreateRequest.builder()
