@@ -36,7 +36,7 @@ internal class VirtualAccountServiceTest {
                             .accountNumberType(
                                 VirtualAccountCreateParams.AccountDetailCreateRequest
                                     .AccountNumberType
-                                    .AU_NUMBER
+                                    .ARBITRUM_ADDRESS
                             )
                             .build()
                     )

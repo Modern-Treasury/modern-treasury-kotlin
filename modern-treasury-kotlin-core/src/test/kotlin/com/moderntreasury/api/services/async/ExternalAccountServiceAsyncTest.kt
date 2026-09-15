@@ -40,7 +40,7 @@ internal class ExternalAccountServiceAsyncTest {
                             .accountNumber("account_number")
                             .accountNumberType(
                                 ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                    .AU_NUMBER
+                                    .ARBITRUM_ADDRESS
                             )
                             .build()
                     )

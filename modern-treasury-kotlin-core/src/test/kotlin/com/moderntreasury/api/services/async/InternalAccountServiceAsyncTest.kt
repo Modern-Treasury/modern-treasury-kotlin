@@ -71,7 +71,7 @@ internal class InternalAccountServiceAsyncTest {
                     )
                     .partyName("party_name")
                     .addRequestedAccountNumberType(
-                        InternalAccountCreateParams.RequestedAccountNumberType.BASE_ADDRESS
+                        InternalAccountCreateParams.RequestedAccountNumberType.ARBITRUM_ADDRESS
                     )
                     .vendorAttributes(
                         InternalAccountCreateParams.VendorAttributes.builder()

@@ -84,7 +84,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -183,7 +183,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -282,7 +282,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -381,7 +381,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -480,7 +480,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -579,7 +579,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -678,7 +678,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -777,7 +777,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -876,7 +876,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -975,7 +975,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -1074,7 +1074,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -1173,7 +1173,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -1272,7 +1272,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -1371,7 +1371,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -1470,7 +1470,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -1569,7 +1569,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -1666,7 +1666,7 @@ internal class ErrorHandlingTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     ExternalAccountCreateParams.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
