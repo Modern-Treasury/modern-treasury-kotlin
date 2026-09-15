@@ -26,7 +26,7 @@ internal class CounterpartyCreateParamsTest {
                             .accountNumber("account_number")
                             .accountNumberType(
                                 CounterpartyCreateParams.Account.AccountDetail.AccountNumberType
-                                    .AU_NUMBER
+                                    .ARBITRUM_ADDRESS
                             )
                             .build()
                     )
@@ -561,7 +561,7 @@ internal class CounterpartyCreateParamsTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     CounterpartyCreateParams.Account.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -1114,7 +1114,7 @@ internal class CounterpartyCreateParamsTest {
                             .accountNumber("account_number")
                             .accountNumberType(
                                 CounterpartyCreateParams.Account.AccountDetail.AccountNumberType
-                                    .AU_NUMBER
+                                    .ARBITRUM_ADDRESS
                             )
                             .build()
                     )
