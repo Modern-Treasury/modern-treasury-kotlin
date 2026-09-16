@@ -193,7 +193,7 @@ internal class BulkResultTest {
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .accountNumberSafe("account_number_safe")
                                         .accountNumberType(
-                                            AccountDetail.AccountNumberType.AU_NUMBER
+                                            AccountDetail.AccountNumberType.ARBITRUM_ADDRESS
                                         )
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .discardedAt(
@@ -470,7 +470,7 @@ internal class BulkResultTest {
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .accountNumberSafe("account_number_safe")
                                         .accountNumberType(
-                                            AccountDetail.AccountNumberType.AU_NUMBER
+                                            AccountDetail.AccountNumberType.ARBITRUM_ADDRESS
                                         )
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .discardedAt(
@@ -752,7 +752,7 @@ internal class BulkResultTest {
                                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                         .accountNumberSafe("account_number_safe")
                                         .accountNumberType(
-                                            AccountDetail.AccountNumberType.AU_NUMBER
+                                            AccountDetail.AccountNumberType.ARBITRUM_ADDRESS
                                         )
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .discardedAt(

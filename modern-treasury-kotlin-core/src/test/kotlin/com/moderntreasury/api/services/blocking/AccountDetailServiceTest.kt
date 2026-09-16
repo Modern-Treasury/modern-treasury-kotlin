@@ -31,7 +31,7 @@ internal class AccountDetailServiceTest {
                     .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
                     .accountId("account_id")
                     .accountNumber("account_number")
-                    .accountNumberType(AccountDetailCreateParams.AccountNumberType.AU_NUMBER)
+                    .accountNumberType(AccountDetailCreateParams.AccountNumberType.ARBITRUM_ADDRESS)
                     .build()
             )
 

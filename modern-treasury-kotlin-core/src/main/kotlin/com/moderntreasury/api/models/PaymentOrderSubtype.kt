@@ -46,6 +46,8 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
 
         val WEB = of("WEB")
 
+        val ARBITRUM = of("arbitrum")
+
         val AU_BECS = of("au_becs")
 
         val BACS = of("bacs")
@@ -105,6 +107,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         PPD,
         TEL,
         WEB,
+        ARBITRUM,
         AU_BECS,
         BACS,
         BASE,
@@ -149,6 +152,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         PPD,
         TEL,
         WEB,
+        ARBITRUM,
         AU_BECS,
         BACS,
         BASE,
@@ -197,6 +201,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             PPD -> Value.PPD
             TEL -> Value.TEL
             WEB -> Value.WEB
+            ARBITRUM -> Value.ARBITRUM
             AU_BECS -> Value.AU_BECS
             BACS -> Value.BACS
             BASE -> Value.BASE
@@ -243,6 +248,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             PPD -> Known.PPD
             TEL -> Known.TEL
             WEB -> Known.WEB
+            ARBITRUM -> Known.ARBITRUM
             AU_BECS -> Known.AU_BECS
             BACS -> Known.BACS
             BASE -> Known.BASE

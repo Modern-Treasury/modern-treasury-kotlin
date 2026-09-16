@@ -56,7 +56,7 @@ internal class CounterpartyServiceAsyncTest {
                                     .accountNumberType(
                                         CounterpartyCreateParams.Account.AccountDetail
                                             .AccountNumberType
-                                            .AU_NUMBER
+                                            .ARBITRUM_ADDRESS
                                     )
                                     .build()
                             )

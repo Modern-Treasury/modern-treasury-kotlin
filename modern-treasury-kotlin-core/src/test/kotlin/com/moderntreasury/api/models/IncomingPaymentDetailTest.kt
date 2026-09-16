@@ -40,7 +40,7 @@ internal class IncomingPaymentDetailTest {
                 .object_("object")
                 .originatingAccountNumberSafe("originating_account_number_safe")
                 .originatingAccountNumberType(
-                    IncomingPaymentDetail.OriginatingAccountNumberType.AU_NUMBER
+                    IncomingPaymentDetail.OriginatingAccountNumberType.ARBITRUM_ADDRESS
                 )
                 .originatingRoutingNumber("originating_routing_number")
                 .originatingRoutingNumberType(
@@ -61,7 +61,7 @@ internal class IncomingPaymentDetailTest {
                             AccountDetail.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .accountNumberSafe("account_number_safe")
-                                .accountNumberType(AccountDetail.AccountNumberType.AU_NUMBER)
+                                .accountNumberType(AccountDetail.AccountNumberType.ARBITRUM_ADDRESS)
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .liveMode(true)
@@ -174,7 +174,7 @@ internal class IncomingPaymentDetailTest {
         assertThat(incomingPaymentDetail.originatingAccountNumberSafe())
             .isEqualTo("originating_account_number_safe")
         assertThat(incomingPaymentDetail.originatingAccountNumberType())
-            .isEqualTo(IncomingPaymentDetail.OriginatingAccountNumberType.AU_NUMBER)
+            .isEqualTo(IncomingPaymentDetail.OriginatingAccountNumberType.ARBITRUM_ADDRESS)
         assertThat(incomingPaymentDetail.originatingRoutingNumber())
             .isEqualTo("originating_routing_number")
         assertThat(incomingPaymentDetail.originatingRoutingNumberType())
@@ -200,7 +200,7 @@ internal class IncomingPaymentDetailTest {
                         AccountDetail.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .accountNumberSafe("account_number_safe")
-                            .accountNumberType(AccountDetail.AccountNumberType.AU_NUMBER)
+                            .accountNumberType(AccountDetail.AccountNumberType.ARBITRUM_ADDRESS)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .liveMode(true)
@@ -318,7 +318,7 @@ internal class IncomingPaymentDetailTest {
                 .object_("object")
                 .originatingAccountNumberSafe("originating_account_number_safe")
                 .originatingAccountNumberType(
-                    IncomingPaymentDetail.OriginatingAccountNumberType.AU_NUMBER
+                    IncomingPaymentDetail.OriginatingAccountNumberType.ARBITRUM_ADDRESS
                 )
                 .originatingRoutingNumber("originating_routing_number")
                 .originatingRoutingNumberType(
@@ -339,7 +339,7 @@ internal class IncomingPaymentDetailTest {
                             AccountDetail.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .accountNumberSafe("account_number_safe")
-                                .accountNumberType(AccountDetail.AccountNumberType.AU_NUMBER)
+                                .accountNumberType(AccountDetail.AccountNumberType.ARBITRUM_ADDRESS)
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .discardedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .liveMode(true)
