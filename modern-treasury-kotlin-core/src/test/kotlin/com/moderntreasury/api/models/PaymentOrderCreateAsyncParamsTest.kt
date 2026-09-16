@@ -132,7 +132,7 @@ internal class PaymentOrderCreateAsyncParamsTest {
                             .accountNumberType(
                                 PaymentOrderCreateAsyncParams.ReceivingAccount.AccountDetail
                                     .AccountNumberType
-                                    .AU_NUMBER
+                                    .ARBITRUM_ADDRESS
                             )
                             .build()
                     )
@@ -361,7 +361,7 @@ internal class PaymentOrderCreateAsyncParamsTest {
                                 .accountNumberType(
                                     PaymentOrderCreateAsyncParams.ReceivingAccount.AccountDetail
                                         .AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
@@ -596,7 +596,7 @@ internal class PaymentOrderCreateAsyncParamsTest {
                             .accountNumberType(
                                 PaymentOrderCreateAsyncParams.ReceivingAccount.AccountDetail
                                     .AccountNumberType
-                                    .AU_NUMBER
+                                    .ARBITRUM_ADDRESS
                             )
                             .build()
                     )

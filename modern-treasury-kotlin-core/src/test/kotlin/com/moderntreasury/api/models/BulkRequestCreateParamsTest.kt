@@ -172,7 +172,7 @@ internal class BulkRequestCreateParamsTest {
                                             .ReceivingAccount
                                             .AccountDetail
                                             .AccountNumberType
-                                            .AU_NUMBER
+                                            .ARBITRUM_ADDRESS
                                     )
                                     .build()
                             )
@@ -490,7 +490,7 @@ internal class BulkRequestCreateParamsTest {
                                                 .ReceivingAccount
                                                 .AccountDetail
                                                 .AccountNumberType
-                                                .AU_NUMBER
+                                                .ARBITRUM_ADDRESS
                                         )
                                         .build()
                                 )
@@ -811,7 +811,7 @@ internal class BulkRequestCreateParamsTest {
                                                 .ReceivingAccount
                                                 .AccountDetail
                                                 .AccountNumberType
-                                                .AU_NUMBER
+                                                .ARBITRUM_ADDRESS
                                         )
                                         .build()
                                 )

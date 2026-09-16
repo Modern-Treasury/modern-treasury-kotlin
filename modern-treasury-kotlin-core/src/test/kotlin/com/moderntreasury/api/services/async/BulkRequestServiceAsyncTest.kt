@@ -224,7 +224,7 @@ internal class BulkRequestServiceAsyncTest {
                                                     .ReceivingAccount
                                                     .AccountDetail
                                                     .AccountNumberType
-                                                    .AU_NUMBER
+                                                    .ARBITRUM_ADDRESS
                                             )
                                             .build()
                                     )

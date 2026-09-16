@@ -71,7 +71,7 @@ internal class ServiceParamsTest {
                                 .accountNumber("account_number")
                                 .accountNumberType(
                                     CounterpartyCreateParams.Account.AccountDetail.AccountNumberType
-                                        .AU_NUMBER
+                                        .ARBITRUM_ADDRESS
                                 )
                                 .build()
                         )
