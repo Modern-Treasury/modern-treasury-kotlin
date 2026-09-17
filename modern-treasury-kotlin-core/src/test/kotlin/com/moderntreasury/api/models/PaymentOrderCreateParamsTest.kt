@@ -65,8 +65,8 @@ internal class PaymentOrderCreateParamsTest {
                             .lockVersion(0L)
                             .metadata(
                                 LedgerEntryCreateRequest.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
@@ -91,8 +91,8 @@ internal class PaymentOrderCreateParamsTest {
                     .ledgerableType(LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT)
                     .metadata(
                         LedgerTransactionCreateRequest.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -107,8 +107,8 @@ internal class PaymentOrderCreateParamsTest {
                     .description("description")
                     .metadata(
                         PaymentOrderCreateParams.LineItemRequest.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -116,8 +116,8 @@ internal class PaymentOrderCreateParamsTest {
             )
             .metadata(
                 PaymentOrderCreateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -172,8 +172,8 @@ internal class PaymentOrderCreateParamsTest {
                             .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
                             .metadata(
                                 LedgerAccountCreateRequest.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
@@ -181,8 +181,8 @@ internal class PaymentOrderCreateParamsTest {
                     )
                     .metadata(
                         PaymentOrderCreateParams.ReceivingAccount.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -302,8 +302,8 @@ internal class PaymentOrderCreateParamsTest {
                                 .lockVersion(0L)
                                 .metadata(
                                     LedgerEntryCreateRequest.Metadata.builder()
-                                        .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
@@ -330,8 +330,8 @@ internal class PaymentOrderCreateParamsTest {
                         )
                         .metadata(
                             LedgerTransactionCreateRequest.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -346,8 +346,8 @@ internal class PaymentOrderCreateParamsTest {
                         .description("description")
                         .metadata(
                             PaymentOrderCreateParams.LineItemRequest.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -355,8 +355,8 @@ internal class PaymentOrderCreateParamsTest {
                 )
                 .metadata(
                     PaymentOrderCreateParams.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -413,8 +413,8 @@ internal class PaymentOrderCreateParamsTest {
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
-                                        .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
@@ -422,8 +422,8 @@ internal class PaymentOrderCreateParamsTest {
                         )
                         .metadata(
                             PaymentOrderCreateParams.ReceivingAccount.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -574,12 +574,12 @@ internal class PaymentOrderCreateParamsTest {
                                             .metadata(
                                                 LedgerEntryCreateRequest.Metadata.builder()
                                                     .putAdditionalProperty(
-                                                        "key",
-                                                        JsonValue.from("value"),
-                                                    )
-                                                    .putAdditionalProperty(
                                                         "foo",
                                                         JsonValue.from("bar"),
+                                                    )
+                                                    .putAdditionalProperty(
+                                                        "key",
+                                                        JsonValue.from("value"),
                                                     )
                                                     .putAdditionalProperty(
                                                         "modern",
@@ -613,8 +613,8 @@ internal class PaymentOrderCreateParamsTest {
                                     )
                                     .metadata(
                                         LedgerTransactionCreateRequest.Metadata.builder()
-                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty(
                                                 "modern",
                                                 JsonValue.from("treasury"),
@@ -636,11 +636,11 @@ internal class PaymentOrderCreateParamsTest {
                                         .metadata(
                                             PaymentOrderCreateParams.LineItemRequest.Metadata
                                                 .builder()
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .putAdditionalProperty(
                                                     "key",
                                                     JsonValue.from("value"),
                                                 )
-                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .putAdditionalProperty(
                                                     "modern",
                                                     JsonValue.from("treasury"),
@@ -653,8 +653,8 @@ internal class PaymentOrderCreateParamsTest {
                         "metadata" to
                             MultipartField.of(
                                 PaymentOrderCreateParams.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             ),
@@ -721,12 +721,12 @@ internal class PaymentOrderCreateParamsTest {
                                             .metadata(
                                                 LedgerAccountCreateRequest.Metadata.builder()
                                                     .putAdditionalProperty(
-                                                        "key",
-                                                        JsonValue.from("value"),
-                                                    )
-                                                    .putAdditionalProperty(
                                                         "foo",
                                                         JsonValue.from("bar"),
+                                                    )
+                                                    .putAdditionalProperty(
+                                                        "key",
+                                                        JsonValue.from("value"),
                                                     )
                                                     .putAdditionalProperty(
                                                         "modern",
@@ -738,8 +738,8 @@ internal class PaymentOrderCreateParamsTest {
                                     )
                                     .metadata(
                                         PaymentOrderCreateParams.ReceivingAccount.Metadata.builder()
-                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty(
                                                 "modern",
                                                 JsonValue.from("treasury"),
