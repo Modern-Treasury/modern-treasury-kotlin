@@ -30,8 +30,8 @@ internal class LedgerEntryTest {
                 .liveMode(true)
                 .metadata(
                     LedgerEntry.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -99,8 +99,8 @@ internal class LedgerEntryTest {
         assertThat(ledgerEntry.metadata())
             .isEqualTo(
                 LedgerEntry.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -171,8 +171,8 @@ internal class LedgerEntryTest {
                 .liveMode(true)
                 .metadata(
                     LedgerEntry.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )

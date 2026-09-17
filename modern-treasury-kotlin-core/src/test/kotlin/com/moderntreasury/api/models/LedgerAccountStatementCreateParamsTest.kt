@@ -18,8 +18,8 @@ internal class LedgerAccountStatementCreateParamsTest {
             .description("description")
             .metadata(
                 LedgerAccountStatementCreateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -36,8 +36,8 @@ internal class LedgerAccountStatementCreateParamsTest {
                 .description("description")
                 .metadata(
                     LedgerAccountStatementCreateParams.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -54,8 +54,8 @@ internal class LedgerAccountStatementCreateParamsTest {
         assertThat(body.metadata())
             .isEqualTo(
                 LedgerAccountStatementCreateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
