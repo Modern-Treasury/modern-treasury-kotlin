@@ -20,8 +20,8 @@ internal class LedgerTransactionCreateReversalParamsTest {
             .ledgerableType(LedgerTransactionCreateReversalParams.LedgerableType.EXPECTED_PAYMENT)
             .metadata(
                 LedgerTransactionCreateReversalParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -52,8 +52,8 @@ internal class LedgerTransactionCreateReversalParamsTest {
                 )
                 .metadata(
                     LedgerTransactionCreateReversalParams.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -71,8 +71,8 @@ internal class LedgerTransactionCreateReversalParamsTest {
         assertThat(body.metadata())
             .isEqualTo(
                 LedgerTransactionCreateReversalParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )

@@ -101,8 +101,8 @@ internal class ServiceParamsTest {
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
-                                        .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
@@ -110,8 +110,8 @@ internal class ServiceParamsTest {
                         )
                         .metadata(
                             CounterpartyCreateParams.Account.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -368,11 +368,11 @@ internal class ServiceParamsTest {
                                         .listedExchange("listed_exchange")
                                         .metadata(
                                             ChildLegalEntityCreate.Metadata.builder()
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .putAdditionalProperty(
                                                     "key",
                                                     JsonValue.from("value"),
                                                 )
-                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .putAdditionalProperty(
                                                     "modern",
                                                     JsonValue.from("treasury"),
@@ -502,8 +502,8 @@ internal class ServiceParamsTest {
                         .listedExchange("listed_exchange")
                         .metadata(
                             CounterpartyCreateParams.LegalEntityCreateRequest.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -597,8 +597,8 @@ internal class ServiceParamsTest {
                 .legalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .metadata(
                     CounterpartyCreateParams.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )

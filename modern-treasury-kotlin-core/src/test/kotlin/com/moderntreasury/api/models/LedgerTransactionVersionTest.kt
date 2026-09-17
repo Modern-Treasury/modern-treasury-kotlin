@@ -40,8 +40,8 @@ internal class LedgerTransactionVersionTest {
                         .metadata(
                             LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Metadata
                                 .builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -98,8 +98,8 @@ internal class LedgerTransactionVersionTest {
                 .liveMode(true)
                 .metadata(
                     LedgerTransactionVersion.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -139,8 +139,8 @@ internal class LedgerTransactionVersionTest {
                     .liveMode(true)
                     .metadata(
                         LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -202,8 +202,8 @@ internal class LedgerTransactionVersionTest {
         assertThat(ledgerTransactionVersion.metadata())
             .isEqualTo(
                 LedgerTransactionVersion.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -250,8 +250,8 @@ internal class LedgerTransactionVersionTest {
                         .metadata(
                             LedgerTransactionVersion.LedgerEntryOfTransactionVersion.Metadata
                                 .builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -308,8 +308,8 @@ internal class LedgerTransactionVersionTest {
                 .liveMode(true)
                 .metadata(
                     LedgerTransactionVersion.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
