@@ -32,8 +32,8 @@ internal class LineItemTest {
                 .liveMode(true)
                 .metadata(
                     LineItem.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -62,8 +62,8 @@ internal class LineItemTest {
         assertThat(lineItem.metadata())
             .isEqualTo(
                 LineItem.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -93,8 +93,8 @@ internal class LineItemTest {
                 .liveMode(true)
                 .metadata(
                     LineItem.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )

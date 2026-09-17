@@ -46,8 +46,8 @@ internal class ExpectedPaymentCreateParamsTest {
                             .lockVersion(0L)
                             .metadata(
                                 LedgerEntryCreateRequest.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
@@ -72,8 +72,8 @@ internal class ExpectedPaymentCreateParamsTest {
                     .ledgerableType(LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT)
                     .metadata(
                         LedgerTransactionCreateRequest.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -88,8 +88,8 @@ internal class ExpectedPaymentCreateParamsTest {
                     .description("description")
                     .metadata(
                         ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -97,8 +97,8 @@ internal class ExpectedPaymentCreateParamsTest {
             )
             .metadata(
                 ExpectedPaymentCreateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -167,8 +167,8 @@ internal class ExpectedPaymentCreateParamsTest {
                                 .lockVersion(0L)
                                 .metadata(
                                     LedgerEntryCreateRequest.Metadata.builder()
-                                        .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
@@ -195,8 +195,8 @@ internal class ExpectedPaymentCreateParamsTest {
                         )
                         .metadata(
                             LedgerTransactionCreateRequest.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -211,8 +211,8 @@ internal class ExpectedPaymentCreateParamsTest {
                         .description("description")
                         .metadata(
                             ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -220,8 +220,8 @@ internal class ExpectedPaymentCreateParamsTest {
                 )
                 .metadata(
                     ExpectedPaymentCreateParams.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -286,8 +286,8 @@ internal class ExpectedPaymentCreateParamsTest {
                             .lockVersion(0L)
                             .metadata(
                                 LedgerEntryCreateRequest.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
@@ -312,8 +312,8 @@ internal class ExpectedPaymentCreateParamsTest {
                     .ledgerableType(LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT)
                     .metadata(
                         LedgerTransactionCreateRequest.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -329,8 +329,8 @@ internal class ExpectedPaymentCreateParamsTest {
                     .description("description")
                     .metadata(
                         ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -339,8 +339,8 @@ internal class ExpectedPaymentCreateParamsTest {
         assertThat(body.metadata())
             .isEqualTo(
                 ExpectedPaymentCreateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )

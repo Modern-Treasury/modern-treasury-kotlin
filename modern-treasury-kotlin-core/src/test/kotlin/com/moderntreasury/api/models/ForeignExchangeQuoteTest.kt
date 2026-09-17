@@ -35,8 +35,8 @@ internal class ForeignExchangeQuoteTest {
                 .liveMode(true)
                 .metadata(
                     ForeignExchangeQuote.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -72,8 +72,8 @@ internal class ForeignExchangeQuoteTest {
         assertThat(foreignExchangeQuote.metadata())
             .isEqualTo(
                 ForeignExchangeQuote.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -108,8 +108,8 @@ internal class ForeignExchangeQuoteTest {
                 .liveMode(true)
                 .metadata(
                     ForeignExchangeQuote.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )

@@ -42,8 +42,8 @@ internal class LedgerAccountServiceTest {
                     .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
                     .metadata(
                         LedgerAccountCreateRequest.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -100,8 +100,8 @@ internal class LedgerAccountServiceTest {
                     .externalId("external_id")
                     .metadata(
                         LedgerAccountUpdateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )

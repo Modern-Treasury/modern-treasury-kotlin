@@ -40,8 +40,8 @@ internal class LedgerTransactionTest {
                         .liveMode(true)
                         .metadata(
                             LedgerEntry.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -96,8 +96,8 @@ internal class LedgerTransactionTest {
                 .liveMode(true)
                 .metadata(
                     LedgerTransaction.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -137,8 +137,8 @@ internal class LedgerTransactionTest {
                     .liveMode(true)
                     .metadata(
                         LedgerEntry.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -196,8 +196,8 @@ internal class LedgerTransactionTest {
         assertThat(ledgerTransaction.metadata())
             .isEqualTo(
                 LedgerTransaction.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -244,8 +244,8 @@ internal class LedgerTransactionTest {
                         .liveMode(true)
                         .metadata(
                             LedgerEntry.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -300,8 +300,8 @@ internal class LedgerTransactionTest {
                 .liveMode(true)
                 .metadata(
                     LedgerTransaction.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )

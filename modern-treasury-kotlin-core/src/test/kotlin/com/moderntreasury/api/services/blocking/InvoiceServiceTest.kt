@@ -81,8 +81,8 @@ internal class InvoiceServiceTest {
                             .direction("direction")
                             .metadata(
                                 InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
@@ -103,8 +103,8 @@ internal class InvoiceServiceTest {
                     .invoicerName("invoicer_name")
                     .metadata(
                         InvoiceCreateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -200,8 +200,8 @@ internal class InvoiceServiceTest {
                             .direction("direction")
                             .metadata(
                                 InvoiceUpdateParams.InvoiceLineItemCreateRequest.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
@@ -222,8 +222,8 @@ internal class InvoiceServiceTest {
                     .invoicerName("invoicer_name")
                     .metadata(
                         InvoiceUpdateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )

@@ -35,8 +35,8 @@ internal class LineItemServiceTest {
                     .direction("direction")
                     .metadata(
                         InvoiceLineItemCreateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -85,8 +85,8 @@ internal class LineItemServiceTest {
                     .direction("direction")
                     .metadata(
                         InvoiceLineItemUpdateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )

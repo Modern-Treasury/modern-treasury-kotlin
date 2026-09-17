@@ -103,12 +103,12 @@ internal class BulkRequestServiceAsyncTest {
                                             .metadata(
                                                 LedgerEntryCreateRequest.Metadata.builder()
                                                     .putAdditionalProperty(
-                                                        "key",
-                                                        JsonValue.from("value"),
-                                                    )
-                                                    .putAdditionalProperty(
                                                         "foo",
                                                         JsonValue.from("bar"),
+                                                    )
+                                                    .putAdditionalProperty(
+                                                        "key",
+                                                        JsonValue.from("value"),
                                                     )
                                                     .putAdditionalProperty(
                                                         "modern",
@@ -142,8 +142,8 @@ internal class BulkRequestServiceAsyncTest {
                                     )
                                     .metadata(
                                         LedgerTransactionCreateRequest.Metadata.builder()
-                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty(
                                                 "modern",
                                                 JsonValue.from("treasury"),
@@ -167,8 +167,8 @@ internal class BulkRequestServiceAsyncTest {
                                             .LineItemRequest
                                             .Metadata
                                             .builder()
-                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty(
                                                 "modern",
                                                 JsonValue.from("treasury"),
@@ -181,8 +181,8 @@ internal class BulkRequestServiceAsyncTest {
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .Metadata
                                     .builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
@@ -259,12 +259,12 @@ internal class BulkRequestServiceAsyncTest {
                                             .metadata(
                                                 LedgerAccountCreateRequest.Metadata.builder()
                                                     .putAdditionalProperty(
-                                                        "key",
-                                                        JsonValue.from("value"),
-                                                    )
-                                                    .putAdditionalProperty(
                                                         "foo",
                                                         JsonValue.from("bar"),
+                                                    )
+                                                    .putAdditionalProperty(
+                                                        "key",
+                                                        JsonValue.from("value"),
                                                     )
                                                     .putAdditionalProperty(
                                                         "modern",
@@ -280,8 +280,8 @@ internal class BulkRequestServiceAsyncTest {
                                             .ReceivingAccount
                                             .Metadata
                                             .builder()
-                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty(
                                                 "modern",
                                                 JsonValue.from("treasury"),
@@ -377,8 +377,8 @@ internal class BulkRequestServiceAsyncTest {
                     )
                     .metadata(
                         BulkRequestCreateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )

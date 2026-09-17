@@ -15,8 +15,8 @@ internal class LedgerAccountSettlementUpdateParamsTest {
             .description("description")
             .metadata(
                 LedgerAccountSettlementUpdateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -42,8 +42,8 @@ internal class LedgerAccountSettlementUpdateParamsTest {
                 .description("description")
                 .metadata(
                     LedgerAccountSettlementUpdateParams.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -57,8 +57,8 @@ internal class LedgerAccountSettlementUpdateParamsTest {
         assertThat(body.metadata())
             .isEqualTo(
                 LedgerAccountSettlementUpdateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )

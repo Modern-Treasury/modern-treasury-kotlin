@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.Currency
 import com.moderntreasury.api.models.IncomingPaymentDetailCreateAsyncParams
 import com.moderntreasury.api.models.IncomingPaymentDetailUpdateParams
+import com.moderntreasury.api.models.TransactionDirection
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -88,7 +89,7 @@ internal class IncomingPaymentDetailServiceTest {
                     .currency(Currency.AED)
                     .data(JsonValue.from(mapOf<String, Any>()))
                     .description("description")
-                    .direction(IncomingPaymentDetailCreateAsyncParams.Direction.CREDIT)
+                    .direction(TransactionDirection.CREDIT)
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .subtype("subtype")
                     .type(IncomingPaymentDetailCreateAsyncParams.Type.ACH)
