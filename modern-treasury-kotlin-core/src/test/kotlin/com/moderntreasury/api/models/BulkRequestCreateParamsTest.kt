@@ -150,6 +150,7 @@ internal class BulkRequestCreateParamsTest {
                             .build()
                     )
                     .originatingPartyName("originating_party_name")
+                    .originatingSecondaryPartyName("originating_secondary_party_name")
                     .priority(
                         BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.Priority
                             .HIGH
@@ -468,6 +469,7 @@ internal class BulkRequestCreateParamsTest {
                                 .build()
                         )
                         .originatingPartyName("originating_party_name")
+                        .originatingSecondaryPartyName("originating_secondary_party_name")
                         .priority(
                             BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.Priority
                                 .HIGH
@@ -789,6 +791,7 @@ internal class BulkRequestCreateParamsTest {
                                 .build()
                         )
                         .originatingPartyName("originating_party_name")
+                        .originatingSecondaryPartyName("originating_secondary_party_name")
                         .priority(
                             BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest.Priority
                                 .HIGH

@@ -200,6 +200,7 @@ internal class BulkRequestServiceTest {
                                     .build()
                             )
                             .originatingPartyName("originating_party_name")
+                            .originatingSecondaryPartyName("originating_secondary_party_name")
                             .priority(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .Priority

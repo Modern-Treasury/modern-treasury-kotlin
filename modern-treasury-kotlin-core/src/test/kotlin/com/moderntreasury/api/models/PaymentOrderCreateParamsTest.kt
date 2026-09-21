@@ -133,6 +133,7 @@ internal class PaymentOrderCreateParamsTest {
                     .build()
             )
             .originatingPartyName("originating_party_name")
+            .originatingSecondaryPartyName("originating_secondary_party_name")
             .priority(PaymentOrderCreateParams.Priority.HIGH)
             .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .purpose("purpose")
@@ -372,6 +373,7 @@ internal class PaymentOrderCreateParamsTest {
                         .build()
                 )
                 .originatingPartyName("originating_party_name")
+                .originatingSecondaryPartyName("originating_secondary_party_name")
                 .priority(PaymentOrderCreateParams.Priority.HIGH)
                 .processAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .purpose("purpose")
@@ -671,6 +673,8 @@ internal class PaymentOrderCreateParamsTest {
                                     .build()
                             ),
                         "originating_party_name" to MultipartField.of("originating_party_name"),
+                        "originating_secondary_party_name" to
+                            MultipartField.of("originating_secondary_party_name"),
                         "priority" to MultipartField.of(PaymentOrderCreateParams.Priority.HIGH),
                         "process_after" to
                             MultipartField.of(OffsetDateTime.parse("2019-12-27T18:11:19.117Z")),

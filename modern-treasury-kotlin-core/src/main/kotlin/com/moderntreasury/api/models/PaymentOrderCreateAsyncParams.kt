@@ -237,6 +237,16 @@ private constructor(
     fun originatingPartyName(): String? = body.originatingPartyName()
 
     /**
+     * Secondary name for the legal entity making the payment. Can be used for e.g. check signatures
+     * where the originating party wishes to retain their company's display name but use an
+     * employee's name for the signature.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun originatingSecondaryPartyName(): String? = body.originatingSecondaryPartyName()
+
+    /**
      * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or EFT
      * transfer, respectively. For check payments, `high` can mean an overnight check rather than
      * standard mail.
@@ -575,6 +585,14 @@ private constructor(
      * type.
      */
     fun _originatingPartyName(): JsonField<String> = body._originatingPartyName()
+
+    /**
+     * Returns the raw JSON value of [originatingSecondaryPartyName].
+     *
+     * Unlike [originatingSecondaryPartyName], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _originatingSecondaryPartyName(): JsonField<String> = body._originatingSecondaryPartyName()
 
     /**
      * Returns the raw JSON value of [priority].
@@ -1167,6 +1185,27 @@ private constructor(
         }
 
         /**
+         * Secondary name for the legal entity making the payment. Can be used for e.g. check
+         * signatures where the originating party wishes to retain their company's display name but
+         * use an employee's name for the signature.
+         */
+        fun originatingSecondaryPartyName(originatingSecondaryPartyName: String?) = apply {
+            body.originatingSecondaryPartyName(originatingSecondaryPartyName)
+        }
+
+        /**
+         * Sets [Builder.originatingSecondaryPartyName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatingSecondaryPartyName] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun originatingSecondaryPartyName(originatingSecondaryPartyName: JsonField<String>) =
+            apply {
+                body.originatingSecondaryPartyName(originatingSecondaryPartyName)
+            }
+
+        /**
          * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or
          * EFT transfer, respectively. For check payments, `high` can mean an overnight check rather
          * than standard mail.
@@ -1669,6 +1708,7 @@ private constructor(
         private val nsfProtected: JsonField<Boolean>,
         private val originatingPartyAddress: JsonField<OriginatingPartyAddress>,
         private val originatingPartyName: JsonField<String>,
+        private val originatingSecondaryPartyName: JsonField<String>,
         private val priority: JsonField<Priority>,
         private val processAfter: JsonField<OffsetDateTime>,
         private val purpose: JsonField<String>,
@@ -1759,6 +1799,9 @@ private constructor(
             @JsonProperty("originating_party_name")
             @ExcludeMissing
             originatingPartyName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("originating_secondary_party_name")
+            @ExcludeMissing
+            originatingSecondaryPartyName: JsonField<String> = JsonMissing.of(),
             @JsonProperty("priority")
             @ExcludeMissing
             priority: JsonField<Priority> = JsonMissing.of(),
@@ -1836,6 +1879,7 @@ private constructor(
             nsfProtected,
             originatingPartyAddress,
             originatingPartyName,
+            originatingSecondaryPartyName,
             priority,
             processAfter,
             purpose,
@@ -2074,6 +2118,17 @@ private constructor(
          */
         fun originatingPartyName(): String? =
             originatingPartyName.getNullable("originating_party_name")
+
+        /**
+         * Secondary name for the legal entity making the payment. Can be used for e.g. check
+         * signatures where the originating party wishes to retain their company's display name but
+         * use an employee's name for the signature.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun originatingSecondaryPartyName(): String? =
+            originatingSecondaryPartyName.getNullable("originating_secondary_party_name")
 
         /**
          * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH or
@@ -2471,6 +2526,16 @@ private constructor(
         fun _originatingPartyName(): JsonField<String> = originatingPartyName
 
         /**
+         * Returns the raw JSON value of [originatingSecondaryPartyName].
+         *
+         * Unlike [originatingSecondaryPartyName], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("originating_secondary_party_name")
+        @ExcludeMissing
+        fun _originatingSecondaryPartyName(): JsonField<String> = originatingSecondaryPartyName
+
+        /**
          * Returns the raw JSON value of [priority].
          *
          * Unlike [priority], this method doesn't throw if the JSON field has an unexpected type.
@@ -2705,6 +2770,7 @@ private constructor(
             private var originatingPartyAddress: JsonField<OriginatingPartyAddress> =
                 JsonMissing.of()
             private var originatingPartyName: JsonField<String> = JsonMissing.of()
+            private var originatingSecondaryPartyName: JsonField<String> = JsonMissing.of()
             private var priority: JsonField<Priority> = JsonMissing.of()
             private var processAfter: JsonField<OffsetDateTime> = JsonMissing.of()
             private var purpose: JsonField<String> = JsonMissing.of()
@@ -2753,6 +2819,8 @@ private constructor(
                     nsfProtected = paymentOrderAsyncCreateRequest.nsfProtected
                     originatingPartyAddress = paymentOrderAsyncCreateRequest.originatingPartyAddress
                     originatingPartyName = paymentOrderAsyncCreateRequest.originatingPartyName
+                    originatingSecondaryPartyName =
+                        paymentOrderAsyncCreateRequest.originatingSecondaryPartyName
                     priority = paymentOrderAsyncCreateRequest.priority
                     processAfter = paymentOrderAsyncCreateRequest.processAfter
                     purpose = paymentOrderAsyncCreateRequest.purpose
@@ -3179,6 +3247,26 @@ private constructor(
             }
 
             /**
+             * Secondary name for the legal entity making the payment. Can be used for e.g. check
+             * signatures where the originating party wishes to retain their company's display name
+             * but use an employee's name for the signature.
+             */
+            fun originatingSecondaryPartyName(originatingSecondaryPartyName: String?) =
+                originatingSecondaryPartyName(JsonField.ofNullable(originatingSecondaryPartyName))
+
+            /**
+             * Sets [Builder.originatingSecondaryPartyName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatingSecondaryPartyName] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun originatingSecondaryPartyName(originatingSecondaryPartyName: JsonField<String>) =
+                apply {
+                    this.originatingSecondaryPartyName = originatingSecondaryPartyName
+                }
+
+            /**
              * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH
              * or EFT transfer, respectively. For check payments, `high` can mean an overnight check
              * rather than standard mail.
@@ -3570,6 +3658,7 @@ private constructor(
                     nsfProtected,
                     originatingPartyAddress,
                     originatingPartyName,
+                    originatingSecondaryPartyName,
                     priority,
                     processAfter,
                     purpose,
@@ -3631,6 +3720,7 @@ private constructor(
             nsfProtected()
             originatingPartyAddress()?.validate()
             originatingPartyName()
+            originatingSecondaryPartyName()
             priority()?.validate()
             processAfter()
             purpose()
@@ -3690,6 +3780,7 @@ private constructor(
                 (if (nsfProtected.asKnown() == null) 0 else 1) +
                 (originatingPartyAddress.asKnown()?.validity() ?: 0) +
                 (if (originatingPartyName.asKnown() == null) 0 else 1) +
+                (if (originatingSecondaryPartyName.asKnown() == null) 0 else 1) +
                 (priority.asKnown()?.validity() ?: 0) +
                 (if (processAfter.asKnown() == null) 0 else 1) +
                 (if (purpose.asKnown() == null) 0 else 1) +
@@ -3738,6 +3829,7 @@ private constructor(
                 nsfProtected == other.nsfProtected &&
                 originatingPartyAddress == other.originatingPartyAddress &&
                 originatingPartyName == other.originatingPartyName &&
+                originatingSecondaryPartyName == other.originatingSecondaryPartyName &&
                 priority == other.priority &&
                 processAfter == other.processAfter &&
                 purpose == other.purpose &&
@@ -3784,6 +3876,7 @@ private constructor(
                 nsfProtected,
                 originatingPartyAddress,
                 originatingPartyName,
+                originatingSecondaryPartyName,
                 priority,
                 processAfter,
                 purpose,
@@ -3809,7 +3902,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PaymentOrderAsyncCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyAddress=$originatingPartyAddress, originatingPartyName=$originatingPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingPartyAddress=$ultimateOriginatingPartyAddress, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
+            "PaymentOrderAsyncCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyAddress=$originatingPartyAddress, originatingPartyName=$originatingPartyName, originatingSecondaryPartyName=$originatingSecondaryPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingPartyAddress=$ultimateOriginatingPartyAddress, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
     }
 
     /**
