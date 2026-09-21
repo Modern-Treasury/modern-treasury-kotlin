@@ -103,12 +103,12 @@ internal class BulkRequestServiceTest {
                                             .metadata(
                                                 LedgerEntryCreateRequest.Metadata.builder()
                                                     .putAdditionalProperty(
-                                                        "key",
-                                                        JsonValue.from("value"),
-                                                    )
-                                                    .putAdditionalProperty(
                                                         "foo",
                                                         JsonValue.from("bar"),
+                                                    )
+                                                    .putAdditionalProperty(
+                                                        "key",
+                                                        JsonValue.from("value"),
                                                     )
                                                     .putAdditionalProperty(
                                                         "modern",
@@ -142,8 +142,8 @@ internal class BulkRequestServiceTest {
                                     )
                                     .metadata(
                                         LedgerTransactionCreateRequest.Metadata.builder()
-                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty(
                                                 "modern",
                                                 JsonValue.from("treasury"),
@@ -167,8 +167,8 @@ internal class BulkRequestServiceTest {
                                             .LineItemRequest
                                             .Metadata
                                             .builder()
-                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty(
                                                 "modern",
                                                 JsonValue.from("treasury"),
@@ -181,8 +181,8 @@ internal class BulkRequestServiceTest {
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .Metadata
                                     .builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
@@ -200,6 +200,7 @@ internal class BulkRequestServiceTest {
                                     .build()
                             )
                             .originatingPartyName("originating_party_name")
+                            .originatingSecondaryPartyName("originating_secondary_party_name")
                             .priority(
                                 BulkRequestCreateParams.Resource.PaymentOrderAsyncCreateRequest
                                     .Priority
@@ -259,12 +260,12 @@ internal class BulkRequestServiceTest {
                                             .metadata(
                                                 LedgerAccountCreateRequest.Metadata.builder()
                                                     .putAdditionalProperty(
-                                                        "key",
-                                                        JsonValue.from("value"),
-                                                    )
-                                                    .putAdditionalProperty(
                                                         "foo",
                                                         JsonValue.from("bar"),
+                                                    )
+                                                    .putAdditionalProperty(
+                                                        "key",
+                                                        JsonValue.from("value"),
                                                     )
                                                     .putAdditionalProperty(
                                                         "modern",
@@ -280,8 +281,8 @@ internal class BulkRequestServiceTest {
                                             .ReceivingAccount
                                             .Metadata
                                             .builder()
-                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty(
                                                 "modern",
                                                 JsonValue.from("treasury"),
@@ -377,8 +378,8 @@ internal class BulkRequestServiceTest {
                     )
                     .metadata(
                         BulkRequestCreateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )

@@ -67,8 +67,8 @@ internal class LedgerAccountStatementCreateResponseTest {
                 .liveMode(true)
                 .metadata(
                     LedgerAccountStatementCreateResponse.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -177,8 +177,8 @@ internal class LedgerAccountStatementCreateResponseTest {
         assertThat(ledgerAccountStatementCreateResponse.metadata())
             .isEqualTo(
                 LedgerAccountStatementCreateResponse.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -285,8 +285,8 @@ internal class LedgerAccountStatementCreateResponseTest {
                 .liveMode(true)
                 .metadata(
                     LedgerAccountStatementCreateResponse.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
