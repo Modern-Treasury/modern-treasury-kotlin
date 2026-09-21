@@ -30,8 +30,8 @@ internal class LedgerTransactionCreateParamsTest {
                             .lockVersion(0L)
                             .metadata(
                                 LedgerEntryCreateRequest.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
@@ -56,8 +56,8 @@ internal class LedgerTransactionCreateParamsTest {
                     .ledgerableType(LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT)
                     .metadata(
                         LedgerTransactionCreateRequest.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -88,8 +88,8 @@ internal class LedgerTransactionCreateParamsTest {
                                 .lockVersion(0L)
                                 .metadata(
                                     LedgerEntryCreateRequest.Metadata.builder()
-                                        .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .putAdditionalProperty("key", JsonValue.from("value"))
                                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                         .build()
                                 )
@@ -116,8 +116,8 @@ internal class LedgerTransactionCreateParamsTest {
                         )
                         .metadata(
                             LedgerTransactionCreateRequest.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -146,8 +146,8 @@ internal class LedgerTransactionCreateParamsTest {
                             .lockVersion(0L)
                             .metadata(
                                 LedgerEntryCreateRequest.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
@@ -172,8 +172,8 @@ internal class LedgerTransactionCreateParamsTest {
                     .ledgerableType(LedgerTransactionCreateRequest.LedgerableType.EXPECTED_PAYMENT)
                     .metadata(
                         LedgerTransactionCreateRequest.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )

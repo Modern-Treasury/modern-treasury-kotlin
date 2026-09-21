@@ -16,8 +16,8 @@ internal class LineItemUpdateParamsTest {
             .id("id")
             .metadata(
                 LineItemUpdateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -49,8 +49,8 @@ internal class LineItemUpdateParamsTest {
                 .id("id")
                 .metadata(
                     LineItemUpdateParams.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -61,8 +61,8 @@ internal class LineItemUpdateParamsTest {
         assertThat(body.metadata())
             .isEqualTo(
                 LineItemUpdateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )

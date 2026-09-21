@@ -76,8 +76,8 @@ internal class LedgerAccountBalanceMonitorTest {
                 .liveMode(true)
                 .metadata(
                     LedgerAccountBalanceMonitor.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -152,8 +152,8 @@ internal class LedgerAccountBalanceMonitorTest {
         assertThat(ledgerAccountBalanceMonitor.metadata())
             .isEqualTo(
                 LedgerAccountBalanceMonitor.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -228,8 +228,8 @@ internal class LedgerAccountBalanceMonitorTest {
                 .liveMode(true)
                 .metadata(
                     LedgerAccountBalanceMonitor.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )

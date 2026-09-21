@@ -69,8 +69,8 @@ internal class LedgerAccountTest {
                 .lockVersion(0L)
                 .metadata(
                     LedgerAccount.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -139,8 +139,8 @@ internal class LedgerAccountTest {
         assertThat(ledgerAccount.metadata())
             .isEqualTo(
                 LedgerAccount.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -210,8 +210,8 @@ internal class LedgerAccountTest {
                 .lockVersion(0L)
                 .metadata(
                     LedgerAccount.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )

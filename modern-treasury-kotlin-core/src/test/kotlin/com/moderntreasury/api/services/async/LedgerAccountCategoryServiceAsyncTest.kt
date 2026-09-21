@@ -44,8 +44,8 @@ internal class LedgerAccountCategoryServiceAsyncTest {
                     .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(
                         LedgerAccountCategoryCreateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -99,8 +99,8 @@ internal class LedgerAccountCategoryServiceAsyncTest {
                     .externalId("external_id")
                     .metadata(
                         LedgerAccountCategoryUpdateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )

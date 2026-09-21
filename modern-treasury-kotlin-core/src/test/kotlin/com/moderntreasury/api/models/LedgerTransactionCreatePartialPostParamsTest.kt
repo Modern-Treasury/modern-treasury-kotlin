@@ -36,8 +36,8 @@ internal class LedgerTransactionCreatePartialPostParamsTest {
                         LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
                             .Metadata
                             .builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -62,8 +62,8 @@ internal class LedgerTransactionCreatePartialPostParamsTest {
             .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .metadata(
                 LedgerTransactionCreatePartialPostParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -125,8 +125,8 @@ internal class LedgerTransactionCreatePartialPostParamsTest {
                                 .LedgerEntryPartialPostCreateRequest
                                 .Metadata
                                 .builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -153,8 +153,8 @@ internal class LedgerTransactionCreatePartialPostParamsTest {
                 .effectiveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .metadata(
                     LedgerTransactionCreatePartialPostParams.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -186,8 +186,8 @@ internal class LedgerTransactionCreatePartialPostParamsTest {
                         LedgerTransactionCreatePartialPostParams.LedgerEntryPartialPostCreateRequest
                             .Metadata
                             .builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -213,8 +213,8 @@ internal class LedgerTransactionCreatePartialPostParamsTest {
         assertThat(body.metadata())
             .isEqualTo(
                 LedgerTransactionCreatePartialPostParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )

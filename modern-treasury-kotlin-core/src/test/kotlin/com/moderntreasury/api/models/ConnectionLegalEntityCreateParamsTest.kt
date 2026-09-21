@@ -226,8 +226,8 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                     .listedExchange("listed_exchange")
                                     .metadata(
                                         ChildLegalEntityCreate.Metadata.builder()
-                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty(
                                                 "modern",
                                                 JsonValue.from("treasury"),
@@ -358,8 +358,8 @@ internal class ConnectionLegalEntityCreateParamsTest {
                     .listedExchange("listed_exchange")
                     .metadata(
                         ConnectionLegalEntityCreateParams.LegalEntity.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -669,11 +669,11 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                         .listedExchange("listed_exchange")
                                         .metadata(
                                             ChildLegalEntityCreate.Metadata.builder()
+                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .putAdditionalProperty(
                                                     "key",
                                                     JsonValue.from("value"),
                                                 )
-                                                .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .putAdditionalProperty(
                                                     "modern",
                                                     JsonValue.from("treasury"),
@@ -805,8 +805,8 @@ internal class ConnectionLegalEntityCreateParamsTest {
                         .listedExchange("listed_exchange")
                         .metadata(
                             ConnectionLegalEntityCreateParams.LegalEntity.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -1114,8 +1114,8 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                     .listedExchange("listed_exchange")
                                     .metadata(
                                         ChildLegalEntityCreate.Metadata.builder()
-                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                            .putAdditionalProperty("key", JsonValue.from("value"))
                                             .putAdditionalProperty(
                                                 "modern",
                                                 JsonValue.from("treasury"),
@@ -1246,8 +1246,8 @@ internal class ConnectionLegalEntityCreateParamsTest {
                     .listedExchange("listed_exchange")
                     .metadata(
                         ConnectionLegalEntityCreateParams.LegalEntity.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )

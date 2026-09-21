@@ -36,8 +36,8 @@ internal class ExpectedPaymentTest {
                 .liveMode(true)
                 .metadata(
                     ExpectedPayment.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -99,8 +99,8 @@ internal class ExpectedPaymentTest {
         assertThat(expectedPayment.metadata())
             .isEqualTo(
                 ExpectedPayment.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -167,8 +167,8 @@ internal class ExpectedPaymentTest {
                 .liveMode(true)
                 .metadata(
                     ExpectedPayment.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
