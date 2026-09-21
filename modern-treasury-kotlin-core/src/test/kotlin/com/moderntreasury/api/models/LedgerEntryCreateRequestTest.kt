@@ -28,8 +28,8 @@ internal class LedgerEntryCreateRequestTest {
                 .lockVersion(0L)
                 .metadata(
                     LedgerEntryCreateRequest.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -63,8 +63,8 @@ internal class LedgerEntryCreateRequestTest {
         assertThat(ledgerEntryCreateRequest.metadata())
             .isEqualTo(
                 LedgerEntryCreateRequest.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -101,8 +101,8 @@ internal class LedgerEntryCreateRequestTest {
                 .lockVersion(0L)
                 .metadata(
                     LedgerEntryCreateRequest.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )

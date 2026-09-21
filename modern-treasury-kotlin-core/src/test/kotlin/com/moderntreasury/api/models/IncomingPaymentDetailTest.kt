@@ -32,8 +32,8 @@ internal class IncomingPaymentDetailTest {
                 .liveMode(true)
                 .metadata(
                     IncomingPaymentDetail.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -82,8 +82,8 @@ internal class IncomingPaymentDetailTest {
                         .liveMode(true)
                         .metadata(
                             VirtualAccount.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -165,8 +165,8 @@ internal class IncomingPaymentDetailTest {
         assertThat(incomingPaymentDetail.metadata())
             .isEqualTo(
                 IncomingPaymentDetail.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -221,8 +221,8 @@ internal class IncomingPaymentDetailTest {
                     .liveMode(true)
                     .metadata(
                         VirtualAccount.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -310,8 +310,8 @@ internal class IncomingPaymentDetailTest {
                 .liveMode(true)
                 .metadata(
                     IncomingPaymentDetail.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -360,8 +360,8 @@ internal class IncomingPaymentDetailTest {
                         .liveMode(true)
                         .metadata(
                             VirtualAccount.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )

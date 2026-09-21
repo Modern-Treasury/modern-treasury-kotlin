@@ -68,8 +68,8 @@ internal class ExternalAccountServiceAsyncTest {
                             .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
                             .metadata(
                                 LedgerAccountCreateRequest.Metadata.builder()
-                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                     .build()
                             )
@@ -77,8 +77,8 @@ internal class ExternalAccountServiceAsyncTest {
                     )
                     .metadata(
                         ExternalAccountCreateParams.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )

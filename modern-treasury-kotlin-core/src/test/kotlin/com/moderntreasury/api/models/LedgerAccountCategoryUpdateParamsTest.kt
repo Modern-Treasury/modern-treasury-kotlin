@@ -16,8 +16,8 @@ internal class LedgerAccountCategoryUpdateParamsTest {
             .externalId("external_id")
             .metadata(
                 LedgerAccountCategoryUpdateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -43,8 +43,8 @@ internal class LedgerAccountCategoryUpdateParamsTest {
                 .externalId("external_id")
                 .metadata(
                     LedgerAccountCategoryUpdateParams.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -58,8 +58,8 @@ internal class LedgerAccountCategoryUpdateParamsTest {
         assertThat(body.metadata())
             .isEqualTo(
                 LedgerAccountCategoryUpdateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )

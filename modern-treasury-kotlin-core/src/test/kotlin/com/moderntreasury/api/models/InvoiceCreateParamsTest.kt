@@ -60,8 +60,8 @@ internal class InvoiceCreateParamsTest {
                     .direction("direction")
                     .metadata(
                         InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -82,8 +82,8 @@ internal class InvoiceCreateParamsTest {
             .invoicerName("invoicer_name")
             .metadata(
                 InvoiceCreateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -151,8 +151,8 @@ internal class InvoiceCreateParamsTest {
                         .direction("direction")
                         .metadata(
                             InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
-                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
                                 .build()
                         )
@@ -173,8 +173,8 @@ internal class InvoiceCreateParamsTest {
                 .invoicerName("invoicer_name")
                 .metadata(
                     InvoiceCreateParams.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -243,8 +243,8 @@ internal class InvoiceCreateParamsTest {
                     .direction("direction")
                     .metadata(
                         InvoiceCreateParams.InvoiceLineItemCreateRequest.Metadata.builder()
-                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
@@ -267,8 +267,8 @@ internal class InvoiceCreateParamsTest {
         assertThat(body.metadata())
             .isEqualTo(
                 InvoiceCreateParams.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )

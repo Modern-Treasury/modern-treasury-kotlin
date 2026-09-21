@@ -26,8 +26,8 @@ internal class TransactionTest {
                 .currency(Currency.AED)
                 .customIdentifiers(
                     Transaction.CustomIdentifiers.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -48,8 +48,8 @@ internal class TransactionTest {
                 .liveMode(true)
                 .metadata(
                     Transaction.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -82,8 +82,8 @@ internal class TransactionTest {
         assertThat(transaction.customIdentifiers())
             .isEqualTo(
                 Transaction.CustomIdentifiers.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -108,8 +108,8 @@ internal class TransactionTest {
         assertThat(transaction.metadata())
             .isEqualTo(
                 Transaction.Metadata.builder()
-                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .putAdditionalProperty("key", JsonValue.from("value"))
                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
                     .build()
             )
@@ -147,8 +147,8 @@ internal class TransactionTest {
                 .currency(Currency.AED)
                 .customIdentifiers(
                     Transaction.CustomIdentifiers.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
@@ -169,8 +169,8 @@ internal class TransactionTest {
                 .liveMode(true)
                 .metadata(
                     Transaction.Metadata.builder()
-                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("key", JsonValue.from("value"))
                         .putAdditionalProperty("modern", JsonValue.from("treasury"))
                         .build()
                 )
