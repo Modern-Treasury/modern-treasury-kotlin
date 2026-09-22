@@ -48,12 +48,12 @@ internal class LegalEntityAssociationServiceAsyncTest {
                                     .country("country")
                                     .line1("line1")
                                     .locality("locality")
-                                    .postalCode("postal_code")
                                     .region("region")
                                     .addAddressType(
                                         LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                     )
                                     .line2("line2")
+                                    .postalCode("postal_code")
                                     .primary(true)
                                     .build()
                             )
