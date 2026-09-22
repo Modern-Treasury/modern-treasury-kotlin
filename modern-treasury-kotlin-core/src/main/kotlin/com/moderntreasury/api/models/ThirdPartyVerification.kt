@@ -743,6 +743,8 @@ private constructor(
 
             val GOVERNMENT_ID_NUMBER = of("government_id_number")
 
+            val TAX_ID = of("tax_id")
+
             val ADVERSE_MEDIA = of("adverse_media")
 
             fun of(value: String) = VerificationCategory(JsonField.of(value))
@@ -754,6 +756,7 @@ private constructor(
             DATE_OF_BIRTH,
             ADDRESS,
             GOVERNMENT_ID_NUMBER,
+            TAX_ID,
             ADVERSE_MEDIA,
         }
 
@@ -772,6 +775,7 @@ private constructor(
             DATE_OF_BIRTH,
             ADDRESS,
             GOVERNMENT_ID_NUMBER,
+            TAX_ID,
             ADVERSE_MEDIA,
             /**
              * An enum member indicating that [VerificationCategory] was instantiated with an
@@ -793,6 +797,7 @@ private constructor(
                 DATE_OF_BIRTH -> Value.DATE_OF_BIRTH
                 ADDRESS -> Value.ADDRESS
                 GOVERNMENT_ID_NUMBER -> Value.GOVERNMENT_ID_NUMBER
+                TAX_ID -> Value.TAX_ID
                 ADVERSE_MEDIA -> Value.ADVERSE_MEDIA
                 else -> Value._UNKNOWN
             }
@@ -812,6 +817,7 @@ private constructor(
                 DATE_OF_BIRTH -> Known.DATE_OF_BIRTH
                 ADDRESS -> Known.ADDRESS
                 GOVERNMENT_ID_NUMBER -> Known.GOVERNMENT_ID_NUMBER
+                TAX_ID -> Known.TAX_ID
                 ADVERSE_MEDIA -> Known.ADVERSE_MEDIA
                 else ->
                     throw ModernTreasuryInvalidDataException("Unknown VerificationCategory: $value")
