@@ -27,7 +27,7 @@ internal class IdentificationServiceTest {
             identificationService.create(
                 IdentificationCreateParams.builder()
                     .idNumber("id_number")
-                    .idType(IdentificationCreateParams.IdType.AR_CUIL)
+                    .idType(IdentificationCreateParams.IdType.AD_NRT)
                     .legalEntityId("legal_entity_id")
                     .addDocument(
                         IdentificationCreateParams.Document.builder()
@@ -79,7 +79,7 @@ internal class IdentificationServiceTest {
                     .id("id")
                     .expirationDate(LocalDate.parse("2019-12-27"))
                     .idNumber("id_number")
-                    .idType(IdentificationUpdateParams.IdType.AR_CUIL)
+                    .idType(IdentificationUpdateParams.IdType.AD_NRT)
                     .issuingCountry("issuing_country")
                     .issuingRegion("issuing_region")
                     .build()
