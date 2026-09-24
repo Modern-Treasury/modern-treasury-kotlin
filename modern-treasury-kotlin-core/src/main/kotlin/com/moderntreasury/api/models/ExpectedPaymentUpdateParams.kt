@@ -710,7 +710,7 @@ private constructor(
         }
 
         /** An array of reconciliation rule variables for this payment. */
-        fun reconciliationRuleVariables(reconciliationRuleVariables: List<ReconciliationRule>?) =
+        fun reconciliationRuleVariables(reconciliationRuleVariables: List<ReconciliationRule>) =
             apply {
                 body.reconciliationRuleVariables(reconciliationRuleVariables)
             }
@@ -1809,9 +1809,8 @@ private constructor(
             }
 
             /** An array of reconciliation rule variables for this payment. */
-            fun reconciliationRuleVariables(
-                reconciliationRuleVariables: List<ReconciliationRule>?
-            ) = reconciliationRuleVariables(JsonField.ofNullable(reconciliationRuleVariables))
+            fun reconciliationRuleVariables(reconciliationRuleVariables: List<ReconciliationRule>) =
+                reconciliationRuleVariables(JsonField.of(reconciliationRuleVariables))
 
             /**
              * Sets [Builder.reconciliationRuleVariables] to an arbitrary JSON value.
