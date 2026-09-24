@@ -12,7 +12,7 @@ internal class IdentificationCreateParamsTest {
     fun create() {
         IdentificationCreateParams.builder()
             .idNumber("id_number")
-            .idType(IdentificationCreateParams.IdType.AR_CUIL)
+            .idType(IdentificationCreateParams.IdType.AD_NRT)
             .legalEntityId("legal_entity_id")
             .addDocument(
                 IdentificationCreateParams.Document.builder()
@@ -34,7 +34,7 @@ internal class IdentificationCreateParamsTest {
         val params =
             IdentificationCreateParams.builder()
                 .idNumber("id_number")
-                .idType(IdentificationCreateParams.IdType.AR_CUIL)
+                .idType(IdentificationCreateParams.IdType.AD_NRT)
                 .legalEntityId("legal_entity_id")
                 .addDocument(
                     IdentificationCreateParams.Document.builder()
@@ -54,7 +54,7 @@ internal class IdentificationCreateParamsTest {
         val body = params._body()
 
         assertThat(body.idNumber()).isEqualTo("id_number")
-        assertThat(body.idType()).isEqualTo(IdentificationCreateParams.IdType.AR_CUIL)
+        assertThat(body.idType()).isEqualTo(IdentificationCreateParams.IdType.AD_NRT)
         assertThat(body.legalEntityId()).isEqualTo("legal_entity_id")
         assertThat(body.documents())
             .containsExactly(
@@ -76,14 +76,14 @@ internal class IdentificationCreateParamsTest {
         val params =
             IdentificationCreateParams.builder()
                 .idNumber("id_number")
-                .idType(IdentificationCreateParams.IdType.AR_CUIL)
+                .idType(IdentificationCreateParams.IdType.AD_NRT)
                 .legalEntityId("legal_entity_id")
                 .build()
 
         val body = params._body()
 
         assertThat(body.idNumber()).isEqualTo("id_number")
-        assertThat(body.idType()).isEqualTo(IdentificationCreateParams.IdType.AR_CUIL)
+        assertThat(body.idType()).isEqualTo(IdentificationCreateParams.IdType.AD_NRT)
         assertThat(body.legalEntityId()).isEqualTo("legal_entity_id")
     }
 }
