@@ -26,13 +26,13 @@ internal class LegalEntityAssociationInlineCreateTest {
                                 .country("country")
                                 .line1("line1")
                                 .locality("locality")
-                                .region("region")
                                 .addAddressType(
                                     LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                 )
                                 .line2("line2")
                                 .postalCode("postal_code")
                                 .primary(true)
+                                .region("region")
                                 .build()
                         )
                         .bankSettings(
@@ -220,11 +220,11 @@ internal class LegalEntityAssociationInlineCreateTest {
                             .country("country")
                             .line1("line1")
                             .locality("locality")
-                            .region("region")
                             .addAddressType(LegalEntityAddressCreateRequest.AddressType.BUSINESS)
                             .line2("line2")
                             .postalCode("postal_code")
                             .primary(true)
+                            .region("region")
                             .build()
                     )
                     .bankSettings(
@@ -414,13 +414,13 @@ internal class LegalEntityAssociationInlineCreateTest {
                                 .country("country")
                                 .line1("line1")
                                 .locality("locality")
-                                .region("region")
                                 .addAddressType(
                                     LegalEntityAddressCreateRequest.AddressType.BUSINESS
                                 )
                                 .line2("line2")
                                 .postalCode("postal_code")
                                 .primary(true)
+                                .region("region")
                                 .build()
                         )
                         .bankSettings(
