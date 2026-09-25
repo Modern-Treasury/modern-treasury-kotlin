@@ -15,7 +15,7 @@ internal class IdentificationCreateRequestTest {
         val identificationCreateRequest =
             IdentificationCreateRequest.builder()
                 .idNumber("id_number")
-                .idType(IdentificationCreateRequest.IdType.AR_CUIL)
+                .idType(IdentificationCreateRequest.IdType.AD_NRT)
                 .addDocument(
                     IdentificationCreateRequest.Document.builder()
                         .documentType(
@@ -33,7 +33,7 @@ internal class IdentificationCreateRequestTest {
 
         assertThat(identificationCreateRequest.idNumber()).isEqualTo("id_number")
         assertThat(identificationCreateRequest.idType())
-            .isEqualTo(IdentificationCreateRequest.IdType.AR_CUIL)
+            .isEqualTo(IdentificationCreateRequest.IdType.AD_NRT)
         assertThat(identificationCreateRequest.documents())
             .containsExactly(
                 IdentificationCreateRequest.Document.builder()
@@ -56,7 +56,7 @@ internal class IdentificationCreateRequestTest {
         val identificationCreateRequest =
             IdentificationCreateRequest.builder()
                 .idNumber("id_number")
-                .idType(IdentificationCreateRequest.IdType.AR_CUIL)
+                .idType(IdentificationCreateRequest.IdType.AD_NRT)
                 .addDocument(
                     IdentificationCreateRequest.Document.builder()
                         .documentType(

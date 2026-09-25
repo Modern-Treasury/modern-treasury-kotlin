@@ -70,7 +70,7 @@ internal class ChildLegalEntityCreateTest {
                 .addIdentification(
                     IdentificationCreateRequest.builder()
                         .idNumber("id_number")
-                        .idType(IdentificationCreateRequest.IdType.AR_CUIL)
+                        .idType(IdentificationCreateRequest.IdType.AD_NRT)
                         .addDocument(
                             IdentificationCreateRequest.Document.builder()
                                 .documentType(
@@ -258,7 +258,7 @@ internal class ChildLegalEntityCreateTest {
             .containsExactly(
                 IdentificationCreateRequest.builder()
                     .idNumber("id_number")
-                    .idType(IdentificationCreateRequest.IdType.AR_CUIL)
+                    .idType(IdentificationCreateRequest.IdType.AD_NRT)
                     .addDocument(
                         IdentificationCreateRequest.Document.builder()
                             .documentType(
@@ -453,7 +453,7 @@ internal class ChildLegalEntityCreateTest {
                 .addIdentification(
                     IdentificationCreateRequest.builder()
                         .idNumber("id_number")
-                        .idType(IdentificationCreateRequest.IdType.AR_CUIL)
+                        .idType(IdentificationCreateRequest.IdType.AD_NRT)
                         .addDocument(
                             IdentificationCreateRequest.Document.builder()
                                 .documentType(
