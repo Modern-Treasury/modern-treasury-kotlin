@@ -23,7 +23,7 @@ class InternalAccountUpdateAccountCapabilityParams
 private constructor(
     private val internalAccountId: String,
     private val id: String?,
-    private val body: Body,
+    private val body: AccountCapabilityUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -78,7 +78,8 @@ private constructor(
 
         private var internalAccountId: String? = null
         private var id: String? = null
-        private var body: Body.Builder = Body.builder()
+        private var body: AccountCapabilityUpdateRequest.Builder =
+            AccountCapabilityUpdateRequest.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -108,7 +109,7 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [identifier]
          */
-        fun body(body: Body) = apply { this.body = body.toBuilder() }
+        fun body(body: AccountCapabilityUpdateRequest) = apply { this.body = body.toBuilder() }
 
         /**
          * A unique reference assigned by your bank for tracking and recognizing payment files. It
@@ -265,7 +266,7 @@ private constructor(
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): AccountCapabilityUpdateRequest = body
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -278,7 +279,7 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    class Body
+    class AccountCapabilityUpdateRequest
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val identifier: JsonField<String>,
@@ -325,7 +326,8 @@ private constructor(
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of [Body].
+             * Returns a mutable builder for constructing an instance of
+             * [AccountCapabilityUpdateRequest].
              *
              * The following fields are required:
              * ```kotlin
@@ -335,16 +337,18 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [Body]. */
+        /** A builder for [AccountCapabilityUpdateRequest]. */
         class Builder internal constructor() {
 
             private var identifier: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(body: Body) = apply {
-                identifier = body.identifier
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
+            internal fun from(accountCapabilityUpdateRequest: AccountCapabilityUpdateRequest) =
+                apply {
+                    identifier = accountCapabilityUpdateRequest.identifier
+                    additionalProperties =
+                        accountCapabilityUpdateRequest.additionalProperties.toMutableMap()
+                }
 
             /**
              * A unique reference assigned by your bank for tracking and recognizing payment files.
@@ -381,7 +385,7 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [Body].
+             * Returns an immutable instance of [AccountCapabilityUpdateRequest].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              *
@@ -392,8 +396,11 @@ private constructor(
              *
              * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): Body =
-                Body(checkRequired("identifier", identifier), additionalProperties.toMutableMap())
+            fun build(): AccountCapabilityUpdateRequest =
+                AccountCapabilityUpdateRequest(
+                    checkRequired("identifier", identifier),
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -407,7 +414,7 @@ private constructor(
          * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
          *   its expected type.
          */
-        fun validate(): Body = apply {
+        fun validate(): AccountCapabilityUpdateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -437,7 +444,7 @@ private constructor(
                 return true
             }
 
-            return other is Body &&
+            return other is AccountCapabilityUpdateRequest &&
                 identifier == other.identifier &&
                 additionalProperties == other.additionalProperties
         }
@@ -447,7 +454,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{identifier=$identifier, additionalProperties=$additionalProperties}"
+            "AccountCapabilityUpdateRequest{identifier=$identifier, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

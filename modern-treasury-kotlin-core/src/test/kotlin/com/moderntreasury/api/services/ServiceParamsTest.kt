@@ -212,7 +212,7 @@ internal class ServiceParamsTest {
                         .addIdentification(
                             IdentificationCreateRequest.builder()
                                 .idNumber("id_number")
-                                .idType(IdentificationCreateRequest.IdType.AR_CUIL)
+                                .idType(IdentificationCreateRequest.IdType.AD_NRT)
                                 .addDocument(
                                     IdentificationCreateRequest.Document.builder()
                                         .documentType(
@@ -317,7 +317,7 @@ internal class ServiceParamsTest {
                                         .addIdentification(
                                             IdentificationCreateRequest.builder()
                                                 .idNumber("id_number")
-                                                .idType(IdentificationCreateRequest.IdType.AR_CUIL)
+                                                .idType(IdentificationCreateRequest.IdType.AD_NRT)
                                                 .addDocument(
                                                     IdentificationCreateRequest.Document.builder()
                                                         .documentType(
