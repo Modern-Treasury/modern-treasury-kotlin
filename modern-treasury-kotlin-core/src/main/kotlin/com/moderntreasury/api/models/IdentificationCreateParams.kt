@@ -1082,6 +1082,8 @@ private constructor(
 
             val GR_VAT = of("gr_vat")
 
+            val GT_NIT = of("gt_nit")
+
             val HK_BRN = of("hk_brn")
 
             val HK_HKID = of("hk_hkid")
@@ -1096,9 +1098,19 @@ private constructor(
 
             val HU_ANUM = of("hu_anum")
 
+            val ID_NIK = of("id_nik")
+
+            val ID_NPWP = of("id_npwp")
+
             val IE_PPS = of("ie_pps")
 
             val IE_TRN = of("ie_trn")
+
+            val IL_CN = of("il_cn")
+
+            val IL_PIN = of("il_pin")
+
+            val IM_TRN = of("im_trn")
 
             val IN_LEI = of("in_lei")
 
@@ -1108,9 +1120,23 @@ private constructor(
 
             val IT_PIVA = of("it_piva")
 
+            val JE_SSN = of("je_ssn")
+
+            val JE_TIN = of("je_tin")
+
+            val JM_TRN = of("jm_trn")
+
+            val JO_TIN = of("jo_tin")
+
             val JP_HB = of("jp_hb")
 
             val JP_MN = of("jp_mn")
+
+            val KE_PIN = of("ke_pin")
+
+            val KG_PIN = of("kg_pin")
+
+            val KN_TIN = of("kn_tin")
 
             val KR_BRN = of("kr_brn")
 
@@ -1118,7 +1144,21 @@ private constructor(
 
             val KR_RRN = of("kr_rrn")
 
+            val KW_CID = of("kw_cid")
+
+            val KZ_BIN = of("kz_bin")
+
+            val KZ_IIN = of("kz_iin")
+
+            val LA_TIN = of("la_tin")
+
+            val LC_TIN = of("lc_tin")
+
             val LI_PEID = of("li_peid")
+
+            val LK_TIN = of("lk_tin")
+
+            val LS_TIN = of("ls_tin")
 
             val LT_AK = of("lt_ak")
 
@@ -1132,15 +1172,47 @@ private constructor(
 
             val LV_RN = of("lv_rn")
 
+            val MD_IDNP = of("md_idnp")
+
+            val ME_JMBG = of("me_jmbg")
+
+            val ME_PIB = of("me_pib")
+
+            val MG_NIF = of("mg_nif")
+
+            val MH_SSN = of("mh_ssn")
+
+            val MO_BIR = of("mo_bir")
+
+            val MO_TIN_B = of("mo_tin_b")
+
+            val MO_TIN_I = of("mo_tin_i")
+
+            val MR_NIF = of("mr_nif")
+
             val MT_TIN = of("mt_tin")
 
             val MT_VAT = of("mt_vat")
+
+            val MU_TAN = of("mu_tan")
+
+            val MW_TPIN = of("mw_tpin")
 
             val MX_CURP = of("mx_curp")
 
             val MX_INE = of("mx_ine")
 
             val MX_RFC = of("mx_rfc")
+
+            val MY_NPC = of("my_npc")
+
+            val MY_NRIC = of("my_nric")
+
+            val MY_TIN_B = of("my_tin_b")
+
+            val MZ_NUIT = of("mz_nuit")
+
+            val NA_TIN = of("na_tin")
 
             val NATIONAL_ID = of("national_id")
 
@@ -1156,9 +1228,23 @@ private constructor(
 
             val NO_ORGNR = of("no_orgnr")
 
+            val NR_TIN = of("nr_tin")
+
             val NZ_IRD = of("nz_ird")
 
+            val OM_CID = of("om_cid")
+
+            val PA_CEDULA = of("pa_cedula")
+
+            val PA_RUC = of("pa_ruc")
+
             val PASSPORT = of("passport")
+
+            val PE_RUC = of("pe_ruc")
+
+            val PG_TIN = of("pg_tin")
+
+            val PH_TIN = of("ph_tin")
 
             val PL_NIP = of("pl_nip")
 
@@ -1166,9 +1252,17 @@ private constructor(
 
             val PT_NIF = of("pt_nif")
 
+            val PY_RUC = of("py_ruc")
+
+            val QA_QID = of("qa_qid")
+
+            val QA_TIN = of("qa_tin")
+
             val RO_CNP = of("ro_cnp")
 
             val RO_CUI = of("ro_cui")
+
+            val RW_TIN = of("rw_tin")
 
             val SA_TIN = of("sa_tin")
 
@@ -1192,6 +1286,32 @@ private constructor(
 
             val SK_RC = of("sk_rc")
 
+            val SL_TIN = of("sl_tin")
+
+            val SM_SSI = of("sm_ssi")
+
+            val SZ_TIN = of("sz_tin")
+
+            val TG_NIF = of("tg_nif")
+
+            val TH_JID = of("th_jid")
+
+            val TH_PIN = of("th_pin")
+
+            val TJ_INN = of("tj_inn")
+
+            val TO_TIN = of("to_tin")
+
+            val TR_TCKN = of("tr_tckn")
+
+            val TT_BIR = of("tt_bir")
+
+            val TW_NRIC = of("tw_nric")
+
+            val TW_UBN = of("tw_ubn")
+
+            val UG_TIN = of("ug_tin")
+
             val US_EIN = of("us_ein")
 
             val US_ITIN = of("us_itin")
@@ -1200,7 +1320,17 @@ private constructor(
 
             val UY_RUT = of("uy_rut")
 
+            val UZ_INN = of("uz_inn")
+
+            val UZ_PIN = of("uz_pin")
+
             val VN_TIN = of("vn_tin")
+
+            val ZA_TRN = of("za_trn")
+
+            val ZA_VAT = of("za_vat")
+
+            val ZM_TPIN = of("zm_tpin")
 
             fun of(value: String) = IdType(JsonField.of(value))
         }
@@ -1292,6 +1422,7 @@ private constructor(
             GL_GER,
             GM_TIN,
             GR_VAT,
+            GT_NIT,
             HK_BRN,
             HK_HKID,
             HN_ID,
@@ -1299,29 +1430,64 @@ private constructor(
             HR_OIB,
             HU_ADJ,
             HU_ANUM,
+            ID_NIK,
+            ID_NPWP,
             IE_PPS,
             IE_TRN,
+            IL_CN,
+            IL_PIN,
+            IM_TRN,
             IN_LEI,
             IS_KNT,
             IT_CF,
             IT_PIVA,
+            JE_SSN,
+            JE_TIN,
+            JM_TRN,
+            JO_TIN,
             JP_HB,
             JP_MN,
+            KE_PIN,
+            KG_PIN,
+            KN_TIN,
             KR_BRN,
             KR_CRN,
             KR_RRN,
+            KW_CID,
+            KZ_BIN,
+            KZ_IIN,
+            LA_TIN,
+            LC_TIN,
             LI_PEID,
+            LK_TIN,
+            LS_TIN,
             LT_AK,
             LT_JAK,
             LU_MTC,
             LU_VAT,
             LV_PK,
             LV_RN,
+            MD_IDNP,
+            ME_JMBG,
+            ME_PIB,
+            MG_NIF,
+            MH_SSN,
+            MO_BIR,
+            MO_TIN_B,
+            MO_TIN_I,
+            MR_NIF,
             MT_TIN,
             MT_VAT,
+            MU_TAN,
+            MW_TPIN,
             MX_CURP,
             MX_INE,
             MX_RFC,
+            MY_NPC,
+            MY_NRIC,
+            MY_TIN_B,
+            MZ_NUIT,
+            NA_TIN,
             NATIONAL_ID,
             NL_BSN,
             NL_BTW,
@@ -1329,13 +1495,24 @@ private constructor(
             NO_FDN,
             NO_MVA,
             NO_ORGNR,
+            NR_TIN,
             NZ_IRD,
+            OM_CID,
+            PA_CEDULA,
+            PA_RUC,
             PASSPORT,
+            PE_RUC,
+            PG_TIN,
+            PH_TIN,
             PL_NIP,
             PL_PESEL,
             PT_NIF,
+            PY_RUC,
+            QA_QID,
+            QA_TIN,
             RO_CNP,
             RO_CUI,
+            RW_TIN,
             SA_TIN,
             SA_VAT,
             SE_ORGNR,
@@ -1347,11 +1524,29 @@ private constructor(
             SI_TIN,
             SK_ICO,
             SK_RC,
+            SL_TIN,
+            SM_SSI,
+            SZ_TIN,
+            TG_NIF,
+            TH_JID,
+            TH_PIN,
+            TJ_INN,
+            TO_TIN,
+            TR_TCKN,
+            TT_BIR,
+            TW_NRIC,
+            TW_UBN,
+            UG_TIN,
             US_EIN,
             US_ITIN,
             US_SSN,
             UY_RUT,
+            UZ_INN,
+            UZ_PIN,
             VN_TIN,
+            ZA_TRN,
+            ZA_VAT,
+            ZM_TPIN,
         }
 
         /**
@@ -1449,6 +1644,7 @@ private constructor(
             GL_GER,
             GM_TIN,
             GR_VAT,
+            GT_NIT,
             HK_BRN,
             HK_HKID,
             HN_ID,
@@ -1456,29 +1652,64 @@ private constructor(
             HR_OIB,
             HU_ADJ,
             HU_ANUM,
+            ID_NIK,
+            ID_NPWP,
             IE_PPS,
             IE_TRN,
+            IL_CN,
+            IL_PIN,
+            IM_TRN,
             IN_LEI,
             IS_KNT,
             IT_CF,
             IT_PIVA,
+            JE_SSN,
+            JE_TIN,
+            JM_TRN,
+            JO_TIN,
             JP_HB,
             JP_MN,
+            KE_PIN,
+            KG_PIN,
+            KN_TIN,
             KR_BRN,
             KR_CRN,
             KR_RRN,
+            KW_CID,
+            KZ_BIN,
+            KZ_IIN,
+            LA_TIN,
+            LC_TIN,
             LI_PEID,
+            LK_TIN,
+            LS_TIN,
             LT_AK,
             LT_JAK,
             LU_MTC,
             LU_VAT,
             LV_PK,
             LV_RN,
+            MD_IDNP,
+            ME_JMBG,
+            ME_PIB,
+            MG_NIF,
+            MH_SSN,
+            MO_BIR,
+            MO_TIN_B,
+            MO_TIN_I,
+            MR_NIF,
             MT_TIN,
             MT_VAT,
+            MU_TAN,
+            MW_TPIN,
             MX_CURP,
             MX_INE,
             MX_RFC,
+            MY_NPC,
+            MY_NRIC,
+            MY_TIN_B,
+            MZ_NUIT,
+            NA_TIN,
             NATIONAL_ID,
             NL_BSN,
             NL_BTW,
@@ -1486,13 +1717,24 @@ private constructor(
             NO_FDN,
             NO_MVA,
             NO_ORGNR,
+            NR_TIN,
             NZ_IRD,
+            OM_CID,
+            PA_CEDULA,
+            PA_RUC,
             PASSPORT,
+            PE_RUC,
+            PG_TIN,
+            PH_TIN,
             PL_NIP,
             PL_PESEL,
             PT_NIF,
+            PY_RUC,
+            QA_QID,
+            QA_TIN,
             RO_CNP,
             RO_CUI,
+            RW_TIN,
             SA_TIN,
             SA_VAT,
             SE_ORGNR,
@@ -1504,11 +1746,29 @@ private constructor(
             SI_TIN,
             SK_ICO,
             SK_RC,
+            SL_TIN,
+            SM_SSI,
+            SZ_TIN,
+            TG_NIF,
+            TH_JID,
+            TH_PIN,
+            TJ_INN,
+            TO_TIN,
+            TR_TCKN,
+            TT_BIR,
+            TW_NRIC,
+            TW_UBN,
+            UG_TIN,
             US_EIN,
             US_ITIN,
             US_SSN,
             UY_RUT,
+            UZ_INN,
+            UZ_PIN,
             VN_TIN,
+            ZA_TRN,
+            ZA_VAT,
+            ZM_TPIN,
             /** An enum member indicating that [IdType] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1607,6 +1867,7 @@ private constructor(
                 GL_GER -> Value.GL_GER
                 GM_TIN -> Value.GM_TIN
                 GR_VAT -> Value.GR_VAT
+                GT_NIT -> Value.GT_NIT
                 HK_BRN -> Value.HK_BRN
                 HK_HKID -> Value.HK_HKID
                 HN_ID -> Value.HN_ID
@@ -1614,29 +1875,64 @@ private constructor(
                 HR_OIB -> Value.HR_OIB
                 HU_ADJ -> Value.HU_ADJ
                 HU_ANUM -> Value.HU_ANUM
+                ID_NIK -> Value.ID_NIK
+                ID_NPWP -> Value.ID_NPWP
                 IE_PPS -> Value.IE_PPS
                 IE_TRN -> Value.IE_TRN
+                IL_CN -> Value.IL_CN
+                IL_PIN -> Value.IL_PIN
+                IM_TRN -> Value.IM_TRN
                 IN_LEI -> Value.IN_LEI
                 IS_KNT -> Value.IS_KNT
                 IT_CF -> Value.IT_CF
                 IT_PIVA -> Value.IT_PIVA
+                JE_SSN -> Value.JE_SSN
+                JE_TIN -> Value.JE_TIN
+                JM_TRN -> Value.JM_TRN
+                JO_TIN -> Value.JO_TIN
                 JP_HB -> Value.JP_HB
                 JP_MN -> Value.JP_MN
+                KE_PIN -> Value.KE_PIN
+                KG_PIN -> Value.KG_PIN
+                KN_TIN -> Value.KN_TIN
                 KR_BRN -> Value.KR_BRN
                 KR_CRN -> Value.KR_CRN
                 KR_RRN -> Value.KR_RRN
+                KW_CID -> Value.KW_CID
+                KZ_BIN -> Value.KZ_BIN
+                KZ_IIN -> Value.KZ_IIN
+                LA_TIN -> Value.LA_TIN
+                LC_TIN -> Value.LC_TIN
                 LI_PEID -> Value.LI_PEID
+                LK_TIN -> Value.LK_TIN
+                LS_TIN -> Value.LS_TIN
                 LT_AK -> Value.LT_AK
                 LT_JAK -> Value.LT_JAK
                 LU_MTC -> Value.LU_MTC
                 LU_VAT -> Value.LU_VAT
                 LV_PK -> Value.LV_PK
                 LV_RN -> Value.LV_RN
+                MD_IDNP -> Value.MD_IDNP
+                ME_JMBG -> Value.ME_JMBG
+                ME_PIB -> Value.ME_PIB
+                MG_NIF -> Value.MG_NIF
+                MH_SSN -> Value.MH_SSN
+                MO_BIR -> Value.MO_BIR
+                MO_TIN_B -> Value.MO_TIN_B
+                MO_TIN_I -> Value.MO_TIN_I
+                MR_NIF -> Value.MR_NIF
                 MT_TIN -> Value.MT_TIN
                 MT_VAT -> Value.MT_VAT
+                MU_TAN -> Value.MU_TAN
+                MW_TPIN -> Value.MW_TPIN
                 MX_CURP -> Value.MX_CURP
                 MX_INE -> Value.MX_INE
                 MX_RFC -> Value.MX_RFC
+                MY_NPC -> Value.MY_NPC
+                MY_NRIC -> Value.MY_NRIC
+                MY_TIN_B -> Value.MY_TIN_B
+                MZ_NUIT -> Value.MZ_NUIT
+                NA_TIN -> Value.NA_TIN
                 NATIONAL_ID -> Value.NATIONAL_ID
                 NL_BSN -> Value.NL_BSN
                 NL_BTW -> Value.NL_BTW
@@ -1644,13 +1940,24 @@ private constructor(
                 NO_FDN -> Value.NO_FDN
                 NO_MVA -> Value.NO_MVA
                 NO_ORGNR -> Value.NO_ORGNR
+                NR_TIN -> Value.NR_TIN
                 NZ_IRD -> Value.NZ_IRD
+                OM_CID -> Value.OM_CID
+                PA_CEDULA -> Value.PA_CEDULA
+                PA_RUC -> Value.PA_RUC
                 PASSPORT -> Value.PASSPORT
+                PE_RUC -> Value.PE_RUC
+                PG_TIN -> Value.PG_TIN
+                PH_TIN -> Value.PH_TIN
                 PL_NIP -> Value.PL_NIP
                 PL_PESEL -> Value.PL_PESEL
                 PT_NIF -> Value.PT_NIF
+                PY_RUC -> Value.PY_RUC
+                QA_QID -> Value.QA_QID
+                QA_TIN -> Value.QA_TIN
                 RO_CNP -> Value.RO_CNP
                 RO_CUI -> Value.RO_CUI
+                RW_TIN -> Value.RW_TIN
                 SA_TIN -> Value.SA_TIN
                 SA_VAT -> Value.SA_VAT
                 SE_ORGNR -> Value.SE_ORGNR
@@ -1662,11 +1969,29 @@ private constructor(
                 SI_TIN -> Value.SI_TIN
                 SK_ICO -> Value.SK_ICO
                 SK_RC -> Value.SK_RC
+                SL_TIN -> Value.SL_TIN
+                SM_SSI -> Value.SM_SSI
+                SZ_TIN -> Value.SZ_TIN
+                TG_NIF -> Value.TG_NIF
+                TH_JID -> Value.TH_JID
+                TH_PIN -> Value.TH_PIN
+                TJ_INN -> Value.TJ_INN
+                TO_TIN -> Value.TO_TIN
+                TR_TCKN -> Value.TR_TCKN
+                TT_BIR -> Value.TT_BIR
+                TW_NRIC -> Value.TW_NRIC
+                TW_UBN -> Value.TW_UBN
+                UG_TIN -> Value.UG_TIN
                 US_EIN -> Value.US_EIN
                 US_ITIN -> Value.US_ITIN
                 US_SSN -> Value.US_SSN
                 UY_RUT -> Value.UY_RUT
+                UZ_INN -> Value.UZ_INN
+                UZ_PIN -> Value.UZ_PIN
                 VN_TIN -> Value.VN_TIN
+                ZA_TRN -> Value.ZA_TRN
+                ZA_VAT -> Value.ZA_VAT
+                ZM_TPIN -> Value.ZM_TPIN
                 else -> Value._UNKNOWN
             }
 
@@ -1766,6 +2091,7 @@ private constructor(
                 GL_GER -> Known.GL_GER
                 GM_TIN -> Known.GM_TIN
                 GR_VAT -> Known.GR_VAT
+                GT_NIT -> Known.GT_NIT
                 HK_BRN -> Known.HK_BRN
                 HK_HKID -> Known.HK_HKID
                 HN_ID -> Known.HN_ID
@@ -1773,29 +2099,64 @@ private constructor(
                 HR_OIB -> Known.HR_OIB
                 HU_ADJ -> Known.HU_ADJ
                 HU_ANUM -> Known.HU_ANUM
+                ID_NIK -> Known.ID_NIK
+                ID_NPWP -> Known.ID_NPWP
                 IE_PPS -> Known.IE_PPS
                 IE_TRN -> Known.IE_TRN
+                IL_CN -> Known.IL_CN
+                IL_PIN -> Known.IL_PIN
+                IM_TRN -> Known.IM_TRN
                 IN_LEI -> Known.IN_LEI
                 IS_KNT -> Known.IS_KNT
                 IT_CF -> Known.IT_CF
                 IT_PIVA -> Known.IT_PIVA
+                JE_SSN -> Known.JE_SSN
+                JE_TIN -> Known.JE_TIN
+                JM_TRN -> Known.JM_TRN
+                JO_TIN -> Known.JO_TIN
                 JP_HB -> Known.JP_HB
                 JP_MN -> Known.JP_MN
+                KE_PIN -> Known.KE_PIN
+                KG_PIN -> Known.KG_PIN
+                KN_TIN -> Known.KN_TIN
                 KR_BRN -> Known.KR_BRN
                 KR_CRN -> Known.KR_CRN
                 KR_RRN -> Known.KR_RRN
+                KW_CID -> Known.KW_CID
+                KZ_BIN -> Known.KZ_BIN
+                KZ_IIN -> Known.KZ_IIN
+                LA_TIN -> Known.LA_TIN
+                LC_TIN -> Known.LC_TIN
                 LI_PEID -> Known.LI_PEID
+                LK_TIN -> Known.LK_TIN
+                LS_TIN -> Known.LS_TIN
                 LT_AK -> Known.LT_AK
                 LT_JAK -> Known.LT_JAK
                 LU_MTC -> Known.LU_MTC
                 LU_VAT -> Known.LU_VAT
                 LV_PK -> Known.LV_PK
                 LV_RN -> Known.LV_RN
+                MD_IDNP -> Known.MD_IDNP
+                ME_JMBG -> Known.ME_JMBG
+                ME_PIB -> Known.ME_PIB
+                MG_NIF -> Known.MG_NIF
+                MH_SSN -> Known.MH_SSN
+                MO_BIR -> Known.MO_BIR
+                MO_TIN_B -> Known.MO_TIN_B
+                MO_TIN_I -> Known.MO_TIN_I
+                MR_NIF -> Known.MR_NIF
                 MT_TIN -> Known.MT_TIN
                 MT_VAT -> Known.MT_VAT
+                MU_TAN -> Known.MU_TAN
+                MW_TPIN -> Known.MW_TPIN
                 MX_CURP -> Known.MX_CURP
                 MX_INE -> Known.MX_INE
                 MX_RFC -> Known.MX_RFC
+                MY_NPC -> Known.MY_NPC
+                MY_NRIC -> Known.MY_NRIC
+                MY_TIN_B -> Known.MY_TIN_B
+                MZ_NUIT -> Known.MZ_NUIT
+                NA_TIN -> Known.NA_TIN
                 NATIONAL_ID -> Known.NATIONAL_ID
                 NL_BSN -> Known.NL_BSN
                 NL_BTW -> Known.NL_BTW
@@ -1803,13 +2164,24 @@ private constructor(
                 NO_FDN -> Known.NO_FDN
                 NO_MVA -> Known.NO_MVA
                 NO_ORGNR -> Known.NO_ORGNR
+                NR_TIN -> Known.NR_TIN
                 NZ_IRD -> Known.NZ_IRD
+                OM_CID -> Known.OM_CID
+                PA_CEDULA -> Known.PA_CEDULA
+                PA_RUC -> Known.PA_RUC
                 PASSPORT -> Known.PASSPORT
+                PE_RUC -> Known.PE_RUC
+                PG_TIN -> Known.PG_TIN
+                PH_TIN -> Known.PH_TIN
                 PL_NIP -> Known.PL_NIP
                 PL_PESEL -> Known.PL_PESEL
                 PT_NIF -> Known.PT_NIF
+                PY_RUC -> Known.PY_RUC
+                QA_QID -> Known.QA_QID
+                QA_TIN -> Known.QA_TIN
                 RO_CNP -> Known.RO_CNP
                 RO_CUI -> Known.RO_CUI
+                RW_TIN -> Known.RW_TIN
                 SA_TIN -> Known.SA_TIN
                 SA_VAT -> Known.SA_VAT
                 SE_ORGNR -> Known.SE_ORGNR
@@ -1821,11 +2193,29 @@ private constructor(
                 SI_TIN -> Known.SI_TIN
                 SK_ICO -> Known.SK_ICO
                 SK_RC -> Known.SK_RC
+                SL_TIN -> Known.SL_TIN
+                SM_SSI -> Known.SM_SSI
+                SZ_TIN -> Known.SZ_TIN
+                TG_NIF -> Known.TG_NIF
+                TH_JID -> Known.TH_JID
+                TH_PIN -> Known.TH_PIN
+                TJ_INN -> Known.TJ_INN
+                TO_TIN -> Known.TO_TIN
+                TR_TCKN -> Known.TR_TCKN
+                TT_BIR -> Known.TT_BIR
+                TW_NRIC -> Known.TW_NRIC
+                TW_UBN -> Known.TW_UBN
+                UG_TIN -> Known.UG_TIN
                 US_EIN -> Known.US_EIN
                 US_ITIN -> Known.US_ITIN
                 US_SSN -> Known.US_SSN
                 UY_RUT -> Known.UY_RUT
+                UZ_INN -> Known.UZ_INN
+                UZ_PIN -> Known.UZ_PIN
                 VN_TIN -> Known.VN_TIN
+                ZA_TRN -> Known.ZA_TRN
+                ZA_VAT -> Known.ZA_VAT
+                ZM_TPIN -> Known.ZM_TPIN
                 else -> throw ModernTreasuryInvalidDataException("Unknown IdType: $value")
             }
 
