@@ -698,8 +698,6 @@ private constructor(
             val WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER =
                 of("western_alliance_wire_confirmation_number")
 
-            val WISE_TRANSFER_ID = of("wise_transfer_id")
-
             fun of(value: String) = ReferenceNumberType(JsonField.of(value))
         }
 
@@ -793,7 +791,6 @@ private constructor(
             WESTERN_ALLIANCE_PAYMENT_ID,
             WESTERN_ALLIANCE_TRANSACTION_ID,
             WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER,
-            WISE_TRANSFER_ID,
         }
 
         /**
@@ -894,7 +891,6 @@ private constructor(
             WESTERN_ALLIANCE_PAYMENT_ID,
             WESTERN_ALLIANCE_TRANSACTION_ID,
             WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER,
-            WISE_TRANSFER_ID,
             /**
              * An enum member indicating that [ReferenceNumberType] was instantiated with an unknown
              * value.
@@ -1003,7 +999,6 @@ private constructor(
                 WESTERN_ALLIANCE_TRANSACTION_ID -> Value.WESTERN_ALLIANCE_TRANSACTION_ID
                 WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER ->
                     Value.WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER
-                WISE_TRANSFER_ID -> Value.WISE_TRANSFER_ID
                 else -> Value._UNKNOWN
             }
 
@@ -1110,7 +1105,6 @@ private constructor(
                 WESTERN_ALLIANCE_TRANSACTION_ID -> Known.WESTERN_ALLIANCE_TRANSACTION_ID
                 WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER ->
                     Known.WESTERN_ALLIANCE_WIRE_CONFIRMATION_NUMBER
-                WISE_TRANSFER_ID -> Known.WISE_TRANSFER_ID
                 else ->
                     throw ModernTreasuryInvalidDataException("Unknown ReferenceNumberType: $value")
             }
