@@ -50,6 +50,8 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
 
         val AU_BECS = of("au_becs")
 
+        val AVALANCHE = of("avalanche")
+
         val BACS = of("bacs")
 
         val BASE = of("base")
@@ -109,6 +111,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         WEB,
         ARBITRUM,
         AU_BECS,
+        AVALANCHE,
         BACS,
         BASE,
         CHATS,
@@ -154,6 +157,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         WEB,
         ARBITRUM,
         AU_BECS,
+        AVALANCHE,
         BACS,
         BASE,
         CHATS,
@@ -203,6 +207,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             WEB -> Value.WEB
             ARBITRUM -> Value.ARBITRUM
             AU_BECS -> Value.AU_BECS
+            AVALANCHE -> Value.AVALANCHE
             BACS -> Value.BACS
             BASE -> Value.BASE
             CHATS -> Value.CHATS
@@ -250,6 +255,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             WEB -> Known.WEB
             ARBITRUM -> Known.ARBITRUM
             AU_BECS -> Known.AU_BECS
+            AVALANCHE -> Known.AVALANCHE
             BACS -> Known.BACS
             BASE -> Known.BASE
             CHATS -> Known.CHATS
