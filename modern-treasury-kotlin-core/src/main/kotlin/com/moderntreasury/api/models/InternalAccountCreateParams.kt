@@ -3215,6 +3215,8 @@ private constructor(
 
             val ARBITRUM_ADDRESS = of("arbitrum_address")
 
+            val AVALANCHE_ADDRESS = of("avalanche_address")
+
             val BASE_ADDRESS = of("base_address")
 
             val ETHEREUM_ADDRESS = of("ethereum_address")
@@ -3229,6 +3231,7 @@ private constructor(
         /** An enum containing [RequestedAccountNumberType]'s known values. */
         enum class Known {
             ARBITRUM_ADDRESS,
+            AVALANCHE_ADDRESS,
             BASE_ADDRESS,
             ETHEREUM_ADDRESS,
             POLYGON_ADDRESS,
@@ -3248,6 +3251,7 @@ private constructor(
          */
         enum class Value {
             ARBITRUM_ADDRESS,
+            AVALANCHE_ADDRESS,
             BASE_ADDRESS,
             ETHEREUM_ADDRESS,
             POLYGON_ADDRESS,
@@ -3269,6 +3273,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 ARBITRUM_ADDRESS -> Value.ARBITRUM_ADDRESS
+                AVALANCHE_ADDRESS -> Value.AVALANCHE_ADDRESS
                 BASE_ADDRESS -> Value.BASE_ADDRESS
                 ETHEREUM_ADDRESS -> Value.ETHEREUM_ADDRESS
                 POLYGON_ADDRESS -> Value.POLYGON_ADDRESS
@@ -3288,6 +3293,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 ARBITRUM_ADDRESS -> Known.ARBITRUM_ADDRESS
+                AVALANCHE_ADDRESS -> Known.AVALANCHE_ADDRESS
                 BASE_ADDRESS -> Known.BASE_ADDRESS
                 ETHEREUM_ADDRESS -> Known.ETHEREUM_ADDRESS
                 POLYGON_ADDRESS -> Known.POLYGON_ADDRESS
