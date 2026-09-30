@@ -5,7 +5,6 @@ package com.moderntreasury.api.services.async
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.models.LedgerEntryRetrieveParams
 import com.moderntreasury.api.models.LedgerEntryUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -23,10 +22,7 @@ internal class LedgerEntryServiceAsyncTest {
                 .build()
         val ledgerEntryServiceAsync = client.ledgerEntries()
 
-        val ledgerEntry =
-            ledgerEntryServiceAsync.retrieve(
-                LedgerEntryRetrieveParams.builder().id("id").showBalances(true).build()
-            )
+        val ledgerEntry = ledgerEntryServiceAsync.retrieve("id")
 
         ledgerEntry.validate()
     }
