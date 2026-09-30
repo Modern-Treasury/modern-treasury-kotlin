@@ -32,7 +32,6 @@ private constructor(
     private val metadata: Metadata?,
     private val orderBy: OrderBy?,
     private val perPage: Long?,
-    private val showBalances: Boolean?,
     private val showDeleted: Boolean?,
     private val status: Status?,
     private val updatedAt: UpdatedAt?,
@@ -112,12 +111,6 @@ private constructor(
     fun perPage(): Long? = perPage
 
     /**
-     * If true, response will include the balances attached to the ledger entry. If there is no
-     * balance available, null will be returned instead.
-     */
-    fun showBalances(): Boolean? = showBalances
-
-    /**
      * If true, response will include ledger entries that were deleted. When you update a ledger
      * transaction to specify a new set of entries, the previous entries are deleted.
      */
@@ -172,7 +165,6 @@ private constructor(
         private var metadata: Metadata? = null
         private var orderBy: OrderBy? = null
         private var perPage: Long? = null
-        private var showBalances: Boolean? = null
         private var showDeleted: Boolean? = null
         private var status: Status? = null
         private var updatedAt: UpdatedAt? = null
@@ -197,7 +189,6 @@ private constructor(
             metadata = ledgerEntryListParams.metadata
             orderBy = ledgerEntryListParams.orderBy
             perPage = ledgerEntryListParams.perPage
-            showBalances = ledgerEntryListParams.showBalances
             showDeleted = ledgerEntryListParams.showDeleted
             status = ledgerEntryListParams.status
             updatedAt = ledgerEntryListParams.updatedAt
@@ -314,19 +305,6 @@ private constructor(
          * This unboxed primitive overload exists for backwards compatibility.
          */
         fun perPage(perPage: Long) = perPage(perPage as Long?)
-
-        /**
-         * If true, response will include the balances attached to the ledger entry. If there is no
-         * balance available, null will be returned instead.
-         */
-        fun showBalances(showBalances: Boolean?) = apply { this.showBalances = showBalances }
-
-        /**
-         * Alias for [Builder.showBalances].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun showBalances(showBalances: Boolean) = showBalances(showBalances as Boolean?)
 
         /**
          * If true, response will include ledger entries that were deleted. When you update a ledger
@@ -476,7 +454,6 @@ private constructor(
                 metadata,
                 orderBy,
                 perPage,
-                showBalances,
                 showDeleted,
                 status,
                 updatedAt,
@@ -550,7 +527,6 @@ private constructor(
                     }
                 }
                 perPage?.let { put("per_page", it.toString()) }
-                showBalances?.let { put("show_balances", it.toString()) }
                 showDeleted?.let { put("show_deleted", it.toString()) }
                 status?.let { put("status", it.toString()) }
                 updatedAt?.let {
@@ -1808,7 +1784,6 @@ private constructor(
             metadata == other.metadata &&
             orderBy == other.orderBy &&
             perPage == other.perPage &&
-            showBalances == other.showBalances &&
             showDeleted == other.showDeleted &&
             status == other.status &&
             updatedAt == other.updatedAt &&
@@ -1835,7 +1810,6 @@ private constructor(
             metadata,
             orderBy,
             perPage,
-            showBalances,
             showDeleted,
             status,
             updatedAt,
@@ -1844,5 +1818,5 @@ private constructor(
         )
 
     override fun toString() =
-        "LedgerEntryListParams{id=$id, afterCursor=$afterCursor, amount=$amount, asOfLockVersion=$asOfLockVersion, direction=$direction, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountPayoutId=$ledgerAccountPayoutId, ledgerAccountSettlementId=$ledgerAccountSettlementId, ledgerAccountStatementId=$ledgerAccountStatementId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, orderBy=$orderBy, perPage=$perPage, showBalances=$showBalances, showDeleted=$showDeleted, status=$status, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LedgerEntryListParams{id=$id, afterCursor=$afterCursor, amount=$amount, asOfLockVersion=$asOfLockVersion, direction=$direction, effectiveAt=$effectiveAt, effectiveDate=$effectiveDate, ledgerAccountCategoryId=$ledgerAccountCategoryId, ledgerAccountId=$ledgerAccountId, ledgerAccountLockVersion=$ledgerAccountLockVersion, ledgerAccountPayoutId=$ledgerAccountPayoutId, ledgerAccountSettlementId=$ledgerAccountSettlementId, ledgerAccountStatementId=$ledgerAccountStatementId, ledgerTransactionId=$ledgerTransactionId, metadata=$metadata, orderBy=$orderBy, perPage=$perPage, showDeleted=$showDeleted, status=$status, updatedAt=$updatedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

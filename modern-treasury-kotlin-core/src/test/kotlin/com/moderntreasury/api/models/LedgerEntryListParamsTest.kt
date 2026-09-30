@@ -51,7 +51,6 @@ internal class LedgerEntryListParamsTest {
                     .build()
             )
             .perPage(0L)
-            .showBalances(true)
             .showDeleted(true)
             .status(LedgerEntryListParams.Status.PENDING)
             .updatedAt(
@@ -112,7 +111,6 @@ internal class LedgerEntryListParamsTest {
                         .build()
                 )
                 .perPage(0L)
-                .showBalances(true)
                 .showDeleted(true)
                 .status(LedgerEntryListParams.Status.PENDING)
                 .updatedAt(
@@ -149,7 +147,6 @@ internal class LedgerEntryListParamsTest {
                     .put("order_by[created_at]", "asc")
                     .put("order_by[effective_at]", "asc")
                     .put("per_page", "0")
-                    .put("show_balances", "true")
                     .put("show_deleted", "true")
                     .put("status", "pending")
                     .put("updated_at[foo]", "2019-12-27T18:11:19.117Z")
