@@ -403,6 +403,7 @@ internal class LegalEntityServiceAsyncTest {
                     )
                     .riskRating(LegalEntityCreateParams.RiskRating.LOW)
                     .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .status(LegalEntityCreateParams.Status.DRAFT)
                     .suffix("suffix")
                     .termsOfUse(
                         LegalEntityCreateParams.TermsOfUse.builder()
@@ -602,6 +603,7 @@ internal class LegalEntityServiceAsyncTest {
                     )
                     .riskRating(LegalEntityUpdateParams.RiskRating.LOW)
                     .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .status(LegalEntityUpdateParams.Status.PENDING)
                     .suffix("suffix")
                     .termsOfUse(
                         LegalEntityUpdateParams.TermsOfUse.builder()
