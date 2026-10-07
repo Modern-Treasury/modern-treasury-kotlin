@@ -577,7 +577,8 @@ private constructor(
         serviceProviderLegalEntityId.getNullable("service_provider_legal_entity_id")
 
     /**
-     * The activation status of the legal entity. One of pending, active, suspended, or denied.
+     * The activation status of the legal entity. One of draft, pending, active, suspended, or
+     * denied.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -1945,7 +1946,8 @@ private constructor(
         }
 
         /**
-         * The activation status of the legal entity. One of pending, active, suspended, or denied.
+         * The activation status of the legal entity. One of draft, pending, active, suspended, or
+         * denied.
          */
         fun status(status: Status?) = status(JsonField.ofNullable(status))
 
@@ -4371,7 +4373,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** The activation status of the legal entity. One of pending, active, suspended, or denied. */
+    /**
+     * The activation status of the legal entity. One of draft, pending, active, suspended, or
+     * denied.
+     */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -4390,6 +4395,8 @@ private constructor(
 
             val DENIED = of("denied")
 
+            val DRAFT = of("draft")
+
             val PENDING = of("pending")
 
             val SUSPENDED = of("suspended")
@@ -4401,6 +4408,7 @@ private constructor(
         enum class Known {
             ACTIVE,
             DENIED,
+            DRAFT,
             PENDING,
             SUSPENDED,
         }
@@ -4417,6 +4425,7 @@ private constructor(
         enum class Value {
             ACTIVE,
             DENIED,
+            DRAFT,
             PENDING,
             SUSPENDED,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
@@ -4434,6 +4443,7 @@ private constructor(
             when (this) {
                 ACTIVE -> Value.ACTIVE
                 DENIED -> Value.DENIED
+                DRAFT -> Value.DRAFT
                 PENDING -> Value.PENDING
                 SUSPENDED -> Value.SUSPENDED
                 else -> Value._UNKNOWN
@@ -4452,6 +4462,7 @@ private constructor(
             when (this) {
                 ACTIVE -> Known.ACTIVE
                 DENIED -> Known.DENIED
+                DRAFT -> Known.DRAFT
                 PENDING -> Known.PENDING
                 SUSPENDED -> Known.SUSPENDED
                 else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")

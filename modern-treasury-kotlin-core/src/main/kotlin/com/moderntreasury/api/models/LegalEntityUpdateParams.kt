@@ -280,6 +280,16 @@ private constructor(
     fun serviceProviderLegalEntityId(): String? = body.serviceProviderLegalEntityId()
 
     /**
+     * Set to pending to submit a draft legal entity for processing. Only valid while the legal
+     * entity is draft, and must be the only attribute in the request. Draft child legal entities
+     * are submitted with it.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun status(): Status? = body.status()
+
+    /**
      * An individual's suffix.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -563,6 +573,13 @@ private constructor(
      * unexpected type.
      */
     fun _serviceProviderLegalEntityId(): JsonField<String> = body._serviceProviderLegalEntityId()
+
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _status(): JsonField<Status> = body._status()
 
     /**
      * Returns the raw JSON value of [suffix].
@@ -1200,6 +1217,21 @@ private constructor(
             body.serviceProviderLegalEntityId(serviceProviderLegalEntityId)
         }
 
+        /**
+         * Set to pending to submit a draft legal entity for processing. Only valid while the legal
+         * entity is draft, and must be the only attribute in the request. Draft child legal
+         * entities are submitted with it.
+         */
+        fun status(status: Status) = apply { body.status(status) }
+
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun status(status: JsonField<Status>) = apply { body.status(status) }
+
         /** An individual's suffix. */
         fun suffix(suffix: String?) = apply { body.suffix(suffix) }
 
@@ -1485,6 +1517,7 @@ private constructor(
         private val regulators: JsonField<List<LegalEntityRegulator>>,
         private val riskRating: JsonField<RiskRating>,
         private val serviceProviderLegalEntityId: JsonField<String>,
+        private val status: JsonField<Status>,
         private val suffix: JsonField<String>,
         private val termsOfUse: JsonField<TermsOfUse>,
         private val thirdPartyVerification: JsonField<ThirdPartyVerification>,
@@ -1587,6 +1620,7 @@ private constructor(
             @JsonProperty("service_provider_legal_entity_id")
             @ExcludeMissing
             serviceProviderLegalEntityId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
             @JsonProperty("suffix") @ExcludeMissing suffix: JsonField<String> = JsonMissing.of(),
             @JsonProperty("terms_of_use")
             @ExcludeMissing
@@ -1636,6 +1670,7 @@ private constructor(
             regulators,
             riskRating,
             serviceProviderLegalEntityId,
+            status,
             suffix,
             termsOfUse,
             thirdPartyVerification,
@@ -1899,6 +1934,16 @@ private constructor(
          */
         fun serviceProviderLegalEntityId(): String? =
             serviceProviderLegalEntityId.getNullable("service_provider_legal_entity_id")
+
+        /**
+         * Set to pending to submit a draft legal entity for processing. Only valid while the legal
+         * entity is draft, and must be the only attribute in the request. Draft child legal
+         * entities are submitted with it.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun status(): Status? = status.getNullable("status")
 
         /**
          * An individual's suffix.
@@ -2247,6 +2292,13 @@ private constructor(
         fun _serviceProviderLegalEntityId(): JsonField<String> = serviceProviderLegalEntityId
 
         /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+
+        /**
          * Returns the raw JSON value of [suffix].
          *
          * Unlike [suffix], this method doesn't throw if the JSON field has an unexpected type.
@@ -2368,6 +2420,7 @@ private constructor(
             private var regulators: JsonField<MutableList<LegalEntityRegulator>>? = null
             private var riskRating: JsonField<RiskRating> = JsonMissing.of()
             private var serviceProviderLegalEntityId: JsonField<String> = JsonMissing.of()
+            private var status: JsonField<Status> = JsonMissing.of()
             private var suffix: JsonField<String> = JsonMissing.of()
             private var termsOfUse: JsonField<TermsOfUse> = JsonMissing.of()
             private var thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of()
@@ -2416,6 +2469,7 @@ private constructor(
                 regulators = legalEntityUpdateRequest.regulators.map { it.toMutableList() }
                 riskRating = legalEntityUpdateRequest.riskRating
                 serviceProviderLegalEntityId = legalEntityUpdateRequest.serviceProviderLegalEntityId
+                status = legalEntityUpdateRequest.status
                 suffix = legalEntityUpdateRequest.suffix
                 termsOfUse = legalEntityUpdateRequest.termsOfUse
                 thirdPartyVerification = legalEntityUpdateRequest.thirdPartyVerification
@@ -2993,6 +3047,22 @@ private constructor(
                     this.serviceProviderLegalEntityId = serviceProviderLegalEntityId
                 }
 
+            /**
+             * Set to pending to submit a draft legal entity for processing. Only valid while the
+             * legal entity is draft, and must be the only attribute in the request. Draft child
+             * legal entities are submitted with it.
+             */
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
+
             /** An individual's suffix. */
             fun suffix(suffix: String?) = suffix(JsonField.ofNullable(suffix))
 
@@ -3165,6 +3235,7 @@ private constructor(
                     (regulators ?: JsonMissing.of()).map { it.toImmutable() },
                     riskRating,
                     serviceProviderLegalEntityId,
+                    status,
                     suffix,
                     termsOfUse,
                     thirdPartyVerification,
@@ -3223,6 +3294,7 @@ private constructor(
             regulators()?.forEach { it.validate() }
             riskRating()?.validate()
             serviceProviderLegalEntityId()
+            status()?.validate()
             suffix()
             termsOfUse()?.validate()
             thirdPartyVerification()?.validate()
@@ -3279,6 +3351,7 @@ private constructor(
                 (regulators.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (riskRating.asKnown()?.validity() ?: 0) +
                 (if (serviceProviderLegalEntityId.asKnown() == null) 0 else 1) +
+                (status.asKnown()?.validity() ?: 0) +
                 (if (suffix.asKnown() == null) 0 else 1) +
                 (termsOfUse.asKnown()?.validity() ?: 0) +
                 (thirdPartyVerification.asKnown()?.validity() ?: 0) +
@@ -3324,6 +3397,7 @@ private constructor(
                 regulators == other.regulators &&
                 riskRating == other.riskRating &&
                 serviceProviderLegalEntityId == other.serviceProviderLegalEntityId &&
+                status == other.status &&
                 suffix == other.suffix &&
                 termsOfUse == other.termsOfUse &&
                 thirdPartyVerification == other.thirdPartyVerification &&
@@ -3367,6 +3441,7 @@ private constructor(
                 regulators,
                 riskRating,
                 serviceProviderLegalEntityId,
+                status,
                 suffix,
                 termsOfUse,
                 thirdPartyVerification,
@@ -3381,7 +3456,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LegalEntityUpdateRequest{addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessDesignation=$businessDesignation, businessName=$businessName, citizenshipCountry=$citizenshipCountry, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, serviceProviderLegalEntityId=$serviceProviderLegalEntityId, suffix=$suffix, termsOfUse=$termsOfUse, thirdPartyVerification=$thirdPartyVerification, thirdPartyVerifications=$thirdPartyVerifications, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
+            "LegalEntityUpdateRequest{addresses=$addresses, bankSettings=$bankSettings, businessDescription=$businessDescription, businessDesignation=$businessDesignation, businessName=$businessName, citizenshipCountry=$citizenshipCountry, countryOfIncorporation=$countryOfIncorporation, dateFormed=$dateFormed, dateOfBirth=$dateOfBirth, doingBusinessAsNames=$doingBusinessAsNames, email=$email, expectedActivityVolume=$expectedActivityVolume, externalId=$externalId, firstName=$firstName, identifications=$identifications, industryClassifications=$industryClassifications, intendedUse=$intendedUse, lastName=$lastName, legalStructure=$legalStructure, listedExchange=$listedExchange, metadata=$metadata, middleName=$middleName, operatingJurisdictions=$operatingJurisdictions, phoneNumbers=$phoneNumbers, politicallyExposedPerson=$politicallyExposedPerson, preferredName=$preferredName, prefix=$prefix, primarySocialMediaSites=$primarySocialMediaSites, regulators=$regulators, riskRating=$riskRating, serviceProviderLegalEntityId=$serviceProviderLegalEntityId, status=$status, suffix=$suffix, termsOfUse=$termsOfUse, thirdPartyVerification=$thirdPartyVerification, thirdPartyVerifications=$thirdPartyVerifications, tickerSymbol=$tickerSymbol, wealthAndEmploymentDetails=$wealthAndEmploymentDetails, website=$website, additionalProperties=$additionalProperties}"
     }
 
     /** Legal designation associated with the business. */
@@ -4355,6 +4430,139 @@ private constructor(
             }
 
             return other is RiskRating && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /**
+     * Set to pending to submit a draft legal entity for processing. Only valid while the legal
+     * entity is draft, and must be the only attribute in the request. Draft child legal entities
+     * are submitted with it.
+     */
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val PENDING = of("pending")
+
+            fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        /** An enum containing [Status]'s known values. */
+        enum class Known {
+            PENDING
+        }
+
+        /**
+         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Status] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            PENDING,
+            /** An enum member indicating that [Status] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
+         *   known member.
+         */
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
+         *   the expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
+         *   its expected type.
+         */
+        fun validate(): Status = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: ModernTreasuryInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
