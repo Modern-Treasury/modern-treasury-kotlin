@@ -82,6 +82,8 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
 
         val PRINT = of("print")
 
+        val REMOTE_DEPOSIT = of("remote_deposit")
+
         val SE_BANKGIROT = of("se_bankgirot")
 
         val SEPA = of("sepa")
@@ -127,6 +129,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         PL_ELIXIR,
         POLYGON,
         PRINT,
+        REMOTE_DEPOSIT,
         SE_BANKGIROT,
         SEPA,
         SG_GIRO,
@@ -173,6 +176,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
         PL_ELIXIR,
         POLYGON,
         PRINT,
+        REMOTE_DEPOSIT,
         SE_BANKGIROT,
         SEPA,
         SG_GIRO,
@@ -223,6 +227,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             PL_ELIXIR -> Value.PL_ELIXIR
             POLYGON -> Value.POLYGON
             PRINT -> Value.PRINT
+            REMOTE_DEPOSIT -> Value.REMOTE_DEPOSIT
             SE_BANKGIROT -> Value.SE_BANKGIROT
             SEPA -> Value.SEPA
             SG_GIRO -> Value.SG_GIRO
@@ -271,6 +276,7 @@ class PaymentOrderSubtype @JsonCreator private constructor(private val value: Js
             PL_ELIXIR -> Known.PL_ELIXIR
             POLYGON -> Known.POLYGON
             PRINT -> Known.PRINT
+            REMOTE_DEPOSIT -> Known.REMOTE_DEPOSIT
             SE_BANKGIROT -> Known.SE_BANKGIROT
             SEPA -> Known.SEPA
             SG_GIRO -> Known.SG_GIRO
