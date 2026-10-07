@@ -504,6 +504,8 @@ private constructor(
 
             val PENDING = of("pending")
 
+            val DRAFT = of("draft")
+
             val ACTIVE = of("active")
 
             val SUSPENDED = of("suspended")
@@ -516,6 +518,7 @@ private constructor(
         /** An enum containing [Status]'s known values. */
         enum class Known {
             PENDING,
+            DRAFT,
             ACTIVE,
             SUSPENDED,
             DENIED,
@@ -532,6 +535,7 @@ private constructor(
          */
         enum class Value {
             PENDING,
+            DRAFT,
             ACTIVE,
             SUSPENDED,
             DENIED,
@@ -549,6 +553,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 PENDING -> Value.PENDING
+                DRAFT -> Value.DRAFT
                 ACTIVE -> Value.ACTIVE
                 SUSPENDED -> Value.SUSPENDED
                 DENIED -> Value.DENIED
@@ -567,6 +572,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 PENDING -> Known.PENDING
+                DRAFT -> Known.DRAFT
                 ACTIVE -> Known.ACTIVE
                 SUSPENDED -> Known.SUSPENDED
                 DENIED -> Known.DENIED
