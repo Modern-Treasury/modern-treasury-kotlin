@@ -149,6 +149,16 @@ private constructor(
         body.requestedAccountNumberTypes()
 
     /**
+     * The account title at the financial institution, used in place of the party name. Only
+     * applicable to accounts created under supported connections. Please reach out to your customer
+     * success manager to enable this capability for your program.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun title(): String? = body.title()
+
+    /**
      * A hash of vendor specific attributes that will be used when creating the account at the
      * vendor specified by the given connection.
      *
@@ -257,6 +267,13 @@ private constructor(
      */
     fun _requestedAccountNumberTypes(): JsonField<List<RequestedAccountNumberType>> =
         body._requestedAccountNumberTypes()
+
+    /**
+     * Returns the raw JSON value of [title].
+     *
+     * Unlike [title], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _title(): JsonField<String> = body._title()
 
     /**
      * Returns the raw JSON value of [vendorAttributes].
@@ -549,6 +566,21 @@ private constructor(
             }
 
         /**
+         * The account title at the financial institution, used in place of the party name. Only
+         * applicable to accounts created under supported connections. Please reach out to your
+         * customer success manager to enable this capability for your program.
+         */
+        fun title(title: String?) = apply { body.title(title) }
+
+        /**
+         * Sets [Builder.title] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.title] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun title(title: JsonField<String>) = apply { body.title(title) }
+
+        /**
          * A hash of vendor specific attributes that will be used when creating the account at the
          * vendor specified by the given connection.
          */
@@ -728,6 +760,7 @@ private constructor(
         private val partyAddress: JsonField<PartyAddress>,
         private val partyName: JsonField<String>,
         private val requestedAccountNumberTypes: JsonField<List<RequestedAccountNumberType>>,
+        private val title: JsonField<String>,
         private val vendorAttributes: JsonField<VendorAttributes>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -775,6 +808,7 @@ private constructor(
             @ExcludeMissing
             requestedAccountNumberTypes: JsonField<List<RequestedAccountNumberType>> =
                 JsonMissing.of(),
+            @JsonProperty("title") @ExcludeMissing title: JsonField<String> = JsonMissing.of(),
             @JsonProperty("vendor_attributes")
             @ExcludeMissing
             vendorAttributes: JsonField<VendorAttributes> = JsonMissing.of(),
@@ -793,6 +827,7 @@ private constructor(
             partyAddress,
             partyName,
             requestedAccountNumberTypes,
+            title,
             vendorAttributes,
             mutableMapOf(),
         )
@@ -915,6 +950,16 @@ private constructor(
          */
         fun requestedAccountNumberTypes(): List<RequestedAccountNumberType>? =
             requestedAccountNumberTypes.getNullable("requested_account_number_types")
+
+        /**
+         * The account title at the financial institution, used in place of the party name. Only
+         * applicable to accounts created under supported connections. Please reach out to your
+         * customer success manager to enable this capability for your program.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun title(): String? = title.getNullable("title")
 
         /**
          * A hash of vendor specific attributes that will be used when creating the account at the
@@ -1051,6 +1096,13 @@ private constructor(
             requestedAccountNumberTypes
 
         /**
+         * Returns the raw JSON value of [title].
+         *
+         * Unlike [title], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("title") @ExcludeMissing fun _title(): JsonField<String> = title
+
+        /**
          * Returns the raw JSON value of [vendorAttributes].
          *
          * Unlike [vendorAttributes], this method doesn't throw if the JSON field has an unexpected
@@ -1106,6 +1158,7 @@ private constructor(
             private var requestedAccountNumberTypes:
                 JsonField<MutableList<RequestedAccountNumberType>>? =
                 null
+            private var title: JsonField<String> = JsonMissing.of()
             private var vendorAttributes: JsonField<VendorAttributes> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1128,6 +1181,7 @@ private constructor(
                     internalAccountCreateRequest.requestedAccountNumberTypes.map {
                         it.toMutableList()
                     }
+                title = internalAccountCreateRequest.title
                 vendorAttributes = internalAccountCreateRequest.vendorAttributes
                 additionalProperties =
                     internalAccountCreateRequest.additionalProperties.toMutableMap()
@@ -1378,6 +1432,22 @@ private constructor(
             }
 
             /**
+             * The account title at the financial institution, used in place of the party name. Only
+             * applicable to accounts created under supported connections. Please reach out to your
+             * customer success manager to enable this capability for your program.
+             */
+            fun title(title: String?) = title(JsonField.ofNullable(title))
+
+            /**
+             * Sets [Builder.title] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.title] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun title(title: JsonField<String>) = apply { this.title = title }
+
+            /**
              * A hash of vendor specific attributes that will be used when creating the account at
              * the vendor specified by the given connection.
              */
@@ -1443,6 +1513,7 @@ private constructor(
                     partyAddress,
                     partyName,
                     (requestedAccountNumberTypes ?: JsonMissing.of()).map { it.toImmutable() },
+                    title,
                     vendorAttributes,
                     additionalProperties.toMutableMap(),
                 )
@@ -1478,6 +1549,7 @@ private constructor(
             partyAddress()?.validate()
             partyName()
             requestedAccountNumberTypes()?.forEach { it.validate() }
+            title()
             vendorAttributes()?.validate()
             validated = true
         }
@@ -1511,6 +1583,7 @@ private constructor(
                 (partyAddress.asKnown()?.validity() ?: 0) +
                 (if (partyName.asKnown() == null) 0 else 1) +
                 (requestedAccountNumberTypes.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (title.asKnown() == null) 0 else 1) +
                 (vendorAttributes.asKnown()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -1533,6 +1606,7 @@ private constructor(
                 partyAddress == other.partyAddress &&
                 partyName == other.partyName &&
                 requestedAccountNumberTypes == other.requestedAccountNumberTypes &&
+                title == other.title &&
                 vendorAttributes == other.vendorAttributes &&
                 additionalProperties == other.additionalProperties
         }
@@ -1553,6 +1627,7 @@ private constructor(
                 partyAddress,
                 partyName,
                 requestedAccountNumberTypes,
+                title,
                 vendorAttributes,
                 additionalProperties,
             )
@@ -1561,7 +1636,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InternalAccountCreateRequest{currency=$currency, name=$name, accountCapabilities=$accountCapabilities, accountType=$accountType, connectionId=$connectionId, counterpartyId=$counterpartyId, debitable=$debitable, externalId=$externalId, legalEntityId=$legalEntityId, metadata=$metadata, parentAccountId=$parentAccountId, partyAddress=$partyAddress, partyName=$partyName, requestedAccountNumberTypes=$requestedAccountNumberTypes, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
+            "InternalAccountCreateRequest{currency=$currency, name=$name, accountCapabilities=$accountCapabilities, accountType=$accountType, connectionId=$connectionId, counterpartyId=$counterpartyId, debitable=$debitable, externalId=$externalId, legalEntityId=$legalEntityId, metadata=$metadata, parentAccountId=$parentAccountId, partyAddress=$partyAddress, partyName=$partyName, requestedAccountNumberTypes=$requestedAccountNumberTypes, title=$title, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
     }
 
     /** The currency of the internal account. Supports fiat and stablecoin currencies. */
