@@ -64,7 +64,7 @@ internal class LedgerAccountTest {
                 .externalId("external_id")
                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .ledgerableType(LedgerAccount.LedgerableType.COUNTERPARTY)
+                .ledgerableType(LedgerAccount.LedgerableType.EXTERNAL_ACCOUNT)
                 .liveMode(true)
                 .lockVersion(0L)
                 .metadata(
@@ -133,7 +133,7 @@ internal class LedgerAccountTest {
         assertThat(ledgerAccount.ledgerId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(ledgerAccount.ledgerableId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(ledgerAccount.ledgerableType())
-            .isEqualTo(LedgerAccount.LedgerableType.COUNTERPARTY)
+            .isEqualTo(LedgerAccount.LedgerableType.EXTERNAL_ACCOUNT)
         assertThat(ledgerAccount.liveMode()).isEqualTo(true)
         assertThat(ledgerAccount.lockVersion()).isEqualTo(0L)
         assertThat(ledgerAccount.metadata())
@@ -205,7 +205,7 @@ internal class LedgerAccountTest {
                 .externalId("external_id")
                 .ledgerId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .ledgerableType(LedgerAccount.LedgerableType.COUNTERPARTY)
+                .ledgerableType(LedgerAccount.LedgerableType.EXTERNAL_ACCOUNT)
                 .liveMode(true)
                 .lockVersion(0L)
                 .metadata(
