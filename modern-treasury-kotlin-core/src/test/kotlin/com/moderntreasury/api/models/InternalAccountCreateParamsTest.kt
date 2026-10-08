@@ -53,6 +53,7 @@ internal class InternalAccountCreateParamsTest {
             .addRequestedAccountNumberType(
                 InternalAccountCreateParams.RequestedAccountNumberType.ARBITRUM_ADDRESS
             )
+            .title("title")
             .vendorAttributes(
                 InternalAccountCreateParams.VendorAttributes.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -108,6 +109,7 @@ internal class InternalAccountCreateParamsTest {
                 .addRequestedAccountNumberType(
                     InternalAccountCreateParams.RequestedAccountNumberType.ARBITRUM_ADDRESS
                 )
+                .title("title")
                 .vendorAttributes(
                     InternalAccountCreateParams.VendorAttributes.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -164,6 +166,7 @@ internal class InternalAccountCreateParamsTest {
             .containsExactly(
                 InternalAccountCreateParams.RequestedAccountNumberType.ARBITRUM_ADDRESS
             )
+        assertThat(body.title()).isEqualTo("title")
         assertThat(body.vendorAttributes())
             .isEqualTo(
                 InternalAccountCreateParams.VendorAttributes.builder()
