@@ -9,7 +9,11 @@ import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
 import java.util.Objects
 
-/** request closure of internal account */
+/**
+ * This endpoint has been deprecated. Request closure with PATCH /api/internal_accounts/{id} and
+ * status: "pending_closure".
+ */
+@Deprecated("deprecated")
 class InternalAccountRequestClosureParams
 private constructor(
     private val id: String?,
