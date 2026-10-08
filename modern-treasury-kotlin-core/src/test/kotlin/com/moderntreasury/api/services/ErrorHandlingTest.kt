@@ -110,7 +110,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -209,7 +209,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -308,7 +308,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -407,7 +407,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -506,7 +506,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -605,7 +605,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -704,7 +704,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -803,7 +803,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -902,7 +902,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -1001,7 +1001,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -1100,7 +1100,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -1199,7 +1199,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -1298,7 +1298,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -1397,7 +1397,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -1496,7 +1496,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -1595,7 +1595,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -1692,7 +1692,7 @@ internal class ErrorHandlingTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
