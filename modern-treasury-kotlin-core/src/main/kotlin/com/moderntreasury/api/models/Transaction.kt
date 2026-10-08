@@ -1758,6 +1758,8 @@ private constructor(
 
             val MX = of("mx")
 
+            val ONE_MONEY = of("one_money")
+
             val PAXOS = of("paxos")
 
             val PAYPAL = of("paypal")
@@ -1798,6 +1800,7 @@ private constructor(
             JPMC,
             MODERN_TREASURY,
             MX,
+            ONE_MONEY,
             PAXOS,
             PAYPAL,
             PNC,
@@ -1836,6 +1839,7 @@ private constructor(
             JPMC,
             MODERN_TREASURY,
             MX,
+            ONE_MONEY,
             PAXOS,
             PAYPAL,
             PNC,
@@ -1878,6 +1882,7 @@ private constructor(
                 JPMC -> Value.JPMC
                 MODERN_TREASURY -> Value.MODERN_TREASURY
                 MX -> Value.MX
+                ONE_MONEY -> Value.ONE_MONEY
                 PAXOS -> Value.PAXOS
                 PAYPAL -> Value.PAYPAL
                 PNC -> Value.PNC
@@ -1918,6 +1923,7 @@ private constructor(
                 JPMC -> Known.JPMC
                 MODERN_TREASURY -> Known.MODERN_TREASURY
                 MX -> Known.MX
+                ONE_MONEY -> Known.ONE_MONEY
                 PAXOS -> Known.PAXOS
                 PAYPAL -> Known.PAYPAL
                 PNC -> Known.PNC
