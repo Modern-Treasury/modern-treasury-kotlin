@@ -73,6 +73,7 @@ internal class InternalAccountServiceTest {
                     .addRequestedAccountNumberType(
                         InternalAccountCreateParams.RequestedAccountNumberType.ARBITRUM_ADDRESS
                     )
+                    .title("title")
                     .vendorAttributes(
                         InternalAccountCreateParams.VendorAttributes.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
