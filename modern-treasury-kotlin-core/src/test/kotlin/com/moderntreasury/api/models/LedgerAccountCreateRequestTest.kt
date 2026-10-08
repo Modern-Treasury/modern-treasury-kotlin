@@ -23,7 +23,7 @@ internal class LedgerAccountCreateRequestTest {
                 .externalId("external_id")
                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
+                .ledgerableType(LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT)
                 .metadata(
                     LedgerAccountCreateRequest.Metadata.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -47,7 +47,7 @@ internal class LedgerAccountCreateRequestTest {
         assertThat(ledgerAccountCreateRequest.ledgerableId())
             .isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
         assertThat(ledgerAccountCreateRequest.ledgerableType())
-            .isEqualTo(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
+            .isEqualTo(LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT)
         assertThat(ledgerAccountCreateRequest.metadata())
             .isEqualTo(
                 LedgerAccountCreateRequest.Metadata.builder()
@@ -72,7 +72,7 @@ internal class LedgerAccountCreateRequestTest {
                 .externalId("external_id")
                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
+                .ledgerableType(LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT)
                 .metadata(
                     LedgerAccountCreateRequest.Metadata.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))

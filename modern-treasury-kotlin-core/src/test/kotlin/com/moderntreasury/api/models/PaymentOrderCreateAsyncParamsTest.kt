@@ -158,7 +158,9 @@ internal class PaymentOrderCreateAsyncParamsTest {
                             .externalId("external_id")
                             .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
+                            .ledgerableType(
+                                LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
+                            )
                             .metadata(
                                 LedgerAccountCreateRequest.Metadata.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -389,7 +391,7 @@ internal class PaymentOrderCreateAsyncParamsTest {
                                 .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .ledgerableType(
-                                    LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY
+                                    LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
                                 )
                                 .metadata(
                                     LedgerAccountCreateRequest.Metadata.builder()
@@ -625,7 +627,9 @@ internal class PaymentOrderCreateAsyncParamsTest {
                             .externalId("external_id")
                             .addLedgerAccountCategoryId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .ledgerableId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .ledgerableType(LedgerAccountCreateRequest.LedgerableType.COUNTERPARTY)
+                            .ledgerableType(
+                                LedgerAccountCreateRequest.LedgerableType.EXTERNAL_ACCOUNT
+                            )
                             .metadata(
                                 LedgerAccountCreateRequest.Metadata.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
