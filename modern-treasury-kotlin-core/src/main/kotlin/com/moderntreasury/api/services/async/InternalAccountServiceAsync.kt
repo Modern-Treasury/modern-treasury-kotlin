@@ -83,7 +83,11 @@ interface InternalAccountServiceAsync {
     suspend fun list(requestOptions: RequestOptions): InternalAccountListPageAsync =
         list(InternalAccountListParams.none(), requestOptions)
 
-    /** request closure of internal account */
+    /**
+     * This endpoint has been deprecated. Request closure with PATCH /api/internal_accounts/{id} and
+     * status: "pending_closure".
+     */
+    @Deprecated("deprecated")
     suspend fun requestClosure(
         id: String,
         params: InternalAccountRequestClosureParams = InternalAccountRequestClosureParams.none(),
@@ -91,12 +95,14 @@ interface InternalAccountServiceAsync {
     ): InternalAccount = requestClosure(params.toBuilder().id(id).build(), requestOptions)
 
     /** @see requestClosure */
+    @Deprecated("deprecated")
     suspend fun requestClosure(
         params: InternalAccountRequestClosureParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InternalAccount
 
     /** @see requestClosure */
+    @Deprecated("deprecated")
     suspend fun requestClosure(id: String, requestOptions: RequestOptions): InternalAccount =
         requestClosure(id, InternalAccountRequestClosureParams.none(), requestOptions)
 
@@ -216,6 +222,7 @@ interface InternalAccountServiceAsync {
          * Returns a raw HTTP response for `post /api/internal_accounts/{id}/request_closure`, but
          * is otherwise the same as [InternalAccountServiceAsync.requestClosure].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun requestClosure(
             id: String,
@@ -226,6 +233,7 @@ interface InternalAccountServiceAsync {
             requestClosure(params.toBuilder().id(id).build(), requestOptions)
 
         /** @see requestClosure */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun requestClosure(
             params: InternalAccountRequestClosureParams,
@@ -233,6 +241,7 @@ interface InternalAccountServiceAsync {
         ): HttpResponseFor<InternalAccount>
 
         /** @see requestClosure */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun requestClosure(
             id: String,
