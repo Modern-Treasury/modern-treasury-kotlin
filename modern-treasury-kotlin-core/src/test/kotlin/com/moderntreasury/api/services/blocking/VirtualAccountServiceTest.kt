@@ -5,6 +5,7 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.models.AddressRequest
 import com.moderntreasury.api.models.LedgerAccountCreateRequest
 import com.moderntreasury.api.models.TransactionDirection
 import com.moderntreasury.api.models.VirtualAccountCreateParams
@@ -74,6 +75,16 @@ internal class VirtualAccountServiceTest {
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
+                    .partyAddress(
+                        AddressRequest.builder()
+                            .country("country")
+                            .line1("line1")
+                            .line2("line2")
+                            .locality("locality")
+                            .postalCode("postal_code")
+                            .region("region")
+                            .build()
+                    )
                     .addRoutingDetail(
                         VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
                             .routingNumber("routing_number")
@@ -132,6 +143,16 @@ internal class VirtualAccountServiceTest {
                             .build()
                     )
                     .name("name")
+                    .partyAddress(
+                        AddressRequest.builder()
+                            .country("country")
+                            .line1("line1")
+                            .line2("line2")
+                            .locality("locality")
+                            .postalCode("postal_code")
+                            .region("region")
+                            .build()
+                    )
                     .build()
             )
 

@@ -29,6 +29,7 @@ private constructor(
     private val currency: JsonField<Currency>,
     private val data: JsonField<Data>,
     private val direction: JsonField<TransactionDirection>,
+    private val failureReason: JsonField<String>,
     private val internalAccountId: JsonField<String>,
     private val ledgerTransactionId: JsonField<String>,
     private val liveMode: JsonField<Boolean>,
@@ -72,6 +73,9 @@ private constructor(
         @JsonProperty("direction")
         @ExcludeMissing
         direction: JsonField<TransactionDirection> = JsonMissing.of(),
+        @JsonProperty("failure_reason")
+        @ExcludeMissing
+        failureReason: JsonField<String> = JsonMissing.of(),
         @JsonProperty("internal_account_id")
         @ExcludeMissing
         internalAccountId: JsonField<String> = JsonMissing.of(),
@@ -141,6 +145,7 @@ private constructor(
         currency,
         data,
         direction,
+        failureReason,
         internalAccountId,
         ledgerTransactionId,
         liveMode,
@@ -220,6 +225,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun direction(): TransactionDirection = direction.getRequired("direction")
+
+    /**
+     * The reason the incoming payment detail failed, or `null`.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun failureReason(): String? = failureReason.getNullable("failure_reason")
 
     /**
      * The ID of the Internal Account for the incoming payment detail. This is always present.
@@ -306,8 +319,8 @@ private constructor(
         reconciliationStatus.getRequired("reconciliation_status")
 
     /**
-     * The current status of the incoming payment order. One of `pending`, `completed`, or
-     * `returned`.
+     * The current status of the incoming payment order. One of `pending`, `completed`, `returned`,
+     * or `failed`.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -485,6 +498,15 @@ private constructor(
     @JsonProperty("direction")
     @ExcludeMissing
     fun _direction(): JsonField<TransactionDirection> = direction
+
+    /**
+     * Returns the raw JSON value of [failureReason].
+     *
+     * Unlike [failureReason], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("failure_reason")
+    @ExcludeMissing
+    fun _failureReason(): JsonField<String> = failureReason
 
     /**
      * Returns the raw JSON value of [internalAccountId].
@@ -740,6 +762,7 @@ private constructor(
          * .currency()
          * .data()
          * .direction()
+         * .failureReason()
          * .internalAccountId()
          * .ledgerTransactionId()
          * .liveMode()
@@ -774,6 +797,7 @@ private constructor(
         private var currency: JsonField<Currency>? = null
         private var data: JsonField<Data>? = null
         private var direction: JsonField<TransactionDirection>? = null
+        private var failureReason: JsonField<String>? = null
         private var internalAccountId: JsonField<String>? = null
         private var ledgerTransactionId: JsonField<String>? = null
         private var liveMode: JsonField<Boolean>? = null
@@ -809,6 +833,7 @@ private constructor(
             currency = incomingPaymentDetail.currency
             data = incomingPaymentDetail.data
             direction = incomingPaymentDetail.direction
+            failureReason = incomingPaymentDetail.failureReason
             internalAccountId = incomingPaymentDetail.internalAccountId
             ledgerTransactionId = incomingPaymentDetail.ledgerTransactionId
             liveMode = incomingPaymentDetail.liveMode
@@ -917,6 +942,21 @@ private constructor(
          */
         fun direction(direction: JsonField<TransactionDirection>) = apply {
             this.direction = direction
+        }
+
+        /** The reason the incoming payment detail failed, or `null`. */
+        fun failureReason(failureReason: String?) =
+            failureReason(JsonField.ofNullable(failureReason))
+
+        /**
+         * Sets [Builder.failureReason] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.failureReason] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun failureReason(failureReason: JsonField<String>) = apply {
+            this.failureReason = failureReason
         }
 
         /**
@@ -1068,8 +1108,8 @@ private constructor(
         }
 
         /**
-         * The current status of the incoming payment order. One of `pending`, `completed`, or
-         * `returned`.
+         * The current status of the incoming payment order. One of `pending`, `completed`,
+         * `returned`, or `failed`.
          */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -1325,6 +1365,7 @@ private constructor(
          * .currency()
          * .data()
          * .direction()
+         * .failureReason()
          * .internalAccountId()
          * .ledgerTransactionId()
          * .liveMode()
@@ -1357,6 +1398,7 @@ private constructor(
                 checkRequired("currency", currency),
                 checkRequired("data", data),
                 checkRequired("direction", direction),
+                checkRequired("failureReason", failureReason),
                 checkRequired("internalAccountId", internalAccountId),
                 checkRequired("ledgerTransactionId", ledgerTransactionId),
                 checkRequired("liveMode", liveMode),
@@ -1408,6 +1450,7 @@ private constructor(
         currency().validate()
         data().validate()
         direction().validate()
+        failureReason()
         internalAccountId()
         ledgerTransactionId()
         liveMode()
@@ -1457,6 +1500,7 @@ private constructor(
             (currency.asKnown()?.validity() ?: 0) +
             (data.asKnown()?.validity() ?: 0) +
             (direction.asKnown()?.validity() ?: 0) +
+            (if (failureReason.asKnown() == null) 0 else 1) +
             (if (internalAccountId.asKnown() == null) 0 else 1) +
             (if (ledgerTransactionId.asKnown() == null) 0 else 1) +
             (if (liveMode.asKnown() == null) 0 else 1) +
@@ -2328,8 +2372,8 @@ private constructor(
     }
 
     /**
-     * The current status of the incoming payment order. One of `pending`, `completed`, or
-     * `returned`.
+     * The current status of the incoming payment order. One of `pending`, `completed`, `returned`,
+     * or `failed`.
      */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -2347,6 +2391,8 @@ private constructor(
 
             val COMPLETED = of("completed")
 
+            val FAILED = of("failed")
+
             val PENDING = of("pending")
 
             val RETURNED = of("returned")
@@ -2357,6 +2403,7 @@ private constructor(
         /** An enum containing [Status]'s known values. */
         enum class Known {
             COMPLETED,
+            FAILED,
             PENDING,
             RETURNED,
         }
@@ -2372,6 +2419,7 @@ private constructor(
          */
         enum class Value {
             COMPLETED,
+            FAILED,
             PENDING,
             RETURNED,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
@@ -2388,6 +2436,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 COMPLETED -> Value.COMPLETED
+                FAILED -> Value.FAILED
                 PENDING -> Value.PENDING
                 RETURNED -> Value.RETURNED
                 else -> Value._UNKNOWN
@@ -2405,6 +2454,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 COMPLETED -> Known.COMPLETED
+                FAILED -> Known.FAILED
                 PENDING -> Known.PENDING
                 RETURNED -> Known.RETURNED
                 else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
@@ -2685,6 +2735,7 @@ private constructor(
             currency == other.currency &&
             data == other.data &&
             direction == other.direction &&
+            failureReason == other.failureReason &&
             internalAccountId == other.internalAccountId &&
             ledgerTransactionId == other.ledgerTransactionId &&
             liveMode == other.liveMode &&
@@ -2722,6 +2773,7 @@ private constructor(
             currency,
             data,
             direction,
+            failureReason,
             internalAccountId,
             ledgerTransactionId,
             liveMode,
@@ -2754,5 +2806,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "IncomingPaymentDetail{id=$id, amount=$amount, asOfDate=$asOfDate, createdAt=$createdAt, currency=$currency, data=$data, direction=$direction, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, originatingAccountNumberSafe=$originatingAccountNumberSafe, originatingAccountNumberType=$originatingAccountNumberType, originatingRoutingNumber=$originatingRoutingNumber, originatingRoutingNumberType=$originatingRoutingNumberType, reconciliationStatus=$reconciliationStatus, status=$status, subtype=$subtype, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, vendorId=$vendorId, virtualAccount=$virtualAccount, virtualAccountId=$virtualAccountId, originatingAccountNumber=$originatingAccountNumber, originatingPartyAddress=$originatingPartyAddress, originatingPartyName=$originatingPartyName, originatingPartyVendorIdentifier=$originatingPartyVendorIdentifier, receivingAccountNumber=$receivingAccountNumber, receivingAccountNumberSafe=$receivingAccountNumberSafe, additionalProperties=$additionalProperties}"
+        "IncomingPaymentDetail{id=$id, amount=$amount, asOfDate=$asOfDate, createdAt=$createdAt, currency=$currency, data=$data, direction=$direction, failureReason=$failureReason, internalAccountId=$internalAccountId, ledgerTransactionId=$ledgerTransactionId, liveMode=$liveMode, metadata=$metadata, object_=$object_, originatingAccountNumberSafe=$originatingAccountNumberSafe, originatingAccountNumberType=$originatingAccountNumberType, originatingRoutingNumber=$originatingRoutingNumber, originatingRoutingNumberType=$originatingRoutingNumberType, reconciliationStatus=$reconciliationStatus, status=$status, subtype=$subtype, transactionId=$transactionId, transactionLineItemId=$transactionLineItemId, type=$type, updatedAt=$updatedAt, vendorId=$vendorId, virtualAccount=$virtualAccount, virtualAccountId=$virtualAccountId, originatingAccountNumber=$originatingAccountNumber, originatingPartyAddress=$originatingPartyAddress, originatingPartyName=$originatingPartyName, originatingPartyVendorIdentifier=$originatingPartyVendorIdentifier, receivingAccountNumber=$receivingAccountNumber, receivingAccountNumberSafe=$receivingAccountNumberSafe, additionalProperties=$additionalProperties}"
 }
