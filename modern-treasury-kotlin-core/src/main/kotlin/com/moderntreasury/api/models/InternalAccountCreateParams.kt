@@ -149,9 +149,9 @@ private constructor(
         body.requestedAccountNumberTypes()
 
     /**
-     * The account title at the financial institution, used in place of the party name. Only
-     * applicable to accounts created under supported connections. Please reach out to your customer
-     * success manager to enable this capability for your program.
+     * The account title at the financial institution, used in place of the party name. Defaults to
+     * the party name if not set. Only applicable to accounts created under supported connections.
+     * Please reach out to your customer success manager to enable this capability for your program.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -566,9 +566,10 @@ private constructor(
             }
 
         /**
-         * The account title at the financial institution, used in place of the party name. Only
-         * applicable to accounts created under supported connections. Please reach out to your
-         * customer success manager to enable this capability for your program.
+         * The account title at the financial institution, used in place of the party name. Defaults
+         * to the party name if not set. Only applicable to accounts created under supported
+         * connections. Please reach out to your customer success manager to enable this capability
+         * for your program.
          */
         fun title(title: String?) = apply { body.title(title) }
 
@@ -952,9 +953,10 @@ private constructor(
             requestedAccountNumberTypes.getNullable("requested_account_number_types")
 
         /**
-         * The account title at the financial institution, used in place of the party name. Only
-         * applicable to accounts created under supported connections. Please reach out to your
-         * customer success manager to enable this capability for your program.
+         * The account title at the financial institution, used in place of the party name. Defaults
+         * to the party name if not set. Only applicable to accounts created under supported
+         * connections. Please reach out to your customer success manager to enable this capability
+         * for your program.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -1432,9 +1434,10 @@ private constructor(
             }
 
             /**
-             * The account title at the financial institution, used in place of the party name. Only
-             * applicable to accounts created under supported connections. Please reach out to your
-             * customer success manager to enable this capability for your program.
+             * The account title at the financial institution, used in place of the party name.
+             * Defaults to the party name if not set. Only applicable to accounts created under
+             * supported connections. Please reach out to your customer success manager to enable
+             * this capability for your program.
              */
             fun title(title: String?) = title(JsonField.ofNullable(title))
 
