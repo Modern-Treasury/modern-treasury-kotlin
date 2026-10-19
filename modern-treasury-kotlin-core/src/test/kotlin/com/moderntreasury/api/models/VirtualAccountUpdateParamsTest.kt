@@ -20,6 +20,16 @@ internal class VirtualAccountUpdateParamsTest {
                     .build()
             )
             .name("name")
+            .partyAddress(
+                AddressRequest.builder()
+                    .country("country")
+                    .line1("line1")
+                    .line2("line2")
+                    .locality("locality")
+                    .postalCode("postal_code")
+                    .region("region")
+                    .build()
+            )
             .build()
     }
 
@@ -45,6 +55,16 @@ internal class VirtualAccountUpdateParamsTest {
                         .build()
                 )
                 .name("name")
+                .partyAddress(
+                    AddressRequest.builder()
+                        .country("country")
+                        .line1("line1")
+                        .line2("line2")
+                        .locality("locality")
+                        .postalCode("postal_code")
+                        .region("region")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -58,6 +78,17 @@ internal class VirtualAccountUpdateParamsTest {
                     .build()
             )
         assertThat(body.name()).isEqualTo("name")
+        assertThat(body.partyAddress())
+            .isEqualTo(
+                AddressRequest.builder()
+                    .country("country")
+                    .line1("line1")
+                    .line2("line2")
+                    .locality("locality")
+                    .postalCode("postal_code")
+                    .region("region")
+                    .build()
+            )
     }
 
     @Test
