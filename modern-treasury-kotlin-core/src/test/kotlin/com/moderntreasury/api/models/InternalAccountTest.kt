@@ -42,7 +42,7 @@ internal class InternalAccountTest {
                         .accountNumber("account_number")
                         .build()
                 )
-                .accountType(InternalAccount.AccountType.BASE_WALLET)
+                .accountType(InternalAccount.AccountType.CASH)
                 .connection(
                     Connection.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -156,7 +156,7 @@ internal class InternalAccountTest {
                     .accountNumber("account_number")
                     .build()
             )
-        assertThat(internalAccount.accountType()).isEqualTo(InternalAccount.AccountType.BASE_WALLET)
+        assertThat(internalAccount.accountType()).isEqualTo(InternalAccount.AccountType.CASH)
         assertThat(internalAccount.connection())
             .isEqualTo(
                 Connection.builder()
@@ -284,7 +284,7 @@ internal class InternalAccountTest {
                         .accountNumber("account_number")
                         .build()
                 )
-                .accountType(InternalAccount.AccountType.BASE_WALLET)
+                .accountType(InternalAccount.AccountType.CASH)
                 .connection(
                     Connection.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
