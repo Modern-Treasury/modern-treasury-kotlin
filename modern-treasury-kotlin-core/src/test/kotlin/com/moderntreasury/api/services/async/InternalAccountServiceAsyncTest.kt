@@ -70,6 +70,7 @@ internal class InternalAccountServiceAsyncTest {
                             .build()
                     )
                     .partyName("party_name")
+                    .partyType(InternalAccountCreateParams.PartyType.INDIVIDUAL)
                     .addRequestedAccountNumberType(
                         InternalAccountCreateParams.RequestedAccountNumberType.ARBITRUM_ADDRESS
                     )
@@ -137,6 +138,7 @@ internal class InternalAccountServiceAsyncTest {
                             .region("region")
                             .build()
                     )
+                    .partyType(InternalAccountUpdateParams.PartyType.INDIVIDUAL)
                     .status(InternalAccountUpdateParams.Status.PENDING_CLOSURE)
                     .build()
             )
