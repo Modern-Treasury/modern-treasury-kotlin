@@ -33,6 +33,7 @@ internal class InternalAccountUpdateParamsTest {
                     .region("region")
                     .build()
             )
+            .partyType(InternalAccountUpdateParams.PartyType.INDIVIDUAL)
             .status(InternalAccountUpdateParams.Status.PENDING_CLOSURE)
             .build()
     }
@@ -72,6 +73,7 @@ internal class InternalAccountUpdateParamsTest {
                         .region("region")
                         .build()
                 )
+                .partyType(InternalAccountUpdateParams.PartyType.INDIVIDUAL)
                 .status(InternalAccountUpdateParams.Status.PENDING_CLOSURE)
                 .build()
 
@@ -100,6 +102,7 @@ internal class InternalAccountUpdateParamsTest {
                     .region("region")
                     .build()
             )
+        assertThat(body.partyType()).isEqualTo(InternalAccountUpdateParams.PartyType.INDIVIDUAL)
         assertThat(body.status()).isEqualTo(InternalAccountUpdateParams.Status.PENDING_CLOSURE)
     }
 
