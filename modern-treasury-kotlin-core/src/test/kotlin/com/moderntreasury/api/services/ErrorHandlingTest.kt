@@ -88,7 +88,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -187,7 +187,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -286,7 +286,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -385,7 +385,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -484,7 +484,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -583,7 +583,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -682,7 +682,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -781,7 +781,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -880,7 +880,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -979,7 +979,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -1078,7 +1078,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -1177,7 +1177,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -1276,7 +1276,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -1375,7 +1375,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -1474,7 +1474,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -1573,7 +1573,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
@@ -1670,7 +1670,7 @@ internal class ErrorHandlingTest {
                                 )
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .addContactDetail(
                             ContactDetailCreateRequest.builder()
                                 .contactIdentifier("contact_identifier")
