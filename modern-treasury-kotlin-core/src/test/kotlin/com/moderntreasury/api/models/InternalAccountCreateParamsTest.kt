@@ -28,6 +28,7 @@ internal class InternalAccountCreateParamsTest {
                     .build()
             )
             .accountType(InternalAccountCreateParams.AccountType.CHECKING)
+            .addAllowedAchDebitCompanyId("x")
             .connectionId("connection_id")
             .counterpartyId("counterparty_id")
             .debitable(true)
@@ -50,6 +51,7 @@ internal class InternalAccountCreateParamsTest {
                     .build()
             )
             .partyName("party_name")
+            .partyType(InternalAccountCreateParams.PartyType.INDIVIDUAL)
             .addRequestedAccountNumberType(
                 InternalAccountCreateParams.RequestedAccountNumberType.ARBITRUM_ADDRESS
             )
@@ -84,6 +86,7 @@ internal class InternalAccountCreateParamsTest {
                         .build()
                 )
                 .accountType(InternalAccountCreateParams.AccountType.CHECKING)
+                .addAllowedAchDebitCompanyId("x")
                 .connectionId("connection_id")
                 .counterpartyId("counterparty_id")
                 .debitable(true)
@@ -106,6 +109,7 @@ internal class InternalAccountCreateParamsTest {
                         .build()
                 )
                 .partyName("party_name")
+                .partyType(InternalAccountCreateParams.PartyType.INDIVIDUAL)
                 .addRequestedAccountNumberType(
                     InternalAccountCreateParams.RequestedAccountNumberType.ARBITRUM_ADDRESS
                 )
@@ -138,6 +142,7 @@ internal class InternalAccountCreateParamsTest {
                     .build()
             )
         assertThat(body.accountType()).isEqualTo(InternalAccountCreateParams.AccountType.CHECKING)
+        assertThat(body.allowedAchDebitCompanyIds()).containsExactly("x")
         assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.counterpartyId()).isEqualTo("counterparty_id")
         assertThat(body.debitable()).isEqualTo(true)
@@ -162,6 +167,7 @@ internal class InternalAccountCreateParamsTest {
                     .build()
             )
         assertThat(body.partyName()).isEqualTo("party_name")
+        assertThat(body.partyType()).isEqualTo(InternalAccountCreateParams.PartyType.INDIVIDUAL)
         assertThat(body.requestedAccountNumberTypes())
             .containsExactly(
                 InternalAccountCreateParams.RequestedAccountNumberType.ARBITRUM_ADDRESS
