@@ -44,7 +44,7 @@ internal class ExternalAccountServiceAsyncTest {
                             )
                             .build()
                     )
-                    .accountType(ExternalAccountType.BASE_WALLET)
+                    .accountType(ExternalAccountType.CASH)
                     .addContactDetail(
                         ContactDetailCreateRequest.builder()
                             .contactIdentifier("contact_identifier")
@@ -143,7 +143,7 @@ internal class ExternalAccountServiceAsyncTest {
             externalAccountServiceAsync.update(
                 ExternalAccountUpdateParams.builder()
                     .id("id")
-                    .accountType(ExternalAccountType.BASE_WALLET)
+                    .accountType(ExternalAccountType.CASH)
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .metadata(
                         ExternalAccountUpdateParams.Metadata.builder()
