@@ -171,7 +171,7 @@ internal class LegalEntityAssociationTest {
                         .prefix("prefix")
                         .addPrimarySocialMediaSite("string")
                         .addRegulator(
-                            ChildLegalEntity.LegalEntityRegulator.builder()
+                            LegalEntityRegulator.builder()
                                 .jurisdiction("jurisdiction")
                                 .name("name")
                                 .registrationNumber("registration_number")
@@ -407,7 +407,7 @@ internal class LegalEntityAssociationTest {
                     .prefix("prefix")
                     .addPrimarySocialMediaSite("string")
                     .addRegulator(
-                        ChildLegalEntity.LegalEntityRegulator.builder()
+                        LegalEntityRegulator.builder()
                             .jurisdiction("jurisdiction")
                             .name("name")
                             .registrationNumber("registration_number")
@@ -651,7 +651,7 @@ internal class LegalEntityAssociationTest {
                         .prefix("prefix")
                         .addPrimarySocialMediaSite("string")
                         .addRegulator(
-                            ChildLegalEntity.LegalEntityRegulator.builder()
+                            LegalEntityRegulator.builder()
                                 .jurisdiction("jurisdiction")
                                 .name("name")
                                 .registrationNumber("registration_number")

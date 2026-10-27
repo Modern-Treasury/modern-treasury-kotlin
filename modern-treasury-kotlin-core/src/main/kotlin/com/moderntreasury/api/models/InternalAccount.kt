@@ -26,6 +26,7 @@ private constructor(
     private val accountCapabilities: JsonField<List<AccountCapability>>,
     private val accountDetails: JsonField<List<AccountDetail>>,
     private val accountType: JsonField<AccountType>,
+    private val allowedAchDebitCompanyIds: JsonField<List<String>>,
     private val connection: JsonField<Connection>,
     private val contraLedgerAccountId: JsonField<String>,
     private val counterpartyId: JsonField<String>,
@@ -63,6 +64,9 @@ private constructor(
         @JsonProperty("account_type")
         @ExcludeMissing
         accountType: JsonField<AccountType> = JsonMissing.of(),
+        @JsonProperty("allowed_ach_debit_company_ids")
+        @ExcludeMissing
+        allowedAchDebitCompanyIds: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("connection")
         @ExcludeMissing
         connection: JsonField<Connection> = JsonMissing.of(),
@@ -114,6 +118,7 @@ private constructor(
         accountCapabilities,
         accountDetails,
         accountType,
+        allowedAchDebitCompanyIds,
         connection,
         contraLedgerAccountId,
         counterpartyId,
@@ -170,6 +175,17 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun accountType(): AccountType? = accountType.getNullable("account_type")
+
+    /**
+     * The ACH Company IDs allowed to debit this account. `null` allows every company. An empty
+     * array allows none. Debits from any other company are returned with code R10. Only applicable
+     * to debitable accounts under a Modern Treasury PSP connection.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun allowedAchDebitCompanyIds(): List<String>? =
+        allowedAchDebitCompanyIds.getNullable("allowed_ach_debit_company_ids")
 
     /**
      * Specifies which financial institution the accounts belong to.
@@ -303,7 +319,8 @@ private constructor(
     fun partyName(): String = partyName.getRequired("party_name")
 
     /**
-     * Either individual or business.
+     * Either individual or business. Inherits from associated LegalEntity legal_entity_type, if one
+     * exists.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -327,13 +344,14 @@ private constructor(
     fun status(): Status? = status.getNullable("status")
 
     /**
-     * The account title at the financial institution, used in place of the party name. Only
-     * applicable to accounts created under supported connections.
+     * The account title at the financial institution. Defaults to the party name unless a custom
+     * title was set on creation. Custom titles are only applicable to accounts created under
+     * supported connections.
      *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun title(): String? = title.getNullable("title")
+    fun title(): String = title.getRequired("title")
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
@@ -383,6 +401,16 @@ private constructor(
     @JsonProperty("account_type")
     @ExcludeMissing
     fun _accountType(): JsonField<AccountType> = accountType
+
+    /**
+     * Returns the raw JSON value of [allowedAchDebitCompanyIds].
+     *
+     * Unlike [allowedAchDebitCompanyIds], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("allowed_ach_debit_company_ids")
+    @ExcludeMissing
+    fun _allowedAchDebitCompanyIds(): JsonField<List<String>> = allowedAchDebitCompanyIds
 
     /**
      * Returns the raw JSON value of [connection].
@@ -582,6 +610,7 @@ private constructor(
          * .accountCapabilities()
          * .accountDetails()
          * .accountType()
+         * .allowedAchDebitCompanyIds()
          * .connection()
          * .contraLedgerAccountId()
          * .counterpartyId()
@@ -616,6 +645,7 @@ private constructor(
         private var accountCapabilities: JsonField<MutableList<AccountCapability>>? = null
         private var accountDetails: JsonField<MutableList<AccountDetail>>? = null
         private var accountType: JsonField<AccountType>? = null
+        private var allowedAchDebitCompanyIds: JsonField<MutableList<String>>? = null
         private var connection: JsonField<Connection>? = null
         private var contraLedgerAccountId: JsonField<String>? = null
         private var counterpartyId: JsonField<String>? = null
@@ -645,6 +675,8 @@ private constructor(
             accountCapabilities = internalAccount.accountCapabilities.map { it.toMutableList() }
             accountDetails = internalAccount.accountDetails.map { it.toMutableList() }
             accountType = internalAccount.accountType
+            allowedAchDebitCompanyIds =
+                internalAccount.allowedAchDebitCompanyIds.map { it.toMutableList() }
             connection = internalAccount.connection
             contraLedgerAccountId = internalAccount.contraLedgerAccountId
             counterpartyId = internalAccount.counterpartyId
@@ -749,6 +781,37 @@ private constructor(
          */
         fun accountType(accountType: JsonField<AccountType>) = apply {
             this.accountType = accountType
+        }
+
+        /**
+         * The ACH Company IDs allowed to debit this account. `null` allows every company. An empty
+         * array allows none. Debits from any other company are returned with code R10. Only
+         * applicable to debitable accounts under a Modern Treasury PSP connection.
+         */
+        fun allowedAchDebitCompanyIds(allowedAchDebitCompanyIds: List<String>?) =
+            allowedAchDebitCompanyIds(JsonField.ofNullable(allowedAchDebitCompanyIds))
+
+        /**
+         * Sets [Builder.allowedAchDebitCompanyIds] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.allowedAchDebitCompanyIds] with a well-typed
+         * `List<String>` value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun allowedAchDebitCompanyIds(allowedAchDebitCompanyIds: JsonField<List<String>>) = apply {
+            this.allowedAchDebitCompanyIds = allowedAchDebitCompanyIds.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [String] to [allowedAchDebitCompanyIds].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addAllowedAchDebitCompanyId(allowedAchDebitCompanyId: String) = apply {
+            allowedAchDebitCompanyIds =
+                (allowedAchDebitCompanyIds ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("allowedAchDebitCompanyIds", it).add(allowedAchDebitCompanyId)
+                }
         }
 
         /** Specifies which financial institution the accounts belong to. */
@@ -979,7 +1042,10 @@ private constructor(
          */
         fun partyName(partyName: JsonField<String>) = apply { this.partyName = partyName }
 
-        /** Either individual or business. */
+        /**
+         * Either individual or business. Inherits from associated LegalEntity legal_entity_type, if
+         * one exists.
+         */
         fun partyType(partyType: PartyType?) = partyType(JsonField.ofNullable(partyType))
 
         /**
@@ -1030,10 +1096,11 @@ private constructor(
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
-         * The account title at the financial institution, used in place of the party name. Only
-         * applicable to accounts created under supported connections.
+         * The account title at the financial institution. Defaults to the party name unless a
+         * custom title was set on creation. Custom titles are only applicable to accounts created
+         * under supported connections.
          */
-        fun title(title: String?) = title(JsonField.ofNullable(title))
+        fun title(title: String) = title(JsonField.of(title))
 
         /**
          * Sets [Builder.title] to an arbitrary JSON value.
@@ -1095,6 +1162,7 @@ private constructor(
          * .accountCapabilities()
          * .accountDetails()
          * .accountType()
+         * .allowedAchDebitCompanyIds()
          * .connection()
          * .contraLedgerAccountId()
          * .counterpartyId()
@@ -1127,6 +1195,9 @@ private constructor(
                 checkRequired("accountCapabilities", accountCapabilities).map { it.toImmutable() },
                 checkRequired("accountDetails", accountDetails).map { it.toImmutable() },
                 checkRequired("accountType", accountType),
+                checkRequired("allowedAchDebitCompanyIds", allowedAchDebitCompanyIds).map {
+                    it.toImmutable()
+                },
                 checkRequired("connection", connection),
                 checkRequired("contraLedgerAccountId", contraLedgerAccountId),
                 checkRequired("counterpartyId", counterpartyId),
@@ -1172,6 +1243,7 @@ private constructor(
         accountCapabilities().forEach { it.validate() }
         accountDetails().forEach { it.validate() }
         accountType()?.validate()
+        allowedAchDebitCompanyIds()
         connection().validate()
         contraLedgerAccountId()
         counterpartyId()
@@ -1215,6 +1287,7 @@ private constructor(
             (accountCapabilities.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
             (accountDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
             (accountType.asKnown()?.validity() ?: 0) +
+            (allowedAchDebitCompanyIds.asKnown()?.size ?: 0) +
             (connection.asKnown()?.validity() ?: 0) +
             (if (contraLedgerAccountId.asKnown() == null) 0 else 1) +
             (if (counterpartyId.asKnown() == null) 0 else 1) +
@@ -1238,807 +1311,6 @@ private constructor(
             (if (updatedAt.asKnown() == null) 0 else 1) +
             (if (vendorId.asKnown() == null) 0 else 1)
 
-    class AccountCapability
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val id: JsonField<String>,
-        private val createdAt: JsonField<OffsetDateTime>,
-        private val direction: JsonField<TransactionDirection>,
-        private val discardedAt: JsonField<OffsetDateTime>,
-        private val identifier: JsonField<String>,
-        private val liveMode: JsonField<Boolean>,
-        private val object_: JsonField<String>,
-        private val paymentType: JsonField<PaymentType>,
-        private val updatedAt: JsonField<OffsetDateTime>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("created_at")
-            @ExcludeMissing
-            createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonProperty("direction")
-            @ExcludeMissing
-            direction: JsonField<TransactionDirection> = JsonMissing.of(),
-            @JsonProperty("discarded_at")
-            @ExcludeMissing
-            discardedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonProperty("identifier")
-            @ExcludeMissing
-            identifier: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("live_mode")
-            @ExcludeMissing
-            liveMode: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("object") @ExcludeMissing object_: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("payment_type")
-            @ExcludeMissing
-            paymentType: JsonField<PaymentType> = JsonMissing.of(),
-            @JsonProperty("updated_at")
-            @ExcludeMissing
-            updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        ) : this(
-            id,
-            createdAt,
-            direction,
-            discardedAt,
-            identifier,
-            liveMode,
-            object_,
-            paymentType,
-            updatedAt,
-            mutableMapOf(),
-        )
-
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun id(): String = id.getRequired("id")
-
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-        /**
-         * One of `debit` or `credit`. Indicates the direction of money movement this capability is
-         * responsible for.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun direction(): TransactionDirection = direction.getRequired("direction")
-
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun discardedAt(): OffsetDateTime? = discardedAt.getNullable("discarded_at")
-
-        /**
-         * A unique reference assigned by your bank for tracking and recognizing payment files. It
-         * is important this is formatted exactly how the bank assigned it.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun identifier(): String? = identifier.getNullable("identifier")
-
-        /**
-         * This field will be true if this object exists in the live environment or false if it
-         * exists in the test environment.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun liveMode(): Boolean = liveMode.getRequired("live_mode")
-
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun object_(): String = object_.getRequired("object")
-
-        /**
-         * Indicates the the type of payment this capability is responsible for originating.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun paymentType(): PaymentType = paymentType.getRequired("payment_type")
-
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
-        /**
-         * Returns the raw JSON value of [id].
-         *
-         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
-
-        /**
-         * Returns the raw JSON value of [createdAt].
-         *
-         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
-
-        /**
-         * Returns the raw JSON value of [direction].
-         *
-         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("direction")
-        @ExcludeMissing
-        fun _direction(): JsonField<TransactionDirection> = direction
-
-        /**
-         * Returns the raw JSON value of [discardedAt].
-         *
-         * Unlike [discardedAt], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("discarded_at")
-        @ExcludeMissing
-        fun _discardedAt(): JsonField<OffsetDateTime> = discardedAt
-
-        /**
-         * Returns the raw JSON value of [identifier].
-         *
-         * Unlike [identifier], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("identifier")
-        @ExcludeMissing
-        fun _identifier(): JsonField<String> = identifier
-
-        /**
-         * Returns the raw JSON value of [liveMode].
-         *
-         * Unlike [liveMode], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("live_mode") @ExcludeMissing fun _liveMode(): JsonField<Boolean> = liveMode
-
-        /**
-         * Returns the raw JSON value of [object_].
-         *
-         * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<String> = object_
-
-        /**
-         * Returns the raw JSON value of [paymentType].
-         *
-         * Unlike [paymentType], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("payment_type")
-        @ExcludeMissing
-        fun _paymentType(): JsonField<PaymentType> = paymentType
-
-        /**
-         * Returns the raw JSON value of [updatedAt].
-         *
-         * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [AccountCapability].
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .id()
-             * .createdAt()
-             * .direction()
-             * .discardedAt()
-             * .identifier()
-             * .liveMode()
-             * .object_()
-             * .paymentType()
-             * .updatedAt()
-             * ```
-             */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [AccountCapability]. */
-        class Builder internal constructor() {
-
-            private var id: JsonField<String>? = null
-            private var createdAt: JsonField<OffsetDateTime>? = null
-            private var direction: JsonField<TransactionDirection>? = null
-            private var discardedAt: JsonField<OffsetDateTime>? = null
-            private var identifier: JsonField<String>? = null
-            private var liveMode: JsonField<Boolean>? = null
-            private var object_: JsonField<String>? = null
-            private var paymentType: JsonField<PaymentType>? = null
-            private var updatedAt: JsonField<OffsetDateTime>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(accountCapability: AccountCapability) = apply {
-                id = accountCapability.id
-                createdAt = accountCapability.createdAt
-                direction = accountCapability.direction
-                discardedAt = accountCapability.discardedAt
-                identifier = accountCapability.identifier
-                liveMode = accountCapability.liveMode
-                object_ = accountCapability.object_
-                paymentType = accountCapability.paymentType
-                updatedAt = accountCapability.updatedAt
-                additionalProperties = accountCapability.additionalProperties.toMutableMap()
-            }
-
-            fun id(id: String) = id(JsonField.of(id))
-
-            /**
-             * Sets [Builder.id] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.id] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun id(id: JsonField<String>) = apply { this.id = id }
-
-            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-            /**
-             * Sets [Builder.createdAt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-                this.createdAt = createdAt
-            }
-
-            /**
-             * One of `debit` or `credit`. Indicates the direction of money movement this capability
-             * is responsible for.
-             */
-            fun direction(direction: TransactionDirection) = direction(JsonField.of(direction))
-
-            /**
-             * Sets [Builder.direction] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.direction] with a well-typed [TransactionDirection]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun direction(direction: JsonField<TransactionDirection>) = apply {
-                this.direction = direction
-            }
-
-            fun discardedAt(discardedAt: OffsetDateTime?) =
-                discardedAt(JsonField.ofNullable(discardedAt))
-
-            /**
-             * Sets [Builder.discardedAt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.discardedAt] with a well-typed [OffsetDateTime]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun discardedAt(discardedAt: JsonField<OffsetDateTime>) = apply {
-                this.discardedAt = discardedAt
-            }
-
-            /**
-             * A unique reference assigned by your bank for tracking and recognizing payment files.
-             * It is important this is formatted exactly how the bank assigned it.
-             */
-            fun identifier(identifier: String?) = identifier(JsonField.ofNullable(identifier))
-
-            /**
-             * Sets [Builder.identifier] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.identifier] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun identifier(identifier: JsonField<String>) = apply { this.identifier = identifier }
-
-            /**
-             * This field will be true if this object exists in the live environment or false if it
-             * exists in the test environment.
-             */
-            fun liveMode(liveMode: Boolean) = liveMode(JsonField.of(liveMode))
-
-            /**
-             * Sets [Builder.liveMode] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.liveMode] with a well-typed [Boolean] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun liveMode(liveMode: JsonField<Boolean>) = apply { this.liveMode = liveMode }
-
-            fun object_(object_: String) = object_(JsonField.of(object_))
-
-            /**
-             * Sets [Builder.object_] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.object_] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun object_(object_: JsonField<String>) = apply { this.object_ = object_ }
-
-            /** Indicates the the type of payment this capability is responsible for originating. */
-            fun paymentType(paymentType: PaymentType) = paymentType(JsonField.of(paymentType))
-
-            /**
-             * Sets [Builder.paymentType] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.paymentType] with a well-typed [PaymentType] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun paymentType(paymentType: JsonField<PaymentType>) = apply {
-                this.paymentType = paymentType
-            }
-
-            fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-            /**
-             * Sets [Builder.updatedAt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
-                this.updatedAt = updatedAt
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [AccountCapability].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .id()
-             * .createdAt()
-             * .direction()
-             * .discardedAt()
-             * .identifier()
-             * .liveMode()
-             * .object_()
-             * .paymentType()
-             * .updatedAt()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): AccountCapability =
-                AccountCapability(
-                    checkRequired("id", id),
-                    checkRequired("createdAt", createdAt),
-                    checkRequired("direction", direction),
-                    checkRequired("discardedAt", discardedAt),
-                    checkRequired("identifier", identifier),
-                    checkRequired("liveMode", liveMode),
-                    checkRequired("object_", object_),
-                    checkRequired("paymentType", paymentType),
-                    checkRequired("updatedAt", updatedAt),
-                    additionalProperties.toMutableMap(),
-                )
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
-         */
-        fun validate(): AccountCapability = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            createdAt()
-            direction().validate()
-            discardedAt()
-            identifier()
-            liveMode()
-            object_()
-            paymentType().validate()
-            updatedAt()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: ModernTreasuryInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        internal fun validity(): Int =
-            (if (id.asKnown() == null) 0 else 1) +
-                (if (createdAt.asKnown() == null) 0 else 1) +
-                (direction.asKnown()?.validity() ?: 0) +
-                (if (discardedAt.asKnown() == null) 0 else 1) +
-                (if (identifier.asKnown() == null) 0 else 1) +
-                (if (liveMode.asKnown() == null) 0 else 1) +
-                (if (object_.asKnown() == null) 0 else 1) +
-                (paymentType.asKnown()?.validity() ?: 0) +
-                (if (updatedAt.asKnown() == null) 0 else 1)
-
-        /** Indicates the the type of payment this capability is responsible for originating. */
-        class PaymentType @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                val ACH = of("ach")
-
-                val AU_BECS = of("au_becs")
-
-                val BACS = of("bacs")
-
-                val BOOK = of("book")
-
-                val CARD = of("card")
-
-                val CHATS = of("chats")
-
-                val CHECK = of("check")
-
-                val CROSS_BORDER = of("cross_border")
-
-                val DK_NETS = of("dk_nets")
-
-                val EFT = of("eft")
-
-                val GB_FPS = of("gb_fps")
-
-                val MASAV = of("masav")
-
-                val MX_CCEN = of("mx_ccen")
-
-                val NEFT = of("neft")
-
-                val NICS = of("nics")
-
-                val NZ_BECS = of("nz_becs")
-
-                val PL_ELIXIR = of("pl_elixir")
-
-                val RTP = of("rtp")
-
-                val SE_BANKGIROT = of("se_bankgirot")
-
-                val SEPA = of("sepa")
-
-                val SG_GIRO = of("sg_giro")
-
-                val SIC = of("sic")
-
-                val STABLECOIN = of("stablecoin")
-
-                val WIRE = of("wire")
-
-                val ZENGIN = of("zengin")
-
-                fun of(value: String) = PaymentType(JsonField.of(value))
-            }
-
-            /** An enum containing [PaymentType]'s known values. */
-            enum class Known {
-                ACH,
-                AU_BECS,
-                BACS,
-                BOOK,
-                CARD,
-                CHATS,
-                CHECK,
-                CROSS_BORDER,
-                DK_NETS,
-                EFT,
-                GB_FPS,
-                MASAV,
-                MX_CCEN,
-                NEFT,
-                NICS,
-                NZ_BECS,
-                PL_ELIXIR,
-                RTP,
-                SE_BANKGIROT,
-                SEPA,
-                SG_GIRO,
-                SIC,
-                STABLECOIN,
-                WIRE,
-                ZENGIN,
-            }
-
-            /**
-             * An enum containing [PaymentType]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [PaymentType] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                ACH,
-                AU_BECS,
-                BACS,
-                BOOK,
-                CARD,
-                CHATS,
-                CHECK,
-                CROSS_BORDER,
-                DK_NETS,
-                EFT,
-                GB_FPS,
-                MASAV,
-                MX_CCEN,
-                NEFT,
-                NICS,
-                NZ_BECS,
-                PL_ELIXIR,
-                RTP,
-                SE_BANKGIROT,
-                SEPA,
-                SG_GIRO,
-                SIC,
-                STABLECOIN,
-                WIRE,
-                ZENGIN,
-                /**
-                 * An enum member indicating that [PaymentType] was instantiated with an unknown
-                 * value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    ACH -> Value.ACH
-                    AU_BECS -> Value.AU_BECS
-                    BACS -> Value.BACS
-                    BOOK -> Value.BOOK
-                    CARD -> Value.CARD
-                    CHATS -> Value.CHATS
-                    CHECK -> Value.CHECK
-                    CROSS_BORDER -> Value.CROSS_BORDER
-                    DK_NETS -> Value.DK_NETS
-                    EFT -> Value.EFT
-                    GB_FPS -> Value.GB_FPS
-                    MASAV -> Value.MASAV
-                    MX_CCEN -> Value.MX_CCEN
-                    NEFT -> Value.NEFT
-                    NICS -> Value.NICS
-                    NZ_BECS -> Value.NZ_BECS
-                    PL_ELIXIR -> Value.PL_ELIXIR
-                    RTP -> Value.RTP
-                    SE_BANKGIROT -> Value.SE_BANKGIROT
-                    SEPA -> Value.SEPA
-                    SG_GIRO -> Value.SG_GIRO
-                    SIC -> Value.SIC
-                    STABLECOIN -> Value.STABLECOIN
-                    WIRE -> Value.WIRE
-                    ZENGIN -> Value.ZENGIN
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-             *   known member.
-             */
-            fun known(): Known =
-                when (this) {
-                    ACH -> Known.ACH
-                    AU_BECS -> Known.AU_BECS
-                    BACS -> Known.BACS
-                    BOOK -> Known.BOOK
-                    CARD -> Known.CARD
-                    CHATS -> Known.CHATS
-                    CHECK -> Known.CHECK
-                    CROSS_BORDER -> Known.CROSS_BORDER
-                    DK_NETS -> Known.DK_NETS
-                    EFT -> Known.EFT
-                    GB_FPS -> Known.GB_FPS
-                    MASAV -> Known.MASAV
-                    MX_CCEN -> Known.MX_CCEN
-                    NEFT -> Known.NEFT
-                    NICS -> Known.NICS
-                    NZ_BECS -> Known.NZ_BECS
-                    PL_ELIXIR -> Known.PL_ELIXIR
-                    RTP -> Known.RTP
-                    SE_BANKGIROT -> Known.SE_BANKGIROT
-                    SEPA -> Known.SEPA
-                    SG_GIRO -> Known.SG_GIRO
-                    SIC -> Known.SIC
-                    STABLECOIN -> Known.STABLECOIN
-                    WIRE -> Known.WIRE
-                    ZENGIN -> Known.ZENGIN
-                    else -> throw ModernTreasuryInvalidDataException("Unknown PaymentType: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value does not
-             *   have the expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString()
-                    ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
-             */
-            fun validate(): PaymentType = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: ModernTreasuryInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is PaymentType && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is AccountCapability &&
-                id == other.id &&
-                createdAt == other.createdAt &&
-                direction == other.direction &&
-                discardedAt == other.discardedAt &&
-                identifier == other.identifier &&
-                liveMode == other.liveMode &&
-                object_ == other.object_ &&
-                paymentType == other.paymentType &&
-                updatedAt == other.updatedAt &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(
-                id,
-                createdAt,
-                direction,
-                discardedAt,
-                identifier,
-                liveMode,
-                object_,
-                paymentType,
-                updatedAt,
-                additionalProperties,
-            )
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "AccountCapability{id=$id, createdAt=$createdAt, direction=$direction, discardedAt=$discardedAt, identifier=$identifier, liveMode=$liveMode, object_=$object_, paymentType=$paymentType, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
-    }
-
     /** Can be checking, savings or other. */
     class AccountType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
@@ -2055,15 +1327,9 @@ private constructor(
 
         companion object {
 
-            val BASE_WALLET = of("base_wallet")
-
             val CASH = of("cash")
 
             val CHECKING = of("checking")
-
-            val CRYPTO_WALLET = of("crypto_wallet")
-
-            val ETHEREUM_WALLET = of("ethereum_wallet")
 
             val GENERAL_LEDGER = of("general_ledger")
 
@@ -2075,30 +1341,21 @@ private constructor(
 
             val OVERDRAFT = of("overdraft")
 
-            val POLYGON_WALLET = of("polygon_wallet")
-
             val SAVINGS = of("savings")
-
-            val SOLANA_WALLET = of("solana_wallet")
 
             fun of(value: String) = AccountType(JsonField.of(value))
         }
 
         /** An enum containing [AccountType]'s known values. */
         enum class Known {
-            BASE_WALLET,
             CASH,
             CHECKING,
-            CRYPTO_WALLET,
-            ETHEREUM_WALLET,
             GENERAL_LEDGER,
             LOAN,
             NON_RESIDENT,
             OTHER,
             OVERDRAFT,
-            POLYGON_WALLET,
             SAVINGS,
-            SOLANA_WALLET,
         }
 
         /**
@@ -2111,19 +1368,14 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            BASE_WALLET,
             CASH,
             CHECKING,
-            CRYPTO_WALLET,
-            ETHEREUM_WALLET,
             GENERAL_LEDGER,
             LOAN,
             NON_RESIDENT,
             OTHER,
             OVERDRAFT,
-            POLYGON_WALLET,
             SAVINGS,
-            SOLANA_WALLET,
             /**
              * An enum member indicating that [AccountType] was instantiated with an unknown value.
              */
@@ -2139,19 +1391,14 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                BASE_WALLET -> Value.BASE_WALLET
                 CASH -> Value.CASH
                 CHECKING -> Value.CHECKING
-                CRYPTO_WALLET -> Value.CRYPTO_WALLET
-                ETHEREUM_WALLET -> Value.ETHEREUM_WALLET
                 GENERAL_LEDGER -> Value.GENERAL_LEDGER
                 LOAN -> Value.LOAN
                 NON_RESIDENT -> Value.NON_RESIDENT
                 OTHER -> Value.OTHER
                 OVERDRAFT -> Value.OVERDRAFT
-                POLYGON_WALLET -> Value.POLYGON_WALLET
                 SAVINGS -> Value.SAVINGS
-                SOLANA_WALLET -> Value.SOLANA_WALLET
                 else -> Value._UNKNOWN
             }
 
@@ -2166,19 +1413,14 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                BASE_WALLET -> Known.BASE_WALLET
                 CASH -> Known.CASH
                 CHECKING -> Known.CHECKING
-                CRYPTO_WALLET -> Known.CRYPTO_WALLET
-                ETHEREUM_WALLET -> Known.ETHEREUM_WALLET
                 GENERAL_LEDGER -> Known.GENERAL_LEDGER
                 LOAN -> Known.LOAN
                 NON_RESIDENT -> Known.NON_RESIDENT
                 OTHER -> Known.OTHER
                 OVERDRAFT -> Known.OVERDRAFT
-                POLYGON_WALLET -> Known.POLYGON_WALLET
                 SAVINGS -> Known.SAVINGS
-                SOLANA_WALLET -> Known.SOLANA_WALLET
                 else -> throw ModernTreasuryInvalidDataException("Unknown AccountType: $value")
             }
 
@@ -2350,7 +1592,10 @@ private constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
-    /** Either individual or business. */
+    /**
+     * Either individual or business. Inherits from associated LegalEntity legal_entity_type, if one
+     * exists.
+     */
     class PartyType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -2650,6 +1895,7 @@ private constructor(
             accountCapabilities == other.accountCapabilities &&
             accountDetails == other.accountDetails &&
             accountType == other.accountType &&
+            allowedAchDebitCompanyIds == other.allowedAchDebitCompanyIds &&
             connection == other.connection &&
             contraLedgerAccountId == other.contraLedgerAccountId &&
             counterpartyId == other.counterpartyId &&
@@ -2681,6 +1927,7 @@ private constructor(
             accountCapabilities,
             accountDetails,
             accountType,
+            allowedAchDebitCompanyIds,
             connection,
             contraLedgerAccountId,
             counterpartyId,
@@ -2710,5 +1957,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InternalAccount{id=$id, accountCapabilities=$accountCapabilities, accountDetails=$accountDetails, accountType=$accountType, connection=$connection, contraLedgerAccountId=$contraLedgerAccountId, counterpartyId=$counterpartyId, createdAt=$createdAt, currency=$currency, debitable=$debitable, externalId=$externalId, ledgerAccountId=$ledgerAccountId, legalEntityId=$legalEntityId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, parentAccountId=$parentAccountId, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, routingDetails=$routingDetails, status=$status, title=$title, updatedAt=$updatedAt, vendorId=$vendorId, additionalProperties=$additionalProperties}"
+        "InternalAccount{id=$id, accountCapabilities=$accountCapabilities, accountDetails=$accountDetails, accountType=$accountType, allowedAchDebitCompanyIds=$allowedAchDebitCompanyIds, connection=$connection, contraLedgerAccountId=$contraLedgerAccountId, counterpartyId=$counterpartyId, createdAt=$createdAt, currency=$currency, debitable=$debitable, externalId=$externalId, ledgerAccountId=$ledgerAccountId, legalEntityId=$legalEntityId, liveMode=$liveMode, metadata=$metadata, name=$name, object_=$object_, parentAccountId=$parentAccountId, partyAddress=$partyAddress, partyName=$partyName, partyType=$partyType, routingDetails=$routingDetails, status=$status, title=$title, updatedAt=$updatedAt, vendorId=$vendorId, additionalProperties=$additionalProperties}"
 }

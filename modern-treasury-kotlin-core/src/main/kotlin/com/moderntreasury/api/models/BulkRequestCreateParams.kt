@@ -205,19 +205,17 @@ private constructor(
          * Alias for calling [addResource] with
          * `Resource.ofPaymentOrderAsyncCreateRequest(paymentOrderAsyncCreateRequest)`.
          */
-        fun addResource(paymentOrderAsyncCreateRequest: Resource.PaymentOrderAsyncCreateRequest) =
-            apply {
-                body.addResource(paymentOrderAsyncCreateRequest)
-            }
+        fun addResource(paymentOrderAsyncCreateRequest: PaymentOrderAsyncCreateRequest) = apply {
+            body.addResource(paymentOrderAsyncCreateRequest)
+        }
 
         /**
          * Alias for calling [addResource] with
          * `Resource.ofExpectedPaymentCreateRequest(expectedPaymentCreateRequest)`.
          */
-        fun addResource(expectedPaymentCreateRequest: Resource.ExpectedPaymentCreateRequest) =
-            apply {
-                body.addResource(expectedPaymentCreateRequest)
-            }
+        fun addResource(expectedPaymentCreateRequest: ExpectedPaymentCreateRequest) = apply {
+            body.addResource(expectedPaymentCreateRequest)
+        }
 
         /**
          * Alias for calling [addResource] with
@@ -239,7 +237,7 @@ private constructor(
          * Alias for calling [addResource] with
          * `Resource.ofTransactionCreateRequest(transactionCreateRequest)`.
          */
-        fun addResource(transactionCreateRequest: Resource.TransactionCreateRequest) = apply {
+        fun addResource(transactionCreateRequest: TransactionCreateRequest) = apply {
             body.addResource(transactionCreateRequest)
         }
 
@@ -646,9 +644,7 @@ private constructor(
              * Alias for calling [addResource] with
              * `Resource.ofPaymentOrderAsyncCreateRequest(paymentOrderAsyncCreateRequest)`.
              */
-            fun addResource(
-                paymentOrderAsyncCreateRequest: Resource.PaymentOrderAsyncCreateRequest
-            ) =
+            fun addResource(paymentOrderAsyncCreateRequest: PaymentOrderAsyncCreateRequest) =
                 addResource(
                     Resource.ofPaymentOrderAsyncCreateRequest(paymentOrderAsyncCreateRequest)
                 )
@@ -657,7 +653,7 @@ private constructor(
              * Alias for calling [addResource] with
              * `Resource.ofExpectedPaymentCreateRequest(expectedPaymentCreateRequest)`.
              */
-            fun addResource(expectedPaymentCreateRequest: Resource.ExpectedPaymentCreateRequest) =
+            fun addResource(expectedPaymentCreateRequest: ExpectedPaymentCreateRequest) =
                 addResource(Resource.ofExpectedPaymentCreateRequest(expectedPaymentCreateRequest))
 
             /**
@@ -680,7 +676,7 @@ private constructor(
              * Alias for calling [addResource] with
              * `Resource.ofTransactionCreateRequest(transactionCreateRequest)`.
              */
-            fun addResource(transactionCreateRequest: Resource.TransactionCreateRequest) =
+            fun addResource(transactionCreateRequest: TransactionCreateRequest) =
                 addResource(Resource.ofTransactionCreateRequest(transactionCreateRequest))
 
             /** Alias for calling [addResource] with `Resource.ofId(id)`. */
@@ -1764,10544 +1760,6 @@ private constructor(
             }
         }
 
-        class PaymentOrderAsyncCreateRequest
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val amount: JsonField<Long>,
-            private val direction: JsonField<Direction>,
-            private val originatingAccountId: JsonField<String>,
-            private val type: JsonField<PaymentOrderType>,
-            private val accounting: JsonField<Accounting>,
-            private val accountingCategoryId: JsonField<String>,
-            private val accountingLedgerClassId: JsonField<String>,
-            private val chargeBearer: JsonField<ChargeBearer>,
-            private val currency: JsonField<Currency>,
-            private val description: JsonField<String>,
-            private val effectiveDate: JsonField<LocalDate>,
-            private val expiresAt: JsonField<OffsetDateTime>,
-            private val externalId: JsonField<String>,
-            private val fallbackType: JsonField<FallbackType>,
-            private val foreignExchangeContract: JsonField<String>,
-            private val foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>,
-            private val ledgerTransaction: JsonField<LedgerTransactionCreateRequest>,
-            private val ledgerTransactionId: JsonField<String>,
-            private val lineItems: JsonField<List<LineItemRequest>>,
-            private val metadata: JsonField<Metadata>,
-            private val nsfProtected: JsonField<Boolean>,
-            private val originatingPartyAddress: JsonField<OriginatingPartyAddress>,
-            private val originatingPartyName: JsonField<String>,
-            private val originatingSecondaryPartyName: JsonField<String>,
-            private val priority: JsonField<Priority>,
-            private val processAfter: JsonField<OffsetDateTime>,
-            private val purpose: JsonField<String>,
-            private val receivingAccount: JsonField<ReceivingAccount>,
-            private val receivingAccountId: JsonField<String>,
-            private val reconciliationStatus: JsonField<ReconciliationStatus>,
-            private val remittanceInformation: JsonField<String>,
-            private val sendRemittanceAdvice: JsonField<Boolean>,
-            private val statementDescriptor: JsonField<String>,
-            private val subtype: JsonField<PaymentOrderSubtype>,
-            private val transactionMonitoringEnabled: JsonField<Boolean>,
-            private val ultimateOriginatingAccountId: JsonField<String>,
-            private val ultimateOriginatingPartyAddress: JsonField<UltimateOriginatingPartyAddress>,
-            private val ultimateOriginatingPartyIdentifier: JsonField<String>,
-            private val ultimateOriginatingPartyName: JsonField<String>,
-            private val ultimateReceivingPartyIdentifier: JsonField<String>,
-            private val ultimateReceivingPartyName: JsonField<String>,
-            private val vendorAttributes: JsonField<VendorAttributes>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("direction")
-                @ExcludeMissing
-                direction: JsonField<Direction> = JsonMissing.of(),
-                @JsonProperty("originating_account_id")
-                @ExcludeMissing
-                originatingAccountId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("type")
-                @ExcludeMissing
-                type: JsonField<PaymentOrderType> = JsonMissing.of(),
-                @JsonProperty("accounting")
-                @ExcludeMissing
-                accounting: JsonField<Accounting> = JsonMissing.of(),
-                @JsonProperty("accounting_category_id")
-                @ExcludeMissing
-                accountingCategoryId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("accounting_ledger_class_id")
-                @ExcludeMissing
-                accountingLedgerClassId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("charge_bearer")
-                @ExcludeMissing
-                chargeBearer: JsonField<ChargeBearer> = JsonMissing.of(),
-                @JsonProperty("currency")
-                @ExcludeMissing
-                currency: JsonField<Currency> = JsonMissing.of(),
-                @JsonProperty("description")
-                @ExcludeMissing
-                description: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("effective_date")
-                @ExcludeMissing
-                effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
-                @JsonProperty("expires_at")
-                @ExcludeMissing
-                expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-                @JsonProperty("external_id")
-                @ExcludeMissing
-                externalId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("fallback_type")
-                @ExcludeMissing
-                fallbackType: JsonField<FallbackType> = JsonMissing.of(),
-                @JsonProperty("foreign_exchange_contract")
-                @ExcludeMissing
-                foreignExchangeContract: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("foreign_exchange_indicator")
-                @ExcludeMissing
-                foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> = JsonMissing.of(),
-                @JsonProperty("ledger_transaction")
-                @ExcludeMissing
-                ledgerTransaction: JsonField<LedgerTransactionCreateRequest> = JsonMissing.of(),
-                @JsonProperty("ledger_transaction_id")
-                @ExcludeMissing
-                ledgerTransactionId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("line_items")
-                @ExcludeMissing
-                lineItems: JsonField<List<LineItemRequest>> = JsonMissing.of(),
-                @JsonProperty("metadata")
-                @ExcludeMissing
-                metadata: JsonField<Metadata> = JsonMissing.of(),
-                @JsonProperty("nsf_protected")
-                @ExcludeMissing
-                nsfProtected: JsonField<Boolean> = JsonMissing.of(),
-                @JsonProperty("originating_party_address")
-                @ExcludeMissing
-                originatingPartyAddress: JsonField<OriginatingPartyAddress> = JsonMissing.of(),
-                @JsonProperty("originating_party_name")
-                @ExcludeMissing
-                originatingPartyName: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("originating_secondary_party_name")
-                @ExcludeMissing
-                originatingSecondaryPartyName: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("priority")
-                @ExcludeMissing
-                priority: JsonField<Priority> = JsonMissing.of(),
-                @JsonProperty("process_after")
-                @ExcludeMissing
-                processAfter: JsonField<OffsetDateTime> = JsonMissing.of(),
-                @JsonProperty("purpose")
-                @ExcludeMissing
-                purpose: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("receiving_account")
-                @ExcludeMissing
-                receivingAccount: JsonField<ReceivingAccount> = JsonMissing.of(),
-                @JsonProperty("receiving_account_id")
-                @ExcludeMissing
-                receivingAccountId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("reconciliation_status")
-                @ExcludeMissing
-                reconciliationStatus: JsonField<ReconciliationStatus> = JsonMissing.of(),
-                @JsonProperty("remittance_information")
-                @ExcludeMissing
-                remittanceInformation: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("send_remittance_advice")
-                @ExcludeMissing
-                sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of(),
-                @JsonProperty("statement_descriptor")
-                @ExcludeMissing
-                statementDescriptor: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("subtype")
-                @ExcludeMissing
-                subtype: JsonField<PaymentOrderSubtype> = JsonMissing.of(),
-                @JsonProperty("transaction_monitoring_enabled")
-                @ExcludeMissing
-                transactionMonitoringEnabled: JsonField<Boolean> = JsonMissing.of(),
-                @JsonProperty("ultimate_originating_account_id")
-                @ExcludeMissing
-                ultimateOriginatingAccountId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("ultimate_originating_party_address")
-                @ExcludeMissing
-                ultimateOriginatingPartyAddress: JsonField<UltimateOriginatingPartyAddress> =
-                    JsonMissing.of(),
-                @JsonProperty("ultimate_originating_party_identifier")
-                @ExcludeMissing
-                ultimateOriginatingPartyIdentifier: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("ultimate_originating_party_name")
-                @ExcludeMissing
-                ultimateOriginatingPartyName: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("ultimate_receiving_party_identifier")
-                @ExcludeMissing
-                ultimateReceivingPartyIdentifier: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("ultimate_receiving_party_name")
-                @ExcludeMissing
-                ultimateReceivingPartyName: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("vendor_attributes")
-                @ExcludeMissing
-                vendorAttributes: JsonField<VendorAttributes> = JsonMissing.of(),
-            ) : this(
-                amount,
-                direction,
-                originatingAccountId,
-                type,
-                accounting,
-                accountingCategoryId,
-                accountingLedgerClassId,
-                chargeBearer,
-                currency,
-                description,
-                effectiveDate,
-                expiresAt,
-                externalId,
-                fallbackType,
-                foreignExchangeContract,
-                foreignExchangeIndicator,
-                ledgerTransaction,
-                ledgerTransactionId,
-                lineItems,
-                metadata,
-                nsfProtected,
-                originatingPartyAddress,
-                originatingPartyName,
-                originatingSecondaryPartyName,
-                priority,
-                processAfter,
-                purpose,
-                receivingAccount,
-                receivingAccountId,
-                reconciliationStatus,
-                remittanceInformation,
-                sendRemittanceAdvice,
-                statementDescriptor,
-                subtype,
-                transactionMonitoringEnabled,
-                ultimateOriginatingAccountId,
-                ultimateOriginatingPartyAddress,
-                ultimateOriginatingPartyIdentifier,
-                ultimateOriginatingPartyName,
-                ultimateReceivingPartyIdentifier,
-                ultimateReceivingPartyName,
-                vendorAttributes,
-                mutableMapOf(),
-            )
-
-            /**
-             * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000
-             * (cents). For RTP, the maximum amount allowed by the network is $10,000,000.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun amount(): Long = amount.getRequired("amount")
-
-            /**
-             * One of `credit`, `debit`. Describes the direction money is flowing in the
-             * transaction. A `credit` moves money from your account to someone else's. A `debit`
-             * pulls money from someone else's account to your own. Note that wire, rtp, and check
-             * payments will always be `credit`.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun direction(): Direction = direction.getRequired("direction")
-
-            /**
-             * The ID of one of your organization's internal accounts.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun originatingAccountId(): String =
-                originatingAccountId.getRequired("originating_account_id")
-
-            /**
-             * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `book`, `rtp`, `sepa`, `bacs`,
-             * `au_becs`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `zengin`.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun type(): PaymentOrderType = type.getRequired("type")
-
-            /**
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            @Deprecated("deprecated")
-            fun accounting(): Accounting? = accounting.getNullable("accounting")
-
-            /**
-             * The ID of one of your accounting categories. Note that these will only be accessible
-             * if your accounting system has been connected.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            @Deprecated("deprecated")
-            fun accountingCategoryId(): String? =
-                accountingCategoryId.getNullable("accounting_category_id")
-
-            /**
-             * The ID of one of your accounting ledger classes. Note that these will only be
-             * accessible if your accounting system has been connected.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            @Deprecated("deprecated")
-            fun accountingLedgerClassId(): String? =
-                accountingLedgerClassId.getNullable("accounting_ledger_class_id")
-
-            /**
-             * The party that will pay the fees for the payment order. See
-             * https://docs.moderntreasury.com/payments/docs/charge-bearer to understand the
-             * differences between the options.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun chargeBearer(): ChargeBearer? = chargeBearer.getNullable("charge_bearer")
-
-            /**
-             * Defaults to the currency of the originating account.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun currency(): Currency? = currency.getNullable("currency")
-
-            /**
-             * An optional description for internal use.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun description(): String? = description.getNullable("description")
-
-            /**
-             * Date transactions are to be posted to the participants' account. Defaults to the
-             * current business day or the next business day if the current day is a bank holiday or
-             * weekend. Format: yyyy-mm-dd.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun effectiveDate(): LocalDate? = effectiveDate.getNullable("effective_date")
-
-            /**
-             * RFP payments require an expires_at. This value must be past the effective_date.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun expiresAt(): OffsetDateTime? = expiresAt.getNullable("expires_at")
-
-            /**
-             * An optional user-defined 180 character unique identifier.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun externalId(): String? = externalId.getNullable("external_id")
-
-            /**
-             * A payment type to fallback to if the original type is not valid for the receiving
-             * account. Currently, this only supports falling back from RTP to ACH (type=rtp and
-             * fallback_type=ach)
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun fallbackType(): FallbackType? = fallbackType.getNullable("fallback_type")
-
-            /**
-             * If present, indicates a specific foreign exchange contract number that has been
-             * generated by your financial institution.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun foreignExchangeContract(): String? =
-                foreignExchangeContract.getNullable("foreign_exchange_contract")
-
-            /**
-             * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
-             * `fixed_to_variable`, or `null` if the payment order currency matches the originating
-             * account currency.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun foreignExchangeIndicator(): ForeignExchangeIndicator? =
-                foreignExchangeIndicator.getNullable("foreign_exchange_indicator")
-
-            /**
-             * Specifies a ledger transaction object that will be created with the payment order. If
-             * the ledger transaction cannot be created, then the payment order creation will fail.
-             * The resulting ledger transaction will mirror the status of the payment order.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun ledgerTransaction(): LedgerTransactionCreateRequest? =
-                ledgerTransaction.getNullable("ledger_transaction")
-
-            /**
-             * Either ledger_transaction or ledger_transaction_id can be provided. Only a pending
-             * ledger transaction can be attached upon payment order creation. Once the payment
-             * order is created, the status of the ledger transaction tracks the payment order
-             * automatically.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun ledgerTransactionId(): String? =
-                ledgerTransactionId.getNullable("ledger_transaction_id")
-
-            /**
-             * An array of line items that must sum up to the amount of the payment order.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun lineItems(): List<LineItemRequest>? = lineItems.getNullable("line_items")
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-            /**
-             * A boolean to determine if NSF Protection is enabled for this payment order. Note that
-             * this setting must also be turned on in your organization settings page.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun nsfProtected(): Boolean? = nsfProtected.getNullable("nsf_protected")
-
-            /**
-             * If present, this address will override the default originating party address used on
-             * the payment order. This works across all payment types.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun originatingPartyAddress(): OriginatingPartyAddress? =
-                originatingPartyAddress.getNullable("originating_party_address")
-
-            /**
-             * If present, this will replace your default company name on receiver's bank statement.
-             * This field can only be used for ACH payments currently. For ACH, only the first 16
-             * characters of this string will be used. Any additional characters will be truncated.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun originatingPartyName(): String? =
-                originatingPartyName.getNullable("originating_party_name")
-
-            /**
-             * Secondary name for the legal entity making the payment. Can be used for e.g. check
-             * signatures where the originating party wishes to retain their company's display name
-             * but use an employee's name for the signature.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun originatingSecondaryPartyName(): String? =
-                originatingSecondaryPartyName.getNullable("originating_secondary_party_name")
-
-            /**
-             * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH
-             * or EFT transfer, respectively. For check payments, `high` can mean an overnight check
-             * rather than standard mail.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun priority(): Priority? = priority.getNullable("priority")
-
-            /**
-             * If present, Modern Treasury will not process the payment until after this time. If
-             * `process_after` is past the cutoff for `effective_date`, `process_after` will take
-             * precedence and `effective_date` will automatically update to reflect the earliest
-             * possible sending date after `process_after`. Format is ISO8601 timestamp.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun processAfter(): OffsetDateTime? = processAfter.getNullable("process_after")
-
-            /**
-             * For `wire`, this is usually the purpose which is transmitted via the
-             * "InstrForDbtrAgt" field in the ISO20022 file. For `eft`, this field is the 3 digit
-             * CPA Code that will be attached to the payment.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun purpose(): String? = purpose.getNullable("purpose")
-
-            /**
-             * Either `receiving_account` or `receiving_account_id` must be present. When using
-             * `receiving_account_id`, you may pass the id of an external account or an internal
-             * account.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun receivingAccount(): ReceivingAccount? =
-                receivingAccount.getNullable("receiving_account")
-
-            /**
-             * Either `receiving_account` or `receiving_account_id` must be present. When using
-             * `receiving_account_id`, you may pass the id of an external account or an internal
-             * account.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun receivingAccountId(): String? =
-                receivingAccountId.getNullable("receiving_account_id")
-
-            /**
-             * One of `unreconciled`, `tentatively_reconciled` or `reconciled`.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun reconciliationStatus(): ReconciliationStatus? =
-                reconciliationStatus.getNullable("reconciliation_status")
-
-            /**
-             * For `ach`, this field will be passed through on an addenda record. For `wire`
-             * payments the field will be passed through as the "Originator to Beneficiary
-             * Information", also known as OBI or Fedwire tag 6000.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun remittanceInformation(): String? =
-                remittanceInformation.getNullable("remittance_information")
-
-            /**
-             * Send an email to the counterparty when the payment order is sent to the bank. If
-             * `null`, `send_remittance_advice` on the Counterparty is used.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun sendRemittanceAdvice(): Boolean? =
-                sendRemittanceAdvice.getNullable("send_remittance_advice")
-
-            /**
-             * An optional descriptor which will appear in the receiver's statement. For `check`
-             * payments this field will be used as the memo line. For `ach` the maximum length is 10
-             * characters. Note that for ACH payments, the name on your bank account will be
-             * included automatically by the bank, so you can use the characters for other useful
-             * information. For `eft` the maximum length is 15 characters.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun statementDescriptor(): String? =
-                statementDescriptor.getNullable("statement_descriptor")
-
-            /**
-             * An additional layer of classification for the type of payment order you are doing.
-             * This field is only used for `ach` payment orders currently. For `ach` payment orders,
-             * the `subtype` represents the SEC code. We currently support `CCD`, `PPD`, `IAT`,
-             * `CTX`, `WEB`, `CIE`, and `TEL`.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun subtype(): PaymentOrderSubtype? = subtype.getNullable("subtype")
-
-            /**
-             * A flag that determines whether a payment order should go through transaction
-             * monitoring.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            @Deprecated("deprecated")
-            fun transactionMonitoringEnabled(): Boolean? =
-                transactionMonitoringEnabled.getNullable("transaction_monitoring_enabled")
-
-            /**
-             * The ultimate originating account ID. Can be a `virtual_account` or
-             * `internal_account`.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun ultimateOriginatingAccountId(): String? =
-                ultimateOriginatingAccountId.getNullable("ultimate_originating_account_id")
-
-            /**
-             * Address of the ultimate originator of the payment order.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun ultimateOriginatingPartyAddress(): UltimateOriginatingPartyAddress? =
-                ultimateOriginatingPartyAddress.getNullable("ultimate_originating_party_address")
-
-            /**
-             * Identifier of the ultimate originator of the payment order.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun ultimateOriginatingPartyIdentifier(): String? =
-                ultimateOriginatingPartyIdentifier.getNullable(
-                    "ultimate_originating_party_identifier"
-                )
-
-            /**
-             * Name of the ultimate originator of the payment order.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun ultimateOriginatingPartyName(): String? =
-                ultimateOriginatingPartyName.getNullable("ultimate_originating_party_name")
-
-            /**
-             * Identifier of the ultimate funds recipient.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun ultimateReceivingPartyIdentifier(): String? =
-                ultimateReceivingPartyIdentifier.getNullable("ultimate_receiving_party_identifier")
-
-            /**
-             * Name of the ultimate funds recipient.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun ultimateReceivingPartyName(): String? =
-                ultimateReceivingPartyName.getNullable("ultimate_receiving_party_name")
-
-            /**
-             * Additional vendor specific fields for this payment. Data must be represented as
-             * key-value pairs.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun vendorAttributes(): VendorAttributes? =
-                vendorAttributes.getNullable("vendor_attributes")
-
-            /**
-             * Returns the raw JSON value of [amount].
-             *
-             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-            /**
-             * Returns the raw JSON value of [direction].
-             *
-             * Unlike [direction], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("direction")
-            @ExcludeMissing
-            fun _direction(): JsonField<Direction> = direction
-
-            /**
-             * Returns the raw JSON value of [originatingAccountId].
-             *
-             * Unlike [originatingAccountId], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("originating_account_id")
-            @ExcludeMissing
-            fun _originatingAccountId(): JsonField<String> = originatingAccountId
-
-            /**
-             * Returns the raw JSON value of [type].
-             *
-             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<PaymentOrderType> = type
-
-            /**
-             * Returns the raw JSON value of [accounting].
-             *
-             * Unlike [accounting], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @Deprecated("deprecated")
-            @JsonProperty("accounting")
-            @ExcludeMissing
-            fun _accounting(): JsonField<Accounting> = accounting
-
-            /**
-             * Returns the raw JSON value of [accountingCategoryId].
-             *
-             * Unlike [accountingCategoryId], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @Deprecated("deprecated")
-            @JsonProperty("accounting_category_id")
-            @ExcludeMissing
-            fun _accountingCategoryId(): JsonField<String> = accountingCategoryId
-
-            /**
-             * Returns the raw JSON value of [accountingLedgerClassId].
-             *
-             * Unlike [accountingLedgerClassId], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @Deprecated("deprecated")
-            @JsonProperty("accounting_ledger_class_id")
-            @ExcludeMissing
-            fun _accountingLedgerClassId(): JsonField<String> = accountingLedgerClassId
-
-            /**
-             * Returns the raw JSON value of [chargeBearer].
-             *
-             * Unlike [chargeBearer], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("charge_bearer")
-            @ExcludeMissing
-            fun _chargeBearer(): JsonField<ChargeBearer> = chargeBearer
-
-            /**
-             * Returns the raw JSON value of [currency].
-             *
-             * Unlike [currency], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("currency")
-            @ExcludeMissing
-            fun _currency(): JsonField<Currency> = currency
-
-            /**
-             * Returns the raw JSON value of [description].
-             *
-             * Unlike [description], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("description")
-            @ExcludeMissing
-            fun _description(): JsonField<String> = description
-
-            /**
-             * Returns the raw JSON value of [effectiveDate].
-             *
-             * Unlike [effectiveDate], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("effective_date")
-            @ExcludeMissing
-            fun _effectiveDate(): JsonField<LocalDate> = effectiveDate
-
-            /**
-             * Returns the raw JSON value of [expiresAt].
-             *
-             * Unlike [expiresAt], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("expires_at")
-            @ExcludeMissing
-            fun _expiresAt(): JsonField<OffsetDateTime> = expiresAt
-
-            /**
-             * Returns the raw JSON value of [externalId].
-             *
-             * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("external_id")
-            @ExcludeMissing
-            fun _externalId(): JsonField<String> = externalId
-
-            /**
-             * Returns the raw JSON value of [fallbackType].
-             *
-             * Unlike [fallbackType], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("fallback_type")
-            @ExcludeMissing
-            fun _fallbackType(): JsonField<FallbackType> = fallbackType
-
-            /**
-             * Returns the raw JSON value of [foreignExchangeContract].
-             *
-             * Unlike [foreignExchangeContract], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("foreign_exchange_contract")
-            @ExcludeMissing
-            fun _foreignExchangeContract(): JsonField<String> = foreignExchangeContract
-
-            /**
-             * Returns the raw JSON value of [foreignExchangeIndicator].
-             *
-             * Unlike [foreignExchangeIndicator], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("foreign_exchange_indicator")
-            @ExcludeMissing
-            fun _foreignExchangeIndicator(): JsonField<ForeignExchangeIndicator> =
-                foreignExchangeIndicator
-
-            /**
-             * Returns the raw JSON value of [ledgerTransaction].
-             *
-             * Unlike [ledgerTransaction], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("ledger_transaction")
-            @ExcludeMissing
-            fun _ledgerTransaction(): JsonField<LedgerTransactionCreateRequest> = ledgerTransaction
-
-            /**
-             * Returns the raw JSON value of [ledgerTransactionId].
-             *
-             * Unlike [ledgerTransactionId], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("ledger_transaction_id")
-            @ExcludeMissing
-            fun _ledgerTransactionId(): JsonField<String> = ledgerTransactionId
-
-            /**
-             * Returns the raw JSON value of [lineItems].
-             *
-             * Unlike [lineItems], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("line_items")
-            @ExcludeMissing
-            fun _lineItems(): JsonField<List<LineItemRequest>> = lineItems
-
-            /**
-             * Returns the raw JSON value of [metadata].
-             *
-             * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("metadata")
-            @ExcludeMissing
-            fun _metadata(): JsonField<Metadata> = metadata
-
-            /**
-             * Returns the raw JSON value of [nsfProtected].
-             *
-             * Unlike [nsfProtected], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("nsf_protected")
-            @ExcludeMissing
-            fun _nsfProtected(): JsonField<Boolean> = nsfProtected
-
-            /**
-             * Returns the raw JSON value of [originatingPartyAddress].
-             *
-             * Unlike [originatingPartyAddress], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("originating_party_address")
-            @ExcludeMissing
-            fun _originatingPartyAddress(): JsonField<OriginatingPartyAddress> =
-                originatingPartyAddress
-
-            /**
-             * Returns the raw JSON value of [originatingPartyName].
-             *
-             * Unlike [originatingPartyName], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("originating_party_name")
-            @ExcludeMissing
-            fun _originatingPartyName(): JsonField<String> = originatingPartyName
-
-            /**
-             * Returns the raw JSON value of [originatingSecondaryPartyName].
-             *
-             * Unlike [originatingSecondaryPartyName], this method doesn't throw if the JSON field
-             * has an unexpected type.
-             */
-            @JsonProperty("originating_secondary_party_name")
-            @ExcludeMissing
-            fun _originatingSecondaryPartyName(): JsonField<String> = originatingSecondaryPartyName
-
-            /**
-             * Returns the raw JSON value of [priority].
-             *
-             * Unlike [priority], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("priority")
-            @ExcludeMissing
-            fun _priority(): JsonField<Priority> = priority
-
-            /**
-             * Returns the raw JSON value of [processAfter].
-             *
-             * Unlike [processAfter], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("process_after")
-            @ExcludeMissing
-            fun _processAfter(): JsonField<OffsetDateTime> = processAfter
-
-            /**
-             * Returns the raw JSON value of [purpose].
-             *
-             * Unlike [purpose], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("purpose") @ExcludeMissing fun _purpose(): JsonField<String> = purpose
-
-            /**
-             * Returns the raw JSON value of [receivingAccount].
-             *
-             * Unlike [receivingAccount], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("receiving_account")
-            @ExcludeMissing
-            fun _receivingAccount(): JsonField<ReceivingAccount> = receivingAccount
-
-            /**
-             * Returns the raw JSON value of [receivingAccountId].
-             *
-             * Unlike [receivingAccountId], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("receiving_account_id")
-            @ExcludeMissing
-            fun _receivingAccountId(): JsonField<String> = receivingAccountId
-
-            /**
-             * Returns the raw JSON value of [reconciliationStatus].
-             *
-             * Unlike [reconciliationStatus], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("reconciliation_status")
-            @ExcludeMissing
-            fun _reconciliationStatus(): JsonField<ReconciliationStatus> = reconciliationStatus
-
-            /**
-             * Returns the raw JSON value of [remittanceInformation].
-             *
-             * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("remittance_information")
-            @ExcludeMissing
-            fun _remittanceInformation(): JsonField<String> = remittanceInformation
-
-            /**
-             * Returns the raw JSON value of [sendRemittanceAdvice].
-             *
-             * Unlike [sendRemittanceAdvice], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("send_remittance_advice")
-            @ExcludeMissing
-            fun _sendRemittanceAdvice(): JsonField<Boolean> = sendRemittanceAdvice
-
-            /**
-             * Returns the raw JSON value of [statementDescriptor].
-             *
-             * Unlike [statementDescriptor], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("statement_descriptor")
-            @ExcludeMissing
-            fun _statementDescriptor(): JsonField<String> = statementDescriptor
-
-            /**
-             * Returns the raw JSON value of [subtype].
-             *
-             * Unlike [subtype], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("subtype")
-            @ExcludeMissing
-            fun _subtype(): JsonField<PaymentOrderSubtype> = subtype
-
-            /**
-             * Returns the raw JSON value of [transactionMonitoringEnabled].
-             *
-             * Unlike [transactionMonitoringEnabled], this method doesn't throw if the JSON field
-             * has an unexpected type.
-             */
-            @Deprecated("deprecated")
-            @JsonProperty("transaction_monitoring_enabled")
-            @ExcludeMissing
-            fun _transactionMonitoringEnabled(): JsonField<Boolean> = transactionMonitoringEnabled
-
-            /**
-             * Returns the raw JSON value of [ultimateOriginatingAccountId].
-             *
-             * Unlike [ultimateOriginatingAccountId], this method doesn't throw if the JSON field
-             * has an unexpected type.
-             */
-            @JsonProperty("ultimate_originating_account_id")
-            @ExcludeMissing
-            fun _ultimateOriginatingAccountId(): JsonField<String> = ultimateOriginatingAccountId
-
-            /**
-             * Returns the raw JSON value of [ultimateOriginatingPartyAddress].
-             *
-             * Unlike [ultimateOriginatingPartyAddress], this method doesn't throw if the JSON field
-             * has an unexpected type.
-             */
-            @JsonProperty("ultimate_originating_party_address")
-            @ExcludeMissing
-            fun _ultimateOriginatingPartyAddress(): JsonField<UltimateOriginatingPartyAddress> =
-                ultimateOriginatingPartyAddress
-
-            /**
-             * Returns the raw JSON value of [ultimateOriginatingPartyIdentifier].
-             *
-             * Unlike [ultimateOriginatingPartyIdentifier], this method doesn't throw if the JSON
-             * field has an unexpected type.
-             */
-            @JsonProperty("ultimate_originating_party_identifier")
-            @ExcludeMissing
-            fun _ultimateOriginatingPartyIdentifier(): JsonField<String> =
-                ultimateOriginatingPartyIdentifier
-
-            /**
-             * Returns the raw JSON value of [ultimateOriginatingPartyName].
-             *
-             * Unlike [ultimateOriginatingPartyName], this method doesn't throw if the JSON field
-             * has an unexpected type.
-             */
-            @JsonProperty("ultimate_originating_party_name")
-            @ExcludeMissing
-            fun _ultimateOriginatingPartyName(): JsonField<String> = ultimateOriginatingPartyName
-
-            /**
-             * Returns the raw JSON value of [ultimateReceivingPartyIdentifier].
-             *
-             * Unlike [ultimateReceivingPartyIdentifier], this method doesn't throw if the JSON
-             * field has an unexpected type.
-             */
-            @JsonProperty("ultimate_receiving_party_identifier")
-            @ExcludeMissing
-            fun _ultimateReceivingPartyIdentifier(): JsonField<String> =
-                ultimateReceivingPartyIdentifier
-
-            /**
-             * Returns the raw JSON value of [ultimateReceivingPartyName].
-             *
-             * Unlike [ultimateReceivingPartyName], this method doesn't throw if the JSON field has
-             * an unexpected type.
-             */
-            @JsonProperty("ultimate_receiving_party_name")
-            @ExcludeMissing
-            fun _ultimateReceivingPartyName(): JsonField<String> = ultimateReceivingPartyName
-
-            /**
-             * Returns the raw JSON value of [vendorAttributes].
-             *
-             * Unlike [vendorAttributes], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("vendor_attributes")
-            @ExcludeMissing
-            fun _vendorAttributes(): JsonField<VendorAttributes> = vendorAttributes
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /**
-                 * Returns a mutable builder for constructing an instance of
-                 * [PaymentOrderAsyncCreateRequest].
-                 *
-                 * The following fields are required:
-                 * ```kotlin
-                 * .amount()
-                 * .direction()
-                 * .originatingAccountId()
-                 * .type()
-                 * ```
-                 */
-                fun builder() = Builder()
-            }
-
-            /** A builder for [PaymentOrderAsyncCreateRequest]. */
-            class Builder internal constructor() {
-
-                private var amount: JsonField<Long>? = null
-                private var direction: JsonField<Direction>? = null
-                private var originatingAccountId: JsonField<String>? = null
-                private var type: JsonField<PaymentOrderType>? = null
-                private var accounting: JsonField<Accounting> = JsonMissing.of()
-                private var accountingCategoryId: JsonField<String> = JsonMissing.of()
-                private var accountingLedgerClassId: JsonField<String> = JsonMissing.of()
-                private var chargeBearer: JsonField<ChargeBearer> = JsonMissing.of()
-                private var currency: JsonField<Currency> = JsonMissing.of()
-                private var description: JsonField<String> = JsonMissing.of()
-                private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
-                private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var externalId: JsonField<String> = JsonMissing.of()
-                private var fallbackType: JsonField<FallbackType> = JsonMissing.of()
-                private var foreignExchangeContract: JsonField<String> = JsonMissing.of()
-                private var foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> =
-                    JsonMissing.of()
-                private var ledgerTransaction: JsonField<LedgerTransactionCreateRequest> =
-                    JsonMissing.of()
-                private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
-                private var lineItems: JsonField<MutableList<LineItemRequest>>? = null
-                private var metadata: JsonField<Metadata> = JsonMissing.of()
-                private var nsfProtected: JsonField<Boolean> = JsonMissing.of()
-                private var originatingPartyAddress: JsonField<OriginatingPartyAddress> =
-                    JsonMissing.of()
-                private var originatingPartyName: JsonField<String> = JsonMissing.of()
-                private var originatingSecondaryPartyName: JsonField<String> = JsonMissing.of()
-                private var priority: JsonField<Priority> = JsonMissing.of()
-                private var processAfter: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var purpose: JsonField<String> = JsonMissing.of()
-                private var receivingAccount: JsonField<ReceivingAccount> = JsonMissing.of()
-                private var receivingAccountId: JsonField<String> = JsonMissing.of()
-                private var reconciliationStatus: JsonField<ReconciliationStatus> = JsonMissing.of()
-                private var remittanceInformation: JsonField<String> = JsonMissing.of()
-                private var sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of()
-                private var statementDescriptor: JsonField<String> = JsonMissing.of()
-                private var subtype: JsonField<PaymentOrderSubtype> = JsonMissing.of()
-                private var transactionMonitoringEnabled: JsonField<Boolean> = JsonMissing.of()
-                private var ultimateOriginatingAccountId: JsonField<String> = JsonMissing.of()
-                private var ultimateOriginatingPartyAddress:
-                    JsonField<UltimateOriginatingPartyAddress> =
-                    JsonMissing.of()
-                private var ultimateOriginatingPartyIdentifier: JsonField<String> = JsonMissing.of()
-                private var ultimateOriginatingPartyName: JsonField<String> = JsonMissing.of()
-                private var ultimateReceivingPartyIdentifier: JsonField<String> = JsonMissing.of()
-                private var ultimateReceivingPartyName: JsonField<String> = JsonMissing.of()
-                private var vendorAttributes: JsonField<VendorAttributes> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                internal fun from(paymentOrderAsyncCreateRequest: PaymentOrderAsyncCreateRequest) =
-                    apply {
-                        amount = paymentOrderAsyncCreateRequest.amount
-                        direction = paymentOrderAsyncCreateRequest.direction
-                        originatingAccountId = paymentOrderAsyncCreateRequest.originatingAccountId
-                        type = paymentOrderAsyncCreateRequest.type
-                        accounting = paymentOrderAsyncCreateRequest.accounting
-                        accountingCategoryId = paymentOrderAsyncCreateRequest.accountingCategoryId
-                        accountingLedgerClassId =
-                            paymentOrderAsyncCreateRequest.accountingLedgerClassId
-                        chargeBearer = paymentOrderAsyncCreateRequest.chargeBearer
-                        currency = paymentOrderAsyncCreateRequest.currency
-                        description = paymentOrderAsyncCreateRequest.description
-                        effectiveDate = paymentOrderAsyncCreateRequest.effectiveDate
-                        expiresAt = paymentOrderAsyncCreateRequest.expiresAt
-                        externalId = paymentOrderAsyncCreateRequest.externalId
-                        fallbackType = paymentOrderAsyncCreateRequest.fallbackType
-                        foreignExchangeContract =
-                            paymentOrderAsyncCreateRequest.foreignExchangeContract
-                        foreignExchangeIndicator =
-                            paymentOrderAsyncCreateRequest.foreignExchangeIndicator
-                        ledgerTransaction = paymentOrderAsyncCreateRequest.ledgerTransaction
-                        ledgerTransactionId = paymentOrderAsyncCreateRequest.ledgerTransactionId
-                        lineItems =
-                            paymentOrderAsyncCreateRequest.lineItems.map { it.toMutableList() }
-                        metadata = paymentOrderAsyncCreateRequest.metadata
-                        nsfProtected = paymentOrderAsyncCreateRequest.nsfProtected
-                        originatingPartyAddress =
-                            paymentOrderAsyncCreateRequest.originatingPartyAddress
-                        originatingPartyName = paymentOrderAsyncCreateRequest.originatingPartyName
-                        originatingSecondaryPartyName =
-                            paymentOrderAsyncCreateRequest.originatingSecondaryPartyName
-                        priority = paymentOrderAsyncCreateRequest.priority
-                        processAfter = paymentOrderAsyncCreateRequest.processAfter
-                        purpose = paymentOrderAsyncCreateRequest.purpose
-                        receivingAccount = paymentOrderAsyncCreateRequest.receivingAccount
-                        receivingAccountId = paymentOrderAsyncCreateRequest.receivingAccountId
-                        reconciliationStatus = paymentOrderAsyncCreateRequest.reconciliationStatus
-                        remittanceInformation = paymentOrderAsyncCreateRequest.remittanceInformation
-                        sendRemittanceAdvice = paymentOrderAsyncCreateRequest.sendRemittanceAdvice
-                        statementDescriptor = paymentOrderAsyncCreateRequest.statementDescriptor
-                        subtype = paymentOrderAsyncCreateRequest.subtype
-                        transactionMonitoringEnabled =
-                            paymentOrderAsyncCreateRequest.transactionMonitoringEnabled
-                        ultimateOriginatingAccountId =
-                            paymentOrderAsyncCreateRequest.ultimateOriginatingAccountId
-                        ultimateOriginatingPartyAddress =
-                            paymentOrderAsyncCreateRequest.ultimateOriginatingPartyAddress
-                        ultimateOriginatingPartyIdentifier =
-                            paymentOrderAsyncCreateRequest.ultimateOriginatingPartyIdentifier
-                        ultimateOriginatingPartyName =
-                            paymentOrderAsyncCreateRequest.ultimateOriginatingPartyName
-                        ultimateReceivingPartyIdentifier =
-                            paymentOrderAsyncCreateRequest.ultimateReceivingPartyIdentifier
-                        ultimateReceivingPartyName =
-                            paymentOrderAsyncCreateRequest.ultimateReceivingPartyName
-                        vendorAttributes = paymentOrderAsyncCreateRequest.vendorAttributes
-                        additionalProperties =
-                            paymentOrderAsyncCreateRequest.additionalProperties.toMutableMap()
-                    }
-
-                /**
-                 * Value in specified currency's smallest unit. e.g. $10 would be represented as
-                 * 1000 (cents). For RTP, the maximum amount allowed by the network is $10,000,000.
-                 */
-                fun amount(amount: Long) = amount(JsonField.of(amount))
-
-                /**
-                 * Sets [Builder.amount] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.amount] with a well-typed [Long] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-                /**
-                 * One of `credit`, `debit`. Describes the direction money is flowing in the
-                 * transaction. A `credit` moves money from your account to someone else's. A
-                 * `debit` pulls money from someone else's account to your own. Note that wire, rtp,
-                 * and check payments will always be `credit`.
-                 */
-                fun direction(direction: Direction) = direction(JsonField.of(direction))
-
-                /**
-                 * Sets [Builder.direction] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.direction] with a well-typed [Direction] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun direction(direction: JsonField<Direction>) = apply {
-                    this.direction = direction
-                }
-
-                /** The ID of one of your organization's internal accounts. */
-                fun originatingAccountId(originatingAccountId: String) =
-                    originatingAccountId(JsonField.of(originatingAccountId))
-
-                /**
-                 * Sets [Builder.originatingAccountId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.originatingAccountId] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun originatingAccountId(originatingAccountId: JsonField<String>) = apply {
-                    this.originatingAccountId = originatingAccountId
-                }
-
-                /**
-                 * One of `ach`, `se_bankgirot`, `eft`, `wire`, `check`, `book`, `rtp`, `sepa`,
-                 * `bacs`, `au_becs`, `neft`, `nics`, `nz_national_clearing_code`, `sic`, `zengin`.
-                 */
-                fun type(type: PaymentOrderType) = type(JsonField.of(type))
-
-                /**
-                 * Sets [Builder.type] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.type] with a well-typed [PaymentOrderType] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun type(type: JsonField<PaymentOrderType>) = apply { this.type = type }
-
-                @Deprecated("deprecated")
-                fun accounting(accounting: Accounting) = accounting(JsonField.of(accounting))
-
-                /**
-                 * Sets [Builder.accounting] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.accounting] with a well-typed [Accounting] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                @Deprecated("deprecated")
-                fun accounting(accounting: JsonField<Accounting>) = apply {
-                    this.accounting = accounting
-                }
-
-                /**
-                 * The ID of one of your accounting categories. Note that these will only be
-                 * accessible if your accounting system has been connected.
-                 */
-                @Deprecated("deprecated")
-                fun accountingCategoryId(accountingCategoryId: String?) =
-                    accountingCategoryId(JsonField.ofNullable(accountingCategoryId))
-
-                /**
-                 * Sets [Builder.accountingCategoryId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.accountingCategoryId] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                @Deprecated("deprecated")
-                fun accountingCategoryId(accountingCategoryId: JsonField<String>) = apply {
-                    this.accountingCategoryId = accountingCategoryId
-                }
-
-                /**
-                 * The ID of one of your accounting ledger classes. Note that these will only be
-                 * accessible if your accounting system has been connected.
-                 */
-                @Deprecated("deprecated")
-                fun accountingLedgerClassId(accountingLedgerClassId: String?) =
-                    accountingLedgerClassId(JsonField.ofNullable(accountingLedgerClassId))
-
-                /**
-                 * Sets [Builder.accountingLedgerClassId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.accountingLedgerClassId] with a well-typed
-                 * [String] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                @Deprecated("deprecated")
-                fun accountingLedgerClassId(accountingLedgerClassId: JsonField<String>) = apply {
-                    this.accountingLedgerClassId = accountingLedgerClassId
-                }
-
-                /**
-                 * The party that will pay the fees for the payment order. See
-                 * https://docs.moderntreasury.com/payments/docs/charge-bearer to understand the
-                 * differences between the options.
-                 */
-                fun chargeBearer(chargeBearer: ChargeBearer?) =
-                    chargeBearer(JsonField.ofNullable(chargeBearer))
-
-                /**
-                 * Sets [Builder.chargeBearer] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.chargeBearer] with a well-typed [ChargeBearer]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun chargeBearer(chargeBearer: JsonField<ChargeBearer>) = apply {
-                    this.chargeBearer = chargeBearer
-                }
-
-                /** Defaults to the currency of the originating account. */
-                fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-                /**
-                 * Sets [Builder.currency] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.currency] with a well-typed [Currency] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-                /** An optional description for internal use. */
-                fun description(description: String?) =
-                    description(JsonField.ofNullable(description))
-
-                /**
-                 * Sets [Builder.description] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.description] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun description(description: JsonField<String>) = apply {
-                    this.description = description
-                }
-
-                /**
-                 * Date transactions are to be posted to the participants' account. Defaults to the
-                 * current business day or the next business day if the current day is a bank
-                 * holiday or weekend. Format: yyyy-mm-dd.
-                 */
-                fun effectiveDate(effectiveDate: LocalDate) =
-                    effectiveDate(JsonField.of(effectiveDate))
-
-                /**
-                 * Sets [Builder.effectiveDate] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.effectiveDate] with a well-typed [LocalDate]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
-                    this.effectiveDate = effectiveDate
-                }
-
-                /**
-                 * RFP payments require an expires_at. This value must be past the effective_date.
-                 */
-                fun expiresAt(expiresAt: OffsetDateTime?) =
-                    expiresAt(JsonField.ofNullable(expiresAt))
-
-                /**
-                 * Sets [Builder.expiresAt] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.expiresAt] with a well-typed [OffsetDateTime]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply {
-                    this.expiresAt = expiresAt
-                }
-
-                /** An optional user-defined 180 character unique identifier. */
-                fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
-
-                /**
-                 * Sets [Builder.externalId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.externalId] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun externalId(externalId: JsonField<String>) = apply {
-                    this.externalId = externalId
-                }
-
-                /**
-                 * A payment type to fallback to if the original type is not valid for the receiving
-                 * account. Currently, this only supports falling back from RTP to ACH (type=rtp and
-                 * fallback_type=ach)
-                 */
-                fun fallbackType(fallbackType: FallbackType) =
-                    fallbackType(JsonField.of(fallbackType))
-
-                /**
-                 * Sets [Builder.fallbackType] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.fallbackType] with a well-typed [FallbackType]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun fallbackType(fallbackType: JsonField<FallbackType>) = apply {
-                    this.fallbackType = fallbackType
-                }
-
-                /**
-                 * If present, indicates a specific foreign exchange contract number that has been
-                 * generated by your financial institution.
-                 */
-                fun foreignExchangeContract(foreignExchangeContract: String?) =
-                    foreignExchangeContract(JsonField.ofNullable(foreignExchangeContract))
-
-                /**
-                 * Sets [Builder.foreignExchangeContract] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.foreignExchangeContract] with a well-typed
-                 * [String] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                fun foreignExchangeContract(foreignExchangeContract: JsonField<String>) = apply {
-                    this.foreignExchangeContract = foreignExchangeContract
-                }
-
-                /**
-                 * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
-                 * `fixed_to_variable`, or `null` if the payment order currency matches the
-                 * originating account currency.
-                 */
-                fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator?) =
-                    foreignExchangeIndicator(JsonField.ofNullable(foreignExchangeIndicator))
-
-                /**
-                 * Sets [Builder.foreignExchangeIndicator] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.foreignExchangeIndicator] with a well-typed
-                 * [ForeignExchangeIndicator] value instead. This method is primarily for setting
-                 * the field to an undocumented or not yet supported value.
-                 */
-                fun foreignExchangeIndicator(
-                    foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>
-                ) = apply { this.foreignExchangeIndicator = foreignExchangeIndicator }
-
-                /**
-                 * Specifies a ledger transaction object that will be created with the payment
-                 * order. If the ledger transaction cannot be created, then the payment order
-                 * creation will fail. The resulting ledger transaction will mirror the status of
-                 * the payment order.
-                 */
-                fun ledgerTransaction(ledgerTransaction: LedgerTransactionCreateRequest) =
-                    ledgerTransaction(JsonField.of(ledgerTransaction))
-
-                /**
-                 * Sets [Builder.ledgerTransaction] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.ledgerTransaction] with a well-typed
-                 * [LedgerTransactionCreateRequest] value instead. This method is primarily for
-                 * setting the field to an undocumented or not yet supported value.
-                 */
-                fun ledgerTransaction(
-                    ledgerTransaction: JsonField<LedgerTransactionCreateRequest>
-                ) = apply { this.ledgerTransaction = ledgerTransaction }
-
-                /**
-                 * Either ledger_transaction or ledger_transaction_id can be provided. Only a
-                 * pending ledger transaction can be attached upon payment order creation. Once the
-                 * payment order is created, the status of the ledger transaction tracks the payment
-                 * order automatically.
-                 */
-                fun ledgerTransactionId(ledgerTransactionId: String) =
-                    ledgerTransactionId(JsonField.of(ledgerTransactionId))
-
-                /**
-                 * Sets [Builder.ledgerTransactionId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.ledgerTransactionId] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
-                    this.ledgerTransactionId = ledgerTransactionId
-                }
-
-                /** An array of line items that must sum up to the amount of the payment order. */
-                fun lineItems(lineItems: List<LineItemRequest>) = lineItems(JsonField.of(lineItems))
-
-                /**
-                 * Sets [Builder.lineItems] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.lineItems] with a well-typed
-                 * `List<LineItemRequest>` value instead. This method is primarily for setting the
-                 * field to an undocumented or not yet supported value.
-                 */
-                fun lineItems(lineItems: JsonField<List<LineItemRequest>>) = apply {
-                    this.lineItems = lineItems.map { it.toMutableList() }
-                }
-
-                /**
-                 * Adds a single [LineItemRequest] to [lineItems].
-                 *
-                 * @throws IllegalStateException if the field was previously set to a non-list.
-                 */
-                fun addLineItem(lineItem: LineItemRequest) = apply {
-                    lineItems =
-                        (lineItems ?: JsonField.of(mutableListOf())).also {
-                            checkKnown("lineItems", it).add(lineItem)
-                        }
-                }
-
-                /**
-                 * Additional data represented as key-value pairs. Both the key and value must be
-                 * strings.
-                 */
-                fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-                /**
-                 * Sets [Builder.metadata] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-                /**
-                 * A boolean to determine if NSF Protection is enabled for this payment order. Note
-                 * that this setting must also be turned on in your organization settings page.
-                 */
-                fun nsfProtected(nsfProtected: Boolean) = nsfProtected(JsonField.of(nsfProtected))
-
-                /**
-                 * Sets [Builder.nsfProtected] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.nsfProtected] with a well-typed [Boolean] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun nsfProtected(nsfProtected: JsonField<Boolean>) = apply {
-                    this.nsfProtected = nsfProtected
-                }
-
-                /**
-                 * If present, this address will override the default originating party address used
-                 * on the payment order. This works across all payment types.
-                 */
-                fun originatingPartyAddress(originatingPartyAddress: OriginatingPartyAddress?) =
-                    originatingPartyAddress(JsonField.ofNullable(originatingPartyAddress))
-
-                /**
-                 * Sets [Builder.originatingPartyAddress] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.originatingPartyAddress] with a well-typed
-                 * [OriginatingPartyAddress] value instead. This method is primarily for setting the
-                 * field to an undocumented or not yet supported value.
-                 */
-                fun originatingPartyAddress(
-                    originatingPartyAddress: JsonField<OriginatingPartyAddress>
-                ) = apply { this.originatingPartyAddress = originatingPartyAddress }
-
-                /**
-                 * If present, this will replace your default company name on receiver's bank
-                 * statement. This field can only be used for ACH payments currently. For ACH, only
-                 * the first 16 characters of this string will be used. Any additional characters
-                 * will be truncated.
-                 */
-                fun originatingPartyName(originatingPartyName: String?) =
-                    originatingPartyName(JsonField.ofNullable(originatingPartyName))
-
-                /**
-                 * Sets [Builder.originatingPartyName] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.originatingPartyName] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun originatingPartyName(originatingPartyName: JsonField<String>) = apply {
-                    this.originatingPartyName = originatingPartyName
-                }
-
-                /**
-                 * Secondary name for the legal entity making the payment. Can be used for e.g.
-                 * check signatures where the originating party wishes to retain their company's
-                 * display name but use an employee's name for the signature.
-                 */
-                fun originatingSecondaryPartyName(originatingSecondaryPartyName: String?) =
-                    originatingSecondaryPartyName(
-                        JsonField.ofNullable(originatingSecondaryPartyName)
-                    )
-
-                /**
-                 * Sets [Builder.originatingSecondaryPartyName] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.originatingSecondaryPartyName] with a well-typed
-                 * [String] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                fun originatingSecondaryPartyName(
-                    originatingSecondaryPartyName: JsonField<String>
-                ) = apply { this.originatingSecondaryPartyName = originatingSecondaryPartyName }
-
-                /**
-                 * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day
-                 * ACH or EFT transfer, respectively. For check payments, `high` can mean an
-                 * overnight check rather than standard mail.
-                 */
-                fun priority(priority: Priority) = priority(JsonField.of(priority))
-
-                /**
-                 * Sets [Builder.priority] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.priority] with a well-typed [Priority] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun priority(priority: JsonField<Priority>) = apply { this.priority = priority }
-
-                /**
-                 * If present, Modern Treasury will not process the payment until after this time.
-                 * If `process_after` is past the cutoff for `effective_date`, `process_after` will
-                 * take precedence and `effective_date` will automatically update to reflect the
-                 * earliest possible sending date after `process_after`. Format is ISO8601
-                 * timestamp.
-                 */
-                fun processAfter(processAfter: OffsetDateTime?) =
-                    processAfter(JsonField.ofNullable(processAfter))
-
-                /**
-                 * Sets [Builder.processAfter] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.processAfter] with a well-typed [OffsetDateTime]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun processAfter(processAfter: JsonField<OffsetDateTime>) = apply {
-                    this.processAfter = processAfter
-                }
-
-                /**
-                 * For `wire`, this is usually the purpose which is transmitted via the
-                 * "InstrForDbtrAgt" field in the ISO20022 file. For `eft`, this field is the 3
-                 * digit CPA Code that will be attached to the payment.
-                 */
-                fun purpose(purpose: String?) = purpose(JsonField.ofNullable(purpose))
-
-                /**
-                 * Sets [Builder.purpose] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.purpose] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun purpose(purpose: JsonField<String>) = apply { this.purpose = purpose }
-
-                /**
-                 * Either `receiving_account` or `receiving_account_id` must be present. When using
-                 * `receiving_account_id`, you may pass the id of an external account or an internal
-                 * account.
-                 */
-                fun receivingAccount(receivingAccount: ReceivingAccount) =
-                    receivingAccount(JsonField.of(receivingAccount))
-
-                /**
-                 * Sets [Builder.receivingAccount] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.receivingAccount] with a well-typed
-                 * [ReceivingAccount] value instead. This method is primarily for setting the field
-                 * to an undocumented or not yet supported value.
-                 */
-                fun receivingAccount(receivingAccount: JsonField<ReceivingAccount>) = apply {
-                    this.receivingAccount = receivingAccount
-                }
-
-                /**
-                 * Either `receiving_account` or `receiving_account_id` must be present. When using
-                 * `receiving_account_id`, you may pass the id of an external account or an internal
-                 * account.
-                 */
-                fun receivingAccountId(receivingAccountId: String) =
-                    receivingAccountId(JsonField.of(receivingAccountId))
-
-                /**
-                 * Sets [Builder.receivingAccountId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.receivingAccountId] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun receivingAccountId(receivingAccountId: JsonField<String>) = apply {
-                    this.receivingAccountId = receivingAccountId
-                }
-
-                /** One of `unreconciled`, `tentatively_reconciled` or `reconciled`. */
-                fun reconciliationStatus(reconciliationStatus: ReconciliationStatus) =
-                    reconciliationStatus(JsonField.of(reconciliationStatus))
-
-                /**
-                 * Sets [Builder.reconciliationStatus] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.reconciliationStatus] with a well-typed
-                 * [ReconciliationStatus] value instead. This method is primarily for setting the
-                 * field to an undocumented or not yet supported value.
-                 */
-                fun reconciliationStatus(reconciliationStatus: JsonField<ReconciliationStatus>) =
-                    apply {
-                        this.reconciliationStatus = reconciliationStatus
-                    }
-
-                /**
-                 * For `ach`, this field will be passed through on an addenda record. For `wire`
-                 * payments the field will be passed through as the "Originator to Beneficiary
-                 * Information", also known as OBI or Fedwire tag 6000.
-                 */
-                fun remittanceInformation(remittanceInformation: String?) =
-                    remittanceInformation(JsonField.ofNullable(remittanceInformation))
-
-                /**
-                 * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.remittanceInformation] with a well-typed
-                 * [String] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-                    this.remittanceInformation = remittanceInformation
-                }
-
-                /**
-                 * Send an email to the counterparty when the payment order is sent to the bank. If
-                 * `null`, `send_remittance_advice` on the Counterparty is used.
-                 */
-                fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean?) =
-                    sendRemittanceAdvice(JsonField.ofNullable(sendRemittanceAdvice))
-
-                /**
-                 * Alias for [Builder.sendRemittanceAdvice].
-                 *
-                 * This unboxed primitive overload exists for backwards compatibility.
-                 */
-                fun sendRemittanceAdvice(sendRemittanceAdvice: Boolean) =
-                    sendRemittanceAdvice(sendRemittanceAdvice as Boolean?)
-
-                /**
-                 * Sets [Builder.sendRemittanceAdvice] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.sendRemittanceAdvice] with a well-typed
-                 * [Boolean] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                fun sendRemittanceAdvice(sendRemittanceAdvice: JsonField<Boolean>) = apply {
-                    this.sendRemittanceAdvice = sendRemittanceAdvice
-                }
-
-                /**
-                 * An optional descriptor which will appear in the receiver's statement. For `check`
-                 * payments this field will be used as the memo line. For `ach` the maximum length
-                 * is 10 characters. Note that for ACH payments, the name on your bank account will
-                 * be included automatically by the bank, so you can use the characters for other
-                 * useful information. For `eft` the maximum length is 15 characters.
-                 */
-                fun statementDescriptor(statementDescriptor: String?) =
-                    statementDescriptor(JsonField.ofNullable(statementDescriptor))
-
-                /**
-                 * Sets [Builder.statementDescriptor] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.statementDescriptor] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun statementDescriptor(statementDescriptor: JsonField<String>) = apply {
-                    this.statementDescriptor = statementDescriptor
-                }
-
-                /**
-                 * An additional layer of classification for the type of payment order you are
-                 * doing. This field is only used for `ach` payment orders currently. For `ach`
-                 * payment orders, the `subtype` represents the SEC code. We currently support
-                 * `CCD`, `PPD`, `IAT`, `CTX`, `WEB`, `CIE`, and `TEL`.
-                 */
-                fun subtype(subtype: PaymentOrderSubtype?) = subtype(JsonField.ofNullable(subtype))
-
-                /**
-                 * Sets [Builder.subtype] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.subtype] with a well-typed [PaymentOrderSubtype]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun subtype(subtype: JsonField<PaymentOrderSubtype>) = apply {
-                    this.subtype = subtype
-                }
-
-                /**
-                 * A flag that determines whether a payment order should go through transaction
-                 * monitoring.
-                 */
-                @Deprecated("deprecated")
-                fun transactionMonitoringEnabled(transactionMonitoringEnabled: Boolean) =
-                    transactionMonitoringEnabled(JsonField.of(transactionMonitoringEnabled))
-
-                /**
-                 * Sets [Builder.transactionMonitoringEnabled] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.transactionMonitoringEnabled] with a well-typed
-                 * [Boolean] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                @Deprecated("deprecated")
-                fun transactionMonitoringEnabled(transactionMonitoringEnabled: JsonField<Boolean>) =
-                    apply {
-                        this.transactionMonitoringEnabled = transactionMonitoringEnabled
-                    }
-
-                /**
-                 * The ultimate originating account ID. Can be a `virtual_account` or
-                 * `internal_account`.
-                 */
-                fun ultimateOriginatingAccountId(ultimateOriginatingAccountId: String) =
-                    ultimateOriginatingAccountId(JsonField.of(ultimateOriginatingAccountId))
-
-                /**
-                 * Sets [Builder.ultimateOriginatingAccountId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.ultimateOriginatingAccountId] with a well-typed
-                 * [String] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                fun ultimateOriginatingAccountId(ultimateOriginatingAccountId: JsonField<String>) =
-                    apply {
-                        this.ultimateOriginatingAccountId = ultimateOriginatingAccountId
-                    }
-
-                /** Address of the ultimate originator of the payment order. */
-                fun ultimateOriginatingPartyAddress(
-                    ultimateOriginatingPartyAddress: UltimateOriginatingPartyAddress?
-                ) =
-                    ultimateOriginatingPartyAddress(
-                        JsonField.ofNullable(ultimateOriginatingPartyAddress)
-                    )
-
-                /**
-                 * Sets [Builder.ultimateOriginatingPartyAddress] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.ultimateOriginatingPartyAddress] with a
-                 * well-typed [UltimateOriginatingPartyAddress] value instead. This method is
-                 * primarily for setting the field to an undocumented or not yet supported value.
-                 */
-                fun ultimateOriginatingPartyAddress(
-                    ultimateOriginatingPartyAddress: JsonField<UltimateOriginatingPartyAddress>
-                ) = apply { this.ultimateOriginatingPartyAddress = ultimateOriginatingPartyAddress }
-
-                /** Identifier of the ultimate originator of the payment order. */
-                fun ultimateOriginatingPartyIdentifier(
-                    ultimateOriginatingPartyIdentifier: String?
-                ) =
-                    ultimateOriginatingPartyIdentifier(
-                        JsonField.ofNullable(ultimateOriginatingPartyIdentifier)
-                    )
-
-                /**
-                 * Sets [Builder.ultimateOriginatingPartyIdentifier] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.ultimateOriginatingPartyIdentifier] with a
-                 * well-typed [String] value instead. This method is primarily for setting the field
-                 * to an undocumented or not yet supported value.
-                 */
-                fun ultimateOriginatingPartyIdentifier(
-                    ultimateOriginatingPartyIdentifier: JsonField<String>
-                ) = apply {
-                    this.ultimateOriginatingPartyIdentifier = ultimateOriginatingPartyIdentifier
-                }
-
-                /** Name of the ultimate originator of the payment order. */
-                fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: String?) =
-                    ultimateOriginatingPartyName(JsonField.ofNullable(ultimateOriginatingPartyName))
-
-                /**
-                 * Sets [Builder.ultimateOriginatingPartyName] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.ultimateOriginatingPartyName] with a well-typed
-                 * [String] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                fun ultimateOriginatingPartyName(ultimateOriginatingPartyName: JsonField<String>) =
-                    apply {
-                        this.ultimateOriginatingPartyName = ultimateOriginatingPartyName
-                    }
-
-                /** Identifier of the ultimate funds recipient. */
-                fun ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier: String?) =
-                    ultimateReceivingPartyIdentifier(
-                        JsonField.ofNullable(ultimateReceivingPartyIdentifier)
-                    )
-
-                /**
-                 * Sets [Builder.ultimateReceivingPartyIdentifier] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.ultimateReceivingPartyIdentifier] with a
-                 * well-typed [String] value instead. This method is primarily for setting the field
-                 * to an undocumented or not yet supported value.
-                 */
-                fun ultimateReceivingPartyIdentifier(
-                    ultimateReceivingPartyIdentifier: JsonField<String>
-                ) = apply {
-                    this.ultimateReceivingPartyIdentifier = ultimateReceivingPartyIdentifier
-                }
-
-                /** Name of the ultimate funds recipient. */
-                fun ultimateReceivingPartyName(ultimateReceivingPartyName: String?) =
-                    ultimateReceivingPartyName(JsonField.ofNullable(ultimateReceivingPartyName))
-
-                /**
-                 * Sets [Builder.ultimateReceivingPartyName] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.ultimateReceivingPartyName] with a well-typed
-                 * [String] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                fun ultimateReceivingPartyName(ultimateReceivingPartyName: JsonField<String>) =
-                    apply {
-                        this.ultimateReceivingPartyName = ultimateReceivingPartyName
-                    }
-
-                /**
-                 * Additional vendor specific fields for this payment. Data must be represented as
-                 * key-value pairs.
-                 */
-                fun vendorAttributes(vendorAttributes: VendorAttributes) =
-                    vendorAttributes(JsonField.of(vendorAttributes))
-
-                /**
-                 * Sets [Builder.vendorAttributes] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.vendorAttributes] with a well-typed
-                 * [VendorAttributes] value instead. This method is primarily for setting the field
-                 * to an undocumented or not yet supported value.
-                 */
-                fun vendorAttributes(vendorAttributes: JsonField<VendorAttributes>) = apply {
-                    this.vendorAttributes = vendorAttributes
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [PaymentOrderAsyncCreateRequest].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```kotlin
-                 * .amount()
-                 * .direction()
-                 * .originatingAccountId()
-                 * .type()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
-                 */
-                fun build(): PaymentOrderAsyncCreateRequest =
-                    PaymentOrderAsyncCreateRequest(
-                        checkRequired("amount", amount),
-                        checkRequired("direction", direction),
-                        checkRequired("originatingAccountId", originatingAccountId),
-                        checkRequired("type", type),
-                        accounting,
-                        accountingCategoryId,
-                        accountingLedgerClassId,
-                        chargeBearer,
-                        currency,
-                        description,
-                        effectiveDate,
-                        expiresAt,
-                        externalId,
-                        fallbackType,
-                        foreignExchangeContract,
-                        foreignExchangeIndicator,
-                        ledgerTransaction,
-                        ledgerTransactionId,
-                        (lineItems ?: JsonMissing.of()).map { it.toImmutable() },
-                        metadata,
-                        nsfProtected,
-                        originatingPartyAddress,
-                        originatingPartyName,
-                        originatingSecondaryPartyName,
-                        priority,
-                        processAfter,
-                        purpose,
-                        receivingAccount,
-                        receivingAccountId,
-                        reconciliationStatus,
-                        remittanceInformation,
-                        sendRemittanceAdvice,
-                        statementDescriptor,
-                        subtype,
-                        transactionMonitoringEnabled,
-                        ultimateOriginatingAccountId,
-                        ultimateOriginatingPartyAddress,
-                        ultimateOriginatingPartyIdentifier,
-                        ultimateOriginatingPartyName,
-                        ultimateReceivingPartyIdentifier,
-                        ultimateReceivingPartyName,
-                        vendorAttributes,
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
-             */
-            fun validate(): PaymentOrderAsyncCreateRequest = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                amount()
-                direction().validate()
-                originatingAccountId()
-                type().validate()
-                accounting()?.validate()
-                accountingCategoryId()
-                accountingLedgerClassId()
-                chargeBearer()?.validate()
-                currency()?.validate()
-                description()
-                effectiveDate()
-                expiresAt()
-                externalId()
-                fallbackType()?.validate()
-                foreignExchangeContract()
-                foreignExchangeIndicator()?.validate()
-                ledgerTransaction()?.validate()
-                ledgerTransactionId()
-                lineItems()?.forEach { it.validate() }
-                metadata()?.validate()
-                nsfProtected()
-                originatingPartyAddress()?.validate()
-                originatingPartyName()
-                originatingSecondaryPartyName()
-                priority()?.validate()
-                processAfter()
-                purpose()
-                receivingAccount()?.validate()
-                receivingAccountId()
-                reconciliationStatus()?.validate()
-                remittanceInformation()
-                sendRemittanceAdvice()
-                statementDescriptor()
-                subtype()?.validate()
-                transactionMonitoringEnabled()
-                ultimateOriginatingAccountId()
-                ultimateOriginatingPartyAddress()?.validate()
-                ultimateOriginatingPartyIdentifier()
-                ultimateOriginatingPartyName()
-                ultimateReceivingPartyIdentifier()
-                ultimateReceivingPartyName()
-                vendorAttributes()?.validate()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: ModernTreasuryInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            internal fun validity(): Int =
-                (if (amount.asKnown() == null) 0 else 1) +
-                    (direction.asKnown()?.validity() ?: 0) +
-                    (if (originatingAccountId.asKnown() == null) 0 else 1) +
-                    (type.asKnown()?.validity() ?: 0) +
-                    (accounting.asKnown()?.validity() ?: 0) +
-                    (if (accountingCategoryId.asKnown() == null) 0 else 1) +
-                    (if (accountingLedgerClassId.asKnown() == null) 0 else 1) +
-                    (chargeBearer.asKnown()?.validity() ?: 0) +
-                    (currency.asKnown()?.validity() ?: 0) +
-                    (if (description.asKnown() == null) 0 else 1) +
-                    (if (effectiveDate.asKnown() == null) 0 else 1) +
-                    (if (expiresAt.asKnown() == null) 0 else 1) +
-                    (if (externalId.asKnown() == null) 0 else 1) +
-                    (fallbackType.asKnown()?.validity() ?: 0) +
-                    (if (foreignExchangeContract.asKnown() == null) 0 else 1) +
-                    (foreignExchangeIndicator.asKnown()?.validity() ?: 0) +
-                    (ledgerTransaction.asKnown()?.validity() ?: 0) +
-                    (if (ledgerTransactionId.asKnown() == null) 0 else 1) +
-                    (lineItems.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                    (metadata.asKnown()?.validity() ?: 0) +
-                    (if (nsfProtected.asKnown() == null) 0 else 1) +
-                    (originatingPartyAddress.asKnown()?.validity() ?: 0) +
-                    (if (originatingPartyName.asKnown() == null) 0 else 1) +
-                    (if (originatingSecondaryPartyName.asKnown() == null) 0 else 1) +
-                    (priority.asKnown()?.validity() ?: 0) +
-                    (if (processAfter.asKnown() == null) 0 else 1) +
-                    (if (purpose.asKnown() == null) 0 else 1) +
-                    (receivingAccount.asKnown()?.validity() ?: 0) +
-                    (if (receivingAccountId.asKnown() == null) 0 else 1) +
-                    (reconciliationStatus.asKnown()?.validity() ?: 0) +
-                    (if (remittanceInformation.asKnown() == null) 0 else 1) +
-                    (if (sendRemittanceAdvice.asKnown() == null) 0 else 1) +
-                    (if (statementDescriptor.asKnown() == null) 0 else 1) +
-                    (subtype.asKnown()?.validity() ?: 0) +
-                    (if (transactionMonitoringEnabled.asKnown() == null) 0 else 1) +
-                    (if (ultimateOriginatingAccountId.asKnown() == null) 0 else 1) +
-                    (ultimateOriginatingPartyAddress.asKnown()?.validity() ?: 0) +
-                    (if (ultimateOriginatingPartyIdentifier.asKnown() == null) 0 else 1) +
-                    (if (ultimateOriginatingPartyName.asKnown() == null) 0 else 1) +
-                    (if (ultimateReceivingPartyIdentifier.asKnown() == null) 0 else 1) +
-                    (if (ultimateReceivingPartyName.asKnown() == null) 0 else 1) +
-                    (vendorAttributes.asKnown()?.validity() ?: 0)
-
-            /**
-             * One of `credit`, `debit`. Describes the direction money is flowing in the
-             * transaction. A `credit` moves money from your account to someone else's. A `debit`
-             * pulls money from someone else's account to your own. Note that wire, rtp, and check
-             * payments will always be `credit`.
-             */
-            class Direction @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val CREDIT = of("credit")
-
-                    val DEBIT = of("debit")
-
-                    fun of(value: String) = Direction(JsonField.of(value))
-                }
-
-                /** An enum containing [Direction]'s known values. */
-                enum class Known {
-                    CREDIT,
-                    DEBIT,
-                }
-
-                /**
-                 * An enum containing [Direction]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Direction] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    CREDIT,
-                    DEBIT,
-                    /**
-                     * An enum member indicating that [Direction] was instantiated with an unknown
-                     * value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        CREDIT -> Value.CREDIT
-                        DEBIT -> Value.DEBIT
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        CREDIT -> Known.CREDIT
-                        DEBIT -> Known.DEBIT
-                        else ->
-                            throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Direction = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Direction && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            @Deprecated("deprecated")
-            class Accounting
-            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-            private constructor(
-                private val accountId: JsonField<String>,
-                private val classId: JsonField<String>,
-                private val additionalProperties: MutableMap<String, JsonValue>,
-            ) {
-
-                @JsonCreator
-                private constructor(
-                    @JsonProperty("account_id")
-                    @ExcludeMissing
-                    accountId: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("class_id")
-                    @ExcludeMissing
-                    classId: JsonField<String> = JsonMissing.of(),
-                ) : this(accountId, classId, mutableMapOf())
-
-                /**
-                 * The ID of one of your accounting categories. Note that these will only be
-                 * accessible if your accounting system has been connected.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                @Deprecated("deprecated")
-                fun accountId(): String? = accountId.getNullable("account_id")
-
-                /**
-                 * The ID of one of the class objects in your accounting system. Class objects track
-                 * segments of your business independent of client or project. Note that these will
-                 * only be accessible if your accounting system has been connected.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                @Deprecated("deprecated") fun classId(): String? = classId.getNullable("class_id")
-
-                /**
-                 * Returns the raw JSON value of [accountId].
-                 *
-                 * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @Deprecated("deprecated")
-                @JsonProperty("account_id")
-                @ExcludeMissing
-                fun _accountId(): JsonField<String> = accountId
-
-                /**
-                 * Returns the raw JSON value of [classId].
-                 *
-                 * Unlike [classId], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @Deprecated("deprecated")
-                @JsonProperty("class_id")
-                @ExcludeMissing
-                fun _classId(): JsonField<String> = classId
-
-                @JsonAnySetter
-                private fun putAdditionalProperty(key: String, value: JsonValue) {
-                    additionalProperties.put(key, value)
-                }
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> =
-                    Collections.unmodifiableMap(additionalProperties)
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /** Returns a mutable builder for constructing an instance of [Accounting]. */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [Accounting]. */
-                class Builder internal constructor() {
-
-                    private var accountId: JsonField<String> = JsonMissing.of()
-                    private var classId: JsonField<String> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(accounting: Accounting) = apply {
-                        accountId = accounting.accountId
-                        classId = accounting.classId
-                        additionalProperties = accounting.additionalProperties.toMutableMap()
-                    }
-
-                    /**
-                     * The ID of one of your accounting categories. Note that these will only be
-                     * accessible if your accounting system has been connected.
-                     */
-                    @Deprecated("deprecated")
-                    fun accountId(accountId: String?) = accountId(JsonField.ofNullable(accountId))
-
-                    /**
-                     * Sets [Builder.accountId] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.accountId] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    @Deprecated("deprecated")
-                    fun accountId(accountId: JsonField<String>) = apply {
-                        this.accountId = accountId
-                    }
-
-                    /**
-                     * The ID of one of the class objects in your accounting system. Class objects
-                     * track segments of your business independent of client or project. Note that
-                     * these will only be accessible if your accounting system has been connected.
-                     */
-                    @Deprecated("deprecated")
-                    fun classId(classId: String?) = classId(JsonField.ofNullable(classId))
-
-                    /**
-                     * Sets [Builder.classId] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.classId] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    @Deprecated("deprecated")
-                    fun classId(classId: JsonField<String>) = apply { this.classId = classId }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [Accounting].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): Accounting =
-                        Accounting(accountId, classId, additionalProperties.toMutableMap())
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Accounting = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    accountId()
-                    classId()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    (if (accountId.asKnown() == null) 0 else 1) +
-                        (if (classId.asKnown() == null) 0 else 1)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Accounting &&
-                        accountId == other.accountId &&
-                        classId == other.classId &&
-                        additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy {
-                    Objects.hash(accountId, classId, additionalProperties)
-                }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() =
-                    "Accounting{accountId=$accountId, classId=$classId, additionalProperties=$additionalProperties}"
-            }
-
-            /**
-             * The party that will pay the fees for the payment order. See
-             * https://docs.moderntreasury.com/payments/docs/charge-bearer to understand the
-             * differences between the options.
-             */
-            class ChargeBearer
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val SHARED = of("shared")
-
-                    val SENDER = of("sender")
-
-                    val RECEIVER = of("receiver")
-
-                    fun of(value: String) = ChargeBearer(JsonField.of(value))
-                }
-
-                /** An enum containing [ChargeBearer]'s known values. */
-                enum class Known {
-                    SHARED,
-                    SENDER,
-                    RECEIVER,
-                }
-
-                /**
-                 * An enum containing [ChargeBearer]'s known values, as well as an [_UNKNOWN]
-                 * member.
-                 *
-                 * An instance of [ChargeBearer] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    SHARED,
-                    SENDER,
-                    RECEIVER,
-                    /**
-                     * An enum member indicating that [ChargeBearer] was instantiated with an
-                     * unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        SHARED -> Value.SHARED
-                        SENDER -> Value.SENDER
-                        RECEIVER -> Value.RECEIVER
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        SHARED -> Known.SHARED
-                        SENDER -> Known.SENDER
-                        RECEIVER -> Known.RECEIVER
-                        else ->
-                            throw ModernTreasuryInvalidDataException("Unknown ChargeBearer: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): ChargeBearer = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is ChargeBearer && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * A payment type to fallback to if the original type is not valid for the receiving
-             * account. Currently, this only supports falling back from RTP to ACH (type=rtp and
-             * fallback_type=ach)
-             */
-            class FallbackType
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val ACH = of("ach")
-
-                    fun of(value: String) = FallbackType(JsonField.of(value))
-                }
-
-                /** An enum containing [FallbackType]'s known values. */
-                enum class Known {
-                    ACH
-                }
-
-                /**
-                 * An enum containing [FallbackType]'s known values, as well as an [_UNKNOWN]
-                 * member.
-                 *
-                 * An instance of [FallbackType] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    ACH,
-                    /**
-                     * An enum member indicating that [FallbackType] was instantiated with an
-                     * unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        ACH -> Value.ACH
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        ACH -> Known.ACH
-                        else ->
-                            throw ModernTreasuryInvalidDataException("Unknown FallbackType: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): FallbackType = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is FallbackType && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
-             * `fixed_to_variable`, or `null` if the payment order currency matches the originating
-             * account currency.
-             */
-            class ForeignExchangeIndicator
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val FIXED_TO_VARIABLE = of("fixed_to_variable")
-
-                    val VARIABLE_TO_FIXED = of("variable_to_fixed")
-
-                    fun of(value: String) = ForeignExchangeIndicator(JsonField.of(value))
-                }
-
-                /** An enum containing [ForeignExchangeIndicator]'s known values. */
-                enum class Known {
-                    FIXED_TO_VARIABLE,
-                    VARIABLE_TO_FIXED,
-                }
-
-                /**
-                 * An enum containing [ForeignExchangeIndicator]'s known values, as well as an
-                 * [_UNKNOWN] member.
-                 *
-                 * An instance of [ForeignExchangeIndicator] can contain an unknown value in a
-                 * couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    FIXED_TO_VARIABLE,
-                    VARIABLE_TO_FIXED,
-                    /**
-                     * An enum member indicating that [ForeignExchangeIndicator] was instantiated
-                     * with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        FIXED_TO_VARIABLE -> Value.FIXED_TO_VARIABLE
-                        VARIABLE_TO_FIXED -> Value.VARIABLE_TO_FIXED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        FIXED_TO_VARIABLE -> Known.FIXED_TO_VARIABLE
-                        VARIABLE_TO_FIXED -> Known.VARIABLE_TO_FIXED
-                        else ->
-                            throw ModernTreasuryInvalidDataException(
-                                "Unknown ForeignExchangeIndicator: $value"
-                            )
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): ForeignExchangeIndicator = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is ForeignExchangeIndicator && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            class LineItemRequest
-            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-            private constructor(
-                private val amount: JsonField<Long>,
-                private val accountingCategoryId: JsonField<String>,
-                private val description: JsonField<String>,
-                private val metadata: JsonField<Metadata>,
-                private val additionalProperties: MutableMap<String, JsonValue>,
-            ) {
-
-                @JsonCreator
-                private constructor(
-                    @JsonProperty("amount")
-                    @ExcludeMissing
-                    amount: JsonField<Long> = JsonMissing.of(),
-                    @JsonProperty("accounting_category_id")
-                    @ExcludeMissing
-                    accountingCategoryId: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("description")
-                    @ExcludeMissing
-                    description: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("metadata")
-                    @ExcludeMissing
-                    metadata: JsonField<Metadata> = JsonMissing.of(),
-                ) : this(amount, accountingCategoryId, description, metadata, mutableMapOf())
-
-                /**
-                 * Value in specified currency's smallest unit. e.g. $10 would be represented
-                 * as 1000.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type or is unexpectedly missing or null (e.g. if the server responded with an
-                 *   unexpected value).
-                 */
-                fun amount(): Long = amount.getRequired("amount")
-
-                /**
-                 * The ID of one of your accounting categories. Note that these will only be
-                 * accessible if your accounting system has been connected.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun accountingCategoryId(): String? =
-                    accountingCategoryId.getNullable("accounting_category_id")
-
-                /**
-                 * A free-form description of the line item.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun description(): String? = description.getNullable("description")
-
-                /**
-                 * Additional data represented as key-value pairs. Both the key and value must be
-                 * strings.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-                /**
-                 * Returns the raw JSON value of [amount].
-                 *
-                 * Unlike [amount], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-                /**
-                 * Returns the raw JSON value of [accountingCategoryId].
-                 *
-                 * Unlike [accountingCategoryId], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("accounting_category_id")
-                @ExcludeMissing
-                fun _accountingCategoryId(): JsonField<String> = accountingCategoryId
-
-                /**
-                 * Returns the raw JSON value of [description].
-                 *
-                 * Unlike [description], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("description")
-                @ExcludeMissing
-                fun _description(): JsonField<String> = description
-
-                /**
-                 * Returns the raw JSON value of [metadata].
-                 *
-                 * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("metadata")
-                @ExcludeMissing
-                fun _metadata(): JsonField<Metadata> = metadata
-
-                @JsonAnySetter
-                private fun putAdditionalProperty(key: String, value: JsonValue) {
-                    additionalProperties.put(key, value)
-                }
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> =
-                    Collections.unmodifiableMap(additionalProperties)
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /**
-                     * Returns a mutable builder for constructing an instance of [LineItemRequest].
-                     *
-                     * The following fields are required:
-                     * ```kotlin
-                     * .amount()
-                     * ```
-                     */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [LineItemRequest]. */
-                class Builder internal constructor() {
-
-                    private var amount: JsonField<Long>? = null
-                    private var accountingCategoryId: JsonField<String> = JsonMissing.of()
-                    private var description: JsonField<String> = JsonMissing.of()
-                    private var metadata: JsonField<Metadata> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(lineItemRequest: LineItemRequest) = apply {
-                        amount = lineItemRequest.amount
-                        accountingCategoryId = lineItemRequest.accountingCategoryId
-                        description = lineItemRequest.description
-                        metadata = lineItemRequest.metadata
-                        additionalProperties = lineItemRequest.additionalProperties.toMutableMap()
-                    }
-
-                    /**
-                     * Value in specified currency's smallest unit. e.g. $10 would be represented
-                     * as 1000.
-                     */
-                    fun amount(amount: Long) = amount(JsonField.of(amount))
-
-                    /**
-                     * Sets [Builder.amount] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.amount] with a well-typed [Long] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-                    /**
-                     * The ID of one of your accounting categories. Note that these will only be
-                     * accessible if your accounting system has been connected.
-                     */
-                    fun accountingCategoryId(accountingCategoryId: String?) =
-                        accountingCategoryId(JsonField.ofNullable(accountingCategoryId))
-
-                    /**
-                     * Sets [Builder.accountingCategoryId] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.accountingCategoryId] with a well-typed
-                     * [String] value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
-                     */
-                    fun accountingCategoryId(accountingCategoryId: JsonField<String>) = apply {
-                        this.accountingCategoryId = accountingCategoryId
-                    }
-
-                    /** A free-form description of the line item. */
-                    fun description(description: String?) =
-                        description(JsonField.ofNullable(description))
-
-                    /**
-                     * Sets [Builder.description] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.description] with a well-typed [String]
-                     * value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
-                     */
-                    fun description(description: JsonField<String>) = apply {
-                        this.description = description
-                    }
-
-                    /**
-                     * Additional data represented as key-value pairs. Both the key and value must
-                     * be strings.
-                     */
-                    fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-                    /**
-                     * Sets [Builder.metadata] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [LineItemRequest].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     *
-                     * The following fields are required:
-                     * ```kotlin
-                     * .amount()
-                     * ```
-                     *
-                     * @throws IllegalStateException if any required field is unset.
-                     */
-                    fun build(): LineItemRequest =
-                        LineItemRequest(
-                            checkRequired("amount", amount),
-                            accountingCategoryId,
-                            description,
-                            metadata,
-                            additionalProperties.toMutableMap(),
-                        )
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): LineItemRequest = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    amount()
-                    accountingCategoryId()
-                    description()
-                    metadata()?.validate()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    (if (amount.asKnown() == null) 0 else 1) +
-                        (if (accountingCategoryId.asKnown() == null) 0 else 1) +
-                        (if (description.asKnown() == null) 0 else 1) +
-                        (metadata.asKnown()?.validity() ?: 0)
-
-                /**
-                 * Additional data represented as key-value pairs. Both the key and value must be
-                 * strings.
-                 */
-                class Metadata
-                @JsonCreator
-                private constructor(
-                    @com.fasterxml.jackson.annotation.JsonValue
-                    private val additionalProperties: Map<String, JsonValue>
-                ) {
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                    fun toBuilder() = Builder().from(this)
-
-                    companion object {
-
-                        /** Returns a mutable builder for constructing an instance of [Metadata]. */
-                        fun builder() = Builder()
-                    }
-
-                    /** A builder for [Metadata]. */
-                    class Builder internal constructor() {
-
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        internal fun from(metadata: Metadata) = apply {
-                            additionalProperties = metadata.additionalProperties.toMutableMap()
-                        }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                putAllAdditionalProperties(additionalProperties)
-                            }
-
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun removeAdditionalProperty(key: String) = apply {
-                            additionalProperties.remove(key)
-                        }
-
-                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                            keys.forEach(::removeAdditionalProperty)
-                        }
-
-                        /**
-                         * Returns an immutable instance of [Metadata].
-                         *
-                         * Further updates to this [Builder] will not mutate the returned instance.
-                         */
-                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
-                    }
-
-                    private var validated: Boolean = false
-
-                    /**
-                     * Validates that the types of all values in this object match their expected
-                     * types recursively.
-                     *
-                     * This method is _not_ forwards compatible with new types from the API for
-                     * existing fields.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if any value type in this object
-                     *   doesn't match its expected type.
-                     */
-                    fun validate(): Metadata = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: ModernTreasuryInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    internal fun validity(): Int =
-                        additionalProperties.count { (_, value) ->
-                            !value.isNull() && !value.isMissing()
-                        }
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Metadata &&
-                            additionalProperties == other.additionalProperties
-                    }
-
-                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                    override fun hashCode(): Int = hashCode
-
-                    override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-                }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is LineItemRequest &&
-                        amount == other.amount &&
-                        accountingCategoryId == other.accountingCategoryId &&
-                        description == other.description &&
-                        metadata == other.metadata &&
-                        additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy {
-                    Objects.hash(
-                        amount,
-                        accountingCategoryId,
-                        description,
-                        metadata,
-                        additionalProperties,
-                    )
-                }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() =
-                    "LineItemRequest{amount=$amount, accountingCategoryId=$accountingCategoryId, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
-            }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            class Metadata
-            @JsonCreator
-            private constructor(
-                @com.fasterxml.jackson.annotation.JsonValue
-                private val additionalProperties: Map<String, JsonValue>
-            ) {
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /** Returns a mutable builder for constructing an instance of [Metadata]. */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [Metadata]. */
-                class Builder internal constructor() {
-
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(metadata: Metadata) = apply {
-                        additionalProperties = metadata.additionalProperties.toMutableMap()
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [Metadata].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Metadata = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    additionalProperties.count { (_, value) ->
-                        !value.isNull() && !value.isMissing()
-                    }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Metadata && additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-            }
-
-            /**
-             * If present, this address will override the default originating party address used on
-             * the payment order. This works across all payment types.
-             */
-            class OriginatingPartyAddress
-            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-            private constructor(
-                private val country: JsonField<String>,
-                private val line1: JsonField<String>,
-                private val line2: JsonField<String>,
-                private val locality: JsonField<String>,
-                private val postalCode: JsonField<String>,
-                private val region: JsonField<String>,
-                private val additionalProperties: MutableMap<String, JsonValue>,
-            ) {
-
-                @JsonCreator
-                private constructor(
-                    @JsonProperty("country")
-                    @ExcludeMissing
-                    country: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("line1")
-                    @ExcludeMissing
-                    line1: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("line2")
-                    @ExcludeMissing
-                    line2: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("locality")
-                    @ExcludeMissing
-                    locality: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("postal_code")
-                    @ExcludeMissing
-                    postalCode: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("region")
-                    @ExcludeMissing
-                    region: JsonField<String> = JsonMissing.of(),
-                ) : this(country, line1, line2, locality, postalCode, region, mutableMapOf())
-
-                /**
-                 * Country code conforms to [ISO 3166-1 alpha-2]
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun country(): String? = country.getNullable("country")
-
-                /**
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun line1(): String? = line1.getNullable("line1")
-
-                /**
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun line2(): String? = line2.getNullable("line2")
-
-                /**
-                 * Locality or City. Use the full city name rather than an abbreviation (e.g. San
-                 * Francisco).
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun locality(): String? = locality.getNullable("locality")
-
-                /**
-                 * The postal code of the address.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun postalCode(): String? = postalCode.getNullable("postal_code")
-
-                /**
-                 * Region or State. This field is free-form; for US states, we recommend a
-                 * two-letter code (e.g. CA). Full state names are also accepted.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun region(): String? = region.getNullable("region")
-
-                /**
-                 * Returns the raw JSON value of [country].
-                 *
-                 * Unlike [country], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
-
-                /**
-                 * Returns the raw JSON value of [line1].
-                 *
-                 * Unlike [line1], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
-
-                /**
-                 * Returns the raw JSON value of [line2].
-                 *
-                 * Unlike [line2], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
-
-                /**
-                 * Returns the raw JSON value of [locality].
-                 *
-                 * Unlike [locality], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("locality")
-                @ExcludeMissing
-                fun _locality(): JsonField<String> = locality
-
-                /**
-                 * Returns the raw JSON value of [postalCode].
-                 *
-                 * Unlike [postalCode], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("postal_code")
-                @ExcludeMissing
-                fun _postalCode(): JsonField<String> = postalCode
-
-                /**
-                 * Returns the raw JSON value of [region].
-                 *
-                 * Unlike [region], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
-
-                @JsonAnySetter
-                private fun putAdditionalProperty(key: String, value: JsonValue) {
-                    additionalProperties.put(key, value)
-                }
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> =
-                    Collections.unmodifiableMap(additionalProperties)
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /**
-                     * Returns a mutable builder for constructing an instance of
-                     * [OriginatingPartyAddress].
-                     */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [OriginatingPartyAddress]. */
-                class Builder internal constructor() {
-
-                    private var country: JsonField<String> = JsonMissing.of()
-                    private var line1: JsonField<String> = JsonMissing.of()
-                    private var line2: JsonField<String> = JsonMissing.of()
-                    private var locality: JsonField<String> = JsonMissing.of()
-                    private var postalCode: JsonField<String> = JsonMissing.of()
-                    private var region: JsonField<String> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(originatingPartyAddress: OriginatingPartyAddress) = apply {
-                        country = originatingPartyAddress.country
-                        line1 = originatingPartyAddress.line1
-                        line2 = originatingPartyAddress.line2
-                        locality = originatingPartyAddress.locality
-                        postalCode = originatingPartyAddress.postalCode
-                        region = originatingPartyAddress.region
-                        additionalProperties =
-                            originatingPartyAddress.additionalProperties.toMutableMap()
-                    }
-
-                    /** Country code conforms to [ISO 3166-1 alpha-2] */
-                    fun country(country: String?) = country(JsonField.ofNullable(country))
-
-                    /**
-                     * Sets [Builder.country] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.country] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun country(country: JsonField<String>) = apply { this.country = country }
-
-                    fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
-
-                    /**
-                     * Sets [Builder.line1] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.line1] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
-
-                    fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
-
-                    /**
-                     * Sets [Builder.line2] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.line2] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
-
-                    /**
-                     * Locality or City. Use the full city name rather than an abbreviation (e.g.
-                     * San Francisco).
-                     */
-                    fun locality(locality: String?) = locality(JsonField.ofNullable(locality))
-
-                    /**
-                     * Sets [Builder.locality] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.locality] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun locality(locality: JsonField<String>) = apply { this.locality = locality }
-
-                    /** The postal code of the address. */
-                    fun postalCode(postalCode: String?) =
-                        postalCode(JsonField.ofNullable(postalCode))
-
-                    /**
-                     * Sets [Builder.postalCode] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.postalCode] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun postalCode(postalCode: JsonField<String>) = apply {
-                        this.postalCode = postalCode
-                    }
-
-                    /**
-                     * Region or State. This field is free-form; for US states, we recommend a
-                     * two-letter code (e.g. CA). Full state names are also accepted.
-                     */
-                    fun region(region: String?) = region(JsonField.ofNullable(region))
-
-                    /**
-                     * Sets [Builder.region] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.region] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun region(region: JsonField<String>) = apply { this.region = region }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [OriginatingPartyAddress].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): OriginatingPartyAddress =
-                        OriginatingPartyAddress(
-                            country,
-                            line1,
-                            line2,
-                            locality,
-                            postalCode,
-                            region,
-                            additionalProperties.toMutableMap(),
-                        )
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): OriginatingPartyAddress = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    country()
-                    line1()
-                    line2()
-                    locality()
-                    postalCode()
-                    region()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    (if (country.asKnown() == null) 0 else 1) +
-                        (if (line1.asKnown() == null) 0 else 1) +
-                        (if (line2.asKnown() == null) 0 else 1) +
-                        (if (locality.asKnown() == null) 0 else 1) +
-                        (if (postalCode.asKnown() == null) 0 else 1) +
-                        (if (region.asKnown() == null) 0 else 1)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is OriginatingPartyAddress &&
-                        country == other.country &&
-                        line1 == other.line1 &&
-                        line2 == other.line2 &&
-                        locality == other.locality &&
-                        postalCode == other.postalCode &&
-                        region == other.region &&
-                        additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy {
-                    Objects.hash(
-                        country,
-                        line1,
-                        line2,
-                        locality,
-                        postalCode,
-                        region,
-                        additionalProperties,
-                    )
-                }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() =
-                    "OriginatingPartyAddress{country=$country, line1=$line1, line2=$line2, locality=$locality, postalCode=$postalCode, region=$region, additionalProperties=$additionalProperties}"
-            }
-
-            /**
-             * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH
-             * or EFT transfer, respectively. For check payments, `high` can mean an overnight check
-             * rather than standard mail.
-             */
-            class Priority @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val HIGH = of("high")
-
-                    val NORMAL = of("normal")
-
-                    fun of(value: String) = Priority(JsonField.of(value))
-                }
-
-                /** An enum containing [Priority]'s known values. */
-                enum class Known {
-                    HIGH,
-                    NORMAL,
-                }
-
-                /**
-                 * An enum containing [Priority]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Priority] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    HIGH,
-                    NORMAL,
-                    /**
-                     * An enum member indicating that [Priority] was instantiated with an unknown
-                     * value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        HIGH -> Value.HIGH
-                        NORMAL -> Value.NORMAL
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        HIGH -> Known.HIGH
-                        NORMAL -> Known.NORMAL
-                        else -> throw ModernTreasuryInvalidDataException("Unknown Priority: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Priority = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Priority && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * Either `receiving_account` or `receiving_account_id` must be present. When using
-             * `receiving_account_id`, you may pass the id of an external account or an internal
-             * account.
-             */
-            class ReceivingAccount
-            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-            private constructor(
-                private val accountDetails: JsonField<List<AccountDetail>>,
-                private val accountType: JsonField<ExternalAccountType>,
-                private val contactDetails: JsonField<List<ContactDetailCreateRequest>>,
-                private val externalId: JsonField<String>,
-                private val ledgerAccount: JsonField<LedgerAccountCreateRequest>,
-                private val metadata: JsonField<Metadata>,
-                private val name: JsonField<String>,
-                private val partyAddress: JsonField<AddressRequest>,
-                private val partyIdentifier: JsonField<String>,
-                private val partyName: JsonField<String>,
-                private val partyType: JsonField<PartyType>,
-                private val plaidProcessorToken: JsonField<String>,
-                private val routingDetails: JsonField<List<RoutingDetail>>,
-                private val additionalProperties: MutableMap<String, JsonValue>,
-            ) {
-
-                @JsonCreator
-                private constructor(
-                    @JsonProperty("account_details")
-                    @ExcludeMissing
-                    accountDetails: JsonField<List<AccountDetail>> = JsonMissing.of(),
-                    @JsonProperty("account_type")
-                    @ExcludeMissing
-                    accountType: JsonField<ExternalAccountType> = JsonMissing.of(),
-                    @JsonProperty("contact_details")
-                    @ExcludeMissing
-                    contactDetails: JsonField<List<ContactDetailCreateRequest>> = JsonMissing.of(),
-                    @JsonProperty("external_id")
-                    @ExcludeMissing
-                    externalId: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("ledger_account")
-                    @ExcludeMissing
-                    ledgerAccount: JsonField<LedgerAccountCreateRequest> = JsonMissing.of(),
-                    @JsonProperty("metadata")
-                    @ExcludeMissing
-                    metadata: JsonField<Metadata> = JsonMissing.of(),
-                    @JsonProperty("name")
-                    @ExcludeMissing
-                    name: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("party_address")
-                    @ExcludeMissing
-                    partyAddress: JsonField<AddressRequest> = JsonMissing.of(),
-                    @JsonProperty("party_identifier")
-                    @ExcludeMissing
-                    partyIdentifier: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("party_name")
-                    @ExcludeMissing
-                    partyName: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("party_type")
-                    @ExcludeMissing
-                    partyType: JsonField<PartyType> = JsonMissing.of(),
-                    @JsonProperty("plaid_processor_token")
-                    @ExcludeMissing
-                    plaidProcessorToken: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("routing_details")
-                    @ExcludeMissing
-                    routingDetails: JsonField<List<RoutingDetail>> = JsonMissing.of(),
-                ) : this(
-                    accountDetails,
-                    accountType,
-                    contactDetails,
-                    externalId,
-                    ledgerAccount,
-                    metadata,
-                    name,
-                    partyAddress,
-                    partyIdentifier,
-                    partyName,
-                    partyType,
-                    plaidProcessorToken,
-                    routingDetails,
-                    mutableMapOf(),
-                )
-
-                /**
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun accountDetails(): List<AccountDetail>? =
-                    accountDetails.getNullable("account_details")
-
-                /**
-                 * Can be `checking`, `savings` or `other`.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun accountType(): ExternalAccountType? = accountType.getNullable("account_type")
-
-                /**
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun contactDetails(): List<ContactDetailCreateRequest>? =
-                    contactDetails.getNullable("contact_details")
-
-                /**
-                 * An optional user-defined 180 character unique identifier.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun externalId(): String? = externalId.getNullable("external_id")
-
-                /**
-                 * Specifies a ledger account object that will be created with the external account.
-                 * The resulting ledger account is linked to the external account for auto-ledgering
-                 * Payment objects. See
-                 * https://docs.moderntreasury.com/docs/linking-to-other-modern-treasury-objects for
-                 * more details.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun ledgerAccount(): LedgerAccountCreateRequest? =
-                    ledgerAccount.getNullable("ledger_account")
-
-                /**
-                 * Additional data represented as key-value pairs. Both the key and value must be
-                 * strings.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-                /**
-                 * A nickname for the external account. This is only for internal usage and won't
-                 * affect any payments
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun name(): String? = name.getNullable("name")
-
-                /**
-                 * Required if receiving wire payments.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun partyAddress(): AddressRequest? = partyAddress.getNullable("party_address")
-
-                /**
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun partyIdentifier(): String? = partyIdentifier.getNullable("party_identifier")
-
-                /**
-                 * If this value isn't provided, it will be inherited from the counterparty's name.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun partyName(): String? = partyName.getNullable("party_name")
-
-                /**
-                 * Either `individual` or `business`.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun partyType(): PartyType? = partyType.getNullable("party_type")
-
-                /**
-                 * If you've enabled the Modern Treasury + Plaid integration in your Plaid account,
-                 * you can pass the processor token in this field.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun plaidProcessorToken(): String? =
-                    plaidProcessorToken.getNullable("plaid_processor_token")
-
-                /**
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun routingDetails(): List<RoutingDetail>? =
-                    routingDetails.getNullable("routing_details")
-
-                /**
-                 * Returns the raw JSON value of [accountDetails].
-                 *
-                 * Unlike [accountDetails], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("account_details")
-                @ExcludeMissing
-                fun _accountDetails(): JsonField<List<AccountDetail>> = accountDetails
-
-                /**
-                 * Returns the raw JSON value of [accountType].
-                 *
-                 * Unlike [accountType], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("account_type")
-                @ExcludeMissing
-                fun _accountType(): JsonField<ExternalAccountType> = accountType
-
-                /**
-                 * Returns the raw JSON value of [contactDetails].
-                 *
-                 * Unlike [contactDetails], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("contact_details")
-                @ExcludeMissing
-                fun _contactDetails(): JsonField<List<ContactDetailCreateRequest>> = contactDetails
-
-                /**
-                 * Returns the raw JSON value of [externalId].
-                 *
-                 * Unlike [externalId], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("external_id")
-                @ExcludeMissing
-                fun _externalId(): JsonField<String> = externalId
-
-                /**
-                 * Returns the raw JSON value of [ledgerAccount].
-                 *
-                 * Unlike [ledgerAccount], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("ledger_account")
-                @ExcludeMissing
-                fun _ledgerAccount(): JsonField<LedgerAccountCreateRequest> = ledgerAccount
-
-                /**
-                 * Returns the raw JSON value of [metadata].
-                 *
-                 * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("metadata")
-                @ExcludeMissing
-                fun _metadata(): JsonField<Metadata> = metadata
-
-                /**
-                 * Returns the raw JSON value of [name].
-                 *
-                 * Unlike [name], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-                /**
-                 * Returns the raw JSON value of [partyAddress].
-                 *
-                 * Unlike [partyAddress], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("party_address")
-                @ExcludeMissing
-                fun _partyAddress(): JsonField<AddressRequest> = partyAddress
-
-                /**
-                 * Returns the raw JSON value of [partyIdentifier].
-                 *
-                 * Unlike [partyIdentifier], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("party_identifier")
-                @ExcludeMissing
-                fun _partyIdentifier(): JsonField<String> = partyIdentifier
-
-                /**
-                 * Returns the raw JSON value of [partyName].
-                 *
-                 * Unlike [partyName], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("party_name")
-                @ExcludeMissing
-                fun _partyName(): JsonField<String> = partyName
-
-                /**
-                 * Returns the raw JSON value of [partyType].
-                 *
-                 * Unlike [partyType], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("party_type")
-                @ExcludeMissing
-                fun _partyType(): JsonField<PartyType> = partyType
-
-                /**
-                 * Returns the raw JSON value of [plaidProcessorToken].
-                 *
-                 * Unlike [plaidProcessorToken], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("plaid_processor_token")
-                @ExcludeMissing
-                fun _plaidProcessorToken(): JsonField<String> = plaidProcessorToken
-
-                /**
-                 * Returns the raw JSON value of [routingDetails].
-                 *
-                 * Unlike [routingDetails], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("routing_details")
-                @ExcludeMissing
-                fun _routingDetails(): JsonField<List<RoutingDetail>> = routingDetails
-
-                @JsonAnySetter
-                private fun putAdditionalProperty(key: String, value: JsonValue) {
-                    additionalProperties.put(key, value)
-                }
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> =
-                    Collections.unmodifiableMap(additionalProperties)
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /**
-                     * Returns a mutable builder for constructing an instance of [ReceivingAccount].
-                     */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [ReceivingAccount]. */
-                class Builder internal constructor() {
-
-                    private var accountDetails: JsonField<MutableList<AccountDetail>>? = null
-                    private var accountType: JsonField<ExternalAccountType> = JsonMissing.of()
-                    private var contactDetails:
-                        JsonField<MutableList<ContactDetailCreateRequest>>? =
-                        null
-                    private var externalId: JsonField<String> = JsonMissing.of()
-                    private var ledgerAccount: JsonField<LedgerAccountCreateRequest> =
-                        JsonMissing.of()
-                    private var metadata: JsonField<Metadata> = JsonMissing.of()
-                    private var name: JsonField<String> = JsonMissing.of()
-                    private var partyAddress: JsonField<AddressRequest> = JsonMissing.of()
-                    private var partyIdentifier: JsonField<String> = JsonMissing.of()
-                    private var partyName: JsonField<String> = JsonMissing.of()
-                    private var partyType: JsonField<PartyType> = JsonMissing.of()
-                    private var plaidProcessorToken: JsonField<String> = JsonMissing.of()
-                    private var routingDetails: JsonField<MutableList<RoutingDetail>>? = null
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(receivingAccount: ReceivingAccount) = apply {
-                        accountDetails = receivingAccount.accountDetails.map { it.toMutableList() }
-                        accountType = receivingAccount.accountType
-                        contactDetails = receivingAccount.contactDetails.map { it.toMutableList() }
-                        externalId = receivingAccount.externalId
-                        ledgerAccount = receivingAccount.ledgerAccount
-                        metadata = receivingAccount.metadata
-                        name = receivingAccount.name
-                        partyAddress = receivingAccount.partyAddress
-                        partyIdentifier = receivingAccount.partyIdentifier
-                        partyName = receivingAccount.partyName
-                        partyType = receivingAccount.partyType
-                        plaidProcessorToken = receivingAccount.plaidProcessorToken
-                        routingDetails = receivingAccount.routingDetails.map { it.toMutableList() }
-                        additionalProperties = receivingAccount.additionalProperties.toMutableMap()
-                    }
-
-                    fun accountDetails(accountDetails: List<AccountDetail>) =
-                        accountDetails(JsonField.of(accountDetails))
-
-                    /**
-                     * Sets [Builder.accountDetails] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.accountDetails] with a well-typed
-                     * `List<AccountDetail>` value instead. This method is primarily for setting the
-                     * field to an undocumented or not yet supported value.
-                     */
-                    fun accountDetails(accountDetails: JsonField<List<AccountDetail>>) = apply {
-                        this.accountDetails = accountDetails.map { it.toMutableList() }
-                    }
-
-                    /**
-                     * Adds a single [AccountDetail] to [accountDetails].
-                     *
-                     * @throws IllegalStateException if the field was previously set to a non-list.
-                     */
-                    fun addAccountDetail(accountDetail: AccountDetail) = apply {
-                        accountDetails =
-                            (accountDetails ?: JsonField.of(mutableListOf())).also {
-                                checkKnown("accountDetails", it).add(accountDetail)
-                            }
-                    }
-
-                    /** Can be `checking`, `savings` or `other`. */
-                    fun accountType(accountType: ExternalAccountType) =
-                        accountType(JsonField.of(accountType))
-
-                    /**
-                     * Sets [Builder.accountType] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.accountType] with a well-typed
-                     * [ExternalAccountType] value instead. This method is primarily for setting the
-                     * field to an undocumented or not yet supported value.
-                     */
-                    fun accountType(accountType: JsonField<ExternalAccountType>) = apply {
-                        this.accountType = accountType
-                    }
-
-                    fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) =
-                        contactDetails(JsonField.of(contactDetails))
-
-                    /**
-                     * Sets [Builder.contactDetails] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.contactDetails] with a well-typed
-                     * `List<ContactDetailCreateRequest>` value instead. This method is primarily
-                     * for setting the field to an undocumented or not yet supported value.
-                     */
-                    fun contactDetails(
-                        contactDetails: JsonField<List<ContactDetailCreateRequest>>
-                    ) = apply { this.contactDetails = contactDetails.map { it.toMutableList() } }
-
-                    /**
-                     * Adds a single [ContactDetailCreateRequest] to [contactDetails].
-                     *
-                     * @throws IllegalStateException if the field was previously set to a non-list.
-                     */
-                    fun addContactDetail(contactDetail: ContactDetailCreateRequest) = apply {
-                        contactDetails =
-                            (contactDetails ?: JsonField.of(mutableListOf())).also {
-                                checkKnown("contactDetails", it).add(contactDetail)
-                            }
-                    }
-
-                    /** An optional user-defined 180 character unique identifier. */
-                    fun externalId(externalId: String?) =
-                        externalId(JsonField.ofNullable(externalId))
-
-                    /**
-                     * Sets [Builder.externalId] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.externalId] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun externalId(externalId: JsonField<String>) = apply {
-                        this.externalId = externalId
-                    }
-
-                    /**
-                     * Specifies a ledger account object that will be created with the external
-                     * account. The resulting ledger account is linked to the external account for
-                     * auto-ledgering Payment objects. See
-                     * https://docs.moderntreasury.com/docs/linking-to-other-modern-treasury-objects
-                     * for more details.
-                     */
-                    fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) =
-                        ledgerAccount(JsonField.of(ledgerAccount))
-
-                    /**
-                     * Sets [Builder.ledgerAccount] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.ledgerAccount] with a well-typed
-                     * [LedgerAccountCreateRequest] value instead. This method is primarily for
-                     * setting the field to an undocumented or not yet supported value.
-                     */
-                    fun ledgerAccount(ledgerAccount: JsonField<LedgerAccountCreateRequest>) =
-                        apply {
-                            this.ledgerAccount = ledgerAccount
-                        }
-
-                    /**
-                     * Additional data represented as key-value pairs. Both the key and value must
-                     * be strings.
-                     */
-                    fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-                    /**
-                     * Sets [Builder.metadata] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-                    /**
-                     * A nickname for the external account. This is only for internal usage and
-                     * won't affect any payments
-                     */
-                    fun name(name: String?) = name(JsonField.ofNullable(name))
-
-                    /**
-                     * Sets [Builder.name] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.name] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun name(name: JsonField<String>) = apply { this.name = name }
-
-                    /** Required if receiving wire payments. */
-                    fun partyAddress(partyAddress: AddressRequest) =
-                        partyAddress(JsonField.of(partyAddress))
-
-                    /**
-                     * Sets [Builder.partyAddress] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.partyAddress] with a well-typed
-                     * [AddressRequest] value instead. This method is primarily for setting the
-                     * field to an undocumented or not yet supported value.
-                     */
-                    fun partyAddress(partyAddress: JsonField<AddressRequest>) = apply {
-                        this.partyAddress = partyAddress
-                    }
-
-                    fun partyIdentifier(partyIdentifier: String) =
-                        partyIdentifier(JsonField.of(partyIdentifier))
-
-                    /**
-                     * Sets [Builder.partyIdentifier] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.partyIdentifier] with a well-typed [String]
-                     * value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
-                     */
-                    fun partyIdentifier(partyIdentifier: JsonField<String>) = apply {
-                        this.partyIdentifier = partyIdentifier
-                    }
-
-                    /**
-                     * If this value isn't provided, it will be inherited from the counterparty's
-                     * name.
-                     */
-                    fun partyName(partyName: String) = partyName(JsonField.of(partyName))
-
-                    /**
-                     * Sets [Builder.partyName] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.partyName] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun partyName(partyName: JsonField<String>) = apply {
-                        this.partyName = partyName
-                    }
-
-                    /** Either `individual` or `business`. */
-                    fun partyType(partyType: PartyType?) =
-                        partyType(JsonField.ofNullable(partyType))
-
-                    /**
-                     * Sets [Builder.partyType] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.partyType] with a well-typed [PartyType]
-                     * value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
-                     */
-                    fun partyType(partyType: JsonField<PartyType>) = apply {
-                        this.partyType = partyType
-                    }
-
-                    /**
-                     * If you've enabled the Modern Treasury + Plaid integration in your Plaid
-                     * account, you can pass the processor token in this field.
-                     */
-                    fun plaidProcessorToken(plaidProcessorToken: String) =
-                        plaidProcessorToken(JsonField.of(plaidProcessorToken))
-
-                    /**
-                     * Sets [Builder.plaidProcessorToken] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.plaidProcessorToken] with a well-typed
-                     * [String] value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
-                     */
-                    fun plaidProcessorToken(plaidProcessorToken: JsonField<String>) = apply {
-                        this.plaidProcessorToken = plaidProcessorToken
-                    }
-
-                    fun routingDetails(routingDetails: List<RoutingDetail>) =
-                        routingDetails(JsonField.of(routingDetails))
-
-                    /**
-                     * Sets [Builder.routingDetails] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.routingDetails] with a well-typed
-                     * `List<RoutingDetail>` value instead. This method is primarily for setting the
-                     * field to an undocumented or not yet supported value.
-                     */
-                    fun routingDetails(routingDetails: JsonField<List<RoutingDetail>>) = apply {
-                        this.routingDetails = routingDetails.map { it.toMutableList() }
-                    }
-
-                    /**
-                     * Adds a single [RoutingDetail] to [routingDetails].
-                     *
-                     * @throws IllegalStateException if the field was previously set to a non-list.
-                     */
-                    fun addRoutingDetail(routingDetail: RoutingDetail) = apply {
-                        routingDetails =
-                            (routingDetails ?: JsonField.of(mutableListOf())).also {
-                                checkKnown("routingDetails", it).add(routingDetail)
-                            }
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [ReceivingAccount].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): ReceivingAccount =
-                        ReceivingAccount(
-                            (accountDetails ?: JsonMissing.of()).map { it.toImmutable() },
-                            accountType,
-                            (contactDetails ?: JsonMissing.of()).map { it.toImmutable() },
-                            externalId,
-                            ledgerAccount,
-                            metadata,
-                            name,
-                            partyAddress,
-                            partyIdentifier,
-                            partyName,
-                            partyType,
-                            plaidProcessorToken,
-                            (routingDetails ?: JsonMissing.of()).map { it.toImmutable() },
-                            additionalProperties.toMutableMap(),
-                        )
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): ReceivingAccount = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    accountDetails()?.forEach { it.validate() }
-                    accountType()?.validate()
-                    contactDetails()?.forEach { it.validate() }
-                    externalId()
-                    ledgerAccount()?.validate()
-                    metadata()?.validate()
-                    name()
-                    partyAddress()?.validate()
-                    partyIdentifier()
-                    partyName()
-                    partyType()?.validate()
-                    plaidProcessorToken()
-                    routingDetails()?.forEach { it.validate() }
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    (accountDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                        (accountType.asKnown()?.validity() ?: 0) +
-                        (contactDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                        (if (externalId.asKnown() == null) 0 else 1) +
-                        (ledgerAccount.asKnown()?.validity() ?: 0) +
-                        (metadata.asKnown()?.validity() ?: 0) +
-                        (if (name.asKnown() == null) 0 else 1) +
-                        (partyAddress.asKnown()?.validity() ?: 0) +
-                        (if (partyIdentifier.asKnown() == null) 0 else 1) +
-                        (if (partyName.asKnown() == null) 0 else 1) +
-                        (partyType.asKnown()?.validity() ?: 0) +
-                        (if (plaidProcessorToken.asKnown() == null) 0 else 1) +
-                        (routingDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
-
-                class AccountDetail
-                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-                private constructor(
-                    private val accountNumber: JsonField<String>,
-                    private val accountNumberType: JsonField<AccountNumberType>,
-                    private val additionalProperties: MutableMap<String, JsonValue>,
-                ) {
-
-                    @JsonCreator
-                    private constructor(
-                        @JsonProperty("account_number")
-                        @ExcludeMissing
-                        accountNumber: JsonField<String> = JsonMissing.of(),
-                        @JsonProperty("account_number_type")
-                        @ExcludeMissing
-                        accountNumberType: JsonField<AccountNumberType> = JsonMissing.of(),
-                    ) : this(accountNumber, accountNumberType, mutableMapOf())
-
-                    /**
-                     * @throws ModernTreasuryInvalidDataException if the JSON field has an
-                     *   unexpected type or is unexpectedly missing or null (e.g. if the server
-                     *   responded with an unexpected value).
-                     */
-                    fun accountNumber(): String = accountNumber.getRequired("account_number")
-
-                    /**
-                     * @throws ModernTreasuryInvalidDataException if the JSON field has an
-                     *   unexpected type (e.g. if the server responded with an unexpected value).
-                     */
-                    fun accountNumberType(): AccountNumberType? =
-                        accountNumberType.getNullable("account_number_type")
-
-                    /**
-                     * Returns the raw JSON value of [accountNumber].
-                     *
-                     * Unlike [accountNumber], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("account_number")
-                    @ExcludeMissing
-                    fun _accountNumber(): JsonField<String> = accountNumber
-
-                    /**
-                     * Returns the raw JSON value of [accountNumberType].
-                     *
-                     * Unlike [accountNumberType], this method doesn't throw if the JSON field has
-                     * an unexpected type.
-                     */
-                    @JsonProperty("account_number_type")
-                    @ExcludeMissing
-                    fun _accountNumberType(): JsonField<AccountNumberType> = accountNumberType
-
-                    @JsonAnySetter
-                    private fun putAdditionalProperty(key: String, value: JsonValue) {
-                        additionalProperties.put(key, value)
-                    }
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> =
-                        Collections.unmodifiableMap(additionalProperties)
-
-                    fun toBuilder() = Builder().from(this)
-
-                    companion object {
-
-                        /**
-                         * Returns a mutable builder for constructing an instance of
-                         * [AccountDetail].
-                         *
-                         * The following fields are required:
-                         * ```kotlin
-                         * .accountNumber()
-                         * ```
-                         */
-                        fun builder() = Builder()
-                    }
-
-                    /** A builder for [AccountDetail]. */
-                    class Builder internal constructor() {
-
-                        private var accountNumber: JsonField<String>? = null
-                        private var accountNumberType: JsonField<AccountNumberType> =
-                            JsonMissing.of()
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        internal fun from(accountDetail: AccountDetail) = apply {
-                            accountNumber = accountDetail.accountNumber
-                            accountNumberType = accountDetail.accountNumberType
-                            additionalProperties = accountDetail.additionalProperties.toMutableMap()
-                        }
-
-                        fun accountNumber(accountNumber: String) =
-                            accountNumber(JsonField.of(accountNumber))
-
-                        /**
-                         * Sets [Builder.accountNumber] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.accountNumber] with a well-typed
-                         * [String] value instead. This method is primarily for setting the field to
-                         * an undocumented or not yet supported value.
-                         */
-                        fun accountNumber(accountNumber: JsonField<String>) = apply {
-                            this.accountNumber = accountNumber
-                        }
-
-                        fun accountNumberType(accountNumberType: AccountNumberType) =
-                            accountNumberType(JsonField.of(accountNumberType))
-
-                        /**
-                         * Sets [Builder.accountNumberType] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.accountNumberType] with a well-typed
-                         * [AccountNumberType] value instead. This method is primarily for setting
-                         * the field to an undocumented or not yet supported value.
-                         */
-                        fun accountNumberType(accountNumberType: JsonField<AccountNumberType>) =
-                            apply {
-                                this.accountNumberType = accountNumberType
-                            }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                putAllAdditionalProperties(additionalProperties)
-                            }
-
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun removeAdditionalProperty(key: String) = apply {
-                            additionalProperties.remove(key)
-                        }
-
-                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                            keys.forEach(::removeAdditionalProperty)
-                        }
-
-                        /**
-                         * Returns an immutable instance of [AccountDetail].
-                         *
-                         * Further updates to this [Builder] will not mutate the returned instance.
-                         *
-                         * The following fields are required:
-                         * ```kotlin
-                         * .accountNumber()
-                         * ```
-                         *
-                         * @throws IllegalStateException if any required field is unset.
-                         */
-                        fun build(): AccountDetail =
-                            AccountDetail(
-                                checkRequired("accountNumber", accountNumber),
-                                accountNumberType,
-                                additionalProperties.toMutableMap(),
-                            )
-                    }
-
-                    private var validated: Boolean = false
-
-                    /**
-                     * Validates that the types of all values in this object match their expected
-                     * types recursively.
-                     *
-                     * This method is _not_ forwards compatible with new types from the API for
-                     * existing fields.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if any value type in this object
-                     *   doesn't match its expected type.
-                     */
-                    fun validate(): AccountDetail = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        accountNumber()
-                        accountNumberType()?.validate()
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: ModernTreasuryInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    internal fun validity(): Int =
-                        (if (accountNumber.asKnown() == null) 0 else 1) +
-                            (accountNumberType.asKnown()?.validity() ?: 0)
-
-                    class AccountNumberType
-                    @JsonCreator
-                    private constructor(private val value: JsonField<String>) : Enum {
-
-                        /**
-                         * Returns this class instance's raw value.
-                         *
-                         * This is usually only useful if this instance was deserialized from data
-                         * that doesn't match any known member, and you want to know that value. For
-                         * example, if the SDK is on an older version than the API, then the API may
-                         * respond with new members that the SDK is unaware of.
-                         */
-                        @com.fasterxml.jackson.annotation.JsonValue
-                        fun _value(): JsonField<String> = value
-
-                        companion object {
-
-                            val ARBITRUM_ADDRESS = of("arbitrum_address")
-
-                            val AU_NUMBER = of("au_number")
-
-                            val AVALANCHE_ADDRESS = of("avalanche_address")
-
-                            val BASE_ADDRESS = of("base_address")
-
-                            val CARD_TOKEN = of("card_token")
-
-                            val CLABE = of("clabe")
-
-                            val ETHEREUM_ADDRESS = of("ethereum_address")
-
-                            val HK_NUMBER = of("hk_number")
-
-                            val IBAN = of("iban")
-
-                            val ID_NUMBER = of("id_number")
-
-                            val NZ_NUMBER = of("nz_number")
-
-                            val OTHER = of("other")
-
-                            val PAN = of("pan")
-
-                            val POLYGON_ADDRESS = of("polygon_address")
-
-                            val SG_NUMBER = of("sg_number")
-
-                            val SOLANA_ADDRESS = of("solana_address")
-
-                            fun of(value: String) = AccountNumberType(JsonField.of(value))
-                        }
-
-                        /** An enum containing [AccountNumberType]'s known values. */
-                        enum class Known {
-                            ARBITRUM_ADDRESS,
-                            AU_NUMBER,
-                            AVALANCHE_ADDRESS,
-                            BASE_ADDRESS,
-                            CARD_TOKEN,
-                            CLABE,
-                            ETHEREUM_ADDRESS,
-                            HK_NUMBER,
-                            IBAN,
-                            ID_NUMBER,
-                            NZ_NUMBER,
-                            OTHER,
-                            PAN,
-                            POLYGON_ADDRESS,
-                            SG_NUMBER,
-                            SOLANA_ADDRESS,
-                        }
-
-                        /**
-                         * An enum containing [AccountNumberType]'s known values, as well as an
-                         * [_UNKNOWN] member.
-                         *
-                         * An instance of [AccountNumberType] can contain an unknown value in a
-                         * couple of cases:
-                         * - It was deserialized from data that doesn't match any known member. For
-                         *   example, if the SDK is on an older version than the API, then the API
-                         *   may respond with new members that the SDK is unaware of.
-                         * - It was constructed with an arbitrary value using the [of] method.
-                         */
-                        enum class Value {
-                            ARBITRUM_ADDRESS,
-                            AU_NUMBER,
-                            AVALANCHE_ADDRESS,
-                            BASE_ADDRESS,
-                            CARD_TOKEN,
-                            CLABE,
-                            ETHEREUM_ADDRESS,
-                            HK_NUMBER,
-                            IBAN,
-                            ID_NUMBER,
-                            NZ_NUMBER,
-                            OTHER,
-                            PAN,
-                            POLYGON_ADDRESS,
-                            SG_NUMBER,
-                            SOLANA_ADDRESS,
-                            /**
-                             * An enum member indicating that [AccountNumberType] was instantiated
-                             * with an unknown value.
-                             */
-                            _UNKNOWN,
-                        }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value, or
-                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                         *
-                         * Use the [known] method instead if you're certain the value is always
-                         * known or if you want to throw for the unknown case.
-                         */
-                        fun value(): Value =
-                            when (this) {
-                                ARBITRUM_ADDRESS -> Value.ARBITRUM_ADDRESS
-                                AU_NUMBER -> Value.AU_NUMBER
-                                AVALANCHE_ADDRESS -> Value.AVALANCHE_ADDRESS
-                                BASE_ADDRESS -> Value.BASE_ADDRESS
-                                CARD_TOKEN -> Value.CARD_TOKEN
-                                CLABE -> Value.CLABE
-                                ETHEREUM_ADDRESS -> Value.ETHEREUM_ADDRESS
-                                HK_NUMBER -> Value.HK_NUMBER
-                                IBAN -> Value.IBAN
-                                ID_NUMBER -> Value.ID_NUMBER
-                                NZ_NUMBER -> Value.NZ_NUMBER
-                                OTHER -> Value.OTHER
-                                PAN -> Value.PAN
-                                POLYGON_ADDRESS -> Value.POLYGON_ADDRESS
-                                SG_NUMBER -> Value.SG_NUMBER
-                                SOLANA_ADDRESS -> Value.SOLANA_ADDRESS
-                                else -> Value._UNKNOWN
-                            }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value.
-                         *
-                         * Use the [value] method instead if you're uncertain the value is always
-                         * known and don't want to throw for the unknown case.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if this class instance's value
-                         *   is a not a known member.
-                         */
-                        fun known(): Known =
-                            when (this) {
-                                ARBITRUM_ADDRESS -> Known.ARBITRUM_ADDRESS
-                                AU_NUMBER -> Known.AU_NUMBER
-                                AVALANCHE_ADDRESS -> Known.AVALANCHE_ADDRESS
-                                BASE_ADDRESS -> Known.BASE_ADDRESS
-                                CARD_TOKEN -> Known.CARD_TOKEN
-                                CLABE -> Known.CLABE
-                                ETHEREUM_ADDRESS -> Known.ETHEREUM_ADDRESS
-                                HK_NUMBER -> Known.HK_NUMBER
-                                IBAN -> Known.IBAN
-                                ID_NUMBER -> Known.ID_NUMBER
-                                NZ_NUMBER -> Known.NZ_NUMBER
-                                OTHER -> Known.OTHER
-                                PAN -> Known.PAN
-                                POLYGON_ADDRESS -> Known.POLYGON_ADDRESS
-                                SG_NUMBER -> Known.SG_NUMBER
-                                SOLANA_ADDRESS -> Known.SOLANA_ADDRESS
-                                else ->
-                                    throw ModernTreasuryInvalidDataException(
-                                        "Unknown AccountNumberType: $value"
-                                    )
-                            }
-
-                        /**
-                         * Returns this class instance's primitive wire representation.
-                         *
-                         * This differs from the [toString] method because that method is primarily
-                         * for debugging and generally doesn't throw.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if this class instance's value
-                         *   does not have the expected primitive type.
-                         */
-                        fun asString(): String =
-                            _value().asString()
-                                ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                        private var validated: Boolean = false
-
-                        /**
-                         * Validates that the types of all values in this object match their
-                         * expected types recursively.
-                         *
-                         * This method is _not_ forwards compatible with new types from the API for
-                         * existing fields.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if any value type in this
-                         *   object doesn't match its expected type.
-                         */
-                        fun validate(): AccountNumberType = apply {
-                            if (validated) {
-                                return@apply
-                            }
-
-                            known()
-                            validated = true
-                        }
-
-                        fun isValid(): Boolean =
-                            try {
-                                validate()
-                                true
-                            } catch (e: ModernTreasuryInvalidDataException) {
-                                false
-                            }
-
-                        /**
-                         * Returns a score indicating how many valid values are contained in this
-                         * object recursively.
-                         *
-                         * Used for best match union deserialization.
-                         */
-                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                        override fun equals(other: Any?): Boolean {
-                            if (this === other) {
-                                return true
-                            }
-
-                            return other is AccountNumberType && value == other.value
-                        }
-
-                        override fun hashCode() = value.hashCode()
-
-                        override fun toString() = value.toString()
-                    }
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is AccountDetail &&
-                            accountNumber == other.accountNumber &&
-                            accountNumberType == other.accountNumberType &&
-                            additionalProperties == other.additionalProperties
-                    }
-
-                    private val hashCode: Int by lazy {
-                        Objects.hash(accountNumber, accountNumberType, additionalProperties)
-                    }
-
-                    override fun hashCode(): Int = hashCode
-
-                    override fun toString() =
-                        "AccountDetail{accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalProperties=$additionalProperties}"
-                }
-
-                /**
-                 * Additional data represented as key-value pairs. Both the key and value must be
-                 * strings.
-                 */
-                class Metadata
-                @JsonCreator
-                private constructor(
-                    @com.fasterxml.jackson.annotation.JsonValue
-                    private val additionalProperties: Map<String, JsonValue>
-                ) {
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                    fun toBuilder() = Builder().from(this)
-
-                    companion object {
-
-                        /** Returns a mutable builder for constructing an instance of [Metadata]. */
-                        fun builder() = Builder()
-                    }
-
-                    /** A builder for [Metadata]. */
-                    class Builder internal constructor() {
-
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        internal fun from(metadata: Metadata) = apply {
-                            additionalProperties = metadata.additionalProperties.toMutableMap()
-                        }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                putAllAdditionalProperties(additionalProperties)
-                            }
-
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun removeAdditionalProperty(key: String) = apply {
-                            additionalProperties.remove(key)
-                        }
-
-                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                            keys.forEach(::removeAdditionalProperty)
-                        }
-
-                        /**
-                         * Returns an immutable instance of [Metadata].
-                         *
-                         * Further updates to this [Builder] will not mutate the returned instance.
-                         */
-                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
-                    }
-
-                    private var validated: Boolean = false
-
-                    /**
-                     * Validates that the types of all values in this object match their expected
-                     * types recursively.
-                     *
-                     * This method is _not_ forwards compatible with new types from the API for
-                     * existing fields.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if any value type in this object
-                     *   doesn't match its expected type.
-                     */
-                    fun validate(): Metadata = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: ModernTreasuryInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    internal fun validity(): Int =
-                        additionalProperties.count { (_, value) ->
-                            !value.isNull() && !value.isMissing()
-                        }
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Metadata &&
-                            additionalProperties == other.additionalProperties
-                    }
-
-                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                    override fun hashCode(): Int = hashCode
-
-                    override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-                }
-
-                /** Either `individual` or `business`. */
-                class PartyType
-                @JsonCreator
-                private constructor(private val value: JsonField<String>) : Enum {
-
-                    /**
-                     * Returns this class instance's raw value.
-                     *
-                     * This is usually only useful if this instance was deserialized from data that
-                     * doesn't match any known member, and you want to know that value. For example,
-                     * if the SDK is on an older version than the API, then the API may respond with
-                     * new members that the SDK is unaware of.
-                     */
-                    @com.fasterxml.jackson.annotation.JsonValue
-                    fun _value(): JsonField<String> = value
-
-                    companion object {
-
-                        val BUSINESS = of("business")
-
-                        val INDIVIDUAL = of("individual")
-
-                        fun of(value: String) = PartyType(JsonField.of(value))
-                    }
-
-                    /** An enum containing [PartyType]'s known values. */
-                    enum class Known {
-                        BUSINESS,
-                        INDIVIDUAL,
-                    }
-
-                    /**
-                     * An enum containing [PartyType]'s known values, as well as an [_UNKNOWN]
-                     * member.
-                     *
-                     * An instance of [PartyType] can contain an unknown value in a couple of cases:
-                     * - It was deserialized from data that doesn't match any known member. For
-                     *   example, if the SDK is on an older version than the API, then the API may
-                     *   respond with new members that the SDK is unaware of.
-                     * - It was constructed with an arbitrary value using the [of] method.
-                     */
-                    enum class Value {
-                        BUSINESS,
-                        INDIVIDUAL,
-                        /**
-                         * An enum member indicating that [PartyType] was instantiated with an
-                         * unknown value.
-                         */
-                        _UNKNOWN,
-                    }
-
-                    /**
-                     * Returns an enum member corresponding to this class instance's value, or
-                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                     *
-                     * Use the [known] method instead if you're certain the value is always known or
-                     * if you want to throw for the unknown case.
-                     */
-                    fun value(): Value =
-                        when (this) {
-                            BUSINESS -> Value.BUSINESS
-                            INDIVIDUAL -> Value.INDIVIDUAL
-                            else -> Value._UNKNOWN
-                        }
-
-                    /**
-                     * Returns an enum member corresponding to this class instance's value.
-                     *
-                     * Use the [value] method instead if you're uncertain the value is always known
-                     * and don't want to throw for the unknown case.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if this class instance's value is
-                     *   a not a known member.
-                     */
-                    fun known(): Known =
-                        when (this) {
-                            BUSINESS -> Known.BUSINESS
-                            INDIVIDUAL -> Known.INDIVIDUAL
-                            else ->
-                                throw ModernTreasuryInvalidDataException(
-                                    "Unknown PartyType: $value"
-                                )
-                        }
-
-                    /**
-                     * Returns this class instance's primitive wire representation.
-                     *
-                     * This differs from the [toString] method because that method is primarily for
-                     * debugging and generally doesn't throw.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if this class instance's value
-                     *   does not have the expected primitive type.
-                     */
-                    fun asString(): String =
-                        _value().asString()
-                            ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                    private var validated: Boolean = false
-
-                    /**
-                     * Validates that the types of all values in this object match their expected
-                     * types recursively.
-                     *
-                     * This method is _not_ forwards compatible with new types from the API for
-                     * existing fields.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if any value type in this object
-                     *   doesn't match its expected type.
-                     */
-                    fun validate(): PartyType = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        known()
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: ModernTreasuryInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is PartyType && value == other.value
-                    }
-
-                    override fun hashCode() = value.hashCode()
-
-                    override fun toString() = value.toString()
-                }
-
-                class RoutingDetail
-                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-                private constructor(
-                    private val routingNumber: JsonField<String>,
-                    private val routingNumberType: JsonField<RoutingNumberType>,
-                    private val paymentType: JsonField<PaymentType>,
-                    private val additionalProperties: MutableMap<String, JsonValue>,
-                ) {
-
-                    @JsonCreator
-                    private constructor(
-                        @JsonProperty("routing_number")
-                        @ExcludeMissing
-                        routingNumber: JsonField<String> = JsonMissing.of(),
-                        @JsonProperty("routing_number_type")
-                        @ExcludeMissing
-                        routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
-                        @JsonProperty("payment_type")
-                        @ExcludeMissing
-                        paymentType: JsonField<PaymentType> = JsonMissing.of(),
-                    ) : this(routingNumber, routingNumberType, paymentType, mutableMapOf())
-
-                    /**
-                     * @throws ModernTreasuryInvalidDataException if the JSON field has an
-                     *   unexpected type or is unexpectedly missing or null (e.g. if the server
-                     *   responded with an unexpected value).
-                     */
-                    fun routingNumber(): String = routingNumber.getRequired("routing_number")
-
-                    /**
-                     * @throws ModernTreasuryInvalidDataException if the JSON field has an
-                     *   unexpected type or is unexpectedly missing or null (e.g. if the server
-                     *   responded with an unexpected value).
-                     */
-                    fun routingNumberType(): RoutingNumberType =
-                        routingNumberType.getRequired("routing_number_type")
-
-                    /**
-                     * @throws ModernTreasuryInvalidDataException if the JSON field has an
-                     *   unexpected type (e.g. if the server responded with an unexpected value).
-                     */
-                    fun paymentType(): PaymentType? = paymentType.getNullable("payment_type")
-
-                    /**
-                     * Returns the raw JSON value of [routingNumber].
-                     *
-                     * Unlike [routingNumber], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("routing_number")
-                    @ExcludeMissing
-                    fun _routingNumber(): JsonField<String> = routingNumber
-
-                    /**
-                     * Returns the raw JSON value of [routingNumberType].
-                     *
-                     * Unlike [routingNumberType], this method doesn't throw if the JSON field has
-                     * an unexpected type.
-                     */
-                    @JsonProperty("routing_number_type")
-                    @ExcludeMissing
-                    fun _routingNumberType(): JsonField<RoutingNumberType> = routingNumberType
-
-                    /**
-                     * Returns the raw JSON value of [paymentType].
-                     *
-                     * Unlike [paymentType], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("payment_type")
-                    @ExcludeMissing
-                    fun _paymentType(): JsonField<PaymentType> = paymentType
-
-                    @JsonAnySetter
-                    private fun putAdditionalProperty(key: String, value: JsonValue) {
-                        additionalProperties.put(key, value)
-                    }
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> =
-                        Collections.unmodifiableMap(additionalProperties)
-
-                    fun toBuilder() = Builder().from(this)
-
-                    companion object {
-
-                        /**
-                         * Returns a mutable builder for constructing an instance of
-                         * [RoutingDetail].
-                         *
-                         * The following fields are required:
-                         * ```kotlin
-                         * .routingNumber()
-                         * .routingNumberType()
-                         * ```
-                         */
-                        fun builder() = Builder()
-                    }
-
-                    /** A builder for [RoutingDetail]. */
-                    class Builder internal constructor() {
-
-                        private var routingNumber: JsonField<String>? = null
-                        private var routingNumberType: JsonField<RoutingNumberType>? = null
-                        private var paymentType: JsonField<PaymentType> = JsonMissing.of()
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        internal fun from(routingDetail: RoutingDetail) = apply {
-                            routingNumber = routingDetail.routingNumber
-                            routingNumberType = routingDetail.routingNumberType
-                            paymentType = routingDetail.paymentType
-                            additionalProperties = routingDetail.additionalProperties.toMutableMap()
-                        }
-
-                        fun routingNumber(routingNumber: String) =
-                            routingNumber(JsonField.of(routingNumber))
-
-                        /**
-                         * Sets [Builder.routingNumber] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.routingNumber] with a well-typed
-                         * [String] value instead. This method is primarily for setting the field to
-                         * an undocumented or not yet supported value.
-                         */
-                        fun routingNumber(routingNumber: JsonField<String>) = apply {
-                            this.routingNumber = routingNumber
-                        }
-
-                        fun routingNumberType(routingNumberType: RoutingNumberType) =
-                            routingNumberType(JsonField.of(routingNumberType))
-
-                        /**
-                         * Sets [Builder.routingNumberType] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.routingNumberType] with a well-typed
-                         * [RoutingNumberType] value instead. This method is primarily for setting
-                         * the field to an undocumented or not yet supported value.
-                         */
-                        fun routingNumberType(routingNumberType: JsonField<RoutingNumberType>) =
-                            apply {
-                                this.routingNumberType = routingNumberType
-                            }
-
-                        fun paymentType(paymentType: PaymentType) =
-                            paymentType(JsonField.of(paymentType))
-
-                        /**
-                         * Sets [Builder.paymentType] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.paymentType] with a well-typed
-                         * [PaymentType] value instead. This method is primarily for setting the
-                         * field to an undocumented or not yet supported value.
-                         */
-                        fun paymentType(paymentType: JsonField<PaymentType>) = apply {
-                            this.paymentType = paymentType
-                        }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                putAllAdditionalProperties(additionalProperties)
-                            }
-
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun removeAdditionalProperty(key: String) = apply {
-                            additionalProperties.remove(key)
-                        }
-
-                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                            keys.forEach(::removeAdditionalProperty)
-                        }
-
-                        /**
-                         * Returns an immutable instance of [RoutingDetail].
-                         *
-                         * Further updates to this [Builder] will not mutate the returned instance.
-                         *
-                         * The following fields are required:
-                         * ```kotlin
-                         * .routingNumber()
-                         * .routingNumberType()
-                         * ```
-                         *
-                         * @throws IllegalStateException if any required field is unset.
-                         */
-                        fun build(): RoutingDetail =
-                            RoutingDetail(
-                                checkRequired("routingNumber", routingNumber),
-                                checkRequired("routingNumberType", routingNumberType),
-                                paymentType,
-                                additionalProperties.toMutableMap(),
-                            )
-                    }
-
-                    private var validated: Boolean = false
-
-                    /**
-                     * Validates that the types of all values in this object match their expected
-                     * types recursively.
-                     *
-                     * This method is _not_ forwards compatible with new types from the API for
-                     * existing fields.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if any value type in this object
-                     *   doesn't match its expected type.
-                     */
-                    fun validate(): RoutingDetail = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        routingNumber()
-                        routingNumberType().validate()
-                        paymentType()?.validate()
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: ModernTreasuryInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    internal fun validity(): Int =
-                        (if (routingNumber.asKnown() == null) 0 else 1) +
-                            (routingNumberType.asKnown()?.validity() ?: 0) +
-                            (paymentType.asKnown()?.validity() ?: 0)
-
-                    class RoutingNumberType
-                    @JsonCreator
-                    private constructor(private val value: JsonField<String>) : Enum {
-
-                        /**
-                         * Returns this class instance's raw value.
-                         *
-                         * This is usually only useful if this instance was deserialized from data
-                         * that doesn't match any known member, and you want to know that value. For
-                         * example, if the SDK is on an older version than the API, then the API may
-                         * respond with new members that the SDK is unaware of.
-                         */
-                        @com.fasterxml.jackson.annotation.JsonValue
-                        fun _value(): JsonField<String> = value
-
-                        companion object {
-
-                            val ABA = of("aba")
-
-                            val AU_BSB = of("au_bsb")
-
-                            val BR_CODIGO = of("br_codigo")
-
-                            val CA_CPA = of("ca_cpa")
-
-                            val CHIPS = of("chips")
-
-                            val CNAPS = of("cnaps")
-
-                            val DK_INTERBANK_CLEARING_CODE = of("dk_interbank_clearing_code")
-
-                            val GB_SORT_CODE = of("gb_sort_code")
-
-                            val HK_INTERBANK_CLEARING_CODE = of("hk_interbank_clearing_code")
-
-                            val IL_BANK_CODE = of("il_bank_code")
-
-                            val IN_IFSC = of("in_ifsc")
-
-                            val JP_ZENGIN_CODE = of("jp_zengin_code")
-
-                            val MY_BRANCH_CODE = of("my_branch_code")
-
-                            val MX_BANK_IDENTIFIER = of("mx_bank_identifier")
-
-                            val NZ_NATIONAL_CLEARING_CODE = of("nz_national_clearing_code")
-
-                            val PL_NATIONAL_CLEARING_CODE = of("pl_national_clearing_code")
-
-                            val SE_BANKGIRO_CLEARING_CODE = of("se_bankgiro_clearing_code")
-
-                            val SG_INTERBANK_CLEARING_CODE = of("sg_interbank_clearing_code")
-
-                            val SWIFT = of("swift")
-
-                            val ZA_NATIONAL_CLEARING_CODE = of("za_national_clearing_code")
-
-                            fun of(value: String) = RoutingNumberType(JsonField.of(value))
-                        }
-
-                        /** An enum containing [RoutingNumberType]'s known values. */
-                        enum class Known {
-                            ABA,
-                            AU_BSB,
-                            BR_CODIGO,
-                            CA_CPA,
-                            CHIPS,
-                            CNAPS,
-                            DK_INTERBANK_CLEARING_CODE,
-                            GB_SORT_CODE,
-                            HK_INTERBANK_CLEARING_CODE,
-                            IL_BANK_CODE,
-                            IN_IFSC,
-                            JP_ZENGIN_CODE,
-                            MY_BRANCH_CODE,
-                            MX_BANK_IDENTIFIER,
-                            NZ_NATIONAL_CLEARING_CODE,
-                            PL_NATIONAL_CLEARING_CODE,
-                            SE_BANKGIRO_CLEARING_CODE,
-                            SG_INTERBANK_CLEARING_CODE,
-                            SWIFT,
-                            ZA_NATIONAL_CLEARING_CODE,
-                        }
-
-                        /**
-                         * An enum containing [RoutingNumberType]'s known values, as well as an
-                         * [_UNKNOWN] member.
-                         *
-                         * An instance of [RoutingNumberType] can contain an unknown value in a
-                         * couple of cases:
-                         * - It was deserialized from data that doesn't match any known member. For
-                         *   example, if the SDK is on an older version than the API, then the API
-                         *   may respond with new members that the SDK is unaware of.
-                         * - It was constructed with an arbitrary value using the [of] method.
-                         */
-                        enum class Value {
-                            ABA,
-                            AU_BSB,
-                            BR_CODIGO,
-                            CA_CPA,
-                            CHIPS,
-                            CNAPS,
-                            DK_INTERBANK_CLEARING_CODE,
-                            GB_SORT_CODE,
-                            HK_INTERBANK_CLEARING_CODE,
-                            IL_BANK_CODE,
-                            IN_IFSC,
-                            JP_ZENGIN_CODE,
-                            MY_BRANCH_CODE,
-                            MX_BANK_IDENTIFIER,
-                            NZ_NATIONAL_CLEARING_CODE,
-                            PL_NATIONAL_CLEARING_CODE,
-                            SE_BANKGIRO_CLEARING_CODE,
-                            SG_INTERBANK_CLEARING_CODE,
-                            SWIFT,
-                            ZA_NATIONAL_CLEARING_CODE,
-                            /**
-                             * An enum member indicating that [RoutingNumberType] was instantiated
-                             * with an unknown value.
-                             */
-                            _UNKNOWN,
-                        }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value, or
-                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                         *
-                         * Use the [known] method instead if you're certain the value is always
-                         * known or if you want to throw for the unknown case.
-                         */
-                        fun value(): Value =
-                            when (this) {
-                                ABA -> Value.ABA
-                                AU_BSB -> Value.AU_BSB
-                                BR_CODIGO -> Value.BR_CODIGO
-                                CA_CPA -> Value.CA_CPA
-                                CHIPS -> Value.CHIPS
-                                CNAPS -> Value.CNAPS
-                                DK_INTERBANK_CLEARING_CODE -> Value.DK_INTERBANK_CLEARING_CODE
-                                GB_SORT_CODE -> Value.GB_SORT_CODE
-                                HK_INTERBANK_CLEARING_CODE -> Value.HK_INTERBANK_CLEARING_CODE
-                                IL_BANK_CODE -> Value.IL_BANK_CODE
-                                IN_IFSC -> Value.IN_IFSC
-                                JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
-                                MY_BRANCH_CODE -> Value.MY_BRANCH_CODE
-                                MX_BANK_IDENTIFIER -> Value.MX_BANK_IDENTIFIER
-                                NZ_NATIONAL_CLEARING_CODE -> Value.NZ_NATIONAL_CLEARING_CODE
-                                PL_NATIONAL_CLEARING_CODE -> Value.PL_NATIONAL_CLEARING_CODE
-                                SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
-                                SG_INTERBANK_CLEARING_CODE -> Value.SG_INTERBANK_CLEARING_CODE
-                                SWIFT -> Value.SWIFT
-                                ZA_NATIONAL_CLEARING_CODE -> Value.ZA_NATIONAL_CLEARING_CODE
-                                else -> Value._UNKNOWN
-                            }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value.
-                         *
-                         * Use the [value] method instead if you're uncertain the value is always
-                         * known and don't want to throw for the unknown case.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if this class instance's value
-                         *   is a not a known member.
-                         */
-                        fun known(): Known =
-                            when (this) {
-                                ABA -> Known.ABA
-                                AU_BSB -> Known.AU_BSB
-                                BR_CODIGO -> Known.BR_CODIGO
-                                CA_CPA -> Known.CA_CPA
-                                CHIPS -> Known.CHIPS
-                                CNAPS -> Known.CNAPS
-                                DK_INTERBANK_CLEARING_CODE -> Known.DK_INTERBANK_CLEARING_CODE
-                                GB_SORT_CODE -> Known.GB_SORT_CODE
-                                HK_INTERBANK_CLEARING_CODE -> Known.HK_INTERBANK_CLEARING_CODE
-                                IL_BANK_CODE -> Known.IL_BANK_CODE
-                                IN_IFSC -> Known.IN_IFSC
-                                JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
-                                MY_BRANCH_CODE -> Known.MY_BRANCH_CODE
-                                MX_BANK_IDENTIFIER -> Known.MX_BANK_IDENTIFIER
-                                NZ_NATIONAL_CLEARING_CODE -> Known.NZ_NATIONAL_CLEARING_CODE
-                                PL_NATIONAL_CLEARING_CODE -> Known.PL_NATIONAL_CLEARING_CODE
-                                SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
-                                SG_INTERBANK_CLEARING_CODE -> Known.SG_INTERBANK_CLEARING_CODE
-                                SWIFT -> Known.SWIFT
-                                ZA_NATIONAL_CLEARING_CODE -> Known.ZA_NATIONAL_CLEARING_CODE
-                                else ->
-                                    throw ModernTreasuryInvalidDataException(
-                                        "Unknown RoutingNumberType: $value"
-                                    )
-                            }
-
-                        /**
-                         * Returns this class instance's primitive wire representation.
-                         *
-                         * This differs from the [toString] method because that method is primarily
-                         * for debugging and generally doesn't throw.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if this class instance's value
-                         *   does not have the expected primitive type.
-                         */
-                        fun asString(): String =
-                            _value().asString()
-                                ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                        private var validated: Boolean = false
-
-                        /**
-                         * Validates that the types of all values in this object match their
-                         * expected types recursively.
-                         *
-                         * This method is _not_ forwards compatible with new types from the API for
-                         * existing fields.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if any value type in this
-                         *   object doesn't match its expected type.
-                         */
-                        fun validate(): RoutingNumberType = apply {
-                            if (validated) {
-                                return@apply
-                            }
-
-                            known()
-                            validated = true
-                        }
-
-                        fun isValid(): Boolean =
-                            try {
-                                validate()
-                                true
-                            } catch (e: ModernTreasuryInvalidDataException) {
-                                false
-                            }
-
-                        /**
-                         * Returns a score indicating how many valid values are contained in this
-                         * object recursively.
-                         *
-                         * Used for best match union deserialization.
-                         */
-                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                        override fun equals(other: Any?): Boolean {
-                            if (this === other) {
-                                return true
-                            }
-
-                            return other is RoutingNumberType && value == other.value
-                        }
-
-                        override fun hashCode() = value.hashCode()
-
-                        override fun toString() = value.toString()
-                    }
-
-                    class PaymentType
-                    @JsonCreator
-                    private constructor(private val value: JsonField<String>) : Enum {
-
-                        /**
-                         * Returns this class instance's raw value.
-                         *
-                         * This is usually only useful if this instance was deserialized from data
-                         * that doesn't match any known member, and you want to know that value. For
-                         * example, if the SDK is on an older version than the API, then the API may
-                         * respond with new members that the SDK is unaware of.
-                         */
-                        @com.fasterxml.jackson.annotation.JsonValue
-                        fun _value(): JsonField<String> = value
-
-                        companion object {
-
-                            val ACH = of("ach")
-
-                            val AU_BECS = of("au_becs")
-
-                            val BACS = of("bacs")
-
-                            val BOOK = of("book")
-
-                            val CARD = of("card")
-
-                            val CHATS = of("chats")
-
-                            val CHECK = of("check")
-
-                            val CROSS_BORDER = of("cross_border")
-
-                            val DK_NETS = of("dk_nets")
-
-                            val EFT = of("eft")
-
-                            val GB_FPS = of("gb_fps")
-
-                            val MASAV = of("masav")
-
-                            val MX_CCEN = of("mx_ccen")
-
-                            val NEFT = of("neft")
-
-                            val NICS = of("nics")
-
-                            val NZ_BECS = of("nz_becs")
-
-                            val PL_ELIXIR = of("pl_elixir")
-
-                            val RTP = of("rtp")
-
-                            val SE_BANKGIROT = of("se_bankgirot")
-
-                            val SEPA = of("sepa")
-
-                            val SG_GIRO = of("sg_giro")
-
-                            val SIC = of("sic")
-
-                            val STABLECOIN = of("stablecoin")
-
-                            val WIRE = of("wire")
-
-                            val ZENGIN = of("zengin")
-
-                            fun of(value: String) = PaymentType(JsonField.of(value))
-                        }
-
-                        /** An enum containing [PaymentType]'s known values. */
-                        enum class Known {
-                            ACH,
-                            AU_BECS,
-                            BACS,
-                            BOOK,
-                            CARD,
-                            CHATS,
-                            CHECK,
-                            CROSS_BORDER,
-                            DK_NETS,
-                            EFT,
-                            GB_FPS,
-                            MASAV,
-                            MX_CCEN,
-                            NEFT,
-                            NICS,
-                            NZ_BECS,
-                            PL_ELIXIR,
-                            RTP,
-                            SE_BANKGIROT,
-                            SEPA,
-                            SG_GIRO,
-                            SIC,
-                            STABLECOIN,
-                            WIRE,
-                            ZENGIN,
-                        }
-
-                        /**
-                         * An enum containing [PaymentType]'s known values, as well as an [_UNKNOWN]
-                         * member.
-                         *
-                         * An instance of [PaymentType] can contain an unknown value in a couple of
-                         * cases:
-                         * - It was deserialized from data that doesn't match any known member. For
-                         *   example, if the SDK is on an older version than the API, then the API
-                         *   may respond with new members that the SDK is unaware of.
-                         * - It was constructed with an arbitrary value using the [of] method.
-                         */
-                        enum class Value {
-                            ACH,
-                            AU_BECS,
-                            BACS,
-                            BOOK,
-                            CARD,
-                            CHATS,
-                            CHECK,
-                            CROSS_BORDER,
-                            DK_NETS,
-                            EFT,
-                            GB_FPS,
-                            MASAV,
-                            MX_CCEN,
-                            NEFT,
-                            NICS,
-                            NZ_BECS,
-                            PL_ELIXIR,
-                            RTP,
-                            SE_BANKGIROT,
-                            SEPA,
-                            SG_GIRO,
-                            SIC,
-                            STABLECOIN,
-                            WIRE,
-                            ZENGIN,
-                            /**
-                             * An enum member indicating that [PaymentType] was instantiated with an
-                             * unknown value.
-                             */
-                            _UNKNOWN,
-                        }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value, or
-                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                         *
-                         * Use the [known] method instead if you're certain the value is always
-                         * known or if you want to throw for the unknown case.
-                         */
-                        fun value(): Value =
-                            when (this) {
-                                ACH -> Value.ACH
-                                AU_BECS -> Value.AU_BECS
-                                BACS -> Value.BACS
-                                BOOK -> Value.BOOK
-                                CARD -> Value.CARD
-                                CHATS -> Value.CHATS
-                                CHECK -> Value.CHECK
-                                CROSS_BORDER -> Value.CROSS_BORDER
-                                DK_NETS -> Value.DK_NETS
-                                EFT -> Value.EFT
-                                GB_FPS -> Value.GB_FPS
-                                MASAV -> Value.MASAV
-                                MX_CCEN -> Value.MX_CCEN
-                                NEFT -> Value.NEFT
-                                NICS -> Value.NICS
-                                NZ_BECS -> Value.NZ_BECS
-                                PL_ELIXIR -> Value.PL_ELIXIR
-                                RTP -> Value.RTP
-                                SE_BANKGIROT -> Value.SE_BANKGIROT
-                                SEPA -> Value.SEPA
-                                SG_GIRO -> Value.SG_GIRO
-                                SIC -> Value.SIC
-                                STABLECOIN -> Value.STABLECOIN
-                                WIRE -> Value.WIRE
-                                ZENGIN -> Value.ZENGIN
-                                else -> Value._UNKNOWN
-                            }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value.
-                         *
-                         * Use the [value] method instead if you're uncertain the value is always
-                         * known and don't want to throw for the unknown case.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if this class instance's value
-                         *   is a not a known member.
-                         */
-                        fun known(): Known =
-                            when (this) {
-                                ACH -> Known.ACH
-                                AU_BECS -> Known.AU_BECS
-                                BACS -> Known.BACS
-                                BOOK -> Known.BOOK
-                                CARD -> Known.CARD
-                                CHATS -> Known.CHATS
-                                CHECK -> Known.CHECK
-                                CROSS_BORDER -> Known.CROSS_BORDER
-                                DK_NETS -> Known.DK_NETS
-                                EFT -> Known.EFT
-                                GB_FPS -> Known.GB_FPS
-                                MASAV -> Known.MASAV
-                                MX_CCEN -> Known.MX_CCEN
-                                NEFT -> Known.NEFT
-                                NICS -> Known.NICS
-                                NZ_BECS -> Known.NZ_BECS
-                                PL_ELIXIR -> Known.PL_ELIXIR
-                                RTP -> Known.RTP
-                                SE_BANKGIROT -> Known.SE_BANKGIROT
-                                SEPA -> Known.SEPA
-                                SG_GIRO -> Known.SG_GIRO
-                                SIC -> Known.SIC
-                                STABLECOIN -> Known.STABLECOIN
-                                WIRE -> Known.WIRE
-                                ZENGIN -> Known.ZENGIN
-                                else ->
-                                    throw ModernTreasuryInvalidDataException(
-                                        "Unknown PaymentType: $value"
-                                    )
-                            }
-
-                        /**
-                         * Returns this class instance's primitive wire representation.
-                         *
-                         * This differs from the [toString] method because that method is primarily
-                         * for debugging and generally doesn't throw.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if this class instance's value
-                         *   does not have the expected primitive type.
-                         */
-                        fun asString(): String =
-                            _value().asString()
-                                ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                        private var validated: Boolean = false
-
-                        /**
-                         * Validates that the types of all values in this object match their
-                         * expected types recursively.
-                         *
-                         * This method is _not_ forwards compatible with new types from the API for
-                         * existing fields.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if any value type in this
-                         *   object doesn't match its expected type.
-                         */
-                        fun validate(): PaymentType = apply {
-                            if (validated) {
-                                return@apply
-                            }
-
-                            known()
-                            validated = true
-                        }
-
-                        fun isValid(): Boolean =
-                            try {
-                                validate()
-                                true
-                            } catch (e: ModernTreasuryInvalidDataException) {
-                                false
-                            }
-
-                        /**
-                         * Returns a score indicating how many valid values are contained in this
-                         * object recursively.
-                         *
-                         * Used for best match union deserialization.
-                         */
-                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                        override fun equals(other: Any?): Boolean {
-                            if (this === other) {
-                                return true
-                            }
-
-                            return other is PaymentType && value == other.value
-                        }
-
-                        override fun hashCode() = value.hashCode()
-
-                        override fun toString() = value.toString()
-                    }
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is RoutingDetail &&
-                            routingNumber == other.routingNumber &&
-                            routingNumberType == other.routingNumberType &&
-                            paymentType == other.paymentType &&
-                            additionalProperties == other.additionalProperties
-                    }
-
-                    private val hashCode: Int by lazy {
-                        Objects.hash(
-                            routingNumber,
-                            routingNumberType,
-                            paymentType,
-                            additionalProperties,
-                        )
-                    }
-
-                    override fun hashCode(): Int = hashCode
-
-                    override fun toString() =
-                        "RoutingDetail{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
-                }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is ReceivingAccount &&
-                        accountDetails == other.accountDetails &&
-                        accountType == other.accountType &&
-                        contactDetails == other.contactDetails &&
-                        externalId == other.externalId &&
-                        ledgerAccount == other.ledgerAccount &&
-                        metadata == other.metadata &&
-                        name == other.name &&
-                        partyAddress == other.partyAddress &&
-                        partyIdentifier == other.partyIdentifier &&
-                        partyName == other.partyName &&
-                        partyType == other.partyType &&
-                        plaidProcessorToken == other.plaidProcessorToken &&
-                        routingDetails == other.routingDetails &&
-                        additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy {
-                    Objects.hash(
-                        accountDetails,
-                        accountType,
-                        contactDetails,
-                        externalId,
-                        ledgerAccount,
-                        metadata,
-                        name,
-                        partyAddress,
-                        partyIdentifier,
-                        partyName,
-                        partyType,
-                        plaidProcessorToken,
-                        routingDetails,
-                        additionalProperties,
-                    )
-                }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() =
-                    "ReceivingAccount{accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, externalId=$externalId, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
-            }
-
-            /** One of `unreconciled`, `tentatively_reconciled` or `reconciled`. */
-            class ReconciliationStatus
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val UNRECONCILED = of("unreconciled")
-
-                    val TENTATIVELY_RECONCILED = of("tentatively_reconciled")
-
-                    val RECONCILED = of("reconciled")
-
-                    fun of(value: String) = ReconciliationStatus(JsonField.of(value))
-                }
-
-                /** An enum containing [ReconciliationStatus]'s known values. */
-                enum class Known {
-                    UNRECONCILED,
-                    TENTATIVELY_RECONCILED,
-                    RECONCILED,
-                }
-
-                /**
-                 * An enum containing [ReconciliationStatus]'s known values, as well as an
-                 * [_UNKNOWN] member.
-                 *
-                 * An instance of [ReconciliationStatus] can contain an unknown value in a couple of
-                 * cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    UNRECONCILED,
-                    TENTATIVELY_RECONCILED,
-                    RECONCILED,
-                    /**
-                     * An enum member indicating that [ReconciliationStatus] was instantiated with
-                     * an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        UNRECONCILED -> Value.UNRECONCILED
-                        TENTATIVELY_RECONCILED -> Value.TENTATIVELY_RECONCILED
-                        RECONCILED -> Value.RECONCILED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        UNRECONCILED -> Known.UNRECONCILED
-                        TENTATIVELY_RECONCILED -> Known.TENTATIVELY_RECONCILED
-                        RECONCILED -> Known.RECONCILED
-                        else ->
-                            throw ModernTreasuryInvalidDataException(
-                                "Unknown ReconciliationStatus: $value"
-                            )
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): ReconciliationStatus = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is ReconciliationStatus && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /** Address of the ultimate originator of the payment order. */
-            class UltimateOriginatingPartyAddress
-            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-            private constructor(
-                private val country: JsonField<String>,
-                private val line1: JsonField<String>,
-                private val line2: JsonField<String>,
-                private val locality: JsonField<String>,
-                private val postalCode: JsonField<String>,
-                private val region: JsonField<String>,
-                private val additionalProperties: MutableMap<String, JsonValue>,
-            ) {
-
-                @JsonCreator
-                private constructor(
-                    @JsonProperty("country")
-                    @ExcludeMissing
-                    country: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("line1")
-                    @ExcludeMissing
-                    line1: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("line2")
-                    @ExcludeMissing
-                    line2: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("locality")
-                    @ExcludeMissing
-                    locality: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("postal_code")
-                    @ExcludeMissing
-                    postalCode: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("region")
-                    @ExcludeMissing
-                    region: JsonField<String> = JsonMissing.of(),
-                ) : this(country, line1, line2, locality, postalCode, region, mutableMapOf())
-
-                /**
-                 * Country code conforms to [ISO 3166-1 alpha-2]
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun country(): String? = country.getNullable("country")
-
-                /**
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun line1(): String? = line1.getNullable("line1")
-
-                /**
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun line2(): String? = line2.getNullable("line2")
-
-                /**
-                 * Locality or City. Use the full city name rather than an abbreviation (e.g. San
-                 * Francisco).
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun locality(): String? = locality.getNullable("locality")
-
-                /**
-                 * The postal code of the address.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun postalCode(): String? = postalCode.getNullable("postal_code")
-
-                /**
-                 * Region or State. This field is free-form; for US states, we recommend a
-                 * two-letter code (e.g. CA). Full state names are also accepted.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun region(): String? = region.getNullable("region")
-
-                /**
-                 * Returns the raw JSON value of [country].
-                 *
-                 * Unlike [country], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
-
-                /**
-                 * Returns the raw JSON value of [line1].
-                 *
-                 * Unlike [line1], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
-
-                /**
-                 * Returns the raw JSON value of [line2].
-                 *
-                 * Unlike [line2], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
-
-                /**
-                 * Returns the raw JSON value of [locality].
-                 *
-                 * Unlike [locality], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("locality")
-                @ExcludeMissing
-                fun _locality(): JsonField<String> = locality
-
-                /**
-                 * Returns the raw JSON value of [postalCode].
-                 *
-                 * Unlike [postalCode], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("postal_code")
-                @ExcludeMissing
-                fun _postalCode(): JsonField<String> = postalCode
-
-                /**
-                 * Returns the raw JSON value of [region].
-                 *
-                 * Unlike [region], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
-
-                @JsonAnySetter
-                private fun putAdditionalProperty(key: String, value: JsonValue) {
-                    additionalProperties.put(key, value)
-                }
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> =
-                    Collections.unmodifiableMap(additionalProperties)
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /**
-                     * Returns a mutable builder for constructing an instance of
-                     * [UltimateOriginatingPartyAddress].
-                     */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [UltimateOriginatingPartyAddress]. */
-                class Builder internal constructor() {
-
-                    private var country: JsonField<String> = JsonMissing.of()
-                    private var line1: JsonField<String> = JsonMissing.of()
-                    private var line2: JsonField<String> = JsonMissing.of()
-                    private var locality: JsonField<String> = JsonMissing.of()
-                    private var postalCode: JsonField<String> = JsonMissing.of()
-                    private var region: JsonField<String> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(
-                        ultimateOriginatingPartyAddress: UltimateOriginatingPartyAddress
-                    ) = apply {
-                        country = ultimateOriginatingPartyAddress.country
-                        line1 = ultimateOriginatingPartyAddress.line1
-                        line2 = ultimateOriginatingPartyAddress.line2
-                        locality = ultimateOriginatingPartyAddress.locality
-                        postalCode = ultimateOriginatingPartyAddress.postalCode
-                        region = ultimateOriginatingPartyAddress.region
-                        additionalProperties =
-                            ultimateOriginatingPartyAddress.additionalProperties.toMutableMap()
-                    }
-
-                    /** Country code conforms to [ISO 3166-1 alpha-2] */
-                    fun country(country: String) = country(JsonField.of(country))
-
-                    /**
-                     * Sets [Builder.country] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.country] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun country(country: JsonField<String>) = apply { this.country = country }
-
-                    fun line1(line1: String) = line1(JsonField.of(line1))
-
-                    /**
-                     * Sets [Builder.line1] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.line1] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
-
-                    fun line2(line2: String) = line2(JsonField.of(line2))
-
-                    /**
-                     * Sets [Builder.line2] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.line2] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
-
-                    /**
-                     * Locality or City. Use the full city name rather than an abbreviation (e.g.
-                     * San Francisco).
-                     */
-                    fun locality(locality: String) = locality(JsonField.of(locality))
-
-                    /**
-                     * Sets [Builder.locality] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.locality] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun locality(locality: JsonField<String>) = apply { this.locality = locality }
-
-                    /** The postal code of the address. */
-                    fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
-
-                    /**
-                     * Sets [Builder.postalCode] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.postalCode] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun postalCode(postalCode: JsonField<String>) = apply {
-                        this.postalCode = postalCode
-                    }
-
-                    /**
-                     * Region or State. This field is free-form; for US states, we recommend a
-                     * two-letter code (e.g. CA). Full state names are also accepted.
-                     */
-                    fun region(region: String) = region(JsonField.of(region))
-
-                    /**
-                     * Sets [Builder.region] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.region] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun region(region: JsonField<String>) = apply { this.region = region }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [UltimateOriginatingPartyAddress].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): UltimateOriginatingPartyAddress =
-                        UltimateOriginatingPartyAddress(
-                            country,
-                            line1,
-                            line2,
-                            locality,
-                            postalCode,
-                            region,
-                            additionalProperties.toMutableMap(),
-                        )
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): UltimateOriginatingPartyAddress = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    country()
-                    line1()
-                    line2()
-                    locality()
-                    postalCode()
-                    region()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    (if (country.asKnown() == null) 0 else 1) +
-                        (if (line1.asKnown() == null) 0 else 1) +
-                        (if (line2.asKnown() == null) 0 else 1) +
-                        (if (locality.asKnown() == null) 0 else 1) +
-                        (if (postalCode.asKnown() == null) 0 else 1) +
-                        (if (region.asKnown() == null) 0 else 1)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is UltimateOriginatingPartyAddress &&
-                        country == other.country &&
-                        line1 == other.line1 &&
-                        line2 == other.line2 &&
-                        locality == other.locality &&
-                        postalCode == other.postalCode &&
-                        region == other.region &&
-                        additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy {
-                    Objects.hash(
-                        country,
-                        line1,
-                        line2,
-                        locality,
-                        postalCode,
-                        region,
-                        additionalProperties,
-                    )
-                }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() =
-                    "UltimateOriginatingPartyAddress{country=$country, line1=$line1, line2=$line2, locality=$locality, postalCode=$postalCode, region=$region, additionalProperties=$additionalProperties}"
-            }
-
-            /**
-             * Additional vendor specific fields for this payment. Data must be represented as
-             * key-value pairs.
-             */
-            class VendorAttributes
-            @JsonCreator
-            private constructor(
-                @com.fasterxml.jackson.annotation.JsonValue
-                private val additionalProperties: Map<String, JsonValue>
-            ) {
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /**
-                     * Returns a mutable builder for constructing an instance of [VendorAttributes].
-                     */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [VendorAttributes]. */
-                class Builder internal constructor() {
-
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(vendorAttributes: VendorAttributes) = apply {
-                        additionalProperties = vendorAttributes.additionalProperties.toMutableMap()
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [VendorAttributes].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): VendorAttributes =
-                        VendorAttributes(additionalProperties.toImmutable())
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): VendorAttributes = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    additionalProperties.count { (_, value) ->
-                        !value.isNull() && !value.isMissing()
-                    }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is VendorAttributes &&
-                        additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() =
-                    "VendorAttributes{additionalProperties=$additionalProperties}"
-            }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is PaymentOrderAsyncCreateRequest &&
-                    amount == other.amount &&
-                    direction == other.direction &&
-                    originatingAccountId == other.originatingAccountId &&
-                    type == other.type &&
-                    accounting == other.accounting &&
-                    accountingCategoryId == other.accountingCategoryId &&
-                    accountingLedgerClassId == other.accountingLedgerClassId &&
-                    chargeBearer == other.chargeBearer &&
-                    currency == other.currency &&
-                    description == other.description &&
-                    effectiveDate == other.effectiveDate &&
-                    expiresAt == other.expiresAt &&
-                    externalId == other.externalId &&
-                    fallbackType == other.fallbackType &&
-                    foreignExchangeContract == other.foreignExchangeContract &&
-                    foreignExchangeIndicator == other.foreignExchangeIndicator &&
-                    ledgerTransaction == other.ledgerTransaction &&
-                    ledgerTransactionId == other.ledgerTransactionId &&
-                    lineItems == other.lineItems &&
-                    metadata == other.metadata &&
-                    nsfProtected == other.nsfProtected &&
-                    originatingPartyAddress == other.originatingPartyAddress &&
-                    originatingPartyName == other.originatingPartyName &&
-                    originatingSecondaryPartyName == other.originatingSecondaryPartyName &&
-                    priority == other.priority &&
-                    processAfter == other.processAfter &&
-                    purpose == other.purpose &&
-                    receivingAccount == other.receivingAccount &&
-                    receivingAccountId == other.receivingAccountId &&
-                    reconciliationStatus == other.reconciliationStatus &&
-                    remittanceInformation == other.remittanceInformation &&
-                    sendRemittanceAdvice == other.sendRemittanceAdvice &&
-                    statementDescriptor == other.statementDescriptor &&
-                    subtype == other.subtype &&
-                    transactionMonitoringEnabled == other.transactionMonitoringEnabled &&
-                    ultimateOriginatingAccountId == other.ultimateOriginatingAccountId &&
-                    ultimateOriginatingPartyAddress == other.ultimateOriginatingPartyAddress &&
-                    ultimateOriginatingPartyIdentifier ==
-                        other.ultimateOriginatingPartyIdentifier &&
-                    ultimateOriginatingPartyName == other.ultimateOriginatingPartyName &&
-                    ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier &&
-                    ultimateReceivingPartyName == other.ultimateReceivingPartyName &&
-                    vendorAttributes == other.vendorAttributes &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(
-                    amount,
-                    direction,
-                    originatingAccountId,
-                    type,
-                    accounting,
-                    accountingCategoryId,
-                    accountingLedgerClassId,
-                    chargeBearer,
-                    currency,
-                    description,
-                    effectiveDate,
-                    expiresAt,
-                    externalId,
-                    fallbackType,
-                    foreignExchangeContract,
-                    foreignExchangeIndicator,
-                    ledgerTransaction,
-                    ledgerTransactionId,
-                    lineItems,
-                    metadata,
-                    nsfProtected,
-                    originatingPartyAddress,
-                    originatingPartyName,
-                    originatingSecondaryPartyName,
-                    priority,
-                    processAfter,
-                    purpose,
-                    receivingAccount,
-                    receivingAccountId,
-                    reconciliationStatus,
-                    remittanceInformation,
-                    sendRemittanceAdvice,
-                    statementDescriptor,
-                    subtype,
-                    transactionMonitoringEnabled,
-                    ultimateOriginatingAccountId,
-                    ultimateOriginatingPartyAddress,
-                    ultimateOriginatingPartyIdentifier,
-                    ultimateOriginatingPartyName,
-                    ultimateReceivingPartyIdentifier,
-                    ultimateReceivingPartyName,
-                    vendorAttributes,
-                    additionalProperties,
-                )
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "PaymentOrderAsyncCreateRequest{amount=$amount, direction=$direction, originatingAccountId=$originatingAccountId, type=$type, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, chargeBearer=$chargeBearer, currency=$currency, description=$description, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingPartyAddress=$originatingPartyAddress, originatingPartyName=$originatingPartyName, originatingSecondaryPartyName=$originatingSecondaryPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, subtype=$subtype, transactionMonitoringEnabled=$transactionMonitoringEnabled, ultimateOriginatingAccountId=$ultimateOriginatingAccountId, ultimateOriginatingPartyAddress=$ultimateOriginatingPartyAddress, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, vendorAttributes=$vendorAttributes, additionalProperties=$additionalProperties}"
-        }
-
-        class ExpectedPaymentCreateRequest
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val amountLowerBound: JsonField<Long>,
-            private val amountReconciled: JsonField<Long>,
-            private val amountReconciledDirection: JsonField<AmountReconciledDirection>,
-            private val amountUnreconciled: JsonField<Long>,
-            private val amountUnreconciledDirection: JsonField<AmountUnreconciledDirection>,
-            private val amountUpperBound: JsonField<Long>,
-            private val counterpartyId: JsonField<String>,
-            private val currency: JsonField<Currency>,
-            private val dateLowerBound: JsonField<LocalDate>,
-            private val dateUpperBound: JsonField<LocalDate>,
-            private val description: JsonField<String>,
-            private val direction: JsonField<Direction>,
-            private val externalId: JsonField<String>,
-            private val internalAccountId: JsonField<String>,
-            private val ledgerTransaction: JsonField<LedgerTransactionCreateRequest>,
-            private val ledgerTransactionId: JsonField<String>,
-            private val lineItems: JsonField<List<LineItemRequest>>,
-            private val metadata: JsonField<Metadata>,
-            private val reconciliationFilters: JsonValue,
-            private val reconciliationGroups: JsonValue,
-            private val reconciliationRuleVariables: JsonField<List<ReconciliationRule>>,
-            private val remittanceInformation: JsonField<String>,
-            private val statementDescriptor: JsonField<String>,
-            private val type: JsonField<ExpectedPaymentType>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("amount_lower_bound")
-                @ExcludeMissing
-                amountLowerBound: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("amount_reconciled")
-                @ExcludeMissing
-                amountReconciled: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("amount_reconciled_direction")
-                @ExcludeMissing
-                amountReconciledDirection: JsonField<AmountReconciledDirection> = JsonMissing.of(),
-                @JsonProperty("amount_unreconciled")
-                @ExcludeMissing
-                amountUnreconciled: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("amount_unreconciled_direction")
-                @ExcludeMissing
-                amountUnreconciledDirection: JsonField<AmountUnreconciledDirection> =
-                    JsonMissing.of(),
-                @JsonProperty("amount_upper_bound")
-                @ExcludeMissing
-                amountUpperBound: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("counterparty_id")
-                @ExcludeMissing
-                counterpartyId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("currency")
-                @ExcludeMissing
-                currency: JsonField<Currency> = JsonMissing.of(),
-                @JsonProperty("date_lower_bound")
-                @ExcludeMissing
-                dateLowerBound: JsonField<LocalDate> = JsonMissing.of(),
-                @JsonProperty("date_upper_bound")
-                @ExcludeMissing
-                dateUpperBound: JsonField<LocalDate> = JsonMissing.of(),
-                @JsonProperty("description")
-                @ExcludeMissing
-                description: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("direction")
-                @ExcludeMissing
-                direction: JsonField<Direction> = JsonMissing.of(),
-                @JsonProperty("external_id")
-                @ExcludeMissing
-                externalId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("internal_account_id")
-                @ExcludeMissing
-                internalAccountId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("ledger_transaction")
-                @ExcludeMissing
-                ledgerTransaction: JsonField<LedgerTransactionCreateRequest> = JsonMissing.of(),
-                @JsonProperty("ledger_transaction_id")
-                @ExcludeMissing
-                ledgerTransactionId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("line_items")
-                @ExcludeMissing
-                lineItems: JsonField<List<LineItemRequest>> = JsonMissing.of(),
-                @JsonProperty("metadata")
-                @ExcludeMissing
-                metadata: JsonField<Metadata> = JsonMissing.of(),
-                @JsonProperty("reconciliation_filters")
-                @ExcludeMissing
-                reconciliationFilters: JsonValue = JsonMissing.of(),
-                @JsonProperty("reconciliation_groups")
-                @ExcludeMissing
-                reconciliationGroups: JsonValue = JsonMissing.of(),
-                @JsonProperty("reconciliation_rule_variables")
-                @ExcludeMissing
-                reconciliationRuleVariables: JsonField<List<ReconciliationRule>> = JsonMissing.of(),
-                @JsonProperty("remittance_information")
-                @ExcludeMissing
-                remittanceInformation: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("statement_descriptor")
-                @ExcludeMissing
-                statementDescriptor: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("type")
-                @ExcludeMissing
-                type: JsonField<ExpectedPaymentType> = JsonMissing.of(),
-            ) : this(
-                amountLowerBound,
-                amountReconciled,
-                amountReconciledDirection,
-                amountUnreconciled,
-                amountUnreconciledDirection,
-                amountUpperBound,
-                counterpartyId,
-                currency,
-                dateLowerBound,
-                dateUpperBound,
-                description,
-                direction,
-                externalId,
-                internalAccountId,
-                ledgerTransaction,
-                ledgerTransactionId,
-                lineItems,
-                metadata,
-                reconciliationFilters,
-                reconciliationGroups,
-                reconciliationRuleVariables,
-                remittanceInformation,
-                statementDescriptor,
-                type,
-                mutableMapOf(),
-            )
-
-            /**
-             * The lowest amount this expected payment may be equal to. Value in specified
-             * currency's smallest unit. e.g. $10 would be represented as 1000.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun amountLowerBound(): Long? = amountLowerBound.getNullable("amount_lower_bound")
-
-            /**
-             * The amount reconciled for this expected payment. Value in specified currency's
-             * smallest unit. e.g. $10 would be represented as 1000.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun amountReconciled(): Long? = amountReconciled.getNullable("amount_reconciled")
-
-            /**
-             * One of credit or debit. Indicates whether amount_reconciled is a credit or debit
-             * amount.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun amountReconciledDirection(): AmountReconciledDirection? =
-                amountReconciledDirection.getNullable("amount_reconciled_direction")
-
-            /**
-             * The amount that remains unreconciled for this expected payment. Value in specified
-             * currency's smallest unit. e.g. $10 would be represented as 1000.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun amountUnreconciled(): Long? = amountUnreconciled.getNullable("amount_unreconciled")
-
-            /**
-             * One of credit or debit. Indicates whether amount_unreconciled is a credit or debit
-             * amount.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun amountUnreconciledDirection(): AmountUnreconciledDirection? =
-                amountUnreconciledDirection.getNullable("amount_unreconciled_direction")
-
-            /**
-             * The highest amount this expected payment may be equal to. Value in specified
-             * currency's smallest unit. e.g. $10 would be represented as 1000.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun amountUpperBound(): Long? = amountUpperBound.getNullable("amount_upper_bound")
-
-            /**
-             * The ID of the counterparty you expect for this payment.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun counterpartyId(): String? = counterpartyId.getNullable("counterparty_id")
-
-            /**
-             * Must conform to ISO 4217. Defaults to the currency of the internal account.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun currency(): Currency? = currency.getNullable("currency")
-
-            /**
-             * The earliest date the payment may come in. Format: yyyy-mm-dd
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun dateLowerBound(): LocalDate? = dateLowerBound.getNullable("date_lower_bound")
-
-            /**
-             * The latest date the payment may come in. Format: yyyy-mm-dd
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun dateUpperBound(): LocalDate? = dateUpperBound.getNullable("date_upper_bound")
-
-            /**
-             * An optional description for internal use.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun description(): String? = description.getNullable("description")
-
-            /**
-             * One of credit or debit. When you are receiving money, use credit. When you are being
-             * charged, use debit.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun direction(): Direction? = direction.getNullable("direction")
-
-            /**
-             * An optional user-defined 180 character unique identifier.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun externalId(): String? = externalId.getNullable("external_id")
-
-            /**
-             * The ID of the Internal Account for the expected payment.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun internalAccountId(): String? = internalAccountId.getNullable("internal_account_id")
-
-            /**
-             * Specifies a ledger transaction object that will be created with the expected payment.
-             * If the ledger transaction cannot be created, then the expected payment creation will
-             * fail. The resulting ledger transaction will mirror the status of the expected
-             * payment.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun ledgerTransaction(): LedgerTransactionCreateRequest? =
-                ledgerTransaction.getNullable("ledger_transaction")
-
-            /**
-             * Either ledger_transaction or ledger_transaction_id can be provided. Only a pending
-             * ledger transaction can be attached upon expected payment creation. Once the expected
-             * payment is created, the status of the ledger transaction tracks the expected payment
-             * automatically.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun ledgerTransactionId(): String? =
-                ledgerTransactionId.getNullable("ledger_transaction_id")
-
-            /**
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun lineItems(): List<LineItemRequest>? = lineItems.getNullable("line_items")
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-            /**
-             * The reconciliation filters you have for this payment.
-             *
-             * This arbitrary value can be deserialized into a custom type using the `convert`
-             * method:
-             * ```kotlin
-             * val myObject: MyClass = expectedPaymentCreateRequest.reconciliationFilters().convert(MyClass::class.java)
-             * ```
-             */
-            @JsonProperty("reconciliation_filters")
-            @ExcludeMissing
-            fun _reconciliationFilters(): JsonValue = reconciliationFilters
-
-            /**
-             * The reconciliation groups you have for this payment.
-             *
-             * This arbitrary value can be deserialized into a custom type using the `convert`
-             * method:
-             * ```kotlin
-             * val myObject: MyClass = expectedPaymentCreateRequest.reconciliationGroups().convert(MyClass::class.java)
-             * ```
-             */
-            @JsonProperty("reconciliation_groups")
-            @ExcludeMissing
-            fun _reconciliationGroups(): JsonValue = reconciliationGroups
-
-            /**
-             * An array of reconciliation rule variables for this payment.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun reconciliationRuleVariables(): List<ReconciliationRule>? =
-                reconciliationRuleVariables.getNullable("reconciliation_rule_variables")
-
-            /**
-             * For `ach`, this field will be passed through on an addenda record. For `wire`
-             * payments the field will be passed through as the "Originator to Beneficiary
-             * Information", also known as OBI or Fedwire tag 6000.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun remittanceInformation(): String? =
-                remittanceInformation.getNullable("remittance_information")
-
-            /**
-             * The statement description you expect to see on the transaction. For ACH payments,
-             * this will be the full line item passed from the bank. For wire payments, this will be
-             * the OBI field on the wire. For check payments, this will be the memo field.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun statementDescriptor(): String? =
-                statementDescriptor.getNullable("statement_descriptor")
-
-            /**
-             * One of: ach, au_becs, bacs, book, check, eft, rtp, sepa, wire.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun type(): ExpectedPaymentType? = type.getNullable("type")
-
-            /**
-             * Returns the raw JSON value of [amountLowerBound].
-             *
-             * Unlike [amountLowerBound], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("amount_lower_bound")
-            @ExcludeMissing
-            fun _amountLowerBound(): JsonField<Long> = amountLowerBound
-
-            /**
-             * Returns the raw JSON value of [amountReconciled].
-             *
-             * Unlike [amountReconciled], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("amount_reconciled")
-            @ExcludeMissing
-            fun _amountReconciled(): JsonField<Long> = amountReconciled
-
-            /**
-             * Returns the raw JSON value of [amountReconciledDirection].
-             *
-             * Unlike [amountReconciledDirection], this method doesn't throw if the JSON field has
-             * an unexpected type.
-             */
-            @JsonProperty("amount_reconciled_direction")
-            @ExcludeMissing
-            fun _amountReconciledDirection(): JsonField<AmountReconciledDirection> =
-                amountReconciledDirection
-
-            /**
-             * Returns the raw JSON value of [amountUnreconciled].
-             *
-             * Unlike [amountUnreconciled], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("amount_unreconciled")
-            @ExcludeMissing
-            fun _amountUnreconciled(): JsonField<Long> = amountUnreconciled
-
-            /**
-             * Returns the raw JSON value of [amountUnreconciledDirection].
-             *
-             * Unlike [amountUnreconciledDirection], this method doesn't throw if the JSON field has
-             * an unexpected type.
-             */
-            @JsonProperty("amount_unreconciled_direction")
-            @ExcludeMissing
-            fun _amountUnreconciledDirection(): JsonField<AmountUnreconciledDirection> =
-                amountUnreconciledDirection
-
-            /**
-             * Returns the raw JSON value of [amountUpperBound].
-             *
-             * Unlike [amountUpperBound], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("amount_upper_bound")
-            @ExcludeMissing
-            fun _amountUpperBound(): JsonField<Long> = amountUpperBound
-
-            /**
-             * Returns the raw JSON value of [counterpartyId].
-             *
-             * Unlike [counterpartyId], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("counterparty_id")
-            @ExcludeMissing
-            fun _counterpartyId(): JsonField<String> = counterpartyId
-
-            /**
-             * Returns the raw JSON value of [currency].
-             *
-             * Unlike [currency], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("currency")
-            @ExcludeMissing
-            fun _currency(): JsonField<Currency> = currency
-
-            /**
-             * Returns the raw JSON value of [dateLowerBound].
-             *
-             * Unlike [dateLowerBound], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("date_lower_bound")
-            @ExcludeMissing
-            fun _dateLowerBound(): JsonField<LocalDate> = dateLowerBound
-
-            /**
-             * Returns the raw JSON value of [dateUpperBound].
-             *
-             * Unlike [dateUpperBound], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("date_upper_bound")
-            @ExcludeMissing
-            fun _dateUpperBound(): JsonField<LocalDate> = dateUpperBound
-
-            /**
-             * Returns the raw JSON value of [description].
-             *
-             * Unlike [description], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("description")
-            @ExcludeMissing
-            fun _description(): JsonField<String> = description
-
-            /**
-             * Returns the raw JSON value of [direction].
-             *
-             * Unlike [direction], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("direction")
-            @ExcludeMissing
-            fun _direction(): JsonField<Direction> = direction
-
-            /**
-             * Returns the raw JSON value of [externalId].
-             *
-             * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("external_id")
-            @ExcludeMissing
-            fun _externalId(): JsonField<String> = externalId
-
-            /**
-             * Returns the raw JSON value of [internalAccountId].
-             *
-             * Unlike [internalAccountId], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("internal_account_id")
-            @ExcludeMissing
-            fun _internalAccountId(): JsonField<String> = internalAccountId
-
-            /**
-             * Returns the raw JSON value of [ledgerTransaction].
-             *
-             * Unlike [ledgerTransaction], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("ledger_transaction")
-            @ExcludeMissing
-            fun _ledgerTransaction(): JsonField<LedgerTransactionCreateRequest> = ledgerTransaction
-
-            /**
-             * Returns the raw JSON value of [ledgerTransactionId].
-             *
-             * Unlike [ledgerTransactionId], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("ledger_transaction_id")
-            @ExcludeMissing
-            fun _ledgerTransactionId(): JsonField<String> = ledgerTransactionId
-
-            /**
-             * Returns the raw JSON value of [lineItems].
-             *
-             * Unlike [lineItems], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("line_items")
-            @ExcludeMissing
-            fun _lineItems(): JsonField<List<LineItemRequest>> = lineItems
-
-            /**
-             * Returns the raw JSON value of [metadata].
-             *
-             * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("metadata")
-            @ExcludeMissing
-            fun _metadata(): JsonField<Metadata> = metadata
-
-            /**
-             * Returns the raw JSON value of [reconciliationRuleVariables].
-             *
-             * Unlike [reconciliationRuleVariables], this method doesn't throw if the JSON field has
-             * an unexpected type.
-             */
-            @JsonProperty("reconciliation_rule_variables")
-            @ExcludeMissing
-            fun _reconciliationRuleVariables(): JsonField<List<ReconciliationRule>> =
-                reconciliationRuleVariables
-
-            /**
-             * Returns the raw JSON value of [remittanceInformation].
-             *
-             * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("remittance_information")
-            @ExcludeMissing
-            fun _remittanceInformation(): JsonField<String> = remittanceInformation
-
-            /**
-             * Returns the raw JSON value of [statementDescriptor].
-             *
-             * Unlike [statementDescriptor], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("statement_descriptor")
-            @ExcludeMissing
-            fun _statementDescriptor(): JsonField<String> = statementDescriptor
-
-            /**
-             * Returns the raw JSON value of [type].
-             *
-             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<ExpectedPaymentType> = type
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /**
-                 * Returns a mutable builder for constructing an instance of
-                 * [ExpectedPaymentCreateRequest].
-                 */
-                fun builder() = Builder()
-            }
-
-            /** A builder for [ExpectedPaymentCreateRequest]. */
-            class Builder internal constructor() {
-
-                private var amountLowerBound: JsonField<Long> = JsonMissing.of()
-                private var amountReconciled: JsonField<Long> = JsonMissing.of()
-                private var amountReconciledDirection: JsonField<AmountReconciledDirection> =
-                    JsonMissing.of()
-                private var amountUnreconciled: JsonField<Long> = JsonMissing.of()
-                private var amountUnreconciledDirection: JsonField<AmountUnreconciledDirection> =
-                    JsonMissing.of()
-                private var amountUpperBound: JsonField<Long> = JsonMissing.of()
-                private var counterpartyId: JsonField<String> = JsonMissing.of()
-                private var currency: JsonField<Currency> = JsonMissing.of()
-                private var dateLowerBound: JsonField<LocalDate> = JsonMissing.of()
-                private var dateUpperBound: JsonField<LocalDate> = JsonMissing.of()
-                private var description: JsonField<String> = JsonMissing.of()
-                private var direction: JsonField<Direction> = JsonMissing.of()
-                private var externalId: JsonField<String> = JsonMissing.of()
-                private var internalAccountId: JsonField<String> = JsonMissing.of()
-                private var ledgerTransaction: JsonField<LedgerTransactionCreateRequest> =
-                    JsonMissing.of()
-                private var ledgerTransactionId: JsonField<String> = JsonMissing.of()
-                private var lineItems: JsonField<MutableList<LineItemRequest>>? = null
-                private var metadata: JsonField<Metadata> = JsonMissing.of()
-                private var reconciliationFilters: JsonValue = JsonMissing.of()
-                private var reconciliationGroups: JsonValue = JsonMissing.of()
-                private var reconciliationRuleVariables:
-                    JsonField<MutableList<ReconciliationRule>>? =
-                    null
-                private var remittanceInformation: JsonField<String> = JsonMissing.of()
-                private var statementDescriptor: JsonField<String> = JsonMissing.of()
-                private var type: JsonField<ExpectedPaymentType> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                internal fun from(expectedPaymentCreateRequest: ExpectedPaymentCreateRequest) =
-                    apply {
-                        amountLowerBound = expectedPaymentCreateRequest.amountLowerBound
-                        amountReconciled = expectedPaymentCreateRequest.amountReconciled
-                        amountReconciledDirection =
-                            expectedPaymentCreateRequest.amountReconciledDirection
-                        amountUnreconciled = expectedPaymentCreateRequest.amountUnreconciled
-                        amountUnreconciledDirection =
-                            expectedPaymentCreateRequest.amountUnreconciledDirection
-                        amountUpperBound = expectedPaymentCreateRequest.amountUpperBound
-                        counterpartyId = expectedPaymentCreateRequest.counterpartyId
-                        currency = expectedPaymentCreateRequest.currency
-                        dateLowerBound = expectedPaymentCreateRequest.dateLowerBound
-                        dateUpperBound = expectedPaymentCreateRequest.dateUpperBound
-                        description = expectedPaymentCreateRequest.description
-                        direction = expectedPaymentCreateRequest.direction
-                        externalId = expectedPaymentCreateRequest.externalId
-                        internalAccountId = expectedPaymentCreateRequest.internalAccountId
-                        ledgerTransaction = expectedPaymentCreateRequest.ledgerTransaction
-                        ledgerTransactionId = expectedPaymentCreateRequest.ledgerTransactionId
-                        lineItems =
-                            expectedPaymentCreateRequest.lineItems.map { it.toMutableList() }
-                        metadata = expectedPaymentCreateRequest.metadata
-                        reconciliationFilters = expectedPaymentCreateRequest.reconciliationFilters
-                        reconciliationGroups = expectedPaymentCreateRequest.reconciliationGroups
-                        reconciliationRuleVariables =
-                            expectedPaymentCreateRequest.reconciliationRuleVariables.map {
-                                it.toMutableList()
-                            }
-                        remittanceInformation = expectedPaymentCreateRequest.remittanceInformation
-                        statementDescriptor = expectedPaymentCreateRequest.statementDescriptor
-                        type = expectedPaymentCreateRequest.type
-                        additionalProperties =
-                            expectedPaymentCreateRequest.additionalProperties.toMutableMap()
-                    }
-
-                /**
-                 * The lowest amount this expected payment may be equal to. Value in specified
-                 * currency's smallest unit. e.g. $10 would be represented as 1000.
-                 */
-                fun amountLowerBound(amountLowerBound: Long?) =
-                    amountLowerBound(JsonField.ofNullable(amountLowerBound))
-
-                /**
-                 * Alias for [Builder.amountLowerBound].
-                 *
-                 * This unboxed primitive overload exists for backwards compatibility.
-                 */
-                fun amountLowerBound(amountLowerBound: Long) =
-                    amountLowerBound(amountLowerBound as Long?)
-
-                /**
-                 * Sets [Builder.amountLowerBound] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.amountLowerBound] with a well-typed [Long] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun amountLowerBound(amountLowerBound: JsonField<Long>) = apply {
-                    this.amountLowerBound = amountLowerBound
-                }
-
-                /**
-                 * The amount reconciled for this expected payment. Value in specified currency's
-                 * smallest unit. e.g. $10 would be represented as 1000.
-                 */
-                fun amountReconciled(amountReconciled: Long?) =
-                    amountReconciled(JsonField.ofNullable(amountReconciled))
-
-                /**
-                 * Alias for [Builder.amountReconciled].
-                 *
-                 * This unboxed primitive overload exists for backwards compatibility.
-                 */
-                fun amountReconciled(amountReconciled: Long) =
-                    amountReconciled(amountReconciled as Long?)
-
-                /**
-                 * Sets [Builder.amountReconciled] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.amountReconciled] with a well-typed [Long] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun amountReconciled(amountReconciled: JsonField<Long>) = apply {
-                    this.amountReconciled = amountReconciled
-                }
-
-                /**
-                 * One of credit or debit. Indicates whether amount_reconciled is a credit or debit
-                 * amount.
-                 */
-                fun amountReconciledDirection(
-                    amountReconciledDirection: AmountReconciledDirection?
-                ) = amountReconciledDirection(JsonField.ofNullable(amountReconciledDirection))
-
-                /**
-                 * Sets [Builder.amountReconciledDirection] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.amountReconciledDirection] with a well-typed
-                 * [AmountReconciledDirection] value instead. This method is primarily for setting
-                 * the field to an undocumented or not yet supported value.
-                 */
-                fun amountReconciledDirection(
-                    amountReconciledDirection: JsonField<AmountReconciledDirection>
-                ) = apply { this.amountReconciledDirection = amountReconciledDirection }
-
-                /**
-                 * The amount that remains unreconciled for this expected payment. Value in
-                 * specified currency's smallest unit. e.g. $10 would be represented as 1000.
-                 */
-                fun amountUnreconciled(amountUnreconciled: Long?) =
-                    amountUnreconciled(JsonField.ofNullable(amountUnreconciled))
-
-                /**
-                 * Alias for [Builder.amountUnreconciled].
-                 *
-                 * This unboxed primitive overload exists for backwards compatibility.
-                 */
-                fun amountUnreconciled(amountUnreconciled: Long) =
-                    amountUnreconciled(amountUnreconciled as Long?)
-
-                /**
-                 * Sets [Builder.amountUnreconciled] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.amountUnreconciled] with a well-typed [Long]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun amountUnreconciled(amountUnreconciled: JsonField<Long>) = apply {
-                    this.amountUnreconciled = amountUnreconciled
-                }
-
-                /**
-                 * One of credit or debit. Indicates whether amount_unreconciled is a credit or
-                 * debit amount.
-                 */
-                fun amountUnreconciledDirection(
-                    amountUnreconciledDirection: AmountUnreconciledDirection?
-                ) = amountUnreconciledDirection(JsonField.ofNullable(amountUnreconciledDirection))
-
-                /**
-                 * Sets [Builder.amountUnreconciledDirection] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.amountUnreconciledDirection] with a well-typed
-                 * [AmountUnreconciledDirection] value instead. This method is primarily for setting
-                 * the field to an undocumented or not yet supported value.
-                 */
-                fun amountUnreconciledDirection(
-                    amountUnreconciledDirection: JsonField<AmountUnreconciledDirection>
-                ) = apply { this.amountUnreconciledDirection = amountUnreconciledDirection }
-
-                /**
-                 * The highest amount this expected payment may be equal to. Value in specified
-                 * currency's smallest unit. e.g. $10 would be represented as 1000.
-                 */
-                fun amountUpperBound(amountUpperBound: Long?) =
-                    amountUpperBound(JsonField.ofNullable(amountUpperBound))
-
-                /**
-                 * Alias for [Builder.amountUpperBound].
-                 *
-                 * This unboxed primitive overload exists for backwards compatibility.
-                 */
-                fun amountUpperBound(amountUpperBound: Long) =
-                    amountUpperBound(amountUpperBound as Long?)
-
-                /**
-                 * Sets [Builder.amountUpperBound] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.amountUpperBound] with a well-typed [Long] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun amountUpperBound(amountUpperBound: JsonField<Long>) = apply {
-                    this.amountUpperBound = amountUpperBound
-                }
-
-                /** The ID of the counterparty you expect for this payment. */
-                fun counterpartyId(counterpartyId: String?) =
-                    counterpartyId(JsonField.ofNullable(counterpartyId))
-
-                /**
-                 * Sets [Builder.counterpartyId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.counterpartyId] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun counterpartyId(counterpartyId: JsonField<String>) = apply {
-                    this.counterpartyId = counterpartyId
-                }
-
-                /** Must conform to ISO 4217. Defaults to the currency of the internal account. */
-                fun currency(currency: Currency?) = currency(JsonField.ofNullable(currency))
-
-                /**
-                 * Sets [Builder.currency] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.currency] with a well-typed [Currency] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-                /** The earliest date the payment may come in. Format: yyyy-mm-dd */
-                fun dateLowerBound(dateLowerBound: LocalDate?) =
-                    dateLowerBound(JsonField.ofNullable(dateLowerBound))
-
-                /**
-                 * Sets [Builder.dateLowerBound] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.dateLowerBound] with a well-typed [LocalDate]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun dateLowerBound(dateLowerBound: JsonField<LocalDate>) = apply {
-                    this.dateLowerBound = dateLowerBound
-                }
-
-                /** The latest date the payment may come in. Format: yyyy-mm-dd */
-                fun dateUpperBound(dateUpperBound: LocalDate?) =
-                    dateUpperBound(JsonField.ofNullable(dateUpperBound))
-
-                /**
-                 * Sets [Builder.dateUpperBound] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.dateUpperBound] with a well-typed [LocalDate]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun dateUpperBound(dateUpperBound: JsonField<LocalDate>) = apply {
-                    this.dateUpperBound = dateUpperBound
-                }
-
-                /** An optional description for internal use. */
-                fun description(description: String?) =
-                    description(JsonField.ofNullable(description))
-
-                /**
-                 * Sets [Builder.description] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.description] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun description(description: JsonField<String>) = apply {
-                    this.description = description
-                }
-
-                /**
-                 * One of credit or debit. When you are receiving money, use credit. When you are
-                 * being charged, use debit.
-                 */
-                fun direction(direction: Direction?) = direction(JsonField.ofNullable(direction))
-
-                /**
-                 * Sets [Builder.direction] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.direction] with a well-typed [Direction] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun direction(direction: JsonField<Direction>) = apply {
-                    this.direction = direction
-                }
-
-                /** An optional user-defined 180 character unique identifier. */
-                fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
-
-                /**
-                 * Sets [Builder.externalId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.externalId] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun externalId(externalId: JsonField<String>) = apply {
-                    this.externalId = externalId
-                }
-
-                /** The ID of the Internal Account for the expected payment. */
-                fun internalAccountId(internalAccountId: String?) =
-                    internalAccountId(JsonField.ofNullable(internalAccountId))
-
-                /**
-                 * Sets [Builder.internalAccountId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.internalAccountId] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun internalAccountId(internalAccountId: JsonField<String>) = apply {
-                    this.internalAccountId = internalAccountId
-                }
-
-                /**
-                 * Specifies a ledger transaction object that will be created with the expected
-                 * payment. If the ledger transaction cannot be created, then the expected payment
-                 * creation will fail. The resulting ledger transaction will mirror the status of
-                 * the expected payment.
-                 */
-                fun ledgerTransaction(ledgerTransaction: LedgerTransactionCreateRequest) =
-                    ledgerTransaction(JsonField.of(ledgerTransaction))
-
-                /**
-                 * Sets [Builder.ledgerTransaction] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.ledgerTransaction] with a well-typed
-                 * [LedgerTransactionCreateRequest] value instead. This method is primarily for
-                 * setting the field to an undocumented or not yet supported value.
-                 */
-                fun ledgerTransaction(
-                    ledgerTransaction: JsonField<LedgerTransactionCreateRequest>
-                ) = apply { this.ledgerTransaction = ledgerTransaction }
-
-                /**
-                 * Either ledger_transaction or ledger_transaction_id can be provided. Only a
-                 * pending ledger transaction can be attached upon expected payment creation. Once
-                 * the expected payment is created, the status of the ledger transaction tracks the
-                 * expected payment automatically.
-                 */
-                fun ledgerTransactionId(ledgerTransactionId: String) =
-                    ledgerTransactionId(JsonField.of(ledgerTransactionId))
-
-                /**
-                 * Sets [Builder.ledgerTransactionId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.ledgerTransactionId] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun ledgerTransactionId(ledgerTransactionId: JsonField<String>) = apply {
-                    this.ledgerTransactionId = ledgerTransactionId
-                }
-
-                fun lineItems(lineItems: List<LineItemRequest>) = lineItems(JsonField.of(lineItems))
-
-                /**
-                 * Sets [Builder.lineItems] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.lineItems] with a well-typed
-                 * `List<LineItemRequest>` value instead. This method is primarily for setting the
-                 * field to an undocumented or not yet supported value.
-                 */
-                fun lineItems(lineItems: JsonField<List<LineItemRequest>>) = apply {
-                    this.lineItems = lineItems.map { it.toMutableList() }
-                }
-
-                /**
-                 * Adds a single [LineItemRequest] to [lineItems].
-                 *
-                 * @throws IllegalStateException if the field was previously set to a non-list.
-                 */
-                fun addLineItem(lineItem: LineItemRequest) = apply {
-                    lineItems =
-                        (lineItems ?: JsonField.of(mutableListOf())).also {
-                            checkKnown("lineItems", it).add(lineItem)
-                        }
-                }
-
-                /**
-                 * Additional data represented as key-value pairs. Both the key and value must be
-                 * strings.
-                 */
-                fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-                /**
-                 * Sets [Builder.metadata] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-                /** The reconciliation filters you have for this payment. */
-                fun reconciliationFilters(reconciliationFilters: JsonValue) = apply {
-                    this.reconciliationFilters = reconciliationFilters
-                }
-
-                /** The reconciliation groups you have for this payment. */
-                fun reconciliationGroups(reconciliationGroups: JsonValue) = apply {
-                    this.reconciliationGroups = reconciliationGroups
-                }
-
-                /** An array of reconciliation rule variables for this payment. */
-                fun reconciliationRuleVariables(
-                    reconciliationRuleVariables: List<ReconciliationRule>
-                ) = reconciliationRuleVariables(JsonField.of(reconciliationRuleVariables))
-
-                /**
-                 * Sets [Builder.reconciliationRuleVariables] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.reconciliationRuleVariables] with a well-typed
-                 * `List<ReconciliationRule>` value instead. This method is primarily for setting
-                 * the field to an undocumented or not yet supported value.
-                 */
-                fun reconciliationRuleVariables(
-                    reconciliationRuleVariables: JsonField<List<ReconciliationRule>>
-                ) = apply {
-                    this.reconciliationRuleVariables =
-                        reconciliationRuleVariables.map { it.toMutableList() }
-                }
-
-                /**
-                 * Adds a single [ReconciliationRule] to [reconciliationRuleVariables].
-                 *
-                 * @throws IllegalStateException if the field was previously set to a non-list.
-                 */
-                fun addReconciliationRuleVariable(reconciliationRuleVariable: ReconciliationRule) =
-                    apply {
-                        reconciliationRuleVariables =
-                            (reconciliationRuleVariables ?: JsonField.of(mutableListOf())).also {
-                                checkKnown("reconciliationRuleVariables", it)
-                                    .add(reconciliationRuleVariable)
-                            }
-                    }
-
-                /**
-                 * For `ach`, this field will be passed through on an addenda record. For `wire`
-                 * payments the field will be passed through as the "Originator to Beneficiary
-                 * Information", also known as OBI or Fedwire tag 6000.
-                 */
-                fun remittanceInformation(remittanceInformation: String?) =
-                    remittanceInformation(JsonField.ofNullable(remittanceInformation))
-
-                /**
-                 * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.remittanceInformation] with a well-typed
-                 * [String] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-                    this.remittanceInformation = remittanceInformation
-                }
-
-                /**
-                 * The statement description you expect to see on the transaction. For ACH payments,
-                 * this will be the full line item passed from the bank. For wire payments, this
-                 * will be the OBI field on the wire. For check payments, this will be the memo
-                 * field.
-                 */
-                fun statementDescriptor(statementDescriptor: String?) =
-                    statementDescriptor(JsonField.ofNullable(statementDescriptor))
-
-                /**
-                 * Sets [Builder.statementDescriptor] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.statementDescriptor] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun statementDescriptor(statementDescriptor: JsonField<String>) = apply {
-                    this.statementDescriptor = statementDescriptor
-                }
-
-                /** One of: ach, au_becs, bacs, book, check, eft, rtp, sepa, wire. */
-                fun type(type: ExpectedPaymentType?) = type(JsonField.ofNullable(type))
-
-                /**
-                 * Sets [Builder.type] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.type] with a well-typed [ExpectedPaymentType]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun type(type: JsonField<ExpectedPaymentType>) = apply { this.type = type }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [ExpectedPaymentCreateRequest].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): ExpectedPaymentCreateRequest =
-                    ExpectedPaymentCreateRequest(
-                        amountLowerBound,
-                        amountReconciled,
-                        amountReconciledDirection,
-                        amountUnreconciled,
-                        amountUnreconciledDirection,
-                        amountUpperBound,
-                        counterpartyId,
-                        currency,
-                        dateLowerBound,
-                        dateUpperBound,
-                        description,
-                        direction,
-                        externalId,
-                        internalAccountId,
-                        ledgerTransaction,
-                        ledgerTransactionId,
-                        (lineItems ?: JsonMissing.of()).map { it.toImmutable() },
-                        metadata,
-                        reconciliationFilters,
-                        reconciliationGroups,
-                        (reconciliationRuleVariables ?: JsonMissing.of()).map { it.toImmutable() },
-                        remittanceInformation,
-                        statementDescriptor,
-                        type,
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
-             */
-            fun validate(): ExpectedPaymentCreateRequest = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                amountLowerBound()
-                amountReconciled()
-                amountReconciledDirection()?.validate()
-                amountUnreconciled()
-                amountUnreconciledDirection()?.validate()
-                amountUpperBound()
-                counterpartyId()
-                currency()?.validate()
-                dateLowerBound()
-                dateUpperBound()
-                description()
-                direction()?.validate()
-                externalId()
-                internalAccountId()
-                ledgerTransaction()?.validate()
-                ledgerTransactionId()
-                lineItems()?.forEach { it.validate() }
-                metadata()?.validate()
-                reconciliationRuleVariables()?.forEach { it.validate() }
-                remittanceInformation()
-                statementDescriptor()
-                type()?.validate()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: ModernTreasuryInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            internal fun validity(): Int =
-                (if (amountLowerBound.asKnown() == null) 0 else 1) +
-                    (if (amountReconciled.asKnown() == null) 0 else 1) +
-                    (amountReconciledDirection.asKnown()?.validity() ?: 0) +
-                    (if (amountUnreconciled.asKnown() == null) 0 else 1) +
-                    (amountUnreconciledDirection.asKnown()?.validity() ?: 0) +
-                    (if (amountUpperBound.asKnown() == null) 0 else 1) +
-                    (if (counterpartyId.asKnown() == null) 0 else 1) +
-                    (currency.asKnown()?.validity() ?: 0) +
-                    (if (dateLowerBound.asKnown() == null) 0 else 1) +
-                    (if (dateUpperBound.asKnown() == null) 0 else 1) +
-                    (if (description.asKnown() == null) 0 else 1) +
-                    (direction.asKnown()?.validity() ?: 0) +
-                    (if (externalId.asKnown() == null) 0 else 1) +
-                    (if (internalAccountId.asKnown() == null) 0 else 1) +
-                    (ledgerTransaction.asKnown()?.validity() ?: 0) +
-                    (if (ledgerTransactionId.asKnown() == null) 0 else 1) +
-                    (lineItems.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                    (metadata.asKnown()?.validity() ?: 0) +
-                    (reconciliationRuleVariables.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                    (if (remittanceInformation.asKnown() == null) 0 else 1) +
-                    (if (statementDescriptor.asKnown() == null) 0 else 1) +
-                    (type.asKnown()?.validity() ?: 0)
-
-            /**
-             * One of credit or debit. Indicates whether amount_reconciled is a credit or debit
-             * amount.
-             */
-            class AmountReconciledDirection
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val CREDIT = of("credit")
-
-                    val DEBIT = of("debit")
-
-                    fun of(value: String) = AmountReconciledDirection(JsonField.of(value))
-                }
-
-                /** An enum containing [AmountReconciledDirection]'s known values. */
-                enum class Known {
-                    CREDIT,
-                    DEBIT,
-                }
-
-                /**
-                 * An enum containing [AmountReconciledDirection]'s known values, as well as an
-                 * [_UNKNOWN] member.
-                 *
-                 * An instance of [AmountReconciledDirection] can contain an unknown value in a
-                 * couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    CREDIT,
-                    DEBIT,
-                    /**
-                     * An enum member indicating that [AmountReconciledDirection] was instantiated
-                     * with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        CREDIT -> Value.CREDIT
-                        DEBIT -> Value.DEBIT
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        CREDIT -> Known.CREDIT
-                        DEBIT -> Known.DEBIT
-                        else ->
-                            throw ModernTreasuryInvalidDataException(
-                                "Unknown AmountReconciledDirection: $value"
-                            )
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): AmountReconciledDirection = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is AmountReconciledDirection && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * One of credit or debit. Indicates whether amount_unreconciled is a credit or debit
-             * amount.
-             */
-            class AmountUnreconciledDirection
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val CREDIT = of("credit")
-
-                    val DEBIT = of("debit")
-
-                    fun of(value: String) = AmountUnreconciledDirection(JsonField.of(value))
-                }
-
-                /** An enum containing [AmountUnreconciledDirection]'s known values. */
-                enum class Known {
-                    CREDIT,
-                    DEBIT,
-                }
-
-                /**
-                 * An enum containing [AmountUnreconciledDirection]'s known values, as well as an
-                 * [_UNKNOWN] member.
-                 *
-                 * An instance of [AmountUnreconciledDirection] can contain an unknown value in a
-                 * couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    CREDIT,
-                    DEBIT,
-                    /**
-                     * An enum member indicating that [AmountUnreconciledDirection] was instantiated
-                     * with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        CREDIT -> Value.CREDIT
-                        DEBIT -> Value.DEBIT
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        CREDIT -> Known.CREDIT
-                        DEBIT -> Known.DEBIT
-                        else ->
-                            throw ModernTreasuryInvalidDataException(
-                                "Unknown AmountUnreconciledDirection: $value"
-                            )
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): AmountUnreconciledDirection = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is AmountUnreconciledDirection && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * One of credit or debit. When you are receiving money, use credit. When you are being
-             * charged, use debit.
-             */
-            class Direction @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val CREDIT = of("credit")
-
-                    val DEBIT = of("debit")
-
-                    fun of(value: String) = Direction(JsonField.of(value))
-                }
-
-                /** An enum containing [Direction]'s known values. */
-                enum class Known {
-                    CREDIT,
-                    DEBIT,
-                }
-
-                /**
-                 * An enum containing [Direction]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Direction] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    CREDIT,
-                    DEBIT,
-                    /**
-                     * An enum member indicating that [Direction] was instantiated with an unknown
-                     * value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        CREDIT -> Value.CREDIT
-                        DEBIT -> Value.DEBIT
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        CREDIT -> Known.CREDIT
-                        DEBIT -> Known.DEBIT
-                        else ->
-                            throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Direction = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Direction && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            class LineItemRequest
-            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-            private constructor(
-                private val amount: JsonField<Long>,
-                private val accountingCategoryId: JsonField<String>,
-                private val description: JsonField<String>,
-                private val metadata: JsonField<Metadata>,
-                private val additionalProperties: MutableMap<String, JsonValue>,
-            ) {
-
-                @JsonCreator
-                private constructor(
-                    @JsonProperty("amount")
-                    @ExcludeMissing
-                    amount: JsonField<Long> = JsonMissing.of(),
-                    @JsonProperty("accounting_category_id")
-                    @ExcludeMissing
-                    accountingCategoryId: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("description")
-                    @ExcludeMissing
-                    description: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("metadata")
-                    @ExcludeMissing
-                    metadata: JsonField<Metadata> = JsonMissing.of(),
-                ) : this(amount, accountingCategoryId, description, metadata, mutableMapOf())
-
-                /**
-                 * Value in specified currency's smallest unit. e.g. $10 would be represented
-                 * as 1000.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type or is unexpectedly missing or null (e.g. if the server responded with an
-                 *   unexpected value).
-                 */
-                fun amount(): Long = amount.getRequired("amount")
-
-                /**
-                 * The ID of one of your accounting categories. Note that these will only be
-                 * accessible if your accounting system has been connected.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun accountingCategoryId(): String? =
-                    accountingCategoryId.getNullable("accounting_category_id")
-
-                /**
-                 * A free-form description of the line item.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun description(): String? = description.getNullable("description")
-
-                /**
-                 * Additional data represented as key-value pairs. Both the key and value must be
-                 * strings.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-                /**
-                 * Returns the raw JSON value of [amount].
-                 *
-                 * Unlike [amount], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-                /**
-                 * Returns the raw JSON value of [accountingCategoryId].
-                 *
-                 * Unlike [accountingCategoryId], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("accounting_category_id")
-                @ExcludeMissing
-                fun _accountingCategoryId(): JsonField<String> = accountingCategoryId
-
-                /**
-                 * Returns the raw JSON value of [description].
-                 *
-                 * Unlike [description], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("description")
-                @ExcludeMissing
-                fun _description(): JsonField<String> = description
-
-                /**
-                 * Returns the raw JSON value of [metadata].
-                 *
-                 * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("metadata")
-                @ExcludeMissing
-                fun _metadata(): JsonField<Metadata> = metadata
-
-                @JsonAnySetter
-                private fun putAdditionalProperty(key: String, value: JsonValue) {
-                    additionalProperties.put(key, value)
-                }
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> =
-                    Collections.unmodifiableMap(additionalProperties)
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /**
-                     * Returns a mutable builder for constructing an instance of [LineItemRequest].
-                     *
-                     * The following fields are required:
-                     * ```kotlin
-                     * .amount()
-                     * ```
-                     */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [LineItemRequest]. */
-                class Builder internal constructor() {
-
-                    private var amount: JsonField<Long>? = null
-                    private var accountingCategoryId: JsonField<String> = JsonMissing.of()
-                    private var description: JsonField<String> = JsonMissing.of()
-                    private var metadata: JsonField<Metadata> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(lineItemRequest: LineItemRequest) = apply {
-                        amount = lineItemRequest.amount
-                        accountingCategoryId = lineItemRequest.accountingCategoryId
-                        description = lineItemRequest.description
-                        metadata = lineItemRequest.metadata
-                        additionalProperties = lineItemRequest.additionalProperties.toMutableMap()
-                    }
-
-                    /**
-                     * Value in specified currency's smallest unit. e.g. $10 would be represented
-                     * as 1000.
-                     */
-                    fun amount(amount: Long) = amount(JsonField.of(amount))
-
-                    /**
-                     * Sets [Builder.amount] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.amount] with a well-typed [Long] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-                    /**
-                     * The ID of one of your accounting categories. Note that these will only be
-                     * accessible if your accounting system has been connected.
-                     */
-                    fun accountingCategoryId(accountingCategoryId: String?) =
-                        accountingCategoryId(JsonField.ofNullable(accountingCategoryId))
-
-                    /**
-                     * Sets [Builder.accountingCategoryId] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.accountingCategoryId] with a well-typed
-                     * [String] value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
-                     */
-                    fun accountingCategoryId(accountingCategoryId: JsonField<String>) = apply {
-                        this.accountingCategoryId = accountingCategoryId
-                    }
-
-                    /** A free-form description of the line item. */
-                    fun description(description: String?) =
-                        description(JsonField.ofNullable(description))
-
-                    /**
-                     * Sets [Builder.description] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.description] with a well-typed [String]
-                     * value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
-                     */
-                    fun description(description: JsonField<String>) = apply {
-                        this.description = description
-                    }
-
-                    /**
-                     * Additional data represented as key-value pairs. Both the key and value must
-                     * be strings.
-                     */
-                    fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-                    /**
-                     * Sets [Builder.metadata] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [LineItemRequest].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     *
-                     * The following fields are required:
-                     * ```kotlin
-                     * .amount()
-                     * ```
-                     *
-                     * @throws IllegalStateException if any required field is unset.
-                     */
-                    fun build(): LineItemRequest =
-                        LineItemRequest(
-                            checkRequired("amount", amount),
-                            accountingCategoryId,
-                            description,
-                            metadata,
-                            additionalProperties.toMutableMap(),
-                        )
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): LineItemRequest = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    amount()
-                    accountingCategoryId()
-                    description()
-                    metadata()?.validate()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    (if (amount.asKnown() == null) 0 else 1) +
-                        (if (accountingCategoryId.asKnown() == null) 0 else 1) +
-                        (if (description.asKnown() == null) 0 else 1) +
-                        (metadata.asKnown()?.validity() ?: 0)
-
-                /**
-                 * Additional data represented as key-value pairs. Both the key and value must be
-                 * strings.
-                 */
-                class Metadata
-                @JsonCreator
-                private constructor(
-                    @com.fasterxml.jackson.annotation.JsonValue
-                    private val additionalProperties: Map<String, JsonValue>
-                ) {
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                    fun toBuilder() = Builder().from(this)
-
-                    companion object {
-
-                        /** Returns a mutable builder for constructing an instance of [Metadata]. */
-                        fun builder() = Builder()
-                    }
-
-                    /** A builder for [Metadata]. */
-                    class Builder internal constructor() {
-
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        internal fun from(metadata: Metadata) = apply {
-                            additionalProperties = metadata.additionalProperties.toMutableMap()
-                        }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                putAllAdditionalProperties(additionalProperties)
-                            }
-
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun removeAdditionalProperty(key: String) = apply {
-                            additionalProperties.remove(key)
-                        }
-
-                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                            keys.forEach(::removeAdditionalProperty)
-                        }
-
-                        /**
-                         * Returns an immutable instance of [Metadata].
-                         *
-                         * Further updates to this [Builder] will not mutate the returned instance.
-                         */
-                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
-                    }
-
-                    private var validated: Boolean = false
-
-                    /**
-                     * Validates that the types of all values in this object match their expected
-                     * types recursively.
-                     *
-                     * This method is _not_ forwards compatible with new types from the API for
-                     * existing fields.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if any value type in this object
-                     *   doesn't match its expected type.
-                     */
-                    fun validate(): Metadata = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: ModernTreasuryInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    internal fun validity(): Int =
-                        additionalProperties.count { (_, value) ->
-                            !value.isNull() && !value.isMissing()
-                        }
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Metadata &&
-                            additionalProperties == other.additionalProperties
-                    }
-
-                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                    override fun hashCode(): Int = hashCode
-
-                    override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-                }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is LineItemRequest &&
-                        amount == other.amount &&
-                        accountingCategoryId == other.accountingCategoryId &&
-                        description == other.description &&
-                        metadata == other.metadata &&
-                        additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy {
-                    Objects.hash(
-                        amount,
-                        accountingCategoryId,
-                        description,
-                        metadata,
-                        additionalProperties,
-                    )
-                }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() =
-                    "LineItemRequest{amount=$amount, accountingCategoryId=$accountingCategoryId, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
-            }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            class Metadata
-            @JsonCreator
-            private constructor(
-                @com.fasterxml.jackson.annotation.JsonValue
-                private val additionalProperties: Map<String, JsonValue>
-            ) {
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /** Returns a mutable builder for constructing an instance of [Metadata]. */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [Metadata]. */
-                class Builder internal constructor() {
-
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(metadata: Metadata) = apply {
-                        additionalProperties = metadata.additionalProperties.toMutableMap()
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [Metadata].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Metadata = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    additionalProperties.count { (_, value) ->
-                        !value.isNull() && !value.isMissing()
-                    }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Metadata && additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-            }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is ExpectedPaymentCreateRequest &&
-                    amountLowerBound == other.amountLowerBound &&
-                    amountReconciled == other.amountReconciled &&
-                    amountReconciledDirection == other.amountReconciledDirection &&
-                    amountUnreconciled == other.amountUnreconciled &&
-                    amountUnreconciledDirection == other.amountUnreconciledDirection &&
-                    amountUpperBound == other.amountUpperBound &&
-                    counterpartyId == other.counterpartyId &&
-                    currency == other.currency &&
-                    dateLowerBound == other.dateLowerBound &&
-                    dateUpperBound == other.dateUpperBound &&
-                    description == other.description &&
-                    direction == other.direction &&
-                    externalId == other.externalId &&
-                    internalAccountId == other.internalAccountId &&
-                    ledgerTransaction == other.ledgerTransaction &&
-                    ledgerTransactionId == other.ledgerTransactionId &&
-                    lineItems == other.lineItems &&
-                    metadata == other.metadata &&
-                    reconciliationFilters == other.reconciliationFilters &&
-                    reconciliationGroups == other.reconciliationGroups &&
-                    reconciliationRuleVariables == other.reconciliationRuleVariables &&
-                    remittanceInformation == other.remittanceInformation &&
-                    statementDescriptor == other.statementDescriptor &&
-                    type == other.type &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(
-                    amountLowerBound,
-                    amountReconciled,
-                    amountReconciledDirection,
-                    amountUnreconciled,
-                    amountUnreconciledDirection,
-                    amountUpperBound,
-                    counterpartyId,
-                    currency,
-                    dateLowerBound,
-                    dateUpperBound,
-                    description,
-                    direction,
-                    externalId,
-                    internalAccountId,
-                    ledgerTransaction,
-                    ledgerTransactionId,
-                    lineItems,
-                    metadata,
-                    reconciliationFilters,
-                    reconciliationGroups,
-                    reconciliationRuleVariables,
-                    remittanceInformation,
-                    statementDescriptor,
-                    type,
-                    additionalProperties,
-                )
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "ExpectedPaymentCreateRequest{amountLowerBound=$amountLowerBound, amountReconciled=$amountReconciled, amountReconciledDirection=$amountReconciledDirection, amountUnreconciled=$amountUnreconciled, amountUnreconciledDirection=$amountUnreconciledDirection, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, externalId=$externalId, internalAccountId=$internalAccountId, ledgerTransaction=$ledgerTransaction, ledgerTransactionId=$ledgerTransactionId, lineItems=$lineItems, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, type=$type, additionalProperties=$additionalProperties}"
-        }
-
-        /** At least one of "amount" or "amount_string" is required. */
-        class TransactionCreateRequest
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val asOfDate: JsonField<LocalDate>,
-            private val direction: JsonField<String>,
-            private val internalAccountId: JsonField<String>,
-            private val vendorCode: JsonField<String>,
-            private val vendorCodeType: JsonField<String>,
-            private val amount: JsonField<Long>,
-            private val amountString: JsonField<String>,
-            private val metadata: JsonField<Metadata>,
-            private val posted: JsonField<Boolean>,
-            private val type: JsonField<Type>,
-            private val vendorCustomerId: JsonField<String>,
-            private val vendorDescription: JsonField<String>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("as_of_date")
-                @ExcludeMissing
-                asOfDate: JsonField<LocalDate> = JsonMissing.of(),
-                @JsonProperty("direction")
-                @ExcludeMissing
-                direction: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("internal_account_id")
-                @ExcludeMissing
-                internalAccountId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("vendor_code")
-                @ExcludeMissing
-                vendorCode: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("vendor_code_type")
-                @ExcludeMissing
-                vendorCodeType: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("amount_string")
-                @ExcludeMissing
-                amountString: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("metadata")
-                @ExcludeMissing
-                metadata: JsonField<Metadata> = JsonMissing.of(),
-                @JsonProperty("posted")
-                @ExcludeMissing
-                posted: JsonField<Boolean> = JsonMissing.of(),
-                @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-                @JsonProperty("vendor_customer_id")
-                @ExcludeMissing
-                vendorCustomerId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("vendor_description")
-                @ExcludeMissing
-                vendorDescription: JsonField<String> = JsonMissing.of(),
-            ) : this(
-                asOfDate,
-                direction,
-                internalAccountId,
-                vendorCode,
-                vendorCodeType,
-                amount,
-                amountString,
-                metadata,
-                posted,
-                type,
-                vendorCustomerId,
-                vendorDescription,
-                mutableMapOf(),
-            )
-
-            /**
-             * The date on which the transaction occurred.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun asOfDate(): LocalDate? = asOfDate.getNullable("as_of_date")
-
-            /**
-             * Either `credit` or `debit`.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun direction(): String = direction.getRequired("direction")
-
-            /**
-             * The ID of the relevant Internal Account.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   or is unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun internalAccountId(): String = internalAccountId.getRequired("internal_account_id")
-
-            /**
-             * When applicable, the bank-given code that determines the transaction's category. For
-             * most banks this is the BAI2/BTRS transaction code.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun vendorCode(): String? = vendorCode.getNullable("vendor_code")
-
-            /**
-             * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`,
-             * `bnk_dev`, `cleartouch`, `currencycloud`, `cross_river`, `dwolla`, `evolve`,
-             * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `silvergate`, `swift`, `us_bank`, or
-             * others.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun vendorCodeType(): String? = vendorCodeType.getNullable("vendor_code_type")
-
-            /**
-             * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun amount(): Long? = amount.getNullable("amount")
-
-            /**
-             * The transaction amount as a string, preserving full precision for values that may
-             * exceed safe integer limits in some languages.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun amountString(): String? = amountString.getNullable("amount_string")
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-            /**
-             * This field will be `true` if the transaction has posted to the account.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun posted(): Boolean? = posted.getNullable("posted")
-
-            /**
-             * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
-             * or `book`.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun type(): Type? = type.getNullable("type")
-
-            /**
-             * An identifier given to this transaction by the bank, often `null`.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun vendorCustomerId(): String? = vendorCustomerId.getNullable("vendor_customer_id")
-
-            /**
-             * The transaction detail text that often appears in on your bank statement and in your
-             * banking portal.
-             *
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun vendorDescription(): String? = vendorDescription.getNullable("vendor_description")
-
-            /**
-             * Returns the raw JSON value of [asOfDate].
-             *
-             * Unlike [asOfDate], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("as_of_date")
-            @ExcludeMissing
-            fun _asOfDate(): JsonField<LocalDate> = asOfDate
-
-            /**
-             * Returns the raw JSON value of [direction].
-             *
-             * Unlike [direction], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("direction")
-            @ExcludeMissing
-            fun _direction(): JsonField<String> = direction
-
-            /**
-             * Returns the raw JSON value of [internalAccountId].
-             *
-             * Unlike [internalAccountId], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("internal_account_id")
-            @ExcludeMissing
-            fun _internalAccountId(): JsonField<String> = internalAccountId
-
-            /**
-             * Returns the raw JSON value of [vendorCode].
-             *
-             * Unlike [vendorCode], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("vendor_code")
-            @ExcludeMissing
-            fun _vendorCode(): JsonField<String> = vendorCode
-
-            /**
-             * Returns the raw JSON value of [vendorCodeType].
-             *
-             * Unlike [vendorCodeType], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("vendor_code_type")
-            @ExcludeMissing
-            fun _vendorCodeType(): JsonField<String> = vendorCodeType
-
-            /**
-             * Returns the raw JSON value of [amount].
-             *
-             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-            /**
-             * Returns the raw JSON value of [amountString].
-             *
-             * Unlike [amountString], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("amount_string")
-            @ExcludeMissing
-            fun _amountString(): JsonField<String> = amountString
-
-            /**
-             * Returns the raw JSON value of [metadata].
-             *
-             * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("metadata")
-            @ExcludeMissing
-            fun _metadata(): JsonField<Metadata> = metadata
-
-            /**
-             * Returns the raw JSON value of [posted].
-             *
-             * Unlike [posted], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("posted") @ExcludeMissing fun _posted(): JsonField<Boolean> = posted
-
-            /**
-             * Returns the raw JSON value of [type].
-             *
-             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
-
-            /**
-             * Returns the raw JSON value of [vendorCustomerId].
-             *
-             * Unlike [vendorCustomerId], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("vendor_customer_id")
-            @ExcludeMissing
-            fun _vendorCustomerId(): JsonField<String> = vendorCustomerId
-
-            /**
-             * Returns the raw JSON value of [vendorDescription].
-             *
-             * Unlike [vendorDescription], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("vendor_description")
-            @ExcludeMissing
-            fun _vendorDescription(): JsonField<String> = vendorDescription
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /**
-                 * Returns a mutable builder for constructing an instance of
-                 * [TransactionCreateRequest].
-                 *
-                 * The following fields are required:
-                 * ```kotlin
-                 * .asOfDate()
-                 * .direction()
-                 * .internalAccountId()
-                 * .vendorCode()
-                 * .vendorCodeType()
-                 * ```
-                 */
-                fun builder() = Builder()
-            }
-
-            /** A builder for [TransactionCreateRequest]. */
-            class Builder internal constructor() {
-
-                private var asOfDate: JsonField<LocalDate>? = null
-                private var direction: JsonField<String>? = null
-                private var internalAccountId: JsonField<String>? = null
-                private var vendorCode: JsonField<String>? = null
-                private var vendorCodeType: JsonField<String>? = null
-                private var amount: JsonField<Long> = JsonMissing.of()
-                private var amountString: JsonField<String> = JsonMissing.of()
-                private var metadata: JsonField<Metadata> = JsonMissing.of()
-                private var posted: JsonField<Boolean> = JsonMissing.of()
-                private var type: JsonField<Type> = JsonMissing.of()
-                private var vendorCustomerId: JsonField<String> = JsonMissing.of()
-                private var vendorDescription: JsonField<String> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                internal fun from(transactionCreateRequest: TransactionCreateRequest) = apply {
-                    asOfDate = transactionCreateRequest.asOfDate
-                    direction = transactionCreateRequest.direction
-                    internalAccountId = transactionCreateRequest.internalAccountId
-                    vendorCode = transactionCreateRequest.vendorCode
-                    vendorCodeType = transactionCreateRequest.vendorCodeType
-                    amount = transactionCreateRequest.amount
-                    amountString = transactionCreateRequest.amountString
-                    metadata = transactionCreateRequest.metadata
-                    posted = transactionCreateRequest.posted
-                    type = transactionCreateRequest.type
-                    vendorCustomerId = transactionCreateRequest.vendorCustomerId
-                    vendorDescription = transactionCreateRequest.vendorDescription
-                    additionalProperties =
-                        transactionCreateRequest.additionalProperties.toMutableMap()
-                }
-
-                /** The date on which the transaction occurred. */
-                fun asOfDate(asOfDate: LocalDate?) = asOfDate(JsonField.ofNullable(asOfDate))
-
-                /**
-                 * Sets [Builder.asOfDate] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.asOfDate] with a well-typed [LocalDate] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun asOfDate(asOfDate: JsonField<LocalDate>) = apply { this.asOfDate = asOfDate }
-
-                /** Either `credit` or `debit`. */
-                fun direction(direction: String) = direction(JsonField.of(direction))
-
-                /**
-                 * Sets [Builder.direction] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.direction] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun direction(direction: JsonField<String>) = apply { this.direction = direction }
-
-                /** The ID of the relevant Internal Account. */
-                fun internalAccountId(internalAccountId: String) =
-                    internalAccountId(JsonField.of(internalAccountId))
-
-                /**
-                 * Sets [Builder.internalAccountId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.internalAccountId] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun internalAccountId(internalAccountId: JsonField<String>) = apply {
-                    this.internalAccountId = internalAccountId
-                }
-
-                /**
-                 * When applicable, the bank-given code that determines the transaction's category.
-                 * For most banks this is the BAI2/BTRS transaction code.
-                 */
-                fun vendorCode(vendorCode: String?) = vendorCode(JsonField.ofNullable(vendorCode))
-
-                /**
-                 * Sets [Builder.vendorCode] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.vendorCode] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun vendorCode(vendorCode: JsonField<String>) = apply {
-                    this.vendorCode = vendorCode
-                }
-
-                /**
-                 * The type of `vendor_code` being reported. Can be one of `bai2`, `bankprov`,
-                 * `bnk_dev`, `cleartouch`, `currencycloud`, `cross_river`, `dwolla`, `evolve`,
-                 * `goldman_sachs`, `iso20022`, `jpmc`, `mx`, `silvergate`, `swift`, `us_bank`, or
-                 * others.
-                 */
-                fun vendorCodeType(vendorCodeType: String?) =
-                    vendorCodeType(JsonField.ofNullable(vendorCodeType))
-
-                /**
-                 * Sets [Builder.vendorCodeType] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.vendorCodeType] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun vendorCodeType(vendorCodeType: JsonField<String>) = apply {
-                    this.vendorCodeType = vendorCodeType
-                }
-
-                /**
-                 * Value in specified currency's smallest unit. e.g. $10 would be represented
-                 * as 1000.
-                 */
-                fun amount(amount: Long) = amount(JsonField.of(amount))
-
-                /**
-                 * Sets [Builder.amount] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.amount] with a well-typed [Long] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-                /**
-                 * The transaction amount as a string, preserving full precision for values that may
-                 * exceed safe integer limits in some languages.
-                 */
-                fun amountString(amountString: String) = amountString(JsonField.of(amountString))
-
-                /**
-                 * Sets [Builder.amountString] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.amountString] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun amountString(amountString: JsonField<String>) = apply {
-                    this.amountString = amountString
-                }
-
-                /**
-                 * Additional data represented as key-value pairs. Both the key and value must be
-                 * strings.
-                 */
-                fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-                /**
-                 * Sets [Builder.metadata] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-                /** This field will be `true` if the transaction has posted to the account. */
-                fun posted(posted: Boolean) = posted(JsonField.of(posted))
-
-                /**
-                 * Sets [Builder.posted] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.posted] with a well-typed [Boolean] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun posted(posted: JsonField<Boolean>) = apply { this.posted = posted }
-
-                /**
-                 * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`,
-                 * `rtp`, or `book`.
-                 */
-                fun type(type: Type?) = type(JsonField.ofNullable(type))
-
-                /**
-                 * Sets [Builder.type] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.type] with a well-typed [Type] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun type(type: JsonField<Type>) = apply { this.type = type }
-
-                /** An identifier given to this transaction by the bank, often `null`. */
-                fun vendorCustomerId(vendorCustomerId: String?) =
-                    vendorCustomerId(JsonField.ofNullable(vendorCustomerId))
-
-                /**
-                 * Sets [Builder.vendorCustomerId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.vendorCustomerId] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun vendorCustomerId(vendorCustomerId: JsonField<String>) = apply {
-                    this.vendorCustomerId = vendorCustomerId
-                }
-
-                /**
-                 * The transaction detail text that often appears in on your bank statement and in
-                 * your banking portal.
-                 */
-                fun vendorDescription(vendorDescription: String?) =
-                    vendorDescription(JsonField.ofNullable(vendorDescription))
-
-                /**
-                 * Sets [Builder.vendorDescription] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.vendorDescription] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun vendorDescription(vendorDescription: JsonField<String>) = apply {
-                    this.vendorDescription = vendorDescription
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [TransactionCreateRequest].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```kotlin
-                 * .asOfDate()
-                 * .direction()
-                 * .internalAccountId()
-                 * .vendorCode()
-                 * .vendorCodeType()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
-                 */
-                fun build(): TransactionCreateRequest =
-                    TransactionCreateRequest(
-                        checkRequired("asOfDate", asOfDate),
-                        checkRequired("direction", direction),
-                        checkRequired("internalAccountId", internalAccountId),
-                        checkRequired("vendorCode", vendorCode),
-                        checkRequired("vendorCodeType", vendorCodeType),
-                        amount,
-                        amountString,
-                        metadata,
-                        posted,
-                        type,
-                        vendorCustomerId,
-                        vendorDescription,
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
-             */
-            fun validate(): TransactionCreateRequest = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                asOfDate()
-                direction()
-                internalAccountId()
-                vendorCode()
-                vendorCodeType()
-                amount()
-                amountString()
-                metadata()?.validate()
-                posted()
-                type()?.validate()
-                vendorCustomerId()
-                vendorDescription()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: ModernTreasuryInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            internal fun validity(): Int =
-                (if (asOfDate.asKnown() == null) 0 else 1) +
-                    (if (direction.asKnown() == null) 0 else 1) +
-                    (if (internalAccountId.asKnown() == null) 0 else 1) +
-                    (if (vendorCode.asKnown() == null) 0 else 1) +
-                    (if (vendorCodeType.asKnown() == null) 0 else 1) +
-                    (if (amount.asKnown() == null) 0 else 1) +
-                    (if (amountString.asKnown() == null) 0 else 1) +
-                    (metadata.asKnown()?.validity() ?: 0) +
-                    (if (posted.asKnown() == null) 0 else 1) +
-                    (type.asKnown()?.validity() ?: 0) +
-                    (if (vendorCustomerId.asKnown() == null) 0 else 1) +
-                    (if (vendorDescription.asKnown() == null) 0 else 1)
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            class Metadata
-            @JsonCreator
-            private constructor(
-                @com.fasterxml.jackson.annotation.JsonValue
-                private val additionalProperties: Map<String, JsonValue>
-            ) {
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /** Returns a mutable builder for constructing an instance of [Metadata]. */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [Metadata]. */
-                class Builder internal constructor() {
-
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(metadata: Metadata) = apply {
-                        additionalProperties = metadata.additionalProperties.toMutableMap()
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [Metadata].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Metadata = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    additionalProperties.count { (_, value) ->
-                        !value.isNull() && !value.isMissing()
-                    }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Metadata && additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-            }
-
-            /**
-             * The type of the transaction. Examples could be `card, `ach`, `wire`, `check`, `rtp`,
-             * or `book`.
-             */
-            class Type @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val ACH = of("ach")
-
-                    val AU_BECS = of("au_becs")
-
-                    val BACS = of("bacs")
-
-                    val BOOK = of("book")
-
-                    val CARD = of("card")
-
-                    val CHATS = of("chats")
-
-                    val CHECK = of("check")
-
-                    val CROSS_BORDER = of("cross_border")
-
-                    val DK_NETS = of("dk_nets")
-
-                    val EFT = of("eft")
-
-                    val GB_FPS = of("gb_fps")
-
-                    val MASAV = of("masav")
-
-                    val MX_CCEN = of("mx_ccen")
-
-                    val NEFT = of("neft")
-
-                    val NICS = of("nics")
-
-                    val NZ_BECS = of("nz_becs")
-
-                    val PL_ELIXIR = of("pl_elixir")
-
-                    val RTP = of("rtp")
-
-                    val SE_BANKGIROT = of("se_bankgirot")
-
-                    val SEPA = of("sepa")
-
-                    val SG_GIRO = of("sg_giro")
-
-                    val SIC = of("sic")
-
-                    val STABLECOIN = of("stablecoin")
-
-                    val WIRE = of("wire")
-
-                    val ZENGIN = of("zengin")
-
-                    val OTHER = of("other")
-
-                    fun of(value: String) = Type(JsonField.of(value))
-                }
-
-                /** An enum containing [Type]'s known values. */
-                enum class Known {
-                    ACH,
-                    AU_BECS,
-                    BACS,
-                    BOOK,
-                    CARD,
-                    CHATS,
-                    CHECK,
-                    CROSS_BORDER,
-                    DK_NETS,
-                    EFT,
-                    GB_FPS,
-                    MASAV,
-                    MX_CCEN,
-                    NEFT,
-                    NICS,
-                    NZ_BECS,
-                    PL_ELIXIR,
-                    RTP,
-                    SE_BANKGIROT,
-                    SEPA,
-                    SG_GIRO,
-                    SIC,
-                    STABLECOIN,
-                    WIRE,
-                    ZENGIN,
-                    OTHER,
-                }
-
-                /**
-                 * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Type] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    ACH,
-                    AU_BECS,
-                    BACS,
-                    BOOK,
-                    CARD,
-                    CHATS,
-                    CHECK,
-                    CROSS_BORDER,
-                    DK_NETS,
-                    EFT,
-                    GB_FPS,
-                    MASAV,
-                    MX_CCEN,
-                    NEFT,
-                    NICS,
-                    NZ_BECS,
-                    PL_ELIXIR,
-                    RTP,
-                    SE_BANKGIROT,
-                    SEPA,
-                    SG_GIRO,
-                    SIC,
-                    STABLECOIN,
-                    WIRE,
-                    ZENGIN,
-                    OTHER,
-                    /**
-                     * An enum member indicating that [Type] was instantiated with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        ACH -> Value.ACH
-                        AU_BECS -> Value.AU_BECS
-                        BACS -> Value.BACS
-                        BOOK -> Value.BOOK
-                        CARD -> Value.CARD
-                        CHATS -> Value.CHATS
-                        CHECK -> Value.CHECK
-                        CROSS_BORDER -> Value.CROSS_BORDER
-                        DK_NETS -> Value.DK_NETS
-                        EFT -> Value.EFT
-                        GB_FPS -> Value.GB_FPS
-                        MASAV -> Value.MASAV
-                        MX_CCEN -> Value.MX_CCEN
-                        NEFT -> Value.NEFT
-                        NICS -> Value.NICS
-                        NZ_BECS -> Value.NZ_BECS
-                        PL_ELIXIR -> Value.PL_ELIXIR
-                        RTP -> Value.RTP
-                        SE_BANKGIROT -> Value.SE_BANKGIROT
-                        SEPA -> Value.SEPA
-                        SG_GIRO -> Value.SG_GIRO
-                        SIC -> Value.SIC
-                        STABLECOIN -> Value.STABLECOIN
-                        WIRE -> Value.WIRE
-                        ZENGIN -> Value.ZENGIN
-                        OTHER -> Value.OTHER
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        ACH -> Known.ACH
-                        AU_BECS -> Known.AU_BECS
-                        BACS -> Known.BACS
-                        BOOK -> Known.BOOK
-                        CARD -> Known.CARD
-                        CHATS -> Known.CHATS
-                        CHECK -> Known.CHECK
-                        CROSS_BORDER -> Known.CROSS_BORDER
-                        DK_NETS -> Known.DK_NETS
-                        EFT -> Known.EFT
-                        GB_FPS -> Known.GB_FPS
-                        MASAV -> Known.MASAV
-                        MX_CCEN -> Known.MX_CCEN
-                        NEFT -> Known.NEFT
-                        NICS -> Known.NICS
-                        NZ_BECS -> Known.NZ_BECS
-                        PL_ELIXIR -> Known.PL_ELIXIR
-                        RTP -> Known.RTP
-                        SE_BANKGIROT -> Known.SE_BANKGIROT
-                        SEPA -> Known.SEPA
-                        SG_GIRO -> Known.SG_GIRO
-                        SIC -> Known.SIC
-                        STABLECOIN -> Known.STABLECOIN
-                        WIRE -> Known.WIRE
-                        ZENGIN -> Known.ZENGIN
-                        OTHER -> Known.OTHER
-                        else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Type = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Type && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is TransactionCreateRequest &&
-                    asOfDate == other.asOfDate &&
-                    direction == other.direction &&
-                    internalAccountId == other.internalAccountId &&
-                    vendorCode == other.vendorCode &&
-                    vendorCodeType == other.vendorCodeType &&
-                    amount == other.amount &&
-                    amountString == other.amountString &&
-                    metadata == other.metadata &&
-                    posted == other.posted &&
-                    type == other.type &&
-                    vendorCustomerId == other.vendorCustomerId &&
-                    vendorDescription == other.vendorDescription &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(
-                    asOfDate,
-                    direction,
-                    internalAccountId,
-                    vendorCode,
-                    vendorCodeType,
-                    amount,
-                    amountString,
-                    metadata,
-                    posted,
-                    type,
-                    vendorCustomerId,
-                    vendorDescription,
-                    additionalProperties,
-                )
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "TransactionCreateRequest{asOfDate=$asOfDate, direction=$direction, internalAccountId=$internalAccountId, vendorCode=$vendorCode, vendorCodeType=$vendorCodeType, amount=$amount, amountString=$amountString, metadata=$metadata, posted=$posted, type=$type, vendorCustomerId=$vendorCustomerId, vendorDescription=$vendorDescription, additionalProperties=$additionalProperties}"
-        }
-
         class Id
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
@@ -12454,51 +1912,53 @@ private constructor(
         class PaymentOrderUpdateRequestWithId
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val id: JsonField<String>,
             private val accounting: JsonField<Accounting>,
             private val accountingCategoryId: JsonField<String>,
             private val accountingLedgerClassId: JsonField<String>,
             private val amount: JsonField<Long>,
-            private val chargeBearer: JsonField<ChargeBearer>,
+            private val chargeBearer: JsonField<PaymentOrderUpdateRequest.ChargeBearer>,
             private val counterpartyId: JsonField<String>,
             private val currency: JsonField<Currency>,
             private val description: JsonField<String>,
-            private val direction: JsonField<Direction>,
+            private val direction: JsonField<PaymentOrderUpdateRequest.Direction>,
             private val effectiveDate: JsonField<LocalDate>,
             private val expiresAt: JsonField<OffsetDateTime>,
             private val externalId: JsonField<String>,
-            private val fallbackType: JsonField<FallbackType>,
+            private val fallbackType: JsonField<PaymentOrderUpdateRequest.FallbackType>,
             private val foreignExchangeContract: JsonField<String>,
-            private val foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>,
+            private val foreignExchangeIndicator:
+                JsonField<PaymentOrderUpdateRequest.ForeignExchangeIndicator>,
             private val lineItems: JsonField<List<LineItemRequest>>,
-            private val metadata: JsonField<Metadata>,
+            private val metadata: JsonField<PaymentOrderUpdateRequest.Metadata>,
             private val nsfProtected: JsonField<Boolean>,
             private val originatingAccountId: JsonField<String>,
-            private val originatingPartyAddress: JsonField<OriginatingPartyAddress>,
+            private val originatingPartyAddress:
+                JsonField<PaymentOrderUpdateRequest.OriginatingPartyAddress>,
             private val originatingPartyName: JsonField<String>,
             private val originatingSecondaryPartyName: JsonField<String>,
-            private val priority: JsonField<Priority>,
+            private val priority: JsonField<PaymentOrderUpdateRequest.Priority>,
             private val processAfter: JsonField<OffsetDateTime>,
             private val purpose: JsonField<String>,
-            private val receivingAccount: JsonField<ReceivingAccount>,
+            private val receivingAccount: JsonField<PaymentOrderUpdateRequest.ReceivingAccount>,
             private val receivingAccountId: JsonField<String>,
-            private val reconciliationStatus: JsonField<ReconciliationStatus>,
+            private val reconciliationStatus:
+                JsonField<PaymentOrderUpdateRequest.ReconciliationStatus>,
             private val remittanceInformation: JsonField<String>,
             private val sendRemittanceAdvice: JsonField<Boolean>,
             private val statementDescriptor: JsonField<String>,
-            private val status: JsonField<Status>,
+            private val status: JsonField<PaymentOrderUpdateRequest.Status>,
             private val subtype: JsonField<PaymentOrderSubtype>,
             private val type: JsonField<PaymentOrderType>,
             private val ultimateOriginatingPartyIdentifier: JsonField<String>,
             private val ultimateOriginatingPartyName: JsonField<String>,
             private val ultimateReceivingPartyIdentifier: JsonField<String>,
             private val ultimateReceivingPartyName: JsonField<String>,
+            private val id: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("accounting")
                 @ExcludeMissing
                 accounting: JsonField<Accounting> = JsonMissing.of(),
@@ -12511,7 +1971,7 @@ private constructor(
                 @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("charge_bearer")
                 @ExcludeMissing
-                chargeBearer: JsonField<ChargeBearer> = JsonMissing.of(),
+                chargeBearer: JsonField<PaymentOrderUpdateRequest.ChargeBearer> = JsonMissing.of(),
                 @JsonProperty("counterparty_id")
                 @ExcludeMissing
                 counterpartyId: JsonField<String> = JsonMissing.of(),
@@ -12523,7 +1983,7 @@ private constructor(
                 description: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("direction")
                 @ExcludeMissing
-                direction: JsonField<Direction> = JsonMissing.of(),
+                direction: JsonField<PaymentOrderUpdateRequest.Direction> = JsonMissing.of(),
                 @JsonProperty("effective_date")
                 @ExcludeMissing
                 effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
@@ -12535,19 +1995,21 @@ private constructor(
                 externalId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("fallback_type")
                 @ExcludeMissing
-                fallbackType: JsonField<FallbackType> = JsonMissing.of(),
+                fallbackType: JsonField<PaymentOrderUpdateRequest.FallbackType> = JsonMissing.of(),
                 @JsonProperty("foreign_exchange_contract")
                 @ExcludeMissing
                 foreignExchangeContract: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("foreign_exchange_indicator")
                 @ExcludeMissing
-                foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> = JsonMissing.of(),
+                foreignExchangeIndicator:
+                    JsonField<PaymentOrderUpdateRequest.ForeignExchangeIndicator> =
+                    JsonMissing.of(),
                 @JsonProperty("line_items")
                 @ExcludeMissing
                 lineItems: JsonField<List<LineItemRequest>> = JsonMissing.of(),
                 @JsonProperty("metadata")
                 @ExcludeMissing
-                metadata: JsonField<Metadata> = JsonMissing.of(),
+                metadata: JsonField<PaymentOrderUpdateRequest.Metadata> = JsonMissing.of(),
                 @JsonProperty("nsf_protected")
                 @ExcludeMissing
                 nsfProtected: JsonField<Boolean> = JsonMissing.of(),
@@ -12556,7 +2018,9 @@ private constructor(
                 originatingAccountId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("originating_party_address")
                 @ExcludeMissing
-                originatingPartyAddress: JsonField<OriginatingPartyAddress> = JsonMissing.of(),
+                originatingPartyAddress:
+                    JsonField<PaymentOrderUpdateRequest.OriginatingPartyAddress> =
+                    JsonMissing.of(),
                 @JsonProperty("originating_party_name")
                 @ExcludeMissing
                 originatingPartyName: JsonField<String> = JsonMissing.of(),
@@ -12565,7 +2029,7 @@ private constructor(
                 originatingSecondaryPartyName: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("priority")
                 @ExcludeMissing
-                priority: JsonField<Priority> = JsonMissing.of(),
+                priority: JsonField<PaymentOrderUpdateRequest.Priority> = JsonMissing.of(),
                 @JsonProperty("process_after")
                 @ExcludeMissing
                 processAfter: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -12574,13 +2038,15 @@ private constructor(
                 purpose: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("receiving_account")
                 @ExcludeMissing
-                receivingAccount: JsonField<ReceivingAccount> = JsonMissing.of(),
+                receivingAccount: JsonField<PaymentOrderUpdateRequest.ReceivingAccount> =
+                    JsonMissing.of(),
                 @JsonProperty("receiving_account_id")
                 @ExcludeMissing
                 receivingAccountId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("reconciliation_status")
                 @ExcludeMissing
-                reconciliationStatus: JsonField<ReconciliationStatus> = JsonMissing.of(),
+                reconciliationStatus: JsonField<PaymentOrderUpdateRequest.ReconciliationStatus> =
+                    JsonMissing.of(),
                 @JsonProperty("remittance_information")
                 @ExcludeMissing
                 remittanceInformation: JsonField<String> = JsonMissing.of(),
@@ -12592,7 +2058,7 @@ private constructor(
                 statementDescriptor: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("status")
                 @ExcludeMissing
-                status: JsonField<Status> = JsonMissing.of(),
+                status: JsonField<PaymentOrderUpdateRequest.Status> = JsonMissing.of(),
                 @JsonProperty("subtype")
                 @ExcludeMissing
                 subtype: JsonField<PaymentOrderSubtype> = JsonMissing.of(),
@@ -12611,8 +2077,8 @@ private constructor(
                 @JsonProperty("ultimate_receiving_party_name")
                 @ExcludeMissing
                 ultimateReceivingPartyName: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
             ) : this(
-                id,
                 accounting,
                 accountingCategoryId,
                 accountingLedgerClassId,
@@ -12651,14 +2117,51 @@ private constructor(
                 ultimateOriginatingPartyName,
                 ultimateReceivingPartyIdentifier,
                 ultimateReceivingPartyName,
+                id,
                 mutableMapOf(),
             )
 
-            /**
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun id(): String? = id.getNullable("id")
+            fun toPaymentOrderUpdateRequest(): PaymentOrderUpdateRequest =
+                PaymentOrderUpdateRequest.builder()
+                    .accounting(accounting)
+                    .accountingCategoryId(accountingCategoryId)
+                    .accountingLedgerClassId(accountingLedgerClassId)
+                    .amount(amount)
+                    .chargeBearer(chargeBearer)
+                    .counterpartyId(counterpartyId)
+                    .currency(currency)
+                    .description(description)
+                    .direction(direction)
+                    .effectiveDate(effectiveDate)
+                    .expiresAt(expiresAt)
+                    .externalId(externalId)
+                    .fallbackType(fallbackType)
+                    .foreignExchangeContract(foreignExchangeContract)
+                    .foreignExchangeIndicator(foreignExchangeIndicator)
+                    .lineItems(lineItems)
+                    .metadata(metadata)
+                    .nsfProtected(nsfProtected)
+                    .originatingAccountId(originatingAccountId)
+                    .originatingPartyAddress(originatingPartyAddress)
+                    .originatingPartyName(originatingPartyName)
+                    .originatingSecondaryPartyName(originatingSecondaryPartyName)
+                    .priority(priority)
+                    .processAfter(processAfter)
+                    .purpose(purpose)
+                    .receivingAccount(receivingAccount)
+                    .receivingAccountId(receivingAccountId)
+                    .reconciliationStatus(reconciliationStatus)
+                    .remittanceInformation(remittanceInformation)
+                    .sendRemittanceAdvice(sendRemittanceAdvice)
+                    .statementDescriptor(statementDescriptor)
+                    .status(status)
+                    .subtype(subtype)
+                    .type(type)
+                    .ultimateOriginatingPartyIdentifier(ultimateOriginatingPartyIdentifier)
+                    .ultimateOriginatingPartyName(ultimateOriginatingPartyName)
+                    .ultimateReceivingPartyIdentifier(ultimateReceivingPartyIdentifier)
+                    .ultimateReceivingPartyName(ultimateReceivingPartyName)
+                    .build()
 
             /**
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
@@ -12706,7 +2209,8 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun chargeBearer(): ChargeBearer? = chargeBearer.getNullable("charge_bearer")
+            fun chargeBearer(): PaymentOrderUpdateRequest.ChargeBearer? =
+                chargeBearer.getNullable("charge_bearer")
 
             /**
              * Required when receiving_account_id is passed the ID of an external account.
@@ -12741,7 +2245,8 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun direction(): Direction? = direction.getNullable("direction")
+            fun direction(): PaymentOrderUpdateRequest.Direction? =
+                direction.getNullable("direction")
 
             /**
              * Date transactions are to be posted to the participants' account. Defaults to the
@@ -12777,7 +2282,8 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun fallbackType(): FallbackType? = fallbackType.getNullable("fallback_type")
+            fun fallbackType(): PaymentOrderUpdateRequest.FallbackType? =
+                fallbackType.getNullable("fallback_type")
 
             /**
              * If present, indicates a specific foreign exchange contract number that has been
@@ -12797,7 +2303,7 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun foreignExchangeIndicator(): ForeignExchangeIndicator? =
+            fun foreignExchangeIndicator(): PaymentOrderUpdateRequest.ForeignExchangeIndicator? =
                 foreignExchangeIndicator.getNullable("foreign_exchange_indicator")
 
             /**
@@ -12815,7 +2321,7 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun metadata(): Metadata? = metadata.getNullable("metadata")
+            fun metadata(): PaymentOrderUpdateRequest.Metadata? = metadata.getNullable("metadata")
 
             /**
              * A boolean to determine if NSF Protection is enabled for this payment order. Note that
@@ -12842,7 +2348,7 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun originatingPartyAddress(): OriginatingPartyAddress? =
+            fun originatingPartyAddress(): PaymentOrderUpdateRequest.OriginatingPartyAddress? =
                 originatingPartyAddress.getNullable("originating_party_address")
 
             /**
@@ -12875,7 +2381,7 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun priority(): Priority? = priority.getNullable("priority")
+            fun priority(): PaymentOrderUpdateRequest.Priority? = priority.getNullable("priority")
 
             /**
              * If present, Modern Treasury will not process the payment until after this time. If
@@ -12906,7 +2412,7 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun receivingAccount(): ReceivingAccount? =
+            fun receivingAccount(): PaymentOrderUpdateRequest.ReceivingAccount? =
                 receivingAccount.getNullable("receiving_account")
 
             /**
@@ -12926,7 +2432,7 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun reconciliationStatus(): ReconciliationStatus? =
+            fun reconciliationStatus(): PaymentOrderUpdateRequest.ReconciliationStatus? =
                 reconciliationStatus.getNullable("reconciliation_status")
 
             /**
@@ -12971,7 +2477,7 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun status(): Status? = status.getNullable("status")
+            fun status(): PaymentOrderUpdateRequest.Status? = status.getNullable("status")
 
             /**
              * An additional layer of classification for the type of payment order you are doing.
@@ -13040,11 +2546,10 @@ private constructor(
                 ultimateReceivingPartyName.getNullable("ultimate_receiving_party_name")
 
             /**
-             * Returns the raw JSON value of [id].
-             *
-             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
              */
-            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+            fun id(): String? = id.getNullable("id")
 
             /**
              * Returns the raw JSON value of [accounting].
@@ -13094,7 +2599,7 @@ private constructor(
              */
             @JsonProperty("charge_bearer")
             @ExcludeMissing
-            fun _chargeBearer(): JsonField<ChargeBearer> = chargeBearer
+            fun _chargeBearer(): JsonField<PaymentOrderUpdateRequest.ChargeBearer> = chargeBearer
 
             /**
              * Returns the raw JSON value of [counterpartyId].
@@ -13134,7 +2639,7 @@ private constructor(
              */
             @JsonProperty("direction")
             @ExcludeMissing
-            fun _direction(): JsonField<Direction> = direction
+            fun _direction(): JsonField<PaymentOrderUpdateRequest.Direction> = direction
 
             /**
              * Returns the raw JSON value of [effectiveDate].
@@ -13174,7 +2679,7 @@ private constructor(
              */
             @JsonProperty("fallback_type")
             @ExcludeMissing
-            fun _fallbackType(): JsonField<FallbackType> = fallbackType
+            fun _fallbackType(): JsonField<PaymentOrderUpdateRequest.FallbackType> = fallbackType
 
             /**
              * Returns the raw JSON value of [foreignExchangeContract].
@@ -13194,7 +2699,8 @@ private constructor(
              */
             @JsonProperty("foreign_exchange_indicator")
             @ExcludeMissing
-            fun _foreignExchangeIndicator(): JsonField<ForeignExchangeIndicator> =
+            fun _foreignExchangeIndicator():
+                JsonField<PaymentOrderUpdateRequest.ForeignExchangeIndicator> =
                 foreignExchangeIndicator
 
             /**
@@ -13215,7 +2721,7 @@ private constructor(
              */
             @JsonProperty("metadata")
             @ExcludeMissing
-            fun _metadata(): JsonField<Metadata> = metadata
+            fun _metadata(): JsonField<PaymentOrderUpdateRequest.Metadata> = metadata
 
             /**
              * Returns the raw JSON value of [nsfProtected].
@@ -13245,7 +2751,8 @@ private constructor(
              */
             @JsonProperty("originating_party_address")
             @ExcludeMissing
-            fun _originatingPartyAddress(): JsonField<OriginatingPartyAddress> =
+            fun _originatingPartyAddress():
+                JsonField<PaymentOrderUpdateRequest.OriginatingPartyAddress> =
                 originatingPartyAddress
 
             /**
@@ -13276,7 +2783,7 @@ private constructor(
              */
             @JsonProperty("priority")
             @ExcludeMissing
-            fun _priority(): JsonField<Priority> = priority
+            fun _priority(): JsonField<PaymentOrderUpdateRequest.Priority> = priority
 
             /**
              * Returns the raw JSON value of [processAfter].
@@ -13303,7 +2810,8 @@ private constructor(
              */
             @JsonProperty("receiving_account")
             @ExcludeMissing
-            fun _receivingAccount(): JsonField<ReceivingAccount> = receivingAccount
+            fun _receivingAccount(): JsonField<PaymentOrderUpdateRequest.ReceivingAccount> =
+                receivingAccount
 
             /**
              * Returns the raw JSON value of [receivingAccountId].
@@ -13323,7 +2831,8 @@ private constructor(
              */
             @JsonProperty("reconciliation_status")
             @ExcludeMissing
-            fun _reconciliationStatus(): JsonField<ReconciliationStatus> = reconciliationStatus
+            fun _reconciliationStatus(): JsonField<PaymentOrderUpdateRequest.ReconciliationStatus> =
+                reconciliationStatus
 
             /**
              * Returns the raw JSON value of [remittanceInformation].
@@ -13360,7 +2869,9 @@ private constructor(
              *
              * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+            @JsonProperty("status")
+            @ExcludeMissing
+            fun _status(): JsonField<PaymentOrderUpdateRequest.Status> = status
 
             /**
              * Returns the raw JSON value of [subtype].
@@ -13420,6 +2931,13 @@ private constructor(
             @ExcludeMissing
             fun _ultimateReceivingPartyName(): JsonField<String> = ultimateReceivingPartyName
 
+            /**
+             * Returns the raw JSON value of [id].
+             *
+             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
                 additionalProperties.put(key, value)
@@ -13444,53 +2962,63 @@ private constructor(
             /** A builder for [PaymentOrderUpdateRequestWithId]. */
             class Builder internal constructor() {
 
-                private var id: JsonField<String> = JsonMissing.of()
                 private var accounting: JsonField<Accounting> = JsonMissing.of()
                 private var accountingCategoryId: JsonField<String> = JsonMissing.of()
                 private var accountingLedgerClassId: JsonField<String> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
-                private var chargeBearer: JsonField<ChargeBearer> = JsonMissing.of()
+                private var chargeBearer: JsonField<PaymentOrderUpdateRequest.ChargeBearer> =
+                    JsonMissing.of()
                 private var counterpartyId: JsonField<String> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var description: JsonField<String> = JsonMissing.of()
-                private var direction: JsonField<Direction> = JsonMissing.of()
+                private var direction: JsonField<PaymentOrderUpdateRequest.Direction> =
+                    JsonMissing.of()
                 private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
                 private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var externalId: JsonField<String> = JsonMissing.of()
-                private var fallbackType: JsonField<FallbackType> = JsonMissing.of()
+                private var fallbackType: JsonField<PaymentOrderUpdateRequest.FallbackType> =
+                    JsonMissing.of()
                 private var foreignExchangeContract: JsonField<String> = JsonMissing.of()
-                private var foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> =
+                private var foreignExchangeIndicator:
+                    JsonField<PaymentOrderUpdateRequest.ForeignExchangeIndicator> =
                     JsonMissing.of()
                 private var lineItems: JsonField<MutableList<LineItemRequest>>? = null
-                private var metadata: JsonField<Metadata> = JsonMissing.of()
+                private var metadata: JsonField<PaymentOrderUpdateRequest.Metadata> =
+                    JsonMissing.of()
                 private var nsfProtected: JsonField<Boolean> = JsonMissing.of()
                 private var originatingAccountId: JsonField<String> = JsonMissing.of()
-                private var originatingPartyAddress: JsonField<OriginatingPartyAddress> =
+                private var originatingPartyAddress:
+                    JsonField<PaymentOrderUpdateRequest.OriginatingPartyAddress> =
                     JsonMissing.of()
                 private var originatingPartyName: JsonField<String> = JsonMissing.of()
                 private var originatingSecondaryPartyName: JsonField<String> = JsonMissing.of()
-                private var priority: JsonField<Priority> = JsonMissing.of()
+                private var priority: JsonField<PaymentOrderUpdateRequest.Priority> =
+                    JsonMissing.of()
                 private var processAfter: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var purpose: JsonField<String> = JsonMissing.of()
-                private var receivingAccount: JsonField<ReceivingAccount> = JsonMissing.of()
+                private var receivingAccount:
+                    JsonField<PaymentOrderUpdateRequest.ReceivingAccount> =
+                    JsonMissing.of()
                 private var receivingAccountId: JsonField<String> = JsonMissing.of()
-                private var reconciliationStatus: JsonField<ReconciliationStatus> = JsonMissing.of()
+                private var reconciliationStatus:
+                    JsonField<PaymentOrderUpdateRequest.ReconciliationStatus> =
+                    JsonMissing.of()
                 private var remittanceInformation: JsonField<String> = JsonMissing.of()
                 private var sendRemittanceAdvice: JsonField<Boolean> = JsonMissing.of()
                 private var statementDescriptor: JsonField<String> = JsonMissing.of()
-                private var status: JsonField<Status> = JsonMissing.of()
+                private var status: JsonField<PaymentOrderUpdateRequest.Status> = JsonMissing.of()
                 private var subtype: JsonField<PaymentOrderSubtype> = JsonMissing.of()
                 private var type: JsonField<PaymentOrderType> = JsonMissing.of()
                 private var ultimateOriginatingPartyIdentifier: JsonField<String> = JsonMissing.of()
                 private var ultimateOriginatingPartyName: JsonField<String> = JsonMissing.of()
                 private var ultimateReceivingPartyIdentifier: JsonField<String> = JsonMissing.of()
                 private var ultimateReceivingPartyName: JsonField<String> = JsonMissing.of()
+                private var id: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(
                     paymentOrderUpdateRequestWithId: PaymentOrderUpdateRequestWithId
                 ) = apply {
-                    id = paymentOrderUpdateRequestWithId.id
                     accounting = paymentOrderUpdateRequestWithId.accounting
                     accountingCategoryId = paymentOrderUpdateRequestWithId.accountingCategoryId
                     accountingLedgerClassId =
@@ -13538,20 +3066,10 @@ private constructor(
                         paymentOrderUpdateRequestWithId.ultimateReceivingPartyIdentifier
                     ultimateReceivingPartyName =
                         paymentOrderUpdateRequestWithId.ultimateReceivingPartyName
+                    id = paymentOrderUpdateRequestWithId.id
                     additionalProperties =
                         paymentOrderUpdateRequestWithId.additionalProperties.toMutableMap()
                 }
-
-                fun id(id: String) = id(JsonField.of(id))
-
-                /**
-                 * Sets [Builder.id] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.id] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 @Deprecated("deprecated")
                 fun accounting(accounting: Accounting) = accounting(JsonField.of(accounting))
@@ -13628,19 +3146,20 @@ private constructor(
                  * https://docs.moderntreasury.com/payments/docs/charge-bearer to understand the
                  * differences between the options.
                  */
-                fun chargeBearer(chargeBearer: ChargeBearer?) =
+                fun chargeBearer(chargeBearer: PaymentOrderUpdateRequest.ChargeBearer?) =
                     chargeBearer(JsonField.ofNullable(chargeBearer))
 
                 /**
                  * Sets [Builder.chargeBearer] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.chargeBearer] with a well-typed [ChargeBearer]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
+                 * You should usually call [Builder.chargeBearer] with a well-typed
+                 * [PaymentOrderUpdateRequest.ChargeBearer] value instead. This method is primarily
+                 * for setting the field to an undocumented or not yet supported value.
                  */
-                fun chargeBearer(chargeBearer: JsonField<ChargeBearer>) = apply {
-                    this.chargeBearer = chargeBearer
-                }
+                fun chargeBearer(chargeBearer: JsonField<PaymentOrderUpdateRequest.ChargeBearer>) =
+                    apply {
+                        this.chargeBearer = chargeBearer
+                    }
 
                 /** Required when receiving_account_id is passed the ID of an external account. */
                 fun counterpartyId(counterpartyId: String?) =
@@ -13690,16 +3209,17 @@ private constructor(
                  * `debit` pulls money from someone else's account to your own. Note that wire, rtp,
                  * and check payments will always be `credit`.
                  */
-                fun direction(direction: Direction) = direction(JsonField.of(direction))
+                fun direction(direction: PaymentOrderUpdateRequest.Direction) =
+                    direction(JsonField.of(direction))
 
                 /**
                  * Sets [Builder.direction] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.direction] with a well-typed [Direction] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.direction] with a well-typed
+                 * [PaymentOrderUpdateRequest.Direction] value instead. This method is primarily for
+                 * setting the field to an undocumented or not yet supported value.
                  */
-                fun direction(direction: JsonField<Direction>) = apply {
+                fun direction(direction: JsonField<PaymentOrderUpdateRequest.Direction>) = apply {
                     this.direction = direction
                 }
 
@@ -13758,19 +3278,20 @@ private constructor(
                  * account. Currently, this only supports falling back from RTP to ACH (type=rtp and
                  * fallback_type=ach)
                  */
-                fun fallbackType(fallbackType: FallbackType) =
+                fun fallbackType(fallbackType: PaymentOrderUpdateRequest.FallbackType) =
                     fallbackType(JsonField.of(fallbackType))
 
                 /**
                  * Sets [Builder.fallbackType] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.fallbackType] with a well-typed [FallbackType]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
+                 * You should usually call [Builder.fallbackType] with a well-typed
+                 * [PaymentOrderUpdateRequest.FallbackType] value instead. This method is primarily
+                 * for setting the field to an undocumented or not yet supported value.
                  */
-                fun fallbackType(fallbackType: JsonField<FallbackType>) = apply {
-                    this.fallbackType = fallbackType
-                }
+                fun fallbackType(fallbackType: JsonField<PaymentOrderUpdateRequest.FallbackType>) =
+                    apply {
+                        this.fallbackType = fallbackType
+                    }
 
                 /**
                  * If present, indicates a specific foreign exchange contract number that has been
@@ -13795,18 +3316,20 @@ private constructor(
                  * `fixed_to_variable`, or `null` if the payment order currency matches the
                  * originating account currency.
                  */
-                fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator?) =
-                    foreignExchangeIndicator(JsonField.ofNullable(foreignExchangeIndicator))
+                fun foreignExchangeIndicator(
+                    foreignExchangeIndicator: PaymentOrderUpdateRequest.ForeignExchangeIndicator?
+                ) = foreignExchangeIndicator(JsonField.ofNullable(foreignExchangeIndicator))
 
                 /**
                  * Sets [Builder.foreignExchangeIndicator] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.foreignExchangeIndicator] with a well-typed
-                 * [ForeignExchangeIndicator] value instead. This method is primarily for setting
-                 * the field to an undocumented or not yet supported value.
+                 * [PaymentOrderUpdateRequest.ForeignExchangeIndicator] value instead. This method
+                 * is primarily for setting the field to an undocumented or not yet supported value.
                  */
                 fun foreignExchangeIndicator(
-                    foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>
+                    foreignExchangeIndicator:
+                        JsonField<PaymentOrderUpdateRequest.ForeignExchangeIndicator>
                 ) = apply { this.foreignExchangeIndicator = foreignExchangeIndicator }
 
                 /** An array of line items that must sum up to the amount of the payment order. */
@@ -13839,16 +3362,19 @@ private constructor(
                  * Additional data represented as key-value pairs. Both the key and value must be
                  * strings.
                  */
-                fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+                fun metadata(metadata: PaymentOrderUpdateRequest.Metadata) =
+                    metadata(JsonField.of(metadata))
 
                 /**
                  * Sets [Builder.metadata] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.metadata] with a well-typed
+                 * [PaymentOrderUpdateRequest.Metadata] value instead. This method is primarily for
+                 * setting the field to an undocumented or not yet supported value.
                  */
-                fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+                fun metadata(metadata: JsonField<PaymentOrderUpdateRequest.Metadata>) = apply {
+                    this.metadata = metadata
+                }
 
                 /**
                  * A boolean to determine if NSF Protection is enabled for this payment order. Note
@@ -13886,18 +3412,20 @@ private constructor(
                  * If present, this address will override the default originating party address used
                  * on the payment order. This works across all payment types.
                  */
-                fun originatingPartyAddress(originatingPartyAddress: OriginatingPartyAddress?) =
-                    originatingPartyAddress(JsonField.ofNullable(originatingPartyAddress))
+                fun originatingPartyAddress(
+                    originatingPartyAddress: PaymentOrderUpdateRequest.OriginatingPartyAddress?
+                ) = originatingPartyAddress(JsonField.ofNullable(originatingPartyAddress))
 
                 /**
                  * Sets [Builder.originatingPartyAddress] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.originatingPartyAddress] with a well-typed
-                 * [OriginatingPartyAddress] value instead. This method is primarily for setting the
-                 * field to an undocumented or not yet supported value.
+                 * [PaymentOrderUpdateRequest.OriginatingPartyAddress] value instead. This method is
+                 * primarily for setting the field to an undocumented or not yet supported value.
                  */
                 fun originatingPartyAddress(
-                    originatingPartyAddress: JsonField<OriginatingPartyAddress>
+                    originatingPartyAddress:
+                        JsonField<PaymentOrderUpdateRequest.OriginatingPartyAddress>
                 ) = apply { this.originatingPartyAddress = originatingPartyAddress }
 
                 /**
@@ -13946,16 +3474,19 @@ private constructor(
                  * ACH or EFT transfer, respectively. For check payments, `high` can mean an
                  * overnight check rather than standard mail.
                  */
-                fun priority(priority: Priority) = priority(JsonField.of(priority))
+                fun priority(priority: PaymentOrderUpdateRequest.Priority) =
+                    priority(JsonField.of(priority))
 
                 /**
                  * Sets [Builder.priority] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.priority] with a well-typed [Priority] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.priority] with a well-typed
+                 * [PaymentOrderUpdateRequest.Priority] value instead. This method is primarily for
+                 * setting the field to an undocumented or not yet supported value.
                  */
-                fun priority(priority: JsonField<Priority>) = apply { this.priority = priority }
+                fun priority(priority: JsonField<PaymentOrderUpdateRequest.Priority>) = apply {
+                    this.priority = priority
+                }
 
                 /**
                  * If present, Modern Treasury will not process the payment until after this time.
@@ -13999,19 +3530,19 @@ private constructor(
                  * `receiving_account_id`, you may pass the id of an external account or an internal
                  * account.
                  */
-                fun receivingAccount(receivingAccount: ReceivingAccount) =
+                fun receivingAccount(receivingAccount: PaymentOrderUpdateRequest.ReceivingAccount) =
                     receivingAccount(JsonField.of(receivingAccount))
 
                 /**
                  * Sets [Builder.receivingAccount] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.receivingAccount] with a well-typed
-                 * [ReceivingAccount] value instead. This method is primarily for setting the field
-                 * to an undocumented or not yet supported value.
+                 * [PaymentOrderUpdateRequest.ReceivingAccount] value instead. This method is
+                 * primarily for setting the field to an undocumented or not yet supported value.
                  */
-                fun receivingAccount(receivingAccount: JsonField<ReceivingAccount>) = apply {
-                    this.receivingAccount = receivingAccount
-                }
+                fun receivingAccount(
+                    receivingAccount: JsonField<PaymentOrderUpdateRequest.ReceivingAccount>
+                ) = apply { this.receivingAccount = receivingAccount }
 
                 /**
                  * Either `receiving_account` or `receiving_account_id` must be present. When using
@@ -14033,20 +3564,20 @@ private constructor(
                 }
 
                 /** One of `unreconciled`, `tentatively_reconciled` or `reconciled`. */
-                fun reconciliationStatus(reconciliationStatus: ReconciliationStatus) =
-                    reconciliationStatus(JsonField.of(reconciliationStatus))
+                fun reconciliationStatus(
+                    reconciliationStatus: PaymentOrderUpdateRequest.ReconciliationStatus
+                ) = reconciliationStatus(JsonField.of(reconciliationStatus))
 
                 /**
                  * Sets [Builder.reconciliationStatus] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.reconciliationStatus] with a well-typed
-                 * [ReconciliationStatus] value instead. This method is primarily for setting the
-                 * field to an undocumented or not yet supported value.
+                 * [PaymentOrderUpdateRequest.ReconciliationStatus] value instead. This method is
+                 * primarily for setting the field to an undocumented or not yet supported value.
                  */
-                fun reconciliationStatus(reconciliationStatus: JsonField<ReconciliationStatus>) =
-                    apply {
-                        this.reconciliationStatus = reconciliationStatus
-                    }
+                fun reconciliationStatus(
+                    reconciliationStatus: JsonField<PaymentOrderUpdateRequest.ReconciliationStatus>
+                ) = apply { this.reconciliationStatus = reconciliationStatus }
 
                 /**
                  * For `ach`, this field will be passed through on an addenda record. For `wire`
@@ -14119,16 +3650,18 @@ private constructor(
                  * use `approved`. To undo approval on a denied or approved payment order, use
                  * `needs_approval`.
                  */
-                fun status(status: Status) = status(JsonField.of(status))
+                fun status(status: PaymentOrderUpdateRequest.Status) = status(JsonField.of(status))
 
                 /**
                  * Sets [Builder.status] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.status] with a well-typed [Status] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.status] with a well-typed
+                 * [PaymentOrderUpdateRequest.Status] value instead. This method is primarily for
+                 * setting the field to an undocumented or not yet supported value.
                  */
-                fun status(status: JsonField<Status>) = apply { this.status = status }
+                fun status(status: JsonField<PaymentOrderUpdateRequest.Status>) = apply {
+                    this.status = status
+                }
 
                 /**
                  * An additional layer of classification for the type of payment order you are
@@ -14252,6 +3785,17 @@ private constructor(
                         this.ultimateReceivingPartyName = ultimateReceivingPartyName
                     }
 
+                fun id(id: String) = id(JsonField.of(id))
+
+                /**
+                 * Sets [Builder.id] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.id] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun id(id: JsonField<String>) = apply { this.id = id }
+
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
@@ -14281,7 +3825,6 @@ private constructor(
                  */
                 fun build(): PaymentOrderUpdateRequestWithId =
                     PaymentOrderUpdateRequestWithId(
-                        id,
                         accounting,
                         accountingCategoryId,
                         accountingLedgerClassId,
@@ -14320,6 +3863,7 @@ private constructor(
                         ultimateOriginatingPartyName,
                         ultimateReceivingPartyIdentifier,
                         ultimateReceivingPartyName,
+                        id,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -14341,7 +3885,6 @@ private constructor(
                     return@apply
                 }
 
-                id()
                 accounting()?.validate()
                 accountingCategoryId()
                 accountingLedgerClassId()
@@ -14380,6 +3923,7 @@ private constructor(
                 ultimateOriginatingPartyName()
                 ultimateReceivingPartyIdentifier()
                 ultimateReceivingPartyName()
+                id()
                 validated = true
             }
 
@@ -14398,8 +3942,7 @@ private constructor(
              * Used for best match union deserialization.
              */
             internal fun validity(): Int =
-                (if (id.asKnown() == null) 0 else 1) +
-                    (accounting.asKnown()?.validity() ?: 0) +
+                (accounting.asKnown()?.validity() ?: 0) +
                     (if (accountingCategoryId.asKnown() == null) 0 else 1) +
                     (if (accountingLedgerClassId.asKnown() == null) 0 else 1) +
                     (if (amount.asKnown() == null) 0 else 1) +
@@ -14436,4569 +3979,8 @@ private constructor(
                     (if (ultimateOriginatingPartyIdentifier.asKnown() == null) 0 else 1) +
                     (if (ultimateOriginatingPartyName.asKnown() == null) 0 else 1) +
                     (if (ultimateReceivingPartyIdentifier.asKnown() == null) 0 else 1) +
-                    (if (ultimateReceivingPartyName.asKnown() == null) 0 else 1)
-
-            @Deprecated("deprecated")
-            class Accounting
-            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-            private constructor(
-                private val accountId: JsonField<String>,
-                private val classId: JsonField<String>,
-                private val additionalProperties: MutableMap<String, JsonValue>,
-            ) {
-
-                @JsonCreator
-                private constructor(
-                    @JsonProperty("account_id")
-                    @ExcludeMissing
-                    accountId: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("class_id")
-                    @ExcludeMissing
-                    classId: JsonField<String> = JsonMissing.of(),
-                ) : this(accountId, classId, mutableMapOf())
-
-                /**
-                 * The ID of one of your accounting categories. Note that these will only be
-                 * accessible if your accounting system has been connected.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                @Deprecated("deprecated")
-                fun accountId(): String? = accountId.getNullable("account_id")
-
-                /**
-                 * The ID of one of the class objects in your accounting system. Class objects track
-                 * segments of your business independent of client or project. Note that these will
-                 * only be accessible if your accounting system has been connected.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                @Deprecated("deprecated") fun classId(): String? = classId.getNullable("class_id")
-
-                /**
-                 * Returns the raw JSON value of [accountId].
-                 *
-                 * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @Deprecated("deprecated")
-                @JsonProperty("account_id")
-                @ExcludeMissing
-                fun _accountId(): JsonField<String> = accountId
-
-                /**
-                 * Returns the raw JSON value of [classId].
-                 *
-                 * Unlike [classId], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @Deprecated("deprecated")
-                @JsonProperty("class_id")
-                @ExcludeMissing
-                fun _classId(): JsonField<String> = classId
-
-                @JsonAnySetter
-                private fun putAdditionalProperty(key: String, value: JsonValue) {
-                    additionalProperties.put(key, value)
-                }
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> =
-                    Collections.unmodifiableMap(additionalProperties)
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /** Returns a mutable builder for constructing an instance of [Accounting]. */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [Accounting]. */
-                class Builder internal constructor() {
-
-                    private var accountId: JsonField<String> = JsonMissing.of()
-                    private var classId: JsonField<String> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(accounting: Accounting) = apply {
-                        accountId = accounting.accountId
-                        classId = accounting.classId
-                        additionalProperties = accounting.additionalProperties.toMutableMap()
-                    }
-
-                    /**
-                     * The ID of one of your accounting categories. Note that these will only be
-                     * accessible if your accounting system has been connected.
-                     */
-                    @Deprecated("deprecated")
-                    fun accountId(accountId: String?) = accountId(JsonField.ofNullable(accountId))
-
-                    /**
-                     * Sets [Builder.accountId] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.accountId] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    @Deprecated("deprecated")
-                    fun accountId(accountId: JsonField<String>) = apply {
-                        this.accountId = accountId
-                    }
-
-                    /**
-                     * The ID of one of the class objects in your accounting system. Class objects
-                     * track segments of your business independent of client or project. Note that
-                     * these will only be accessible if your accounting system has been connected.
-                     */
-                    @Deprecated("deprecated")
-                    fun classId(classId: String?) = classId(JsonField.ofNullable(classId))
-
-                    /**
-                     * Sets [Builder.classId] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.classId] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    @Deprecated("deprecated")
-                    fun classId(classId: JsonField<String>) = apply { this.classId = classId }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [Accounting].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): Accounting =
-                        Accounting(accountId, classId, additionalProperties.toMutableMap())
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Accounting = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    accountId()
-                    classId()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    (if (accountId.asKnown() == null) 0 else 1) +
-                        (if (classId.asKnown() == null) 0 else 1)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Accounting &&
-                        accountId == other.accountId &&
-                        classId == other.classId &&
-                        additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy {
-                    Objects.hash(accountId, classId, additionalProperties)
-                }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() =
-                    "Accounting{accountId=$accountId, classId=$classId, additionalProperties=$additionalProperties}"
-            }
-
-            /**
-             * The party that will pay the fees for the payment order. See
-             * https://docs.moderntreasury.com/payments/docs/charge-bearer to understand the
-             * differences between the options.
-             */
-            class ChargeBearer
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val SHARED = of("shared")
-
-                    val SENDER = of("sender")
-
-                    val RECEIVER = of("receiver")
-
-                    fun of(value: String) = ChargeBearer(JsonField.of(value))
-                }
-
-                /** An enum containing [ChargeBearer]'s known values. */
-                enum class Known {
-                    SHARED,
-                    SENDER,
-                    RECEIVER,
-                }
-
-                /**
-                 * An enum containing [ChargeBearer]'s known values, as well as an [_UNKNOWN]
-                 * member.
-                 *
-                 * An instance of [ChargeBearer] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    SHARED,
-                    SENDER,
-                    RECEIVER,
-                    /**
-                     * An enum member indicating that [ChargeBearer] was instantiated with an
-                     * unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        SHARED -> Value.SHARED
-                        SENDER -> Value.SENDER
-                        RECEIVER -> Value.RECEIVER
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        SHARED -> Known.SHARED
-                        SENDER -> Known.SENDER
-                        RECEIVER -> Known.RECEIVER
-                        else ->
-                            throw ModernTreasuryInvalidDataException("Unknown ChargeBearer: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): ChargeBearer = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is ChargeBearer && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * One of `credit`, `debit`. Describes the direction money is flowing in the
-             * transaction. A `credit` moves money from your account to someone else's. A `debit`
-             * pulls money from someone else's account to your own. Note that wire, rtp, and check
-             * payments will always be `credit`.
-             */
-            class Direction @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val CREDIT = of("credit")
-
-                    val DEBIT = of("debit")
-
-                    fun of(value: String) = Direction(JsonField.of(value))
-                }
-
-                /** An enum containing [Direction]'s known values. */
-                enum class Known {
-                    CREDIT,
-                    DEBIT,
-                }
-
-                /**
-                 * An enum containing [Direction]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Direction] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    CREDIT,
-                    DEBIT,
-                    /**
-                     * An enum member indicating that [Direction] was instantiated with an unknown
-                     * value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        CREDIT -> Value.CREDIT
-                        DEBIT -> Value.DEBIT
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        CREDIT -> Known.CREDIT
-                        DEBIT -> Known.DEBIT
-                        else ->
-                            throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Direction = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Direction && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * A payment type to fallback to if the original type is not valid for the receiving
-             * account. Currently, this only supports falling back from RTP to ACH (type=rtp and
-             * fallback_type=ach)
-             */
-            class FallbackType
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val ACH = of("ach")
-
-                    fun of(value: String) = FallbackType(JsonField.of(value))
-                }
-
-                /** An enum containing [FallbackType]'s known values. */
-                enum class Known {
-                    ACH
-                }
-
-                /**
-                 * An enum containing [FallbackType]'s known values, as well as an [_UNKNOWN]
-                 * member.
-                 *
-                 * An instance of [FallbackType] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    ACH,
-                    /**
-                     * An enum member indicating that [FallbackType] was instantiated with an
-                     * unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        ACH -> Value.ACH
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        ACH -> Known.ACH
-                        else ->
-                            throw ModernTreasuryInvalidDataException("Unknown FallbackType: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): FallbackType = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is FallbackType && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * Indicates the type of FX transfer to initiate, can be either `variable_to_fixed`,
-             * `fixed_to_variable`, or `null` if the payment order currency matches the originating
-             * account currency.
-             */
-            class ForeignExchangeIndicator
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val FIXED_TO_VARIABLE = of("fixed_to_variable")
-
-                    val VARIABLE_TO_FIXED = of("variable_to_fixed")
-
-                    fun of(value: String) = ForeignExchangeIndicator(JsonField.of(value))
-                }
-
-                /** An enum containing [ForeignExchangeIndicator]'s known values. */
-                enum class Known {
-                    FIXED_TO_VARIABLE,
-                    VARIABLE_TO_FIXED,
-                }
-
-                /**
-                 * An enum containing [ForeignExchangeIndicator]'s known values, as well as an
-                 * [_UNKNOWN] member.
-                 *
-                 * An instance of [ForeignExchangeIndicator] can contain an unknown value in a
-                 * couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    FIXED_TO_VARIABLE,
-                    VARIABLE_TO_FIXED,
-                    /**
-                     * An enum member indicating that [ForeignExchangeIndicator] was instantiated
-                     * with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        FIXED_TO_VARIABLE -> Value.FIXED_TO_VARIABLE
-                        VARIABLE_TO_FIXED -> Value.VARIABLE_TO_FIXED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        FIXED_TO_VARIABLE -> Known.FIXED_TO_VARIABLE
-                        VARIABLE_TO_FIXED -> Known.VARIABLE_TO_FIXED
-                        else ->
-                            throw ModernTreasuryInvalidDataException(
-                                "Unknown ForeignExchangeIndicator: $value"
-                            )
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): ForeignExchangeIndicator = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is ForeignExchangeIndicator && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            class LineItemRequest
-            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-            private constructor(
-                private val amount: JsonField<Long>,
-                private val accountingCategoryId: JsonField<String>,
-                private val description: JsonField<String>,
-                private val metadata: JsonField<Metadata>,
-                private val additionalProperties: MutableMap<String, JsonValue>,
-            ) {
-
-                @JsonCreator
-                private constructor(
-                    @JsonProperty("amount")
-                    @ExcludeMissing
-                    amount: JsonField<Long> = JsonMissing.of(),
-                    @JsonProperty("accounting_category_id")
-                    @ExcludeMissing
-                    accountingCategoryId: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("description")
-                    @ExcludeMissing
-                    description: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("metadata")
-                    @ExcludeMissing
-                    metadata: JsonField<Metadata> = JsonMissing.of(),
-                ) : this(amount, accountingCategoryId, description, metadata, mutableMapOf())
-
-                /**
-                 * Value in specified currency's smallest unit. e.g. $10 would be represented
-                 * as 1000.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type or is unexpectedly missing or null (e.g. if the server responded with an
-                 *   unexpected value).
-                 */
-                fun amount(): Long = amount.getRequired("amount")
-
-                /**
-                 * The ID of one of your accounting categories. Note that these will only be
-                 * accessible if your accounting system has been connected.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun accountingCategoryId(): String? =
-                    accountingCategoryId.getNullable("accounting_category_id")
-
-                /**
-                 * A free-form description of the line item.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun description(): String? = description.getNullable("description")
-
-                /**
-                 * Additional data represented as key-value pairs. Both the key and value must be
-                 * strings.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-                /**
-                 * Returns the raw JSON value of [amount].
-                 *
-                 * Unlike [amount], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-                /**
-                 * Returns the raw JSON value of [accountingCategoryId].
-                 *
-                 * Unlike [accountingCategoryId], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("accounting_category_id")
-                @ExcludeMissing
-                fun _accountingCategoryId(): JsonField<String> = accountingCategoryId
-
-                /**
-                 * Returns the raw JSON value of [description].
-                 *
-                 * Unlike [description], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("description")
-                @ExcludeMissing
-                fun _description(): JsonField<String> = description
-
-                /**
-                 * Returns the raw JSON value of [metadata].
-                 *
-                 * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("metadata")
-                @ExcludeMissing
-                fun _metadata(): JsonField<Metadata> = metadata
-
-                @JsonAnySetter
-                private fun putAdditionalProperty(key: String, value: JsonValue) {
-                    additionalProperties.put(key, value)
-                }
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> =
-                    Collections.unmodifiableMap(additionalProperties)
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /**
-                     * Returns a mutable builder for constructing an instance of [LineItemRequest].
-                     *
-                     * The following fields are required:
-                     * ```kotlin
-                     * .amount()
-                     * ```
-                     */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [LineItemRequest]. */
-                class Builder internal constructor() {
-
-                    private var amount: JsonField<Long>? = null
-                    private var accountingCategoryId: JsonField<String> = JsonMissing.of()
-                    private var description: JsonField<String> = JsonMissing.of()
-                    private var metadata: JsonField<Metadata> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(lineItemRequest: LineItemRequest) = apply {
-                        amount = lineItemRequest.amount
-                        accountingCategoryId = lineItemRequest.accountingCategoryId
-                        description = lineItemRequest.description
-                        metadata = lineItemRequest.metadata
-                        additionalProperties = lineItemRequest.additionalProperties.toMutableMap()
-                    }
-
-                    /**
-                     * Value in specified currency's smallest unit. e.g. $10 would be represented
-                     * as 1000.
-                     */
-                    fun amount(amount: Long) = amount(JsonField.of(amount))
-
-                    /**
-                     * Sets [Builder.amount] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.amount] with a well-typed [Long] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-                    /**
-                     * The ID of one of your accounting categories. Note that these will only be
-                     * accessible if your accounting system has been connected.
-                     */
-                    fun accountingCategoryId(accountingCategoryId: String?) =
-                        accountingCategoryId(JsonField.ofNullable(accountingCategoryId))
-
-                    /**
-                     * Sets [Builder.accountingCategoryId] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.accountingCategoryId] with a well-typed
-                     * [String] value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
-                     */
-                    fun accountingCategoryId(accountingCategoryId: JsonField<String>) = apply {
-                        this.accountingCategoryId = accountingCategoryId
-                    }
-
-                    /** A free-form description of the line item. */
-                    fun description(description: String?) =
-                        description(JsonField.ofNullable(description))
-
-                    /**
-                     * Sets [Builder.description] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.description] with a well-typed [String]
-                     * value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
-                     */
-                    fun description(description: JsonField<String>) = apply {
-                        this.description = description
-                    }
-
-                    /**
-                     * Additional data represented as key-value pairs. Both the key and value must
-                     * be strings.
-                     */
-                    fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-                    /**
-                     * Sets [Builder.metadata] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [LineItemRequest].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     *
-                     * The following fields are required:
-                     * ```kotlin
-                     * .amount()
-                     * ```
-                     *
-                     * @throws IllegalStateException if any required field is unset.
-                     */
-                    fun build(): LineItemRequest =
-                        LineItemRequest(
-                            checkRequired("amount", amount),
-                            accountingCategoryId,
-                            description,
-                            metadata,
-                            additionalProperties.toMutableMap(),
-                        )
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): LineItemRequest = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    amount()
-                    accountingCategoryId()
-                    description()
-                    metadata()?.validate()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    (if (amount.asKnown() == null) 0 else 1) +
-                        (if (accountingCategoryId.asKnown() == null) 0 else 1) +
-                        (if (description.asKnown() == null) 0 else 1) +
-                        (metadata.asKnown()?.validity() ?: 0)
-
-                /**
-                 * Additional data represented as key-value pairs. Both the key and value must be
-                 * strings.
-                 */
-                class Metadata
-                @JsonCreator
-                private constructor(
-                    @com.fasterxml.jackson.annotation.JsonValue
-                    private val additionalProperties: Map<String, JsonValue>
-                ) {
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                    fun toBuilder() = Builder().from(this)
-
-                    companion object {
-
-                        /** Returns a mutable builder for constructing an instance of [Metadata]. */
-                        fun builder() = Builder()
-                    }
-
-                    /** A builder for [Metadata]. */
-                    class Builder internal constructor() {
-
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        internal fun from(metadata: Metadata) = apply {
-                            additionalProperties = metadata.additionalProperties.toMutableMap()
-                        }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                putAllAdditionalProperties(additionalProperties)
-                            }
-
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun removeAdditionalProperty(key: String) = apply {
-                            additionalProperties.remove(key)
-                        }
-
-                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                            keys.forEach(::removeAdditionalProperty)
-                        }
-
-                        /**
-                         * Returns an immutable instance of [Metadata].
-                         *
-                         * Further updates to this [Builder] will not mutate the returned instance.
-                         */
-                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
-                    }
-
-                    private var validated: Boolean = false
-
-                    /**
-                     * Validates that the types of all values in this object match their expected
-                     * types recursively.
-                     *
-                     * This method is _not_ forwards compatible with new types from the API for
-                     * existing fields.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if any value type in this object
-                     *   doesn't match its expected type.
-                     */
-                    fun validate(): Metadata = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: ModernTreasuryInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    internal fun validity(): Int =
-                        additionalProperties.count { (_, value) ->
-                            !value.isNull() && !value.isMissing()
-                        }
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Metadata &&
-                            additionalProperties == other.additionalProperties
-                    }
-
-                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                    override fun hashCode(): Int = hashCode
-
-                    override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-                }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is LineItemRequest &&
-                        amount == other.amount &&
-                        accountingCategoryId == other.accountingCategoryId &&
-                        description == other.description &&
-                        metadata == other.metadata &&
-                        additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy {
-                    Objects.hash(
-                        amount,
-                        accountingCategoryId,
-                        description,
-                        metadata,
-                        additionalProperties,
-                    )
-                }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() =
-                    "LineItemRequest{amount=$amount, accountingCategoryId=$accountingCategoryId, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
-            }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            class Metadata
-            @JsonCreator
-            private constructor(
-                @com.fasterxml.jackson.annotation.JsonValue
-                private val additionalProperties: Map<String, JsonValue>
-            ) {
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /** Returns a mutable builder for constructing an instance of [Metadata]. */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [Metadata]. */
-                class Builder internal constructor() {
-
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(metadata: Metadata) = apply {
-                        additionalProperties = metadata.additionalProperties.toMutableMap()
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [Metadata].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Metadata = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    additionalProperties.count { (_, value) ->
-                        !value.isNull() && !value.isMissing()
-                    }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Metadata && additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-            }
-
-            /**
-             * If present, this address will override the default originating party address used on
-             * the payment order. This works across all payment types.
-             */
-            class OriginatingPartyAddress
-            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-            private constructor(
-                private val country: JsonField<String>,
-                private val line1: JsonField<String>,
-                private val line2: JsonField<String>,
-                private val locality: JsonField<String>,
-                private val postalCode: JsonField<String>,
-                private val region: JsonField<String>,
-                private val additionalProperties: MutableMap<String, JsonValue>,
-            ) {
-
-                @JsonCreator
-                private constructor(
-                    @JsonProperty("country")
-                    @ExcludeMissing
-                    country: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("line1")
-                    @ExcludeMissing
-                    line1: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("line2")
-                    @ExcludeMissing
-                    line2: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("locality")
-                    @ExcludeMissing
-                    locality: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("postal_code")
-                    @ExcludeMissing
-                    postalCode: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("region")
-                    @ExcludeMissing
-                    region: JsonField<String> = JsonMissing.of(),
-                ) : this(country, line1, line2, locality, postalCode, region, mutableMapOf())
-
-                /**
-                 * Country code conforms to [ISO 3166-1 alpha-2]
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun country(): String? = country.getNullable("country")
-
-                /**
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun line1(): String? = line1.getNullable("line1")
-
-                /**
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun line2(): String? = line2.getNullable("line2")
-
-                /**
-                 * Locality or City. Use the full city name rather than an abbreviation (e.g. San
-                 * Francisco).
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun locality(): String? = locality.getNullable("locality")
-
-                /**
-                 * The postal code of the address.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun postalCode(): String? = postalCode.getNullable("postal_code")
-
-                /**
-                 * Region or State. This field is free-form; for US states, we recommend a
-                 * two-letter code (e.g. CA). Full state names are also accepted.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun region(): String? = region.getNullable("region")
-
-                /**
-                 * Returns the raw JSON value of [country].
-                 *
-                 * Unlike [country], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
-
-                /**
-                 * Returns the raw JSON value of [line1].
-                 *
-                 * Unlike [line1], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
-
-                /**
-                 * Returns the raw JSON value of [line2].
-                 *
-                 * Unlike [line2], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
-
-                /**
-                 * Returns the raw JSON value of [locality].
-                 *
-                 * Unlike [locality], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("locality")
-                @ExcludeMissing
-                fun _locality(): JsonField<String> = locality
-
-                /**
-                 * Returns the raw JSON value of [postalCode].
-                 *
-                 * Unlike [postalCode], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("postal_code")
-                @ExcludeMissing
-                fun _postalCode(): JsonField<String> = postalCode
-
-                /**
-                 * Returns the raw JSON value of [region].
-                 *
-                 * Unlike [region], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("region") @ExcludeMissing fun _region(): JsonField<String> = region
-
-                @JsonAnySetter
-                private fun putAdditionalProperty(key: String, value: JsonValue) {
-                    additionalProperties.put(key, value)
-                }
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> =
-                    Collections.unmodifiableMap(additionalProperties)
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /**
-                     * Returns a mutable builder for constructing an instance of
-                     * [OriginatingPartyAddress].
-                     */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [OriginatingPartyAddress]. */
-                class Builder internal constructor() {
-
-                    private var country: JsonField<String> = JsonMissing.of()
-                    private var line1: JsonField<String> = JsonMissing.of()
-                    private var line2: JsonField<String> = JsonMissing.of()
-                    private var locality: JsonField<String> = JsonMissing.of()
-                    private var postalCode: JsonField<String> = JsonMissing.of()
-                    private var region: JsonField<String> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(originatingPartyAddress: OriginatingPartyAddress) = apply {
-                        country = originatingPartyAddress.country
-                        line1 = originatingPartyAddress.line1
-                        line2 = originatingPartyAddress.line2
-                        locality = originatingPartyAddress.locality
-                        postalCode = originatingPartyAddress.postalCode
-                        region = originatingPartyAddress.region
-                        additionalProperties =
-                            originatingPartyAddress.additionalProperties.toMutableMap()
-                    }
-
-                    /** Country code conforms to [ISO 3166-1 alpha-2] */
-                    fun country(country: String?) = country(JsonField.ofNullable(country))
-
-                    /**
-                     * Sets [Builder.country] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.country] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun country(country: JsonField<String>) = apply { this.country = country }
-
-                    fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
-
-                    /**
-                     * Sets [Builder.line1] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.line1] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
-
-                    fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
-
-                    /**
-                     * Sets [Builder.line2] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.line2] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
-
-                    /**
-                     * Locality or City. Use the full city name rather than an abbreviation (e.g.
-                     * San Francisco).
-                     */
-                    fun locality(locality: String?) = locality(JsonField.ofNullable(locality))
-
-                    /**
-                     * Sets [Builder.locality] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.locality] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun locality(locality: JsonField<String>) = apply { this.locality = locality }
-
-                    /** The postal code of the address. */
-                    fun postalCode(postalCode: String?) =
-                        postalCode(JsonField.ofNullable(postalCode))
-
-                    /**
-                     * Sets [Builder.postalCode] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.postalCode] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun postalCode(postalCode: JsonField<String>) = apply {
-                        this.postalCode = postalCode
-                    }
-
-                    /**
-                     * Region or State. This field is free-form; for US states, we recommend a
-                     * two-letter code (e.g. CA). Full state names are also accepted.
-                     */
-                    fun region(region: String?) = region(JsonField.ofNullable(region))
-
-                    /**
-                     * Sets [Builder.region] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.region] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun region(region: JsonField<String>) = apply { this.region = region }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [OriginatingPartyAddress].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): OriginatingPartyAddress =
-                        OriginatingPartyAddress(
-                            country,
-                            line1,
-                            line2,
-                            locality,
-                            postalCode,
-                            region,
-                            additionalProperties.toMutableMap(),
-                        )
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): OriginatingPartyAddress = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    country()
-                    line1()
-                    line2()
-                    locality()
-                    postalCode()
-                    region()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    (if (country.asKnown() == null) 0 else 1) +
-                        (if (line1.asKnown() == null) 0 else 1) +
-                        (if (line2.asKnown() == null) 0 else 1) +
-                        (if (locality.asKnown() == null) 0 else 1) +
-                        (if (postalCode.asKnown() == null) 0 else 1) +
-                        (if (region.asKnown() == null) 0 else 1)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is OriginatingPartyAddress &&
-                        country == other.country &&
-                        line1 == other.line1 &&
-                        line2 == other.line2 &&
-                        locality == other.locality &&
-                        postalCode == other.postalCode &&
-                        region == other.region &&
-                        additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy {
-                    Objects.hash(
-                        country,
-                        line1,
-                        line2,
-                        locality,
-                        postalCode,
-                        region,
-                        additionalProperties,
-                    )
-                }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() =
-                    "OriginatingPartyAddress{country=$country, line1=$line1, line2=$line2, locality=$locality, postalCode=$postalCode, region=$region, additionalProperties=$additionalProperties}"
-            }
-
-            /**
-             * Either `normal` or `high`. For ACH and EFT payments, `high` represents a same-day ACH
-             * or EFT transfer, respectively. For check payments, `high` can mean an overnight check
-             * rather than standard mail.
-             */
-            class Priority @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val HIGH = of("high")
-
-                    val NORMAL = of("normal")
-
-                    fun of(value: String) = Priority(JsonField.of(value))
-                }
-
-                /** An enum containing [Priority]'s known values. */
-                enum class Known {
-                    HIGH,
-                    NORMAL,
-                }
-
-                /**
-                 * An enum containing [Priority]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Priority] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    HIGH,
-                    NORMAL,
-                    /**
-                     * An enum member indicating that [Priority] was instantiated with an unknown
-                     * value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        HIGH -> Value.HIGH
-                        NORMAL -> Value.NORMAL
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        HIGH -> Known.HIGH
-                        NORMAL -> Known.NORMAL
-                        else -> throw ModernTreasuryInvalidDataException("Unknown Priority: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Priority = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Priority && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * Either `receiving_account` or `receiving_account_id` must be present. When using
-             * `receiving_account_id`, you may pass the id of an external account or an internal
-             * account.
-             */
-            class ReceivingAccount
-            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-            private constructor(
-                private val accountDetails: JsonField<List<AccountDetail>>,
-                private val accountType: JsonField<ExternalAccountType>,
-                private val contactDetails: JsonField<List<ContactDetailCreateRequest>>,
-                private val externalId: JsonField<String>,
-                private val ledgerAccount: JsonField<LedgerAccountCreateRequest>,
-                private val metadata: JsonField<Metadata>,
-                private val name: JsonField<String>,
-                private val partyAddress: JsonField<AddressRequest>,
-                private val partyIdentifier: JsonField<String>,
-                private val partyName: JsonField<String>,
-                private val partyType: JsonField<PartyType>,
-                private val plaidProcessorToken: JsonField<String>,
-                private val routingDetails: JsonField<List<RoutingDetail>>,
-                private val additionalProperties: MutableMap<String, JsonValue>,
-            ) {
-
-                @JsonCreator
-                private constructor(
-                    @JsonProperty("account_details")
-                    @ExcludeMissing
-                    accountDetails: JsonField<List<AccountDetail>> = JsonMissing.of(),
-                    @JsonProperty("account_type")
-                    @ExcludeMissing
-                    accountType: JsonField<ExternalAccountType> = JsonMissing.of(),
-                    @JsonProperty("contact_details")
-                    @ExcludeMissing
-                    contactDetails: JsonField<List<ContactDetailCreateRequest>> = JsonMissing.of(),
-                    @JsonProperty("external_id")
-                    @ExcludeMissing
-                    externalId: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("ledger_account")
-                    @ExcludeMissing
-                    ledgerAccount: JsonField<LedgerAccountCreateRequest> = JsonMissing.of(),
-                    @JsonProperty("metadata")
-                    @ExcludeMissing
-                    metadata: JsonField<Metadata> = JsonMissing.of(),
-                    @JsonProperty("name")
-                    @ExcludeMissing
-                    name: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("party_address")
-                    @ExcludeMissing
-                    partyAddress: JsonField<AddressRequest> = JsonMissing.of(),
-                    @JsonProperty("party_identifier")
-                    @ExcludeMissing
-                    partyIdentifier: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("party_name")
-                    @ExcludeMissing
-                    partyName: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("party_type")
-                    @ExcludeMissing
-                    partyType: JsonField<PartyType> = JsonMissing.of(),
-                    @JsonProperty("plaid_processor_token")
-                    @ExcludeMissing
-                    plaidProcessorToken: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("routing_details")
-                    @ExcludeMissing
-                    routingDetails: JsonField<List<RoutingDetail>> = JsonMissing.of(),
-                ) : this(
-                    accountDetails,
-                    accountType,
-                    contactDetails,
-                    externalId,
-                    ledgerAccount,
-                    metadata,
-                    name,
-                    partyAddress,
-                    partyIdentifier,
-                    partyName,
-                    partyType,
-                    plaidProcessorToken,
-                    routingDetails,
-                    mutableMapOf(),
-                )
-
-                /**
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun accountDetails(): List<AccountDetail>? =
-                    accountDetails.getNullable("account_details")
-
-                /**
-                 * Can be `checking`, `savings` or `other`.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun accountType(): ExternalAccountType? = accountType.getNullable("account_type")
-
-                /**
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun contactDetails(): List<ContactDetailCreateRequest>? =
-                    contactDetails.getNullable("contact_details")
-
-                /**
-                 * An optional user-defined 180 character unique identifier.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun externalId(): String? = externalId.getNullable("external_id")
-
-                /**
-                 * Specifies a ledger account object that will be created with the external account.
-                 * The resulting ledger account is linked to the external account for auto-ledgering
-                 * Payment objects. See
-                 * https://docs.moderntreasury.com/docs/linking-to-other-modern-treasury-objects for
-                 * more details.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun ledgerAccount(): LedgerAccountCreateRequest? =
-                    ledgerAccount.getNullable("ledger_account")
-
-                /**
-                 * Additional data represented as key-value pairs. Both the key and value must be
-                 * strings.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun metadata(): Metadata? = metadata.getNullable("metadata")
-
-                /**
-                 * A nickname for the external account. This is only for internal usage and won't
-                 * affect any payments
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun name(): String? = name.getNullable("name")
-
-                /**
-                 * Required if receiving wire payments.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun partyAddress(): AddressRequest? = partyAddress.getNullable("party_address")
-
-                /**
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun partyIdentifier(): String? = partyIdentifier.getNullable("party_identifier")
-
-                /**
-                 * If this value isn't provided, it will be inherited from the counterparty's name.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun partyName(): String? = partyName.getNullable("party_name")
-
-                /**
-                 * Either `individual` or `business`.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun partyType(): PartyType? = partyType.getNullable("party_type")
-
-                /**
-                 * If you've enabled the Modern Treasury + Plaid integration in your Plaid account,
-                 * you can pass the processor token in this field.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun plaidProcessorToken(): String? =
-                    plaidProcessorToken.getNullable("plaid_processor_token")
-
-                /**
-                 * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected
-                 *   type (e.g. if the server responded with an unexpected value).
-                 */
-                fun routingDetails(): List<RoutingDetail>? =
-                    routingDetails.getNullable("routing_details")
-
-                /**
-                 * Returns the raw JSON value of [accountDetails].
-                 *
-                 * Unlike [accountDetails], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("account_details")
-                @ExcludeMissing
-                fun _accountDetails(): JsonField<List<AccountDetail>> = accountDetails
-
-                /**
-                 * Returns the raw JSON value of [accountType].
-                 *
-                 * Unlike [accountType], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("account_type")
-                @ExcludeMissing
-                fun _accountType(): JsonField<ExternalAccountType> = accountType
-
-                /**
-                 * Returns the raw JSON value of [contactDetails].
-                 *
-                 * Unlike [contactDetails], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("contact_details")
-                @ExcludeMissing
-                fun _contactDetails(): JsonField<List<ContactDetailCreateRequest>> = contactDetails
-
-                /**
-                 * Returns the raw JSON value of [externalId].
-                 *
-                 * Unlike [externalId], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("external_id")
-                @ExcludeMissing
-                fun _externalId(): JsonField<String> = externalId
-
-                /**
-                 * Returns the raw JSON value of [ledgerAccount].
-                 *
-                 * Unlike [ledgerAccount], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("ledger_account")
-                @ExcludeMissing
-                fun _ledgerAccount(): JsonField<LedgerAccountCreateRequest> = ledgerAccount
-
-                /**
-                 * Returns the raw JSON value of [metadata].
-                 *
-                 * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("metadata")
-                @ExcludeMissing
-                fun _metadata(): JsonField<Metadata> = metadata
-
-                /**
-                 * Returns the raw JSON value of [name].
-                 *
-                 * Unlike [name], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-                /**
-                 * Returns the raw JSON value of [partyAddress].
-                 *
-                 * Unlike [partyAddress], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("party_address")
-                @ExcludeMissing
-                fun _partyAddress(): JsonField<AddressRequest> = partyAddress
-
-                /**
-                 * Returns the raw JSON value of [partyIdentifier].
-                 *
-                 * Unlike [partyIdentifier], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("party_identifier")
-                @ExcludeMissing
-                fun _partyIdentifier(): JsonField<String> = partyIdentifier
-
-                /**
-                 * Returns the raw JSON value of [partyName].
-                 *
-                 * Unlike [partyName], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("party_name")
-                @ExcludeMissing
-                fun _partyName(): JsonField<String> = partyName
-
-                /**
-                 * Returns the raw JSON value of [partyType].
-                 *
-                 * Unlike [partyType], this method doesn't throw if the JSON field has an unexpected
-                 * type.
-                 */
-                @JsonProperty("party_type")
-                @ExcludeMissing
-                fun _partyType(): JsonField<PartyType> = partyType
-
-                /**
-                 * Returns the raw JSON value of [plaidProcessorToken].
-                 *
-                 * Unlike [plaidProcessorToken], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("plaid_processor_token")
-                @ExcludeMissing
-                fun _plaidProcessorToken(): JsonField<String> = plaidProcessorToken
-
-                /**
-                 * Returns the raw JSON value of [routingDetails].
-                 *
-                 * Unlike [routingDetails], this method doesn't throw if the JSON field has an
-                 * unexpected type.
-                 */
-                @JsonProperty("routing_details")
-                @ExcludeMissing
-                fun _routingDetails(): JsonField<List<RoutingDetail>> = routingDetails
-
-                @JsonAnySetter
-                private fun putAdditionalProperty(key: String, value: JsonValue) {
-                    additionalProperties.put(key, value)
-                }
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> =
-                    Collections.unmodifiableMap(additionalProperties)
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /**
-                     * Returns a mutable builder for constructing an instance of [ReceivingAccount].
-                     */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [ReceivingAccount]. */
-                class Builder internal constructor() {
-
-                    private var accountDetails: JsonField<MutableList<AccountDetail>>? = null
-                    private var accountType: JsonField<ExternalAccountType> = JsonMissing.of()
-                    private var contactDetails:
-                        JsonField<MutableList<ContactDetailCreateRequest>>? =
-                        null
-                    private var externalId: JsonField<String> = JsonMissing.of()
-                    private var ledgerAccount: JsonField<LedgerAccountCreateRequest> =
-                        JsonMissing.of()
-                    private var metadata: JsonField<Metadata> = JsonMissing.of()
-                    private var name: JsonField<String> = JsonMissing.of()
-                    private var partyAddress: JsonField<AddressRequest> = JsonMissing.of()
-                    private var partyIdentifier: JsonField<String> = JsonMissing.of()
-                    private var partyName: JsonField<String> = JsonMissing.of()
-                    private var partyType: JsonField<PartyType> = JsonMissing.of()
-                    private var plaidProcessorToken: JsonField<String> = JsonMissing.of()
-                    private var routingDetails: JsonField<MutableList<RoutingDetail>>? = null
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(receivingAccount: ReceivingAccount) = apply {
-                        accountDetails = receivingAccount.accountDetails.map { it.toMutableList() }
-                        accountType = receivingAccount.accountType
-                        contactDetails = receivingAccount.contactDetails.map { it.toMutableList() }
-                        externalId = receivingAccount.externalId
-                        ledgerAccount = receivingAccount.ledgerAccount
-                        metadata = receivingAccount.metadata
-                        name = receivingAccount.name
-                        partyAddress = receivingAccount.partyAddress
-                        partyIdentifier = receivingAccount.partyIdentifier
-                        partyName = receivingAccount.partyName
-                        partyType = receivingAccount.partyType
-                        plaidProcessorToken = receivingAccount.plaidProcessorToken
-                        routingDetails = receivingAccount.routingDetails.map { it.toMutableList() }
-                        additionalProperties = receivingAccount.additionalProperties.toMutableMap()
-                    }
-
-                    fun accountDetails(accountDetails: List<AccountDetail>) =
-                        accountDetails(JsonField.of(accountDetails))
-
-                    /**
-                     * Sets [Builder.accountDetails] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.accountDetails] with a well-typed
-                     * `List<AccountDetail>` value instead. This method is primarily for setting the
-                     * field to an undocumented or not yet supported value.
-                     */
-                    fun accountDetails(accountDetails: JsonField<List<AccountDetail>>) = apply {
-                        this.accountDetails = accountDetails.map { it.toMutableList() }
-                    }
-
-                    /**
-                     * Adds a single [AccountDetail] to [accountDetails].
-                     *
-                     * @throws IllegalStateException if the field was previously set to a non-list.
-                     */
-                    fun addAccountDetail(accountDetail: AccountDetail) = apply {
-                        accountDetails =
-                            (accountDetails ?: JsonField.of(mutableListOf())).also {
-                                checkKnown("accountDetails", it).add(accountDetail)
-                            }
-                    }
-
-                    /** Can be `checking`, `savings` or `other`. */
-                    fun accountType(accountType: ExternalAccountType) =
-                        accountType(JsonField.of(accountType))
-
-                    /**
-                     * Sets [Builder.accountType] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.accountType] with a well-typed
-                     * [ExternalAccountType] value instead. This method is primarily for setting the
-                     * field to an undocumented or not yet supported value.
-                     */
-                    fun accountType(accountType: JsonField<ExternalAccountType>) = apply {
-                        this.accountType = accountType
-                    }
-
-                    fun contactDetails(contactDetails: List<ContactDetailCreateRequest>) =
-                        contactDetails(JsonField.of(contactDetails))
-
-                    /**
-                     * Sets [Builder.contactDetails] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.contactDetails] with a well-typed
-                     * `List<ContactDetailCreateRequest>` value instead. This method is primarily
-                     * for setting the field to an undocumented or not yet supported value.
-                     */
-                    fun contactDetails(
-                        contactDetails: JsonField<List<ContactDetailCreateRequest>>
-                    ) = apply { this.contactDetails = contactDetails.map { it.toMutableList() } }
-
-                    /**
-                     * Adds a single [ContactDetailCreateRequest] to [contactDetails].
-                     *
-                     * @throws IllegalStateException if the field was previously set to a non-list.
-                     */
-                    fun addContactDetail(contactDetail: ContactDetailCreateRequest) = apply {
-                        contactDetails =
-                            (contactDetails ?: JsonField.of(mutableListOf())).also {
-                                checkKnown("contactDetails", it).add(contactDetail)
-                            }
-                    }
-
-                    /** An optional user-defined 180 character unique identifier. */
-                    fun externalId(externalId: String?) =
-                        externalId(JsonField.ofNullable(externalId))
-
-                    /**
-                     * Sets [Builder.externalId] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.externalId] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun externalId(externalId: JsonField<String>) = apply {
-                        this.externalId = externalId
-                    }
-
-                    /**
-                     * Specifies a ledger account object that will be created with the external
-                     * account. The resulting ledger account is linked to the external account for
-                     * auto-ledgering Payment objects. See
-                     * https://docs.moderntreasury.com/docs/linking-to-other-modern-treasury-objects
-                     * for more details.
-                     */
-                    fun ledgerAccount(ledgerAccount: LedgerAccountCreateRequest) =
-                        ledgerAccount(JsonField.of(ledgerAccount))
-
-                    /**
-                     * Sets [Builder.ledgerAccount] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.ledgerAccount] with a well-typed
-                     * [LedgerAccountCreateRequest] value instead. This method is primarily for
-                     * setting the field to an undocumented or not yet supported value.
-                     */
-                    fun ledgerAccount(ledgerAccount: JsonField<LedgerAccountCreateRequest>) =
-                        apply {
-                            this.ledgerAccount = ledgerAccount
-                        }
-
-                    /**
-                     * Additional data represented as key-value pairs. Both the key and value must
-                     * be strings.
-                     */
-                    fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-                    /**
-                     * Sets [Builder.metadata] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
-
-                    /**
-                     * A nickname for the external account. This is only for internal usage and
-                     * won't affect any payments
-                     */
-                    fun name(name: String?) = name(JsonField.ofNullable(name))
-
-                    /**
-                     * Sets [Builder.name] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.name] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun name(name: JsonField<String>) = apply { this.name = name }
-
-                    /** Required if receiving wire payments. */
-                    fun partyAddress(partyAddress: AddressRequest) =
-                        partyAddress(JsonField.of(partyAddress))
-
-                    /**
-                     * Sets [Builder.partyAddress] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.partyAddress] with a well-typed
-                     * [AddressRequest] value instead. This method is primarily for setting the
-                     * field to an undocumented or not yet supported value.
-                     */
-                    fun partyAddress(partyAddress: JsonField<AddressRequest>) = apply {
-                        this.partyAddress = partyAddress
-                    }
-
-                    fun partyIdentifier(partyIdentifier: String) =
-                        partyIdentifier(JsonField.of(partyIdentifier))
-
-                    /**
-                     * Sets [Builder.partyIdentifier] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.partyIdentifier] with a well-typed [String]
-                     * value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
-                     */
-                    fun partyIdentifier(partyIdentifier: JsonField<String>) = apply {
-                        this.partyIdentifier = partyIdentifier
-                    }
-
-                    /**
-                     * If this value isn't provided, it will be inherited from the counterparty's
-                     * name.
-                     */
-                    fun partyName(partyName: String) = partyName(JsonField.of(partyName))
-
-                    /**
-                     * Sets [Builder.partyName] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.partyName] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
-                     */
-                    fun partyName(partyName: JsonField<String>) = apply {
-                        this.partyName = partyName
-                    }
-
-                    /** Either `individual` or `business`. */
-                    fun partyType(partyType: PartyType?) =
-                        partyType(JsonField.ofNullable(partyType))
-
-                    /**
-                     * Sets [Builder.partyType] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.partyType] with a well-typed [PartyType]
-                     * value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
-                     */
-                    fun partyType(partyType: JsonField<PartyType>) = apply {
-                        this.partyType = partyType
-                    }
-
-                    /**
-                     * If you've enabled the Modern Treasury + Plaid integration in your Plaid
-                     * account, you can pass the processor token in this field.
-                     */
-                    fun plaidProcessorToken(plaidProcessorToken: String) =
-                        plaidProcessorToken(JsonField.of(plaidProcessorToken))
-
-                    /**
-                     * Sets [Builder.plaidProcessorToken] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.plaidProcessorToken] with a well-typed
-                     * [String] value instead. This method is primarily for setting the field to an
-                     * undocumented or not yet supported value.
-                     */
-                    fun plaidProcessorToken(plaidProcessorToken: JsonField<String>) = apply {
-                        this.plaidProcessorToken = plaidProcessorToken
-                    }
-
-                    fun routingDetails(routingDetails: List<RoutingDetail>) =
-                        routingDetails(JsonField.of(routingDetails))
-
-                    /**
-                     * Sets [Builder.routingDetails] to an arbitrary JSON value.
-                     *
-                     * You should usually call [Builder.routingDetails] with a well-typed
-                     * `List<RoutingDetail>` value instead. This method is primarily for setting the
-                     * field to an undocumented or not yet supported value.
-                     */
-                    fun routingDetails(routingDetails: JsonField<List<RoutingDetail>>) = apply {
-                        this.routingDetails = routingDetails.map { it.toMutableList() }
-                    }
-
-                    /**
-                     * Adds a single [RoutingDetail] to [routingDetails].
-                     *
-                     * @throws IllegalStateException if the field was previously set to a non-list.
-                     */
-                    fun addRoutingDetail(routingDetail: RoutingDetail) = apply {
-                        routingDetails =
-                            (routingDetails ?: JsonField.of(mutableListOf())).also {
-                                checkKnown("routingDetails", it).add(routingDetail)
-                            }
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [ReceivingAccount].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): ReceivingAccount =
-                        ReceivingAccount(
-                            (accountDetails ?: JsonMissing.of()).map { it.toImmutable() },
-                            accountType,
-                            (contactDetails ?: JsonMissing.of()).map { it.toImmutable() },
-                            externalId,
-                            ledgerAccount,
-                            metadata,
-                            name,
-                            partyAddress,
-                            partyIdentifier,
-                            partyName,
-                            partyType,
-                            plaidProcessorToken,
-                            (routingDetails ?: JsonMissing.of()).map { it.toImmutable() },
-                            additionalProperties.toMutableMap(),
-                        )
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): ReceivingAccount = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    accountDetails()?.forEach { it.validate() }
-                    accountType()?.validate()
-                    contactDetails()?.forEach { it.validate() }
-                    externalId()
-                    ledgerAccount()?.validate()
-                    metadata()?.validate()
-                    name()
-                    partyAddress()?.validate()
-                    partyIdentifier()
-                    partyName()
-                    partyType()?.validate()
-                    plaidProcessorToken()
-                    routingDetails()?.forEach { it.validate() }
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    (accountDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                        (accountType.asKnown()?.validity() ?: 0) +
-                        (contactDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                        (if (externalId.asKnown() == null) 0 else 1) +
-                        (ledgerAccount.asKnown()?.validity() ?: 0) +
-                        (metadata.asKnown()?.validity() ?: 0) +
-                        (if (name.asKnown() == null) 0 else 1) +
-                        (partyAddress.asKnown()?.validity() ?: 0) +
-                        (if (partyIdentifier.asKnown() == null) 0 else 1) +
-                        (if (partyName.asKnown() == null) 0 else 1) +
-                        (partyType.asKnown()?.validity() ?: 0) +
-                        (if (plaidProcessorToken.asKnown() == null) 0 else 1) +
-                        (routingDetails.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
-
-                class AccountDetail
-                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-                private constructor(
-                    private val accountNumber: JsonField<String>,
-                    private val accountNumberType: JsonField<AccountNumberType>,
-                    private val additionalProperties: MutableMap<String, JsonValue>,
-                ) {
-
-                    @JsonCreator
-                    private constructor(
-                        @JsonProperty("account_number")
-                        @ExcludeMissing
-                        accountNumber: JsonField<String> = JsonMissing.of(),
-                        @JsonProperty("account_number_type")
-                        @ExcludeMissing
-                        accountNumberType: JsonField<AccountNumberType> = JsonMissing.of(),
-                    ) : this(accountNumber, accountNumberType, mutableMapOf())
-
-                    /**
-                     * @throws ModernTreasuryInvalidDataException if the JSON field has an
-                     *   unexpected type or is unexpectedly missing or null (e.g. if the server
-                     *   responded with an unexpected value).
-                     */
-                    fun accountNumber(): String = accountNumber.getRequired("account_number")
-
-                    /**
-                     * @throws ModernTreasuryInvalidDataException if the JSON field has an
-                     *   unexpected type (e.g. if the server responded with an unexpected value).
-                     */
-                    fun accountNumberType(): AccountNumberType? =
-                        accountNumberType.getNullable("account_number_type")
-
-                    /**
-                     * Returns the raw JSON value of [accountNumber].
-                     *
-                     * Unlike [accountNumber], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("account_number")
-                    @ExcludeMissing
-                    fun _accountNumber(): JsonField<String> = accountNumber
-
-                    /**
-                     * Returns the raw JSON value of [accountNumberType].
-                     *
-                     * Unlike [accountNumberType], this method doesn't throw if the JSON field has
-                     * an unexpected type.
-                     */
-                    @JsonProperty("account_number_type")
-                    @ExcludeMissing
-                    fun _accountNumberType(): JsonField<AccountNumberType> = accountNumberType
-
-                    @JsonAnySetter
-                    private fun putAdditionalProperty(key: String, value: JsonValue) {
-                        additionalProperties.put(key, value)
-                    }
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> =
-                        Collections.unmodifiableMap(additionalProperties)
-
-                    fun toBuilder() = Builder().from(this)
-
-                    companion object {
-
-                        /**
-                         * Returns a mutable builder for constructing an instance of
-                         * [AccountDetail].
-                         *
-                         * The following fields are required:
-                         * ```kotlin
-                         * .accountNumber()
-                         * ```
-                         */
-                        fun builder() = Builder()
-                    }
-
-                    /** A builder for [AccountDetail]. */
-                    class Builder internal constructor() {
-
-                        private var accountNumber: JsonField<String>? = null
-                        private var accountNumberType: JsonField<AccountNumberType> =
-                            JsonMissing.of()
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        internal fun from(accountDetail: AccountDetail) = apply {
-                            accountNumber = accountDetail.accountNumber
-                            accountNumberType = accountDetail.accountNumberType
-                            additionalProperties = accountDetail.additionalProperties.toMutableMap()
-                        }
-
-                        fun accountNumber(accountNumber: String) =
-                            accountNumber(JsonField.of(accountNumber))
-
-                        /**
-                         * Sets [Builder.accountNumber] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.accountNumber] with a well-typed
-                         * [String] value instead. This method is primarily for setting the field to
-                         * an undocumented or not yet supported value.
-                         */
-                        fun accountNumber(accountNumber: JsonField<String>) = apply {
-                            this.accountNumber = accountNumber
-                        }
-
-                        fun accountNumberType(accountNumberType: AccountNumberType) =
-                            accountNumberType(JsonField.of(accountNumberType))
-
-                        /**
-                         * Sets [Builder.accountNumberType] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.accountNumberType] with a well-typed
-                         * [AccountNumberType] value instead. This method is primarily for setting
-                         * the field to an undocumented or not yet supported value.
-                         */
-                        fun accountNumberType(accountNumberType: JsonField<AccountNumberType>) =
-                            apply {
-                                this.accountNumberType = accountNumberType
-                            }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                putAllAdditionalProperties(additionalProperties)
-                            }
-
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun removeAdditionalProperty(key: String) = apply {
-                            additionalProperties.remove(key)
-                        }
-
-                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                            keys.forEach(::removeAdditionalProperty)
-                        }
-
-                        /**
-                         * Returns an immutable instance of [AccountDetail].
-                         *
-                         * Further updates to this [Builder] will not mutate the returned instance.
-                         *
-                         * The following fields are required:
-                         * ```kotlin
-                         * .accountNumber()
-                         * ```
-                         *
-                         * @throws IllegalStateException if any required field is unset.
-                         */
-                        fun build(): AccountDetail =
-                            AccountDetail(
-                                checkRequired("accountNumber", accountNumber),
-                                accountNumberType,
-                                additionalProperties.toMutableMap(),
-                            )
-                    }
-
-                    private var validated: Boolean = false
-
-                    /**
-                     * Validates that the types of all values in this object match their expected
-                     * types recursively.
-                     *
-                     * This method is _not_ forwards compatible with new types from the API for
-                     * existing fields.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if any value type in this object
-                     *   doesn't match its expected type.
-                     */
-                    fun validate(): AccountDetail = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        accountNumber()
-                        accountNumberType()?.validate()
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: ModernTreasuryInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    internal fun validity(): Int =
-                        (if (accountNumber.asKnown() == null) 0 else 1) +
-                            (accountNumberType.asKnown()?.validity() ?: 0)
-
-                    class AccountNumberType
-                    @JsonCreator
-                    private constructor(private val value: JsonField<String>) : Enum {
-
-                        /**
-                         * Returns this class instance's raw value.
-                         *
-                         * This is usually only useful if this instance was deserialized from data
-                         * that doesn't match any known member, and you want to know that value. For
-                         * example, if the SDK is on an older version than the API, then the API may
-                         * respond with new members that the SDK is unaware of.
-                         */
-                        @com.fasterxml.jackson.annotation.JsonValue
-                        fun _value(): JsonField<String> = value
-
-                        companion object {
-
-                            val ARBITRUM_ADDRESS = of("arbitrum_address")
-
-                            val AU_NUMBER = of("au_number")
-
-                            val AVALANCHE_ADDRESS = of("avalanche_address")
-
-                            val BASE_ADDRESS = of("base_address")
-
-                            val CARD_TOKEN = of("card_token")
-
-                            val CLABE = of("clabe")
-
-                            val ETHEREUM_ADDRESS = of("ethereum_address")
-
-                            val HK_NUMBER = of("hk_number")
-
-                            val IBAN = of("iban")
-
-                            val ID_NUMBER = of("id_number")
-
-                            val NZ_NUMBER = of("nz_number")
-
-                            val OTHER = of("other")
-
-                            val PAN = of("pan")
-
-                            val POLYGON_ADDRESS = of("polygon_address")
-
-                            val SG_NUMBER = of("sg_number")
-
-                            val SOLANA_ADDRESS = of("solana_address")
-
-                            fun of(value: String) = AccountNumberType(JsonField.of(value))
-                        }
-
-                        /** An enum containing [AccountNumberType]'s known values. */
-                        enum class Known {
-                            ARBITRUM_ADDRESS,
-                            AU_NUMBER,
-                            AVALANCHE_ADDRESS,
-                            BASE_ADDRESS,
-                            CARD_TOKEN,
-                            CLABE,
-                            ETHEREUM_ADDRESS,
-                            HK_NUMBER,
-                            IBAN,
-                            ID_NUMBER,
-                            NZ_NUMBER,
-                            OTHER,
-                            PAN,
-                            POLYGON_ADDRESS,
-                            SG_NUMBER,
-                            SOLANA_ADDRESS,
-                        }
-
-                        /**
-                         * An enum containing [AccountNumberType]'s known values, as well as an
-                         * [_UNKNOWN] member.
-                         *
-                         * An instance of [AccountNumberType] can contain an unknown value in a
-                         * couple of cases:
-                         * - It was deserialized from data that doesn't match any known member. For
-                         *   example, if the SDK is on an older version than the API, then the API
-                         *   may respond with new members that the SDK is unaware of.
-                         * - It was constructed with an arbitrary value using the [of] method.
-                         */
-                        enum class Value {
-                            ARBITRUM_ADDRESS,
-                            AU_NUMBER,
-                            AVALANCHE_ADDRESS,
-                            BASE_ADDRESS,
-                            CARD_TOKEN,
-                            CLABE,
-                            ETHEREUM_ADDRESS,
-                            HK_NUMBER,
-                            IBAN,
-                            ID_NUMBER,
-                            NZ_NUMBER,
-                            OTHER,
-                            PAN,
-                            POLYGON_ADDRESS,
-                            SG_NUMBER,
-                            SOLANA_ADDRESS,
-                            /**
-                             * An enum member indicating that [AccountNumberType] was instantiated
-                             * with an unknown value.
-                             */
-                            _UNKNOWN,
-                        }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value, or
-                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                         *
-                         * Use the [known] method instead if you're certain the value is always
-                         * known or if you want to throw for the unknown case.
-                         */
-                        fun value(): Value =
-                            when (this) {
-                                ARBITRUM_ADDRESS -> Value.ARBITRUM_ADDRESS
-                                AU_NUMBER -> Value.AU_NUMBER
-                                AVALANCHE_ADDRESS -> Value.AVALANCHE_ADDRESS
-                                BASE_ADDRESS -> Value.BASE_ADDRESS
-                                CARD_TOKEN -> Value.CARD_TOKEN
-                                CLABE -> Value.CLABE
-                                ETHEREUM_ADDRESS -> Value.ETHEREUM_ADDRESS
-                                HK_NUMBER -> Value.HK_NUMBER
-                                IBAN -> Value.IBAN
-                                ID_NUMBER -> Value.ID_NUMBER
-                                NZ_NUMBER -> Value.NZ_NUMBER
-                                OTHER -> Value.OTHER
-                                PAN -> Value.PAN
-                                POLYGON_ADDRESS -> Value.POLYGON_ADDRESS
-                                SG_NUMBER -> Value.SG_NUMBER
-                                SOLANA_ADDRESS -> Value.SOLANA_ADDRESS
-                                else -> Value._UNKNOWN
-                            }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value.
-                         *
-                         * Use the [value] method instead if you're uncertain the value is always
-                         * known and don't want to throw for the unknown case.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if this class instance's value
-                         *   is a not a known member.
-                         */
-                        fun known(): Known =
-                            when (this) {
-                                ARBITRUM_ADDRESS -> Known.ARBITRUM_ADDRESS
-                                AU_NUMBER -> Known.AU_NUMBER
-                                AVALANCHE_ADDRESS -> Known.AVALANCHE_ADDRESS
-                                BASE_ADDRESS -> Known.BASE_ADDRESS
-                                CARD_TOKEN -> Known.CARD_TOKEN
-                                CLABE -> Known.CLABE
-                                ETHEREUM_ADDRESS -> Known.ETHEREUM_ADDRESS
-                                HK_NUMBER -> Known.HK_NUMBER
-                                IBAN -> Known.IBAN
-                                ID_NUMBER -> Known.ID_NUMBER
-                                NZ_NUMBER -> Known.NZ_NUMBER
-                                OTHER -> Known.OTHER
-                                PAN -> Known.PAN
-                                POLYGON_ADDRESS -> Known.POLYGON_ADDRESS
-                                SG_NUMBER -> Known.SG_NUMBER
-                                SOLANA_ADDRESS -> Known.SOLANA_ADDRESS
-                                else ->
-                                    throw ModernTreasuryInvalidDataException(
-                                        "Unknown AccountNumberType: $value"
-                                    )
-                            }
-
-                        /**
-                         * Returns this class instance's primitive wire representation.
-                         *
-                         * This differs from the [toString] method because that method is primarily
-                         * for debugging and generally doesn't throw.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if this class instance's value
-                         *   does not have the expected primitive type.
-                         */
-                        fun asString(): String =
-                            _value().asString()
-                                ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                        private var validated: Boolean = false
-
-                        /**
-                         * Validates that the types of all values in this object match their
-                         * expected types recursively.
-                         *
-                         * This method is _not_ forwards compatible with new types from the API for
-                         * existing fields.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if any value type in this
-                         *   object doesn't match its expected type.
-                         */
-                        fun validate(): AccountNumberType = apply {
-                            if (validated) {
-                                return@apply
-                            }
-
-                            known()
-                            validated = true
-                        }
-
-                        fun isValid(): Boolean =
-                            try {
-                                validate()
-                                true
-                            } catch (e: ModernTreasuryInvalidDataException) {
-                                false
-                            }
-
-                        /**
-                         * Returns a score indicating how many valid values are contained in this
-                         * object recursively.
-                         *
-                         * Used for best match union deserialization.
-                         */
-                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                        override fun equals(other: Any?): Boolean {
-                            if (this === other) {
-                                return true
-                            }
-
-                            return other is AccountNumberType && value == other.value
-                        }
-
-                        override fun hashCode() = value.hashCode()
-
-                        override fun toString() = value.toString()
-                    }
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is AccountDetail &&
-                            accountNumber == other.accountNumber &&
-                            accountNumberType == other.accountNumberType &&
-                            additionalProperties == other.additionalProperties
-                    }
-
-                    private val hashCode: Int by lazy {
-                        Objects.hash(accountNumber, accountNumberType, additionalProperties)
-                    }
-
-                    override fun hashCode(): Int = hashCode
-
-                    override fun toString() =
-                        "AccountDetail{accountNumber=$accountNumber, accountNumberType=$accountNumberType, additionalProperties=$additionalProperties}"
-                }
-
-                /**
-                 * Additional data represented as key-value pairs. Both the key and value must be
-                 * strings.
-                 */
-                class Metadata
-                @JsonCreator
-                private constructor(
-                    @com.fasterxml.jackson.annotation.JsonValue
-                    private val additionalProperties: Map<String, JsonValue>
-                ) {
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                    fun toBuilder() = Builder().from(this)
-
-                    companion object {
-
-                        /** Returns a mutable builder for constructing an instance of [Metadata]. */
-                        fun builder() = Builder()
-                    }
-
-                    /** A builder for [Metadata]. */
-                    class Builder internal constructor() {
-
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        internal fun from(metadata: Metadata) = apply {
-                            additionalProperties = metadata.additionalProperties.toMutableMap()
-                        }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                putAllAdditionalProperties(additionalProperties)
-                            }
-
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun removeAdditionalProperty(key: String) = apply {
-                            additionalProperties.remove(key)
-                        }
-
-                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                            keys.forEach(::removeAdditionalProperty)
-                        }
-
-                        /**
-                         * Returns an immutable instance of [Metadata].
-                         *
-                         * Further updates to this [Builder] will not mutate the returned instance.
-                         */
-                        fun build(): Metadata = Metadata(additionalProperties.toImmutable())
-                    }
-
-                    private var validated: Boolean = false
-
-                    /**
-                     * Validates that the types of all values in this object match their expected
-                     * types recursively.
-                     *
-                     * This method is _not_ forwards compatible with new types from the API for
-                     * existing fields.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if any value type in this object
-                     *   doesn't match its expected type.
-                     */
-                    fun validate(): Metadata = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: ModernTreasuryInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    internal fun validity(): Int =
-                        additionalProperties.count { (_, value) ->
-                            !value.isNull() && !value.isMissing()
-                        }
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Metadata &&
-                            additionalProperties == other.additionalProperties
-                    }
-
-                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                    override fun hashCode(): Int = hashCode
-
-                    override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-                }
-
-                /** Either `individual` or `business`. */
-                class PartyType
-                @JsonCreator
-                private constructor(private val value: JsonField<String>) : Enum {
-
-                    /**
-                     * Returns this class instance's raw value.
-                     *
-                     * This is usually only useful if this instance was deserialized from data that
-                     * doesn't match any known member, and you want to know that value. For example,
-                     * if the SDK is on an older version than the API, then the API may respond with
-                     * new members that the SDK is unaware of.
-                     */
-                    @com.fasterxml.jackson.annotation.JsonValue
-                    fun _value(): JsonField<String> = value
-
-                    companion object {
-
-                        val BUSINESS = of("business")
-
-                        val INDIVIDUAL = of("individual")
-
-                        fun of(value: String) = PartyType(JsonField.of(value))
-                    }
-
-                    /** An enum containing [PartyType]'s known values. */
-                    enum class Known {
-                        BUSINESS,
-                        INDIVIDUAL,
-                    }
-
-                    /**
-                     * An enum containing [PartyType]'s known values, as well as an [_UNKNOWN]
-                     * member.
-                     *
-                     * An instance of [PartyType] can contain an unknown value in a couple of cases:
-                     * - It was deserialized from data that doesn't match any known member. For
-                     *   example, if the SDK is on an older version than the API, then the API may
-                     *   respond with new members that the SDK is unaware of.
-                     * - It was constructed with an arbitrary value using the [of] method.
-                     */
-                    enum class Value {
-                        BUSINESS,
-                        INDIVIDUAL,
-                        /**
-                         * An enum member indicating that [PartyType] was instantiated with an
-                         * unknown value.
-                         */
-                        _UNKNOWN,
-                    }
-
-                    /**
-                     * Returns an enum member corresponding to this class instance's value, or
-                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                     *
-                     * Use the [known] method instead if you're certain the value is always known or
-                     * if you want to throw for the unknown case.
-                     */
-                    fun value(): Value =
-                        when (this) {
-                            BUSINESS -> Value.BUSINESS
-                            INDIVIDUAL -> Value.INDIVIDUAL
-                            else -> Value._UNKNOWN
-                        }
-
-                    /**
-                     * Returns an enum member corresponding to this class instance's value.
-                     *
-                     * Use the [value] method instead if you're uncertain the value is always known
-                     * and don't want to throw for the unknown case.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if this class instance's value is
-                     *   a not a known member.
-                     */
-                    fun known(): Known =
-                        when (this) {
-                            BUSINESS -> Known.BUSINESS
-                            INDIVIDUAL -> Known.INDIVIDUAL
-                            else ->
-                                throw ModernTreasuryInvalidDataException(
-                                    "Unknown PartyType: $value"
-                                )
-                        }
-
-                    /**
-                     * Returns this class instance's primitive wire representation.
-                     *
-                     * This differs from the [toString] method because that method is primarily for
-                     * debugging and generally doesn't throw.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if this class instance's value
-                     *   does not have the expected primitive type.
-                     */
-                    fun asString(): String =
-                        _value().asString()
-                            ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                    private var validated: Boolean = false
-
-                    /**
-                     * Validates that the types of all values in this object match their expected
-                     * types recursively.
-                     *
-                     * This method is _not_ forwards compatible with new types from the API for
-                     * existing fields.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if any value type in this object
-                     *   doesn't match its expected type.
-                     */
-                    fun validate(): PartyType = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        known()
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: ModernTreasuryInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is PartyType && value == other.value
-                    }
-
-                    override fun hashCode() = value.hashCode()
-
-                    override fun toString() = value.toString()
-                }
-
-                class RoutingDetail
-                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-                private constructor(
-                    private val routingNumber: JsonField<String>,
-                    private val routingNumberType: JsonField<RoutingNumberType>,
-                    private val paymentType: JsonField<PaymentType>,
-                    private val additionalProperties: MutableMap<String, JsonValue>,
-                ) {
-
-                    @JsonCreator
-                    private constructor(
-                        @JsonProperty("routing_number")
-                        @ExcludeMissing
-                        routingNumber: JsonField<String> = JsonMissing.of(),
-                        @JsonProperty("routing_number_type")
-                        @ExcludeMissing
-                        routingNumberType: JsonField<RoutingNumberType> = JsonMissing.of(),
-                        @JsonProperty("payment_type")
-                        @ExcludeMissing
-                        paymentType: JsonField<PaymentType> = JsonMissing.of(),
-                    ) : this(routingNumber, routingNumberType, paymentType, mutableMapOf())
-
-                    /**
-                     * @throws ModernTreasuryInvalidDataException if the JSON field has an
-                     *   unexpected type or is unexpectedly missing or null (e.g. if the server
-                     *   responded with an unexpected value).
-                     */
-                    fun routingNumber(): String = routingNumber.getRequired("routing_number")
-
-                    /**
-                     * @throws ModernTreasuryInvalidDataException if the JSON field has an
-                     *   unexpected type or is unexpectedly missing or null (e.g. if the server
-                     *   responded with an unexpected value).
-                     */
-                    fun routingNumberType(): RoutingNumberType =
-                        routingNumberType.getRequired("routing_number_type")
-
-                    /**
-                     * @throws ModernTreasuryInvalidDataException if the JSON field has an
-                     *   unexpected type (e.g. if the server responded with an unexpected value).
-                     */
-                    fun paymentType(): PaymentType? = paymentType.getNullable("payment_type")
-
-                    /**
-                     * Returns the raw JSON value of [routingNumber].
-                     *
-                     * Unlike [routingNumber], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("routing_number")
-                    @ExcludeMissing
-                    fun _routingNumber(): JsonField<String> = routingNumber
-
-                    /**
-                     * Returns the raw JSON value of [routingNumberType].
-                     *
-                     * Unlike [routingNumberType], this method doesn't throw if the JSON field has
-                     * an unexpected type.
-                     */
-                    @JsonProperty("routing_number_type")
-                    @ExcludeMissing
-                    fun _routingNumberType(): JsonField<RoutingNumberType> = routingNumberType
-
-                    /**
-                     * Returns the raw JSON value of [paymentType].
-                     *
-                     * Unlike [paymentType], this method doesn't throw if the JSON field has an
-                     * unexpected type.
-                     */
-                    @JsonProperty("payment_type")
-                    @ExcludeMissing
-                    fun _paymentType(): JsonField<PaymentType> = paymentType
-
-                    @JsonAnySetter
-                    private fun putAdditionalProperty(key: String, value: JsonValue) {
-                        additionalProperties.put(key, value)
-                    }
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> =
-                        Collections.unmodifiableMap(additionalProperties)
-
-                    fun toBuilder() = Builder().from(this)
-
-                    companion object {
-
-                        /**
-                         * Returns a mutable builder for constructing an instance of
-                         * [RoutingDetail].
-                         *
-                         * The following fields are required:
-                         * ```kotlin
-                         * .routingNumber()
-                         * .routingNumberType()
-                         * ```
-                         */
-                        fun builder() = Builder()
-                    }
-
-                    /** A builder for [RoutingDetail]. */
-                    class Builder internal constructor() {
-
-                        private var routingNumber: JsonField<String>? = null
-                        private var routingNumberType: JsonField<RoutingNumberType>? = null
-                        private var paymentType: JsonField<PaymentType> = JsonMissing.of()
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        internal fun from(routingDetail: RoutingDetail) = apply {
-                            routingNumber = routingDetail.routingNumber
-                            routingNumberType = routingDetail.routingNumberType
-                            paymentType = routingDetail.paymentType
-                            additionalProperties = routingDetail.additionalProperties.toMutableMap()
-                        }
-
-                        fun routingNumber(routingNumber: String) =
-                            routingNumber(JsonField.of(routingNumber))
-
-                        /**
-                         * Sets [Builder.routingNumber] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.routingNumber] with a well-typed
-                         * [String] value instead. This method is primarily for setting the field to
-                         * an undocumented or not yet supported value.
-                         */
-                        fun routingNumber(routingNumber: JsonField<String>) = apply {
-                            this.routingNumber = routingNumber
-                        }
-
-                        fun routingNumberType(routingNumberType: RoutingNumberType) =
-                            routingNumberType(JsonField.of(routingNumberType))
-
-                        /**
-                         * Sets [Builder.routingNumberType] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.routingNumberType] with a well-typed
-                         * [RoutingNumberType] value instead. This method is primarily for setting
-                         * the field to an undocumented or not yet supported value.
-                         */
-                        fun routingNumberType(routingNumberType: JsonField<RoutingNumberType>) =
-                            apply {
-                                this.routingNumberType = routingNumberType
-                            }
-
-                        fun paymentType(paymentType: PaymentType) =
-                            paymentType(JsonField.of(paymentType))
-
-                        /**
-                         * Sets [Builder.paymentType] to an arbitrary JSON value.
-                         *
-                         * You should usually call [Builder.paymentType] with a well-typed
-                         * [PaymentType] value instead. This method is primarily for setting the
-                         * field to an undocumented or not yet supported value.
-                         */
-                        fun paymentType(paymentType: JsonField<PaymentType>) = apply {
-                            this.paymentType = paymentType
-                        }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                putAllAdditionalProperties(additionalProperties)
-                            }
-
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun removeAdditionalProperty(key: String) = apply {
-                            additionalProperties.remove(key)
-                        }
-
-                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                            keys.forEach(::removeAdditionalProperty)
-                        }
-
-                        /**
-                         * Returns an immutable instance of [RoutingDetail].
-                         *
-                         * Further updates to this [Builder] will not mutate the returned instance.
-                         *
-                         * The following fields are required:
-                         * ```kotlin
-                         * .routingNumber()
-                         * .routingNumberType()
-                         * ```
-                         *
-                         * @throws IllegalStateException if any required field is unset.
-                         */
-                        fun build(): RoutingDetail =
-                            RoutingDetail(
-                                checkRequired("routingNumber", routingNumber),
-                                checkRequired("routingNumberType", routingNumberType),
-                                paymentType,
-                                additionalProperties.toMutableMap(),
-                            )
-                    }
-
-                    private var validated: Boolean = false
-
-                    /**
-                     * Validates that the types of all values in this object match their expected
-                     * types recursively.
-                     *
-                     * This method is _not_ forwards compatible with new types from the API for
-                     * existing fields.
-                     *
-                     * @throws ModernTreasuryInvalidDataException if any value type in this object
-                     *   doesn't match its expected type.
-                     */
-                    fun validate(): RoutingDetail = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        routingNumber()
-                        routingNumberType().validate()
-                        paymentType()?.validate()
-                        validated = true
-                    }
-
-                    fun isValid(): Boolean =
-                        try {
-                            validate()
-                            true
-                        } catch (e: ModernTreasuryInvalidDataException) {
-                            false
-                        }
-
-                    /**
-                     * Returns a score indicating how many valid values are contained in this object
-                     * recursively.
-                     *
-                     * Used for best match union deserialization.
-                     */
-                    internal fun validity(): Int =
-                        (if (routingNumber.asKnown() == null) 0 else 1) +
-                            (routingNumberType.asKnown()?.validity() ?: 0) +
-                            (paymentType.asKnown()?.validity() ?: 0)
-
-                    class RoutingNumberType
-                    @JsonCreator
-                    private constructor(private val value: JsonField<String>) : Enum {
-
-                        /**
-                         * Returns this class instance's raw value.
-                         *
-                         * This is usually only useful if this instance was deserialized from data
-                         * that doesn't match any known member, and you want to know that value. For
-                         * example, if the SDK is on an older version than the API, then the API may
-                         * respond with new members that the SDK is unaware of.
-                         */
-                        @com.fasterxml.jackson.annotation.JsonValue
-                        fun _value(): JsonField<String> = value
-
-                        companion object {
-
-                            val ABA = of("aba")
-
-                            val AU_BSB = of("au_bsb")
-
-                            val BR_CODIGO = of("br_codigo")
-
-                            val CA_CPA = of("ca_cpa")
-
-                            val CHIPS = of("chips")
-
-                            val CNAPS = of("cnaps")
-
-                            val DK_INTERBANK_CLEARING_CODE = of("dk_interbank_clearing_code")
-
-                            val GB_SORT_CODE = of("gb_sort_code")
-
-                            val HK_INTERBANK_CLEARING_CODE = of("hk_interbank_clearing_code")
-
-                            val IL_BANK_CODE = of("il_bank_code")
-
-                            val IN_IFSC = of("in_ifsc")
-
-                            val JP_ZENGIN_CODE = of("jp_zengin_code")
-
-                            val MY_BRANCH_CODE = of("my_branch_code")
-
-                            val MX_BANK_IDENTIFIER = of("mx_bank_identifier")
-
-                            val NZ_NATIONAL_CLEARING_CODE = of("nz_national_clearing_code")
-
-                            val PL_NATIONAL_CLEARING_CODE = of("pl_national_clearing_code")
-
-                            val SE_BANKGIRO_CLEARING_CODE = of("se_bankgiro_clearing_code")
-
-                            val SG_INTERBANK_CLEARING_CODE = of("sg_interbank_clearing_code")
-
-                            val SWIFT = of("swift")
-
-                            val ZA_NATIONAL_CLEARING_CODE = of("za_national_clearing_code")
-
-                            fun of(value: String) = RoutingNumberType(JsonField.of(value))
-                        }
-
-                        /** An enum containing [RoutingNumberType]'s known values. */
-                        enum class Known {
-                            ABA,
-                            AU_BSB,
-                            BR_CODIGO,
-                            CA_CPA,
-                            CHIPS,
-                            CNAPS,
-                            DK_INTERBANK_CLEARING_CODE,
-                            GB_SORT_CODE,
-                            HK_INTERBANK_CLEARING_CODE,
-                            IL_BANK_CODE,
-                            IN_IFSC,
-                            JP_ZENGIN_CODE,
-                            MY_BRANCH_CODE,
-                            MX_BANK_IDENTIFIER,
-                            NZ_NATIONAL_CLEARING_CODE,
-                            PL_NATIONAL_CLEARING_CODE,
-                            SE_BANKGIRO_CLEARING_CODE,
-                            SG_INTERBANK_CLEARING_CODE,
-                            SWIFT,
-                            ZA_NATIONAL_CLEARING_CODE,
-                        }
-
-                        /**
-                         * An enum containing [RoutingNumberType]'s known values, as well as an
-                         * [_UNKNOWN] member.
-                         *
-                         * An instance of [RoutingNumberType] can contain an unknown value in a
-                         * couple of cases:
-                         * - It was deserialized from data that doesn't match any known member. For
-                         *   example, if the SDK is on an older version than the API, then the API
-                         *   may respond with new members that the SDK is unaware of.
-                         * - It was constructed with an arbitrary value using the [of] method.
-                         */
-                        enum class Value {
-                            ABA,
-                            AU_BSB,
-                            BR_CODIGO,
-                            CA_CPA,
-                            CHIPS,
-                            CNAPS,
-                            DK_INTERBANK_CLEARING_CODE,
-                            GB_SORT_CODE,
-                            HK_INTERBANK_CLEARING_CODE,
-                            IL_BANK_CODE,
-                            IN_IFSC,
-                            JP_ZENGIN_CODE,
-                            MY_BRANCH_CODE,
-                            MX_BANK_IDENTIFIER,
-                            NZ_NATIONAL_CLEARING_CODE,
-                            PL_NATIONAL_CLEARING_CODE,
-                            SE_BANKGIRO_CLEARING_CODE,
-                            SG_INTERBANK_CLEARING_CODE,
-                            SWIFT,
-                            ZA_NATIONAL_CLEARING_CODE,
-                            /**
-                             * An enum member indicating that [RoutingNumberType] was instantiated
-                             * with an unknown value.
-                             */
-                            _UNKNOWN,
-                        }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value, or
-                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                         *
-                         * Use the [known] method instead if you're certain the value is always
-                         * known or if you want to throw for the unknown case.
-                         */
-                        fun value(): Value =
-                            when (this) {
-                                ABA -> Value.ABA
-                                AU_BSB -> Value.AU_BSB
-                                BR_CODIGO -> Value.BR_CODIGO
-                                CA_CPA -> Value.CA_CPA
-                                CHIPS -> Value.CHIPS
-                                CNAPS -> Value.CNAPS
-                                DK_INTERBANK_CLEARING_CODE -> Value.DK_INTERBANK_CLEARING_CODE
-                                GB_SORT_CODE -> Value.GB_SORT_CODE
-                                HK_INTERBANK_CLEARING_CODE -> Value.HK_INTERBANK_CLEARING_CODE
-                                IL_BANK_CODE -> Value.IL_BANK_CODE
-                                IN_IFSC -> Value.IN_IFSC
-                                JP_ZENGIN_CODE -> Value.JP_ZENGIN_CODE
-                                MY_BRANCH_CODE -> Value.MY_BRANCH_CODE
-                                MX_BANK_IDENTIFIER -> Value.MX_BANK_IDENTIFIER
-                                NZ_NATIONAL_CLEARING_CODE -> Value.NZ_NATIONAL_CLEARING_CODE
-                                PL_NATIONAL_CLEARING_CODE -> Value.PL_NATIONAL_CLEARING_CODE
-                                SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
-                                SG_INTERBANK_CLEARING_CODE -> Value.SG_INTERBANK_CLEARING_CODE
-                                SWIFT -> Value.SWIFT
-                                ZA_NATIONAL_CLEARING_CODE -> Value.ZA_NATIONAL_CLEARING_CODE
-                                else -> Value._UNKNOWN
-                            }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value.
-                         *
-                         * Use the [value] method instead if you're uncertain the value is always
-                         * known and don't want to throw for the unknown case.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if this class instance's value
-                         *   is a not a known member.
-                         */
-                        fun known(): Known =
-                            when (this) {
-                                ABA -> Known.ABA
-                                AU_BSB -> Known.AU_BSB
-                                BR_CODIGO -> Known.BR_CODIGO
-                                CA_CPA -> Known.CA_CPA
-                                CHIPS -> Known.CHIPS
-                                CNAPS -> Known.CNAPS
-                                DK_INTERBANK_CLEARING_CODE -> Known.DK_INTERBANK_CLEARING_CODE
-                                GB_SORT_CODE -> Known.GB_SORT_CODE
-                                HK_INTERBANK_CLEARING_CODE -> Known.HK_INTERBANK_CLEARING_CODE
-                                IL_BANK_CODE -> Known.IL_BANK_CODE
-                                IN_IFSC -> Known.IN_IFSC
-                                JP_ZENGIN_CODE -> Known.JP_ZENGIN_CODE
-                                MY_BRANCH_CODE -> Known.MY_BRANCH_CODE
-                                MX_BANK_IDENTIFIER -> Known.MX_BANK_IDENTIFIER
-                                NZ_NATIONAL_CLEARING_CODE -> Known.NZ_NATIONAL_CLEARING_CODE
-                                PL_NATIONAL_CLEARING_CODE -> Known.PL_NATIONAL_CLEARING_CODE
-                                SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
-                                SG_INTERBANK_CLEARING_CODE -> Known.SG_INTERBANK_CLEARING_CODE
-                                SWIFT -> Known.SWIFT
-                                ZA_NATIONAL_CLEARING_CODE -> Known.ZA_NATIONAL_CLEARING_CODE
-                                else ->
-                                    throw ModernTreasuryInvalidDataException(
-                                        "Unknown RoutingNumberType: $value"
-                                    )
-                            }
-
-                        /**
-                         * Returns this class instance's primitive wire representation.
-                         *
-                         * This differs from the [toString] method because that method is primarily
-                         * for debugging and generally doesn't throw.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if this class instance's value
-                         *   does not have the expected primitive type.
-                         */
-                        fun asString(): String =
-                            _value().asString()
-                                ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                        private var validated: Boolean = false
-
-                        /**
-                         * Validates that the types of all values in this object match their
-                         * expected types recursively.
-                         *
-                         * This method is _not_ forwards compatible with new types from the API for
-                         * existing fields.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if any value type in this
-                         *   object doesn't match its expected type.
-                         */
-                        fun validate(): RoutingNumberType = apply {
-                            if (validated) {
-                                return@apply
-                            }
-
-                            known()
-                            validated = true
-                        }
-
-                        fun isValid(): Boolean =
-                            try {
-                                validate()
-                                true
-                            } catch (e: ModernTreasuryInvalidDataException) {
-                                false
-                            }
-
-                        /**
-                         * Returns a score indicating how many valid values are contained in this
-                         * object recursively.
-                         *
-                         * Used for best match union deserialization.
-                         */
-                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                        override fun equals(other: Any?): Boolean {
-                            if (this === other) {
-                                return true
-                            }
-
-                            return other is RoutingNumberType && value == other.value
-                        }
-
-                        override fun hashCode() = value.hashCode()
-
-                        override fun toString() = value.toString()
-                    }
-
-                    class PaymentType
-                    @JsonCreator
-                    private constructor(private val value: JsonField<String>) : Enum {
-
-                        /**
-                         * Returns this class instance's raw value.
-                         *
-                         * This is usually only useful if this instance was deserialized from data
-                         * that doesn't match any known member, and you want to know that value. For
-                         * example, if the SDK is on an older version than the API, then the API may
-                         * respond with new members that the SDK is unaware of.
-                         */
-                        @com.fasterxml.jackson.annotation.JsonValue
-                        fun _value(): JsonField<String> = value
-
-                        companion object {
-
-                            val ACH = of("ach")
-
-                            val AU_BECS = of("au_becs")
-
-                            val BACS = of("bacs")
-
-                            val BOOK = of("book")
-
-                            val CARD = of("card")
-
-                            val CHATS = of("chats")
-
-                            val CHECK = of("check")
-
-                            val CROSS_BORDER = of("cross_border")
-
-                            val DK_NETS = of("dk_nets")
-
-                            val EFT = of("eft")
-
-                            val GB_FPS = of("gb_fps")
-
-                            val MASAV = of("masav")
-
-                            val MX_CCEN = of("mx_ccen")
-
-                            val NEFT = of("neft")
-
-                            val NICS = of("nics")
-
-                            val NZ_BECS = of("nz_becs")
-
-                            val PL_ELIXIR = of("pl_elixir")
-
-                            val RTP = of("rtp")
-
-                            val SE_BANKGIROT = of("se_bankgirot")
-
-                            val SEPA = of("sepa")
-
-                            val SG_GIRO = of("sg_giro")
-
-                            val SIC = of("sic")
-
-                            val STABLECOIN = of("stablecoin")
-
-                            val WIRE = of("wire")
-
-                            val ZENGIN = of("zengin")
-
-                            fun of(value: String) = PaymentType(JsonField.of(value))
-                        }
-
-                        /** An enum containing [PaymentType]'s known values. */
-                        enum class Known {
-                            ACH,
-                            AU_BECS,
-                            BACS,
-                            BOOK,
-                            CARD,
-                            CHATS,
-                            CHECK,
-                            CROSS_BORDER,
-                            DK_NETS,
-                            EFT,
-                            GB_FPS,
-                            MASAV,
-                            MX_CCEN,
-                            NEFT,
-                            NICS,
-                            NZ_BECS,
-                            PL_ELIXIR,
-                            RTP,
-                            SE_BANKGIROT,
-                            SEPA,
-                            SG_GIRO,
-                            SIC,
-                            STABLECOIN,
-                            WIRE,
-                            ZENGIN,
-                        }
-
-                        /**
-                         * An enum containing [PaymentType]'s known values, as well as an [_UNKNOWN]
-                         * member.
-                         *
-                         * An instance of [PaymentType] can contain an unknown value in a couple of
-                         * cases:
-                         * - It was deserialized from data that doesn't match any known member. For
-                         *   example, if the SDK is on an older version than the API, then the API
-                         *   may respond with new members that the SDK is unaware of.
-                         * - It was constructed with an arbitrary value using the [of] method.
-                         */
-                        enum class Value {
-                            ACH,
-                            AU_BECS,
-                            BACS,
-                            BOOK,
-                            CARD,
-                            CHATS,
-                            CHECK,
-                            CROSS_BORDER,
-                            DK_NETS,
-                            EFT,
-                            GB_FPS,
-                            MASAV,
-                            MX_CCEN,
-                            NEFT,
-                            NICS,
-                            NZ_BECS,
-                            PL_ELIXIR,
-                            RTP,
-                            SE_BANKGIROT,
-                            SEPA,
-                            SG_GIRO,
-                            SIC,
-                            STABLECOIN,
-                            WIRE,
-                            ZENGIN,
-                            /**
-                             * An enum member indicating that [PaymentType] was instantiated with an
-                             * unknown value.
-                             */
-                            _UNKNOWN,
-                        }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value, or
-                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                         *
-                         * Use the [known] method instead if you're certain the value is always
-                         * known or if you want to throw for the unknown case.
-                         */
-                        fun value(): Value =
-                            when (this) {
-                                ACH -> Value.ACH
-                                AU_BECS -> Value.AU_BECS
-                                BACS -> Value.BACS
-                                BOOK -> Value.BOOK
-                                CARD -> Value.CARD
-                                CHATS -> Value.CHATS
-                                CHECK -> Value.CHECK
-                                CROSS_BORDER -> Value.CROSS_BORDER
-                                DK_NETS -> Value.DK_NETS
-                                EFT -> Value.EFT
-                                GB_FPS -> Value.GB_FPS
-                                MASAV -> Value.MASAV
-                                MX_CCEN -> Value.MX_CCEN
-                                NEFT -> Value.NEFT
-                                NICS -> Value.NICS
-                                NZ_BECS -> Value.NZ_BECS
-                                PL_ELIXIR -> Value.PL_ELIXIR
-                                RTP -> Value.RTP
-                                SE_BANKGIROT -> Value.SE_BANKGIROT
-                                SEPA -> Value.SEPA
-                                SG_GIRO -> Value.SG_GIRO
-                                SIC -> Value.SIC
-                                STABLECOIN -> Value.STABLECOIN
-                                WIRE -> Value.WIRE
-                                ZENGIN -> Value.ZENGIN
-                                else -> Value._UNKNOWN
-                            }
-
-                        /**
-                         * Returns an enum member corresponding to this class instance's value.
-                         *
-                         * Use the [value] method instead if you're uncertain the value is always
-                         * known and don't want to throw for the unknown case.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if this class instance's value
-                         *   is a not a known member.
-                         */
-                        fun known(): Known =
-                            when (this) {
-                                ACH -> Known.ACH
-                                AU_BECS -> Known.AU_BECS
-                                BACS -> Known.BACS
-                                BOOK -> Known.BOOK
-                                CARD -> Known.CARD
-                                CHATS -> Known.CHATS
-                                CHECK -> Known.CHECK
-                                CROSS_BORDER -> Known.CROSS_BORDER
-                                DK_NETS -> Known.DK_NETS
-                                EFT -> Known.EFT
-                                GB_FPS -> Known.GB_FPS
-                                MASAV -> Known.MASAV
-                                MX_CCEN -> Known.MX_CCEN
-                                NEFT -> Known.NEFT
-                                NICS -> Known.NICS
-                                NZ_BECS -> Known.NZ_BECS
-                                PL_ELIXIR -> Known.PL_ELIXIR
-                                RTP -> Known.RTP
-                                SE_BANKGIROT -> Known.SE_BANKGIROT
-                                SEPA -> Known.SEPA
-                                SG_GIRO -> Known.SG_GIRO
-                                SIC -> Known.SIC
-                                STABLECOIN -> Known.STABLECOIN
-                                WIRE -> Known.WIRE
-                                ZENGIN -> Known.ZENGIN
-                                else ->
-                                    throw ModernTreasuryInvalidDataException(
-                                        "Unknown PaymentType: $value"
-                                    )
-                            }
-
-                        /**
-                         * Returns this class instance's primitive wire representation.
-                         *
-                         * This differs from the [toString] method because that method is primarily
-                         * for debugging and generally doesn't throw.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if this class instance's value
-                         *   does not have the expected primitive type.
-                         */
-                        fun asString(): String =
-                            _value().asString()
-                                ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                        private var validated: Boolean = false
-
-                        /**
-                         * Validates that the types of all values in this object match their
-                         * expected types recursively.
-                         *
-                         * This method is _not_ forwards compatible with new types from the API for
-                         * existing fields.
-                         *
-                         * @throws ModernTreasuryInvalidDataException if any value type in this
-                         *   object doesn't match its expected type.
-                         */
-                        fun validate(): PaymentType = apply {
-                            if (validated) {
-                                return@apply
-                            }
-
-                            known()
-                            validated = true
-                        }
-
-                        fun isValid(): Boolean =
-                            try {
-                                validate()
-                                true
-                            } catch (e: ModernTreasuryInvalidDataException) {
-                                false
-                            }
-
-                        /**
-                         * Returns a score indicating how many valid values are contained in this
-                         * object recursively.
-                         *
-                         * Used for best match union deserialization.
-                         */
-                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                        override fun equals(other: Any?): Boolean {
-                            if (this === other) {
-                                return true
-                            }
-
-                            return other is PaymentType && value == other.value
-                        }
-
-                        override fun hashCode() = value.hashCode()
-
-                        override fun toString() = value.toString()
-                    }
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is RoutingDetail &&
-                            routingNumber == other.routingNumber &&
-                            routingNumberType == other.routingNumberType &&
-                            paymentType == other.paymentType &&
-                            additionalProperties == other.additionalProperties
-                    }
-
-                    private val hashCode: Int by lazy {
-                        Objects.hash(
-                            routingNumber,
-                            routingNumberType,
-                            paymentType,
-                            additionalProperties,
-                        )
-                    }
-
-                    override fun hashCode(): Int = hashCode
-
-                    override fun toString() =
-                        "RoutingDetail{routingNumber=$routingNumber, routingNumberType=$routingNumberType, paymentType=$paymentType, additionalProperties=$additionalProperties}"
-                }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is ReceivingAccount &&
-                        accountDetails == other.accountDetails &&
-                        accountType == other.accountType &&
-                        contactDetails == other.contactDetails &&
-                        externalId == other.externalId &&
-                        ledgerAccount == other.ledgerAccount &&
-                        metadata == other.metadata &&
-                        name == other.name &&
-                        partyAddress == other.partyAddress &&
-                        partyIdentifier == other.partyIdentifier &&
-                        partyName == other.partyName &&
-                        partyType == other.partyType &&
-                        plaidProcessorToken == other.plaidProcessorToken &&
-                        routingDetails == other.routingDetails &&
-                        additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy {
-                    Objects.hash(
-                        accountDetails,
-                        accountType,
-                        contactDetails,
-                        externalId,
-                        ledgerAccount,
-                        metadata,
-                        name,
-                        partyAddress,
-                        partyIdentifier,
-                        partyName,
-                        partyType,
-                        plaidProcessorToken,
-                        routingDetails,
-                        additionalProperties,
-                    )
-                }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() =
-                    "ReceivingAccount{accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, externalId=$externalId, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
-            }
-
-            /** One of `unreconciled`, `tentatively_reconciled` or `reconciled`. */
-            class ReconciliationStatus
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val UNRECONCILED = of("unreconciled")
-
-                    val TENTATIVELY_RECONCILED = of("tentatively_reconciled")
-
-                    val RECONCILED = of("reconciled")
-
-                    fun of(value: String) = ReconciliationStatus(JsonField.of(value))
-                }
-
-                /** An enum containing [ReconciliationStatus]'s known values. */
-                enum class Known {
-                    UNRECONCILED,
-                    TENTATIVELY_RECONCILED,
-                    RECONCILED,
-                }
-
-                /**
-                 * An enum containing [ReconciliationStatus]'s known values, as well as an
-                 * [_UNKNOWN] member.
-                 *
-                 * An instance of [ReconciliationStatus] can contain an unknown value in a couple of
-                 * cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    UNRECONCILED,
-                    TENTATIVELY_RECONCILED,
-                    RECONCILED,
-                    /**
-                     * An enum member indicating that [ReconciliationStatus] was instantiated with
-                     * an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        UNRECONCILED -> Value.UNRECONCILED
-                        TENTATIVELY_RECONCILED -> Value.TENTATIVELY_RECONCILED
-                        RECONCILED -> Value.RECONCILED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        UNRECONCILED -> Known.UNRECONCILED
-                        TENTATIVELY_RECONCILED -> Known.TENTATIVELY_RECONCILED
-                        RECONCILED -> Known.RECONCILED
-                        else ->
-                            throw ModernTreasuryInvalidDataException(
-                                "Unknown ReconciliationStatus: $value"
-                            )
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): ReconciliationStatus = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is ReconciliationStatus && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * To cancel a payment order, use `cancelled`. To redraft a returned payment order, use
-             * `approved`. To undo approval on a denied or approved payment order, use
-             * `needs_approval`.
-             */
-            class Status @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val APPROVED = of("approved")
-
-                    val CANCELLED = of("cancelled")
-
-                    val COMPLETED = of("completed")
-
-                    val DENIED = of("denied")
-
-                    val FAILED = of("failed")
-
-                    val HELD = of("held")
-
-                    val NEEDS_APPROVAL = of("needs_approval")
-
-                    val PENDING = of("pending")
-
-                    val PROCESSING = of("processing")
-
-                    val RETURNED = of("returned")
-
-                    val REVERSED = of("reversed")
-
-                    val SENT = of("sent")
-
-                    val STOPPED = of("stopped")
-
-                    fun of(value: String) = Status(JsonField.of(value))
-                }
-
-                /** An enum containing [Status]'s known values. */
-                enum class Known {
-                    APPROVED,
-                    CANCELLED,
-                    COMPLETED,
-                    DENIED,
-                    FAILED,
-                    HELD,
-                    NEEDS_APPROVAL,
-                    PENDING,
-                    PROCESSING,
-                    RETURNED,
-                    REVERSED,
-                    SENT,
-                    STOPPED,
-                }
-
-                /**
-                 * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Status] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    APPROVED,
-                    CANCELLED,
-                    COMPLETED,
-                    DENIED,
-                    FAILED,
-                    HELD,
-                    NEEDS_APPROVAL,
-                    PENDING,
-                    PROCESSING,
-                    RETURNED,
-                    REVERSED,
-                    SENT,
-                    STOPPED,
-                    /**
-                     * An enum member indicating that [Status] was instantiated with an unknown
-                     * value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        APPROVED -> Value.APPROVED
-                        CANCELLED -> Value.CANCELLED
-                        COMPLETED -> Value.COMPLETED
-                        DENIED -> Value.DENIED
-                        FAILED -> Value.FAILED
-                        HELD -> Value.HELD
-                        NEEDS_APPROVAL -> Value.NEEDS_APPROVAL
-                        PENDING -> Value.PENDING
-                        PROCESSING -> Value.PROCESSING
-                        RETURNED -> Value.RETURNED
-                        REVERSED -> Value.REVERSED
-                        SENT -> Value.SENT
-                        STOPPED -> Value.STOPPED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        APPROVED -> Known.APPROVED
-                        CANCELLED -> Known.CANCELLED
-                        COMPLETED -> Known.COMPLETED
-                        DENIED -> Known.DENIED
-                        FAILED -> Known.FAILED
-                        HELD -> Known.HELD
-                        NEEDS_APPROVAL -> Known.NEEDS_APPROVAL
-                        PENDING -> Known.PENDING
-                        PROCESSING -> Known.PROCESSING
-                        RETURNED -> Known.RETURNED
-                        REVERSED -> Known.REVERSED
-                        SENT -> Known.SENT
-                        STOPPED -> Known.STOPPED
-                        else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Status = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Status && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
+                    (if (ultimateReceivingPartyName.asKnown() == null) 0 else 1) +
+                    (if (id.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -19006,7 +3988,6 @@ private constructor(
                 }
 
                 return other is PaymentOrderUpdateRequestWithId &&
-                    id == other.id &&
                     accounting == other.accounting &&
                     accountingCategoryId == other.accountingCategoryId &&
                     accountingLedgerClassId == other.accountingLedgerClassId &&
@@ -19046,12 +4027,12 @@ private constructor(
                     ultimateOriginatingPartyName == other.ultimateOriginatingPartyName &&
                     ultimateReceivingPartyIdentifier == other.ultimateReceivingPartyIdentifier &&
                     ultimateReceivingPartyName == other.ultimateReceivingPartyName &&
+                    id == other.id &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
                 Objects.hash(
-                    id,
                     accounting,
                     accountingCategoryId,
                     accountingLedgerClassId,
@@ -19090,6 +4071,7 @@ private constructor(
                     ultimateOriginatingPartyName,
                     ultimateReceivingPartyIdentifier,
                     ultimateReceivingPartyName,
+                    id,
                     additionalProperties,
                 )
             }
@@ -19097,41 +4079,42 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "PaymentOrderUpdateRequestWithId{id=$id, accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, amount=$amount, chargeBearer=$chargeBearer, counterpartyId=$counterpartyId, currency=$currency, description=$description, direction=$direction, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingAccountId=$originatingAccountId, originatingPartyAddress=$originatingPartyAddress, originatingPartyName=$originatingPartyName, originatingSecondaryPartyName=$originatingSecondaryPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, status=$status, subtype=$subtype, type=$type, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, additionalProperties=$additionalProperties}"
+                "PaymentOrderUpdateRequestWithId{accounting=$accounting, accountingCategoryId=$accountingCategoryId, accountingLedgerClassId=$accountingLedgerClassId, amount=$amount, chargeBearer=$chargeBearer, counterpartyId=$counterpartyId, currency=$currency, description=$description, direction=$direction, effectiveDate=$effectiveDate, expiresAt=$expiresAt, externalId=$externalId, fallbackType=$fallbackType, foreignExchangeContract=$foreignExchangeContract, foreignExchangeIndicator=$foreignExchangeIndicator, lineItems=$lineItems, metadata=$metadata, nsfProtected=$nsfProtected, originatingAccountId=$originatingAccountId, originatingPartyAddress=$originatingPartyAddress, originatingPartyName=$originatingPartyName, originatingSecondaryPartyName=$originatingSecondaryPartyName, priority=$priority, processAfter=$processAfter, purpose=$purpose, receivingAccount=$receivingAccount, receivingAccountId=$receivingAccountId, reconciliationStatus=$reconciliationStatus, remittanceInformation=$remittanceInformation, sendRemittanceAdvice=$sendRemittanceAdvice, statementDescriptor=$statementDescriptor, status=$status, subtype=$subtype, type=$type, ultimateOriginatingPartyIdentifier=$ultimateOriginatingPartyIdentifier, ultimateOriginatingPartyName=$ultimateOriginatingPartyName, ultimateReceivingPartyIdentifier=$ultimateReceivingPartyIdentifier, ultimateReceivingPartyName=$ultimateReceivingPartyName, id=$id, additionalProperties=$additionalProperties}"
         }
 
         class ExpectedPaymentUpdateRequestWithId
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val id: JsonField<String>,
             private val amountLowerBound: JsonField<Long>,
             private val amountReconciled: JsonField<Long>,
-            private val amountReconciledDirection: JsonField<AmountReconciledDirection>,
+            private val amountReconciledDirection:
+                JsonField<ExpectedPaymentUpdateRequest.AmountReconciledDirection>,
             private val amountUnreconciled: JsonField<Long>,
-            private val amountUnreconciledDirection: JsonField<AmountUnreconciledDirection>,
+            private val amountUnreconciledDirection:
+                JsonField<ExpectedPaymentUpdateRequest.AmountUnreconciledDirection>,
             private val amountUpperBound: JsonField<Long>,
             private val counterpartyId: JsonField<String>,
             private val currency: JsonField<Currency>,
             private val dateLowerBound: JsonField<LocalDate>,
             private val dateUpperBound: JsonField<LocalDate>,
             private val description: JsonField<String>,
-            private val direction: JsonField<Direction>,
+            private val direction: JsonField<ExpectedPaymentUpdateRequest.Direction>,
             private val externalId: JsonField<String>,
             private val internalAccountId: JsonField<String>,
-            private val metadata: JsonField<Metadata>,
+            private val metadata: JsonField<ExpectedPaymentUpdateRequest.Metadata>,
             private val reconciliationFilters: JsonValue,
             private val reconciliationGroups: JsonValue,
             private val reconciliationRuleVariables: JsonField<List<ReconciliationRule>>,
             private val remittanceInformation: JsonField<String>,
             private val statementDescriptor: JsonField<String>,
-            private val status: JsonField<Status>,
+            private val status: JsonField<ExpectedPaymentUpdateRequest.Status>,
             private val type: JsonField<ExpectedPaymentType>,
+            private val id: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("amount_lower_bound")
                 @ExcludeMissing
                 amountLowerBound: JsonField<Long> = JsonMissing.of(),
@@ -19140,13 +4123,16 @@ private constructor(
                 amountReconciled: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("amount_reconciled_direction")
                 @ExcludeMissing
-                amountReconciledDirection: JsonField<AmountReconciledDirection> = JsonMissing.of(),
+                amountReconciledDirection:
+                    JsonField<ExpectedPaymentUpdateRequest.AmountReconciledDirection> =
+                    JsonMissing.of(),
                 @JsonProperty("amount_unreconciled")
                 @ExcludeMissing
                 amountUnreconciled: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("amount_unreconciled_direction")
                 @ExcludeMissing
-                amountUnreconciledDirection: JsonField<AmountUnreconciledDirection> =
+                amountUnreconciledDirection:
+                    JsonField<ExpectedPaymentUpdateRequest.AmountUnreconciledDirection> =
                     JsonMissing.of(),
                 @JsonProperty("amount_upper_bound")
                 @ExcludeMissing
@@ -19168,7 +4154,7 @@ private constructor(
                 description: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("direction")
                 @ExcludeMissing
-                direction: JsonField<Direction> = JsonMissing.of(),
+                direction: JsonField<ExpectedPaymentUpdateRequest.Direction> = JsonMissing.of(),
                 @JsonProperty("external_id")
                 @ExcludeMissing
                 externalId: JsonField<String> = JsonMissing.of(),
@@ -19177,7 +4163,7 @@ private constructor(
                 internalAccountId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("metadata")
                 @ExcludeMissing
-                metadata: JsonField<Metadata> = JsonMissing.of(),
+                metadata: JsonField<ExpectedPaymentUpdateRequest.Metadata> = JsonMissing.of(),
                 @JsonProperty("reconciliation_filters")
                 @ExcludeMissing
                 reconciliationFilters: JsonValue = JsonMissing.of(),
@@ -19195,12 +4181,12 @@ private constructor(
                 statementDescriptor: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("status")
                 @ExcludeMissing
-                status: JsonField<Status> = JsonMissing.of(),
+                status: JsonField<ExpectedPaymentUpdateRequest.Status> = JsonMissing.of(),
                 @JsonProperty("type")
                 @ExcludeMissing
                 type: JsonField<ExpectedPaymentType> = JsonMissing.of(),
+                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
             ) : this(
-                id,
                 amountLowerBound,
                 amountReconciled,
                 amountReconciledDirection,
@@ -19223,14 +4209,35 @@ private constructor(
                 statementDescriptor,
                 status,
                 type,
+                id,
                 mutableMapOf(),
             )
 
-            /**
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun id(): String? = id.getNullable("id")
+            fun toExpectedPaymentUpdateRequest(): ExpectedPaymentUpdateRequest =
+                ExpectedPaymentUpdateRequest.builder()
+                    .amountLowerBound(amountLowerBound)
+                    .amountReconciled(amountReconciled)
+                    .amountReconciledDirection(amountReconciledDirection)
+                    .amountUnreconciled(amountUnreconciled)
+                    .amountUnreconciledDirection(amountUnreconciledDirection)
+                    .amountUpperBound(amountUpperBound)
+                    .counterpartyId(counterpartyId)
+                    .currency(currency)
+                    .dateLowerBound(dateLowerBound)
+                    .dateUpperBound(dateUpperBound)
+                    .description(description)
+                    .direction(direction)
+                    .externalId(externalId)
+                    .internalAccountId(internalAccountId)
+                    .metadata(metadata)
+                    .reconciliationFilters(reconciliationFilters)
+                    .reconciliationGroups(reconciliationGroups)
+                    .reconciliationRuleVariables(reconciliationRuleVariables)
+                    .remittanceInformation(remittanceInformation)
+                    .statementDescriptor(statementDescriptor)
+                    .status(status)
+                    .type(type)
+                    .build()
 
             /**
              * The lowest amount this expected payment may be equal to. Value in specified
@@ -19257,7 +4264,8 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun amountReconciledDirection(): AmountReconciledDirection? =
+            fun amountReconciledDirection():
+                ExpectedPaymentUpdateRequest.AmountReconciledDirection? =
                 amountReconciledDirection.getNullable("amount_reconciled_direction")
 
             /**
@@ -19276,7 +4284,8 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun amountUnreconciledDirection(): AmountUnreconciledDirection? =
+            fun amountUnreconciledDirection():
+                ExpectedPaymentUpdateRequest.AmountUnreconciledDirection? =
                 amountUnreconciledDirection.getNullable("amount_unreconciled_direction")
 
             /**
@@ -19335,7 +4344,8 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun direction(): Direction? = direction.getNullable("direction")
+            fun direction(): ExpectedPaymentUpdateRequest.Direction? =
+                direction.getNullable("direction")
 
             /**
              * An optional user-defined 180 character unique identifier.
@@ -19360,7 +4370,8 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun metadata(): Metadata? = metadata.getNullable("metadata")
+            fun metadata(): ExpectedPaymentUpdateRequest.Metadata? =
+                metadata.getNullable("metadata")
 
             /**
              * The reconciliation filters you have for this payment.
@@ -19425,7 +4436,7 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun status(): Status? = status.getNullable("status")
+            fun status(): ExpectedPaymentUpdateRequest.Status? = status.getNullable("status")
 
             /**
              * One of: ach, au_becs, bacs, book, check, eft, rtp, sepa, wire.
@@ -19436,11 +4447,10 @@ private constructor(
             fun type(): ExpectedPaymentType? = type.getNullable("type")
 
             /**
-             * Returns the raw JSON value of [id].
-             *
-             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
              */
-            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+            fun id(): String? = id.getNullable("id")
 
             /**
              * Returns the raw JSON value of [amountLowerBound].
@@ -19470,7 +4480,8 @@ private constructor(
              */
             @JsonProperty("amount_reconciled_direction")
             @ExcludeMissing
-            fun _amountReconciledDirection(): JsonField<AmountReconciledDirection> =
+            fun _amountReconciledDirection():
+                JsonField<ExpectedPaymentUpdateRequest.AmountReconciledDirection> =
                 amountReconciledDirection
 
             /**
@@ -19491,7 +4502,8 @@ private constructor(
              */
             @JsonProperty("amount_unreconciled_direction")
             @ExcludeMissing
-            fun _amountUnreconciledDirection(): JsonField<AmountUnreconciledDirection> =
+            fun _amountUnreconciledDirection():
+                JsonField<ExpectedPaymentUpdateRequest.AmountUnreconciledDirection> =
                 amountUnreconciledDirection
 
             /**
@@ -19562,7 +4574,7 @@ private constructor(
              */
             @JsonProperty("direction")
             @ExcludeMissing
-            fun _direction(): JsonField<Direction> = direction
+            fun _direction(): JsonField<ExpectedPaymentUpdateRequest.Direction> = direction
 
             /**
              * Returns the raw JSON value of [externalId].
@@ -19592,7 +4604,7 @@ private constructor(
              */
             @JsonProperty("metadata")
             @ExcludeMissing
-            fun _metadata(): JsonField<Metadata> = metadata
+            fun _metadata(): JsonField<ExpectedPaymentUpdateRequest.Metadata> = metadata
 
             /**
              * Returns the raw JSON value of [reconciliationRuleVariables].
@@ -19630,7 +4642,9 @@ private constructor(
              *
              * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+            @JsonProperty("status")
+            @ExcludeMissing
+            fun _status(): JsonField<ExpectedPaymentUpdateRequest.Status> = status
 
             /**
              * Returns the raw JSON value of [type].
@@ -19638,6 +4652,13 @@ private constructor(
              * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<ExpectedPaymentType> = type
+
+            /**
+             * Returns the raw JSON value of [id].
+             *
+             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -19663,13 +4684,14 @@ private constructor(
             /** A builder for [ExpectedPaymentUpdateRequestWithId]. */
             class Builder internal constructor() {
 
-                private var id: JsonField<String> = JsonMissing.of()
                 private var amountLowerBound: JsonField<Long> = JsonMissing.of()
                 private var amountReconciled: JsonField<Long> = JsonMissing.of()
-                private var amountReconciledDirection: JsonField<AmountReconciledDirection> =
+                private var amountReconciledDirection:
+                    JsonField<ExpectedPaymentUpdateRequest.AmountReconciledDirection> =
                     JsonMissing.of()
                 private var amountUnreconciled: JsonField<Long> = JsonMissing.of()
-                private var amountUnreconciledDirection: JsonField<AmountUnreconciledDirection> =
+                private var amountUnreconciledDirection:
+                    JsonField<ExpectedPaymentUpdateRequest.AmountUnreconciledDirection> =
                     JsonMissing.of()
                 private var amountUpperBound: JsonField<Long> = JsonMissing.of()
                 private var counterpartyId: JsonField<String> = JsonMissing.of()
@@ -19677,10 +4699,12 @@ private constructor(
                 private var dateLowerBound: JsonField<LocalDate> = JsonMissing.of()
                 private var dateUpperBound: JsonField<LocalDate> = JsonMissing.of()
                 private var description: JsonField<String> = JsonMissing.of()
-                private var direction: JsonField<Direction> = JsonMissing.of()
+                private var direction: JsonField<ExpectedPaymentUpdateRequest.Direction> =
+                    JsonMissing.of()
                 private var externalId: JsonField<String> = JsonMissing.of()
                 private var internalAccountId: JsonField<String> = JsonMissing.of()
-                private var metadata: JsonField<Metadata> = JsonMissing.of()
+                private var metadata: JsonField<ExpectedPaymentUpdateRequest.Metadata> =
+                    JsonMissing.of()
                 private var reconciliationFilters: JsonValue = JsonMissing.of()
                 private var reconciliationGroups: JsonValue = JsonMissing.of()
                 private var reconciliationRuleVariables:
@@ -19688,14 +4712,15 @@ private constructor(
                     null
                 private var remittanceInformation: JsonField<String> = JsonMissing.of()
                 private var statementDescriptor: JsonField<String> = JsonMissing.of()
-                private var status: JsonField<Status> = JsonMissing.of()
+                private var status: JsonField<ExpectedPaymentUpdateRequest.Status> =
+                    JsonMissing.of()
                 private var type: JsonField<ExpectedPaymentType> = JsonMissing.of()
+                private var id: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(
                     expectedPaymentUpdateRequestWithId: ExpectedPaymentUpdateRequestWithId
                 ) = apply {
-                    id = expectedPaymentUpdateRequestWithId.id
                     amountLowerBound = expectedPaymentUpdateRequestWithId.amountLowerBound
                     amountReconciled = expectedPaymentUpdateRequestWithId.amountReconciled
                     amountReconciledDirection =
@@ -19723,20 +4748,10 @@ private constructor(
                     statementDescriptor = expectedPaymentUpdateRequestWithId.statementDescriptor
                     status = expectedPaymentUpdateRequestWithId.status
                     type = expectedPaymentUpdateRequestWithId.type
+                    id = expectedPaymentUpdateRequestWithId.id
                     additionalProperties =
                         expectedPaymentUpdateRequestWithId.additionalProperties.toMutableMap()
                 }
-
-                fun id(id: String) = id(JsonField.of(id))
-
-                /**
-                 * Sets [Builder.id] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.id] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * The lowest amount this expected payment may be equal to. Value in specified
@@ -19795,18 +4810,21 @@ private constructor(
                  * amount.
                  */
                 fun amountReconciledDirection(
-                    amountReconciledDirection: AmountReconciledDirection?
+                    amountReconciledDirection:
+                        ExpectedPaymentUpdateRequest.AmountReconciledDirection?
                 ) = amountReconciledDirection(JsonField.ofNullable(amountReconciledDirection))
 
                 /**
                  * Sets [Builder.amountReconciledDirection] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.amountReconciledDirection] with a well-typed
-                 * [AmountReconciledDirection] value instead. This method is primarily for setting
-                 * the field to an undocumented or not yet supported value.
+                 * [ExpectedPaymentUpdateRequest.AmountReconciledDirection] value instead. This
+                 * method is primarily for setting the field to an undocumented or not yet supported
+                 * value.
                  */
                 fun amountReconciledDirection(
-                    amountReconciledDirection: JsonField<AmountReconciledDirection>
+                    amountReconciledDirection:
+                        JsonField<ExpectedPaymentUpdateRequest.AmountReconciledDirection>
                 ) = apply { this.amountReconciledDirection = amountReconciledDirection }
 
                 /**
@@ -19840,18 +4858,21 @@ private constructor(
                  * debit amount.
                  */
                 fun amountUnreconciledDirection(
-                    amountUnreconciledDirection: AmountUnreconciledDirection?
+                    amountUnreconciledDirection:
+                        ExpectedPaymentUpdateRequest.AmountUnreconciledDirection?
                 ) = amountUnreconciledDirection(JsonField.ofNullable(amountUnreconciledDirection))
 
                 /**
                  * Sets [Builder.amountUnreconciledDirection] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.amountUnreconciledDirection] with a well-typed
-                 * [AmountUnreconciledDirection] value instead. This method is primarily for setting
-                 * the field to an undocumented or not yet supported value.
+                 * [ExpectedPaymentUpdateRequest.AmountUnreconciledDirection] value instead. This
+                 * method is primarily for setting the field to an undocumented or not yet supported
+                 * value.
                  */
                 fun amountUnreconciledDirection(
-                    amountUnreconciledDirection: JsonField<AmountUnreconciledDirection>
+                    amountUnreconciledDirection:
+                        JsonField<ExpectedPaymentUpdateRequest.AmountUnreconciledDirection>
                 ) = apply { this.amountUnreconciledDirection = amountUnreconciledDirection }
 
                 /**
@@ -19956,18 +4977,20 @@ private constructor(
                  * One of credit or debit. When you are receiving money, use credit. When you are
                  * being charged, use debit.
                  */
-                fun direction(direction: Direction?) = direction(JsonField.ofNullable(direction))
+                fun direction(direction: ExpectedPaymentUpdateRequest.Direction?) =
+                    direction(JsonField.ofNullable(direction))
 
                 /**
                  * Sets [Builder.direction] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.direction] with a well-typed [Direction] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.direction] with a well-typed
+                 * [ExpectedPaymentUpdateRequest.Direction] value instead. This method is primarily
+                 * for setting the field to an undocumented or not yet supported value.
                  */
-                fun direction(direction: JsonField<Direction>) = apply {
-                    this.direction = direction
-                }
+                fun direction(direction: JsonField<ExpectedPaymentUpdateRequest.Direction>) =
+                    apply {
+                        this.direction = direction
+                    }
 
                 /** An optional user-defined 180 character unique identifier. */
                 fun externalId(externalId: String?) = externalId(JsonField.ofNullable(externalId))
@@ -20002,16 +5025,19 @@ private constructor(
                  * Additional data represented as key-value pairs. Both the key and value must be
                  * strings.
                  */
-                fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+                fun metadata(metadata: ExpectedPaymentUpdateRequest.Metadata) =
+                    metadata(JsonField.of(metadata))
 
                 /**
                  * Sets [Builder.metadata] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.metadata] with a well-typed
+                 * [ExpectedPaymentUpdateRequest.Metadata] value instead. This method is primarily
+                 * for setting the field to an undocumented or not yet supported value.
                  */
-                fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+                fun metadata(metadata: JsonField<ExpectedPaymentUpdateRequest.Metadata>) = apply {
+                    this.metadata = metadata
+                }
 
                 /** The reconciliation filters you have for this payment. */
                 fun reconciliationFilters(reconciliationFilters: JsonValue) = apply {
@@ -20099,16 +5125,19 @@ private constructor(
                  * The Expected Payment's status can be updated from partially_reconciled to
                  * reconciled.
                  */
-                fun status(status: Status?) = status(JsonField.ofNullable(status))
+                fun status(status: ExpectedPaymentUpdateRequest.Status?) =
+                    status(JsonField.ofNullable(status))
 
                 /**
                  * Sets [Builder.status] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.status] with a well-typed [Status] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.status] with a well-typed
+                 * [ExpectedPaymentUpdateRequest.Status] value instead. This method is primarily for
+                 * setting the field to an undocumented or not yet supported value.
                  */
-                fun status(status: JsonField<Status>) = apply { this.status = status }
+                fun status(status: JsonField<ExpectedPaymentUpdateRequest.Status>) = apply {
+                    this.status = status
+                }
 
                 /** One of: ach, au_becs, bacs, book, check, eft, rtp, sepa, wire. */
                 fun type(type: ExpectedPaymentType?) = type(JsonField.ofNullable(type))
@@ -20121,6 +5150,17 @@ private constructor(
                  * or not yet supported value.
                  */
                 fun type(type: JsonField<ExpectedPaymentType>) = apply { this.type = type }
+
+                fun id(id: String) = id(JsonField.of(id))
+
+                /**
+                 * Sets [Builder.id] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.id] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -20151,7 +5191,6 @@ private constructor(
                  */
                 fun build(): ExpectedPaymentUpdateRequestWithId =
                     ExpectedPaymentUpdateRequestWithId(
-                        id,
                         amountLowerBound,
                         amountReconciled,
                         amountReconciledDirection,
@@ -20174,6 +5213,7 @@ private constructor(
                         statementDescriptor,
                         status,
                         type,
+                        id,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -20195,7 +5235,6 @@ private constructor(
                     return@apply
                 }
 
-                id()
                 amountLowerBound()
                 amountReconciled()
                 amountReconciledDirection()?.validate()
@@ -20216,6 +5255,7 @@ private constructor(
                 statementDescriptor()
                 status()?.validate()
                 type()?.validate()
+                id()
                 validated = true
             }
 
@@ -20234,8 +5274,7 @@ private constructor(
              * Used for best match union deserialization.
              */
             internal fun validity(): Int =
-                (if (id.asKnown() == null) 0 else 1) +
-                    (if (amountLowerBound.asKnown() == null) 0 else 1) +
+                (if (amountLowerBound.asKnown() == null) 0 else 1) +
                     (if (amountReconciled.asKnown() == null) 0 else 1) +
                     (amountReconciledDirection.asKnown()?.validity() ?: 0) +
                     (if (amountUnreconciled.asKnown() == null) 0 else 1) +
@@ -20254,705 +5293,8 @@ private constructor(
                     (if (remittanceInformation.asKnown() == null) 0 else 1) +
                     (if (statementDescriptor.asKnown() == null) 0 else 1) +
                     (status.asKnown()?.validity() ?: 0) +
-                    (type.asKnown()?.validity() ?: 0)
-
-            /**
-             * One of credit or debit. Indicates whether amount_reconciled is a credit or debit
-             * amount.
-             */
-            class AmountReconciledDirection
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val CREDIT = of("credit")
-
-                    val DEBIT = of("debit")
-
-                    fun of(value: String) = AmountReconciledDirection(JsonField.of(value))
-                }
-
-                /** An enum containing [AmountReconciledDirection]'s known values. */
-                enum class Known {
-                    CREDIT,
-                    DEBIT,
-                }
-
-                /**
-                 * An enum containing [AmountReconciledDirection]'s known values, as well as an
-                 * [_UNKNOWN] member.
-                 *
-                 * An instance of [AmountReconciledDirection] can contain an unknown value in a
-                 * couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    CREDIT,
-                    DEBIT,
-                    /**
-                     * An enum member indicating that [AmountReconciledDirection] was instantiated
-                     * with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        CREDIT -> Value.CREDIT
-                        DEBIT -> Value.DEBIT
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        CREDIT -> Known.CREDIT
-                        DEBIT -> Known.DEBIT
-                        else ->
-                            throw ModernTreasuryInvalidDataException(
-                                "Unknown AmountReconciledDirection: $value"
-                            )
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): AmountReconciledDirection = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is AmountReconciledDirection && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * One of credit or debit. Indicates whether amount_unreconciled is a credit or debit
-             * amount.
-             */
-            class AmountUnreconciledDirection
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val CREDIT = of("credit")
-
-                    val DEBIT = of("debit")
-
-                    fun of(value: String) = AmountUnreconciledDirection(JsonField.of(value))
-                }
-
-                /** An enum containing [AmountUnreconciledDirection]'s known values. */
-                enum class Known {
-                    CREDIT,
-                    DEBIT,
-                }
-
-                /**
-                 * An enum containing [AmountUnreconciledDirection]'s known values, as well as an
-                 * [_UNKNOWN] member.
-                 *
-                 * An instance of [AmountUnreconciledDirection] can contain an unknown value in a
-                 * couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    CREDIT,
-                    DEBIT,
-                    /**
-                     * An enum member indicating that [AmountUnreconciledDirection] was instantiated
-                     * with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        CREDIT -> Value.CREDIT
-                        DEBIT -> Value.DEBIT
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        CREDIT -> Known.CREDIT
-                        DEBIT -> Known.DEBIT
-                        else ->
-                            throw ModernTreasuryInvalidDataException(
-                                "Unknown AmountUnreconciledDirection: $value"
-                            )
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): AmountUnreconciledDirection = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is AmountUnreconciledDirection && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * One of credit or debit. When you are receiving money, use credit. When you are being
-             * charged, use debit.
-             */
-            class Direction @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val CREDIT = of("credit")
-
-                    val DEBIT = of("debit")
-
-                    fun of(value: String) = Direction(JsonField.of(value))
-                }
-
-                /** An enum containing [Direction]'s known values. */
-                enum class Known {
-                    CREDIT,
-                    DEBIT,
-                }
-
-                /**
-                 * An enum containing [Direction]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Direction] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    CREDIT,
-                    DEBIT,
-                    /**
-                     * An enum member indicating that [Direction] was instantiated with an unknown
-                     * value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        CREDIT -> Value.CREDIT
-                        DEBIT -> Value.DEBIT
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        CREDIT -> Known.CREDIT
-                        DEBIT -> Known.DEBIT
-                        else ->
-                            throw ModernTreasuryInvalidDataException("Unknown Direction: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Direction = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Direction && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            class Metadata
-            @JsonCreator
-            private constructor(
-                @com.fasterxml.jackson.annotation.JsonValue
-                private val additionalProperties: Map<String, JsonValue>
-            ) {
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /** Returns a mutable builder for constructing an instance of [Metadata]. */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [Metadata]. */
-                class Builder internal constructor() {
-
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(metadata: Metadata) = apply {
-                        additionalProperties = metadata.additionalProperties.toMutableMap()
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [Metadata].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Metadata = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    additionalProperties.count { (_, value) ->
-                        !value.isNull() && !value.isMissing()
-                    }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Metadata && additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-            }
-
-            /**
-             * The Expected Payment's status can be updated from partially_reconciled to reconciled.
-             */
-            class Status @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val RECONCILED = of("reconciled")
-
-                    fun of(value: String) = Status(JsonField.of(value))
-                }
-
-                /** An enum containing [Status]'s known values. */
-                enum class Known {
-                    RECONCILED
-                }
-
-                /**
-                 * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Status] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    RECONCILED,
-                    /**
-                     * An enum member indicating that [Status] was instantiated with an unknown
-                     * value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        RECONCILED -> Value.RECONCILED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        RECONCILED -> Known.RECONCILED
-                        else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Status = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Status && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
+                    (type.asKnown()?.validity() ?: 0) +
+                    (if (id.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -20960,7 +5302,6 @@ private constructor(
                 }
 
                 return other is ExpectedPaymentUpdateRequestWithId &&
-                    id == other.id &&
                     amountLowerBound == other.amountLowerBound &&
                     amountReconciled == other.amountReconciled &&
                     amountReconciledDirection == other.amountReconciledDirection &&
@@ -20983,12 +5324,12 @@ private constructor(
                     statementDescriptor == other.statementDescriptor &&
                     status == other.status &&
                     type == other.type &&
+                    id == other.id &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
                 Objects.hash(
-                    id,
                     amountLowerBound,
                     amountReconciled,
                     amountReconciledDirection,
@@ -21011,6 +5352,7 @@ private constructor(
                     statementDescriptor,
                     status,
                     type,
+                    id,
                     additionalProperties,
                 )
             }
@@ -21018,30 +5360,27 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "ExpectedPaymentUpdateRequestWithId{id=$id, amountLowerBound=$amountLowerBound, amountReconciled=$amountReconciled, amountReconciledDirection=$amountReconciledDirection, amountUnreconciled=$amountUnreconciled, amountUnreconciledDirection=$amountUnreconciledDirection, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, externalId=$externalId, internalAccountId=$internalAccountId, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, status=$status, type=$type, additionalProperties=$additionalProperties}"
+                "ExpectedPaymentUpdateRequestWithId{amountLowerBound=$amountLowerBound, amountReconciled=$amountReconciled, amountReconciledDirection=$amountReconciledDirection, amountUnreconciled=$amountUnreconciled, amountUnreconciledDirection=$amountUnreconciledDirection, amountUpperBound=$amountUpperBound, counterpartyId=$counterpartyId, currency=$currency, dateLowerBound=$dateLowerBound, dateUpperBound=$dateUpperBound, description=$description, direction=$direction, externalId=$externalId, internalAccountId=$internalAccountId, metadata=$metadata, reconciliationFilters=$reconciliationFilters, reconciliationGroups=$reconciliationGroups, reconciliationRuleVariables=$reconciliationRuleVariables, remittanceInformation=$remittanceInformation, statementDescriptor=$statementDescriptor, status=$status, type=$type, id=$id, additionalProperties=$additionalProperties}"
         }
 
         class TransactionUpdateRequestWithId
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
+            private val metadata: JsonField<TransactionUpdateRequest.Metadata>,
             private val id: JsonField<String>,
-            private val metadata: JsonField<Metadata>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("metadata")
                 @ExcludeMissing
-                metadata: JsonField<Metadata> = JsonMissing.of(),
-            ) : this(id, metadata, mutableMapOf())
+                metadata: JsonField<TransactionUpdateRequest.Metadata> = JsonMissing.of(),
+                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            ) : this(metadata, id, mutableMapOf())
 
-            /**
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun id(): String? = id.getNullable("id")
+            fun toTransactionUpdateRequest(): TransactionUpdateRequest =
+                TransactionUpdateRequest.builder().metadata(metadata).build()
 
             /**
              * Additional data in the form of key-value pairs. Pairs can be removed by passing an
@@ -21050,14 +5389,13 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun metadata(): Metadata? = metadata.getNullable("metadata")
+            fun metadata(): TransactionUpdateRequest.Metadata? = metadata.getNullable("metadata")
 
             /**
-             * Returns the raw JSON value of [id].
-             *
-             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
              */
-            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+            fun id(): String? = id.getNullable("id")
 
             /**
              * Returns the raw JSON value of [metadata].
@@ -21067,7 +5405,14 @@ private constructor(
              */
             @JsonProperty("metadata")
             @ExcludeMissing
-            fun _metadata(): JsonField<Metadata> = metadata
+            fun _metadata(): JsonField<TransactionUpdateRequest.Metadata> = metadata
+
+            /**
+             * Returns the raw JSON value of [id].
+             *
+             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -21093,17 +5438,36 @@ private constructor(
             /** A builder for [TransactionUpdateRequestWithId]. */
             class Builder internal constructor() {
 
+                private var metadata: JsonField<TransactionUpdateRequest.Metadata> =
+                    JsonMissing.of()
                 private var id: JsonField<String> = JsonMissing.of()
-                private var metadata: JsonField<Metadata> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(transactionUpdateRequestWithId: TransactionUpdateRequestWithId) =
                     apply {
-                        id = transactionUpdateRequestWithId.id
                         metadata = transactionUpdateRequestWithId.metadata
+                        id = transactionUpdateRequestWithId.id
                         additionalProperties =
                             transactionUpdateRequestWithId.additionalProperties.toMutableMap()
                     }
+
+                /**
+                 * Additional data in the form of key-value pairs. Pairs can be removed by passing
+                 * an empty string or `null` as the value.
+                 */
+                fun metadata(metadata: TransactionUpdateRequest.Metadata) =
+                    metadata(JsonField.of(metadata))
+
+                /**
+                 * Sets [Builder.metadata] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.metadata] with a well-typed
+                 * [TransactionUpdateRequest.Metadata] value instead. This method is primarily for
+                 * setting the field to an undocumented or not yet supported value.
+                 */
+                fun metadata(metadata: JsonField<TransactionUpdateRequest.Metadata>) = apply {
+                    this.metadata = metadata
+                }
 
                 fun id(id: String) = id(JsonField.of(id))
 
@@ -21115,21 +5479,6 @@ private constructor(
                  * supported value.
                  */
                 fun id(id: JsonField<String>) = apply { this.id = id }
-
-                /**
-                 * Additional data in the form of key-value pairs. Pairs can be removed by passing
-                 * an empty string or `null` as the value.
-                 */
-                fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-                /**
-                 * Sets [Builder.metadata] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -21160,8 +5509,8 @@ private constructor(
                  */
                 fun build(): TransactionUpdateRequestWithId =
                     TransactionUpdateRequestWithId(
-                        id,
                         metadata,
+                        id,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -21183,8 +5532,8 @@ private constructor(
                     return@apply
                 }
 
-                id()
                 metadata()?.validate()
+                id()
                 validated = true
             }
 
@@ -21203,123 +5552,7 @@ private constructor(
              * Used for best match union deserialization.
              */
             internal fun validity(): Int =
-                (if (id.asKnown() == null) 0 else 1) + (metadata.asKnown()?.validity() ?: 0)
-
-            /**
-             * Additional data in the form of key-value pairs. Pairs can be removed by passing an
-             * empty string or `null` as the value.
-             */
-            class Metadata
-            @JsonCreator
-            private constructor(
-                @com.fasterxml.jackson.annotation.JsonValue
-                private val additionalProperties: Map<String, JsonValue>
-            ) {
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /** Returns a mutable builder for constructing an instance of [Metadata]. */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [Metadata]. */
-                class Builder internal constructor() {
-
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(metadata: Metadata) = apply {
-                        additionalProperties = metadata.additionalProperties.toMutableMap()
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [Metadata].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Metadata = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    additionalProperties.count { (_, value) ->
-                        !value.isNull() && !value.isMissing()
-                    }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Metadata && additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-            }
+                (metadata.asKnown()?.validity() ?: 0) + (if (id.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -21327,37 +5560,36 @@ private constructor(
                 }
 
                 return other is TransactionUpdateRequestWithId &&
-                    id == other.id &&
                     metadata == other.metadata &&
+                    id == other.id &&
                     additionalProperties == other.additionalProperties
             }
 
-            private val hashCode: Int by lazy { Objects.hash(id, metadata, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(metadata, id, additionalProperties) }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "TransactionUpdateRequestWithId{id=$id, metadata=$metadata, additionalProperties=$additionalProperties}"
+                "TransactionUpdateRequestWithId{metadata=$metadata, id=$id, additionalProperties=$additionalProperties}"
         }
 
         class LedgerTransactionUpdateRequestWithId
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val id: JsonField<String>,
             private val description: JsonField<String>,
             private val effectiveAt: JsonField<OffsetDateTime>,
             private val externalId: JsonField<String>,
             private val ledgerEntries: JsonField<List<LedgerEntryCreateRequest>>,
             private val ledgerableId: JsonField<String>,
-            private val ledgerableType: JsonField<LedgerableType>,
-            private val metadata: JsonField<Metadata>,
-            private val status: JsonField<Status>,
+            private val ledgerableType: JsonField<LedgerTransactionUpdateRequest.LedgerableType>,
+            private val metadata: JsonField<LedgerTransactionUpdateRequest.Metadata>,
+            private val status: JsonField<LedgerTransactionUpdateRequest.Status>,
+            private val id: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("description")
                 @ExcludeMissing
                 description: JsonField<String> = JsonMissing.of(),
@@ -21375,13 +5607,16 @@ private constructor(
                 ledgerableId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("ledgerable_type")
                 @ExcludeMissing
-                ledgerableType: JsonField<LedgerableType> = JsonMissing.of(),
+                ledgerableType: JsonField<LedgerTransactionUpdateRequest.LedgerableType> =
+                    JsonMissing.of(),
                 @JsonProperty("metadata")
                 @ExcludeMissing
-                metadata: JsonField<Metadata> = JsonMissing.of(),
-                @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+                metadata: JsonField<LedgerTransactionUpdateRequest.Metadata> = JsonMissing.of(),
+                @JsonProperty("status")
+                @ExcludeMissing
+                status: JsonField<LedgerTransactionUpdateRequest.Status> = JsonMissing.of(),
+                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
             ) : this(
-                id,
                 description,
                 effectiveAt,
                 externalId,
@@ -21390,14 +5625,21 @@ private constructor(
                 ledgerableType,
                 metadata,
                 status,
+                id,
                 mutableMapOf(),
             )
 
-            /**
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun id(): String? = id.getNullable("id")
+            fun toLedgerTransactionUpdateRequest(): LedgerTransactionUpdateRequest =
+                LedgerTransactionUpdateRequest.builder()
+                    .description(description)
+                    .effectiveAt(effectiveAt)
+                    .externalId(externalId)
+                    .ledgerEntries(ledgerEntries)
+                    .ledgerableId(ledgerableId)
+                    .ledgerableType(ledgerableType)
+                    .metadata(metadata)
+                    .status(status)
+                    .build()
 
             /**
              * An optional description for internal use.
@@ -21451,7 +5693,8 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun ledgerableType(): LedgerableType? = ledgerableType.getNullable("ledgerable_type")
+            fun ledgerableType(): LedgerTransactionUpdateRequest.LedgerableType? =
+                ledgerableType.getNullable("ledgerable_type")
 
             /**
              * Additional data represented as key-value pairs. Both the key and value must be
@@ -21460,7 +5703,8 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun metadata(): Metadata? = metadata.getNullable("metadata")
+            fun metadata(): LedgerTransactionUpdateRequest.Metadata? =
+                metadata.getNullable("metadata")
 
             /**
              * To post a ledger transaction at creation, use `posted`.
@@ -21468,14 +5712,13 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun status(): Status? = status.getNullable("status")
+            fun status(): LedgerTransactionUpdateRequest.Status? = status.getNullable("status")
 
             /**
-             * Returns the raw JSON value of [id].
-             *
-             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
              */
-            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+            fun id(): String? = id.getNullable("id")
 
             /**
              * Returns the raw JSON value of [description].
@@ -21535,7 +5778,8 @@ private constructor(
              */
             @JsonProperty("ledgerable_type")
             @ExcludeMissing
-            fun _ledgerableType(): JsonField<LedgerableType> = ledgerableType
+            fun _ledgerableType(): JsonField<LedgerTransactionUpdateRequest.LedgerableType> =
+                ledgerableType
 
             /**
              * Returns the raw JSON value of [metadata].
@@ -21545,14 +5789,23 @@ private constructor(
              */
             @JsonProperty("metadata")
             @ExcludeMissing
-            fun _metadata(): JsonField<Metadata> = metadata
+            fun _metadata(): JsonField<LedgerTransactionUpdateRequest.Metadata> = metadata
 
             /**
              * Returns the raw JSON value of [status].
              *
              * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+            @JsonProperty("status")
+            @ExcludeMissing
+            fun _status(): JsonField<LedgerTransactionUpdateRequest.Status> = status
+
+            /**
+             * Returns the raw JSON value of [id].
+             *
+             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -21578,21 +5831,24 @@ private constructor(
             /** A builder for [LedgerTransactionUpdateRequestWithId]. */
             class Builder internal constructor() {
 
-                private var id: JsonField<String> = JsonMissing.of()
                 private var description: JsonField<String> = JsonMissing.of()
                 private var effectiveAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var externalId: JsonField<String> = JsonMissing.of()
                 private var ledgerEntries: JsonField<MutableList<LedgerEntryCreateRequest>>? = null
                 private var ledgerableId: JsonField<String> = JsonMissing.of()
-                private var ledgerableType: JsonField<LedgerableType> = JsonMissing.of()
-                private var metadata: JsonField<Metadata> = JsonMissing.of()
-                private var status: JsonField<Status> = JsonMissing.of()
+                private var ledgerableType:
+                    JsonField<LedgerTransactionUpdateRequest.LedgerableType> =
+                    JsonMissing.of()
+                private var metadata: JsonField<LedgerTransactionUpdateRequest.Metadata> =
+                    JsonMissing.of()
+                private var status: JsonField<LedgerTransactionUpdateRequest.Status> =
+                    JsonMissing.of()
+                private var id: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(
                     ledgerTransactionUpdateRequestWithId: LedgerTransactionUpdateRequestWithId
                 ) = apply {
-                    id = ledgerTransactionUpdateRequestWithId.id
                     description = ledgerTransactionUpdateRequestWithId.description
                     effectiveAt = ledgerTransactionUpdateRequestWithId.effectiveAt
                     externalId = ledgerTransactionUpdateRequestWithId.externalId
@@ -21604,20 +5860,10 @@ private constructor(
                     ledgerableType = ledgerTransactionUpdateRequestWithId.ledgerableType
                     metadata = ledgerTransactionUpdateRequestWithId.metadata
                     status = ledgerTransactionUpdateRequestWithId.status
+                    id = ledgerTransactionUpdateRequestWithId.id
                     additionalProperties =
                         ledgerTransactionUpdateRequestWithId.additionalProperties.toMutableMap()
                 }
-
-                fun id(id: String) = id(JsonField.of(id))
-
-                /**
-                 * Sets [Builder.id] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.id] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /** An optional description for internal use. */
                 fun description(description: String?) =
@@ -21719,46 +5965,63 @@ private constructor(
                  * the type will be populated here, otherwise null. This can be one of
                  * payment_order, incoming_payment_detail, expected_payment, return, or reversal.
                  */
-                fun ledgerableType(ledgerableType: LedgerableType) =
+                fun ledgerableType(ledgerableType: LedgerTransactionUpdateRequest.LedgerableType) =
                     ledgerableType(JsonField.of(ledgerableType))
 
                 /**
                  * Sets [Builder.ledgerableType] to an arbitrary JSON value.
                  *
                  * You should usually call [Builder.ledgerableType] with a well-typed
-                 * [LedgerableType] value instead. This method is primarily for setting the field to
-                 * an undocumented or not yet supported value.
+                 * [LedgerTransactionUpdateRequest.LedgerableType] value instead. This method is
+                 * primarily for setting the field to an undocumented or not yet supported value.
                  */
-                fun ledgerableType(ledgerableType: JsonField<LedgerableType>) = apply {
-                    this.ledgerableType = ledgerableType
-                }
+                fun ledgerableType(
+                    ledgerableType: JsonField<LedgerTransactionUpdateRequest.LedgerableType>
+                ) = apply { this.ledgerableType = ledgerableType }
 
                 /**
                  * Additional data represented as key-value pairs. Both the key and value must be
                  * strings.
                  */
-                fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+                fun metadata(metadata: LedgerTransactionUpdateRequest.Metadata) =
+                    metadata(JsonField.of(metadata))
 
                 /**
                  * Sets [Builder.metadata] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.metadata] with a well-typed
+                 * [LedgerTransactionUpdateRequest.Metadata] value instead. This method is primarily
+                 * for setting the field to an undocumented or not yet supported value.
                  */
-                fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+                fun metadata(metadata: JsonField<LedgerTransactionUpdateRequest.Metadata>) = apply {
+                    this.metadata = metadata
+                }
 
                 /** To post a ledger transaction at creation, use `posted`. */
-                fun status(status: Status) = status(JsonField.of(status))
+                fun status(status: LedgerTransactionUpdateRequest.Status) =
+                    status(JsonField.of(status))
 
                 /**
                  * Sets [Builder.status] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.status] with a well-typed [Status] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.status] with a well-typed
+                 * [LedgerTransactionUpdateRequest.Status] value instead. This method is primarily
+                 * for setting the field to an undocumented or not yet supported value.
                  */
-                fun status(status: JsonField<Status>) = apply { this.status = status }
+                fun status(status: JsonField<LedgerTransactionUpdateRequest.Status>) = apply {
+                    this.status = status
+                }
+
+                fun id(id: String) = id(JsonField.of(id))
+
+                /**
+                 * Sets [Builder.id] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.id] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -21789,7 +6052,6 @@ private constructor(
                  */
                 fun build(): LedgerTransactionUpdateRequestWithId =
                     LedgerTransactionUpdateRequestWithId(
-                        id,
                         description,
                         effectiveAt,
                         externalId,
@@ -21798,6 +6060,7 @@ private constructor(
                         ledgerableType,
                         metadata,
                         status,
+                        id,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -21819,7 +6082,6 @@ private constructor(
                     return@apply
                 }
 
-                id()
                 description()
                 effectiveAt()
                 externalId()
@@ -21828,6 +6090,7 @@ private constructor(
                 ledgerableType()?.validate()
                 metadata()?.validate()
                 status()?.validate()
+                id()
                 validated = true
             }
 
@@ -21846,447 +6109,15 @@ private constructor(
              * Used for best match union deserialization.
              */
             internal fun validity(): Int =
-                (if (id.asKnown() == null) 0 else 1) +
-                    (if (description.asKnown() == null) 0 else 1) +
+                (if (description.asKnown() == null) 0 else 1) +
                     (if (effectiveAt.asKnown() == null) 0 else 1) +
                     (if (externalId.asKnown() == null) 0 else 1) +
                     (ledgerEntries.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                     (if (ledgerableId.asKnown() == null) 0 else 1) +
                     (ledgerableType.asKnown()?.validity() ?: 0) +
                     (metadata.asKnown()?.validity() ?: 0) +
-                    (status.asKnown()?.validity() ?: 0)
-
-            /**
-             * If the ledger transaction can be reconciled to another object in Modern Treasury, the
-             * type will be populated here, otherwise null. This can be one of payment_order,
-             * incoming_payment_detail, expected_payment, return, or reversal.
-             */
-            class LedgerableType
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val EXPECTED_PAYMENT = of("expected_payment")
-
-                    val INCOMING_PAYMENT_DETAIL = of("incoming_payment_detail")
-
-                    val PAYMENT_ORDER = of("payment_order")
-
-                    val RETURN = of("return")
-
-                    val REVERSAL = of("reversal")
-
-                    fun of(value: String) = LedgerableType(JsonField.of(value))
-                }
-
-                /** An enum containing [LedgerableType]'s known values. */
-                enum class Known {
-                    EXPECTED_PAYMENT,
-                    INCOMING_PAYMENT_DETAIL,
-                    PAYMENT_ORDER,
-                    RETURN,
-                    REVERSAL,
-                }
-
-                /**
-                 * An enum containing [LedgerableType]'s known values, as well as an [_UNKNOWN]
-                 * member.
-                 *
-                 * An instance of [LedgerableType] can contain an unknown value in a couple of
-                 * cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    EXPECTED_PAYMENT,
-                    INCOMING_PAYMENT_DETAIL,
-                    PAYMENT_ORDER,
-                    RETURN,
-                    REVERSAL,
-                    /**
-                     * An enum member indicating that [LedgerableType] was instantiated with an
-                     * unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        EXPECTED_PAYMENT -> Value.EXPECTED_PAYMENT
-                        INCOMING_PAYMENT_DETAIL -> Value.INCOMING_PAYMENT_DETAIL
-                        PAYMENT_ORDER -> Value.PAYMENT_ORDER
-                        RETURN -> Value.RETURN
-                        REVERSAL -> Value.REVERSAL
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        EXPECTED_PAYMENT -> Known.EXPECTED_PAYMENT
-                        INCOMING_PAYMENT_DETAIL -> Known.INCOMING_PAYMENT_DETAIL
-                        PAYMENT_ORDER -> Known.PAYMENT_ORDER
-                        RETURN -> Known.RETURN
-                        REVERSAL -> Known.REVERSAL
-                        else ->
-                            throw ModernTreasuryInvalidDataException(
-                                "Unknown LedgerableType: $value"
-                            )
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): LedgerableType = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is LedgerableType && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            class Metadata
-            @JsonCreator
-            private constructor(
-                @com.fasterxml.jackson.annotation.JsonValue
-                private val additionalProperties: Map<String, JsonValue>
-            ) {
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /** Returns a mutable builder for constructing an instance of [Metadata]. */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [Metadata]. */
-                class Builder internal constructor() {
-
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(metadata: Metadata) = apply {
-                        additionalProperties = metadata.additionalProperties.toMutableMap()
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [Metadata].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Metadata = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    additionalProperties.count { (_, value) ->
-                        !value.isNull() && !value.isMissing()
-                    }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Metadata && additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-            }
-
-            /** To post a ledger transaction at creation, use `posted`. */
-            class Status @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    val ARCHIVED = of("archived")
-
-                    val PENDING = of("pending")
-
-                    val POSTED = of("posted")
-
-                    fun of(value: String) = Status(JsonField.of(value))
-                }
-
-                /** An enum containing [Status]'s known values. */
-                enum class Known {
-                    ARCHIVED,
-                    PENDING,
-                    POSTED,
-                }
-
-                /**
-                 * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Status] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    ARCHIVED,
-                    PENDING,
-                    POSTED,
-                    /**
-                     * An enum member indicating that [Status] was instantiated with an unknown
-                     * value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        ARCHIVED -> Value.ARCHIVED
-                        PENDING -> Value.PENDING
-                        POSTED -> Value.POSTED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value is a
-                 *   not a known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        ARCHIVED -> Known.ARCHIVED
-                        PENDING -> Known.PENDING
-                        POSTED -> Known.POSTED
-                        else -> throw ModernTreasuryInvalidDataException("Unknown Status: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if this class instance's value does
-                 *   not have the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString()
-                        ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Status = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Status && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
+                    (status.asKnown()?.validity() ?: 0) +
+                    (if (id.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -22294,7 +6125,6 @@ private constructor(
                 }
 
                 return other is LedgerTransactionUpdateRequestWithId &&
-                    id == other.id &&
                     description == other.description &&
                     effectiveAt == other.effectiveAt &&
                     externalId == other.externalId &&
@@ -22303,12 +6133,12 @@ private constructor(
                     ledgerableType == other.ledgerableType &&
                     metadata == other.metadata &&
                     status == other.status &&
+                    id == other.id &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
                 Objects.hash(
-                    id,
                     description,
                     effectiveAt,
                     externalId,
@@ -22317,6 +6147,7 @@ private constructor(
                     ledgerableType,
                     metadata,
                     status,
+                    id,
                     additionalProperties,
                 )
             }
@@ -22324,23 +6155,22 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "LedgerTransactionUpdateRequestWithId{id=$id, description=$description, effectiveAt=$effectiveAt, externalId=$externalId, ledgerEntries=$ledgerEntries, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, additionalProperties=$additionalProperties}"
+                "LedgerTransactionUpdateRequestWithId{description=$description, effectiveAt=$effectiveAt, externalId=$externalId, ledgerEntries=$ledgerEntries, ledgerableId=$ledgerableId, ledgerableType=$ledgerableType, metadata=$metadata, status=$status, id=$id, additionalProperties=$additionalProperties}"
         }
 
         class LedgerAccountUpdateRequestWithId
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val id: JsonField<String>,
             private val description: JsonField<String>,
             private val externalId: JsonField<String>,
-            private val metadata: JsonField<Metadata>,
+            private val metadata: JsonField<LedgerAccountUpdateRequest.Metadata>,
             private val name: JsonField<String>,
+            private val id: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("description")
                 @ExcludeMissing
                 description: JsonField<String> = JsonMissing.of(),
@@ -22349,15 +6179,18 @@ private constructor(
                 externalId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("metadata")
                 @ExcludeMissing
-                metadata: JsonField<Metadata> = JsonMissing.of(),
+                metadata: JsonField<LedgerAccountUpdateRequest.Metadata> = JsonMissing.of(),
                 @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            ) : this(id, description, externalId, metadata, name, mutableMapOf())
+                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            ) : this(description, externalId, metadata, name, id, mutableMapOf())
 
-            /**
-             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
-             *   (e.g. if the server responded with an unexpected value).
-             */
-            fun id(): String? = id.getNullable("id")
+            fun toLedgerAccountUpdateRequest(): LedgerAccountUpdateRequest =
+                LedgerAccountUpdateRequest.builder()
+                    .description(description)
+                    .externalId(externalId)
+                    .metadata(metadata)
+                    .name(name)
+                    .build()
 
             /**
              * The description of the ledger account.
@@ -22382,7 +6215,7 @@ private constructor(
              * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
              *   (e.g. if the server responded with an unexpected value).
              */
-            fun metadata(): Metadata? = metadata.getNullable("metadata")
+            fun metadata(): LedgerAccountUpdateRequest.Metadata? = metadata.getNullable("metadata")
 
             /**
              * The name of the ledger account.
@@ -22393,11 +6226,10 @@ private constructor(
             fun name(): String? = name.getNullable("name")
 
             /**
-             * Returns the raw JSON value of [id].
-             *
-             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type
+             *   (e.g. if the server responded with an unexpected value).
              */
-            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+            fun id(): String? = id.getNullable("id")
 
             /**
              * Returns the raw JSON value of [description].
@@ -22427,7 +6259,7 @@ private constructor(
              */
             @JsonProperty("metadata")
             @ExcludeMissing
-            fun _metadata(): JsonField<Metadata> = metadata
+            fun _metadata(): JsonField<LedgerAccountUpdateRequest.Metadata> = metadata
 
             /**
              * Returns the raw JSON value of [name].
@@ -22435,6 +6267,13 @@ private constructor(
              * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+            /**
+             * Returns the raw JSON value of [id].
+             *
+             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -22460,35 +6299,25 @@ private constructor(
             /** A builder for [LedgerAccountUpdateRequestWithId]. */
             class Builder internal constructor() {
 
-                private var id: JsonField<String> = JsonMissing.of()
                 private var description: JsonField<String> = JsonMissing.of()
                 private var externalId: JsonField<String> = JsonMissing.of()
-                private var metadata: JsonField<Metadata> = JsonMissing.of()
+                private var metadata: JsonField<LedgerAccountUpdateRequest.Metadata> =
+                    JsonMissing.of()
                 private var name: JsonField<String> = JsonMissing.of()
+                private var id: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(
                     ledgerAccountUpdateRequestWithId: LedgerAccountUpdateRequestWithId
                 ) = apply {
-                    id = ledgerAccountUpdateRequestWithId.id
                     description = ledgerAccountUpdateRequestWithId.description
                     externalId = ledgerAccountUpdateRequestWithId.externalId
                     metadata = ledgerAccountUpdateRequestWithId.metadata
                     name = ledgerAccountUpdateRequestWithId.name
+                    id = ledgerAccountUpdateRequestWithId.id
                     additionalProperties =
                         ledgerAccountUpdateRequestWithId.additionalProperties.toMutableMap()
                 }
-
-                fun id(id: String) = id(JsonField.of(id))
-
-                /**
-                 * Sets [Builder.id] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.id] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /** The description of the ledger account. */
                 fun description(description: String?) =
@@ -22523,16 +6352,19 @@ private constructor(
                  * Additional data represented as key-value pairs. Both the key and value must be
                  * strings.
                  */
-                fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+                fun metadata(metadata: LedgerAccountUpdateRequest.Metadata) =
+                    metadata(JsonField.of(metadata))
 
                 /**
                  * Sets [Builder.metadata] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
+                 * You should usually call [Builder.metadata] with a well-typed
+                 * [LedgerAccountUpdateRequest.Metadata] value instead. This method is primarily for
+                 * setting the field to an undocumented or not yet supported value.
                  */
-                fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+                fun metadata(metadata: JsonField<LedgerAccountUpdateRequest.Metadata>) = apply {
+                    this.metadata = metadata
+                }
 
                 /** The name of the ledger account. */
                 fun name(name: String) = name(JsonField.of(name))
@@ -22545,6 +6377,17 @@ private constructor(
                  * supported value.
                  */
                 fun name(name: JsonField<String>) = apply { this.name = name }
+
+                fun id(id: String) = id(JsonField.of(id))
+
+                /**
+                 * Sets [Builder.id] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.id] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -22575,11 +6418,11 @@ private constructor(
                  */
                 fun build(): LedgerAccountUpdateRequestWithId =
                     LedgerAccountUpdateRequestWithId(
-                        id,
                         description,
                         externalId,
                         metadata,
                         name,
+                        id,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -22601,11 +6444,11 @@ private constructor(
                     return@apply
                 }
 
-                id()
                 description()
                 externalId()
                 metadata()?.validate()
                 name()
+                id()
                 validated = true
             }
 
@@ -22624,127 +6467,11 @@ private constructor(
              * Used for best match union deserialization.
              */
             internal fun validity(): Int =
-                (if (id.asKnown() == null) 0 else 1) +
-                    (if (description.asKnown() == null) 0 else 1) +
+                (if (description.asKnown() == null) 0 else 1) +
                     (if (externalId.asKnown() == null) 0 else 1) +
                     (metadata.asKnown()?.validity() ?: 0) +
-                    (if (name.asKnown() == null) 0 else 1)
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            class Metadata
-            @JsonCreator
-            private constructor(
-                @com.fasterxml.jackson.annotation.JsonValue
-                private val additionalProperties: Map<String, JsonValue>
-            ) {
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun toBuilder() = Builder().from(this)
-
-                companion object {
-
-                    /** Returns a mutable builder for constructing an instance of [Metadata]. */
-                    fun builder() = Builder()
-                }
-
-                /** A builder for [Metadata]. */
-                class Builder internal constructor() {
-
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    internal fun from(metadata: Metadata) = apply {
-                        additionalProperties = metadata.additionalProperties.toMutableMap()
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
-
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun removeAdditionalProperty(key: String) = apply {
-                        additionalProperties.remove(key)
-                    }
-
-                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
-
-                    /**
-                     * Returns an immutable instance of [Metadata].
-                     *
-                     * Further updates to this [Builder] will not mutate the returned instance.
-                     */
-                    fun build(): Metadata = Metadata(additionalProperties.toImmutable())
-                }
-
-                private var validated: Boolean = false
-
-                /**
-                 * Validates that the types of all values in this object match their expected types
-                 * recursively.
-                 *
-                 * This method is _not_ forwards compatible with new types from the API for existing
-                 * fields.
-                 *
-                 * @throws ModernTreasuryInvalidDataException if any value type in this object
-                 *   doesn't match its expected type.
-                 */
-                fun validate(): Metadata = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: ModernTreasuryInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                internal fun validity(): Int =
-                    additionalProperties.count { (_, value) ->
-                        !value.isNull() && !value.isMissing()
-                    }
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Metadata && additionalProperties == other.additionalProperties
-                }
-
-                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-                override fun hashCode(): Int = hashCode
-
-                override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-            }
+                    (if (name.asKnown() == null) 0 else 1) +
+                    (if (id.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -22752,22 +6479,22 @@ private constructor(
                 }
 
                 return other is LedgerAccountUpdateRequestWithId &&
-                    id == other.id &&
                     description == other.description &&
                     externalId == other.externalId &&
                     metadata == other.metadata &&
                     name == other.name &&
+                    id == other.id &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(id, description, externalId, metadata, name, additionalProperties)
+                Objects.hash(description, externalId, metadata, name, id, additionalProperties)
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "LedgerAccountUpdateRequestWithId{id=$id, description=$description, externalId=$externalId, metadata=$metadata, name=$name, additionalProperties=$additionalProperties}"
+                "LedgerAccountUpdateRequestWithId{description=$description, externalId=$externalId, metadata=$metadata, name=$name, id=$id, additionalProperties=$additionalProperties}"
         }
     }
 

@@ -107,7 +107,7 @@ internal class LegalEntityUpdateParamsTest {
             .prefix("prefix")
             .addPrimarySocialMediaSite("string")
             .addRegulator(
-                LegalEntityUpdateParams.LegalEntityRegulator.builder()
+                LegalEntityRegulator.builder()
                     .jurisdiction("jurisdiction")
                     .name("name")
                     .registrationNumber("registration_number")
@@ -283,7 +283,7 @@ internal class LegalEntityUpdateParamsTest {
                 .prefix("prefix")
                 .addPrimarySocialMediaSite("string")
                 .addRegulator(
-                    LegalEntityUpdateParams.LegalEntityRegulator.builder()
+                    LegalEntityRegulator.builder()
                         .jurisdiction("jurisdiction")
                         .name("name")
                         .registrationNumber("registration_number")
@@ -452,7 +452,7 @@ internal class LegalEntityUpdateParamsTest {
         assertThat(body.primarySocialMediaSites()).containsExactly("string")
         assertThat(body.regulators())
             .containsExactly(
-                LegalEntityUpdateParams.LegalEntityRegulator.builder()
+                LegalEntityRegulator.builder()
                     .jurisdiction("jurisdiction")
                     .name("name")
                     .registrationNumber("registration_number")

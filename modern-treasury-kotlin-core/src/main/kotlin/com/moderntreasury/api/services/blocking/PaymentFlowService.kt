@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.PaymentFlow
 import com.moderntreasury.api.models.PaymentFlowCreateParams
+import com.moderntreasury.api.models.PaymentFlowCreateRequest
 import com.moderntreasury.api.models.PaymentFlowListPage
 import com.moderntreasury.api.models.PaymentFlowListParams
 import com.moderntreasury.api.models.PaymentFlowRetrieveParams
@@ -28,10 +29,24 @@ interface PaymentFlowService {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentFlowService
 
     /** create payment_flow */
+    @Deprecated("deprecated")
     fun create(
         params: PaymentFlowCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentFlow
+
+    /** @see create */
+    @Deprecated("deprecated")
+    fun create(
+        paymentFlowCreateRequest: PaymentFlowCreateRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PaymentFlow =
+        create(
+            PaymentFlowCreateParams.builder()
+                .paymentFlowCreateRequest(paymentFlowCreateRequest)
+                .build(),
+            requestOptions,
+        )
 
     /** get payment_flow */
     fun retrieve(
@@ -91,11 +106,26 @@ interface PaymentFlowService {
          * Returns a raw HTTP response for `post /api/payment_flows`, but is otherwise the same as
          * [PaymentFlowService.create].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun create(
             params: PaymentFlowCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentFlow>
+
+        /** @see create */
+        @Deprecated("deprecated")
+        @MustBeClosed
+        fun create(
+            paymentFlowCreateRequest: PaymentFlowCreateRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PaymentFlow> =
+            create(
+                PaymentFlowCreateParams.builder()
+                    .paymentFlowCreateRequest(paymentFlowCreateRequest)
+                    .build(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /api/payment_flows/{id}`, but is otherwise the same
