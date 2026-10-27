@@ -56,6 +56,15 @@ private constructor(
     fun name(): String? = body.name()
 
     /**
+     * The address of the owner of the virtual account. Omit to leave it unchanged; pass all fields
+     * blank to clear it, after which the internal account's party address is used.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun partyAddress(): AddressRequest? = body.partyAddress()
+
+    /**
      * Returns the raw JSON value of [counterpartyId].
      *
      * Unlike [counterpartyId], this method doesn't throw if the JSON field has an unexpected type.
@@ -82,6 +91,13 @@ private constructor(
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _name(): JsonField<String> = body._name()
+
+    /**
+     * Returns the raw JSON value of [partyAddress].
+     *
+     * Unlike [partyAddress], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _partyAddress(): JsonField<AddressRequest> = body._partyAddress()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -130,6 +146,8 @@ private constructor(
          * - [ledgerAccountId]
          * - [metadata]
          * - [name]
+         * - [partyAddress]
+         * - etc.
          */
         fun body(body: VirtualAccountUpdateRequest) = apply { this.body = body.toBuilder() }
 
@@ -182,6 +200,23 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
+
+        /**
+         * The address of the owner of the virtual account. Omit to leave it unchanged; pass all
+         * fields blank to clear it, after which the internal account's party address is used.
+         */
+        fun partyAddress(partyAddress: AddressRequest) = apply { body.partyAddress(partyAddress) }
+
+        /**
+         * Sets [Builder.partyAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.partyAddress] with a well-typed [AddressRequest] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun partyAddress(partyAddress: JsonField<AddressRequest>) = apply {
+            body.partyAddress(partyAddress)
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -333,6 +368,7 @@ private constructor(
         private val ledgerAccountId: JsonField<String>,
         private val metadata: JsonField<Metadata>,
         private val name: JsonField<String>,
+        private val partyAddress: JsonField<AddressRequest>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -348,7 +384,10 @@ private constructor(
             @ExcludeMissing
             metadata: JsonField<Metadata> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        ) : this(counterpartyId, ledgerAccountId, metadata, name, mutableMapOf())
+            @JsonProperty("party_address")
+            @ExcludeMissing
+            partyAddress: JsonField<AddressRequest> = JsonMissing.of(),
+        ) : this(counterpartyId, ledgerAccountId, metadata, name, partyAddress, mutableMapOf())
 
         /**
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -375,6 +414,15 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun name(): String? = name.getNullable("name")
+
+        /**
+         * The address of the owner of the virtual account. Omit to leave it unchanged; pass all
+         * fields blank to clear it, after which the internal account's party address is used.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun partyAddress(): AddressRequest? = partyAddress.getNullable("party_address")
 
         /**
          * Returns the raw JSON value of [counterpartyId].
@@ -410,6 +458,16 @@ private constructor(
          */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
+        /**
+         * Returns the raw JSON value of [partyAddress].
+         *
+         * Unlike [partyAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("party_address")
+        @ExcludeMissing
+        fun _partyAddress(): JsonField<AddressRequest> = partyAddress
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -438,6 +496,7 @@ private constructor(
             private var ledgerAccountId: JsonField<String> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
+            private var partyAddress: JsonField<AddressRequest> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(virtualAccountUpdateRequest: VirtualAccountUpdateRequest) = apply {
@@ -445,6 +504,7 @@ private constructor(
                 ledgerAccountId = virtualAccountUpdateRequest.ledgerAccountId
                 metadata = virtualAccountUpdateRequest.metadata
                 name = virtualAccountUpdateRequest.name
+                partyAddress = virtualAccountUpdateRequest.partyAddress
                 additionalProperties =
                     virtualAccountUpdateRequest.additionalProperties.toMutableMap()
             }
@@ -500,6 +560,24 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
+            /**
+             * The address of the owner of the virtual account. Omit to leave it unchanged; pass all
+             * fields blank to clear it, after which the internal account's party address is used.
+             */
+            fun partyAddress(partyAddress: AddressRequest) =
+                partyAddress(JsonField.of(partyAddress))
+
+            /**
+             * Sets [Builder.partyAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.partyAddress] with a well-typed [AddressRequest]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun partyAddress(partyAddress: JsonField<AddressRequest>) = apply {
+                this.partyAddress = partyAddress
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -530,6 +608,7 @@ private constructor(
                     ledgerAccountId,
                     metadata,
                     name,
+                    partyAddress,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -554,6 +633,7 @@ private constructor(
             ledgerAccountId()
             metadata()?.validate()
             name()
+            partyAddress()?.validate()
             validated = true
         }
 
@@ -575,7 +655,8 @@ private constructor(
             (if (counterpartyId.asKnown() == null) 0 else 1) +
                 (if (ledgerAccountId.asKnown() == null) 0 else 1) +
                 (metadata.asKnown()?.validity() ?: 0) +
-                (if (name.asKnown() == null) 0 else 1)
+                (if (name.asKnown() == null) 0 else 1) +
+                (partyAddress.asKnown()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -587,17 +668,25 @@ private constructor(
                 ledgerAccountId == other.ledgerAccountId &&
                 metadata == other.metadata &&
                 name == other.name &&
+                partyAddress == other.partyAddress &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(counterpartyId, ledgerAccountId, metadata, name, additionalProperties)
+            Objects.hash(
+                counterpartyId,
+                ledgerAccountId,
+                metadata,
+                name,
+                partyAddress,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "VirtualAccountUpdateRequest{counterpartyId=$counterpartyId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, additionalProperties=$additionalProperties}"
+            "VirtualAccountUpdateRequest{counterpartyId=$counterpartyId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, partyAddress=$partyAddress, additionalProperties=$additionalProperties}"
     }
 
     class Metadata
