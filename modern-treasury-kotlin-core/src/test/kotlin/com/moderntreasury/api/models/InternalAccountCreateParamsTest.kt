@@ -15,7 +15,7 @@ internal class InternalAccountCreateParamsTest {
             .currency(InternalAccountCreateParams.Currency.USD)
             .name("name")
             .addAccountCapability(
-                InternalAccountCreateParams.AccountCapability.builder()
+                AccountCapability.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .direction(TransactionDirection.CREDIT)
@@ -23,11 +23,12 @@ internal class InternalAccountCreateParamsTest {
                     .identifier("identifier")
                     .liveMode(true)
                     .object_("object")
-                    .paymentType(InternalAccountCreateParams.AccountCapability.PaymentType.ACH)
+                    .paymentType(AccountCapability.PaymentType.ACH)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
             .accountType(InternalAccountCreateParams.AccountType.CHECKING)
+            .addAllowedAchDebitCompanyId("x")
             .connectionId("connection_id")
             .counterpartyId("counterparty_id")
             .debitable(true)
@@ -50,6 +51,7 @@ internal class InternalAccountCreateParamsTest {
                     .build()
             )
             .partyName("party_name")
+            .partyType(InternalAccountCreateParams.PartyType.INDIVIDUAL)
             .addRequestedAccountNumberType(
                 InternalAccountCreateParams.RequestedAccountNumberType.ARBITRUM_ADDRESS
             )
@@ -71,7 +73,7 @@ internal class InternalAccountCreateParamsTest {
                 .currency(InternalAccountCreateParams.Currency.USD)
                 .name("name")
                 .addAccountCapability(
-                    InternalAccountCreateParams.AccountCapability.builder()
+                    AccountCapability.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .direction(TransactionDirection.CREDIT)
@@ -79,11 +81,12 @@ internal class InternalAccountCreateParamsTest {
                         .identifier("identifier")
                         .liveMode(true)
                         .object_("object")
-                        .paymentType(InternalAccountCreateParams.AccountCapability.PaymentType.ACH)
+                        .paymentType(AccountCapability.PaymentType.ACH)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
                 .accountType(InternalAccountCreateParams.AccountType.CHECKING)
+                .addAllowedAchDebitCompanyId("x")
                 .connectionId("connection_id")
                 .counterpartyId("counterparty_id")
                 .debitable(true)
@@ -106,6 +109,7 @@ internal class InternalAccountCreateParamsTest {
                         .build()
                 )
                 .partyName("party_name")
+                .partyType(InternalAccountCreateParams.PartyType.INDIVIDUAL)
                 .addRequestedAccountNumberType(
                     InternalAccountCreateParams.RequestedAccountNumberType.ARBITRUM_ADDRESS
                 )
@@ -125,7 +129,7 @@ internal class InternalAccountCreateParamsTest {
         assertThat(body.name()).isEqualTo("name")
         assertThat(body.accountCapabilities())
             .containsExactly(
-                InternalAccountCreateParams.AccountCapability.builder()
+                AccountCapability.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .direction(TransactionDirection.CREDIT)
@@ -133,11 +137,12 @@ internal class InternalAccountCreateParamsTest {
                     .identifier("identifier")
                     .liveMode(true)
                     .object_("object")
-                    .paymentType(InternalAccountCreateParams.AccountCapability.PaymentType.ACH)
+                    .paymentType(AccountCapability.PaymentType.ACH)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
         assertThat(body.accountType()).isEqualTo(InternalAccountCreateParams.AccountType.CHECKING)
+        assertThat(body.allowedAchDebitCompanyIds()).containsExactly("x")
         assertThat(body.connectionId()).isEqualTo("connection_id")
         assertThat(body.counterpartyId()).isEqualTo("counterparty_id")
         assertThat(body.debitable()).isEqualTo(true)
@@ -162,6 +167,7 @@ internal class InternalAccountCreateParamsTest {
                     .build()
             )
         assertThat(body.partyName()).isEqualTo("party_name")
+        assertThat(body.partyType()).isEqualTo(InternalAccountCreateParams.PartyType.INDIVIDUAL)
         assertThat(body.requestedAccountNumberTypes())
             .containsExactly(
                 InternalAccountCreateParams.RequestedAccountNumberType.ARBITRUM_ADDRESS

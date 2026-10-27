@@ -129,7 +129,7 @@ private constructor(
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
      */
-    fun documents(): List<DocumentCreateRequest>? = body.documents()
+    fun documents(): List<PaymentOrderDocumentCreateRequest>? = body.documents()
 
     /**
      * Date transactions are to be posted to the participants' account. Defaults to the current
@@ -507,7 +507,7 @@ private constructor(
      *
      * Unlike [documents], this method doesn't throw if the multipart field has an unexpected type.
      */
-    fun _documents(): MultipartField<List<DocumentCreateRequest>> = body._documents()
+    fun _documents(): MultipartField<List<PaymentOrderDocumentCreateRequest>> = body._documents()
 
     /**
      * Returns the raw multipart value of [effectiveDate].
@@ -989,25 +989,29 @@ private constructor(
          * An array of documents to be attached to the payment order. Note that if you attach
          * documents, the request's content type must be `multipart/form-data`.
          */
-        fun documents(documents: List<DocumentCreateRequest>) = apply { body.documents(documents) }
+        fun documents(documents: List<PaymentOrderDocumentCreateRequest>) = apply {
+            body.documents(documents)
+        }
 
         /**
          * Sets [Builder.documents] to an arbitrary multipart value.
          *
          * You should usually call [Builder.documents] with a well-typed
-         * `List<DocumentCreateRequest>` value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
+         * `List<PaymentOrderDocumentCreateRequest>` value instead. This method is primarily for
+         * setting the field to an undocumented or not yet supported value.
          */
-        fun documents(documents: MultipartField<List<DocumentCreateRequest>>) = apply {
+        fun documents(documents: MultipartField<List<PaymentOrderDocumentCreateRequest>>) = apply {
             body.documents(documents)
         }
 
         /**
-         * Adds a single [DocumentCreateRequest] to [documents].
+         * Adds a single [PaymentOrderDocumentCreateRequest] to [documents].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addDocument(document: DocumentCreateRequest) = apply { body.addDocument(document) }
+        fun addDocument(document: PaymentOrderDocumentCreateRequest) = apply {
+            body.addDocument(document)
+        }
 
         /**
          * Date transactions are to be posted to the participants' account. Defaults to the current
@@ -1801,7 +1805,7 @@ private constructor(
         private val chargeBearer: MultipartField<ChargeBearer>,
         private val currency: MultipartField<Currency>,
         private val description: MultipartField<String>,
-        private val documents: MultipartField<List<DocumentCreateRequest>>,
+        private val documents: MultipartField<List<PaymentOrderDocumentCreateRequest>>,
         private val effectiveDate: MultipartField<LocalDate>,
         private val expiresAt: MultipartField<OffsetDateTime>,
         private val externalId: MultipartField<String>,
@@ -1938,7 +1942,8 @@ private constructor(
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
          */
-        fun documents(): List<DocumentCreateRequest>? = documents.value.getNullable("documents")
+        fun documents(): List<PaymentOrderDocumentCreateRequest>? =
+            documents.value.getNullable("documents")
 
         /**
          * Date transactions are to be posted to the participants' account. Defaults to the current
@@ -2366,7 +2371,7 @@ private constructor(
          */
         @JsonProperty("documents")
         @ExcludeMissing
-        fun _documents(): MultipartField<List<DocumentCreateRequest>> = documents
+        fun _documents(): MultipartField<List<PaymentOrderDocumentCreateRequest>> = documents
 
         /**
          * Returns the raw multipart value of [effectiveDate].
@@ -2734,7 +2739,8 @@ private constructor(
             private var chargeBearer: MultipartField<ChargeBearer> = MultipartField.of(null)
             private var currency: MultipartField<Currency> = MultipartField.of(null)
             private var description: MultipartField<String> = MultipartField.of(null)
-            private var documents: MultipartField<MutableList<DocumentCreateRequest>>? = null
+            private var documents: MultipartField<MutableList<PaymentOrderDocumentCreateRequest>>? =
+                null
             private var effectiveDate: MultipartField<LocalDate> = MultipartField.of(null)
             private var expiresAt: MultipartField<OffsetDateTime> = MultipartField.of(null)
             private var externalId: MultipartField<String> = MultipartField.of(null)
@@ -3003,9 +3009,9 @@ private constructor(
              * An array of documents to be attached to the payment order. Note that if you attach
              * documents, the request's content type must be `multipart/form-data`.
              */
-            fun documents(documents: List<DocumentCreateRequest>) =
+            fun documents(documents: List<PaymentOrderDocumentCreateRequest>) =
                 documents(
-                    MultipartField.builder<List<DocumentCreateRequest>>()
+                    MultipartField.builder<List<PaymentOrderDocumentCreateRequest>>()
                         .value(documents)
                         .contentType("application/octet-stream")
                         .build()
@@ -3015,22 +3021,25 @@ private constructor(
              * Sets [Builder.documents] to an arbitrary multipart value.
              *
              * You should usually call [Builder.documents] with a well-typed
-             * `List<DocumentCreateRequest>` value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
+             * `List<PaymentOrderDocumentCreateRequest>` value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
              */
-            fun documents(documents: MultipartField<List<DocumentCreateRequest>>) = apply {
-                this.documents = documents.map { it.toMutableList() }
-            }
+            fun documents(documents: MultipartField<List<PaymentOrderDocumentCreateRequest>>) =
+                apply {
+                    this.documents = documents.map { it.toMutableList() }
+                }
 
             /**
-             * Adds a single [DocumentCreateRequest] to [documents].
+             * Adds a single [PaymentOrderDocumentCreateRequest] to [documents].
              *
              * @throws IllegalStateException if the field was previously set to a non-list.
              */
-            fun addDocument(document: DocumentCreateRequest) = apply {
+            fun addDocument(document: PaymentOrderDocumentCreateRequest) = apply {
                 documents =
                     (documents
-                            ?: MultipartField.builder<MutableList<DocumentCreateRequest>>()
+                            ?: MultipartField.builder<
+                                    MutableList<PaymentOrderDocumentCreateRequest>
+                                >()
                                 .value(mutableListOf())
                                 .contentType("application/octet-stream")
                                 .build())
@@ -4027,198 +4036,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    @Deprecated("deprecated")
-    class Accounting
-    private constructor(
-        private val accountId: MultipartField<String>,
-        private val classId: MultipartField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        /**
-         * The ID of one of your accounting categories. Note that these will only be accessible if
-         * your accounting system has been connected.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        @Deprecated("deprecated")
-        fun accountId(): String? = accountId.value.getNullable("account_id")
-
-        /**
-         * The ID of one of the class objects in your accounting system. Class objects track
-         * segments of your business independent of client or project. Note that these will only be
-         * accessible if your accounting system has been connected.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        @Deprecated("deprecated") fun classId(): String? = classId.value.getNullable("class_id")
-
-        /**
-         * Returns the raw multipart value of [accountId].
-         *
-         * Unlike [accountId], this method doesn't throw if the multipart field has an unexpected
-         * type.
-         */
-        @Deprecated("deprecated")
-        @JsonProperty("account_id")
-        @ExcludeMissing
-        fun _accountId(): MultipartField<String> = accountId
-
-        /**
-         * Returns the raw multipart value of [classId].
-         *
-         * Unlike [classId], this method doesn't throw if the multipart field has an unexpected
-         * type.
-         */
-        @Deprecated("deprecated")
-        @JsonProperty("class_id")
-        @ExcludeMissing
-        fun _classId(): MultipartField<String> = classId
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Accounting]. */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [Accounting]. */
-        class Builder internal constructor() {
-
-            private var accountId: MultipartField<String> = MultipartField.of(null)
-            private var classId: MultipartField<String> = MultipartField.of(null)
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(accounting: Accounting) = apply {
-                accountId = accounting.accountId
-                classId = accounting.classId
-                additionalProperties = accounting.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * The ID of one of your accounting categories. Note that these will only be accessible
-             * if your accounting system has been connected.
-             */
-            @Deprecated("deprecated")
-            fun accountId(accountId: String?) = accountId(MultipartField.of(accountId))
-
-            /**
-             * Sets [Builder.accountId] to an arbitrary multipart value.
-             *
-             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            @Deprecated("deprecated")
-            fun accountId(accountId: MultipartField<String>) = apply { this.accountId = accountId }
-
-            /**
-             * The ID of one of the class objects in your accounting system. Class objects track
-             * segments of your business independent of client or project. Note that these will only
-             * be accessible if your accounting system has been connected.
-             */
-            @Deprecated("deprecated")
-            fun classId(classId: String?) = classId(MultipartField.of(classId))
-
-            /**
-             * Sets [Builder.classId] to an arbitrary multipart value.
-             *
-             * You should usually call [Builder.classId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            @Deprecated("deprecated")
-            fun classId(classId: MultipartField<String>) = apply { this.classId = classId }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Accounting].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Accounting =
-                Accounting(accountId, classId, additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
-         */
-        fun validate(): Accounting = apply {
-            if (validated) {
-                return@apply
-            }
-
-            accountId()
-            classId()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: ModernTreasuryInvalidDataException) {
-                false
-            }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Accounting &&
-                accountId == other.accountId &&
-                classId == other.classId &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(accountId, classId, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Accounting{accountId=$accountId, classId=$classId, additionalProperties=$additionalProperties}"
-    }
-
     /**
      * The party that will pay the fees for the payment order. See
      * https://docs.moderntreasury.com/payments/docs/charge-bearer to understand the differences
@@ -4367,7 +4184,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    class DocumentCreateRequest
+    class PaymentOrderDocumentCreateRequest
     private constructor(
         private val file: MultipartField<InputStream>,
         private val documentType: MultipartField<String>,
@@ -4457,7 +4274,8 @@ private constructor(
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of [DocumentCreateRequest].
+             * Returns a mutable builder for constructing an instance of
+             * [PaymentOrderDocumentCreateRequest].
              *
              * The following fields are required:
              * ```kotlin
@@ -4467,7 +4285,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [DocumentCreateRequest]. */
+        /** A builder for [PaymentOrderDocumentCreateRequest]. */
         class Builder internal constructor() {
 
             private var file: MultipartField<InputStream>? = null
@@ -4476,12 +4294,15 @@ private constructor(
             private var documentableType: MultipartField<DocumentableType> = MultipartField.of(null)
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(documentCreateRequest: DocumentCreateRequest) = apply {
-                file = documentCreateRequest.file
-                documentType = documentCreateRequest.documentType
-                documentableId = documentCreateRequest.documentableId
-                documentableType = documentCreateRequest.documentableType
-                additionalProperties = documentCreateRequest.additionalProperties.toMutableMap()
+            internal fun from(
+                paymentOrderDocumentCreateRequest: PaymentOrderDocumentCreateRequest
+            ) = apply {
+                file = paymentOrderDocumentCreateRequest.file
+                documentType = paymentOrderDocumentCreateRequest.documentType
+                documentableId = paymentOrderDocumentCreateRequest.documentableId
+                documentableType = paymentOrderDocumentCreateRequest.documentableType
+                additionalProperties =
+                    paymentOrderDocumentCreateRequest.additionalProperties.toMutableMap()
             }
 
             fun file(file: InputStream) = file(MultipartField.of(file))
@@ -4568,7 +4389,7 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [DocumentCreateRequest].
+             * Returns an immutable instance of [PaymentOrderDocumentCreateRequest].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              *
@@ -4579,8 +4400,8 @@ private constructor(
              *
              * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): DocumentCreateRequest =
-                DocumentCreateRequest(
+            fun build(): PaymentOrderDocumentCreateRequest =
+                PaymentOrderDocumentCreateRequest(
                     checkRequired("file", file),
                     documentType,
                     documentableId,
@@ -4600,7 +4421,7 @@ private constructor(
          * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
          *   its expected type.
          */
-        fun validate(): DocumentCreateRequest = apply {
+        fun validate(): PaymentOrderDocumentCreateRequest = apply {
             if (validated) {
                 return@apply
             }
@@ -4816,7 +4637,7 @@ private constructor(
                 return true
             }
 
-            return other is DocumentCreateRequest &&
+            return other is PaymentOrderDocumentCreateRequest &&
                 file == other.file &&
                 documentType == other.documentType &&
                 documentableId == other.documentableId &&
@@ -4831,7 +4652,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "DocumentCreateRequest{file=$file, documentType=$documentType, documentableId=$documentableId, documentableType=$documentableType, additionalProperties=$additionalProperties}"
+            "PaymentOrderDocumentCreateRequest{file=$file, documentType=$documentType, documentableId=$documentableId, documentableType=$documentableType, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -5116,387 +4937,6 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
-    }
-
-    class LineItemRequest
-    private constructor(
-        private val amount: MultipartField<Long>,
-        private val accountingCategoryId: MultipartField<String>,
-        private val description: MultipartField<String>,
-        private val metadata: MultipartField<Metadata>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        /**
-         * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun amount(): Long = amount.value.getRequired("amount")
-
-        /**
-         * The ID of one of your accounting categories. Note that these will only be accessible if
-         * your accounting system has been connected.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun accountingCategoryId(): String? =
-            accountingCategoryId.value.getNullable("accounting_category_id")
-
-        /**
-         * A free-form description of the line item.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun description(): String? = description.value.getNullable("description")
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun metadata(): Metadata? = metadata.value.getNullable("metadata")
-
-        /**
-         * Returns the raw multipart value of [amount].
-         *
-         * Unlike [amount], this method doesn't throw if the multipart field has an unexpected type.
-         */
-        @JsonProperty("amount") @ExcludeMissing fun _amount(): MultipartField<Long> = amount
-
-        /**
-         * Returns the raw multipart value of [accountingCategoryId].
-         *
-         * Unlike [accountingCategoryId], this method doesn't throw if the multipart field has an
-         * unexpected type.
-         */
-        @JsonProperty("accounting_category_id")
-        @ExcludeMissing
-        fun _accountingCategoryId(): MultipartField<String> = accountingCategoryId
-
-        /**
-         * Returns the raw multipart value of [description].
-         *
-         * Unlike [description], this method doesn't throw if the multipart field has an unexpected
-         * type.
-         */
-        @JsonProperty("description")
-        @ExcludeMissing
-        fun _description(): MultipartField<String> = description
-
-        /**
-         * Returns the raw multipart value of [metadata].
-         *
-         * Unlike [metadata], this method doesn't throw if the multipart field has an unexpected
-         * type.
-         */
-        @JsonProperty("metadata")
-        @ExcludeMissing
-        fun _metadata(): MultipartField<Metadata> = metadata
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [LineItemRequest].
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .amount()
-             * ```
-             */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [LineItemRequest]. */
-        class Builder internal constructor() {
-
-            private var amount: MultipartField<Long>? = null
-            private var accountingCategoryId: MultipartField<String> = MultipartField.of(null)
-            private var description: MultipartField<String> = MultipartField.of(null)
-            private var metadata: MultipartField<Metadata> = MultipartField.of(null)
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(lineItemRequest: LineItemRequest) = apply {
-                amount = lineItemRequest.amount
-                accountingCategoryId = lineItemRequest.accountingCategoryId
-                description = lineItemRequest.description
-                metadata = lineItemRequest.metadata
-                additionalProperties = lineItemRequest.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * Value in specified currency's smallest unit. e.g. $10 would be represented as 1000.
-             */
-            fun amount(amount: Long) = amount(MultipartField.of(amount))
-
-            /**
-             * Sets [Builder.amount] to an arbitrary multipart value.
-             *
-             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun amount(amount: MultipartField<Long>) = apply { this.amount = amount }
-
-            /**
-             * The ID of one of your accounting categories. Note that these will only be accessible
-             * if your accounting system has been connected.
-             */
-            fun accountingCategoryId(accountingCategoryId: String?) =
-                accountingCategoryId(MultipartField.of(accountingCategoryId))
-
-            /**
-             * Sets [Builder.accountingCategoryId] to an arbitrary multipart value.
-             *
-             * You should usually call [Builder.accountingCategoryId] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun accountingCategoryId(accountingCategoryId: MultipartField<String>) = apply {
-                this.accountingCategoryId = accountingCategoryId
-            }
-
-            /** A free-form description of the line item. */
-            fun description(description: String?) = description(MultipartField.of(description))
-
-            /**
-             * Sets [Builder.description] to an arbitrary multipart value.
-             *
-             * You should usually call [Builder.description] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun description(description: MultipartField<String>) = apply {
-                this.description = description
-            }
-
-            /**
-             * Additional data represented as key-value pairs. Both the key and value must be
-             * strings.
-             */
-            fun metadata(metadata: Metadata) = metadata(MultipartField.of(metadata))
-
-            /**
-             * Sets [Builder.metadata] to an arbitrary multipart value.
-             *
-             * You should usually call [Builder.metadata] with a well-typed [Metadata] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun metadata(metadata: MultipartField<Metadata>) = apply { this.metadata = metadata }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [LineItemRequest].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```kotlin
-             * .amount()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): LineItemRequest =
-                LineItemRequest(
-                    checkRequired("amount", amount),
-                    accountingCategoryId,
-                    description,
-                    metadata,
-                    additionalProperties.toMutableMap(),
-                )
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
-         */
-        fun validate(): LineItemRequest = apply {
-            if (validated) {
-                return@apply
-            }
-
-            amount()
-            accountingCategoryId()
-            description()
-            metadata()?.validate()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: ModernTreasuryInvalidDataException) {
-                false
-            }
-
-        /**
-         * Additional data represented as key-value pairs. Both the key and value must be strings.
-         */
-        class Metadata
-        private constructor(
-            @com.fasterxml.jackson.annotation.JsonValue
-            private val additionalProperties: Map<String, JsonValue>
-        ) {
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [Metadata]. */
-                fun builder() = Builder()
-            }
-
-            /** A builder for [Metadata]. */
-            class Builder internal constructor() {
-
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                internal fun from(metadata: Metadata) = apply {
-                    additionalProperties = metadata.additionalProperties.toMutableMap()
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Metadata].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): Metadata = Metadata(additionalProperties.toImmutable())
-            }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
-             */
-            fun validate(): Metadata = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: ModernTreasuryInvalidDataException) {
-                    false
-                }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Metadata && additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is LineItemRequest &&
-                amount == other.amount &&
-                accountingCategoryId == other.accountingCategoryId &&
-                description == other.description &&
-                metadata == other.metadata &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(amount, accountingCategoryId, description, metadata, additionalProperties)
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "LineItemRequest{amount=$amount, accountingCategoryId=$accountingCategoryId, description=$description, metadata=$metadata, additionalProperties=$additionalProperties}"
     }
 
     /** Additional data represented as key-value pairs. Both the key and value must be strings. */
@@ -7630,6 +7070,8 @@ private constructor(
 
                     val SWIFT = of("swift")
 
+                    val VASP = of("vasp")
+
                     val ZA_NATIONAL_CLEARING_CODE = of("za_national_clearing_code")
 
                     fun of(value: String) = RoutingNumberType(JsonField.of(value))
@@ -7656,6 +7098,7 @@ private constructor(
                     SE_BANKGIRO_CLEARING_CODE,
                     SG_INTERBANK_CLEARING_CODE,
                     SWIFT,
+                    VASP,
                     ZA_NATIONAL_CLEARING_CODE,
                 }
 
@@ -7690,6 +7133,7 @@ private constructor(
                     SE_BANKGIRO_CLEARING_CODE,
                     SG_INTERBANK_CLEARING_CODE,
                     SWIFT,
+                    VASP,
                     ZA_NATIONAL_CLEARING_CODE,
                     /**
                      * An enum member indicating that [RoutingNumberType] was instantiated with an
@@ -7726,6 +7170,7 @@ private constructor(
                         SE_BANKGIRO_CLEARING_CODE -> Value.SE_BANKGIRO_CLEARING_CODE
                         SG_INTERBANK_CLEARING_CODE -> Value.SG_INTERBANK_CLEARING_CODE
                         SWIFT -> Value.SWIFT
+                        VASP -> Value.VASP
                         ZA_NATIONAL_CLEARING_CODE -> Value.ZA_NATIONAL_CLEARING_CODE
                         else -> Value._UNKNOWN
                     }
@@ -7760,6 +7205,7 @@ private constructor(
                         SE_BANKGIRO_CLEARING_CODE -> Known.SE_BANKGIRO_CLEARING_CODE
                         SG_INTERBANK_CLEARING_CODE -> Known.SG_INTERBANK_CLEARING_CODE
                         SWIFT -> Known.SWIFT
+                        VASP -> Known.VASP
                         ZA_NATIONAL_CLEARING_CODE -> Known.ZA_NATIONAL_CLEARING_CODE
                         else ->
                             throw ModernTreasuryInvalidDataException(

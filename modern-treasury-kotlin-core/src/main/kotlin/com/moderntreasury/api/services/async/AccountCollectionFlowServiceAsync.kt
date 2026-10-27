@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.AccountCollectionFlow
 import com.moderntreasury.api.models.AccountCollectionFlowCreateParams
+import com.moderntreasury.api.models.AccountCollectionFlowCreateRequest
 import com.moderntreasury.api.models.AccountCollectionFlowListPageAsync
 import com.moderntreasury.api.models.AccountCollectionFlowListParams
 import com.moderntreasury.api.models.AccountCollectionFlowRetrieveParams
@@ -28,10 +29,24 @@ interface AccountCollectionFlowServiceAsync {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AccountCollectionFlowServiceAsync
 
     /** create account_collection_flow */
+    @Deprecated("deprecated")
     suspend fun create(
         params: AccountCollectionFlowCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountCollectionFlow
+
+    /** @see create */
+    @Deprecated("deprecated")
+    suspend fun create(
+        accountCollectionFlowCreateRequest: AccountCollectionFlowCreateRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AccountCollectionFlow =
+        create(
+            AccountCollectionFlowCreateParams.builder()
+                .accountCollectionFlowCreateRequest(accountCollectionFlowCreateRequest)
+                .build(),
+            requestOptions,
+        )
 
     /** get account_collection_flow */
     suspend fun retrieve(
@@ -92,11 +107,26 @@ interface AccountCollectionFlowServiceAsync {
          * Returns a raw HTTP response for `post /api/account_collection_flows`, but is otherwise
          * the same as [AccountCollectionFlowServiceAsync.create].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun create(
             params: AccountCollectionFlowCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountCollectionFlow>
+
+        /** @see create */
+        @Deprecated("deprecated")
+        @MustBeClosed
+        suspend fun create(
+            accountCollectionFlowCreateRequest: AccountCollectionFlowCreateRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AccountCollectionFlow> =
+            create(
+                AccountCollectionFlowCreateParams.builder()
+                    .accountCollectionFlowCreateRequest(accountCollectionFlowCreateRequest)
+                    .build(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /api/account_collection_flows/{id}`, but is

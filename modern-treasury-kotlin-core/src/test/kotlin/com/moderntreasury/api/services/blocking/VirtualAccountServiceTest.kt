@@ -5,7 +5,10 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
+import com.moderntreasury.api.models.AccountDetailCreateRequest
+import com.moderntreasury.api.models.AddressRequest
 import com.moderntreasury.api.models.LedgerAccountCreateRequest
+import com.moderntreasury.api.models.RoutingDetailCreateRequest
 import com.moderntreasury.api.models.TransactionDirection
 import com.moderntreasury.api.models.VirtualAccountCreateParams
 import com.moderntreasury.api.models.VirtualAccountUpdateParams
@@ -31,12 +34,10 @@ internal class VirtualAccountServiceTest {
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .name("name")
                     .addAccountDetail(
-                        VirtualAccountCreateParams.AccountDetailCreateRequest.builder()
+                        AccountDetailCreateRequest.builder()
                             .accountNumber("account_number")
                             .accountNumberType(
-                                VirtualAccountCreateParams.AccountDetailCreateRequest
-                                    .AccountNumberType
-                                    .ARBITRUM_ADDRESS
+                                AccountDetailCreateRequest.AccountNumberType.ARBITRUM_ADDRESS
                             )
                             .build()
                     )
@@ -74,18 +75,21 @@ internal class VirtualAccountServiceTest {
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
+                    .partyAddress(
+                        AddressRequest.builder()
+                            .country("country")
+                            .line1("line1")
+                            .line2("line2")
+                            .locality("locality")
+                            .postalCode("postal_code")
+                            .region("region")
+                            .build()
+                    )
                     .addRoutingDetail(
-                        VirtualAccountCreateParams.RoutingDetailCreateRequest.builder()
+                        RoutingDetailCreateRequest.builder()
                             .routingNumber("routing_number")
-                            .routingNumberType(
-                                VirtualAccountCreateParams.RoutingDetailCreateRequest
-                                    .RoutingNumberType
-                                    .ABA
-                            )
-                            .paymentType(
-                                VirtualAccountCreateParams.RoutingDetailCreateRequest.PaymentType
-                                    .ACH
-                            )
+                            .routingNumberType(RoutingDetailCreateRequest.RoutingNumberType.ABA)
+                            .paymentType(RoutingDetailCreateRequest.PaymentType.ACH)
                             .build()
                     )
                     .virtualAccountSettingId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -132,6 +136,16 @@ internal class VirtualAccountServiceTest {
                             .build()
                     )
                     .name("name")
+                    .partyAddress(
+                        AddressRequest.builder()
+                            .country("country")
+                            .line1("line1")
+                            .line2("line2")
+                            .locality("locality")
+                            .postalCode("postal_code")
+                            .region("region")
+                            .build()
+                    )
                     .build()
             )
 

@@ -6,6 +6,7 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.models.AccountsType
 import com.moderntreasury.api.models.RoutingDetailCreateParams
+import com.moderntreasury.api.models.RoutingDetailCreateRequest
 import com.moderntreasury.api.models.RoutingDetailDeleteParams
 import com.moderntreasury.api.models.RoutingDetailListParams
 import com.moderntreasury.api.models.RoutingDetailRetrieveParams
@@ -30,9 +31,13 @@ internal class RoutingDetailServiceTest {
                 RoutingDetailCreateParams.builder()
                     .accountsType(RoutingDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
                     .accountId("account_id")
-                    .routingNumber("routing_number")
-                    .routingNumberType(RoutingDetailCreateParams.RoutingNumberType.ABA)
-                    .paymentType(RoutingDetailCreateParams.PaymentType.ACH)
+                    .routingDetailCreateRequest(
+                        RoutingDetailCreateRequest.builder()
+                            .routingNumber("routing_number")
+                            .routingNumberType(RoutingDetailCreateRequest.RoutingNumberType.ABA)
+                            .paymentType(RoutingDetailCreateRequest.PaymentType.ACH)
+                            .build()
+                    )
                     .build()
             )
 

@@ -104,6 +104,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.cases()).isNotNull()
         assertThat(client.virtualAccountSettings()).isNotNull()
         assertThat(client.identifications()).isNotNull()
+        assertThat(client.embeddableFlows()).isNotNull()
     }
 
     @Test
@@ -128,7 +129,7 @@ internal class ProGuardCompatibilityTest {
                                 .accountNumber("account_number")
                                 .build()
                         )
-                        .accountType(ExternalAccountType.BASE_WALLET)
+                        .accountType(ExternalAccountType.CASH)
                         .cardId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addContactDetail(
                             ContactDetail.builder()
@@ -258,7 +259,7 @@ internal class ProGuardCompatibilityTest {
                             .accountNumber("account_number")
                             .build()
                     )
-                    .accountType(ExternalAccountType.BASE_WALLET)
+                    .accountType(ExternalAccountType.CASH)
                     .cardId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .addContactDetail(
                         ContactDetail.builder()
@@ -352,7 +353,7 @@ internal class ProGuardCompatibilityTest {
     @Test
     fun externalAccountTypeRoundtrip() {
         val jsonMapper = jsonMapper()
-        val externalAccountType = ExternalAccountType.BASE_WALLET
+        val externalAccountType = ExternalAccountType.CASH
 
         val roundtrippedExternalAccountType =
             jsonMapper.readValue(
