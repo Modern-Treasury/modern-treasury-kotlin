@@ -28,6 +28,7 @@ interface AccountCollectionFlowServiceAsync {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AccountCollectionFlowServiceAsync
 
     /** create account_collection_flow */
+    @Deprecated("deprecated")
     suspend fun create(
         params: AccountCollectionFlowCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -92,6 +93,7 @@ interface AccountCollectionFlowServiceAsync {
          * Returns a raw HTTP response for `post /api/account_collection_flows`, but is otherwise
          * the same as [AccountCollectionFlowServiceAsync.create].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         suspend fun create(
             params: AccountCollectionFlowCreateParams,

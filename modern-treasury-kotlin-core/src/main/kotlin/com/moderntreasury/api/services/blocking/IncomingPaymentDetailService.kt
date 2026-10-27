@@ -73,14 +73,9 @@ interface IncomingPaymentDetailService {
 
     /** Simulate Incoming Payment Detail */
     fun createAsync(
-        params: IncomingPaymentDetailCreateAsyncParams =
-            IncomingPaymentDetailCreateAsyncParams.none(),
+        params: IncomingPaymentDetailCreateAsyncParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IncomingPaymentDetail
-
-    /** @see createAsync */
-    fun createAsync(requestOptions: RequestOptions): IncomingPaymentDetail =
-        createAsync(IncomingPaymentDetailCreateAsyncParams.none(), requestOptions)
 
     /**
      * A view of [IncomingPaymentDetailService] that provides access to raw HTTP responses for each
@@ -174,14 +169,8 @@ interface IncomingPaymentDetailService {
          */
         @MustBeClosed
         fun createAsync(
-            params: IncomingPaymentDetailCreateAsyncParams =
-                IncomingPaymentDetailCreateAsyncParams.none(),
+            params: IncomingPaymentDetailCreateAsyncParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IncomingPaymentDetail>
-
-        /** @see createAsync */
-        @MustBeClosed
-        fun createAsync(requestOptions: RequestOptions): HttpResponseFor<IncomingPaymentDetail> =
-            createAsync(IncomingPaymentDetailCreateAsyncParams.none(), requestOptions)
     }
 }
