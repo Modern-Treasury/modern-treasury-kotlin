@@ -181,7 +181,7 @@ internal class PaymentOrderServiceTest {
                                     )
                                     .build()
                             )
-                            .accountType(ExternalAccountType.BASE_WALLET)
+                            .accountType(ExternalAccountType.CASH)
                             .addContactDetail(
                                 ContactDetailCreateRequest.builder()
                                     .contactIdentifier("contact_identifier")
@@ -396,7 +396,7 @@ internal class PaymentOrderServiceTest {
                                     )
                                     .build()
                             )
-                            .accountType(ExternalAccountType.BASE_WALLET)
+                            .accountType(ExternalAccountType.CASH)
                             .addContactDetail(
                                 ContactDetailCreateRequest.builder()
                                     .contactIdentifier("contact_identifier")
@@ -652,7 +652,7 @@ internal class PaymentOrderServiceTest {
                                     )
                                     .build()
                             )
-                            .accountType(ExternalAccountType.BASE_WALLET)
+                            .accountType(ExternalAccountType.CASH)
                             .addContactDetail(
                                 ContactDetailCreateRequest.builder()
                                     .contactIdentifier("contact_identifier")
