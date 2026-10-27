@@ -28,6 +28,7 @@ interface PaymentFlowService {
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PaymentFlowService
 
     /** create payment_flow */
+    @Deprecated("deprecated")
     fun create(
         params: PaymentFlowCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -91,6 +92,7 @@ interface PaymentFlowService {
          * Returns a raw HTTP response for `post /api/payment_flows`, but is otherwise the same as
          * [PaymentFlowService.create].
          */
+        @Deprecated("deprecated")
         @MustBeClosed
         fun create(
             params: PaymentFlowCreateParams,
